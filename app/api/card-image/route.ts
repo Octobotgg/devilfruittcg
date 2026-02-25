@@ -5,12 +5,12 @@ export async function GET(req: NextRequest) {
   if (!cardId) return NextResponse.json({ error: "id required" }, { status: 400 });
 
   const setCode = cardId.split("-")[0];
-  const url = `https://en.onepiece-cardgame.com/images/card/${setCode}/${cardId}_p1.png`;
+  // Try Limitless TCG CDN (reliable, public)
+  const url = `https://limitlesstcg.nyc3.digitaloceanspaces.com/one-piece/${setCode}/${cardId}_EN.webp`;
 
   try {
     const res = await fetch(url, {
       headers: {
-        "Referer": "https://en.onepiece-cardgame.com/",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
       },
     });
