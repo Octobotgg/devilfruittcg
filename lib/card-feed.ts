@@ -1,4 +1,5 @@
 import { SEED_CARDS, type Card } from "./cards";
+import { getOP01Cards } from "./op01-cards";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
@@ -46,6 +47,9 @@ export async function loadCards(): Promise<Card[]> {
   const now = Date.now();
   if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return cache.cards;
 
+  // Start with OP01 cards + seed cards as base
+  const baseCards = [...getOP01Cards(), ...SEED_CARDS];
+
   try {
     const res = await fetch(DEFAULT_FEED, { next: { revalidate: 300 } });
     if (!res.ok) throw new Error(`feed failed ${res.status}`);
@@ -56,15 +60,15 @@ export async function loadCards(): Promise<Card[]> {
       .filter((c): c is Card => Boolean(c && c.id && c.name));
     // Deduplicate by id, prefer first occurrence
     const unique: Record<string, Card> = {};
-    for (const c of mapped) {
+    for (const c of [...baseCards, ...mapped]) {
       if (!unique[c.id]) unique[c.id] = c;
     }
     const cards = Object.values(unique);
     cache = { cards, fetchedAt: now };
-    return cards.length ? cards : SEED_CARDS;
+    return cards.length ? cards : baseCards;
   } catch (e) {
-    cache = { cards: SEED_CARDS, fetchedAt: now };
-    return SEED_CARDS;
+    cache = { cards: baseCards, fetchedAt: now };
+    return baseCards;
   }
 }
 
