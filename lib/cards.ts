@@ -118,6 +118,52 @@ export const SEED_CARDS: Card[] = [
   { id: "ST18-001", name: "Marshall D. Teach (Blackbeard)", set: "Emperors of the Sea", setCode: "ST18", number: "001", type: "Leader", color: "Black/Purple", rarity: "L" },
   { id: "ST19-001", name: "Eustass Kid", set: "Emperors of the Sea", setCode: "ST19", number: "001", type: "Leader", color: "Red/Black", rarity: "L" },
   { id: "ST20-001", name: "Trafalgar Law (Polar Tang)", set: "Polar Tang", setCode: "ST20", number: "001", type: "Leader", color: "Blue/Black", rarity: "L" },
+
+  // Extra OP01 staples
+  { id: "OP01-018", name: "Eustass Kid", set: "Romance Dawn", setCode: "OP01", number: "018", type: "Character", color: "Green", rarity: "SR", cost: 8, power: 10000 },
+  { id: "OP01-019", name: "Trafalgar Law", set: "Romance Dawn", setCode: "OP01", number: "019", type: "Character", color: "Green", rarity: "SR", cost: 5, power: 6000 },
+  { id: "OP01-020", name: "Jewelry Bonney", set: "Romance Dawn", setCode: "OP01", number: "020", type: "Character", color: "Green", rarity: "C", cost: 1, power: 1000 },
+  { id: "OP01-021", name: "Zoro (Rush)", set: "Romance Dawn", setCode: "OP01", number: "021", type: "Character", color: "Red", rarity: "SR", cost: 3, power: 5000 },
+  { id: "OP01-022", name: "Otama", set: "Romance Dawn", setCode: "OP01", number: "022", type: "Character", color: "Red", rarity: "C", cost: 1, power: 0 },
+  { id: "OP01-023", name: "Gum-Gum Jet Pistol", set: "Romance Dawn", setCode: "OP01", number: "023", type: "Event", color: "Red", rarity: "R", cost: 2 },
+
+  // Extra OP02 staples
+  { id: "OP02-011", name: "Borsalino (Kizaru)", set: "Paramount War", setCode: "OP02", number: "011", type: "Character", color: "Yellow", rarity: "SR", cost: 4, power: 5000 },
+  { id: "OP02-012", name: "Jozu", set: "Paramount War", setCode: "OP02", number: "012", type: "Character", color: "Red", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP02-013", name: "Squard", set: "Paramount War", setCode: "OP02", number: "013", type: "Character", color: "Red", rarity: "R", cost: 4, power: 6000 },
+  { id: "OP02-014", name: "Whitey Bay", set: "Paramount War", setCode: "OP02", number: "014", type: "Character", color: "Red", rarity: "UC", cost: 3, power: 3000 },
+  { id: "OP02-015", name: "Thatch", set: "Paramount War", setCode: "OP02", number: "015", type: "Character", color: "Black", rarity: "UC", cost: 2, power: 3000 },
+  { id: "OP02-016", name: "Blamenco", set: "Paramount War", setCode: "OP02", number: "016", type: "Character", color: "Black", rarity: "UC", cost: 3, power: 4000 },
+
+  // Extra OP03
+  { id: "OP03-009", name: "Perona", set: "Pillars of Strength", setCode: "OP03", number: "009", type: "Character", color: "Purple", rarity: "UC", cost: 2, power: 2000 },
+  { id: "OP03-010", name: "Bartholomew Kuma", set: "Pillars of Strength", setCode: "OP03", number: "010", type: "Character", color: "Black", rarity: "SR", cost: 4, power: 5000 },
+  { id: "OP03-011", name: "Gecko Moria", set: "Pillars of Strength", setCode: "OP03", number: "011", type: "Character", color: "Purple", rarity: "SR", cost: 5, power: 6000 },
+
+  // Extra OP04
+  { id: "OP04-009", name: "Shinobu", set: "Kingdoms of Intrigue", setCode: "OP04", number: "009", type: "Character", color: "Green", rarity: "UC", cost: 2, power: 2000 },
+  { id: "OP04-010", name: "Denjiro", set: "Kingdoms of Intrigue", setCode: "OP04", number: "010", type: "Character", color: "Green", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP04-011", name: "Kozuki Oden", set: "Kingdoms of Intrigue", setCode: "OP04", number: "011", type: "Character", color: "Green", rarity: "SR", cost: 8, power: 9000 },
+
+  // Extra OP05
+  { id: "OP05-008", name: "Kalifa", set: "Awakening of the New Era", setCode: "OP05", number: "008", type: "Character", color: "Black", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP05-009", name: "Blueno", set: "Awakening of the New Era", setCode: "OP05", number: "009", type: "Character", color: "Black", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP05-010", name: "Luffy (Film)", set: "Awakening of the New Era", setCode: "OP05", number: "010", type: "Character", color: "Red", rarity: "R", cost: 5, power: 7000 },
+
+  // Extra OP06
+  { id: "OP06-007", name: "Smoker", set: "Wings of the Captain", setCode: "OP06", number: "007", type: "Character", color: "Blue", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-008", name: "Tashigi", set: "Wings of the Captain", setCode: "OP06", number: "008", type: "Character", color: "Blue", rarity: "UC", cost: 2, power: 3000 },
+  { id: "OP06-009", name: "Monkey D. Dragon", set: "Wings of the Captain", setCode: "OP06", number: "009", type: "Character", color: "Green", rarity: "SR", cost: 6, power: 7000 },
+
+  // Extra OP07
+  { id: "OP07-008", name: "Vegapunk Atlas", set: "500 Years in the Future", setCode: "OP07", number: "008", type: "Character", color: "Yellow", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP07-009", name: "Franky (Cyborg)", set: "500 Years in the Future", setCode: "OP07", number: "009", type: "Character", color: "Purple", rarity: "R", cost: 4, power: 6000 },
+  { id: "OP07-010", name: "Dr. Vegapunk", set: "500 Years in the Future", setCode: "OP07", number: "010", type: "Character", color: "Yellow", rarity: "SR", cost: 5, power: 5000 },
+
+  // Extra OP08
+  { id: "OP08-008", name: "Magellan", set: "Two Legends", setCode: "OP08", number: "008", type: "Character", color: "Black", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP08-009", name: "Emporio Ivankov", set: "Two Legends", setCode: "OP08", number: "009", type: "Character", color: "Purple", rarity: "SR", cost: 6, power: 7000 },
+  { id: "OP08-010", name: "Belo Betty", set: "Two Legends", setCode: "OP08", number: "010", type: "Character", color: "Green", rarity: "R", cost: 3, power: 4000 },
 ];
 
 export function searchCards(query: string): Card[] {
