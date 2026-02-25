@@ -1,19 +1,7 @@
-const META_DECKS = [
-  { rank: 1, name: "Luffy Gear 5 (OP07)", tier: "S", color: "Red", winRate: 58, popularity: 22, trend: "▲" },
-  { rank: 2, name: "Blackbeard (OP08)", tier: "S", color: "Black/Yellow", winRate: 56, popularity: 18, trend: "▲" },
-  { rank: 3, name: "Enel (OP05)", tier: "A", color: "Yellow", winRate: 53, popularity: 14, trend: "—" },
-  { rank: 4, name: "Shanks (OP05)", tier: "A", color: "Red", winRate: 51, popularity: 12, trend: "▼" },
-  { rank: 5, name: "Kaido (OP04)", tier: "A", color: "Purple", winRate: 50, popularity: 10, trend: "—" },
-  { rank: 6, name: "Big Mom (OP04)", tier: "B", color: "Black", winRate: 48, popularity: 9, trend: "▼" },
-  { rank: 7, name: "Law (OP02)", tier: "B", color: "Blue", winRate: 47, popularity: 8, trend: "—" },
-  { rank: 8, name: "Zoro (OP01)", tier: "C", color: "Green", winRate: 44, popularity: 7, trend: "▼" },
-];
+"use client";
 
-const REGION_SPLIT = [
-  { region: "NA", events: 12, players: 880 },
-  { region: "EU", events: 10, players: 760 },
-  { region: "APAC", events: 8, players: 620 },
-];
+import { useEffect, useState } from "react";
+import { getSeededMeta, type MetaSnapshot } from "@/lib/data/meta";
 
 const tierColors: Record<string, string> = {
   S: "bg-[#f0c040]/20 text-[#f0c040] border-[#f0c040]/30",
@@ -32,35 +20,64 @@ function barColor(win: number) {
 }
 
 export default function MetaPage() {
+  const [meta, setMeta] = useState<MetaSnapshot>(getSeededMeta());
+  const [status, setStatus] = useState<"idle" | "loading" | "live" | "fallback">("idle");
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        setStatus("loading");
+        const res = await fetch("/api/meta", { next: { revalidate: 300 } });
+        if (!res.ok) throw new Error("meta fetch failed");
+        const data = await res.json();
+        setMeta(data);
+        setStatus("live");
+      } catch (e) {
+        setStatus("fallback");
+        setMeta(getSeededMeta());
+      }
+    };
+    run();
+  }, []);
+
+  const META_DECKS = meta.metaDecks;
+  const REGION_SPLIT = meta.regions;
+
   return (
     <div className="space-y-6">
-      <div className="mb-4">
-        <h1 className="text-3xl font-bold text-white mb-2">📊 Meta Snapshot</h1>
-        <p className="text-white/50">Tournament + OPTCG Sim snapshot (seeded). Live data pipeline coming next.</p>
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-1">📊 Meta Snapshot</h1>
+          <p className="text-white/50 text-sm">Tournament + OPTCG Sim snapshot. Live feed ready when sources connect.</p>
+        </div>
+        <span className={`px-2 py-1 rounded text-xs border ${status === "live" ? "border-green-400/40 text-green-400 bg-green-400/10" : status === "loading" ? "border-white/20 text-white/60 bg-white/5" : "border-orange-400/40 text-orange-400 bg-orange-400/10"}`}>
+          {status === "live" ? "Live data" : status === "loading" ? "Loading" : "Seeded"}
+        </span>
+        <span className="text-white/30 text-xs">Updated: {new Date(meta.updatedAt).toLocaleString()}</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white/5 border border-white/10 rounded-xl p-4">
           <p className="text-white/50 text-xs uppercase">Top deck</p>
-          <p className="text-white text-lg font-semibold mt-1">Luffy Gear 5</p>
-          <p className="text-white/40 text-sm">58% win · 22% field · trending up</p>
+          <p className="text-white text-lg font-semibold mt-1">{META_DECKS[0]?.name ?? "—"}</p>
+          <p className="text-white/40 text-sm">{META_DECKS[0]?.winRate ?? "-"}% win · {META_DECKS[0]?.popularity ?? "-"}% field · {META_DECKS[0]?.trend === "▲" ? "trending up" : META_DECKS[0]?.trend === "▼" ? "trending down" : "steady"}</p>
         </div>
         <div className="bg-white/5 border border-white/10 rounded-xl p-4">
           <p className="text-white/50 text-xs uppercase">Rising deck</p>
-          <p className="text-white text-lg font-semibold mt-1">Blackbeard</p>
-          <p className="text-white/40 text-sm">+2 pts week-over-week · control wipe</p>
+          <p className="text-white text-lg font-semibold mt-1">{META_DECKS[1]?.name ?? "—"}</p>
+          <p className="text-white/40 text-sm">Control the pace · trend {META_DECKS[1]?.trend ?? "—"}</p>
         </div>
         <div className="bg-white/5 border border-white/10 rounded-xl p-4">
           <p className="text-white/50 text-xs uppercase">Falling deck</p>
-          <p className="text-white text-lg font-semibold mt-1">Shanks</p>
-          <p className="text-white/40 text-sm">-1.5 pts week-over-week · tempo losing ground</p>
+          <p className="text-white text-lg font-semibold mt-1">{META_DECKS[3]?.name ?? "—"}</p>
+          <p className="text-white/40 text-sm">Losing share · trend {META_DECKS[3]?.trend ?? "—"}</p>
         </div>
       </div>
 
       <div className="bg-[#f0c040]/5 border border-[#f0c040]/20 rounded-xl p-4 flex items-start gap-3">
         <span className="text-2xl">⚠️</span>
         <p className="text-white/60 text-sm">
-          Meta data is currently seeded manually. Next step: pipe in real tournaments and OPTCG Sim logs with nightly refresh.
+          Live data pipeline is ready: plug OPTCG Sim logs + tournament results into /api/meta. Currently showing seeded snapshot until sources are connected.
         </p>
       </div>
 
@@ -68,7 +85,7 @@ export default function MetaPage() {
       <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
         <div className="p-4 border-b border-white/10 flex items-center justify-between">
           <h3 className="font-semibold text-white">Current Meta Tier List</h3>
-          <span className="text-xs text-white/30">As of Feb 2026 (seeded)</span>
+          <span className="text-xs text-white/30">As of {new Date(meta.updatedAt).toLocaleDateString()} ({meta.source})</span>
         </div>
         <table className="w-full text-sm">
           <thead>
