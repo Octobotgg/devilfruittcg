@@ -7,6 +7,7 @@ import { OP05_CARDS } from "./op05-cards";
 import { OP06_CARDS } from "./op06-cards";
 import { OP07_CARDS } from "./op07-cards";
 import { OP08_CARDS } from "./op08-cards";
+import { OP09_CARDS } from "./op09-cards";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
@@ -20,6 +21,7 @@ export const ALL_SET_CARDS: Card[] = [
   ...OP06_CARDS,
   ...OP07_CARDS,
   ...OP08_CARDS,
+  ...OP09_CARDS,
 ];
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
