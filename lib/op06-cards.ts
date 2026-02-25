@@ -1,0 +1,103 @@
+import { Card } from "./cards";
+
+// Wings of the Captain (OP06) - Key cards
+export const OP06_CARDS: Card[] = [
+  // Leaders
+  { id: "OP06-001", name: "Sanji", set: "Wings of the Captain", setCode: "OP06", number: "001", type: "Leader", color: "Blue", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-002", name: "Charlotte Katakuri", set: "Wings of the Captain", setCode: "OP06", number: "002", type: "Leader", color: "Blue/Purple", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-003", name: "Charlotte Pudding", set: "Wings of the Captain", setCode: "OP06", number: "003", type: "Leader", color: "Blue/Black", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-004", name: "Kin'emon", set: "Wings of the Captain", setCode: "OP06", number: "004", type: "Leader", color: "Red/Green", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-005", name: "Kouzuki Momonosuke", set: "Wings of the Captain", setCode: "OP06", number: "005", type: "Leader", color: "Green", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-006", name: "Roronoa Zoro", set: "Wings of the Captain", setCode: "OP06", number: "006", type: "Leader", color: "Green/Blue", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-007", name: "Portgas D. Ace", set: "Wings of the Captain", setCode: "OP06", number: "007", type: "Leader", color: "Red/Black", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP06-008", name: "Magellan", set: "Wings of the Captain", setCode: "OP06", number: "008", type: "Leader", color: "Blue/Black", rarity: "L", cost: 0, power: 5000 },
+  
+  // Blue Cards
+  { id: "OP06-009", name: "Charlotte Katakuri", set: "Wings of the Captain", setCode: "OP06", number: "009", type: "Character", color: "Blue", rarity: "SR", cost: 7, power: 7000 },
+  { id: "OP06-010", name: "Sanji", set: "Wings of the Captain", setCode: "OP06", number: "010", type: "Character", color: "Blue", rarity: "SR", cost: 5, power: 6000 },
+  { id: "OP06-011", name: "Charlotte Cracker", set: "Wings of the Captain", setCode: "OP06", number: "011", type: "Character", color: "Blue", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP06-012", name: "Charlotte Smoothie", set: "Wings of the Captain", setCode: "OP06", number: "012", type: "Character", color: "Blue", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP06-013", name: "Charlotte Daifuku", set: "Wings of the Captain", setCode: "OP06", number: "013", type: "Character", color: "Blue", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP06-014", name: "Charlotte Oven", set: "Wings of the Captain", setCode: "OP06", number: "014", type: "Character", color: "Blue", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-015", name: "Charlotte Perospero", set: "Wings of the Captain", setCode: "OP06", number: "015", type: "Character", color: "Blue", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP06-016", name: "Charlotte Compote", set: "Wings of the Captain", setCode: "OP06", number: "016", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-017", name: "Charlotte Moscato", set: "Wings of the Captain", setCode: "OP06", number: "017", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-018", name: "Charlotte Amande", set: "Wings of the Captain", setCode: "OP06", number: "018", type: "Character", color: "Blue", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-019", name: "Charlotte Mondée", set: "Wings of the Captain", setCode: "OP06", number: "019", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-020", name: "Charlotte Effilée", set: "Wings of the Captain", setCode: "OP06", number: "020", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-021", name: "Magellan", set: "Wings of the Captain", setCode: "OP06", number: "021", type: "Character", color: "Blue", rarity: "SR", cost: 6, power: 7000 },
+  { id: "OP06-022", name: "Hannyabal", set: "Wings of the Captain", setCode: "OP06", number: "022", type: "Character", color: "Blue", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-023", name: "Sadi", set: "Wings of the Captain", setCode: "OP06", number: "023", type: "Character", color: "Blue", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-024", name: "Saldeath", set: "Wings of the Captain", setCode: "OP06", number: "024", type: "Character", color: "Blue", rarity: "C", cost: 2, power: 2000 },
+  { id: "OP06-025", name: "Minotaurus", set: "Wings of the Captain", setCode: "OP06", number: "025", type: "Character", color: "Blue", rarity: "C", cost: 4, power: 5000 },
+  { id: "OP06-026", name: "Whole Cake Chateau", set: "Wings of the Captain", setCode: "OP06", number: "026", type: "Stage", color: "Blue", rarity: "R", cost: 2 },
+  
+  // Green/Blue Cards (Wano)
+  { id: "OP06-027", name: "Roronoa Zoro", set: "Wings of the Captain", setCode: "OP06", number: "027", type: "Character", color: "Green", rarity: "SR", cost: 5, power: 6000 },
+  { id: "OP06-028", name: "Trafalgar Law", set: "Wings of the Captain", setCode: "OP06", number: "028", type: "Character", color: "Green", rarity: "R", cost: 6, power: 7000 },
+  { id: "OP06-029", name: "Eustass Kid", set: "Wings of the Captain", setCode: "OP06", number: "029", type: "Character", color: "Green", rarity: "R", cost: 6, power: 7000 },
+  { id: "OP06-030", name: "Killer", set: "Wings of the Captain", setCode: "OP06", number: "030", type: "Character", color: "Green", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-031", name: "Kin'emon", set: "Wings of the Captain", setCode: "OP06", number: "031", type: "Character", color: "Green", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP06-032", name: "Kawamatsu", set: "Wings of the Captain", setCode: "OP06", number: "032", type: "Character", color: "Green", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-033", name: "Denjiro", set: "Wings of the Captain", setCode: "OP06", number: "033", type: "Character", color: "Green", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP06-034", name: "Ashura Doji", set: "Wings of the Captain", setCode: "OP06", number: "034", type: "Character", color: "Green", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-035", name: "Inuarashi", set: "Wings of the Captain", setCode: "OP06", number: "035", type: "Character", color: "Green", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP06-036", name: "Nekomamushi", set: "Wings of the Captain", setCode: "OP06", number: "036", type: "Character", color: "Green", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP06-037", name: "Shinobu", set: "Wings of the Captain", setCode: "OP06", number: "037", type: "Character", color: "Green", rarity: "R", cost: 2, power: 3000 },
+  { id: "OP06-038", name: "Kouzuki Momonosuke", set: "Wings of the Captain", setCode: "OP06", number: "038", type: "Character", color: "Green", rarity: "SR", cost: 2, power: 3000 },
+  { id: "OP06-039", name: "Kiku", set: "Wings of the Captain", setCode: "OP06", number: "039", type: "Character", color: "Green", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-040", name: "Raizo", set: "Wings of the Captain", setCode: "OP06", number: "040", type: "Character", color: "Green", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-041", name: "Kikunojo", set: "Wings of the Captain", setCode: "OP06", number: "041", type: "Character", color: "Green", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-042", name: "Onimaru", set: "Wings of the Captain", setCode: "OP06", number: "042", type: "Character", color: "Green", rarity: "C", cost: 1, power: 2000 },
+  { id: "OP06-043", name: "Kuri", set: "Wings of the Captain", setCode: "OP06", number: "043", type: "Stage", color: "Green", rarity: "R", cost: 1 },
+  
+  // Red Cards (Whitebeard Pirates)
+  { id: "OP06-044", name: "Portgas D. Ace", set: "Wings of the Captain", setCode: "OP06", number: "044", type: "Character", color: "Red", rarity: "SR", cost: 8, power: 9000 },
+  { id: "OP06-045", name: "Edward Newgate", set: "Wings of the Captain", setCode: "OP06", number: "045", type: "Character", color: "Red", rarity: "SR", cost: 9, power: 10000 },
+  { id: "OP06-046", name: "Marco", set: "Wings of the Captain", setCode: "OP06", number: "046", type: "Character", color: "Red", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP06-047", name: "Jozu", set: "Wings of the Captain", setCode: "OP06", number: "047", type: "Character", color: "Red", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-048", name: "Vista", set: "Wings of the Captain", setCode: "OP06", number: "048", type: "Character", color: "Red", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP06-049", name: "Thatch", set: "Wings of the Captain", setCode: "OP06", number: "049", type: "Character", color: "Red", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-050", name: "Rakuyo", set: "Wings of the Captain", setCode: "OP06", number: "050", type: "Character", color: "Red", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-051", name: "Blenheim", set: "Wings of the Captain", setCode: "OP06", number: "051", type: "Character", color: "Red", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-052", name: "Curiel", set: "Wings of the Captain", setCode: "OP06", number: "052", type: "Character", color: "Red", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-053", name: "Fossa", set: "Wings of the Captain", setCode: "OP06", number: "053", type: "Character", color: "Red", rarity: "C", cost: 2, power: 3000 },
+  { id: "OP06-054", name: "Haruta", set: "Wings of the Captain", setCode: "OP06", number: "054", type: "Character", color: "Red", rarity: "C", cost: 2, power: 3000 },
+  { id: "OP06-055", name: "Izou", set: "Wings of the Captain", setCode: "OP06", number: "055", type: "Character", color: "Red", rarity: "C", cost: 2, power: 3000 },
+  { id: "OP06-056", name: "Namule", set: "Wings of the Captain", setCode: "OP06", number: "056", type: "Character", color: "Red", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-057", name: "Speed Jiru", set: "Wings of the Captain", setCode: "OP06", number: "057", type: "Character", color: "Red", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-058", name: "Moby Dick", set: "Wings of the Captain", setCode: "OP06", number: "058", type: "Stage", color: "Red", rarity: "R", cost: 1 },
+  
+  // Purple Cards (Big Mom Pirates)
+  { id: "OP06-059", name: "Charlotte Linlin", set: "Wings of the Captain", setCode: "OP06", number: "059", type: "Character", color: "Purple", rarity: "SR", cost: 10, power: 12000 },
+  { id: "OP06-060", name: "Charlotte Pudding", set: "Wings of the Captain", setCode: "OP06", number: "060", type: "Character", color: "Purple", rarity: "SR", cost: 4, power: 3000 },
+  { id: "OP06-061", name: "Charlotte Brulee", set: "Wings of the Captain", setCode: "OP06", number: "061", type: "Character", color: "Purple", rarity: "R", cost: 2, power: 3000 },
+  { id: "OP06-062", name: "Charlotte Opera", set: "Wings of the Captain", setCode: "OP06", number: "062", type: "Character", color: "Purple", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-063", name: "Charlotte Galette", set: "Wings of the Captain", setCode: "OP06", number: "063", type: "Character", color: "Purple", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP06-064", name: "Charlotte Flampe", set: "Wings of the Captain", setCode: "OP06", number: "064", type: "Character", color: "Purple", rarity: "C", cost: 2, power: 3000 },
+  { id: "OP06-065", name: "Charlotte Anglais", set: "Wings of the Captain", setCode: "OP06", number: "065", type: "Character", color: "Purple", rarity: "C", cost: 1, power: 1000 },
+  { id: "OP06-066", name: "Charlotte Mont-d'Or", set: "Wings of the Captain", setCode: "OP06", number: "066", type: "Character", color: "Purple", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP06-067", name: "Napoleon", set: "Wings of the Captain", setCode: "OP06", number: "067", type: "Character", color: "Purple", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP06-068", name: "Zeus", set: "Wings of the Captain", setCode: "OP06", number: "068", type: "Character", color: "Purple", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-069", name: "Prometheus", set: "Wings of the Captain", setCode: "OP06", number: "069", type: "Character", color: "Purple", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP06-070", name: "Tamago", set: "Wings of the Captain", setCode: "OP06", number: "070", type: "Character", color: "Purple", rarity: "C", cost: 4, power: 5000 },
+  { id: "OP06-071", name: "Pekoms", set: "Wings of the Captain", setCode: "OP06", number: "071", type: "Character", color: "Purple", rarity: "C", cost: 2, power: 3000 },
+  { id: "OP06-072", name: "Mira Mira no Mi", set: "Wings of the Captain", setCode: "OP06", number: "072", type: "Stage", color: "Purple", rarity: "R", cost: 1 },
+  
+  // Black Cards
+  { id: "OP06-073", name: "Hina", set: "Wings of the Captain", setCode: "OP06", number: "073", type: "Character", color: "Black", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP06-074", name: "Fullbody", set: "Wings of the Captain", setCode: "OP06", number: "074", type: "Character", color: "Black", rarity: "R", cost: 2, power: 3000 },
+  { id: "OP06-075", name: "Jango", set: "Wings of the Captain", setCode: "OP06", number: "075", type: "Character", color: "Black", rarity: "UC", cost: 2, power: 3000 },
+  { id: "OP06-076", name: "Charlotte Pudding", set: "Wings of the Captain", setCode: "OP06", number: "076", type: "Character", color: "Black", rarity: "SR", cost: 5, power: 4000 },
+  { id: "OP06-077", name: "Sanji", set: "Wings of the Captain", setCode: "OP06", number: "077", type: "Character", color: "Black", rarity: "R", cost: 3, power: 4000 },
+  
+  // Secret Rares
+  { id: "OP06-078", name: "Charlotte Katakuri", set: "Wings of the Captain", setCode: "OP06", number: "078", type: "Character", color: "Blue", rarity: "SEC", cost: 7, power: 7000 },
+  { id: "OP06-079", name: "Monkey D. Luffy", set: "Wings of the Captain", setCode: "OP06", number: "079", type: "Character", color: "Green", rarity: "SEC", cost: 9, power: 10000 },
+  { id: "OP06-080", name: "Roronoa Zoro", set: "Wings of the Captain", setCode: "OP06", number: "080", type: "Character", color: "Green", rarity: "SEC", cost: 5, power: 6000 },
+  { id: "OP06-081", name: "Sanji", set: "Wings of the Captain", setCode: "OP06", number: "081", type: "Character", color: "Blue", rarity: "SEC", cost: 5, power: 6000 },
+  { id: "OP06-082", name: "Charlotte Linlin", set: "Wings of the Captain", setCode: "OP06", number: "082", type: "Character", color: "Purple", rarity: "SEC", cost: 10, power: 12000 },
+  { id: "OP06-083", name: "Kouzuki Momonosuke", set: "Wings of the Captain", setCode: "OP06", number: "083", type: "Character", color: "Green", rarity: "SEC", cost: 2, power: 3000 },
+  { id: "OP06-084", name: "Portgas D. Ace", set: "Wings of the Captain", setCode: "OP06", number: "084", type: "Character", color: "Red", rarity: "SEC", cost: 8, power: 9000 },
+  { id: "OP06-085", name: "Edward Newgate", set: "Wings of the Captain", setCode: "OP06", number: "085", type: "Character", color: "Red", rarity: "SEC", cost: 9, power: 10000 }
+];

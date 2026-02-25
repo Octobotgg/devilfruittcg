@@ -1,0 +1,113 @@
+import { Card } from "./cards";
+
+// Kingdoms of Intrigue (OP04) - Key cards
+export const OP04_CARDS: Card[] = [
+  // Leaders
+  { id: "OP04-001", name: "Nefeltari Vivi", set: "Kingdoms of Intrigue", setCode: "OP04", number: "001", type: "Leader", color: "Red/Blue", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-002", name: "Nico Robin", set: "Kingdoms of Intrigue", setCode: "OP04", number: "002", type: "Leader", color: "Red/Black", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-003", name: "Nami", set: "Kingdoms of Intrigue", setCode: "OP04", number: "003", type: "Leader", color: "Blue/Yellow", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-004", name: "Charlotte Katakuri", set: "Kingdoms of Intrigue", setCode: "OP04", number: "004", type: "Leader", color: "Blue/Green", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-005", name: "Donquixote Doflamingo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "005", type: "Leader", color: "Green/Purple", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-006", name: "Issho (Fujitora)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "006", type: "Leader", color: "Green/Black", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-007", name: "Rebecca", set: "Kingdoms of Intrigue", setCode: "OP04", number: "007", type: "Leader", color: "Blue/Black", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-008", name: "Queen", set: "Kingdoms of Intrigue", setCode: "OP04", number: "008", type: "Leader", color: "Blue/Yellow", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-009", name: "Crocodile", set: "Kingdoms of Intrigue", setCode: "OP04", number: "009", type: "Leader", color: "Purple/Yellow", rarity: "L", cost: 0, power: 5000 },
+  { id: "OP04-010", name: "Enel", set: "Kingdoms of Intrigue", setCode: "OP04", number: "010", type: "Leader", color: "Yellow", rarity: "L", cost: 0, power: 5000 },
+  
+  // Red Cards (Alabasta)
+  { id: "OP04-011", name: "Igaram", set: "Kingdoms of Intrigue", setCode: "OP04", number: "011", type: "Character", color: "Red", rarity: "R", cost: 2, power: 3000 },
+  { id: "OP04-012", name: "Karoo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "012", type: "Character", color: "Red", rarity: "C", cost: 1, power: 2000 },
+  { id: "OP04-013", name: "Kung Fu Dugongs", set: "Kingdoms of Intrigue", setCode: "OP04", number: "013", type: "Character", color: "Red", rarity: "C", cost: 1, power: 1000 },
+  { id: "OP04-014", name: "Nefeltari Cobra", set: "Kingdoms of Intrigue", setCode: "OP04", number: "014", type: "Character", color: "Red", rarity: "C", cost: 2, power: 0 },
+  { id: "OP04-015", name: "Pell", set: "Kingdoms of Intrigue", setCode: "OP04", number: "015", type: "Character", color: "Red", rarity: "SR", cost: 5, power: 6000 },
+  { id: "OP04-016", name: "Monkey D. Luffy", set: "Kingdoms of Intrigue", setCode: "OP04", number: "016", type: "Character", color: "Red", rarity: "UC", cost: 8, power: 9000 },
+  { id: "OP04-017", name: "Roronoa Zoro", set: "Kingdoms of Intrigue", setCode: "OP04", number: "017", type: "Character", color: "Red", rarity: "R", cost: 5, power: 6000 },
+  
+  // Green Cards (Dressrosa)
+  { id: "OP04-018", name: "Cavendish", set: "Kingdoms of Intrigue", setCode: "OP04", number: "018", type: "Character", color: "Green", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP04-019", name: "Bartolomeo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "019", type: "Character", color: "Green", rarity: "R", cost: 3, power: 3000 },
+  { id: "OP04-020", name: "Sabo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "020", type: "Character", color: "Green", rarity: "SR", cost: 5, power: 6000 },
+  { id: "OP04-021", name: "Sai", set: "Kingdoms of Intrigue", setCode: "OP04", number: "021", type: "Character", color: "Green", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP04-022", name: "Chinjao", set: "Kingdoms of Intrigue", setCode: "OP04", number: "022", type: "Character", color: "Green", rarity: "C", cost: 5, power: 6000 },
+  { id: "OP04-023", name: "Hajrudin", set: "Kingdoms of Intrigue", setCode: "OP04", number: "023", type: "Character", color: "Green", rarity: "UC", cost: 6, power: 7000 },
+  { id: "OP04-024", name: "Ideo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "024", type: "Character", color: "Green", rarity: "C", cost: 2, power: 2000 },
+  { id: "OP04-025", name: "Leo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "025", type: "Character", color: "Green", rarity: "UC", cost: 1, power: 2000 },
+  { id: "OP04-026", name: "Mansherry", set: "Kingdoms of Intrigue", setCode: "OP04", number: "026", type: "Character", color: "Green", rarity: "R", cost: 1, power: 0 },
+  { id: "OP04-027", name: "Donquixote Doflamingo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "027", type: "Character", color: "Green", rarity: "SR", cost: 10, power: 10000 },
+  { id: "OP04-028", name: "Sugar", set: "Kingdoms of Intrigue", setCode: "OP04", number: "028", type: "Character", color: "Green", rarity: "SR", cost: 2, power: 0 },
+  { id: "OP04-029", name: "Señor Pink", set: "Kingdoms of Intrigue", setCode: "OP04", number: "029", type: "Character", color: "Green", rarity: "R", cost: 3, power: 5000 },
+  { id: "OP04-030", name: "Diamante", set: "Kingdoms of Intrigue", setCode: "OP04", number: "030", type: "Character", color: "Green", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP04-031", name: "Trebol", set: "Kingdoms of Intrigue", setCode: "OP04", number: "031", type: "Character", color: "Green", rarity: "R", cost: 6, power: 6000 },
+  { id: "OP04-032", name: "Pica", set: "Kingdoms of Intrigue", setCode: "OP04", number: "032", type: "Character", color: "Green", rarity: "SR", cost: 4, power: 6000 },
+  { id: "OP04-033", name: "Baby 5", set: "Kingdoms of Intrigue", setCode: "OP04", number: "033", type: "Character", color: "Green", rarity: "UC", cost: 1, power: 1000 },
+  { id: "OP04-034", name: "Giolla", set: "Kingdoms of Intrigue", setCode: "OP04", number: "034", type: "Character", color: "Green", rarity: "C", cost: 4, power: 4000 },
+  { id: "OP04-035", name: "Machvise", set: "Kingdoms of Intrigue", setCode: "OP04", number: "035", type: "Character", color: "Green", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP04-036", name: "Lao G", set: "Kingdoms of Intrigue", setCode: "OP04", number: "036", type: "Character", color: "Green", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP04-037", name: "Dellinger", set: "Kingdoms of Intrigue", setCode: "OP04", number: "037", type: "Character", color: "Green", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP04-038", name: "Birdcage", set: "Kingdoms of Intrigue", setCode: "OP04", number: "038", type: "Stage", color: "Green", rarity: "C", cost: 5 },
+  
+  // Blue Cards (Beast Pirates)
+  { id: "OP04-039", name: "Urashima", set: "Kingdoms of Intrigue", setCode: "OP04", number: "039", type: "Character", color: "Blue", rarity: "C", cost: 7, power: 9000 },
+  { id: "OP04-040", name: "Ulti", set: "Kingdoms of Intrigue", setCode: "OP04", number: "040", type: "Character", color: "Blue", rarity: "R", cost: 3, power: 4000 },
+  { id: "OP04-041", name: "Queen", set: "Kingdoms of Intrigue", setCode: "OP04", number: "041", type: "Character", color: "Blue", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP04-042", name: "Kaido", set: "Kingdoms of Intrigue", setCode: "OP04", number: "042", type: "Character", color: "Blue", rarity: "SR", cost: 10, power: 12000 },
+  { id: "OP04-043", name: "King", set: "Kingdoms of Intrigue", setCode: "OP04", number: "043", type: "Character", color: "Blue", rarity: "R", cost: 7, power: 8000 },
+  { id: "OP04-044", name: "Jack", set: "Kingdoms of Intrigue", setCode: "OP04", number: "044", type: "Character", color: "Blue", rarity: "UC", cost: 2, power: 3000 },
+  { id: "OP04-045", name: "Basil Hawkins", set: "Kingdoms of Intrigue", setCode: "OP04", number: "045", type: "Character", color: "Blue", rarity: "C", cost: 4, power: 5000 },
+  { id: "OP04-046", name: "Page One", set: "Kingdoms of Intrigue", setCode: "OP04", number: "046", type: "Character", color: "Blue", rarity: "UC", cost: 4, power: 6000 },
+  { id: "OP04-047", name: "Ice Oni", set: "Kingdoms of Intrigue", setCode: "OP04", number: "047", type: "Character", color: "Blue", rarity: "C", cost: 8, power: 0 },
+  { id: "OP04-048", name: "Sasaki", set: "Kingdoms of Intrigue", setCode: "OP04", number: "048", type: "Character", color: "Blue", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP04-049", name: "Black Maria", set: "Kingdoms of Intrigue", setCode: "OP04", number: "049", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 3000 },
+  { id: "OP04-050", name: "Who's-Who", set: "Kingdoms of Intrigue", setCode: "OP04", number: "050", type: "Character", color: "Blue", rarity: "R", cost: 1, power: 2000 },
+  { id: "OP04-051", name: "Plague Rounds", set: "Kingdoms of Intrigue", setCode: "OP04", number: "051", type: "Event", color: "Blue", rarity: "C", cost: 2 },
+  
+  // Purple/Yellow Cards (Crocodile)
+  { id: "OP04-052", name: "Nico Robin", set: "Kingdoms of Intrigue", setCode: "OP04", number: "052", type: "Character", color: "Purple", rarity: "SR", cost: 5, power: 5000 },
+  { id: "OP04-053", name: "Mr. 2 Bon Clay (Bentham)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "053", type: "Character", color: "Purple", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP04-054", name: "Crocodile", set: "Kingdoms of Intrigue", setCode: "OP04", number: "054", type: "Character", color: "Purple", rarity: "SR", cost: 8, power: 9000 },
+  { id: "OP04-055", name: "Mr. 1 (Daz Bonez)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "055", type: "Character", color: "Purple", rarity: "C", cost: 1, power: 1000 },
+  { id: "OP04-056", name: "Mr. 3 (Galdino)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "056", type: "Character", color: "Purple", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP04-057", name: "Mr. 4 (Babe)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "057", type: "Character", color: "Purple", rarity: "UC", cost: 5, power: 6000 },
+  { id: "OP04-058", name: "Miss All Sunday", set: "Kingdoms of Intrigue", setCode: "OP04", number: "058", type: "Character", color: "Purple", rarity: "SR", cost: 5, power: 5000 },
+  { id: "OP04-059", name: "Miss Doublefinger (Zala)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "059", type: "Character", color: "Purple", rarity: "C", cost: 3, power: 4000 },
+  { id: "OP04-060", name: "Miss Merry Christmas (Drophy)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "060", type: "Character", color: "Purple", rarity: "C", cost: 4, power: 4000 },
+  { id: "OP04-061", name: "Miss Valentine (Mikita)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "061", type: "Character", color: "Purple", rarity: "R", cost: 2, power: 2000 },
+  { id: "OP04-062", name: "Miss Goldenweek (Marianne)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "062", type: "Character", color: "Purple", rarity: "C", cost: 2, power: 3000 },
+  { id: "OP04-063", name: "Mr. 5 (Gem)", set: "Kingdoms of Intrigue", setCode: "OP04", number: "063", type: "Character", color: "Purple", rarity: "R", cost: 7, power: 8000 },
+  { id: "OP04-064", name: "Banana Gator", set: "Kingdoms of Intrigue", setCode: "OP04", number: "064", type: "Character", color: "Purple", rarity: "C", cost: 5, power: 7000 },
+  { id: "OP04-065", name: "Rain Dinners", set: "Kingdoms of Intrigue", setCode: "OP04", number: "065", type: "Stage", color: "Purple", rarity: "C", cost: 1 },
+  
+  // Black Cards (Dressrosa)
+  { id: "OP04-066", name: "Kyros", set: "Kingdoms of Intrigue", setCode: "OP04", number: "066", type: "Character", color: "Black", rarity: "R", cost: 3, power: 5000 },
+  { id: "OP04-067", name: "Rebecca", set: "Kingdoms of Intrigue", setCode: "OP04", number: "067", type: "Character", color: "Black", rarity: "R", cost: 1, power: 2000 },
+  { id: "OP04-068", name: "Riku Doldo III", set: "Kingdoms of Intrigue", setCode: "OP04", number: "068", type: "Character", color: "Black", rarity: "C", cost: 4, power: 5000 },
+  { id: "OP04-069", name: "Viola", set: "Kingdoms of Intrigue", setCode: "OP04", number: "069", type: "Character", color: "Black", rarity: "UC", cost: 2, power: 3000 },
+  { id: "OP04-070", name: "Shirahoshi", set: "Kingdoms of Intrigue", setCode: "OP04", number: "070", type: "Character", color: "Black", rarity: "R", cost: 1, power: 0 },
+  { id: "OP04-071", name: "Elizabello II", set: "Kingdoms of Intrigue", setCode: "OP04", number: "071", type: "Character", color: "Black", rarity: "UC", cost: 4, power: 5000 },
+  { id: "OP04-072", name: "Hakuba", set: "Kingdoms of Intrigue", setCode: "OP04", number: "072", type: "Character", color: "Black", rarity: "C", cost: 5, power: 6000 },
+  { id: "OP04-073", name: "Suleiman", set: "Kingdoms of Intrigue", setCode: "OP04", number: "073", type: "Character", color: "Black", rarity: "UC", cost: 3, power: 4000 },
+  { id: "OP04-074", name: "One-Legged Soldier", set: "Kingdoms of Intrigue", setCode: "OP04", number: "074", type: "Character", color: "Black", rarity: "UC", cost: 2, power: 0 },
+  { id: "OP04-075", name: "Corrida Colosseum", set: "Kingdoms of Intrigue", setCode: "OP04", number: "075", type: "Stage", color: "Black", rarity: "C", cost: 1 },
+  
+  // Yellow Cards (Skypiea)
+  { id: "OP04-076", name: "Aisa", set: "Kingdoms of Intrigue", setCode: "OP04", number: "076", type: "Character", color: "Yellow", rarity: "C", cost: 1, power: 0 },
+  { id: "OP04-077", name: "Enel", set: "Kingdoms of Intrigue", setCode: "OP04", number: "077", type: "Character", color: "Yellow", rarity: "SR", cost: 7, power: 7000 },
+  { id: "OP04-078", name: "Gedatsu", set: "Kingdoms of Intrigue", setCode: "OP04", number: "078", type: "Character", color: "Yellow", rarity: "R", cost: 5, power: 6000 },
+  { id: "OP04-079", name: "Satori", set: "Kingdoms of Intrigue", setCode: "OP04", number: "079", type: "Character", color: "Yellow", rarity: "R", cost: 5, power: 5000 },
+  { id: "OP04-080", name: "Shura", set: "Kingdoms of Intrigue", setCode: "OP04", number: "080", type: "Character", color: "Yellow", rarity: "R", cost: 2, power: 2000 },
+  { id: "OP04-081", name: "Ohm", set: "Kingdoms of Intrigue", setCode: "OP04", number: "081", type: "Character", color: "Yellow", rarity: "R", cost: 4, power: 5000 },
+  { id: "OP04-082", name: "Conis", set: "Kingdoms of Intrigue", setCode: "OP04", number: "082", type: "Character", color: "Yellow", rarity: "UC", cost: 1, power: 0 },
+  { id: "OP04-083", name: "Holy", set: "Kingdoms of Intrigue", setCode: "OP04", number: "083", type: "Character", color: "Yellow", rarity: "C", cost: 3, power: 5000 },
+  { id: "OP04-084", name: "Kotori", set: "Kingdoms of Intrigue", setCode: "OP04", number: "084", type: "Character", color: "Yellow", rarity: "UC", cost: 3, power: 3000 },
+  { id: "OP04-085", name: "Hotori", set: "Kingdoms of Intrigue", setCode: "OP04", number: "085", type: "Character", color: "Yellow", rarity: "UC", cost: 3, power: 3000 },
+  { id: "OP04-086", name: "Nora", set: "Kingdoms of Intrigue", setCode: "OP04", number: "086", type: "Character", color: "Yellow", rarity: "C", cost: 5, power: 7000 },
+  { id: "OP04-087", name: "200,000,000 Volt Amaru", set: "Kingdoms of Intrigue", setCode: "OP04", number: "087", type: "Event", color: "Yellow", rarity: "R", cost: 2 },
+  { id: "OP04-088", name: "Upper Yard", set: "Kingdoms of Intrigue", setCode: "OP04", number: "088", type: "Stage", color: "Yellow", rarity: "UC", cost: 1 },
+  
+  // Secret Rares
+  { id: "OP04-089", name: "Nefeltari Vivi", set: "Kingdoms of Intrigue", setCode: "OP04", number: "089", type: "Character", color: "Red", rarity: "SEC", cost: 7, power: 4000 },
+  { id: "OP04-090", name: "Donquixote Rosinante", set: "Kingdoms of Intrigue", setCode: "OP04", number: "090", type: "Character", color: "Green", rarity: "SEC", cost: 8, power: 8000 },
+  { id: "OP04-091", name: "Kaido", set: "Kingdoms of Intrigue", setCode: "OP04", number: "091", type: "Character", color: "Blue", rarity: "SEC", cost: 10, power: 12000 },
+  { id: "OP04-092", name: "Monkey D. Luffy", set: "Kingdoms of Intrigue", setCode: "OP04", number: "092", type: "Character", color: "Black", rarity: "SEC", cost: 7, power: 7000 },
+  { id: "OP04-093", name: "Sabo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "093", type: "Character", color: "Green", rarity: "SEC", cost: 5, power: 6000 }
+];

@@ -1,7 +1,26 @@
 import { SEED_CARDS, type Card } from "./cards";
 import { getOP01Cards } from "./op01-cards";
+import { OP02_CARDS } from "./op02-cards";
+import { OP03_CARDS } from "./op03-cards";
+import { OP04_CARDS } from "./op04-cards";
+import { OP05_CARDS } from "./op05-cards";
+import { OP06_CARDS } from "./op06-cards";
+import { OP07_CARDS } from "./op07-cards";
+import { OP08_CARDS } from "./op08-cards";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
+
+// Combine all set cards
+export const ALL_SET_CARDS: Card[] = [
+  ...getOP01Cards(),
+  ...OP02_CARDS,
+  ...OP03_CARDS,
+  ...OP04_CARDS,
+  ...OP05_CARDS,
+  ...OP06_CARDS,
+  ...OP07_CARDS,
+  ...OP08_CARDS,
+];
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
