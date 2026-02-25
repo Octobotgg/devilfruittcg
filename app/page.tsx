@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, TrendingUp, Swords, BarChart3, Package, ArrowRight, Zap, MapPin, Bell } from "lucide-react";
 
@@ -69,6 +69,26 @@ export default function HomePage() {
   const [query, setQuery] = useState("");
   const router = useRouter();
   const [imgErrors, setImgErrors] = useState<Record<string, boolean>>({});
+  const [cardStats, setCardStats] = useState<{ total: number; sets: number }>({ total: 0, sets: 0 });
+
+  // Pull live counts from the card feed
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const res = await fetch("/api/cards?pageSize=1");
+        if (!res.ok) return;
+        const json = await res.json();
+        const total = json.total ?? 0;
+        // Attempt to estimate sets by sampling first page
+        const sets = new Set<string>();
+        (json.results || []).forEach((c: any) => { if (c?.setCode) sets.add(c.setCode); });
+        setCardStats({ total, sets: sets.size || 8 });
+      } catch {
+        setCardStats({ total: 0, sets: 0 });
+      }
+    };
+    run();
+  }, []);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -126,10 +146,10 @@ export default function HomePage() {
         </h1>
 
         <p className="text-xl text-white/50 mb-3 max-w-2xl mx-auto">
-          Market prices. Matchup data. Meta tracking.
+          Live card feed, market prices, matchup + meta data — in one place.
         </p>
         <p className="text-lg text-white/30 mb-10 max-w-xl mx-auto">
-          Everything you need to play smarter and buy better — all free, always.
+          Search the full OPTCG catalog, check prices, and prep for matchups. Free, no logins.
         </p>
 
         {/* Search Bar */}
@@ -162,9 +182,9 @@ export default function HomePage() {
       <section className="max-w-3xl mx-auto mb-16">
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: "Cards Tracked", value: "24+", icon: "🃏" },
-            { label: "Sets Covered", value: "OP01–OP08", icon: "📦" },
-            { label: "Always Free", value: "Forever", icon: "🏴‍☠️" },
+            { label: "Cards tracked", value: cardStats.total ? `${cardStats.total.toLocaleString()}` : "Live", icon: "🃏" },
+            { label: "Sets covered", value: cardStats.sets ? `${cardStats.sets}+` : "OP01+", icon: "📦" },
+            { label: "Always free", value: "Forever", icon: "🏴‍☠️" },
           ].map((stat) => (
             <div
               key={stat.label}
