@@ -102,17 +102,27 @@ function MarketContent() {
         <div className="space-y-6">
           {/* Card Header */}
           <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-            <div className="flex items-start justify-between flex-wrap gap-4">
-              <div>
-                <h2 className="text-2xl font-bold text-white">{data.cardName}</h2>
-                <p className="text-white/40 text-sm mt-1">{data.cardId}</p>
+            <div className="flex items-start gap-6 flex-wrap">
+              {/* Card Image */}
+              <div className="flex-shrink-0">
+                <img
+                  src={`https://en.onepiece-cardgame.com/images/card/${data.cardId.split('-')[0]}/${data.cardId}_p1.png`}
+                  alt={data.cardName}
+                  className="w-32 rounded-xl shadow-2xl border border-white/10"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
+                />
               </div>
-              <div className="text-right">
+              {/* Card Info */}
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold text-white">{data.cardName}</h2>
+                <p className="text-white/40 text-sm mt-1 mb-4">{data.cardId}</p>
                 <div className="text-4xl font-bold text-[#f0c040]">
                   ${data.ebay.averagePrice.toFixed(2)}
                 </div>
                 <div className="text-sm text-white/40 mt-1">avg last {data.ebay.saleCount} sold</div>
-                <div className={`flex items-center justify-end gap-1 mt-1 text-sm font-medium ${trendColor}`}>
+                <div className={`flex items-center gap-1 mt-1 text-sm font-medium ${trendColor}`}>
                   <TrendIcon className="w-4 h-4" />
                   {data.trend.percent}% 7-day
                 </div>
