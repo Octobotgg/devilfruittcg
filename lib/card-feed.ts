@@ -66,8 +66,8 @@ export async function loadCards(): Promise<Card[]> {
   const now = Date.now();
   if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return cache.cards;
 
-  // Start with OP01 cards + seed cards as base
-  const baseCards = [...getOP01Cards(), ...SEED_CARDS];
+  // Start with all set cards + seed cards as base
+  const baseCards = [...ALL_SET_CARDS, ...SEED_CARDS];
 
   try {
     const res = await fetch(DEFAULT_FEED, { next: { revalidate: 300 } });
