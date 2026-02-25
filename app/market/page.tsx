@@ -13,10 +13,28 @@ function MarketContent() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<(MarketData & { cached?: boolean }) | null>(null);
   const [error, setError] = useState("");
+  const [suggestions, setSuggestions] = useState<{ id: string; name: string; setCode: string; rarity?: string; imageUrl?: string }[]>([]);
 
   useEffect(() => {
     if (initialCard) fetchMarket(initialCard);
   }, [initialCard]);
+
+  useEffect(() => {
+    const run = async () => {
+      const q = query.trim();
+      if (q.length < 2) { setSuggestions([]); return; }
+      try {
+        const res = await fetch(`/api/cards?q=${encodeURIComponent(q)}&pageSize=8`);
+        if (!res.ok) return;
+        const json = await res.json();
+        setSuggestions(json.results || []);
+      } catch {
+        setSuggestions([]);
+      }
+    };
+    const t = setTimeout(run, 200);
+    return () => clearTimeout(t);
+  }, [query]);
 
   async function fetchMarket(cardQuery: string) {
     setLoading(true);
@@ -63,7 +81,7 @@ function MarketContent() {
       </div>
 
       {/* Search */}
-      <form onSubmit={handleSearch} className="flex gap-2 mb-8 max-w-xl">
+      <form onSubmit={handleSearch} className="flex gap-2 mb-4 max-w-xl">
         <div className="flex-1 relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
           <input
@@ -73,6 +91,31 @@ function MarketContent() {
             placeholder="Search card name or ID (e.g. Luffy, OP01-001)"
             className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#f0c040]/50 transition-all"
           />
+          {suggestions.length > 0 && (
+            <div className="absolute z-20 mt-2 w-full bg-[#0c1324] border border-white/10 rounded-xl shadow-xl max-h-80 overflow-y-auto">
+              {suggestions.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    setQuery(s.name);
+                    setSuggestions([]);
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-2 hover:bg-white/5 text-left"
+                >
+                  {s.imageUrl ? (
+                    <img src={s.imageUrl} alt={s.name} className="w-10 h-14 object-cover rounded border border-white/10" />
+                  ) : (
+                    <img src={`/api/card-image?id=${s.id}`} alt={s.name} className="w-10 h-14 object-cover rounded border border-white/10" />
+                  )}
+                  <div className="flex-1">
+                    <p className="text-white text-sm font-medium">{s.name}</p>
+                    <p className="text-white/40 text-xs">{s.id} · {s.setCode} {s.rarity ? `· ${s.rarity}` : ""}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <button
           type="submit"
