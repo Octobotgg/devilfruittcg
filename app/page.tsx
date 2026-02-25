@@ -5,11 +5,11 @@ import { Search, TrendingUp, Swords, BarChart3, Package, ArrowRight, Zap, MapPin
 
 // Real OPTCG card images from the official CDN
 const FEATURED_CARDS = [
-  { id: "OP07-001", name: "Luffy Gear 5", img: "https://en.onepiece-cardgame.com/images/card/OP07/OP07-001_p1.png" },
-  { id: "OP05-002", name: "Shanks", img: "https://en.onepiece-cardgame.com/images/card/OP05/OP05-002_p1.png" },
-  { id: "OP08-001", name: "Blackbeard", img: "https://en.onepiece-cardgame.com/images/card/OP08/OP08-001_p1.png" },
-  { id: "OP05-001", name: "Enel", img: "https://en.onepiece-cardgame.com/images/card/OP05/OP05-001_p1.png" },
-  { id: "OP04-001", name: "Kaido", img: "https://en.onepiece-cardgame.com/images/card/OP04/OP04-001_p1.png" },
+  { id: "OP07-001", name: "Luffy Gear 5", img: "/api/card-image?id=OP07-001" },
+  { id: "OP05-002", name: "Shanks", img: "/api/card-image?id=OP05-002" },
+  { id: "OP08-001", name: "Blackbeard", img: "/api/card-image?id=OP08-001" },
+  { id: "OP05-001", name: "Enel", img: "/api/card-image?id=OP05-001" },
+  { id: "OP04-001", name: "Kaido", img: "/api/card-image?id=OP04-001" },
 ];
 
 const FEATURES = [

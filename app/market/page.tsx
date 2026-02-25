@@ -106,7 +106,7 @@ function MarketContent() {
               {/* Card Image */}
               <div className="flex-shrink-0">
                 <img
-                  src={`https://en.onepiece-cardgame.com/images/card/${data.cardId.split('-')[0]}/${data.cardId}_p1.png`}
+                  src={`/api/card-image?id=${data.cardId}`}
                   alt={data.cardName}
                   className="w-32 rounded-xl shadow-2xl border border-white/10"
                   onError={(e) => {
