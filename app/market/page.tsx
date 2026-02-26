@@ -91,6 +91,9 @@ function MarketContent() {
           Market <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] to-[#DC2626]">Watch</span>
         </h1>
         <p className="text-white/40 text-lg">Real-time prices from eBay last sold + TCGPlayer</p>
+        <div className="mt-4 max-w-3xl rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/60">
+          <span className="font-semibold text-white/80">Data integrity:</span> Card IDs, set codes, and card numbers are validated in build checks before deployment. Market data is public-source live pricing (eBay sold + TCGPlayer) and may lag briefly.
+        </div>
       </motion.div>
 
       {/* Search */}
@@ -280,7 +283,7 @@ function MarketContent() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
           <div className="text-7xl mb-6">🍇</div>
           <p className="text-white/30 text-lg">Search a card to see live market data</p>
-          <p className="text-white/20 text-sm mt-2">Try "Shanks", "Luffy", or "OP01-001"</p>
+          <p className="text-white/20 text-sm mt-2">Try &quot;Shanks&quot;, &quot;Luffy&quot;, or &quot;OP01-001&quot;</p>
         </motion.div>
       )}
 
