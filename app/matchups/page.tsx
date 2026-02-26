@@ -7,6 +7,7 @@ import {
   META_DECKS, getDeckById, getBestMatchups, getWorstMatchups,
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
 } from "@/lib/meta-decks";
+import CardModal, { type CardModalData } from "@/components/CardModal";
 
 function getWinRateColor(rate: number) {
   if (rate >= 60) return "bg-green-500 text-white";
@@ -37,9 +38,15 @@ function TrendIcon({ trend }: { trend: string }) {
 export default function MatchupsPage() {
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
   const [view, setView] = useState<"matrix" | "tier" | "detail">("matrix");
+  const [modalCard, setModalCard] = useState<CardModalData | null>(null);
+
+  function openDeckModal(deck: MetaDeck) {
+    setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
+  }
 
   return (
     <div className="space-y-10">
+      <CardModal card={modalCard} onClose={() => setModalCard(null)} />
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-red-500/10 border border-red-500/20 rounded-full">
@@ -121,7 +128,8 @@ export default function MatchupsPage() {
                           <button onClick={() => { setSelectedDeck(deck); setView("detail"); }}
                             className="flex flex-col items-center gap-1 group">
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
-                              className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105" />
+                              onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
+                              className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105 cursor-zoom-in" />
                             <span className="text-[10px] text-white/30 truncate max-w-[50px]">{deck.name.split(" ")[0]}</span>
                           </button>
                         </th>
@@ -186,7 +194,8 @@ export default function MatchupsPage() {
                         onClick={() => { setSelectedDeck(deck); setView("detail"); }}
                         className="w-full p-5 flex items-center gap-5 hover:bg-white/5 transition-all text-left group">
                         <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
-                          className="w-12 h-16 object-cover rounded-xl border border-white/10 group-hover:border-[#F0C040]/40 transition-all group-hover:scale-105" />
+                          onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
+                          className="w-12 h-16 object-cover rounded-xl border border-white/10 group-hover:border-[#F0C040]/40 transition-all group-hover:scale-105 cursor-zoom-in" />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <span className="text-white font-bold text-lg">{deck.name}</span>
@@ -214,7 +223,7 @@ export default function MatchupsPage() {
         {/* Detail View */}
         {view === "detail" && selectedDeck && (
           <motion.div key="detail" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-            <DeckDetail deck={selectedDeck} onBack={() => setView("matrix")} />
+            <DeckDetail deck={selectedDeck} onBack={() => setView("matrix")} onImageClick={openDeckModal} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -222,7 +231,7 @@ export default function MatchupsPage() {
   );
 }
 
-function DeckDetail({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
+function DeckDetail({ deck, onBack, onImageClick }: { deck: MetaDeck; onBack: () => void; onImageClick: (d: MetaDeck) => void }) {
   const best = getBestMatchups(deck.id);
   const worst = getWorstMatchups(deck.id);
 
@@ -237,9 +246,11 @@ function DeckDetail({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
       <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#F0C040]/5 to-transparent pointer-events-none" />
         <div className="relative flex items-start gap-6 flex-wrap">
-          <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 200 }}>
+          <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 200 }}
+            className="cursor-zoom-in" onClick={() => onImageClick(deck)}>
             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
               className="w-28 h-36 object-cover rounded-2xl border border-white/10 shadow-2xl" />
+            <p className="text-center text-white/30 text-xs mt-1">Click to zoom</p>
           </motion.div>
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2 flex-wrap">
@@ -271,7 +282,8 @@ function DeckDetail({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
             {best.map(({ deck: opp, winRate }) => (
               <div key={opp.id} className="flex items-center gap-3">
                 <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
-                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                  onClick={() => onImageClick(opp)}
+                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
                 <div className="flex-1 min-w-0">
                   <div className="text-white font-semibold text-sm truncate">{opp.name}</div>
                   <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
@@ -291,7 +303,8 @@ function DeckDetail({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
             {worst.map(({ deck: opp, winRate }) => (
               <div key={opp.id} className="flex items-center gap-3">
                 <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
-                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                  onClick={() => onImageClick(opp)}
+                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
                 <div className="flex-1 min-w-0">
                   <div className="text-white font-semibold text-sm truncate">{opp.name}</div>
                   <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
@@ -321,7 +334,8 @@ function DeckDetail({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
                 <motion.div key={opp.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
                   className="p-4 flex items-center gap-4 hover:bg-white/5 transition-colors">
                   <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
-                    className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                    onClick={() => onImageClick(opp)}
+                    className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
                   <div className="flex-1 min-w-0">
                     <div className="text-white font-semibold truncate">{opp.name}</div>
                     <div className="text-xs text-white/40">{opp.color} · Tier {opp.tier}</div>

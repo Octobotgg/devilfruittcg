@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Plus, Minus, Trash2, TrendingUp, Package, DollarSign, RefreshCw, Star } from "lucide-react";
 import { SEED_CARDS, searchCards, type Card } from "@/lib/cards";
+import CardModal, { type CardModalData } from "@/components/CardModal";
 
 interface CollectionEntry { cardId: string; quantity: number; price?: number; lastUpdated?: string; }
 interface Collection { [cardId: string]: CollectionEntry; }
@@ -30,13 +31,38 @@ export default function CollectionPage() {
   const [searching, setSearching] = useState(false);
   const [loadingPrices, setLoadingPrices] = useState(false);
   const [activeTab, setActiveTab] = useState<"collection" | "add">("collection");
+  const [modalCard, setModalCard] = useState<CardModalData | null>(null);
+
+  function openModal(card: Card) {
+    setModalCard({
+      id: card.id, name: card.name, set: card.set, setCode: card.setCode,
+      number: card.number, type: card.type, color: card.color, rarity: card.rarity,
+      cost: card.cost, power: card.power, attribute: card.attribute, imageUrl: card.imageUrl,
+    });
+  }
 
   useEffect(() => { setCollection(loadCollection()); }, []);
 
   useEffect(() => {
-    if (!query.trim()) { setResults(SEED_CARDS.slice(0, 12)); return; }
-    setSearching(true);
-    const t = setTimeout(() => { setResults(searchCards(query)); setSearching(false); }, 200);
+    const run = async () => {
+      const q = query.trim();
+      if (!q) { setResults(SEED_CARDS.slice(0, 12)); return; }
+      setSearching(true);
+      try {
+        const res = await fetch(`/api/cards?q=${encodeURIComponent(q)}&pageSize=24`);
+        if (res.ok) {
+          const json = await res.json();
+          setResults(json.results || []);
+        } else {
+          setResults(searchCards(q));
+        }
+      } catch {
+        setResults(searchCards(q));
+      } finally {
+        setSearching(false);
+      }
+    };
+    const t = setTimeout(run, 220);
     return () => clearTimeout(t);
   }, [query]);
 
@@ -87,6 +113,8 @@ export default function CollectionPage() {
 
   return (
     <div className="space-y-10">
+      <CardModal card={modalCard} onClose={() => setModalCard(null)} />
+
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-purple-500/10 border border-purple-500/20 rounded-full">
@@ -165,7 +193,8 @@ export default function CollectionPage() {
                     <motion.div key={entry.cardId} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.03 }}
                       className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 flex items-center gap-4 hover:border-white/20 transition-all group">
-                      <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 300 }}>
+                      <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 300 }}
+                        className="cursor-zoom-in" onClick={() => openModal(card)} title="Click to view card">
                         <img src={`/api/card-image?id=${card.id}`} alt={card.name}
                           className="w-12 h-16 object-cover rounded-xl border border-white/10 shadow-lg" />
                       </motion.div>
@@ -230,9 +259,10 @@ export default function CollectionPage() {
                     className={`bg-white/[0.03] border rounded-2xl p-4 flex items-center gap-3 transition-all ${
                       inCol ? "border-[#F0C040]/30 bg-[#F0C040]/5" : "border-white/10 hover:border-white/20"
                     }`}>
-                    <motion.div whileHover={{ scale: 1.05 }}>
+                    <motion.div whileHover={{ scale: 1.05 }} className="cursor-zoom-in flex-shrink-0"
+                      onClick={e => { e.stopPropagation(); openModal(card); }} title="Click to view card">
                       <img src={`/api/card-image?id=${card.id}`} alt={card.name}
-                        className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                        className="w-10 h-14 object-cover rounded-lg border border-white/10" />
                     </motion.div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-bold truncate">{card.name}</p>
