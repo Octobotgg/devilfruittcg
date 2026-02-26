@@ -32,13 +32,11 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           animate={{ scale: [1, 1.04, 1] }}
           transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="w-32 h-32 rounded-3xl bg-white/5 border border-[#F0C040]/25 backdrop-blur-sm flex items-center justify-center shadow-2xl shadow-[#F0C040]/15">
-            <img
-              src="/images/straw-hat.png"
-              alt="Luffy's Straw Hat"
-              className="w-24 h-24 object-contain"
-            />
-          </div>
+          <img
+            src="/images/straw-hat.png"
+            alt="Luffy's Straw Hat"
+            className="w-28 h-28 object-contain drop-shadow-[0_0_28px_rgba(240,192,64,0.25)]"
+          />
         </motion.div>
 
         <p className="text-white text-lg font-black tracking-wide">DEVILFRUITTCG.GG</p>
