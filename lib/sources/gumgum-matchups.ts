@@ -1,4 +1,5 @@
 import type { MetaDeck } from "@/lib/meta-decks";
+import { formatDeckDisplayName, normalizeDeckLabel } from "@/lib/deck-names";
 
 interface RawDeck {
   keyId: string;
@@ -112,13 +113,14 @@ export async function fetchGumGumMatchups(limit = 12): Promise<LiveMatchupSnapsh
     .map((d) => {
       const games = d.wins + d.losses;
       const winRate = Math.round((d.wins / games) * 1000) / 10;
-      const displayName = d.variant && d.variant !== "default" ? `${d.leader}: ${d.variant}` : d.leader;
+      const displayName = formatDeckDisplayName(d.leader, d.variant, d.cardId);
+      const cleanLeader = normalizeDeckLabel(d.leader);
       return {
         id: idMap.get(d.cardId)!,
-        name: `${displayName} (${d.cardId})`,
-        leader: d.leader,
+        name: displayName,
+        leader: cleanLeader,
         cardId: d.cardId,
-        color: inferColor(d.leader),
+        color: inferColor(cleanLeader),
         tier: "C",
         metaShare: Math.round(((games / totalGames) * 100) * 10) / 10,
         winRate,

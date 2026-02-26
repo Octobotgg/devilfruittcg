@@ -1,4 +1,5 @@
 import type { MetaDeck } from "@/lib/data/meta";
+import { formatDeckDisplayName, normalizeDeckLabel } from "@/lib/deck-names";
 
 export interface GumGumMeta {
   source: string;
@@ -80,12 +81,13 @@ export async function fetchGumGumMetaDecks(): Promise<GumGumMeta | null> {
   const metaDecks: MetaDeck[] = top.map((r, i) => {
     const rank = i + 1;
     const popularity = Math.round(((r.games / totalGames) * 100) * 10) / 10;
-    const variantLabel = r.variant && r.variant !== "default" ? `: ${r.variant}` : "";
+    const deckLabel = formatDeckDisplayName(r.leader, r.variant, r.id);
+    const cleanLeader = normalizeDeckLabel(r.leader);
     return {
       rank,
-      name: `${r.leader}${variantLabel} (${r.id})`,
+      name: deckLabel,
       tier: assignTier(rank),
-      color: inferColor(r.leader),
+      color: inferColor(cleanLeader),
       winRate: r.winRate,
       popularity,
       trend: "—",

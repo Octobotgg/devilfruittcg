@@ -46,6 +46,7 @@ export default function MetaPage() {
   }, []);
 
   const decks = meta.metaDecks;
+  const isSeeded = String(meta.source).toLowerCase().includes("seeded");
 
   return (
     <div className="space-y-10 pb-24 md:pb-0">
@@ -61,13 +62,13 @@ export default function MetaPage() {
             status === "loading" ? "border-white/20 text-white/50 bg-white/5 animate-pulse" :
                                    "border-orange-400/40 text-orange-400 bg-orange-400/10"
           }`}>
-            {status === "live" ? "● Live" : status === "loading" ? "Loading..." : "● Seeded"}
+            {status === "live" ? (isSeeded ? "● Seeded" : "● Live Aggregate") : status === "loading" ? "Loading..." : "● Seeded"}
           </span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
           Meta <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#F0C040]">Snapshot</span>
         </h1>
-        <p className="text-white/40 text-lg">Top decks from recent tournaments · Updated {new Date(meta.updatedAt).toLocaleDateString()}</p>
+        <p className="text-white/40 text-lg">{isSeeded ? "Seeded meta snapshot" : "Top decks from public aggregate tournaments"} · Updated {new Date(meta.updatedAt).toLocaleDateString()}</p>
       </motion.div>
 
       {/* Top 3 spotlight */}
@@ -180,7 +181,18 @@ export default function MetaPage() {
             <h3 className="text-white font-bold">Data Sources</h3>
           </div>
           <ul className="space-y-2 text-sm text-white/50">
-            {["OPTCG Sim logs → matchup win rates", "Tournament results (Limitless / community)", "Nightly aggregation + outlier trim"].map((item, i) => (
+            {(isSeeded
+              ? [
+                  "Seeded fallback dataset (internal)",
+                  "Public aggregate source unavailable at fetch time",
+                  "Auto-refresh retries every cache cycle",
+                ]
+              : [
+                  "gumgum.gg public aggregate leaderboard",
+                  "Public matchup + deck sample ingestion",
+                  "Scheduled refresh with cache revalidation",
+                ]
+            ).map((item, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span className="text-[#F0C040] mt-0.5">→</span>
                 {item}
@@ -196,7 +208,15 @@ export default function MetaPage() {
             <h3 className="text-[#F0C040] font-bold">Live Feed Status</h3>
           </div>
           <p className="text-white/50 text-sm leading-relaxed">
-            Data pipeline ready — plug OPTCG Sim logs and tournament results into <code className="text-[#F0C040] text-xs bg-[#F0C040]/10 px-1 py-0.5 rounded">/api/meta</code> to go live. Currently seeded.
+            {isSeeded ? (
+              <>
+                Running on seeded fallback right now. Live aggregate source will auto-resume when fetch succeeds via <code className="text-[#F0C040] text-xs bg-[#F0C040]/10 px-1 py-0.5 rounded">/api/meta</code>.
+              </>
+            ) : (
+              <>
+                Live public aggregate is active via <code className="text-[#F0C040] text-xs bg-[#F0C040]/10 px-1 py-0.5 rounded">/api/meta</code>. Snapshot reflects current upstream sample.
+              </>
+            )}
           </p>
         </div>
       </motion.div>

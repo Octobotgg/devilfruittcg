@@ -35,6 +35,12 @@ function TrendIcon({ trend }: { trend: string }) {
   return <Minus className="w-3.5 h-3.5 text-white/30" />;
 }
 
+function shortDeckName(name: string): string {
+  const clean = name.replace(/\s*\([A-Z0-9-]+\)\s*$/i, "").trim();
+  const parts = clean.split(/\s+/);
+  return parts.slice(0, 2).join(" ");
+}
+
 export default function MatchupsPage() {
   const [decks, setDecks] = useState<MetaDeck[]>(META_DECKS);
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
@@ -164,7 +170,7 @@ export default function MatchupsPage() {
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                               onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
                               className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105 cursor-zoom-in" />
-                            <span className="text-[10px] text-white/30 truncate max-w-[50px]">{deck.name.split(" ")[0]}</span>
+                            <span className="text-[10px] text-white/30 truncate max-w-[70px]">{shortDeckName(deck.name)}</span>
                           </button>
                         </th>
                       ))}
@@ -179,7 +185,7 @@ export default function MatchupsPage() {
                             <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
                               className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
                             <div className="text-left">
-                              <div className="text-xs text-white font-semibold leading-tight">{rowDeck.name.split(" ").slice(0, 2).join(" ")}</div>
+                              <div className="text-xs text-white font-semibold leading-tight">{shortDeckName(rowDeck.name)}</div>
                               <span className={`text-[10px] px-1 rounded border font-bold ${TIER_COLORS[rowDeck.tier]}`}>{rowDeck.tier}</span>
                             </div>
                           </button>

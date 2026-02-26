@@ -321,8 +321,8 @@ function HeroSection() {
 // Stats Section
 function StatsSection() {
   const stats = [
-    { value: "800+", label: "Cards Tracked", icon: Anchor, color: "from-blue-500 to-cyan-400" },
-    { value: "15", label: "Sets", icon: Compass, color: "from-amber-500 to-yellow-400" },
+    { value: "1,879", label: "Cards Tracked", icon: Anchor, color: "from-blue-500 to-cyan-400" },
+    { value: "37", label: "Sets", icon: Compass, color: "from-amber-500 to-yellow-400" },
     { value: "12", label: "Meta Decks", icon: Crown, color: "from-purple-500 to-pink-400" },
     { value: "24/7", label: "Live Prices", icon: Zap, color: "from-green-500 to-emerald-400" },
   ];
