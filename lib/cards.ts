@@ -68,15 +68,99 @@ export const SEED_CARDS: Card[] = [
 export function searchCards(query: string): Card[] {
   const q = query.toLowerCase().trim();
   if (!q) return SEED_CARDS.slice(0, 12);
-  return SEED_CARDS.filter(
-    (c) =>
-      c.name.toLowerCase().includes(q) ||
-      c.id.toLowerCase().includes(q) ||
-      c.setCode.toLowerCase().includes(q) ||
-      c.set.toLowerCase().includes(q) ||
-      c.color.toLowerCase().includes(q) ||
-      c.type.toLowerCase().includes(q)
-  );
+
+  // Score and rank results for premium accuracy
+  const scored = SEED_CARDS.map((card) => {
+    let score = 0;
+    const nameLower = card.name.toLowerCase();
+    const idLower = card.id.toLowerCase();
+    const setCodeLower = card.setCode.toLowerCase();
+    
+    // Exact ID match (highest priority - user searching specific card)
+    if (idLower === q) score += 1000;
+    // ID starts with query (e.g., "OP07-" matches OP07 cards)
+    else if (idLower.startsWith(q)) score += 500;
+    // ID contains query
+    else if (idLower.includes(q)) score += 300;
+    
+    // Exact name match
+    if (nameLower === q) score += 900;
+    // Name starts with query (e.g., "Luffy" matches "Luffy Gear 5")
+    else if (nameLower.startsWith(q)) score += 400;
+    // Word boundary match (e.g., "Zoro" matches "Roronoa Zoro")
+    else if (nameLower.includes(` ${q}`) || nameLower.includes(`${q} `)) score += 350;
+    // Name contains query
+    else if (nameLower.includes(q)) score += 200;
+    
+    // Set code exact match
+    if (setCodeLower === q) score += 100;
+    // Set name contains query
+    if (card.set.toLowerCase().includes(q)) score += 50;
+    // Color match
+    if (card.color.toLowerCase().includes(q)) score += 40;
+    // Type match (Leader, Character, Event)
+    if (card.type.toLowerCase().includes(q)) score += 30;
+    
+    return { card, score };
+  });
+
+  // Filter to only results with a score, sort by score (highest first)
+  const results = scored
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map((item) => item.card);
+
+  // Remove duplicates by card ID (keep highest scored)
+  const seen = new Set<string>();
+  const unique = results.filter((card) => {
+    if (seen.has(card.id)) return false;
+    seen.add(card.id);
+    return true;
+  });
+
+  return unique;
+}
+
+// Advanced search with filters for premium experience
+export function advancedSearch(params: {
+  query?: string;
+  setCode?: string;
+  color?: string;
+  type?: string;
+  rarity?: string;
+  minCost?: number;
+  maxCost?: number;
+}): Card[] {
+  let results = SEED_CARDS;
+
+  if (params.query) {
+    results = searchCards(params.query);
+  }
+
+  return results.filter((card) => {
+    if (params.setCode && !card.setCode.toLowerCase().includes(params.setCode.toLowerCase())) return false;
+    if (params.color && !card.color.toLowerCase().includes(params.color.toLowerCase())) return false;
+    if (params.type && !card.type.toLowerCase().includes(params.type.toLowerCase())) return false;
+    if (params.rarity && !card.rarity.toLowerCase().includes(params.rarity.toLowerCase())) return false;
+    if (params.minCost !== undefined && (card.cost === undefined || card.cost < params.minCost)) return false;
+    if (params.maxCost !== undefined && (card.cost === undefined || card.cost > params.maxCost)) return false;
+    return true;
+  });
+}
+
+// Get exact card match or suggestions
+export function findCardExact(query: string): Card | null {
+  const q = query.toLowerCase().trim();
+  
+  // Try exact ID match first
+  const exactId = SEED_CARDS.find((c) => c.id.toLowerCase() === q);
+  if (exactId) return exactId;
+  
+  // Try exact name match
+  const exactName = SEED_CARDS.find((c) => c.name.toLowerCase() === q);
+  if (exactName) return exactName;
+  
+  return null;
 }
 
 export function getCardById(id: string): Card | undefined {
