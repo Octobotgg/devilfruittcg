@@ -1,12 +1,9 @@
 import { SEED_CARDS, type Card } from "./cards";
-import { getOP01Cards } from "./op01-cards";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
-// Fallback-only local cards. Primary source is remote feed for accuracy.
-export const ALL_SET_CARDS: Card[] = [
-  ...getOP01Cards(),
-];
+// All local cards (OP01-OP10, EB01-EB02, ST01-ST21) - used as fallback
+export const ALL_SET_CARDS: Card[] = SEED_CARDS;
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
