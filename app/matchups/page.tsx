@@ -51,7 +51,7 @@ export default function MatchupsPage() {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 pb-24 md:pb-0">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -234,6 +234,34 @@ export default function MatchupsPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile one-thumb view switcher */}
+      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
+        <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
+          <div className="grid grid-cols-3 gap-2">
+            {([
+              { id: "matrix", label: "Matrix" },
+              { id: "tier", label: "Tier" },
+              { id: "detail", label: "Detail" },
+            ] as const).map((v) => (
+              <button
+                key={v.id}
+                onClick={() => {
+                  if (v.id === "detail" && !selectedDeck) return;
+                  setView(v.id);
+                }}
+                className={`h-11 rounded-xl text-xs font-bold transition-all ${
+                  view === v.id
+                    ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
+                    : "bg-white/5 text-white/60 border border-white/10"
+                } ${v.id === "detail" && !selectedDeck ? "opacity-50" : ""}`}
+              >
+                {v.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -78,7 +78,7 @@ function MarketContent() {
   const trendColor = data?.trend.direction === "up" ? "text-green-400" : data?.trend.direction === "down" ? "text-red-400" : "text-white/40";
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 pb-24 md:pb-0">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
 
       {/* Page Header */}
@@ -283,6 +283,23 @@ function MarketContent() {
           <p className="text-white/20 text-sm mt-2">Try "Shanks", "Luffy", or "OP01-001"</p>
         </motion.div>
       )}
+
+      {/* Mobile one-thumb search bar */}
+      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
+        <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
+          <form onSubmit={handleSearch} className="flex gap-2">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search card..."
+              className="flex-1 h-11 rounded-xl bg-white/5 border border-white/10 px-3 text-white text-sm placeholder:text-white/30"
+            />
+            <button className="h-11 px-4 rounded-xl bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black text-sm font-bold">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

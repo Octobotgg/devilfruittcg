@@ -48,7 +48,7 @@ export default function MetaPage() {
   const decks = meta.metaDecks;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 pb-24 md:pb-0">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <div className="flex items-center gap-3 mb-4 flex-wrap">
@@ -200,6 +200,26 @@ export default function MetaPage() {
           </p>
         </div>
       </motion.div>
+
+      {/* Mobile one-thumb utility bar */}
+      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
+        <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="h-11 rounded-xl bg-white/5 border border-white/10 text-white/70 text-sm font-bold"
+            >
+              Back to Top
+            </button>
+            <button
+              onClick={() => window.location.reload()}
+              className="h-11 rounded-xl bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black text-sm font-bold"
+            >
+              Refresh Meta
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
