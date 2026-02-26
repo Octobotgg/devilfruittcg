@@ -1,0 +1,35 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="100" y1="60" x2="430" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#140C22"/>
+      <stop offset="1" stop-color="#0A0F1E"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="150" y1="120" x2="390" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7D978"/>
+      <stop offset="1" stop-color="#D39A1D"/>
+    </linearGradient>
+    <linearGradient id="red" x1="200" y1="180" x2="330" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6666"/>
+      <stop offset="1" stop-color="#991515"/>
+    </linearGradient>
+  </defs>
+  <rect x="36" y="36" width="440" height="440" rx="80" fill="url(#bg)"/>
+  <rect x="36" y="36" width="440" height="440" rx="80" stroke="url(#gold)" stroke-width="10"/>
+
+  <path d="M124 338L178 208L228 246L184 360L124 338Z" fill="#0E1830" stroke="#F0C040" stroke-opacity="0.45"/>
+  <path d="M388 338L334 208L284 246L328 360L388 338Z" fill="#0E1830" stroke="#F0C040" stroke-opacity="0.45"/>
+
+  <path d="M256 168C216 168 188 197 188 237C188 286 224 325 256 341C288 325 324 286 324 237C324 197 296 168 256 168Z" fill="url(#red)"/>
+  <path d="M256 168C216 168 188 197 188 237C188 286 224 325 256 341C288 325 324 286 324 237C324 197 296 168 256 168Z" stroke="#F0C040" stroke-width="5"/>
+
+  <path d="M248 154C250 140 258 128 272 121" stroke="#7FC25A" stroke-width="8" stroke-linecap="round"/>
+  <path d="M275 116C299 112 314 126 308 145C289 148 275 138 275 116Z" fill="#5DAA43"/>
+
+  <g stroke="#F7C948" stroke-width="5" stroke-linecap="round" opacity="0.95">
+    <path d="M226 240C235 230 248 230 253 239C258 248 250 256 241 253"/>
+    <path d="M276 234C286 232 294 239 293 248C292 257 281 260 273 255"/>
+    <path d="M226 274C235 264 248 264 253 273C258 282 250 290 241 287"/>
+  </g>
+
+  <text x="256" y="406" text-anchor="middle" fill="#F0C040" font-size="30" font-family="Inter, Arial" font-weight="900" letter-spacing="7">DEVIL FRUIT TCG</text>
+</svg>

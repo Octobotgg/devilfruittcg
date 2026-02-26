@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="90" y1="70" x2="430" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#131C36"/>
+      <stop offset="1" stop-color="#070C18"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="120" y1="90" x2="390" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8DE8A"/>
+      <stop offset="1" stop-color="#C48E1D"/>
+    </linearGradient>
+    <linearGradient id="fruit" x1="210" y1="180" x2="315" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7777"/>
+      <stop offset="1" stop-color="#A31212"/>
+    </linearGradient>
+  </defs>
+  <path d="M256 40L414 108V246C414 337 355 416 256 462C157 416 98 337 98 246V108L256 40Z" fill="url(#bg)"/>
+  <path d="M256 56L399 118V246C399 329 347 403 256 447C165 403 113 329 113 246V118L256 56Z" stroke="url(#gold)" stroke-width="12"/>
+
+  <rect x="128" y="228" width="92" height="128" rx="12" transform="rotate(-18 128 228)" fill="#0F1A33" stroke="#F0C040" stroke-opacity="0.35"/>
+  <rect x="292" y="214" width="92" height="128" rx="12" transform="rotate(16 292 214)" fill="#0F1A33" stroke="#F0C040" stroke-opacity="0.35"/>
+
+  <path d="M256 178C220 178 194 204 194 240C194 285 227 321 256 336C285 321 318 285 318 240C318 204 292 178 256 178Z" fill="url(#fruit)"/>
+  <path d="M256 178C220 178 194 204 194 240C194 285 227 321 256 336C285 321 318 285 318 240C318 204 292 178 256 178Z" stroke="#F0C040" stroke-width="5"/>
+
+  <path d="M250 166C251 153 260 142 274 136" stroke="#82C15A" stroke-width="8" stroke-linecap="round"/>
+  <g stroke="#F7C948" stroke-width="5" stroke-linecap="round">
+    <path d="M228 242C236 232 248 232 253 240C258 248 250 257 241 254"/>
+    <path d="M274 236C284 233 292 240 290 249C288 257 278 262 271 257"/>
+    <path d="M228 274C236 264 248 264 253 272C258 281 250 290 241 287"/>
+  </g>
+
+  <text x="256" y="396" text-anchor="middle" fill="#F0C040" font-size="34" font-family="Inter, Arial" font-weight="800" letter-spacing="5">DFTCG</text>
+</svg>

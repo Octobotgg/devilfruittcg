@@ -1,0 +1,34 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(170 150) rotate(40) scale(390)">
+      <stop stop-color="#1B2440"/>
+      <stop offset="1" stop-color="#0A0F1E"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="80" y1="80" x2="432" y2="432" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7D978"/>
+      <stop offset="1" stop-color="#C9941E"/>
+    </linearGradient>
+    <linearGradient id="fruit" x1="190" y1="170" x2="320" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6B6B"/>
+      <stop offset="1" stop-color="#B91C1C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="224" fill="url(#g1)"/>
+  <circle cx="256" cy="256" r="224" stroke="url(#gold)" stroke-width="18"/>
+  <circle cx="256" cy="256" r="192" stroke="#F0C040" stroke-opacity="0.35" stroke-width="2"/>
+
+  <path d="M256 170C213 170 182 203 182 246C182 299 221 341 256 358C291 341 330 299 330 246C330 203 299 170 256 170Z" fill="url(#fruit)"/>
+  <path d="M256 170C213 170 182 203 182 246C182 299 221 341 256 358C291 341 330 299 330 246C330 203 299 170 256 170Z" stroke="#F0C040" stroke-opacity="0.6" stroke-width="5"/>
+
+  <path d="M250 154C252 139 262 126 278 120" stroke="#81C15B" stroke-width="9" stroke-linecap="round"/>
+  <path d="M282 112C309 106 325 124 318 144C296 147 282 136 282 112Z" fill="#5AAE42"/>
+
+  <g stroke="#F7C948" stroke-width="5" stroke-linecap="round" opacity="0.9">
+    <path d="M224 238C232 226 247 226 252 236C258 247 248 257 238 254"/>
+    <path d="M277 228C288 226 296 234 294 244C292 254 280 258 272 252"/>
+    <path d="M224 281C232 270 247 270 252 280C258 291 248 301 238 297"/>
+    <path d="M280 278C290 272 302 279 302 290C302 300 289 306 280 300"/>
+  </g>
+
+  <text x="256" y="424" text-anchor="middle" fill="#F0C040" font-size="38" font-family="Inter, Arial" font-weight="800" letter-spacing="4">DEVILFRUITTCG</text>
+</svg>
