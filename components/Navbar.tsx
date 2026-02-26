@@ -2,14 +2,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, TrendingUp, Swords, Crown, Package, Zap } from "lucide-react";
+import { Menu, X, TrendingUp, Swords, Crown, Package, Zap, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
-  { href: "/market",     label: "Market",     icon: TrendingUp },
-  { href: "/matchups",   label: "Matchups",   icon: Swords     },
-  { href: "/meta",       label: "Meta",       icon: Crown      },
-  { href: "/collection", label: "Collection", icon: Package    },
+  { href: "/market",      label: "Market",     icon: TrendingUp },
+  { href: "/matchups",    label: "Matchups",   icon: Swords     },
+  { href: "/meta",        label: "Meta",       icon: Crown      },
+  { href: "/decks",       label: "Decks",      icon: BookOpen   },
+  { href: "/collection",  label: "Collection", icon: Package    },
 ];
 
 export default function Navbar() {
