@@ -24,14 +24,18 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     >
       <div className="text-center">
         <motion.div
-          className="text-8xl mb-6"
+          className="mb-6"
           animate={{ 
-            rotate: [0, 10, -10, 0],
-            scale: [1, 1.1, 1]
+            rotate: [0, 15, -15, 0],
+            scale: [1, 1.15, 1]
           }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          👒
+          <img 
+            src="/images/straw-hat.png" 
+            alt="Luffy's Straw Hat"
+            className="w-32 h-32 object-contain drop-shadow-2xl"
+          />
         </motion.div>
         <motion.div
           className="h-1 w-48 bg-white/10 rounded-full overflow-hidden mx-auto"
@@ -83,8 +87,12 @@ function Navigation() {
             whileHover={{ scale: 1.1, rotate: 10 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-[#DC2626] via-[#DC2626] to-[#991B1B] rounded-xl flex items-center justify-center shadow-2xl shadow-red-500/30">
-              <span className="text-2xl">👒</span>
+            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-2xl shadow-red-500/30">
+              <img 
+                src="/images/straw-hat.png" 
+                alt="Luffy's Straw Hat"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F0C040] rounded-full animate-pulse shadow-lg shadow-yellow-500/50" />
           </motion.div>
@@ -537,7 +545,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">👒</span>
+            <img src="/images/straw-hat.png" alt="Straw Hat" className="w-8 h-8 object-contain" />
             <span className="text-white/40 text-sm">
               © 2026 DevilFruitTCG.gg — Built for the community
             </span>
