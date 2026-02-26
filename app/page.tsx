@@ -71,14 +71,15 @@ function Navigation() {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-6"
-      }`}
-      style={{
-        background: scrolled ? "rgba(10, 15, 30, 0.8)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(240, 192, 64, 0.1)" : "none",
+      className="fixed top-0 left-0 right-0 z-50"
+      animate={{
+        paddingTop: scrolled ? "0.75rem" : "1.5rem",
+        paddingBottom: scrolled ? "0.75rem" : "1.5rem",
+        backgroundColor: scrolled ? "rgba(10, 15, 30, 0.85)" : "rgba(0,0,0,0)",
+        backdropFilter: scrolled ? "blur(20px)" : "blur(0px)",
+        borderBottom: scrolled ? "1px solid rgba(240, 192, 64, 0.15)" : "1px solid rgba(240,192,64,0)",
       }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
@@ -567,12 +568,14 @@ export default function HomePage() {
         {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
+      {/* Nav lives outside the fade wrapper — always mounted, always on top */}
+      <Navigation />
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Navigation />
         <HeroSection />
         <StatsSection />
         <FeaturesSection />
