@@ -57,6 +57,27 @@ function dedupeById(cards: Card[]): Card[] {
   return Object.values(unique);
 }
 
+function dedupeByPrint(cards: Card[]): Card[] {
+  const seen = new Set<string>();
+  const out: Card[] = [];
+  for (const c of cards) {
+    if (!c?.id) continue;
+    const key = `${c.id}|${c.imageUrl || ""}|${c.name}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(c);
+  }
+  return out;
+}
+
+function isLikelyEnglish(name: string): boolean {
+  if (!name) return false;
+  // reject Japanese/CJK scripts
+  if (/[\u3040-\u30ff\u4e00-\u9faf]/.test(name)) return false;
+  // must have latin letters
+  return /[A-Za-z]/.test(name);
+}
+
 export async function loadCards(): Promise<Card[]> {
   const now = Date.now();
   if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return cache.cards;
@@ -71,9 +92,17 @@ export async function loadCards(): Promise<Card[]> {
     const rawCards = Array.isArray(data) ? data : data.cards || [];
     const mapped = (rawCards as any[])
       .map(mapFeedCard)
-      .filter((c): c is Card => Boolean(c && c.id && c.name));
-    // Deduplicate by id, prefer remote feed (more accurate names/numbers)
-    const cards = dedupeById([...mapped, ...baseCards]);
+      .filter((c): c is Card => Boolean(c && c.id && c.name))
+      .filter((c) => isLikelyEnglish(c.name));
+
+    // Keep all unique printings (includes alternate arts when image/name differ)
+    const mappedPrints = dedupeByPrint(mapped);
+
+    // Add local fallback only for card IDs missing from feed
+    const mappedIds = new Set(mappedPrints.map((c) => c.id));
+    const fallbackMissing = baseCards.filter((c) => !mappedIds.has(c.id));
+
+    const cards = [...mappedPrints, ...fallbackMissing];
     cache = { cards, fetchedAt: now };
     return cards.length ? cards : baseCards;
   } catch (e) {
