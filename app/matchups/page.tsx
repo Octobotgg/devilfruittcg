@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {
@@ -37,8 +37,14 @@ function TrendIcon({ trend }: { trend: string }) {
 
 export default function MatchupsPage() {
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
-  const [view, setView] = useState<"matrix" | "tier" | "detail">("matrix");
+  const [view, setView] = useState<"matrix" | "tier" | "detail">("tier");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setView(window.innerWidth < 768 ? "tier" : "matrix");
+    }
+  }, []);
 
   function openDeckModal(deck: MetaDeck) {
     setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
@@ -100,6 +106,7 @@ export default function MatchupsPage() {
         {view === "matrix" && (
           <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             {/* Legend */}
+            <p className="md:hidden text-white/40 text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
                 { color: "bg-green-500", label: "60%+ Favored" },

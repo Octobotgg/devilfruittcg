@@ -95,7 +95,7 @@ function MarketContent() {
 
       {/* Search */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }}>
-        <form onSubmit={handleSearch} className="flex gap-3 max-w-2xl">
+        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 max-w-2xl">
           <div className="flex-1 relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30 pointer-events-none" />
             <input
@@ -145,7 +145,7 @@ function MarketContent() {
           </div>
           <motion.button
             type="submit" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 px-7 py-4 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-2xl text-base"
+            className="w-full sm:w-auto justify-center flex items-center gap-2 px-7 py-4 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-2xl text-base"
           >
             <Zap className="w-4 h-4" />
             Search

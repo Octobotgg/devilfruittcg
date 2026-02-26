@@ -129,7 +129,7 @@ export default function CollectionPage() {
 
       {/* Stats */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-        className="grid grid-cols-3 gap-4">
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { icon: Package,   value: totalCards,  label: "Total Cards",   color: "text-[#F0C040]",  iconColor: "text-[#F0C040]",  bg: "from-[#F0C040]/10 to-transparent", border: "border-[#F0C040]/20" },
           { icon: DollarSign,value: totalValue > 0 ? `$${totalValue.toFixed(2)}` : "—", label: "Est. Value", color: "text-green-400", iconColor: "text-green-400", bg: "from-green-400/10 to-transparent", border: "border-green-400/20" },
@@ -147,7 +147,7 @@ export default function CollectionPage() {
 
       {/* Tabs */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-        className="flex items-center gap-3">
+        className="flex flex-wrap items-center gap-3">
         {[
           { id: "collection", label: `My Collection (${uniqueCards})` },
           { id: "add",        label: "+ Add Cards" },
