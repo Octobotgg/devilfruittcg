@@ -16,21 +16,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.className} bg-[#0a0f1e] text-white min-h-screen`}>
         {/* Premium manga-style global background */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          {/* Manga texture */}
-          <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.14]" />
+          {/* Manga texture (stronger so it's visible) */}
+          <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.28]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060b18]/35 via-transparent to-[#060b18]/45" />
 
-          {/* Glossy card-like sheen */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.10),transparent_45%),linear-gradient(115deg,transparent_35%,rgba(240,192,64,0.08)_50%,transparent_65%)]" />
+          {/* Glossy card-like sheen (stronger highlight sweep) */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.16),transparent_42%),linear-gradient(115deg,transparent_28%,rgba(240,192,64,0.14)_50%,transparent_70%)]" />
 
           {/* Ambient color depth */}
-          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#DC2626]/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#F0C040]/10 rounded-full blur-[100px]" />
-          <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[80px]" />
+          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#DC2626]/16 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#F0C040]/14 rounded-full blur-[100px]" />
+          <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-blue-600/8 rounded-full blur-[80px]" />
 
-          {/* Subtle screen-tone + grid blend */}
-          <div className="absolute inset-0 opacity-[0.025]" style={{
-            backgroundImage: `radial-gradient(circle, rgba(240,192,64,0.18) 1px, transparent 1px), linear-gradient(rgba(240,192,64,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.35) 1px, transparent 1px)`,
-            backgroundSize: "18px 18px, 60px 60px, 60px 60px",
+          {/* Screen-tone + panel-line blend */}
+          <div className="absolute inset-0 opacity-[0.07]" style={{
+            backgroundImage: `radial-gradient(circle, rgba(240,192,64,0.22) 1px, transparent 1px), linear-gradient(rgba(240,192,64,0.28) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.28) 1px, transparent 1px)`,
+            backgroundSize: "16px 16px, 56px 56px, 56px 56px",
           }} />
         </div>
 

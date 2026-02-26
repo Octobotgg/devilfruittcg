@@ -23,7 +23,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Low-cost manga background (static image + subtle gradient), no particle animation */}
-      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-35" />
+      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-55" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/60 via-[#0a0f1e]/85 to-[#0a0f1e]" />
 
       <div className="relative text-center px-6">
@@ -163,7 +163,7 @@ function HeroSection() {
         }} />
 
         {/* Manga texture overlay (static, lightweight) */}
-        <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.08]" />
+        <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.18]" />
       </div>
 
       {/* Content */}
