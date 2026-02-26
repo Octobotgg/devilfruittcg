@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import {
-  META_DECKS, getDeckById, getBestMatchups, getWorstMatchups,
+  META_DECKS,
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
 } from "@/lib/meta-decks";
 import CardModal, { type CardModalData } from "@/components/CardModal";
@@ -30,12 +30,13 @@ function getWinRateLabel(rate: number) {
 }
 
 function TrendIcon({ trend }: { trend: string }) {
-  if (trend === "▲") return <TrendingUp className="w-3.5 h-3.5 text-green-400" />;
-  if (trend === "▼") return <TrendingDown className="w-3.5 h-3.5 text-red-400" />;
+  if (trend === "▲" || trend === "up") return <TrendingUp className="w-3.5 h-3.5 text-green-400" />;
+  if (trend === "▼" || trend === "down") return <TrendingDown className="w-3.5 h-3.5 text-red-400" />;
   return <Minus className="w-3.5 h-3.5 text-white/30" />;
 }
 
 export default function MatchupsPage() {
+  const [decks, setDecks] = useState<MetaDeck[]>(META_DECKS);
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
   const [view, setView] = useState<"matrix" | "tier" | "detail">("tier");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
@@ -44,6 +45,27 @@ export default function MatchupsPage() {
     if (typeof window !== "undefined") {
       setView(window.innerWidth < 768 ? "tier" : "matrix");
     }
+  }, []);
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const res = await fetch("/api/matchups");
+        if (!res.ok) return;
+        const json = await res.json();
+        if (Array.isArray(json.decks) && json.decks.length) {
+          setDecks(json.decks);
+          // keep selection in sync if possible
+          if (selectedDeck) {
+            const updated = json.decks.find((d: MetaDeck) => d.id === selectedDeck.id);
+            if (updated) setSelectedDeck(updated);
+          }
+        }
+      } catch {
+        // fallback silently
+      }
+    };
+    run();
   }, []);
 
   function openDeckModal(deck: MetaDeck) {
@@ -88,10 +110,10 @@ export default function MatchupsPage() {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { value: META_DECKS.length, label: "Meta Decks", color: "text-[#F0C040]" },
-          { value: META_DECKS.filter(d => d.tier === "S").length, label: "S-Tier Decks", color: "text-yellow-400" },
-          { value: META_DECKS.filter(d => d.tier === "A").length, label: "A-Tier Decks", color: "text-blue-400" },
-          { value: META_DECKS.filter(d => d.tier === "B").length, label: "B-Tier Decks", color: "text-purple-400" },
+          { value: decks.length, label: "Meta Decks", color: "text-[#F0C040]" },
+          { value: decks.filter(d => d.tier === "S").length, label: "S-Tier Decks", color: "text-yellow-400" },
+          { value: decks.filter(d => d.tier === "A").length, label: "A-Tier Decks", color: "text-blue-400" },
+          { value: decks.filter(d => d.tier === "B").length, label: "B-Tier Decks", color: "text-purple-400" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.05 }}
             className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 text-center">
@@ -130,7 +152,7 @@ export default function MatchupsPage() {
                       <th className="p-3 text-left text-white/30 text-xs sticky left-0 bg-[#0a0f1e] z-20 min-w-[120px]">
                         Deck ↓ vs →
                       </th>
-                      {META_DECKS.map((deck) => (
+                      {decks.map((deck) => (
                         <th key={deck.id} className="p-2 min-w-[64px]">
                           <button onClick={() => { setSelectedDeck(deck); setView("detail"); }}
                             className="flex flex-col items-center gap-1 group">
@@ -144,7 +166,7 @@ export default function MatchupsPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {META_DECKS.map((rowDeck, ri) => (
+                    {decks.map((rowDeck, ri) => (
                       <tr key={rowDeck.id} className="border-t border-white/5">
                         <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
                           <button onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
@@ -157,7 +179,7 @@ export default function MatchupsPage() {
                             </div>
                           </button>
                         </td>
-                        {META_DECKS.map((colDeck) => {
+                        {decks.map((colDeck) => {
                           const rate = rowDeck.matchups[colDeck.id] ?? 50;
                           const isSelf = rowDeck.id === colDeck.id;
                           return (
@@ -186,7 +208,7 @@ export default function MatchupsPage() {
         {view === "tier" && (
           <motion.div key="tier" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
             {["S", "A", "B", "C"].map((tier) => {
-              const tierDecks = META_DECKS.filter(d => d.tier === tier);
+              const tierDecks = decks.filter(d => d.tier === tier);
               if (!tierDecks.length) return null;
               const t = TIER_COLORS[tier] || "";
               return (
@@ -216,7 +238,7 @@ export default function MatchupsPage() {
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <div className="text-3xl font-black text-white/20">#{META_DECKS.indexOf(deck) + 1}</div>
+                          <div className="text-3xl font-black text-white/20">#{decks.indexOf(deck) + 1}</div>
                         </div>
                       </motion.button>
                     ))}
@@ -230,7 +252,7 @@ export default function MatchupsPage() {
         {/* Detail View */}
         {view === "detail" && selectedDeck && (
           <motion.div key="detail" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-            <DeckDetail deck={selectedDeck} onBack={() => setView("matrix")} onImageClick={openDeckModal} />
+            <DeckDetail deck={selectedDeck} decks={decks} onBack={() => setView("matrix")} onImageClick={openDeckModal} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -266,9 +288,18 @@ export default function MatchupsPage() {
   );
 }
 
-function DeckDetail({ deck, onBack, onImageClick }: { deck: MetaDeck; onBack: () => void; onImageClick: (d: MetaDeck) => void }) {
-  const best = getBestMatchups(deck.id);
-  const worst = getWorstMatchups(deck.id);
+function DeckDetail({ deck, decks, onBack, onImageClick }: { deck: MetaDeck; decks: MetaDeck[]; onBack: () => void; onImageClick: (d: MetaDeck) => void }) {
+  const best = decks
+    .filter((d) => d.id !== deck.id)
+    .map((d) => ({ deck: d, winRate: deck.matchups[d.id] ?? 50 }))
+    .sort((a, b) => b.winRate - a.winRate)
+    .slice(0, 3);
+
+  const worst = decks
+    .filter((d) => d.id !== deck.id)
+    .map((d) => ({ deck: d, winRate: deck.matchups[d.id] ?? 50 }))
+    .sort((a, b) => a.winRate - b.winRate)
+    .slice(0, 3);
 
   return (
     <div className="space-y-6">
@@ -360,7 +391,7 @@ function DeckDetail({ deck, onBack, onImageClick }: { deck: MetaDeck; onBack: ()
           <h3 className="font-black text-white text-lg">All Matchups — {deck.name}</h3>
         </div>
         <div className="divide-y divide-white/5">
-          {META_DECKS.filter(d => d.id !== deck.id)
+          {decks.filter(d => d.id !== deck.id)
             .sort((a, b) => (deck.matchups[b.id] ?? 50) - (deck.matchups[a.id] ?? 50))
             .map((opp, i) => {
               const rate = deck.matchups[opp.id] ?? 50;
