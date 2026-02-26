@@ -1,411 +1,336 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  META_DECKS, 
-  getDeckById, 
-  getBestMatchups, 
-  getWorstMatchups,
-  TIER_COLORS,
-  TREND_ICONS,
-  TREND_COLORS,
-  type MetaDeck 
+import { motion, AnimatePresence } from "framer-motion";
+import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import {
+  META_DECKS, getDeckById, getBestMatchups, getWorstMatchups,
+  TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
 } from "@/lib/meta-decks";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
-// Win rate color coding
-function getWinRateColor(rate: number): string {
+function getWinRateColor(rate: number) {
   if (rate >= 60) return "bg-green-500 text-white";
   if (rate >= 55) return "bg-green-400/80 text-black";
   if (rate >= 52) return "bg-green-300/60 text-black";
-  if (rate >= 50) return "bg-white/20 text-white";
+  if (rate >= 50) return "bg-white/15 text-white";
   if (rate >= 48) return "bg-orange-300/60 text-black";
   if (rate >= 45) return "bg-orange-400/80 text-black";
   return "bg-red-500 text-white";
 }
 
-function getWinRateText(rate: number): string {
+function getWinRateLabel(rate: number) {
   if (rate >= 60) return "Very Favored";
   if (rate >= 55) return "Favored";
   if (rate >= 52) return "Slight Edge";
   if (rate >= 50) return "Even";
-  if (rate >= 48) return "Slight Disadvantage";
+  if (rate >= 48) return "Slight Disadv.";
   if (rate >= 45) return "Unfavored";
   return "Very Unfavored";
 }
 
-// Meta share data for pie chart
-const META_SHARE_DATA = META_DECKS.map(d => ({
-  name: d.name,
-  value: d.metaShare,
-  color: d.color.split("/")[0].toLowerCase() === "red" ? "#ef4444" :
-         d.color.split("/")[0].toLowerCase() === "blue" ? "#3b82f6" :
-         d.color.split("/")[0].toLowerCase() === "purple" ? "#a855f7" :
-         d.color.split("/")[0].toLowerCase() === "black" ? "#6b7280" :
-         d.color.split("/")[0].toLowerCase() === "yellow" ? "#eab308" :
-         d.color.split("/")[0].toLowerCase() === "green" ? "#22c55e" : "#f59e0b"
-}));
+function TrendIcon({ trend }: { trend: string }) {
+  if (trend === "▲") return <TrendingUp className="w-3.5 h-3.5 text-green-400" />;
+  if (trend === "▼") return <TrendingDown className="w-3.5 h-3.5 text-red-400" />;
+  return <Minus className="w-3.5 h-3.5 text-white/30" />;
+}
 
 export default function MatchupsPage() {
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
-  const [view, setView] = useState<"grid" | "detail" | "tier">("grid");
+  const [view, setView] = useState<"matrix" | "tier" | "detail">("matrix");
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-white">⚔️ Matchup Matrix</h1>
-        <p className="text-white/50">Current meta analysis for EB04 format · Click any deck for details</p>
-      </div>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-red-500/10 border border-red-500/20 rounded-full">
+          <Swords className="w-3.5 h-3.5 text-red-400" />
+          <span className="text-red-400 text-xs font-semibold tracking-wider uppercase">Win Rate Data</span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
+          Matchup <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#F0C040]">Matrix</span>
+        </h1>
+        <p className="text-white/40 text-lg">Current meta analysis · Click any deck for full breakdown</p>
+      </motion.div>
 
       {/* View Toggle */}
-      <div className="flex justify-center gap-2">
-        {(["grid", "tier", "detail"] as const).map((v) => (
-          <button
-            key={v}
-            onClick={() => setView(v)}
-            className={`px-4 py-2 rounded-lg font-medium transition-all ${
-              view === v
-                ? "bg-[#f0c040] text-black"
-                : "bg-white/5 text-white/60 hover:text-white border border-white/10"
-            }`}
-          >
-            {v === "grid" && "📊 Matrix"}
-            {v === "tier" && "🏆 Tier List"}
-            {v === "detail" && "📈 Analysis"}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+        className="flex gap-2">
+        {([
+          { id: "matrix", label: "Matrix" },
+          { id: "tier",   label: "Tier List" },
+          { id: "detail", label: "Analysis" },
+        ] as const).map((v) => (
+          <button key={v.id} onClick={() => setView(v.id)}
+            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+              view === v.id
+                ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black shadow-lg"
+                : "bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/8"
+            }`}>
+            {v.label}
           </button>
         ))}
-      </div>
+      </motion.div>
 
-      {/* Meta Overview Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-[#f0c040]">{META_DECKS.length}</div>
-          <div className="text-xs text-white/40">Meta Decks</div>
-        </div>
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-green-400">S</div>
-          <div className="text-xs text-white/40">Top Tier</div>
-        </div>
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-blue-400">A</div>
-          <div className="text-xs text-white/40">High Tier</div>
-        </div>
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-          <div className="text-2xl font-bold text-purple-400">B</div>
-          <div className="text-xs text-white/40">Mid Tier</div>
-        </div>
-      </div>
+      {/* Stats row */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { value: META_DECKS.length, label: "Meta Decks", color: "text-[#F0C040]" },
+          { value: META_DECKS.filter(d => d.tier === "S").length, label: "S-Tier Decks", color: "text-yellow-400" },
+          { value: META_DECKS.filter(d => d.tier === "A").length, label: "A-Tier Decks", color: "text-blue-400" },
+          { value: META_DECKS.filter(d => d.tier === "B").length, label: "B-Tier Decks", color: "text-purple-400" },
+        ].map((stat, i) => (
+          <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.05 }}
+            className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 text-center">
+            <div className={`text-3xl font-black ${stat.color}`}>{stat.value}</div>
+            <div className="text-xs text-white/40 mt-1">{stat.label}</div>
+          </motion.div>
+        ))}
+      </motion.div>
 
-      {/* Grid View */}
-      {view === "grid" && (
-        <div className="space-y-4">
-          {/* Legend */}
-          <div className="flex flex-wrap justify-center gap-2 text-xs">
-            <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-green-500"></span><span className="text-white/50">60%+ (Favored)</span></div>
-            <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-green-400/80"></span><span className="text-white/50">55-59%</span></div>
-            <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-white/20"></span><span className="text-white/50">50% (Even)</span></div>
-            <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-orange-400/80"></span><span className="text-white/50">45-49%</span></div>
-            <div className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-red-500"></span><span className="text-white/50">&lt;45% (Unfavored)</span></div>
-          </div>
+      {/* Matrix View */}
+      <AnimatePresence mode="wait">
+        {view === "matrix" && (
+          <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            {/* Legend */}
+            <div className="flex flex-wrap gap-3 mb-5 text-xs">
+              {[
+                { color: "bg-green-500", label: "60%+ Favored" },
+                { color: "bg-green-400/80", label: "55-59%" },
+                { color: "bg-white/15", label: "50% Even" },
+                { color: "bg-orange-400/80", label: "45-49%" },
+                { color: "bg-red-500", label: "<45% Unfavored" },
+              ].map(l => (
+                <div key={l.label} className="flex items-center gap-1.5">
+                  <div className={`w-3 h-3 rounded ${l.color}`} />
+                  <span className="text-white/40">{l.label}</span>
+                </div>
+              ))}
+            </div>
 
-          {/* Matchup Grid */}
-          <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="p-2 text-left text-white/40 text-xs font-medium sticky left-0 bg-[#0a0f1e] z-20 min-w-[100px]">
-                      Deck ↓ vs →
-                    </th>
-                    {META_DECKS.map((deck) => (
-                      <th key={deck.id} className="p-1 min-w-[60px]">
-                        <button
-                          onClick={() => { setSelectedDeck(deck); setView("detail"); }}
-                          className="flex flex-col items-center gap-1 group"
-                        >
-                          <img
-                            src={`/api/card-image?id=${deck.cardId}`}
-                            alt={deck.name}
-                            className="w-10 h-14 object-cover rounded border border-white/10 group-hover:border-[#f0c040]/50 transition-all"
-                          />
-                          <span className="text-[10px] text-white/40 truncate max-w-[50px]">{deck.name.split(" ")[0]}</span>
-                        </button>
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="p-3 text-left text-white/30 text-xs sticky left-0 bg-[#0a0f1e] z-20 min-w-[120px]">
+                        Deck ↓ vs →
                       </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {META_DECKS.map((rowDeck) => (
-                    <tr key={rowDeck.id} className="border-t border-white/5">
-                      <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
-                        <button
-                          onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
-                          className="flex items-center gap-2 group"
-                        >
-                          <img
-                            src={`/api/card-image?id=${rowDeck.cardId}`}
-                            alt={rowDeck.name}
-                            className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#f0c040]/50 transition-all"
-                          />
-                          <div className="text-left">
-                            <div className="text-xs text-white font-medium">{rowDeck.name}</div>
-                            <span className={`text-[10px] px-1 rounded border ${TIER_COLORS[rowDeck.tier]}`}>
-                              {rowDeck.tier}
-                            </span>
-                          </div>
-                        </button>
-                      </td>
-                      {META_DECKS.map((colDeck) => {
-                        const rate = rowDeck.matchups[colDeck.id] ?? 50;
-                        const isSelf = rowDeck.id === colDeck.id;
-                        return (
-                          <td key={colDeck.id} className="p-1">
-                            {isSelf ? (
-                              <div className="w-full h-8 flex items-center justify-center text-white/10 text-xs">—</div>
-                            ) : (
-                              <button
-                                onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
-                                className={`w-full h-8 rounded flex items-center justify-center text-xs font-bold transition-all hover:scale-110 ${getWinRateColor(rate)}`}
-                                title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                              >
-                                {rate}%
-                              </button>
-                            )}
-                          </td>
-                        );
-                      })}
+                      {META_DECKS.map((deck) => (
+                        <th key={deck.id} className="p-2 min-w-[64px]">
+                          <button onClick={() => { setSelectedDeck(deck); setView("detail"); }}
+                            className="flex flex-col items-center gap-1 group">
+                            <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
+                              className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105" />
+                            <span className="text-[10px] text-white/30 truncate max-w-[50px]">{deck.name.split(" ")[0]}</span>
+                          </button>
+                        </th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Tier List View */}
-      {view === "tier" && (
-        <div className="space-y-6">
-          {/* Meta Share Chart */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-            <h3 className="text-lg font-semibold text-white mb-4 text-center">Meta Share Distribution</h3>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={META_SHARE_DATA}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    dataKey="value"
-                    label={({ name, value }) => `${value}%`}
-                    labelLine={false}
-                  >
-                    {META_SHARE_DATA.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                  </thead>
+                  <tbody>
+                    {META_DECKS.map((rowDeck, ri) => (
+                      <tr key={rowDeck.id} className="border-t border-white/5">
+                        <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
+                          <button onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
+                            className="flex items-center gap-2 group">
+                            <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
+                              className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
+                            <div className="text-left">
+                              <div className="text-xs text-white font-semibold leading-tight">{rowDeck.name.split(" ").slice(0, 2).join(" ")}</div>
+                              <span className={`text-[10px] px-1 rounded border font-bold ${TIER_COLORS[rowDeck.tier]}`}>{rowDeck.tier}</span>
+                            </div>
+                          </button>
+                        </td>
+                        {META_DECKS.map((colDeck) => {
+                          const rate = rowDeck.matchups[colDeck.id] ?? 50;
+                          const isSelf = rowDeck.id === colDeck.id;
+                          return (
+                            <td key={colDeck.id} className="p-1">
+                              {isSelf
+                                ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
+                                : <button onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
+                                    title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 hover:shadow-lg ${getWinRateColor(rate)}`}>
+                                    {rate}%
+                                  </button>
+                              }
+                            </td>
+                          );
+                        })}
+                      </tr>
                     ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1a1a2e', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
-                    itemStyle={{ color: '#fff' }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Tier List */}
-          {["S", "A", "B", "C"].map((tier) => {
-            const tierDecks = META_DECKS.filter((d) => d.tier === tier);
-            if (tierDecks.length === 0) return null;
-            return (
-              <div key={tier} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-                <div className={`p-3 font-bold text-lg ${TIER_COLORS[tier]} border-b border-white/10`}>
-                  Tier {tier}
-                </div>
-                <div className="divide-y divide-white/5">
-                  {tierDecks
-                    .sort((a, b) => b.metaShare - a.metaShare)
-                    .map((deck) => (
-                      <button
-                        key={deck.id}
-                        onClick={() => { setSelectedDeck(deck); setView("detail"); }}
-                        className="w-full p-4 flex items-center gap-4 hover:bg-white/5 transition-all text-left"
-                      >
-                        <img
-                          src={`/api/card-image?id=${deck.cardId}`}
-                          alt={deck.name}
-                          className="w-12 h-16 object-cover rounded border border-white/10"
-                        />
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-white font-semibold">{deck.name}</span>
-                            <span className={`text-xs ${TREND_COLORS[deck.trend]}`}>
-                              {TREND_ICONS[deck.trend]}
-                            </span>
-                          </div>
-                          <div className="text-sm text-white/50">{deck.description}</div>
-                          <div className="flex items-center gap-4 mt-1 text-xs">
-                            <span className="text-white/40">{deck.color}</span>
-                            <span className="text-[#f0c040]">{deck.metaShare}% meta share</span>
-                            <span className="text-green-400">{deck.winRate}% WR</span>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-white">#{META_DECKS.findIndex(d => d.id === deck.id) + 1}</div>
-                          <div className="text-xs text-white/40">Rank</div>
-                        </div>
-                      </button>
-                    ))}
-                </div>
+                  </tbody>
+                </table>
               </div>
-            );
-          })}
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
 
-      {/* Detail View */}
-      {view === "detail" && selectedDeck && (
-        <DeckDetailView deck={selectedDeck} onBack={() => setView("grid")} />
-      )}
+        {/* Tier List View */}
+        {view === "tier" && (
+          <motion.div key="tier" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
+            {["S", "A", "B", "C"].map((tier) => {
+              const tierDecks = META_DECKS.filter(d => d.tier === tier);
+              if (!tierDecks.length) return null;
+              const t = TIER_COLORS[tier] || "";
+              return (
+                <div key={tier} className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+                  <div className={`px-6 py-4 font-black text-xl border-b border-white/10 ${t}`}>
+                    Tier {tier}
+                  </div>
+                  <div className="divide-y divide-white/5">
+                    {tierDecks.sort((a, b) => b.metaShare - a.metaShare).map((deck, i) => (
+                      <motion.button key={deck.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.06 }}
+                        onClick={() => { setSelectedDeck(deck); setView("detail"); }}
+                        className="w-full p-5 flex items-center gap-5 hover:bg-white/5 transition-all text-left group">
+                        <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
+                          className="w-12 h-16 object-cover rounded-xl border border-white/10 group-hover:border-[#F0C040]/40 transition-all group-hover:scale-105" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-white font-bold text-lg">{deck.name}</span>
+                            <TrendIcon trend={deck.trend} />
+                          </div>
+                          <p className="text-white/40 text-sm truncate">{deck.description}</p>
+                          <div className="flex items-center gap-4 mt-2 text-sm">
+                            <span className="text-white/40">{deck.color}</span>
+                            <span className="text-[#F0C040] font-bold">{deck.metaShare}% meta</span>
+                            <span className="text-green-400 font-bold">{deck.winRate}% WR</span>
+                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <div className="text-3xl font-black text-white/20">#{META_DECKS.indexOf(deck) + 1}</div>
+                        </div>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+        )}
+
+        {/* Detail View */}
+        {view === "detail" && selectedDeck && (
+          <motion.div key="detail" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+            <DeckDetail deck={selectedDeck} onBack={() => setView("matrix")} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-// Deck Detail Component
-function DeckDetailView({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
-  const bestMatchups = getBestMatchups(deck.id);
-  const worstMatchups = getWorstMatchups(deck.id);
+function DeckDetail({ deck, onBack }: { deck: MetaDeck; onBack: () => void }) {
+  const best = getBestMatchups(deck.id);
+  const worst = getWorstMatchups(deck.id);
 
   return (
     <div className="space-y-6">
-      <button
-        onClick={onBack}
-        className="text-white/60 hover:text-white flex items-center gap-2 transition-colors"
-      >
-        ← Back to Matrix
+      <button onClick={onBack}
+        className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm font-medium">
+        <ArrowLeft className="w-4 h-4" /> Back to Matrix
       </button>
 
-      {/* Deck Header */}
-      <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-        <div className="flex items-start gap-6">
-          <img
-            src={`/api/card-image?id=${deck.cardId}`}
-            alt={deck.name}
-            className="w-24 h-32 object-cover rounded-xl border border-white/10"
-          />
+      {/* Deck hero */}
+      <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#F0C040]/5 to-transparent pointer-events-none" />
+        <div className="relative flex items-start gap-6 flex-wrap">
+          <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 200 }}>
+            <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
+              className="w-28 h-36 object-cover rounded-2xl border border-white/10 shadow-2xl" />
+          </motion.div>
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <h2 className="text-2xl font-bold text-white">{deck.name}</h2>
-              <span className={`px-2 py-1 rounded-lg border font-bold ${TIER_COLORS[deck.tier]}`}>
-                Tier {deck.tier}
-              </span>
+            <div className="flex items-center gap-3 mb-2 flex-wrap">
+              <h2 className="text-3xl font-black text-white">{deck.name}</h2>
+              <span className={`px-3 py-1 rounded-xl border font-black text-sm ${TIER_COLORS[deck.tier]}`}>Tier {deck.tier}</span>
             </div>
-            <p className="text-white/50 mb-4">{deck.description}</p>
-            
+            <p className="text-white/40 mb-6 text-base">{deck.description}</p>
             <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/5 rounded-lg p-3 text-center">
-                <div className="text-2xl font-bold text-[#f0c040]">{deck.metaShare}%</div>
-                <div className="text-xs text-white/40">Meta Share</div>
-              </div>
-              <div className="bg-white/5 rounded-lg p-3 text-center">
-                <div className="text-2xl font-bold text-green-400">{deck.winRate}%</div>
-                <div className="text-xs text-white/40">Win Rate</div>
-              </div>
-              <div className="bg-white/5 rounded-lg p-3 text-center">
-                <div className={`text-2xl font-bold ${TREND_COLORS[deck.trend]}`}>
-                  {TREND_ICONS[deck.trend]}
+              {[
+                { value: `${deck.metaShare}%`, label: "Meta Share", color: "text-[#F0C040]" },
+                { value: `${deck.winRate}%`,   label: "Win Rate",   color: "text-green-400"  },
+                { value: TREND_ICONS[deck.trend], label: "Trend",   color: TREND_COLORS[deck.trend] },
+              ].map((s, i) => (
+                <div key={i} className="bg-white/5 rounded-2xl p-4 text-center">
+                  <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
+                  <div className="text-xs text-white/40 mt-1">{s.label}</div>
                 </div>
-                <div className="text-xs text-white/40">Trend</div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Best Matchups */}
-        <div className="bg-green-500/5 border border-green-500/20 rounded-xl p-5">
-          <h3 className="text-lg font-semibold text-green-400 mb-4">✅ Best Matchups</h3>
-          <div className="space-y-3">
-            {bestMatchups.map(({ deck: opp, winRate }) => (
+        {/* Best */}
+        <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
+          <h3 className="text-lg font-black text-green-400 mb-5">✅ Best Matchups</h3>
+          <div className="space-y-4">
+            {best.map(({ deck: opp, winRate }) => (
               <div key={opp.id} className="flex items-center gap-3">
-                <img
-                  src={`/api/card-image?id=${opp.cardId}`}
-                  alt={opp.name}
-                  className="w-10 h-14 object-cover rounded border border-white/10"
-                />
-                <div className="flex-1">
-                  <div className="text-white font-medium">{opp.name}</div>
-                  <div className="w-full bg-white/10 rounded-full h-2 mt-1">
-                    <div
-                      className="bg-green-400 h-2 rounded-full transition-all"
-                      style={{ width: `${winRate}%` }}
-                    />
+                <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
+                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-white font-semibold text-sm truncate">{opp.name}</div>
+                  <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
+                    <motion.div className="bg-green-400 h-1.5 rounded-full"
+                      initial={{ width: 0 }} animate={{ width: `${winRate}%` }} transition={{ duration: 0.6 }} />
                   </div>
                 </div>
-                <div className="text-green-400 font-bold">{winRate}%</div>
+                <span className="text-green-400 font-black text-sm">{winRate}%</span>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Worst Matchups */}
-        <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-5">
-          <h3 className="text-lg font-semibold text-red-400 mb-4">❌ Worst Matchups</h3>
-          <div className="space-y-3">
-            {worstMatchups.map(({ deck: opp, winRate }) => (
+        {/* Worst */}
+        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-6">
+          <h3 className="text-lg font-black text-red-400 mb-5">❌ Worst Matchups</h3>
+          <div className="space-y-4">
+            {worst.map(({ deck: opp, winRate }) => (
               <div key={opp.id} className="flex items-center gap-3">
-                <img
-                  src={`/api/card-image?id=${opp.cardId}`}
-                  alt={opp.name}
-                  className="w-10 h-14 object-cover rounded border border-white/10"
-                />
-                <div className="flex-1">
-                  <div className="text-white font-medium">{opp.name}</div>
-                  <div className="w-full bg-white/10 rounded-full h-2 mt-1">
-                    <div
-                      className="bg-red-400 h-2 rounded-full transition-all"
-                      style={{ width: `${winRate}%` }}
-                    />
+                <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
+                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-white font-semibold text-sm truncate">{opp.name}</div>
+                  <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
+                    <motion.div className="bg-red-400 h-1.5 rounded-full"
+                      initial={{ width: 0 }} animate={{ width: `${winRate}%` }} transition={{ duration: 0.6 }} />
                   </div>
                 </div>
-                <div className="text-red-400 font-bold">{winRate}%</div>
+                <span className="text-red-400 font-black text-sm">{winRate}%</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Full Matchup Table */}
-      <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-        <div className="p-4 border-b border-white/10">
-          <h3 className="font-semibold text-white">All Matchups — {deck.name}</h3>
+      {/* Full table */}
+      <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+        <div className="p-5 border-b border-white/10">
+          <h3 className="font-black text-white text-lg">All Matchups — {deck.name}</h3>
         </div>
         <div className="divide-y divide-white/5">
-          {META_DECKS.filter((d) => d.id !== deck.id)
+          {META_DECKS.filter(d => d.id !== deck.id)
             .sort((a, b) => (deck.matchups[b.id] ?? 50) - (deck.matchups[a.id] ?? 50))
-            .map((opp) => {
+            .map((opp, i) => {
               const rate = deck.matchups[opp.id] ?? 50;
+              const favored = rate >= 50;
               return (
-                <div key={opp.id} className="p-4 flex items-center gap-4">
-                  <img
-                    src={`/api/card-image?id=${opp.cardId}`}
-                    alt={opp.name}
-                    className="w-10 h-14 object-cover rounded border border-white/10"
-                  />
-                  <div className="flex-1">
-                    <div className="text-white font-medium">{opp.name}</div>
-                    <div className="text-sm text-white/40">{opp.color} · Tier {opp.tier}</div>
+                <motion.div key={opp.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
+                  className="p-4 flex items-center gap-4 hover:bg-white/5 transition-colors">
+                  <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
+                    className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-white font-semibold truncate">{opp.name}</div>
+                    <div className="text-xs text-white/40">{opp.color} · Tier {opp.tier}</div>
                   </div>
                   <div className="text-right">
-                    <div className={`text-xl font-bold ${rate >= 50 ? "text-green-400" : "text-red-400"}`}>
-                      {rate}%
-                    </div>
-                    <div className="text-xs text-white/40">{getWinRateText(rate)}</div>
+                    <div className={`text-xl font-black ${favored ? "text-green-400" : "text-red-400"}`}>{rate}%</div>
+                    <div className="text-xs text-white/30">{getWinRateLabel(rate)}</div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
         </div>

@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Search, TrendingUp, TrendingDown, Minus, ExternalLink, RefreshCw } from "lucide-react";
+import { Search, TrendingUp, TrendingDown, Minus, ExternalLink, RefreshCw, Zap } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import type { MarketData } from "@/lib/ebay";
 
 function MarketContent() {
@@ -13,11 +14,10 @@ function MarketContent() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<(MarketData & { cached?: boolean }) | null>(null);
   const [error, setError] = useState("");
-  const [suggestions, setSuggestions] = useState<{ id: string; name: string; setCode: string; rarity?: string; imageUrl?: string }[]>([]);
+  const [suggestions, setSuggestions] = useState<{ id: string; name: string; setCode: string; rarity?: string }[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  useEffect(() => {
-    if (initialCard) fetchMarket(initialCard);
-  }, [initialCard]);
+  useEffect(() => { if (initialCard) fetchMarket(initialCard); }, [initialCard]);
 
   useEffect(() => {
     const run = async () => {
@@ -28,29 +28,22 @@ function MarketContent() {
         if (!res.ok) return;
         const json = await res.json();
         setSuggestions(json.results || []);
-      } catch {
-        setSuggestions([]);
-      }
+      } catch { setSuggestions([]); }
     };
     const t = setTimeout(run, 200);
     return () => clearTimeout(t);
   }, [query]);
 
   async function fetchMarket(cardQuery: string) {
-    setLoading(true);
-    setError("");
-    setData(null);
+    setLoading(true); setError(""); setData(null);
     try {
       const res = await fetch(`/api/market?card=${encodeURIComponent(cardQuery)}`);
       if (!res.ok) throw new Error("Card not found");
       const json = await res.json();
       if (json.error) throw new Error(json.error);
       setData(json);
-    } catch (e) {
-      setError(String(e));
-    } finally {
-      setLoading(false);
-    }
+    } catch (e) { setError(String(e)); }
+    finally { setLoading(false); }
   }
 
   function handleSearch(e: React.FormEvent) {
@@ -58,200 +51,195 @@ function MarketContent() {
     if (query.trim()) {
       router.push(`/market?card=${encodeURIComponent(query.trim())}`);
       fetchMarket(query.trim());
+      setShowSuggestions(false);
     }
   }
 
-  const TrendIcon = data?.trend.direction === "up"
-    ? TrendingUp
-    : data?.trend.direction === "down"
-    ? TrendingDown
-    : Minus;
-
-  const trendColor = data?.trend.direction === "up"
-    ? "text-green-400"
-    : data?.trend.direction === "down"
-    ? "text-red-400"
-    : "text-white/40";
+  const TrendIcon = data?.trend.direction === "up" ? TrendingUp : data?.trend.direction === "down" ? TrendingDown : Minus;
+  const trendColor = data?.trend.direction === "up" ? "text-green-400" : data?.trend.direction === "down" ? "text-red-400" : "text-white/40";
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">📈 Market Watch</h1>
-        <p className="text-white/50">Live prices from eBay last 5 sold + TCGPlayer</p>
-      </div>
+    <div className="space-y-10">
+      {/* Page Header */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-[#F0C040]/10 border border-[#F0C040]/20 rounded-full">
+          <TrendingUp className="w-3.5 h-3.5 text-[#F0C040]" />
+          <span className="text-[#F0C040] text-xs font-semibold tracking-wider uppercase">Live Prices</span>
+        </div>
+        <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
+          Market <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] to-[#DC2626]">Watch</span>
+        </h1>
+        <p className="text-white/40 text-lg">Real-time prices from eBay last sold + TCGPlayer</p>
+      </motion.div>
 
       {/* Search */}
-      <form onSubmit={handleSearch} className="flex gap-2 mb-4 max-w-xl">
-        <div className="flex-1 relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search card name or ID (e.g. Luffy, OP01-001)"
-            className="w-full bg-white/5 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#f0c040]/50 transition-all"
-          />
-          {suggestions.length > 0 && (
-            <div className="absolute z-20 mt-2 w-full bg-[#0c1324] border border-white/10 rounded-xl shadow-xl max-h-80 overflow-y-auto">
-              {suggestions.map((s) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => {
-                    setQuery(s.name);
-                    setSuggestions([]);
-                  }}
-                  className="w-full flex items-center gap-3 px-3 py-2 hover:bg-white/5 text-left"
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }}>
+        <form onSubmit={handleSearch} className="flex gap-3 max-w-2xl">
+          <div className="flex-1 relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => { setQuery(e.target.value); setShowSuggestions(true); }}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+              placeholder="Search any card — Shanks, Luffy, OP01-001..."
+              className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F0C040]/50 focus:bg-white/8 transition-all text-base"
+            />
+            <AnimatePresence>
+              {showSuggestions && suggestions.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute z-20 mt-2 w-full bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden"
                 >
-                  {s.imageUrl ? (
-                    <img src={s.imageUrl} alt={s.name} className="w-10 h-14 object-cover rounded border border-white/10" />
-                  ) : (
-                    <img src={`/api/card-image?id=${s.id}`} alt={s.name} className="w-10 h-14 object-cover rounded border border-white/10" />
-                  )}
-                  <div className="flex-1">
-                    <p className="text-white text-sm font-medium">{s.name}</p>
-                    <p className="text-white/40 text-xs">{s.id} · {s.setCode} {s.rarity ? `· ${s.rarity}` : ""}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <button
-          type="submit"
-          className="bg-[#f0c040] hover:bg-[#f0c040]/90 text-black font-semibold px-5 py-3 rounded-xl transition-colors"
-        >
-          Search
-        </button>
-      </form>
+                  {suggestions.map((s) => (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onMouseDown={() => { setQuery(s.name); setSuggestions([]); }}
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors"
+                    >
+                      <img src={`/api/card-image?id=${s.id}`} alt={s.name} className="w-9 h-12 object-cover rounded-lg border border-white/10 flex-shrink-0" />
+                      <div>
+                        <p className="text-white text-sm font-semibold">{s.name}</p>
+                        <p className="text-white/40 text-xs">{s.id} · {s.setCode}{s.rarity ? ` · ${s.rarity}` : ""}</p>
+                      </div>
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          <motion.button
+            type="submit"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="flex items-center gap-2 px-7 py-4 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-2xl text-base"
+          >
+            <Zap className="w-4 h-4" />
+            Search
+          </motion.button>
+        </form>
+      </motion.div>
 
       {/* Loading */}
-      {loading && (
-        <div className="flex items-center gap-3 text-white/50 py-12 justify-center">
-          <RefreshCw className="w-5 h-5 animate-spin" />
-          <span>Fetching market data...</span>
-        </div>
-      )}
+      <AnimatePresence>
+        {loading && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="flex items-center gap-3 text-white/50 py-16 justify-center">
+            <RefreshCw className="w-5 h-5 animate-spin text-[#F0C040]" />
+            <span>Fetching market data...</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Error */}
       {error && (
-        <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+          className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-red-400">
           {error}
-        </div>
+        </motion.div>
       )}
 
       {/* Results */}
-      {data && !loading && (
-        <div className="space-y-6">
-          {/* Card Header */}
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-            <div className="flex items-start gap-6 flex-wrap">
-              {/* Card Image */}
-              <div className="flex-shrink-0">
-                <img
-                  src={`/api/card-image?id=${data.cardId}`}
-                  alt={data.cardName}
-                  className="w-32 rounded-xl shadow-2xl border border-white/10"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
-              </div>
-              {/* Card Info */}
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-white">{data.cardName}</h2>
-                <p className="text-white/40 text-sm mt-1 mb-4">{data.cardId}</p>
-                <div className="text-4xl font-bold text-[#f0c040]">
-                  ${data.ebay.averagePrice.toFixed(2)}
-                </div>
-                <div className="text-sm text-white/40 mt-1">avg last {data.ebay.saleCount} sold</div>
-                <div className={`flex items-center gap-1 mt-1 text-sm font-medium ${trendColor}`}>
-                  <TrendIcon className="w-4 h-4" />
-                  {data.trend.percent}% 7-day
+      <AnimatePresence>
+        {data && !loading && (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-6">
+            {/* Card Hero */}
+            <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#F0C040]/5 to-transparent pointer-events-none" />
+              <div className="relative flex items-start gap-6 flex-wrap">
+                <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 200 }}>
+                  <img src={`/api/card-image?id=${data.cardId}`} alt={data.cardName}
+                    className="w-28 md:w-36 rounded-2xl shadow-2xl shadow-black/50 border border-white/10" />
+                </motion.div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-black text-white mb-1">{data.cardName}</h2>
+                  <p className="text-white/30 text-sm mb-5 font-mono">{data.cardId}</p>
+                  <div className="flex items-end gap-4 flex-wrap">
+                    <div>
+                      <div className="text-5xl font-black text-[#F0C040]">${data.ebay.averagePrice.toFixed(2)}</div>
+                      <div className="text-sm text-white/40 mt-1">avg of last {data.ebay.saleCount} eBay sales</div>
+                    </div>
+                    <div className={`flex items-center gap-1.5 text-lg font-bold mb-1 ${trendColor}`}>
+                      <TrendIcon className="w-5 h-5" />
+                      {data.trend.percent}% this week
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Price Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { label: "eBay Low", value: data.ebay.lowestPrice },
-              { label: "eBay Avg", value: data.ebay.averagePrice },
-              { label: "eBay High", value: data.ebay.highestPrice },
-              { label: "TCG Market", value: data.tcgplayer.market },
-            ].map((item) => (
-              <div key={item.label} className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
-                <div className="text-xl font-bold text-white">
-                  {item.value !== null ? `$${item.value.toFixed(2)}` : "—"}
-                </div>
-                <div className="text-xs text-white/40 mt-1">{item.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* TCGPlayer Row */}
-          {data.tcgplayer.low && (
-            <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-              <h3 className="font-semibold text-white mb-3">TCGPlayer Prices</h3>
-              <div className="flex gap-6 flex-wrap">
-                <div><span className="text-white/40 text-sm">Low</span> <span className="text-white font-medium ml-2">${data.tcgplayer.low?.toFixed(2)}</span></div>
-                <div><span className="text-white/40 text-sm">Mid</span> <span className="text-white font-medium ml-2">${data.tcgplayer.mid?.toFixed(2)}</span></div>
-                <div><span className="text-white/40 text-sm">High</span> <span className="text-white font-medium ml-2">${data.tcgplayer.high?.toFixed(2)}</span></div>
-                <div><span className="text-white/40 text-sm">Market</span> <span className="text-[#f0c040] font-medium ml-2">${data.tcgplayer.market?.toFixed(2)}</span></div>
-              </div>
+            {/* Price Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: "eBay Low",    value: data.ebay.lowestPrice,   accent: false },
+                { label: "eBay Avg",    value: data.ebay.averagePrice,  accent: true  },
+                { label: "eBay High",   value: data.ebay.highestPrice,  accent: false },
+                { label: "TCG Market",  value: data.tcgplayer.market,   accent: false },
+              ].map((item, i) => (
+                <motion.div key={item.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+                  className={`rounded-2xl p-5 text-center border ${item.accent ? "bg-[#F0C040]/5 border-[#F0C040]/20" : "bg-white/[0.03] border-white/10"}`}>
+                  <div className={`text-2xl font-black ${item.accent ? "text-[#F0C040]" : "text-white"}`}>
+                    {item.value !== null ? `$${item.value!.toFixed(2)}` : "—"}
+                  </div>
+                  <div className="text-xs text-white/40 mt-1">{item.label}</div>
+                </motion.div>
+              ))}
             </div>
-          )}
 
-          {/* eBay Sales Table */}
-          <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-            <div className="p-4 border-b border-white/10">
-              <h3 className="font-semibold text-white">Recent eBay Sales</h3>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-white/10 text-white/40">
-                    <th className="text-left p-4 font-medium">Title</th>
-                    <th className="text-left p-4 font-medium">Condition</th>
-                    <th className="text-left p-4 font-medium">Date</th>
-                    <th className="text-right p-4 font-medium">Price</th>
-                    <th className="p-4"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.ebay.sales.map((sale, i) => (
-                    <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                      <td className="p-4 text-white/80 max-w-xs truncate">{sale.title}</td>
-                      <td className="p-4 text-white/50">{sale.condition}</td>
-                      <td className="p-4 text-white/50">{sale.soldDate}</td>
-                      <td className="p-4 text-right font-semibold text-[#f0c040]">${sale.price.toFixed(2)}</td>
-                      <td className="p-4">
-                        {sale.url && (
-                          <a href={sale.url} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="w-4 h-4 text-white/30 hover:text-white transition-colors" />
-                          </a>
-                        )}
-                      </td>
+            {/* Recent Sales */}
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+              <div className="p-5 border-b border-white/10 flex items-center justify-between">
+                <h3 className="font-bold text-white text-lg">Recent eBay Sales</h3>
+                <p className="text-xs text-white/30">{new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""}</p>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/5 text-white/30 text-xs uppercase tracking-wider">
+                      <th className="text-left p-4 font-medium">Title</th>
+                      <th className="text-left p-4 font-medium hidden md:table-cell">Condition</th>
+                      <th className="text-left p-4 font-medium hidden md:table-cell">Date</th>
+                      <th className="text-right p-4 font-medium">Price</th>
+                      <th className="p-4 w-10"></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.ebay.sales.map((sale, i) => (
+                      <motion.tr key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }}
+                        className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                        <td className="p-4 text-white/70 max-w-xs truncate">{sale.title}</td>
+                        <td className="p-4 text-white/40 hidden md:table-cell">{sale.condition}</td>
+                        <td className="p-4 text-white/40 hidden md:table-cell">{sale.soldDate}</td>
+                        <td className="p-4 text-right font-black text-[#F0C040]">${sale.price.toFixed(2)}</td>
+                        <td className="p-4">
+                          {sale.url && (
+                            <a href={sale.url} target="_blank" rel="noopener noreferrer">
+                              <ExternalLink className="w-4 h-4 text-white/20 hover:text-white transition-colors" />
+                            </a>
+                          )}
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-
-          <p className="text-xs text-white/30 text-right">
-            Updated: {new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : "(fresh)"}
-          </p>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Empty state */}
       {!data && !loading && !error && (
-        <div className="text-center py-16 text-white/30">
-          <div className="text-5xl mb-4">🍇</div>
-          <p>Search a card above to see market data</p>
-        </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
+          <div className="text-7xl mb-6">🍇</div>
+          <p className="text-white/30 text-lg">Search a card to see live market data</p>
+          <p className="text-white/20 text-sm mt-2">Try "Shanks", "Luffy", or "OP01-001"</p>
+        </motion.div>
       )}
     </div>
   );
