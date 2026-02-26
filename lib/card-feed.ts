@@ -1,29 +1,11 @@
-import { SEED_CARDS, type Card, searchCards as scoreSearch } from "./cards";
+import { SEED_CARDS, type Card } from "./cards";
 import { getOP01Cards } from "./op01-cards";
-import OP02_CARDS from "./op02-cards";
-import OP03_CARDS from "./op03-cards";
-import OP04_CARDS from "./op04-cards";
-import OP05_CARDS from "./op05-cards";
-import OP06_CARDS from "./op06-cards";
-import OP07_CARDS from "./op07-cards";
-import OP08_CARDS from "./op08-cards";
-import OP09_CARDS from "./op09-cards";
-import { STARTER_DECK_CARDS } from "./starter-decks";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
-// Combine all set cards
+// Fallback-only local cards. Primary source is remote feed for accuracy.
 export const ALL_SET_CARDS: Card[] = [
   ...getOP01Cards(),
-  ...OP02_CARDS,
-  ...OP03_CARDS,
-  ...OP04_CARDS,
-  ...OP05_CARDS,
-  ...OP06_CARDS,
-  ...OP07_CARDS,
-  ...OP08_CARDS,
-  ...OP09_CARDS,
-  ...STARTER_DECK_CARDS,
 ];
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
@@ -81,9 +63,9 @@ export async function loadCards(): Promise<Card[]> {
     const mapped = (rawCards as any[])
       .map(mapFeedCard)
       .filter((c): c is Card => Boolean(c && c.id && c.name));
-    // Deduplicate by id, prefer first occurrence
+    // Deduplicate by id, prefer remote feed (more accurate names/numbers)
     const unique: Record<string, Card> = {};
-    for (const c of [...baseCards, ...mapped]) {
+    for (const c of [...mapped, ...baseCards]) {
       if (!unique[c.id]) unique[c.id] = c;
     }
     const cards = Object.values(unique);
