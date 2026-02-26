@@ -46,7 +46,7 @@ export default function MatchupsPage() {
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
   const [view, setView] = useState<"matrix" | "tier" | "detail">("tier");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
-  const [sourceLabel, setSourceLabel] = useState<string>("seeded fallback");
+  const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
 
   useEffect(() => {
@@ -63,7 +63,10 @@ export default function MatchupsPage() {
         const json = await res.json();
         if (Array.isArray(json.decks) && json.decks.length) {
           setDecks(json.decks);
-          if (json.source) setSourceLabel(String(json.source));
+          if (json.source) {
+            const raw = String(json.source).toLowerCase();
+            setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : "Public aggregate");
+          }
           if (typeof json.sampleGames === "number") setSampleGames(json.sampleGames);
           // keep selection in sync if possible
           if (selectedDeck) {

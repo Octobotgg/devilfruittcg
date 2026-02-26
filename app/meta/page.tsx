@@ -98,7 +98,7 @@ export default function MetaPage() {
         className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
         <div className="p-6 border-b border-white/10 flex items-center justify-between flex-wrap gap-3">
           <h2 className="text-xl font-black text-white">Current Tier List</h2>
-          <span className="text-xs text-white/30 font-mono">{meta.source} · {new Date(meta.updatedAt).toLocaleString()}</span>
+          <span className="text-xs text-white/30 font-mono">{isSeeded ? "Seeded dataset" : "Public aggregate"} · {new Date(meta.updatedAt).toLocaleString()}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -188,7 +188,7 @@ export default function MetaPage() {
                   "Auto-refresh retries every cache cycle",
                 ]
               : [
-                  "gumgum.gg public aggregate leaderboard",
+                  "Public aggregate leaderboard",
                   "Public matchup + deck sample ingestion",
                   "Scheduled refresh with cache revalidation",
                 ]
