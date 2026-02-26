@@ -40,7 +40,14 @@ function trendByWinRate(rate: number): MetaDeck["trend"] {
   return "stable";
 }
 
-export async function fetchGumGumMatchups(limit = 12): Promise<MetaDeck[] | null> {
+export interface LiveMatchupSnapshot {
+  source: string;
+  updatedAt: string;
+  sampleGames: number;
+  decks: MetaDeck[];
+}
+
+export async function fetchGumGumMatchups(limit = 12): Promise<LiveMatchupSnapshot | null> {
   const res = await fetch(URL, {
     headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
     next: { revalidate: 900 },
@@ -146,5 +153,10 @@ export async function fetchGumGumMatchups(limit = 12): Promise<MetaDeck[] | null
     }
   }
 
-  return decks;
+  return {
+    source: "gumgum.gg public aggregate",
+    updatedAt: new Date().toISOString(),
+    sampleGames: totalGames,
+    decks,
+  };
 }

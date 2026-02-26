@@ -40,6 +40,8 @@ export default function MatchupsPage() {
   const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
   const [view, setView] = useState<"matrix" | "tier" | "detail">("tier");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
+  const [sourceLabel, setSourceLabel] = useState<string>("seeded fallback");
+  const [sampleGames, setSampleGames] = useState<number>(0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -55,6 +57,8 @@ export default function MatchupsPage() {
         const json = await res.json();
         if (Array.isArray(json.decks) && json.decks.length) {
           setDecks(json.decks);
+          if (json.source) setSourceLabel(String(json.source));
+          if (typeof json.sampleGames === "number") setSampleGames(json.sampleGames);
           // keep selection in sync if possible
           if (selectedDeck) {
             const updated = json.decks.find((d: MetaDeck) => d.id === selectedDeck.id);
@@ -84,7 +88,8 @@ export default function MatchupsPage() {
         <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
           Matchup <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#F0C040]">Matrix</span>
         </h1>
-        <p className="text-white/40 text-lg">Current meta analysis · Click any deck for full breakdown</p>
+        <p className="text-white/40 text-lg">Public aggregate matchup analysis · Click any deck for full breakdown</p>
+        <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
       </motion.div>
 
       {/* View Toggle */}
