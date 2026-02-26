@@ -14,15 +14,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} bg-[#0a0f1e] text-white min-h-screen`}>
-        {/* Ambient background orbs — visible on all interior pages */}
+        {/* Premium manga-style global background */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+          {/* Manga texture */}
+          <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.14]" />
+
+          {/* Glossy card-like sheen */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.10),transparent_45%),linear-gradient(115deg,transparent_35%,rgba(240,192,64,0.08)_50%,transparent_65%)]" />
+
+          {/* Ambient color depth */}
           <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#DC2626]/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#F0C040]/8 rounded-full blur-[100px]" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#F0C040]/10 rounded-full blur-[100px]" />
           <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[80px]" />
-          {/* Subtle grid */}
-          <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: `linear-gradient(rgba(240,192,64,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.5) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
+
+          {/* Subtle screen-tone + grid blend */}
+          <div className="absolute inset-0 opacity-[0.025]" style={{
+            backgroundImage: `radial-gradient(circle, rgba(240,192,64,0.18) 1px, transparent 1px), linear-gradient(rgba(240,192,64,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.35) 1px, transparent 1px)`,
+            backgroundSize: "18px 18px, 60px 60px, 60px 60px",
           }} />
         </div>
 
