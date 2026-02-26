@@ -1,0 +1,55 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="64" y1="64" x2="448" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A0F2E"/>
+      <stop offset="1" stop-color="#0A0F1E"/>
+    </linearGradient>
+    <linearGradient id="fruitGrad" x1="180" y1="150" x2="340" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF5A5A"/>
+      <stop offset="0.55" stop-color="#DC2626"/>
+      <stop offset="1" stop-color="#8A1212"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="120" y1="96" x2="388" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7D978"/>
+      <stop offset="1" stop-color="#C9941E"/>
+    </linearGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bgGrad)"/>
+  <rect x="24" y="24" width="464" height="464" rx="112" stroke="url(#goldGrad)" stroke-opacity="0.35" stroke-width="8"/>
+
+  <!-- Trading cards fan -->
+  <g opacity="0.95">
+    <rect x="118" y="206" width="118" height="162" rx="14" transform="rotate(-18 118 206)" fill="#0F1A33" stroke="#F0C040" stroke-opacity="0.28"/>
+    <rect x="274" y="198" width="118" height="162" rx="14" transform="rotate(14 274 198)" fill="#0F1A33" stroke="#F0C040" stroke-opacity="0.28"/>
+  </g>
+
+  <!-- Devil fruit body -->
+  <path d="M256 136C198 136 154 180 154 238C154 308 206 364 256 384C306 364 358 308 358 238C358 180 314 136 256 136Z" fill="url(#fruitGrad)"/>
+  <path d="M256 136C198 136 154 180 154 238C154 308 206 364 256 384C306 364 358 308 358 238C358 180 314 136 256 136Z" stroke="#F0C040" stroke-opacity="0.5" stroke-width="6"/>
+
+  <!-- Stem + leaf -->
+  <path d="M250 120C250 103 262 86 282 79" stroke="#8FBF4E" stroke-width="10" stroke-linecap="round"/>
+  <path d="M286 70C318 62 338 82 330 106C304 109 286 95 286 70Z" fill="#5CA940" stroke="#8FD16F" stroke-opacity="0.8"/>
+
+  <!-- Swirl pattern (devil fruit vibe) -->
+  <g stroke="#F7C948" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.88">
+    <path d="M215 226C228 208 254 210 260 226C266 242 246 255 230 248"/>
+    <path d="M282 208C300 206 314 220 310 235C306 250 286 255 274 246"/>
+    <path d="M215 286C228 270 252 272 258 288C264 304 248 318 232 310"/>
+    <path d="M286 286C302 278 320 288 320 304C320 320 300 328 286 318"/>
+  </g>
+
+  <!-- Gloss -->
+  <path d="M202 190C222 168 258 162 282 176" stroke="white" stroke-opacity="0.35" stroke-width="8" stroke-linecap="round" filter="url(#softGlow)"/>
+
+  <!-- Monogram mark -->
+  <text x="256" y="452" text-anchor="middle" fill="#F0C040" fill-opacity="0.92" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="38" letter-spacing="6">DFTCG</text>
+</svg>

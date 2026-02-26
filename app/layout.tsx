@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <footer className="border-t border-white/5 mt-20 py-10 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <img src="/images/straw-hat.png" alt="" className="w-6 h-6 object-contain" />
+              <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-6 h-6 object-contain" />
               <span className="text-white/30 text-sm font-medium">DevilFruitTCG.gg</span>
             </div>
             <p className="text-white/20 text-xs">Built for One Piece TCG players · Not affiliated with Bandai Namco or Toei Animation</p>

@@ -33,8 +33,8 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
         >
           <img
-            src="/images/straw-hat.png"
-            alt="Luffy's Straw Hat"
+            src="/images/devilfruit-emblem.svg"
+            alt="DevilFruitTCG Emblem"
             className="w-28 h-28 object-contain drop-shadow-[0_0_28px_rgba(240,192,64,0.25)]"
           />
         </motion.div>
@@ -85,7 +85,7 @@ function Navigation() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="w-12 h-12 rounded-xl overflow-hidden shadow-2xl shadow-red-500/30">
-              <img src="/images/straw-hat.png" alt="Luffy's Straw Hat" className="w-full h-full object-cover" />
+              <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F0C040] rounded-full animate-pulse shadow-lg shadow-yellow-500/50" />
           </motion.div>
@@ -500,7 +500,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <img src="/images/straw-hat.png" alt="Straw Hat" className="w-8 h-8 object-contain" />
+            <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-8 h-8 object-contain" />
             <span className="text-white/40 text-sm">
               © 2026 DevilFruitTCG.gg — Built for the community
             </span>

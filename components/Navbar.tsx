@@ -35,7 +35,7 @@ export default function Navbar() {
             transition={{ type: "spring", stiffness: 300 }}
             className="relative w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-red-500/20"
           >
-            <img src="/images/straw-hat.png" alt="DevilFruitTCG" className="w-full h-full object-cover" />
+            <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-full h-full object-cover" />
             <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#F0C040] rounded-full animate-pulse" />
           </motion.div>
           <div>
