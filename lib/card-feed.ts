@@ -1,4 +1,4 @@
-import { SEED_CARDS, type Card } from "./cards";
+import { SEED_CARDS, type Card, searchCards as scoreSearch } from "./cards";
 import { getOP01Cards } from "./op01-cards";
 import OP02_CARDS from "./op02-cards";
 import OP03_CARDS from "./op03-cards";
@@ -118,18 +118,60 @@ export function filterCards(cards: Card[], params: {
 
   const query = q.toLowerCase().trim();
 
-  let filtered = cards.filter((c) => {
-    if (set && c.setCode.toLowerCase() !== set.toLowerCase()) return false;
-    if (color && c.color.toLowerCase() !== color.toLowerCase()) return false;
-    if (rarity && c.rarity.toLowerCase() !== rarity.toLowerCase()) return false;
-    if (costMin !== undefined && c.cost !== undefined && c.cost < costMin) return false;
-    if (costMax !== undefined && c.cost !== undefined && c.cost > costMax) return false;
-    if (query) {
-      const hay = `${c.name} ${c.id} ${c.number} ${c.set} ${c.setCode} ${c.color} ${c.type}`.toLowerCase();
-      if (!hay.includes(query)) return false;
-    }
-    return true;
-  });
+  let filtered: Card[];
+  
+  // Use premium scoring search for query, or simple filter for no query
+  if (query) {
+    // Score and rank all cards
+    const scored = cards.map((card) => {
+      let score = 0;
+      const nameLower = card.name.toLowerCase();
+      const idLower = card.id.toLowerCase();
+      const setCodeLower = card.setCode.toLowerCase();
+      
+      // Exact ID match (highest priority)
+      if (idLower === query) score += 1000;
+      else if (idLower.startsWith(query)) score += 500;
+      else if (idLower.includes(query)) score += 300;
+      
+      // Name matches
+      if (nameLower === query) score += 900;
+      else if (nameLower.startsWith(query)) score += 400;
+      else if (nameLower.includes(` ${query}`) || nameLower.includes(`${query} `)) score += 350;
+      else if (nameLower.includes(query)) score += 200;
+      
+      // Other matches
+      if (setCodeLower === query) score += 100;
+      if (card.set.toLowerCase().includes(query)) score += 50;
+      if (card.color.toLowerCase().includes(query)) score += 40;
+      if (card.type.toLowerCase().includes(query)) score += 30;
+      
+      return { card, score };
+    });
+    
+    // Filter to matches only, sort by score
+    filtered = scored
+      .filter((item) => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((item) => item.card);
+    
+    // Remove duplicates
+    const seen = new Set<string>();
+    filtered = filtered.filter((card) => {
+      if (seen.has(card.id)) return false;
+      seen.add(card.id);
+      return true;
+    });
+  } else {
+    filtered = [...cards];
+  }
+
+  // Apply additional filters
+  if (set) filtered = filtered.filter((c) => c.setCode.toLowerCase() === set.toLowerCase());
+  if (color) filtered = filtered.filter((c) => c.color.toLowerCase() === color.toLowerCase());
+  if (rarity) filtered = filtered.filter((c) => c.rarity.toLowerCase() === rarity.toLowerCase());
+  if (costMin !== undefined) filtered = filtered.filter((c) => c.cost === undefined || c.cost >= costMin);
+  if (costMax !== undefined) filtered = filtered.filter((c) => c.cost === undefined || c.cost <= costMax);
 
   const total = filtered.length;
   const start = (page - 1) * pageSize;
