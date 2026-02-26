@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // Two Legends (OP08) - Key cards
-export const OP08_CARDS: Card[] = [
+const OP08_CARDS: Card[] = [
   // Leaders
   { id: "OP08-001", name: "Monkey D. Luffy", set: "Two Legends", setCode: "OP08", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 0, power: 5000 },
   { id: "OP08-002", name: "Shanks", set: "Two Legends", setCode: "OP08", number: "002", type: "Leader", color: "Red/Purple", rarity: "L", cost: 0, power: 5000 },
@@ -122,3 +122,5 @@ export const OP08_CARDS: Card[] = [
   { id: "OP08-103", name: "Gecko Moria", set: "Two Legends", setCode: "OP08", number: "103", type: "Character", color: "Purple", rarity: "SEC", cost: 5, power: 6000 },
   { id: "OP08-104", name: "Perona", set: "Two Legends", setCode: "OP08", number: "104", type: "Character", color: "Purple", rarity: "SEC", cost: 3, power: 3000 }
 ];
+
+export default OP08_CARDS;

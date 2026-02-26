@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // Kingdoms of Intrigue (OP04) - Key cards
-export const OP04_CARDS: Card[] = [
+const OP04_CARDS: Card[] = [
   // Leaders
   { id: "OP04-001", name: "Nefeltari Vivi", set: "Kingdoms of Intrigue", setCode: "OP04", number: "001", type: "Leader", color: "Red/Blue", rarity: "L", cost: 0, power: 5000 },
   { id: "OP04-002", name: "Nico Robin", set: "Kingdoms of Intrigue", setCode: "OP04", number: "002", type: "Leader", color: "Red/Black", rarity: "L", cost: 0, power: 5000 },
@@ -111,3 +111,5 @@ export const OP04_CARDS: Card[] = [
   { id: "OP04-092", name: "Monkey D. Luffy", set: "Kingdoms of Intrigue", setCode: "OP04", number: "092", type: "Character", color: "Black", rarity: "SEC", cost: 7, power: 7000 },
   { id: "OP04-093", name: "Sabo", set: "Kingdoms of Intrigue", setCode: "OP04", number: "093", type: "Character", color: "Green", rarity: "SEC", cost: 5, power: 6000 }
 ];
+
+export default OP04_CARDS;

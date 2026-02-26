@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // Pillars of Strength (OP03) - Key cards
-export const OP03_CARDS: Card[] = [
+const OP03_CARDS: Card[] = [
   // Leaders
   { id: "OP03-001", name: "Kaido", set: "Pillars of Strength", setCode: "OP03", number: "001", type: "Leader", color: "Purple", rarity: "L", cost: 0, power: 5000 },
   { id: "OP03-002", name: "Nami", set: "Pillars of Strength", setCode: "OP03", number: "002", type: "Leader", color: "Blue/Red", rarity: "L", cost: 0, power: 5000 },
@@ -69,3 +69,5 @@ export const OP03_CARDS: Card[] = [
   { id: "OP03-054", name: "Nami", set: "Pillars of Strength", setCode: "OP03", number: "054", type: "Character", color: "Blue", rarity: "SEC", cost: 3, power: 5000 },
   { id: "OP03-055", name: "Rebecca", set: "Pillars of Strength", setCode: "OP03", number: "055", type: "Character", color: "Black", rarity: "SEC", cost: 4, power: 5000 }
 ];
+
+export default OP03_CARDS;

@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // Paramount War (OP02) - Key cards
-export const OP02_CARDS: Card[] = [
+const OP02_CARDS: Card[] = [
   // Leaders
   { id: "OP02-001", name: "Edward Newgate (Whitebeard)", set: "Paramount War", setCode: "OP02", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 0, power: 5000 },
   { id: "OP02-002", name: "Portgas D. Ace", set: "Paramount War", setCode: "OP02", number: "002", type: "Leader", color: "Red", rarity: "L", cost: 0, power: 5000 },
@@ -120,3 +120,5 @@ export const OP02_CARDS: Card[] = [
   { id: "OP02-101", name: "Shanks", set: "Paramount War", setCode: "OP02", number: "101", type: "Character", color: "Red", rarity: "SEC", cost: 9, power: 10000 },
   { id: "OP02-102", name: "Silvers Rayleigh", set: "Paramount War", setCode: "OP02", number: "102", type: "Character", color: "Yellow", rarity: "SEC", cost: 5, power: 7000 }
 ];
+
+export default OP02_CARDS;

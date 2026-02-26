@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // Awakening of the New Era (OP05) - Key cards
-export const OP05_CARDS: Card[] = [
+const OP05_CARDS: Card[] = [
   // Leaders
   { id: "OP05-001", name: "Monkey D. Luffy", set: "Awakening of the New Era", setCode: "OP05", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 0, power: 5000 },
   { id: "OP05-002", name: "Sabo", set: "Awakening of the New Era", setCode: "OP05", number: "002", type: "Leader", color: "Red/Green", rarity: "L", cost: 0, power: 5000 },
@@ -118,3 +118,5 @@ export const OP05_CARDS: Card[] = [
   { id: "OP05-099", name: "Gol.D.Roger", set: "Awakening of the New Era", setCode: "OP05", number: "099", type: "Character", color: "Red", rarity: "SEC", cost: 10, power: 12000 },
   { id: "OP05-100", name: "Silvers Rayleigh", set: "Awakening of the New Era", setCode: "OP05", number: "100", type: "Character", color: "Yellow", rarity: "SEC", cost: 5, power: 7000 }
 ];
+
+export default OP05_CARDS;

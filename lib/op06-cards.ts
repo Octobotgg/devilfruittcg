@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // Wings of the Captain (OP06) - Key cards
-export const OP06_CARDS: Card[] = [
+const OP06_CARDS: Card[] = [
   // Leaders
   { id: "OP06-001", name: "Sanji", set: "Wings of the Captain", setCode: "OP06", number: "001", type: "Leader", color: "Blue", rarity: "L", cost: 0, power: 5000 },
   { id: "OP06-002", name: "Charlotte Katakuri", set: "Wings of the Captain", setCode: "OP06", number: "002", type: "Leader", color: "Blue/Purple", rarity: "L", cost: 0, power: 5000 },
@@ -101,3 +101,5 @@ export const OP06_CARDS: Card[] = [
   { id: "OP06-084", name: "Portgas D. Ace", set: "Wings of the Captain", setCode: "OP06", number: "084", type: "Character", color: "Red", rarity: "SEC", cost: 8, power: 9000 },
   { id: "OP06-085", name: "Edward Newgate", set: "Wings of the Captain", setCode: "OP06", number: "085", type: "Character", color: "Red", rarity: "SEC", cost: 9, power: 10000 }
 ];
+
+export default OP06_CARDS;

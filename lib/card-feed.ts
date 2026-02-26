@@ -1,13 +1,13 @@
 import { SEED_CARDS, type Card } from "./cards";
 import { getOP01Cards } from "./op01-cards";
-import { OP02_CARDS } from "./op02-cards";
-import { OP03_CARDS } from "./op03-cards";
-import { OP04_CARDS } from "./op04-cards";
-import { OP05_CARDS } from "./op05-cards";
-import { OP06_CARDS } from "./op06-cards";
-import { OP07_CARDS } from "./op07-cards";
-import { OP08_CARDS } from "./op08-cards";
-import { OP09_CARDS } from "./op09-cards";
+import OP02_CARDS from "./op02-cards";
+import OP03_CARDS from "./op03-cards";
+import OP04_CARDS from "./op04-cards";
+import OP05_CARDS from "./op05-cards";
+import OP06_CARDS from "./op06-cards";
+import OP07_CARDS from "./op07-cards";
+import OP08_CARDS from "./op08-cards";
+import OP09_CARDS from "./op09-cards";
 import { STARTER_DECK_CARDS } from "./starter-decks";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";

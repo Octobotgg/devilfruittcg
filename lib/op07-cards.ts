@@ -1,7 +1,7 @@
 import { Card } from "./cards";
 
 // 500 Years in the Future (OP07) - Key cards
-export const OP07_CARDS: Card[] = [
+const OP07_CARDS: Card[] = [
   // Leaders
   { id: "OP07-001", name: "Monkey D. Luffy", set: "500 Years in the Future", setCode: "OP07", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 0, power: 5000 },
   { id: "OP07-002", name: "Nico Robin", set: "500 Years in the Future", setCode: "OP07", number: "002", type: "Leader", color: "Purple", rarity: "L", cost: 0, power: 5000 },
@@ -113,3 +113,5 @@ export const OP07_CARDS: Card[] = [
   { id: "OP07-094", name: "Jewelry Bonney", set: "500 Years in the Future", setCode: "OP07", number: "094", type: "Character", color: "Yellow", rarity: "SEC", cost: 3, power: 3000 },
   { id: "OP07-095", name: "Kaido", set: "500 Years in the Future", setCode: "OP07", number: "095", type: "Character", color: "Purple", rarity: "SEC", cost: 9, power: 10000 }
 ];
+
+export default OP07_CARDS;
