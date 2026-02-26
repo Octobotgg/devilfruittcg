@@ -11,49 +11,47 @@ import {
 // Loading Screen Component
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 1000);
+    const timer = setTimeout(onComplete, 900);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-[#0a0f1e] flex items-center justify-center"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#0a0f1e]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="text-center">
+      {/* Low-cost manga background (static image + subtle gradient), no particle animation */}
+      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-35" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/60 via-[#0a0f1e]/85 to-[#0a0f1e]" />
+
+      <div className="relative text-center px-6">
         <motion.div
-          className="mb-6"
-          animate={{ 
-            rotate: [0, 15, -15, 0],
-            scale: [1, 1.15, 1]
-          }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="mb-6 inline-block"
+          animate={{ scale: [1, 1.04, 1] }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <img 
-            src="/images/straw-hat.png" 
-            alt="Luffy's Straw Hat"
-            className="w-32 h-32 object-contain drop-shadow-2xl"
-          />
+          <div className="w-32 h-32 rounded-3xl bg-white/5 border border-[#F0C040]/25 backdrop-blur-sm flex items-center justify-center shadow-2xl shadow-[#F0C040]/15">
+            <img
+              src="/images/straw-hat.png"
+              alt="Luffy's Straw Hat"
+              className="w-24 h-24 object-contain"
+            />
+          </div>
         </motion.div>
-        <motion.div
-          className="h-1 w-48 bg-white/10 rounded-full overflow-hidden mx-auto"
-        >
+
+        <p className="text-white text-lg font-black tracking-wide">DEVILFRUITTCG.GG</p>
+        <p className="mt-1 text-white/45 text-xs tracking-[0.22em] uppercase">Loading your command center</p>
+
+        <div className="mt-5 h-1.5 w-56 bg-white/10 rounded-full overflow-hidden mx-auto border border-white/10">
           <motion.div
-            className="h-full bg-gradient-to-r from-[#DC2626] to-[#F0C040]"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 2, ease: "easeInOut" }}
+            className="h-full bg-gradient-to-r from-[#DC2626] via-[#F0C040] to-[#DC2626]"
+            initial={{ x: "-100%" }}
+            animate={{ x: "100%" }}
+            transition={{ duration: 0.9, ease: "easeInOut" }}
           />
-        </motion.div>
-        <motion.p
-          className="mt-4 text-white/40 text-sm tracking-[0.3em] uppercase"
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          Loading Treasure
-        </motion.p>
+        </div>
       </div>
     </motion.div>
   );
@@ -143,18 +141,6 @@ function HeroSection() {
   const y2 = useTransform(scrollY, [0, 500], [0, -100]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -163,23 +149,13 @@ function HeroSection() {
         {/* Gradient Orbs */}
         <motion.div
           className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-[#DC2626]/20 to-transparent rounded-full blur-[120px]"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          style={{ x: mousePosition.x * 2, y: mousePosition.y * 2 }}
+          animate={{ x: [0, 24, 0], y: [0, 14, 0], scale: [1, 1.04, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-l from-[#F0C040]/20 to-transparent rounded-full blur-[100px]"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          style={{ x: mousePosition.x * -2, y: mousePosition.y * -2 }}
+          animate={{ x: [0, -18, 0], y: [0, -18, 0], scale: [1, 1.05, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         
         {/* Grid Pattern */}
@@ -188,26 +164,8 @@ function HeroSection() {
           backgroundSize: '60px 60px',
         }} />
 
-        {/* Stars */}
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              opacity: [0.2, 1, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+        {/* Manga texture overlay (static, lightweight) */}
+        <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.08]" />
       </div>
 
       {/* Content */}
