@@ -112,7 +112,7 @@ export default function CollectionPage() {
   const getCard = (id: string) => SEED_CARDS.find(c => c.id === id);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 pb-28 md:pb-0">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
 
       {/* Header */}
@@ -147,7 +147,7 @@ export default function CollectionPage() {
 
       {/* Tabs */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-        className="flex flex-wrap items-center gap-3">
+        className="hidden md:flex flex-wrap items-center gap-3">
         {[
           { id: "collection", label: `My Collection (${uniqueCards})` },
           { id: "add",        label: "+ Add Cards" },
@@ -293,6 +293,43 @@ export default function CollectionPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile one-thumb action bar */}
+      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
+        <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={() => setActiveTab("collection")}
+              className={`h-12 rounded-xl text-sm font-bold transition-all ${
+                activeTab === "collection"
+                  ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
+                  : "bg-white/5 text-white/60 border border-white/10"
+              }`}
+            >
+              Collection ({uniqueCards})
+            </button>
+            <button
+              onClick={() => setActiveTab("add")}
+              className={`h-12 rounded-xl text-sm font-bold transition-all ${
+                activeTab === "add"
+                  ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
+                  : "bg-white/5 text-white/60 border border-white/10"
+              }`}
+            >
+              + Add Cards
+            </button>
+          </div>
+          {uniqueCards > 0 && (
+            <button
+              onClick={refreshPrices}
+              disabled={loadingPrices}
+              className="mt-2 w-full h-10 rounded-xl bg-white/5 border border-white/10 text-white/70 text-sm font-semibold"
+            >
+              {loadingPrices ? "Updating prices..." : "Refresh Prices"}
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
