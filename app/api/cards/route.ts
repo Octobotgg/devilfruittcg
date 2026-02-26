@@ -14,5 +14,5 @@ export async function GET(req: NextRequest) {
 
   const all = await loadCards();
   const result = filterCards(all, { q, set, color, rarity, costMin, costMax, page, pageSize });
-  return NextResponse.json(result, { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } });
+  return NextResponse.json(result, { status: 200, headers: { "Cache-Control": "no-store" } });
 }
