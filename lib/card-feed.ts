@@ -48,12 +48,21 @@ function mapFeedCard(raw: any): Card | null {
   }
 }
 
+function dedupeById(cards: Card[]): Card[] {
+  const unique: Record<string, Card> = {};
+  for (const c of cards) {
+    if (!c?.id) continue;
+    if (!unique[c.id]) unique[c.id] = c;
+  }
+  return Object.values(unique);
+}
+
 export async function loadCards(): Promise<Card[]> {
   const now = Date.now();
   if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return cache.cards;
 
-  // Start with all set cards + seed cards as base
-  const baseCards = [...ALL_SET_CARDS, ...SEED_CARDS];
+  // Start with all set cards + seed cards as base, then dedupe locally
+  const baseCards = dedupeById([...ALL_SET_CARDS, ...SEED_CARDS]);
 
   try {
     const res = await fetch(DEFAULT_FEED, { next: { revalidate: 300 } });
@@ -64,11 +73,7 @@ export async function loadCards(): Promise<Card[]> {
       .map(mapFeedCard)
       .filter((c): c is Card => Boolean(c && c.id && c.name));
     // Deduplicate by id, prefer remote feed (more accurate names/numbers)
-    const unique: Record<string, Card> = {};
-    for (const c of [...mapped, ...baseCards]) {
-      if (!unique[c.id]) unique[c.id] = c;
-    }
-    const cards = Object.values(unique);
+    const cards = dedupeById([...mapped, ...baseCards]);
     cache = { cards, fetchedAt: now };
     return cards.length ? cards : baseCards;
   } catch (e) {
