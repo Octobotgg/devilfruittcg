@@ -59,84 +59,6 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   );
 }
 
-// Premium Navigation
-function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3" : "py-6"
-      }`}
-      style={{
-        background: scrolled ? "rgba(10, 15, 30, 0.8)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(240, 192, 64, 0.1)" : "none",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3 group">
-          <motion.div 
-            className="relative"
-            whileHover={{ scale: 1.1, rotate: 10 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-2xl shadow-red-500/30">
-              <img 
-                src="/images/straw-hat.png" 
-                alt="Luffy's Straw Hat"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F0C040] rounded-full animate-pulse shadow-lg shadow-yellow-500/50" />
-          </motion.div>
-          <div>
-            <span className="text-xl font-black tracking-tight text-white">
-              DEVIL<span className="text-[#F0C040]">FRUIT</span>
-            </span>
-            <span className="block text-[10px] text-white/40 tracking-[0.3em] uppercase">TCG.gg</span>
-          </div>
-        </Link>
-
-        <div className="hidden md:flex items-center gap-1">
-          {[
-            { href: "/market", label: "Market", icon: TrendingUp },
-            { href: "/matchups", label: "Matchups", icon: Swords },
-            { href: "/meta", label: "Meta", icon: Crown },
-            { href: "/collection", label: "Collection", icon: Package },
-          ].map((item) => (
-            <Link key={item.href} href={item.href}>
-              <motion.div
-                className="px-5 py-2.5 text-white/60 hover:text-white text-sm font-medium rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2"
-                whileHover={{ y: -2 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-
-        <motion.button
-          className="hidden md:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-xl"
-          whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(240, 192, 64, 0.3)" }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Zap className="w-4 h-4" />
-          Start Trading
-        </motion.button>
-      </div>
-    </motion.nav>
-  );
-}
-
 // Hero Section
 function HeroSection() {
   const { scrollY } = useScroll();
@@ -576,7 +498,6 @@ export default function HomePage() {
           transition={{ duration: 0.5 }}
           className="min-h-screen bg-[#0a0f1e] text-white overflow-x-hidden"
         >
-          <Navigation />
           <HeroSection />
           <StatsSection />
           <FeaturesSection />
