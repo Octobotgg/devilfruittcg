@@ -1,29 +1,166 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="none">
-  <rect width="1600" height="900" fill="#0a0f1e"/>
-  <g opacity="0.18" stroke="#f0c040" stroke-width="2">
-    <path d="M40 70H520V320H40z"/>
-    <path d="M560 70H1030V220H560z"/>
-    <path d="M1080 70H1560V430H1080z"/>
-    <path d="M40 360H430V860H40z"/>
-    <path d="M470 260H1030V860H470z"/>
-    <path d="M1080 470H1560V860H1080z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="7" cy="7" r="1.2" fill="rgba(240,192,64,0.22)"/>
+    </pattern>
+    <pattern id="dots2" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="2.2" fill="rgba(220,38,38,0.08)"/>
+    </pattern>
+    <radialGradient id="centerFade" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="rgba(10,15,30,0.95)"/>
+      <stop offset="45%" stop-color="rgba(6,11,24,0.6)"/>
+      <stop offset="100%" stop-color="rgba(6,11,24,0.0)"/>
+    </radialGradient>
+    <radialGradient id="vignette" cx="50%" cy="50%" r="72%">
+      <stop offset="0%" stop-color="rgba(10,15,30,0)"/>
+      <stop offset="100%" stop-color="rgba(4,8,20,0.92)"/>
+    </radialGradient>
+    <radialGradient id="goldGlow" cx="50%" cy="42%" r="40%">
+      <stop offset="0%" stop-color="rgba(240,192,64,0.07)"/>
+      <stop offset="100%" stop-color="rgba(240,192,64,0)"/>
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="#060b18"/>
+  <rect width="1440" height="900" fill="url(#dots)" opacity="0.9"/>
+  <rect width="1440" height="900" fill="url(#dots2)" opacity="0.6"/>
+
+  <!-- Speed lines from focal point -->
+  <g opacity="0.18" filter="url(#glow)" stroke="#f0c040">
+    <line x1="720" y1="380" x2="0"    y2="0"   stroke-width="0.8"/>
+    <line x1="720" y1="380" x2="120"  y2="0"   stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="240"  y2="0"   stroke-width="0.6"/>
+    <line x1="720" y1="380" x2="360"  y2="0"   stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="480"  y2="0"   stroke-width="0.7"/>
+    <line x1="720" y1="380" x2="600"  y2="0"   stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="720"  y2="0"   stroke-width="1.0"/>
+    <line x1="720" y1="380" x2="840"  y2="0"   stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="960"  y2="0"   stroke-width="0.7"/>
+    <line x1="720" y1="380" x2="1080" y2="0"   stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="1200" y2="0"   stroke-width="0.6"/>
+    <line x1="720" y1="380" x2="1320" y2="0"   stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="1440" y2="0"   stroke-width="0.8"/>
+    <line x1="720" y1="380" x2="1440" y2="150" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="1440" y2="300" stroke-width="0.6"/>
+    <line x1="720" y1="380" x2="1440" y2="450" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="1440" y2="600" stroke-width="0.7"/>
+    <line x1="720" y1="380" x2="1440" y2="750" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="1440" y2="900" stroke-width="0.8"/>
+    <line x1="720" y1="380" x2="1320" y2="900" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="1200" y2="900" stroke-width="0.6"/>
+    <line x1="720" y1="380" x2="1080" y2="900" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="960"  y2="900" stroke-width="0.7"/>
+    <line x1="720" y1="380" x2="840"  y2="900" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="720"  y2="900" stroke-width="1.0"/>
+    <line x1="720" y1="380" x2="600"  y2="900" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="480"  y2="900" stroke-width="0.7"/>
+    <line x1="720" y1="380" x2="360"  y2="900" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="240"  y2="900" stroke-width="0.6"/>
+    <line x1="720" y1="380" x2="120"  y2="900" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="0"    y2="900" stroke-width="0.8"/>
+    <line x1="720" y1="380" x2="0"    y2="750" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="0"    y2="600" stroke-width="0.6"/>
+    <line x1="720" y1="380" x2="0"    y2="450" stroke-width="0.5"/>
+    <line x1="720" y1="380" x2="0"    y2="300" stroke-width="0.7"/>
+    <line x1="720" y1="380" x2="0"    y2="150" stroke-width="0.5"/>
   </g>
-  <g opacity="0.08" stroke="#ffffff" stroke-width="1.2">
-    <path d="M40 70L520 320"/>
-    <path d="M560 220L1030 70"/>
-    <path d="M1080 430L1560 70"/>
-    <path d="M470 260L1030 860"/>
-    <path d="M1080 470L1560 860"/>
+
+  <!-- Manga panel borders -->
+  <g stroke="#f0c040" fill="none">
+    <rect x="16"  y="16"  width="320" height="210" rx="3" opacity="0.14" stroke-width="1.5"/>
+    <rect x="20"  y="20"  width="312" height="202" rx="2" opacity="0.06" stroke-width="0.8"/>
+    <rect x="16"  y="242" width="210" height="300" rx="3" opacity="0.11" stroke-width="1.2"/>
+    <rect x="16"  y="558" width="200" height="162" rx="3" opacity="0.10" stroke-width="1.0"/>
+    <rect x="232" y="680" width="130" height="204" rx="3" opacity="0.08" stroke-width="0.9"/>
+    <rect x="1104" y="16"  width="320" height="260" rx="3" opacity="0.14" stroke-width="1.5"/>
+    <rect x="1108" y="20"  width="312" height="252" rx="2" opacity="0.06" stroke-width="0.8"/>
+    <rect x="1230" y="292" width="194" height="240" rx="3" opacity="0.11" stroke-width="1.0"/>
+    <rect x="1104" y="700" width="320" height="184" rx="3" opacity="0.13" stroke-width="1.5"/>
+    <rect x="1108" y="704" width="312" height="176" rx="2" opacity="0.06" stroke-width="0.8"/>
+    <rect x="16"   y="736" width="200" height="148" rx="3" opacity="0.08" stroke-width="0.9"/>
+    <rect x="1104" y="548" width="120" height="136" rx="3" opacity="0.09" stroke-width="0.9"/>
   </g>
-  <g opacity="0.1" fill="#ffffff">
-    <circle cx="220" cy="210" r="1.5"/>
-    <circle cx="300" cy="170" r="1.5"/>
-    <circle cx="640" cy="150" r="1.5"/>
-    <circle cx="760" cy="120" r="1.5"/>
-    <circle cx="1240" cy="190" r="1.5"/>
-    <circle cx="1360" cy="280" r="1.5"/>
-    <circle cx="220" cy="620" r="1.5"/>
-    <circle cx="760" cy="620" r="1.5"/>
-    <circle cx="1250" cy="710" r="1.5"/>
+
+  <!-- White panel accent borders -->
+  <g stroke="rgba(255,255,255,0.07)" fill="none" stroke-width="3">
+    <rect x="14"   y="14"  width="324" height="214" rx="3"/>
+    <rect x="1102" y="14"  width="324" height="264" rx="3"/>
+    <rect x="1102" y="698" width="324" height="188" rx="3"/>
   </g>
+
+  <!-- Red burst top-left -->
+  <g opacity="0.10" stroke="#dc2626" stroke-width="1.2">
+    <line x1="0"   y1="0"   x2="340" y2="230"/>
+    <line x1="0"   y1="50"  x2="310" y2="240"/>
+    <line x1="0"   y1="100" x2="280" y2="260"/>
+    <line x1="0"   y1="150" x2="250" y2="280"/>
+    <line x1="50"  y1="0"   x2="340" y2="180"/>
+    <line x1="100" y1="0"   x2="340" y2="150"/>
+    <line x1="150" y1="0"   x2="340" y2="110"/>
+  </g>
+
+  <!-- Red burst bottom-right -->
+  <g opacity="0.09" stroke="#dc2626" stroke-width="1.0">
+    <line x1="1440" y1="900" x2="1100" y2="660"/>
+    <line x1="1440" y1="850" x2="1120" y2="650"/>
+    <line x1="1440" y1="800" x2="1140" y2="640"/>
+    <line x1="1440" y1="750" x2="1160" y2="620"/>
+    <line x1="1390" y1="900" x2="1100" y2="690"/>
+    <line x1="1340" y1="900" x2="1100" y2="720"/>
+  </g>
+
+  <!-- Straw hat silhouette -->
+  <g transform="translate(1160,40)" opacity="0.11" fill="#f0c040">
+    <ellipse cx="120" cy="96" rx="112" ry="24"/>
+    <ellipse cx="120" cy="64" rx="74"  ry="58"/>
+    <rect x="50" y="82" width="140" height="12" fill="#dc2626" opacity="0.9"/>
+    <ellipse cx="120" cy="96" rx="82" ry="15" fill="#060b18" opacity="0.6"/>
+  </g>
+
+  <!-- Jolly Roger bottom-left -->
+  <g transform="translate(28, 714)" opacity="0.08" fill="#ffffff">
+    <circle cx="80" cy="58" r="46"/>
+    <ellipse cx="63" cy="52" rx="11" ry="13" fill="#060b18"/>
+    <ellipse cx="97" cy="52" rx="11" ry="13" fill="#060b18"/>
+    <ellipse cx="80" cy="70" rx="7"  ry="5"  fill="#060b18"/>
+    <rect x="60" y="84" width="11" height="13" rx="2" fill="#060b18"/>
+    <rect x="75" y="84" width="11" height="13" rx="2" fill="#060b18"/>
+    <rect x="90" y="84" width="11" height="13" rx="2" fill="#060b18"/>
+    <line x1="8"   y1="96"  x2="52"  y2="132" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="8"   cy="92"  r="9"/>
+    <circle cx="54"  cy="134" r="9"/>
+    <line x1="110" y1="96"  x2="154" y2="132" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="112" cy="92"  r="9"/>
+    <circle cx="156" cy="134" r="9"/>
+  </g>
+
+  <!-- Devil fruit bottom-right panel -->
+  <g transform="translate(1140, 710)" opacity="0.10" fill="#dc2626">
+    <ellipse cx="140" cy="90" rx="72" ry="74"/>
+    <path d="M134 20C136 8 144 -2 156 -8" stroke="#5aad40" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M158 -14C180 -18 192 -4 186 14C168 17 158 6 158 -14Z" fill="#49982e"/>
+    <ellipse cx="118" cy="72" rx="14" ry="8" fill="rgba(240,192,64,0.28)" transform="rotate(-20,118,72)"/>
+    <ellipse cx="164" cy="72" rx="14" ry="8" fill="rgba(240,192,64,0.28)" transform="rotate(20,164,72)"/>
+    <ellipse cx="140" cy="114" rx="16" ry="9" fill="rgba(240,192,64,0.22)"/>
+  </g>
+
+  <!-- Watermarks -->
+  <text x="42"  y="490" font-family="Georgia,serif" font-size="78" font-weight="900" fill="rgba(240,192,64,0.032)" transform="rotate(-14,42,490)"    letter-spacing="10">WANTED</text>
+  <text x="860" y="170" font-family="Georgia,serif" font-size="60" font-weight="900" fill="rgba(240,192,64,0.026)" transform="rotate(7,860,170)"     letter-spacing="6">GRAND LINE</text>
+  <text x="380" y="840" font-family="Georgia,serif" font-size="50" font-weight="900" fill="rgba(255,255,255,0.020)" transform="rotate(-4,380,840)"    letter-spacing="5">ONE PIECE</text>
+
+  <!-- Card suit marks -->
+  <text x="1360" y="460" font-size="40" fill="rgba(240,192,64,0.06)"  font-family="serif">◆</text>
+  <text x="58"   y="640" font-size="40" fill="rgba(240,192,64,0.06)"  font-family="serif">♠</text>
+  <text x="1350" y="620" font-size="34" fill="rgba(220,38,38,0.06)"   font-family="serif">♥</text>
+  <text x="68"   y="340" font-size="34" fill="rgba(255,255,255,0.032)" font-family="serif">♣</text>
+
+  <!-- Central content clearing -->
+  <rect width="1440" height="900" fill="url(#centerFade)"/>
+  <rect width="1440" height="900" fill="url(#goldGlow)"/>
+  <rect width="1440" height="900" fill="url(#vignette)"/>
 </svg>

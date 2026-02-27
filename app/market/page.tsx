@@ -278,12 +278,65 @@ function MarketContent() {
         )}
       </AnimatePresence>
 
-      {/* Empty state */}
+      {/* Featured cards spotlight */}
       {!data && !loading && !error && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
-          <div className="text-7xl mb-6">🍇</div>
-          <p className="text-white/30 text-lg">Search a card to see live market data</p>
-          <p className="text-white/20 text-sm mt-2">Try &quot;Shanks&quot;, &quot;Luffy&quot;, or &quot;OP01-001&quot;</p>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-8">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 bg-gradient-to-b from-[#F0C040] to-[#DC2626] rounded-full" />
+              <h2 className="text-white font-black text-xl">🔥 Hot Right Now</h2>
+              <span className="text-white/30 text-sm hidden sm:inline">Click any card to check live price</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              {[
+                { id: "OP01-060", name: "Shanks", set: "OP01" },
+                { id: "OP01-001", name: "Monkey D. Luffy", set: "OP01" },
+                { id: "OP07-001", name: "Gear 5 Luffy", set: "OP07" },
+                { id: "OP02-002", name: "Edward Newgate", set: "OP02" },
+                { id: "OP09-006", name: "Shanks", set: "OP09" },
+                { id: "OP10-003", name: "Rebecca", set: "OP10" },
+              ].map((card, i) => (
+                <motion.button
+                  key={card.id}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.07 }}
+                  whileHover={{ y: -6, scale: 1.04 }}
+                  onClick={() => { setQuery(card.name); router.push(`/market?card=${encodeURIComponent(card.id)}`); fetchMarket(card.id); }}
+                  className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#F0C040]/50 transition-all bg-white/[0.03] flex flex-col"
+                >
+                  <div className="relative overflow-hidden">
+                    <img src={`/api/card-image?id=${card.id}`} alt={card.name} className="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
+                    <div className="absolute bottom-2 left-2 right-2">
+                      <p className="text-white text-xs font-bold truncate leading-tight">{card.name}</p>
+                      <p className="text-white/50 text-[10px]">{card.set}</p>
+                    </div>
+                  </div>
+                  <div className="px-2 py-2 text-center">
+                    <span className="text-[#F0C040] text-xs font-bold">Check Price →</span>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { icon: "💎", label: "Secret Rares", tip: "Try searching 'SEC' or 'Secret' for chase card pricing" },
+              { icon: "📈", label: "Trending Leaders", tip: "Leader cards move fast — check OP09-006, OP10-003" },
+              { icon: "🏆", label: "Tournament Staples", tip: "OP01-060 Shanks is historically the #1 value card" },
+            ].map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.08 }}
+                className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 flex items-start gap-3">
+                <span className="text-2xl">{item.icon}</span>
+                <div>
+                  <p className="text-white font-bold text-sm">{item.label}</p>
+                  <p className="text-white/40 text-xs mt-1 leading-relaxed">{item.tip}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       )}
 
