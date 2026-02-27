@@ -239,7 +239,7 @@ function MarketContent() {
             <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
               <div className="p-5 border-b border-white/10 flex items-center justify-between flex-wrap gap-2">
                 <h3 className="font-bold text-white text-lg">Recent eBay Sales</h3>
-                <p className="text-xs text-white/30">{new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""}</p>
+                <p className="text-xs text-white/30">{new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""} · source: {data.ebay.source === "completed" ? "eBay sold listings" : data.ebay.source === "active" ? "eBay active listings" : "seeded fallback"}</p>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
