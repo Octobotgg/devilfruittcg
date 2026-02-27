@@ -6,6 +6,7 @@ export interface EbaySale {
   condition: string;
   url: string;
   image?: string;
+  confidence?: number;
 }
 
 export interface MarketData {
@@ -17,6 +18,8 @@ export interface MarketData {
     lowestPrice: number;
     highestPrice: number;
     saleCount: number;
+    qualityConfidence: number;
+    filteredOut: number;
     source: "completed" | "active" | "mock";
   };
   tcgplayer: {
@@ -41,6 +44,100 @@ const EBAY_BASE = EBAY_ENV === "sandbox" ? "https://api.sandbox.ebay.com" : "htt
 const EBAY_FINDING_BASE = EBAY_ENV === "sandbox"
   ? "https://svcs.sandbox.ebay.com/services/search/FindingService/v1"
   : "https://svcs.ebay.com/services/search/FindingService/v1";
+
+function normalize(input: string): string {
+  return input.toLowerCase().replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function normalizeCondition(raw: string): string {
+  const c = normalize(raw);
+  if (!c || c === "unknown") return "Unknown";
+  if (c.includes("near mint") || c === "nm" || c.includes("nm m")) return "Near Mint";
+  if (c.includes("lightly played") || c === "lp") return "Lightly Played";
+  if (c.includes("moderately played") || c === "mp") return "Moderately Played";
+  if (c.includes("heavily played") || c === "hp") return "Heavily Played";
+  if (c.includes("damaged")) return "Damaged";
+  return raw;
+}
+
+function isLikelyEnglish(title: string): boolean {
+  const cjkKana = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g;
+  const match = title.match(cjkKana) || [];
+  return match.length <= 2;
+}
+
+function listingLooksLikeSingleCard(titleNorm: string): boolean {
+  const banned = [
+    "booster box", "case break", "starter deck", "deck box", "playmat", "sleeves",
+    "binder", "proxy", "custom card", "fan art", "digital", "lot of", "bundle",
+    "psa slab lot", "grading service",
+  ];
+  return !banned.some((phrase) => titleNorm.includes(phrase));
+}
+
+function detectVariantSignals(text: string): { manga: boolean; altArt: boolean; sp: boolean } {
+  const t = normalize(text);
+  return {
+    manga: /\bmanga\b/.test(t),
+    altArt: /\balt\s*art\b|\baa\b/.test(t),
+    sp: /\bsp\b|special/.test(t),
+  };
+}
+
+function variantMatchScore(title: string, cardName: string, cardId: string): number {
+  const wanted = detectVariantSignals(`${cardName} ${cardId}`);
+  const got = detectVariantSignals(title);
+  let score = 0;
+  if (wanted.manga && got.manga) score += 0.2;
+  if (wanted.altArt && got.altArt) score += 0.15;
+  if (wanted.sp && got.sp) score += 0.12;
+  if (wanted.manga && !got.manga) score -= 0.3;
+  if (wanted.altArt && !got.altArt) score -= 0.2;
+  if (wanted.sp && !got.sp) score -= 0.15;
+  if (!wanted.manga && got.manga) score -= 0.1;
+  return score;
+}
+
+function scoreListing(title: string, cardName: string, cardId: string, price: number): number {
+  const t = normalize(title);
+  const cardNameNorm = normalize(cardName);
+  const cardIdNorm = normalize(cardId);
+  let score = 0;
+  if (t.includes("one piece")) score += 0.15;
+  if (t.includes("tcg")) score += 0.1;
+  if (t.includes(cardIdNorm)) score += 0.35;
+  const nameTokens = cardNameNorm.split(" ").filter((x) => x.length > 2);
+  const tokenHits = nameTokens.filter((tk) => t.includes(tk)).length;
+  if (nameTokens.length) score += Math.min(0.25, (tokenHits / nameTokens.length) * 0.25);
+  if (t.includes("japanese") || t.includes("jp ver") || t.includes("chinese")) score -= 0.4;
+  if (!isLikelyEnglish(title)) score -= 0.35;
+  if (!listingLooksLikeSingleCard(t)) score -= 0.5;
+  if (price <= 0.99 || price > 2000) score -= 0.4;
+  return Math.max(0, Math.min(1, score + variantMatchScore(title, cardName, cardId)));
+}
+
+function percentile(sorted: number[], p: number): number {
+  if (!sorted.length) return 0;
+  const idx = (sorted.length - 1) * p;
+  const lower = Math.floor(idx);
+  const upper = Math.ceil(idx);
+  if (lower === upper) return sorted[lower];
+  const weight = idx - lower;
+  return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+}
+
+function trimPriceOutliersByIqr(candidates: EbaySale[]): EbaySale[] {
+  if (candidates.length < 4) return candidates;
+  const prices = candidates.map((c) => c.price).sort((a, b) => a - b);
+  const q1 = percentile(prices, 0.25);
+  const q3 = percentile(prices, 0.75);
+  const iqr = q3 - q1;
+  if (iqr <= 0) return candidates;
+  const lower = Math.max(0, q1 - 1.5 * iqr);
+  const upper = q3 + 1.5 * iqr;
+  const trimmed = candidates.filter((c) => c.price >= lower && c.price <= upper);
+  return trimmed.length >= 3 ? trimmed : candidates;
+}
 
 function requireAppId(): string {
   const appId = process.env.EBAY_APP_ID;
@@ -118,14 +215,17 @@ async function fetchCompletedSales(cardName: string, cardId: string): Promise<Eb
     const currency = String(currentPrice["@currencyId"] || "USD");
     const soldDateRaw = String(listingInfo.endTime || new Date().toISOString());
 
+    const confidence = scoreListing(String((item.title as string[] | undefined)?.[0] || `${cardName} ${cardId}`), cardName, cardId, Number.isFinite(price) ? price : 0);
+
     return {
       title: String((item.title as string[] | undefined)?.[0] || `${cardName} ${cardId}`),
       price: Number.isFinite(price) ? price : 0,
       currency,
       soldDate: soldDateRaw.slice(0, 10),
-      condition: String((condition.conditionDisplayName as string[] | undefined)?.[0] || "Unknown"),
+      condition: normalizeCondition(String((condition.conditionDisplayName as string[] | undefined)?.[0] || "Unknown")),
       url: String((item.viewItemURL as string[] | undefined)?.[0] || `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(cardName + " " + cardId)}`),
       image: String((item.galleryURL as string[] | undefined)?.[0] || ""),
+      confidence,
     } satisfies EbaySale;
   }).filter((x) => x.price > 0);
 }
@@ -153,14 +253,17 @@ async function fetchActiveListings(cardName: string, cardId: string): Promise<Eb
   return summaries.slice(0, 5).map((item) => {
     const priceObj = (item.price as Record<string, string> | undefined) || {};
     const rawPrice = Number(priceObj.value || 0);
+    const title = String(item.title || `${cardName} ${cardId}`);
+    const confidence = scoreListing(title, cardName, cardId, Number.isFinite(rawPrice) ? rawPrice : 0);
     return {
-      title: String(item.title || `${cardName} ${cardId}`),
+      title,
       price: Number.isFinite(rawPrice) ? rawPrice : 0,
       currency: String(priceObj.currency || "USD"),
       soldDate: new Date().toISOString().slice(0, 10),
-      condition: String(item.condition || "Unknown"),
+      condition: normalizeCondition(String(item.condition || "Unknown")),
       url: String(item.itemWebUrl || `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(cardName + " " + cardId)}`),
       image: String(((item.thumbnailImages as Array<Record<string, string>> | undefined)?.[0]?.imageUrl) || ((item.image as Record<string, string> | undefined)?.imageUrl) || ""),
+      confidence,
     } satisfies EbaySale;
   }).filter((x) => x.price > 0);
 }
@@ -190,10 +293,19 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
     source = "mock";
   }
 
-  const prices = sales.map((s) => s.price).filter((p) => p > 0);
+  const deduped = Array.from(new Map(sales.filter((s) => s.url).map((s) => [s.url, s])).values());
+  const qualityKept = deduped.filter((s) => (s.confidence ?? 0) >= 0.45);
+  const cleaned = trimPriceOutliersByIqr(qualityKept).slice(0, 5);
+  const finalSales = cleaned.length > 0 ? cleaned : sales;
+
+  const prices = finalSales.map((s) => s.price).filter((p) => p > 0);
   const avg = prices.length ? prices.reduce((a, b) => a + b, 0) / prices.length : 0;
   const low = prices.length ? Math.min(...prices) : 0;
   const high = prices.length ? Math.max(...prices) : 0;
+  const qualityConfidence = finalSales.length
+    ? finalSales.reduce((sum, s) => sum + (s.confidence ?? 0.5), 0) / finalSales.length
+    : 0.5;
+  const filteredOut = Math.max(0, deduped.length - finalSales.length);
 
   const tcg = getMockTCGPlayer(avg);
   const trend = deriveTrend(avg, tcg.market);
@@ -202,11 +314,13 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
     cardName,
     cardId,
     ebay: {
-      sales,
+      sales: finalSales,
       averagePrice: Number(avg.toFixed(2)),
       lowestPrice: Number(low.toFixed(2)),
       highestPrice: Number(high.toFixed(2)),
-      saleCount: sales.length,
+      saleCount: finalSales.length,
+      qualityConfidence: Number(qualityConfidence.toFixed(2)),
+      filteredOut,
       source,
     },
     tcgplayer: tcg,
@@ -232,6 +346,7 @@ function getMockSales(cardName: string, cardId: string): EbaySale[] {
     soldDate: date,
     condition: i % 2 === 0 ? "Near Mint" : "Lightly Played",
     url: `https://www.ebay.com/sch/i.html?_nkw=one+piece+tcg+${encodeURIComponent(cardName)}`,
+    confidence: 0.75,
   }));
 }
 

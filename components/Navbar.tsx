@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import CloudAuthButton from "@/components/auth/CloudAuthButton";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, TrendingUp, Swords, Crown, Package, Zap, BookOpen } from "lucide-react";
@@ -80,6 +81,8 @@ export default function Navbar() {
               Search Cards
             </motion.button>
           </Link>
+
+          <CloudAuthButton />
 
           {/* Mobile toggle */}
           <button

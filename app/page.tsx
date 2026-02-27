@@ -265,11 +265,11 @@ function HeroSection() {
         >
           <div className="flex items-center justify-center gap-4 md:gap-8">
             {[
-              { id: "OP01-002", name: "Roronoa Zoro", rotate: -25, z: -100, y: 20 },
-              { id: "OP02-001", name: "Whitebeard", rotate: -12, z: -50, y: 10 },
-              { id: "OP08-009", name: "Gol D. Roger", rotate: 0, z: 0, y: 0 },
-              { id: "OP05-040", name: "Shanks", rotate: 12, z: -50, y: 10 },
-              { id: "OP03-012", name: "Kaido", rotate: 25, z: -100, y: 20 },
+              { id: "OP01-001", name: "Roronoa Zoro", rotate: -25, z: -100, y: 20 },
+              { id: "OP02-001", name: "Edward Newgate", rotate: -12, z: -50, y: 10 },
+              { id: "OP09-118", name: "Gol D. Roger", rotate: 0, z: 0, y: 0 },
+              { id: "OP01-120", name: "Shanks", rotate: 12, z: -50, y: 10 },
+              { id: "OP01-061", name: "Kaido", rotate: 25, z: -100, y: 20 },
             ].map((card, i) => (
               <motion.div
                 key={card.id}

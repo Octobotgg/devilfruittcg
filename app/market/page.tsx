@@ -76,6 +76,12 @@ function MarketContent() {
 
   const TrendIcon = data?.trend.direction === "up" ? TrendingUp : data?.trend.direction === "down" ? TrendingDown : Minus;
   const trendColor = data?.trend.direction === "up" ? "text-green-400" : data?.trend.direction === "down" ? "text-red-400" : "text-white/40";
+  const quality = data?.ebay.qualityConfidence ?? 0;
+  const qualityBadge = quality >= 0.8
+    ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
+    : quality >= 0.6
+      ? "bg-amber-500/15 text-amber-300 border-amber-500/30"
+      : "bg-red-500/15 text-red-300 border-red-500/30";
 
   return (
     <div className="space-y-10 pb-24 md:pb-0">
@@ -206,10 +212,16 @@ function MarketContent() {
                     <div>
                       <div className="text-5xl font-black text-[#F0C040]">${data.ebay.averagePrice.toFixed(2)}</div>
                       <div className="text-sm text-white/40 mt-1">avg of last {data.ebay.saleCount} eBay sales</div>
+                      <div className="text-xs text-white/30 mt-1">quality {(data.ebay.qualityConfidence * 100).toFixed(0)}% · filtered {data.ebay.filteredOut}</div>
                     </div>
-                    <div className={`flex items-center gap-1.5 text-lg font-bold mb-1 ${trendColor}`}>
-                      <TrendIcon className="w-5 h-5" />
-                      {data.trend.percent}% this week
+                    <div className="flex items-center gap-3 flex-wrap mb-1">
+                      <div className={`flex items-center gap-1.5 text-lg font-bold ${trendColor}`}>
+                        <TrendIcon className="w-5 h-5" />
+                        {data.trend.percent}% this week
+                      </div>
+                      <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${qualityBadge}`}>
+                        Confidence {(data.ebay.qualityConfidence * 100).toFixed(0)}%
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -289,12 +301,12 @@ function MarketContent() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
               {[
-                { id: "OP01-060", name: "Shanks", set: "OP01" },
-                { id: "OP01-001", name: "Monkey D. Luffy", set: "OP01" },
-                { id: "OP07-001", name: "Gear 5 Luffy", set: "OP07" },
-                { id: "OP02-002", name: "Edward Newgate", set: "OP02" },
-                { id: "OP09-006", name: "Shanks", set: "OP09" },
-                { id: "OP10-003", name: "Rebecca", set: "OP10" },
+                { id: "OP01-120", name: "Shanks", set: "OP01" },
+                { id: "OP01-001", name: "Roronoa Zoro", set: "OP01" },
+                { id: "OP09-118", name: "Gol D. Roger", set: "OP09" },
+                { id: "OP02-001", name: "Edward Newgate", set: "OP02" },
+                { id: "OP01-061", name: "Kaido", set: "OP01" },
+                { id: "OP06-007", name: "Shanks", set: "OP06" },
               ].map((card, i) => (
                 <motion.button
                   key={card.id}
