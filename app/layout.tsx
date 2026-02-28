@@ -14,24 +14,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} bg-[#0a0f1e] text-white min-h-screen`}>
-        {/* Premium manga-style global background */}
+        {/* Ambient background orbs — visible on all interior pages */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          {/* Manga texture (stronger so it's visible) */}
-          <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.28]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#060b18]/35 via-transparent to-[#060b18]/45" />
-
-          {/* Glossy card-like sheen (stronger highlight sweep) */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.16),transparent_42%),linear-gradient(115deg,transparent_28%,rgba(240,192,64,0.14)_50%,transparent_70%)]" />
-
-          {/* Ambient color depth */}
-          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#DC2626]/16 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#F0C040]/14 rounded-full blur-[100px]" />
-          <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-blue-600/8 rounded-full blur-[80px]" />
-
-          {/* Screen-tone + panel-line blend */}
-          <div className="absolute inset-0 opacity-[0.07]" style={{
-            backgroundImage: `radial-gradient(circle, rgba(240,192,64,0.22) 1px, transparent 1px), linear-gradient(rgba(240,192,64,0.28) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.28) 1px, transparent 1px)`,
-            backgroundSize: "16px 16px, 56px 56px, 56px 56px",
+          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#DC2626]/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#F0C040]/8 rounded-full blur-[100px]" />
+          <div className="absolute top-[40%] left-[60%] w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[80px]" />
+          {/* Subtle grid */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{
+            backgroundImage: `linear-gradient(rgba(240,192,64,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.5) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
           }} />
         </div>
 
@@ -42,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <footer className="border-t border-white/5 mt-20 py-10 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-6 h-6 object-contain" />
+              <img src="/images/logo-concept-crest.svg?v=2" alt="" className="w-6 h-6 object-contain" />
               <span className="text-white/30 text-sm font-medium">DevilFruitTCG.gg</span>
             </div>
             <p className="text-white/20 text-xs">Built for One Piece TCG players · Not affiliated with Bandai Namco or Toei Animation</p>

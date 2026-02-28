@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import CloudAuthButton from "@/components/auth/CloudAuthButton";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, TrendingUp, Swords, Crown, Package, Zap, BookOpen } from "lucide-react";
@@ -36,7 +35,7 @@ export default function Navbar() {
             transition={{ type: "spring", stiffness: 300 }}
             className="relative w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-red-500/20"
           >
-            <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-full h-full object-cover" />
+            <img src="/images/logo-concept-crest.svg?v=2" alt="DevilFruitTCG crest logo" className="w-full h-full object-cover" />
             <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#F0C040] rounded-full animate-pulse" />
           </motion.div>
           <div>
@@ -81,8 +80,6 @@ export default function Navbar() {
               Search Cards
             </motion.button>
           </Link>
-
-          <CloudAuthButton />
 
           {/* Mobile toggle */}
           <button
