@@ -15,6 +15,18 @@ function loadCollection(): Collection {
 }
 function saveCollection(c: Collection) { localStorage.setItem(STORAGE_KEY, JSON.stringify(c)); }
 
+function formatAge(iso?: string) {
+  if (!iso) return "never";
+  const ms = Date.now() - new Date(iso).getTime();
+  const m = Math.max(0, Math.floor(ms / 60000));
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  return `${d}d ago`;
+}
+
 const rarityBadge: Record<string, string> = {
   L:   "text-[#F0C040] bg-[#F0C040]/10 border-[#F0C040]/30",
   SEC: "text-pink-400 bg-pink-400/10 border-pink-400/30",
@@ -30,6 +42,7 @@ export default function CollectionPage() {
   const [results, setResults] = useState<Card[]>([]);
   const [searching, setSearching] = useState(false);
   const [loadingPrices, setLoadingPrices] = useState(false);
+  const [refreshProgress, setRefreshProgress] = useState({ done: 0, total: 0 });
   const [activeTab, setActiveTab] = useState<"collection" | "add">("collection");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
 
@@ -92,7 +105,10 @@ export default function CollectionPage() {
     if (!entries.length) return;
     setLoadingPrices(true);
     const updated = { ...collection };
-    await Promise.all(entries.slice(0, 5).map(async (entry) => {
+    const target = entries.slice(0, 12);
+    setRefreshProgress({ done: 0, total: target.length });
+
+    for (const entry of target) {
       try {
         const res = await fetch(`/api/market?id=${entry.cardId}`);
         if (res.ok) {
@@ -101,8 +117,12 @@ export default function CollectionPage() {
           updated[entry.cardId].lastUpdated = new Date().toISOString();
         }
       } catch {}
-    }));
-    setCollection(updated); saveCollection(updated); setLoadingPrices(false);
+      setRefreshProgress((p) => ({ ...p, done: p.done + 1 }));
+    }
+
+    setCollection(updated);
+    saveCollection(updated);
+    setLoadingPrices(false);
   }, [collection]);
 
   const entries = Object.values(collection);
@@ -165,7 +185,7 @@ export default function CollectionPage() {
           <button onClick={refreshPrices} disabled={loadingPrices}
             className="ml-auto flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-white/5 border border-white/10 text-white/50 hover:text-white transition-all">
             <RefreshCw className={`w-4 h-4 ${loadingPrices ? "animate-spin" : ""}`} />
-            {loadingPrices ? "Updating..." : "Refresh Prices"}
+            {loadingPrices ? `Updating ${refreshProgress.done}/${refreshProgress.total || 0}` : "Refresh Prices"}
           </button>
         )}
       </motion.div>
@@ -205,7 +225,10 @@ export default function CollectionPage() {
                         </div>
                         <p className="text-xs text-white/30 font-mono">{card.id} · {card.set}</p>
                         {entry.price
-                          ? <p className="text-xs text-green-400 mt-1 font-semibold">${entry.price.toFixed(2)} ea · <span className="text-green-300">${ev.toFixed(2)} total</span></p>
+                          ? <>
+                              <p className="text-xs text-green-400 mt-1 font-semibold">${entry.price.toFixed(2)} ea · <span className="text-green-300">${ev.toFixed(2)} total</span></p>
+                              <p className="text-[10px] text-white/30 mt-0.5">Updated {formatAge(entry.lastUpdated)}</p>
+                            </>
                           : <p className="text-xs text-white/20 mt-1">Price not loaded — click Refresh</p>
                         }
                       </div>
@@ -325,7 +348,7 @@ export default function CollectionPage() {
               disabled={loadingPrices}
               className="mt-2 w-full h-10 rounded-xl bg-white/5 border border-white/10 text-white/70 text-sm font-semibold"
             >
-              {loadingPrices ? "Updating prices..." : "Refresh Prices"}
+              {loadingPrices ? `Updating ${refreshProgress.done}/${refreshProgress.total || 0}` : "Refresh Prices"}
             </button>
           )}
         </div>

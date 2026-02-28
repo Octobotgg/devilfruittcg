@@ -7,6 +7,7 @@ import {
   Search, TrendingUp, Swords, BarChart3, Package, 
   ChevronRight, Compass, Anchor, Zap, Crown, ArrowRight
 } from "lucide-react";
+import { HOME_FEATURED_CARDS } from "@/lib/featured-cards";
 
 // Loading Screen Component
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
@@ -23,7 +24,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Low-cost manga background (static image + subtle gradient), no particle animation */}
-      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-55" />
+      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-35" />
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/60 via-[#0a0f1e]/85 to-[#0a0f1e]" />
 
       <div className="relative text-center px-6">
@@ -33,8 +34,8 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
         >
           <img
-            src="/images/devilfruit-emblem.svg"
-            alt="DevilFruitTCG Emblem"
+            src="/images/straw-hat.png"
+            alt="Luffy's Straw Hat"
             className="w-28 h-28 object-contain drop-shadow-[0_0_28px_rgba(240,192,64,0.25)]"
           />
         </motion.div>
@@ -85,7 +86,7 @@ function Navigation() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="w-12 h-12 rounded-xl overflow-hidden shadow-2xl shadow-red-500/30">
-              <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-full h-full object-cover" />
+              <img src="/images/straw-hat.png" alt="Luffy's Straw Hat" className="w-full h-full object-cover" />
             </div>
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F0C040] rounded-full animate-pulse shadow-lg shadow-yellow-500/50" />
           </motion.div>
@@ -163,7 +164,7 @@ function HeroSection() {
         }} />
 
         {/* Manga texture overlay (static, lightweight) */}
-        <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.18]" />
+        <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.08]" />
       </div>
 
       {/* Content */}
@@ -264,27 +265,21 @@ function HeroSection() {
           className="mt-20 perspective-2000"
         >
           <div className="flex items-center justify-center gap-4 md:gap-8">
-            {[
-              { id: "OP01-001", name: "Roronoa Zoro", rotate: -25, z: -100, y: 20 },
-              { id: "OP02-001", name: "Edward Newgate", rotate: -12, z: -50, y: 10 },
-              { id: "OP09-118", name: "Gol D. Roger", rotate: 0, z: 0, y: 0 },
-              { id: "OP01-120", name: "Shanks", rotate: 12, z: -50, y: 10 },
-              { id: "OP01-061", name: "Kaido", rotate: 25, z: -100, y: 20 },
-            ].map((card, i) => (
+            {HOME_FEATURED_CARDS.map((card, i) => (
               <motion.div
                 key={card.id}
                 className="relative group cursor-pointer"
                 initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: card.y }}
+                animate={{ opacity: 1, y: card.y ?? 0 }}
                 transition={{ delay: 1.4 + i * 0.1 }}
                 whileHover={{ 
-                  y: card.y - 20, 
-                  rotateY: card.rotate * 0.5,
+                  y: (card.y ?? 0) - 20, 
+                  rotateY: (card.rotate ?? 0) * 0.5,
                   z: 50,
                   transition: { duration: 0.3 }
                 }}
                 style={{
-                  transform: `rotateY(${card.rotate}deg) translateZ(${card.z}px)`,
+                  transform: `rotateY(${card.rotate ?? 0}deg) translateZ(${card.z ?? 0}px)`,
                   transformStyle: "preserve-3d",
                 }}
               >
@@ -321,8 +316,8 @@ function HeroSection() {
 // Stats Section
 function StatsSection() {
   const stats = [
-    { value: "1,879", label: "Cards Tracked", icon: Anchor, color: "from-blue-500 to-cyan-400" },
-    { value: "37", label: "Sets", icon: Compass, color: "from-amber-500 to-yellow-400" },
+    { value: "800+", label: "Cards Tracked", icon: Anchor, color: "from-blue-500 to-cyan-400" },
+    { value: "15", label: "Sets", icon: Compass, color: "from-amber-500 to-yellow-400" },
     { value: "12", label: "Meta Decks", icon: Crown, color: "from-purple-500 to-pink-400" },
     { value: "24/7", label: "Live Prices", icon: Zap, color: "from-green-500 to-emerald-400" },
   ];
@@ -500,7 +495,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <img src="/images/devilfruit-emblem.svg" alt="DevilFruitTCG emblem" className="w-8 h-8 object-contain" />
+            <img src="/images/straw-hat.png" alt="Straw Hat" className="w-8 h-8 object-contain" />
             <span className="text-white/40 text-sm">
               © 2026 DevilFruitTCG.gg — Built for the community
             </span>

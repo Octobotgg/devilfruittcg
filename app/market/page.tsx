@@ -5,6 +5,7 @@ import { Search, TrendingUp, TrendingDown, Minus, ExternalLink, RefreshCw, Zap }
 import { motion, AnimatePresence } from "framer-motion";
 import type { MarketData } from "@/lib/ebay";
 import CardModal, { type CardModalData } from "@/components/CardModal";
+import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 
 function MarketContent() {
   const searchParams = useSearchParams();
@@ -97,9 +98,6 @@ function MarketContent() {
           Market <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] to-[#DC2626]">Watch</span>
         </h1>
         <p className="text-white/40 text-lg">Real-time prices from eBay last sold + TCGPlayer</p>
-        <div className="mt-4 max-w-3xl rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/60">
-          <span className="font-semibold text-white/80">Data integrity:</span> Card IDs, set codes, and card numbers are validated in build checks before deployment. Market data is public-source live pricing (eBay sold + TCGPlayer) and may lag briefly.
-        </div>
       </motion.div>
 
       {/* Search */}
@@ -251,7 +249,7 @@ function MarketContent() {
             <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
               <div className="p-5 border-b border-white/10 flex items-center justify-between flex-wrap gap-2">
                 <h3 className="font-bold text-white text-lg">Recent eBay Sales</h3>
-                <p className="text-xs text-white/30">{new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""} · source: {data.ebay.source === "completed" ? "eBay sold listings" : data.ebay.source === "active" ? "eBay active listings" : "seeded fallback"}</p>
+                <p className="text-xs text-white/30">{new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""} · source {data.ebay.source === "completed" ? "sold comps" : data.ebay.source === "active" ? "active fallback" : "seeded fallback"}</p>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -260,6 +258,7 @@ function MarketContent() {
                       <th className="text-left p-4 font-medium">Title</th>
                       <th className="text-left p-4 font-medium hidden md:table-cell">Condition</th>
                       <th className="text-left p-4 font-medium hidden md:table-cell">Date</th>
+                      <th className="text-left p-4 font-medium hidden md:table-cell">Source</th>
                       <th className="text-right p-4 font-medium">Price</th>
                       <th className="p-4 w-10"></th>
                     </tr>
@@ -272,6 +271,17 @@ function MarketContent() {
                         <td className="p-4 text-white/70 max-w-xs truncate">{sale.title}</td>
                         <td className="p-4 text-white/40 hidden md:table-cell">{sale.condition}</td>
                         <td className="p-4 text-white/40 hidden md:table-cell">{sale.soldDate}</td>
+                        <td className="p-4 hidden md:table-cell">
+                          <span className={`text-[10px] px-2 py-1 rounded-lg border font-bold ${
+                            sale.sourceType === "completed"
+                              ? "text-emerald-300 bg-emerald-500/10 border-emerald-500/30"
+                              : sale.sourceType === "active"
+                                ? "text-amber-300 bg-amber-500/10 border-amber-500/30"
+                                : "text-white/60 bg-white/5 border-white/15"
+                          }`}>
+                            {sale.sourceType === "completed" ? "Sold" : sale.sourceType === "active" ? "Active Fallback" : "Seeded"}
+                          </span>
+                        </td>
                         <td className="p-4 text-right font-black text-[#F0C040]">${sale.price.toFixed(2)}</td>
                         <td className="p-4">
                           {sale.url && (
@@ -290,65 +300,12 @@ function MarketContent() {
         )}
       </AnimatePresence>
 
-      {/* Featured cards spotlight */}
+      {/* Empty state */}
       {!data && !loading && !error && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-8">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-1 h-6 bg-gradient-to-b from-[#F0C040] to-[#DC2626] rounded-full" />
-              <h2 className="text-white font-black text-xl">🔥 Hot Right Now</h2>
-              <span className="text-white/30 text-sm hidden sm:inline">Click any card to check live price</span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-              {[
-                { id: "OP01-120", name: "Shanks", set: "OP01" },
-                { id: "OP01-001", name: "Roronoa Zoro", set: "OP01" },
-                { id: "OP09-118", name: "Gol D. Roger", set: "OP09" },
-                { id: "OP02-001", name: "Edward Newgate", set: "OP02" },
-                { id: "OP01-061", name: "Kaido", set: "OP01" },
-                { id: "OP06-007", name: "Shanks", set: "OP06" },
-              ].map((card, i) => (
-                <motion.button
-                  key={card.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07 }}
-                  whileHover={{ y: -6, scale: 1.04 }}
-                  onClick={() => { setQuery(card.name); router.push(`/market?card=${encodeURIComponent(card.id)}`); fetchMarket(card.id); }}
-                  className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-[#F0C040]/50 transition-all bg-white/[0.03] flex flex-col"
-                >
-                  <div className="relative overflow-hidden">
-                    <img src={`/api/card-image?id=${card.id}`} alt={card.name} className="w-full aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
-                    <div className="absolute bottom-2 left-2 right-2">
-                      <p className="text-white text-xs font-bold truncate leading-tight">{card.name}</p>
-                      <p className="text-white/50 text-[10px]">{card.set}</p>
-                    </div>
-                  </div>
-                  <div className="px-2 py-2 text-center">
-                    <span className="text-[#F0C040] text-xs font-bold">Check Price →</span>
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { icon: "💎", label: "Secret Rares", tip: "Try searching 'SEC' or 'Secret' for chase card pricing" },
-              { icon: "📈", label: "Trending Leaders", tip: "Leader cards move fast — check OP09-006, OP10-003" },
-              { icon: "🏆", label: "Tournament Staples", tip: "OP01-060 Shanks is historically the #1 value card" },
-            ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.08 }}
-                className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 flex items-start gap-3">
-                <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <p className="text-white font-bold text-sm">{item.label}</p>
-                  <p className="text-white/40 text-xs mt-1 leading-relaxed">{item.tip}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
+          <div className="text-7xl mb-6">🍇</div>
+          <p className="text-white/30 text-lg">Search a card to see live market data</p>
+          <p className="text-white/20 text-sm mt-2">Try "Shanks", "Luffy", or "OP01-001"</p>
         </motion.div>
       )}
 

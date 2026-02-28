@@ -5,16 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "validate:cards": "node scripts/validate-cards.cjs",
-    "prebuild": "npm run validate:cards",
+    "validate:featured": "node scripts/validate-featured-cards.cjs",
+    "smoke:market": "node scripts/smoke-market.cjs",
+    "prebuild": "npm run validate:cards && npm run validate:featured",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.98.0",
     "@types/better-sqlite3": "^7.6.13",
     "better-sqlite3": "^12.6.2",
-    "firebase": "^12.10.0",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
