@@ -50,6 +50,20 @@ export default function MatchupsPage() {
   const [sampleGames, setSampleGames] = useState<number>(0);
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
 
+  const topDeck = decks.reduce((best, deck) => (
+    !best || deck.metaShare > best.metaShare ? deck : best
+  ), null as MetaDeck | null);
+
+  const strongestEdge = decks
+    .flatMap((rowDeck) => decks
+      .filter((colDeck) => colDeck.id !== rowDeck.id)
+      .map((colDeck) => ({
+        attacker: rowDeck,
+        defender: colDeck,
+        rate: rowDeck.matchups[colDeck.id] ?? 50,
+      })))
+    .sort((a, b) => b.rate - a.rate)[0];
+
   useEffect(() => {
     const run = async () => {
       try {
@@ -89,6 +103,35 @@ export default function MatchupsPage() {
         </h1>
         <p className="text-white/40 text-lg">Public aggregate matchup analysis · Click any deck for full breakdown</p>
         <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
+      </motion.div>
+
+      {/* Command Brief */}
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.08 }}
+        className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6"
+      >
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(240,192,64,0.15),transparent_45%),radial-gradient(circle_at_90%_75%,rgba(220,38,38,0.18),transparent_48%)]" />
+        <div className="relative grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Flagship deck</p>
+            <p className="mt-2 text-lg font-black text-white">{topDeck?.name ?? "—"}</p>
+            <p className="text-sm text-[#F0C040]">{topDeck?.metaShare ?? 0}% meta share</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Hardest punish</p>
+            <p className="mt-2 text-lg font-black text-white truncate">
+              {strongestEdge ? `${shortDeckName(strongestEdge.attacker.name)} → ${shortDeckName(strongestEdge.defender.name)}` : "—"}
+            </p>
+            <p className="text-sm text-green-300">{strongestEdge ? `${strongestEdge.rate}% projected win` : "No edge data"}</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Data confidence</p>
+            <p className="mt-2 text-lg font-black text-white">{sampleGames ? sampleGames.toLocaleString() : "Seeded"}</p>
+            <p className="text-sm text-white/50">{sampleGames ? "Logged cross-match games" : "Awaiting live game logs"}</p>
+          </div>
+        </div>
       </motion.div>
 
       {/* View Toggle */}

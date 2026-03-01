@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Plus, Minus, Trash2, TrendingUp, Package, DollarSign, RefreshCw, Star } from "lucide-react";
+import { Search, Plus, Minus, Trash2, Package, DollarSign, RefreshCw, Star } from "lucide-react";
 import { SEED_CARDS, searchCards, type Card } from "@/lib/cards";
 import CardModal, { type CardModalData } from "@/components/CardModal";
 
@@ -172,7 +172,7 @@ export default function CollectionPage() {
           { id: "collection", label: `My Collection (${uniqueCards})` },
           { id: "add",        label: "+ Add Cards" },
         ].map((tab) => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
+          <button key={tab.id} onClick={() => setActiveTab(tab.id as "collection" | "add")}
             className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === tab.id
                 ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black shadow-lg"

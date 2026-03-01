@@ -8,22 +8,25 @@ export const ALL_SET_CARDS: Card[] = SEED_CARDS;
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
-function mapFeedCard(raw: any): Card | null {
+function mapFeedCard(raw: Record<string, unknown>): Card | null {
   try {
     // optcgdb format assumptions
-    const id = raw.cardid || raw.cardId || raw.id || raw.number;
+    const source = raw as Record<string, unknown>;
+    const id = source.cardid || source.cardId || source.id || source.number;
     if (!id) return null;
-    const setCode = raw.setcode || raw.setCode || raw.set || raw.setid || "";
-    const number = raw.number || raw.no || "";
-    const setName = raw.setname || raw.setName || raw.set || "";
-    const name = raw.name || "";
-    const type = raw.type || raw.cardtype || raw.category || "";
-    const color = raw.color || raw.colour || "";
-    const rarity = raw.rarity || "";
-    const cost = raw.cost !== undefined ? Number(raw.cost) : undefined;
-    const power = raw.power !== undefined ? Number(raw.power) : undefined;
-    const attribute = raw.attribute || raw.trait || undefined;
-    const image = raw.image || raw.img || raw.imageurl || raw.imageUrl || raw.image_url || undefined;
+    const setCode = String(source.setcode || source.setCode || source.set || source.setid || "");
+    const number = String(source.number || source.no || "");
+    const setName = String(source.setname || source.setName || source.set || "");
+    const name = String(source.name || "");
+    const type = String(source.type || source.cardtype || source.category || "");
+    const color = String(source.color || source.colour || "");
+    const rarity = String(source.rarity || "");
+    const cost = source.cost !== undefined ? Number(source.cost) : undefined;
+    const power = source.power !== undefined ? Number(source.power) : undefined;
+    const attribute = source.attribute || source.trait ? String(source.attribute || source.trait) : undefined;
+    const image = source.image || source.img || source.imageurl || source.imageUrl || source.image_url
+      ? String(source.image || source.img || source.imageurl || source.imageUrl || source.image_url)
+      : undefined;
 
     const card: Card = {
       id: String(id),
@@ -86,8 +89,8 @@ export async function loadCards(): Promise<Card[]> {
     const res = await fetch(DEFAULT_FEED, { next: { revalidate: 300 } });
     if (!res.ok) throw new Error(`feed failed ${res.status}`);
     const data = await res.json();
-    const rawCards = Array.isArray(data) ? data : data.cards || [];
-    const mapped = (rawCards as any[])
+    const rawCards = Array.isArray(data) ? data : ((data as { cards?: unknown[] }).cards || []);
+    const mapped = (rawCards as Record<string, unknown>[])
       .map(mapFeedCard)
       .filter((c): c is Card => Boolean(c && c.id && c.name))
       .filter((c) => isLikelyEnglish(c.name));

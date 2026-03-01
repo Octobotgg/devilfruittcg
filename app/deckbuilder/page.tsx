@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, AlertTriangle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -33,29 +33,22 @@ export default function DeckBuilderPage() {
   const [query, setQuery] = useState("");
   const [colorFilter, setColorFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
-  const [results, setResults] = useState<Card[]>([]);
   const [deck, setDeck] = useState<Deck>(newDeck());
-  const [allCards, setAllCards] = useState<Map<string, Card>>(new Map());
+  const [allCards] = useState<Map<string, Card>>(() => {
+    const cards = searchCards("");
+    const map = new Map<string, Card>();
+    cards.forEach((c) => map.set(c.id, c));
+    return map;
+  });
   const [saved, setSaved] = useState(false);
   const [exported, setExported] = useState(false);
 
-  // load all cards once
-  useEffect(() => {
-    const cards = searchCards("");
-    const map = new Map<string, Card>();
-    cards.forEach(c => map.set(c.id, c));
-    setAllCards(map);
-    setResults(cards.slice(0, 24));
-  }, []);
-
-  const search = useCallback(() => {
+  const results = useMemo(() => {
     let res = searchCards(query);
-    if (colorFilter) res = res.filter(c => c.color.toLowerCase().includes(colorFilter.toLowerCase()));
-    if (typeFilter) res = res.filter(c => c.type.toLowerCase() === typeFilter.toLowerCase());
-    setResults(res.slice(0, 48));
+    if (colorFilter) res = res.filter((c) => c.color.toLowerCase().includes(colorFilter.toLowerCase()));
+    if (typeFilter) res = res.filter((c) => c.type.toLowerCase() === typeFilter.toLowerCase());
+    return res.slice(0, 48);
   }, [query, colorFilter, typeFilter]);
-
-  useEffect(() => { search(); }, [search]);
 
   const totalCards = (deck.leaderId ? 1 : 0) + deck.cards.reduce((s, c) => s + c.quantity, 0);
   const isValid = deck.leaderId !== null && totalCards === 50;

@@ -64,10 +64,7 @@ export default function CardModal({ card, onClose }: Props) {
 
   // Load alternate arts / print variants for this card ID
   useEffect(() => {
-    if (!card?.id) {
-      setVariants([]);
-      return;
-    }
+    if (!card?.id) return;
 
     const run = async () => {
       try {
@@ -77,20 +74,12 @@ export default function CardModal({ card, onClose }: Props) {
         const v = (json.variants || []) as CardModalData[];
         setVariants(v);
       } catch {
-        setVariants([]);
+        // keep prior variants on transient failure
       }
     };
 
     run();
   }, [card?.id]);
-
-  useEffect(() => {
-    if (!card) {
-      setSelectedImage("");
-      return;
-    }
-    setSelectedImage(card.imageUrl || `/api/card-image?id=${card.id}`);
-  }, [card]);
 
   const imageUrl = selectedImage || card?.imageUrl || (card ? `/api/card-image?id=${card.id}` : "");
 
@@ -168,7 +157,7 @@ export default function CardModal({ card, onClose }: Props) {
                   <div key={stat.label} className="bg-white/5 border border-white/8 rounded-xl px-3 py-2.5">
                     <div className="text-white/30 text-[10px] uppercase tracking-wider mb-0.5">{stat.label}</div>
                     <div className="text-white text-sm font-semibold flex items-center gap-1.5">
-                      {(stat as any).isColor && stat.value !== "—" && (
+                      {("isColor" in stat) && stat.isColor && stat.value !== "—" && (
                         <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${colorDot[stat.value.split("/")[0]] ?? "bg-white/30"}`} />
                       )}
                       {stat.value}

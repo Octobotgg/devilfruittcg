@@ -2,7 +2,7 @@ import type { Card } from "@/lib/cards";
 
 const BASE = "https://onepiece.limitlesstcg.com";
 
-function mapLimitless(raw: any): Card | null {
+function mapLimitless(raw: Record<string, unknown>): Card | null {
   if (!raw?.card_id || !raw?.name) return null;
   const id = String(raw.card_id).toUpperCase();
   const number = String(raw.number ?? "").padStart(3, "0");
@@ -51,7 +51,7 @@ export async function fetchLimitlessVariantsById(id: string, maxVariants = 12): 
         continue;
       }
 
-      let raw: any;
+      let raw: Record<string, unknown>;
       try {
         raw = JSON.parse(text);
       } catch {

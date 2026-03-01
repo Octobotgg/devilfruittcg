@@ -24,12 +24,8 @@ function saveDecks(decks: Deck[]) {
 }
 
 export default function DecksPage() {
-  const [decks, setDecks] = useState<Deck[]>([]);
+  const [decks, setDecks] = useState<Deck[]>(() => (typeof window !== "undefined" ? loadDecks() : []));
   const [cardCache, setCardCache] = useState<Map<string, Card>>(new Map());
-
-  useEffect(() => {
-    setDecks(loadDecks());
-  }, []);
 
   // Fetch card info for all leader IDs
   useEffect(() => {
@@ -41,11 +37,13 @@ export default function DecksPage() {
     fetch(`/api/cards?q=${missing[0]}&pageSize=1`)
       .then(r => r.json())
       .then(data => {
-        const newCache = new Map(cardCache);
-        (data.results || []).forEach((c: Card) => newCache.set(c.id, c));
-        setCardCache(newCache);
+        setCardCache((prev) => {
+          const newCache = new Map(prev);
+          (data.results || []).forEach((c: Card) => newCache.set(c.id, c));
+          return newCache;
+        });
       }).catch(() => {});
-  }, [decks]);
+  }, [decks, cardCache]);
 
   function deleteDeck(id: string) {
     const updated = decks.filter(d => d.id !== id);

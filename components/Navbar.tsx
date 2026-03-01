@@ -13,7 +13,7 @@ const links = [
   { href: "/collection",  label: "Collection", icon: Package    },
 ];
 
-export default function Navbar() {
+export default function Navbar({ brandClass = "" }: { brandClass?: string }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -25,7 +25,7 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="sticky top-0 z-50 border-b border-white/5 bg-[#060b18]/80 backdrop-blur-xl"
+      className="sticky top-0 z-50 border-b border-[var(--line)] bg-[#060a14]/80 backdrop-blur-xl"
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
@@ -39,10 +39,10 @@ export default function Navbar() {
             <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#F0C040] rounded-full animate-pulse" />
           </motion.div>
           <div>
-            <span className="font-black text-white text-lg tracking-tight leading-none">
-              DEVIL<span className="text-[#F0C040]">FRUIT</span>
+            <span className={`${brandClass} brand-title text-[var(--brass)] text-lg leading-none`}>
+              DevilFruit
             </span>
-            <span className="block text-[9px] text-white/30 tracking-[0.3em] uppercase leading-none">TCG.gg</span>
+            <span className="block text-[9px] text-white/35 tracking-[0.3em] uppercase leading-none">TCG Intelligence</span>
           </div>
         </Link>
 
@@ -57,8 +57,8 @@ export default function Navbar() {
                   transition={{ type: "spring", stiffness: 400 }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
                     active
-                      ? "bg-[#F0C040]/10 text-[#F0C040] border border-[#F0C040]/20"
-                      : "text-white/50 hover:text-white hover:bg-white/5"
+                      ? "bg-[var(--brass)]/10 text-[var(--brass)] border border-[var(--line)]"
+                      : "text-white/55 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   <link.icon className="w-4 h-4" />
@@ -74,7 +74,7 @@ export default function Navbar() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-xl text-sm"
+              className="flex items-center gap-2 px-5 py-2 brass-gradient text-black font-bold rounded-xl text-sm"
             >
               <Zap className="w-3.5 h-3.5" />
               Search Cards
@@ -111,7 +111,7 @@ export default function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                       active
-                        ? "bg-[#F0C040]/10 text-[#F0C040] border border-[#F0C040]/20"
+                        ? "bg-[var(--brass)]/10 text-[var(--brass)] border border-[var(--line)]"
                         : "text-white/60 hover:text-white hover:bg-white/5"
                     }`}
                   >
