@@ -19,6 +19,8 @@ export interface RegionStat {
 export interface MetaSnapshot {
   updatedAt: string;
   source: string;
+  sources?: string[];
+  sampleGames?: number;
   metaDecks: MetaDeck[];
   regions: RegionStat[];
   decks: DeckProfile[];
