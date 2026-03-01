@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "checkin:status": "python3 scripts/checkin_status.py",
     "validate:cards": "node scripts/validate-cards.cjs",
     "validate:featured": "node scripts/validate-featured-cards.cjs",
     "smoke:market": "node scripts/smoke-market.cjs",

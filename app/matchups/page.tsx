@@ -43,17 +43,12 @@ function shortDeckName(name: string): string {
 
 export default function MatchupsPage() {
   const [decks, setDecks] = useState<MetaDeck[]>(META_DECKS);
-  const [selectedDeck, setSelectedDeck] = useState<MetaDeck | null>(null);
+  const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
   const [view, setView] = useState<"matrix" | "tier" | "detail">("tier");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
   const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setView(window.innerWidth < 768 ? "tier" : "matrix");
-    }
-  }, []);
+  const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
 
   useEffect(() => {
     const run = async () => {
@@ -68,11 +63,6 @@ export default function MatchupsPage() {
             setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : "Public aggregate");
           }
           if (typeof json.sampleGames === "number") setSampleGames(json.sampleGames);
-          // keep selection in sync if possible
-          if (selectedDeck) {
-            const updated = json.decks.find((d: MetaDeck) => d.id === selectedDeck.id);
-            if (updated) setSelectedDeck(updated);
-          }
         }
       } catch {
         // fallback silently
@@ -168,7 +158,7 @@ export default function MatchupsPage() {
                       </th>
                       {decks.map((deck) => (
                         <th key={deck.id} className="p-2 min-w-[64px]">
-                          <button onClick={() => { setSelectedDeck(deck); setView("detail"); }}
+                          <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
                             className="flex flex-col items-center gap-1 group">
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                               onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
@@ -183,7 +173,7 @@ export default function MatchupsPage() {
                     {decks.map((rowDeck, ri) => (
                       <tr key={rowDeck.id} className="border-t border-white/5">
                         <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
-                          <button onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
+                          <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                             className="flex items-center gap-2 group">
                             <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
                               className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
@@ -200,7 +190,7 @@ export default function MatchupsPage() {
                             <td key={colDeck.id} className="p-1">
                               {isSelf
                                 ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
-                                : <button onClick={() => { setSelectedDeck(rowDeck); setView("detail"); }}
+                                : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
                                     className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 hover:shadow-lg ${getWinRateColor(rate)}`}>
                                     {rate}%
@@ -234,7 +224,7 @@ export default function MatchupsPage() {
                     {tierDecks.sort((a, b) => b.metaShare - a.metaShare).map((deck, i) => (
                       <motion.button key={deck.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.06 }}
-                        onClick={() => { setSelectedDeck(deck); setView("detail"); }}
+                        onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
                         className="w-full p-5 flex items-center gap-5 hover:bg-white/5 transition-all text-left group">
                         <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                           onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
