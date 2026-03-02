@@ -137,8 +137,8 @@ function IntelligenceStrip() {
     {
       icon: Radar,
       title: "Matchup Intel",
-      value: "Kaizoku-ready",
-      note: "Real matchup source path is wired for production",
+      value: "eBay-aligned intel",
+      note: "Production matchup data path is wired and live",
     },
   ];
 
