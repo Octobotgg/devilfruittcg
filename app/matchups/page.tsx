@@ -49,6 +49,7 @@ export default function MatchupsPage() {
   const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
+  const hasLargeSample = sampleGames >= 1000;
 
   const topDeck = decks.reduce((best, deck) => (
     !best || deck.metaShare > best.metaShare ? deck : best
@@ -101,9 +102,22 @@ export default function MatchupsPage() {
         <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
           Matchup <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#F0C040]">Matrix</span>
         </h1>
-        <p className="text-white/40 text-lg">Public aggregate matchup analysis · Click any deck for full breakdown</p>
+        <p className="text-white/40 text-lg">Matchup analysis · Click any deck for full breakdown</p>
         <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
       </motion.div>
+
+      {!hasLargeSample && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4"
+        >
+          <p className="text-amber-200 text-sm font-semibold">
+            Limited sample warning: matchup matrix is currently based on a low sample size.
+            Use as directional guidance until large public-volume ingestion is active.
+          </p>
+        </motion.div>
+      )}
 
       {/* Command Brief */}
       <motion.div
