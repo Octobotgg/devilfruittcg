@@ -8,6 +8,7 @@
     "validate:cards": "node scripts/validate-cards.cjs",
     "validate:featured": "node scripts/validate-featured-cards.cjs",
     "smoke:market": "node scripts/smoke-market.cjs",
+    "backfill:market-history": "node scripts/backfill-market-history.cjs",
     "prebuild": "npm run validate:cards && npm run validate:featured",
     "build": "next build",
     "start": "next start",
