@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { fetchEbaySales } from "@/lib/ebay";
 import { getCached, setCache } from "@/lib/db";
 import { searchCards } from "@/lib/cards";
+import { filterCards, loadCards } from "@/lib/card-feed";
 
 export async function GET(req: NextRequest) {
   const cardParam = req.nextUrl.searchParams.get("card") || "";
@@ -11,16 +12,34 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "card or id param required" }, { status: 400 });
   }
 
-  // Find card
+  // Find card (prefer full feed so new sets/promos are searchable, fallback to local seeds)
   let cardName = cardParam;
   let cardId = idParam;
 
   if (!cardName || !cardId) {
-    const results = searchCards(cardParam || cardId);
-    if (results.length > 0) {
-      cardName = results[0].name;
-      cardId = results[0].id;
+    try {
+      const all = await loadCards();
+      const q = (cardParam || cardId || "").trim();
+      const qUpper = q.toUpperCase();
+      const byId = all.find((c) => c.id.toUpperCase() === qUpper);
+      const fromFeed = byId ?? filterCards(all, { q, pageSize: 1 }).results[0];
+
+      if (fromFeed) {
+        cardName = fromFeed.name;
+        cardId = fromFeed.id;
+      }
+    } catch {
+      // fallback to local static set search
+      const results = searchCards(cardParam || cardId);
+      if (results.length > 0) {
+        cardName = results[0].name;
+        cardId = results[0].id;
+      }
     }
+  }
+
+  if (!cardId || !cardName) {
+    return NextResponse.json({ error: "Card not found" }, { status: 404 });
   }
 
   // Check cache
