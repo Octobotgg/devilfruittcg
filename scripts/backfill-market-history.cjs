@@ -54,11 +54,11 @@ async function run() {
   console.log(`Using API base: ${base}`);
 
   const featured = FEATURED_IDS;
-  const op13 = await getSetSamples(base, "OP13", 36);
-  const op14 = await getSetSamples(base, "OP14", 36);
-  const eb02 = await getSetSamples(base, "EB02", 24);
+  const allCardsRes = await fetchWithTimeout(`${base}/api/cards?page=1&pageSize=5000`, 45000);
+  const allCardsJson = allCardsRes.ok ? await allCardsRes.json() : { results: [] };
+  const allIds = (allCardsJson.results || []).map((c) => c.id).filter(Boolean);
 
-  const targetIds = uniq([...featured, ...op13, ...op14, ...eb02]).slice(0, 90);
+  const targetIds = uniq([...featured, ...allIds]);
   console.log(`Backfilling ${targetIds.length} cards...`);
 
   let ok = 0;
