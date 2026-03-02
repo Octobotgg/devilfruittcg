@@ -26,8 +26,15 @@ function MarketContent() {
     const run = async () => {
       const q = query.trim();
       if (q.length < 2) { setSuggestions([]); return; }
+
+      const setQuery = q.toUpperCase();
+      const isSetCode = /^(OP\d{2}|EB\d{2}|ST\d{2}|P-\d{3})$/.test(setQuery);
+
       try {
-        const res = await fetch(`/api/cards?q=${encodeURIComponent(q)}&pageSize=8`);
+        const url = isSetCode
+          ? `/api/cards?set=${encodeURIComponent(setQuery)}&pageSize=240`
+          : `/api/cards?q=${encodeURIComponent(q)}&pageSize=24`;
+        const res = await fetch(url);
         if (!res.ok) return;
         const json = await res.json();
         setSuggestions(json.results || []);
@@ -119,13 +126,19 @@ function MarketContent() {
                 <motion.div
                   initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute z-20 mt-2 w-full bg-[#0c1324]/98 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden"
+                  className="absolute z-20 mt-2 w-full max-h-[420px] overflow-y-auto bg-[#0c1324]/98 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/60"
                 >
                   {suggestions.map(s => (
                     <button
                       key={s.id}
                       type="button"
-                      onMouseDown={() => { setQuery(s.name); setSuggestions([]); }}
+                      onMouseDown={() => {
+                        setQuery(s.id || s.name);
+                        setSuggestions([]);
+                        setShowSuggestions(false);
+                        router.push(`/market?card=${encodeURIComponent(s.id || s.name)}`);
+                        fetchMarket(s.id || s.name);
+                      }}
                       className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors group"
                     >
                       {/* Clickable thumbnail → opens modal */}
