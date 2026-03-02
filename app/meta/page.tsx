@@ -71,6 +71,33 @@ export default function MetaPage() {
         <p className="text-white/40 text-lg">{isSeeded ? "Seeded meta snapshot" : "Top decks from public aggregate tournaments"} · Updated {new Date(meta.updatedAt).toLocaleDateString()}</p>
       </motion.div>
 
+      {/* Command Brief */}
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.08 }}
+        className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6"
+      >
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.16),transparent_46%),radial-gradient(circle_at_86%_78%,rgba(59,130,246,0.16),transparent_48%)]" />
+        <div className="relative grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck to beat</p>
+            <p className="mt-2 text-lg font-black text-white">{decks[0]?.name ?? "—"}</p>
+            <p className="text-sm text-[#F0C040]">{decks[0]?.winRate ?? "—"}% win rate</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Meta pressure</p>
+            <p className="mt-2 text-lg font-black text-white">{decks[0]?.popularity ?? "—"}% field share</p>
+            <p className="text-sm text-white/50">Top archetype representation</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Source mode</p>
+            <p className="mt-2 text-lg font-black text-white">{isSeeded ? "Seeded" : "Live"}</p>
+            <p className="text-sm text-white/50">Updated {new Date(meta.updatedAt).toLocaleDateString()}</p>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Top 3 spotlight */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-4">

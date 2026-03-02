@@ -122,6 +122,27 @@ export default function DeckBuilderPage() {
           <p className="text-white/40 text-sm mt-1">Build and save your One Piece TCG decks</p>
         </div>
 
+        <div className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 mb-6">
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.14),transparent_45%),radial-gradient(circle_at_88%_78%,rgba(220,38,38,0.14),transparent_45%)]" />
+          <div className="relative grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck size</p>
+              <p className="mt-2 text-2xl font-black text-white">{totalCards}/50</p>
+              <p className="text-sm text-white/50">{isValid ? "Tournament legal" : "Keep building"}</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Leader status</p>
+              <p className="mt-2 text-2xl font-black text-[#F0C040]">{deck.leaderId ? "Set" : "Missing"}</p>
+              <p className="text-sm text-white/50">{deck.leaderId ? "Command chain established" : "Choose a leader to anchor colors"}</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck file</p>
+              <p className="mt-2 text-lg font-black text-white truncate">{deck.name || "Untitled"}</p>
+              <p className="text-sm text-white/50">Save before exporting</p>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
           {/* LEFT: Card Search */}
           <div>

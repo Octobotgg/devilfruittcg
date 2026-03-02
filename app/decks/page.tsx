@@ -93,6 +93,27 @@ export default function DecksPage() {
           </Link>
         </div>
 
+        <div className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 mb-6">
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_10%_20%,rgba(240,192,64,0.14),transparent_45%),radial-gradient(circle_at_90%_70%,rgba(220,38,38,0.14),transparent_45%)]" />
+          <div className="relative grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck vault</p>
+              <p className="mt-2 text-2xl font-black text-white">{decks.length}</p>
+              <p className="text-sm text-white/50">Saved lists</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Battle-ready</p>
+              <p className="mt-2 text-2xl font-black text-[#F0C040]">{decks.filter((d) => totalCards(d) === 50 && d.leaderId).length}</p>
+              <p className="text-sm text-white/50">Valid decks</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Next action</p>
+              <p className="mt-2 text-lg font-black text-white">Tune + test</p>
+              <p className="text-sm text-white/50">Refine in Deck Builder</p>
+            </div>
+          </div>
+        </div>
+
         {/* Empty state */}
         {decks.length === 0 && (
           <div className="text-center py-24">

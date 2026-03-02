@@ -313,6 +313,47 @@ function HeroSection() {
   );
 }
 
+function HomeCommandBrief() {
+  const briefItems = [
+    { label: "Market Pulse", value: "Live", note: "eBay + TCG sync" },
+    { label: "Meta Theater", value: "12 Decks", note: "Tier matrix online" },
+    { label: "Deck Ops", value: "Ready", note: "Builder + tracker armed" },
+  ];
+
+  return (
+    <section className="py-8 md:py-12">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-6"
+        >
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.18),transparent_48%),radial-gradient(circle_at_88%_78%,rgba(220,38,38,0.16),transparent_48%)]" />
+          <div className="relative flex items-start justify-between gap-6 flex-wrap mb-6">
+            <div>
+              <p className="text-[11px] tracking-[0.22em] uppercase text-white/45">Captain's command brief</p>
+              <h2 className="mt-2 text-2xl md:text-3xl font-black text-white">One dashboard. Full Grand Line control.</h2>
+            </div>
+            <Link href="/matchups" className="text-sm font-bold text-[#F0C040] hover:text-white transition-colors">
+              Open tactical matrix →
+            </Link>
+          </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            {briefItems.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">{item.label}</p>
+                <p className="mt-2 text-2xl font-black text-white">{item.value}</p>
+                <p className="text-sm text-white/50">{item.note}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // Stats Section
 function StatsSection() {
   const stats = [
@@ -519,19 +560,16 @@ export default function HomePage() {
         {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       </AnimatePresence>
 
-      {/* Nav lives outside the fade wrapper — always mounted, always on top */}
-      <Navigation />
-
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
         transition={{ duration: 0.5 }}
       >
         <HeroSection />
+        <HomeCommandBrief />
         <StatsSection />
         <FeaturesSection />
         <CTASection />
-        <Footer />
       </motion.div>
     </div>
   );
