@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Search, TrendingUp, TrendingDown, Minus, ExternalLink, RefreshCw, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import type { MarketData } from "@/lib/ebay";
 import CardModal, { type CardModalData } from "@/components/CardModal";
 import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
@@ -24,6 +25,8 @@ function MarketContent() {
   const [filterRarity, setFilterRarity] = useState("");
   const [filterCostMin, setFilterCostMin] = useState("");
   const [filterCostMax, setFilterCostMax] = useState("");
+  const [historyRange, setHistoryRange] = useState<"7d" | "30d" | "90d" | "180d" | "365d">("30d");
+  const [historyPoints, setHistoryPoints] = useState<Array<{ date: string; ebayAvg: number | null; tcgMarket: number | null }>>([]);
 
   useEffect(() => { if (initialCard) fetchMarket(initialCard); }, [initialCard]);
 
@@ -96,6 +99,21 @@ function MarketContent() {
 
   const TrendIcon = data?.trend.direction === "up" ? TrendingUp : data?.trend.direction === "down" ? TrendingDown : Minus;
   const trendColor = data?.trend.direction === "up" ? "text-green-400" : data?.trend.direction === "down" ? "text-red-400" : "text-white/40";
+  useEffect(() => {
+    const run = async () => {
+      if (!data?.cardId) { setHistoryPoints([]); return; }
+      try {
+        const res = await fetch(`/api/market/history?id=${encodeURIComponent(data.cardId)}&range=${historyRange}`);
+        if (!res.ok) return;
+        const json = await res.json();
+        setHistoryPoints(json.points || []);
+      } catch {
+        setHistoryPoints([]);
+      }
+    };
+    run();
+  }, [data?.cardId, historyRange]);
+
   const quality = data?.ebay.qualityConfidence ?? 0;
   const qualityBadge = quality >= 0.8
     ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
@@ -301,6 +319,55 @@ function MarketContent() {
                   <div className="text-xs text-white/40 mt-1">{item.label}</div>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Price History */}
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+              <div className="p-5 border-b border-white/10 flex items-center justify-between gap-3 flex-wrap">
+                <h3 className="font-bold text-white text-lg">Price History</h3>
+                <div className="flex gap-2">
+                  {([
+                    { id: "7d", label: "1W" },
+                    { id: "30d", label: "1M" },
+                    { id: "90d", label: "3M" },
+                    { id: "180d", label: "6M" },
+                    { id: "365d", label: "1Y" },
+                  ] as const).map((r) => (
+                    <button
+                      key={r.id}
+                      onClick={() => setHistoryRange(r.id)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${
+                        historyRange === r.id
+                          ? "bg-[#F0C040]/20 border-[#F0C040]/40 text-[#F0C040]"
+                          : "bg-white/5 border-white/10 text-white/50 hover:text-white"
+                      }`}
+                    >
+                      {r.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="p-5 h-[260px]">
+                {historyPoints.length > 1 ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={historyPoints}>
+                      <CartesianGrid stroke="rgba(255,255,255,0.08)" strokeDasharray="3 3" />
+                      <XAxis dataKey="date" tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 11 }} />
+                      <YAxis tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 11 }} domain={["auto", "auto"]} />
+                      <Tooltip
+                        contentStyle={{ background: "#0c1324", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12 }}
+                        formatter={(value: unknown, name?: string) => [`$${Number(value ?? 0).toFixed(2)}`, name === "ebayAvg" ? "eBay Avg" : "TCG Market"]}
+                      />
+                      <Line type="monotone" dataKey="ebayAvg" stroke="#F0C040" strokeWidth={2.5} dot={false} />
+                      <Line type="monotone" dataKey="tcgMarket" stroke="#60A5FA" strokeWidth={2} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="h-full flex items-center justify-center text-white/40 text-sm">
+                    Not enough history yet — this fills as card lookups accumulate.
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* eBay Sales Table */}
