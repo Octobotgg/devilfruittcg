@@ -19,22 +19,34 @@ function MarketContent() {
   const [suggestions, setSuggestions] = useState<CardModalData[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
+  const [filterSet, setFilterSet] = useState("");
+  const [filterColor, setFilterColor] = useState("");
+  const [filterRarity, setFilterRarity] = useState("");
+  const [filterCostMin, setFilterCostMin] = useState("");
+  const [filterCostMax, setFilterCostMax] = useState("");
 
   useEffect(() => { if (initialCard) fetchMarket(initialCard); }, [initialCard]);
 
   useEffect(() => {
     const run = async () => {
       const q = query.trim();
-      if (q.length < 2) { setSuggestions([]); return; }
-
       const setQuery = q.toUpperCase();
       const isSetCode = /^(OP\d{1,2}|EB\d{1,2}|ST\d{1,2}|PRB\d{1,2}|P-\d{3})$/.test(setQuery);
 
+      if (q.length < 2 && !filterSet && !isSetCode) { setSuggestions([]); return; }
+
       try {
-        const url = isSetCode
-          ? `/api/cards?set=${encodeURIComponent(setQuery)}&pageSize=240`
-          : `/api/cards?q=${encodeURIComponent(q)}&pageSize=24`;
-        const res = await fetch(url);
+        const params = new URLSearchParams();
+        if (isSetCode) params.set("set", setQuery);
+        else if (filterSet) params.set("set", filterSet);
+        if (!isSetCode && q.length >= 2) params.set("q", q);
+        if (filterColor) params.set("color", filterColor);
+        if (filterRarity) params.set("rarity", filterRarity);
+        if (filterCostMin) params.set("costMin", filterCostMin);
+        if (filterCostMax) params.set("costMax", filterCostMax);
+        params.set("pageSize", isSetCode || filterSet ? "240" : "24");
+
+        const res = await fetch(`/api/cards?${params.toString()}`);
         if (!res.ok) return;
         const json = await res.json();
         setSuggestions(json.results || []);
@@ -42,7 +54,7 @@ function MarketContent() {
     };
     const t = setTimeout(run, 200);
     return () => clearTimeout(t);
-  }, [query]);
+  }, [query, filterSet, filterColor, filterRarity, filterCostMin, filterCostMax]);
 
   async function fetchMarket(cardQuery: string) {
     setLoading(true); setError(""); setData(null);
@@ -171,6 +183,39 @@ function MarketContent() {
             Search
           </motion.button>
         </form>
+
+        <div className="mt-3 grid grid-cols-2 md:grid-cols-6 gap-2 max-w-5xl">
+          <select value={filterSet} onChange={(e) => { setFilterSet(e.target.value); setShowSuggestions(true); }} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white">
+            <option value="">All Sets</option>
+            {[
+              "OP01","OP02","OP03","OP04","OP05","OP06","OP07","OP08","OP09","OP10","OP11","OP12","OP13","OP14","OP15",
+              "EB01","EB02","EB03",
+              "ST01","ST02","ST03","ST04","ST05","ST06","ST07","ST08","ST09","ST10","ST11","ST12","ST13","ST14","ST15","ST16","ST17","ST18","ST19","ST20","ST21",
+              "PRB01"
+            ].map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+
+          <select value={filterColor} onChange={(e) => { setFilterColor(e.target.value); setShowSuggestions(true); }} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white">
+            <option value="">All Colors</option>
+            {['Red','Blue','Green','Purple','Black','Yellow'].map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+
+          <select value={filterRarity} onChange={(e) => { setFilterRarity(e.target.value); setShowSuggestions(true); }} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white">
+            <option value="">All Rarity</option>
+            {['C','UC','R','SR','SEC','L','SP','P','TR'].map((r) => <option key={r} value={r}>{r}</option>)}
+          </select>
+
+          <input value={filterCostMin} onChange={(e) => { setFilterCostMin(e.target.value.replace(/[^0-9]/g, "")); setShowSuggestions(true); }} placeholder="Min Cost" className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder:text-white/30" />
+          <input value={filterCostMax} onChange={(e) => { setFilterCostMax(e.target.value.replace(/[^0-9]/g, "")); setShowSuggestions(true); }} placeholder="Max Cost" className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder:text-white/30" />
+
+          <button
+            type="button"
+            onClick={() => { setFilterSet(""); setFilterColor(""); setFilterRarity(""); setFilterCostMin(""); setFilterCostMax(""); }}
+            className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm font-semibold text-white/70 hover:text-white"
+          >
+            Clear Filters
+          </button>
+        </div>
       </motion.div>
 
       {/* Loading */}
