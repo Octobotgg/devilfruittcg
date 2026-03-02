@@ -1,387 +1,164 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { 
-  Search, TrendingUp, Swords, BarChart3, Package, 
-  ChevronRight, Compass, Anchor, Zap, Crown, ArrowRight
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Anchor,
+  ArrowRight,
+  Compass,
+  Crown,
+  Database,
+  Radar,
+  ShieldCheck,
+  Swords,
+  TrendingUp,
 } from "lucide-react";
-import { HOME_FEATURED_CARDS } from "@/lib/featured-cards";
 
-// Loading Screen Component
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 900);
+    const timer = setTimeout(onComplete, 750);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#0a0f1e]"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#070b16]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.35 }}
     >
-      {/* Low-cost manga background (static image + subtle gradient), no particle animation */}
-      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-35" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/60 via-[#0a0f1e]/85 to-[#0a0f1e]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,192,64,0.20),transparent_45%),radial-gradient(circle_at_80%_75%,rgba(220,38,38,0.2),transparent_42%)]" />
+      <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.16]" />
 
-      <div className="relative text-center px-6">
-        <motion.div
-          className="mb-6 inline-block"
-          animate={{ scale: [1, 1.04, 1] }}
-          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <img
-            src="/images/logo-concept-crest.svg?v=2"
-            alt="DevilFruitTCG crest logo"
-            className="w-28 h-28 object-contain drop-shadow-[0_0_28px_rgba(240,192,64,0.25)]"
-          />
-        </motion.div>
-
-        <p className="text-white text-lg font-black tracking-wide">DEVILFRUITTCG.GG</p>
-        <p className="mt-1 text-white/45 text-xs tracking-[0.22em] uppercase">Loading your command center</p>
-
-        <div className="mt-5 h-1.5 w-56 bg-white/10 rounded-full overflow-hidden mx-auto border border-white/10">
-          <motion.div
-            className="h-full bg-gradient-to-r from-[#DC2626] via-[#F0C040] to-[#DC2626]"
-            initial={{ x: "-100%" }}
-            animate={{ x: "100%" }}
-            transition={{ duration: 0.9, ease: "easeInOut" }}
-          />
-        </div>
+      <div className="relative text-center">
+        <img
+          src="/images/logo-concept-crest.svg?v=2"
+          alt="DevilFruitTCG crest logo"
+          className="mx-auto h-24 w-24 object-contain drop-shadow-[0_0_36px_rgba(240,192,64,0.3)]"
+        />
+        <p className="mt-4 text-white text-sm tracking-[0.35em] uppercase">Command deck loading</p>
       </div>
     </motion.div>
   );
 }
 
-// Navigation
-function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50"
-      animate={{
-        paddingTop: scrolled ? "0.75rem" : "1.5rem",
-        paddingBottom: scrolled ? "0.75rem" : "1.5rem",
-        backgroundColor: scrolled ? "rgba(10, 15, 30, 0.85)" : "rgba(0,0,0,0)",
-        backdropFilter: scrolled ? "blur(20px)" : "blur(0px)",
-        borderBottom: scrolled ? "1px solid rgba(240, 192, 64, 0.15)" : "1px solid rgba(240,192,64,0)",
-      }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3 group">
-          <motion.div
-            className="relative"
-            whileHover={{ scale: 1.1, rotate: 10 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="w-12 h-12 rounded-xl overflow-hidden shadow-2xl shadow-red-500/30">
-              <img src="/images/logo-concept-crest.svg?v=2" alt="DevilFruitTCG crest logo" className="w-full h-full object-cover" />
-            </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#F0C040] rounded-full animate-pulse shadow-lg shadow-yellow-500/50" />
-          </motion.div>
-          <div>
-            <span className="text-xl font-black tracking-tight text-white">
-              DEVIL<span className="text-[#F0C040]">FRUIT</span>
-            </span>
-            <span className="block text-[10px] text-white/40 tracking-[0.3em] uppercase">TCG.gg</span>
-          </div>
-        </Link>
-
-        <div className="hidden md:flex items-center gap-1">
-          {[
-            { href: "/market", label: "Market", icon: TrendingUp },
-            { href: "/matchups", label: "Matchups", icon: Swords },
-            { href: "/meta", label: "Meta", icon: Crown },
-            { href: "/collection", label: "Collection", icon: Package },
-          ].map((item) => (
-            <Link key={item.href} href={item.href}>
-              <motion.div
-                className="px-5 py-2.5 text-white/60 hover:text-white text-sm font-medium rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2"
-                whileHover={{ y: -2 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </motion.div>
-            </Link>
-          ))}
-        </div>
-
-        <Link href="/market">
-          <motion.button
-            className="hidden md:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-xl"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(240, 192, 64, 0.3)" }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Zap className="w-4 h-4" />
-            Search Cards
-          </motion.button>
-        </Link>
-      </div>
-    </motion.nav>
-  );
-}
-
-// Hero Section
 function HeroSection() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        {/* Gradient Orbs */}
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-[#DC2626]/20 to-transparent rounded-full blur-[120px]"
-          animate={{ x: [0, 24, 0], y: [0, 14, 0], scale: [1, 1.04, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-l from-[#F0C040]/20 to-transparent rounded-full blur-[100px]"
-          animate={{ x: [0, -18, 0], y: [0, -18, 0], scale: [1, 1.05, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
-        
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `linear-gradient(rgba(240,192,64,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(240,192,64,0.3) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }} />
+    <section className="relative overflow-hidden pt-24 md:pt-28">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,rgba(240,192,64,0.18),transparent_42%),radial-gradient(circle_at_85%_20%,rgba(220,38,38,0.2),transparent_45%),linear-gradient(180deg,#050913_0%,#090f1d_48%,#0b111f_100%)]" />
 
-        {/* Manga texture overlay (static, lightweight) */}
-        <div className="absolute inset-0 bg-[url('/images/manga-bg.svg')] bg-cover bg-center opacity-[0.08]" />
+      <div className="pointer-events-none absolute inset-0 opacity-60">
+        <svg className="h-full w-full" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
+          <path d="M-30 620C210 530 312 705 574 642C842 578 958 430 1230 470C1340 486 1410 515 1480 565" stroke="rgba(240,192,64,0.42)" strokeWidth="1.5" strokeDasharray="7 11" />
+          <path d="M-40 490C250 470 418 315 698 358C930 394 1068 562 1480 508" stroke="rgba(155,189,255,0.25)" strokeWidth="1.2" strokeDasharray="5 9" />
+          <path d="M210 140L295 200L268 292L175 318L104 255L126 172Z" stroke="rgba(255,255,255,0.16)" />
+          <path d="M1050 145L1132 215L1092 305L985 322L923 238L958 159Z" stroke="rgba(255,255,255,0.14)" />
+        </svg>
       </div>
 
-      {/* Content */}
-      <motion.div className="relative z-10 max-w-6xl mx-auto px-6 text-center" style={{ opacity }}>
-        {/* Badge */}
+      <div className="relative mx-auto max-w-6xl px-6 pb-14 md:pb-20">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-white/5 border border-[#F0C040]/30 rounded-full backdrop-blur-sm"
+          transition={{ duration: 0.65 }}
+          className="inline-flex items-center gap-2 rounded-full border border-[#F0C040]/40 bg-[#1a1325]/70 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-[#F0C040]"
         >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            <Compass className="w-4 h-4 text-[#F0C040]" />
-          </motion.div>
-          <span className="text-[#F0C040] text-sm font-medium tracking-wider uppercase">The Grand Line Awaits</span>
+          <Compass className="h-4 w-4" />
+          Grand Line Intelligence Network
         </motion.div>
 
-        {/* Main Title */}
-        <div className="mb-8">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-7xl md:text-9xl lg:text-[10rem] font-black leading-none tracking-tighter"
-          >
-            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/50">
-              DEVIL
-            </span>
-            <motion.span
-              className="block text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] via-[#DC2626] to-[#F0C040]"
-              animate={{
-                backgroundPosition: ["0%", "100%", "0%"],
-              }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-              style={{
-                backgroundSize: "200% 100%",
-              }}
-            >
-              FRUIT
-            </motion.span>
-          </motion.h1>
-        </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.12, duration: 0.7 }}
+          className="mt-7 max-w-4xl text-5xl font-black leading-[0.95] text-white md:text-7xl"
+        >
+          Stop guessing card value.
+          <span className="mt-2 block bg-gradient-to-r from-[#F0C040] via-[#f8e7a5] to-[#DC2626] bg-clip-text text-transparent">
+            Command the entire catalog.
+          </span>
+        </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="text-xl md:text-2xl text-white/40 mb-12 max-w-2xl mx-auto font-light"
+          transition={{ delay: 0.24 }}
+          className="mt-6 max-w-2xl text-lg text-white/70"
         >
-          The ultimate <span className="text-[#F0C040] font-semibold">One Piece TCG</span> platform.
-          <br />
-          <span className="text-white/30">Market intelligence. Meta dominance. Treasure hunting.</span>
+          DevilFruitTCG is your flagship console for One Piece TCG: full card discovery, live market tracking, matchup intelligence, and collection command in one continuous flow.
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ delay: 0.34 }}
+          className="mt-9 flex flex-wrap items-center gap-4"
         >
-          <Link href="/market">
-            <motion.button
-              className="group relative px-8 py-4 bg-gradient-to-r from-[#DC2626] to-[#991B1B] text-white font-bold rounded-2xl overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                Explore Market
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <Link href="/market" className="group">
+            <button className="rounded-2xl bg-gradient-to-r from-[#F0C040] to-[#DC2626] px-8 py-4 font-black text-black transition-transform group-hover:scale-[1.02]">
+              <span className="flex items-center gap-2">
+                Open Market Command
+                <ArrowRight className="h-4 w-4" />
               </span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[#F0C040] to-[#DC2626]"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
+            </button>
           </Link>
-          <Link href="/collection">
-            <motion.button
-              className="px-8 py-4 bg-white/5 border border-white/20 text-white font-semibold rounded-2xl hover:bg-white/10 hover:border-[#F0C040]/50 transition-all"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Build Collection
-            </motion.button>
+          <Link href="/matchups">
+            <button className="rounded-2xl border border-white/20 bg-white/5 px-8 py-4 font-semibold text-white hover:border-[#F0C040]/50 hover:bg-white/10">
+              Open Tactical Matrix
+            </button>
           </Link>
-        </motion.div>
-
-        {/* Featured Cards 3D Carousel */}
-        <motion.div
-          style={{ y: y1 }}
-          className="mt-20 perspective-2000"
-        >
-          <div className="flex items-center justify-center gap-4 md:gap-8">
-            {HOME_FEATURED_CARDS.map((card, i) => (
-              <motion.div
-                key={card.id}
-                className="relative group cursor-pointer"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: card.y ?? 0 }}
-                transition={{ delay: 1.4 + i * 0.1 }}
-                whileHover={{ 
-                  y: (card.y ?? 0) - 20, 
-                  rotateY: (card.rotate ?? 0) * 0.5,
-                  z: 50,
-                  transition: { duration: 0.3 }
-                }}
-                style={{
-                  transform: `rotateY(${card.rotate ?? 0}deg) translateZ(${card.z ?? 0}px)`,
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                <div className="relative w-20 md:w-32 aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-[#F0C040]/30 transition-shadow duration-500">
-                  <img
-                    src={`/api/card-image?id=${card.id}`}
-                    alt={card.name}
-                    className="w-full h-full object-cover"
-                  />
-                  {/* Shine Effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent"
-                    initial={{ x: "-100%", opacity: 0 }}
-                    whileHover={{ x: "100%", opacity: 1 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                  {/* Rarity Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#F0C040]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-                {/* Shadow */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-16 h-4 bg-black/50 blur-xl rounded-full group-hover:blur-2xl transition-all" />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0f1e] to-transparent" />
-    </section>
-  );
-}
-
-function HomeCommandBrief() {
-  const briefItems = [
-    { label: "Market Pulse", value: "Live", note: "eBay + TCG sync" },
-    { label: "Meta Theater", value: "12 Decks", note: "Tier matrix online" },
-    { label: "Deck Ops", value: "Ready", note: "Builder + tracker armed" },
-  ];
-
-  return (
-    <section className="py-8 md:py-12">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-6"
-        >
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.18),transparent_48%),radial-gradient(circle_at_88%_78%,rgba(220,38,38,0.16),transparent_48%)]" />
-          <div className="relative flex items-start justify-between gap-6 flex-wrap mb-6">
-            <div>
-              <p className="text-[11px] tracking-[0.22em] uppercase text-white/45">Captain's command brief</p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-black text-white">One dashboard. Full Grand Line control.</h2>
-            </div>
-            <Link href="/matchups" className="text-sm font-bold text-[#F0C040] hover:text-white transition-colors">
-              Open tactical matrix →
-            </Link>
-          </div>
-          <div className="grid gap-3 md:grid-cols-3">
-            {briefItems.map((item) => (
-              <div key={item.label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">{item.label}</p>
-                <p className="mt-2 text-2xl font-black text-white">{item.value}</p>
-                <p className="text-sm text-white/50">{item.note}</p>
-              </div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>
   );
 }
 
-// Stats Section
-function StatsSection() {
-  const stats = [
-    { value: "800+", label: "Cards Tracked", icon: Anchor, color: "from-blue-500 to-cyan-400" },
-    { value: "15", label: "Sets", icon: Compass, color: "from-amber-500 to-yellow-400" },
-    { value: "12", label: "Meta Decks", icon: Crown, color: "from-purple-500 to-pink-400" },
-    { value: "24/7", label: "Live Prices", icon: Zap, color: "from-green-500 to-emerald-400" },
+function IntelligenceStrip() {
+  const items = [
+    {
+      icon: Database,
+      title: "Catalog Coverage",
+      value: "OP01–OP15 + EB",
+      note: "Searchable card index, not a limited featured subset",
+    },
+    {
+      icon: TrendingUp,
+      title: "Market Signal",
+      value: "Live price rails",
+      note: "eBay and TCG data lines aligned for decisions",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Data Integrity",
+      value: "Consistency sweep",
+      note: "Identity checks across home, market, and card paths",
+    },
+    {
+      icon: Radar,
+      title: "Matchup Intel",
+      value: "Kaizoku-ready",
+      note: "Real matchup source path is wired for production",
+    },
   ];
 
   return (
-    <section className="py-24 relative">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, i) => (
+    <section className="relative pb-16 md:pb-20">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid gap-4 md:grid-cols-2">
+          {items.map((item, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
+              key={item.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="relative p-6 bg-white/[0.02] border border-white/10 rounded-3xl backdrop-blur-sm hover:border-[#F0C040]/30 transition-all group"
+              transition={{ delay: i * 0.08 }}
+              className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#12172a] via-[#12162b] to-[#17111f] p-6"
             >
-              <div className={`w-14 h-14 mb-4 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
-                <stat.icon className="w-7 h-7 text-white" />
-              </div>
-              <div className="text-4xl font-black text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-white/40">{stat.label}</div>
+              <item.icon className="h-6 w-6 text-[#F0C040]" />
+              <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-white/45">{item.title}</p>
+              <p className="mt-2 text-2xl font-black text-white">{item.value}</p>
+              <p className="mt-2 text-sm text-white/60">{item.note}</p>
             </motion.div>
           ))}
         </div>
@@ -390,98 +167,62 @@ function StatsSection() {
   );
 }
 
-// Features Grid
-function FeaturesSection() {
-  const features = [
+function OperationsGrid() {
+  const ops = [
     {
       icon: TrendingUp,
       title: "Market Watch",
-      desc: "Real-time prices from eBay and TCGPlayer. Know the true value before you trade.",
-      color: "from-amber-500/20 to-yellow-500/10",
-      border: "border-amber-500/20",
+      desc: "Scan every set, filter by rarity/cost/color, inspect price history instantly.",
       href: "/market",
     },
     {
       icon: Swords,
       title: "Matchup Matrix",
-      desc: "Win rates powered by tournament data. Know your matchups before you sit down.",
-      color: "from-red-500/20 to-rose-500/10",
-      border: "border-red-500/20",
+      desc: "Read the lanes that matter before tournament rounds and side decisions.",
       href: "/matchups",
     },
     {
       icon: Crown,
-      title: "Meta Snapshot",
-      desc: "Top decks from recent tournaments. Stay ahead of the meta curve.",
-      color: "from-blue-500/20 to-indigo-500/10",
-      border: "border-blue-500/20",
+      title: "Meta Theater",
+      desc: "Track top decks and pressure shifts with the command-brief format.",
       href: "/meta",
     },
     {
-      icon: Package,
-      title: "Collection Tracker",
-      desc: "Track your cards, see live value, know what to sell or hold.",
-      color: "from-purple-500/20 to-violet-500/10",
-      border: "border-purple-500/20",
+      icon: Anchor,
+      title: "Collection Command",
+      desc: "Know what to hold, sell, and chase with one portfolio-style view.",
       href: "/collection",
     },
   ];
 
   return (
-    <section className="py-24 relative">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-            Your <span className="text-[#F0C040]">Treasure Map</span>
-          </h2>
-          <p className="text-white/40 text-lg">Everything you need to conquer the Grand Line</p>
-        </motion.div>
+    <section className="pb-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-10 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#F0C040]/90">Operations</p>
+            <h2 className="mt-2 text-4xl font-black text-white md:text-5xl">Everything in one war-room flow.</h2>
+          </div>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {features.map((feature, i) => (
+        <div className="grid gap-5 md:grid-cols-2">
+          {ops.map((op, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
+              key={op.title}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
             >
-              <Link href={feature.href}>
-                <motion.div
-                  className={`relative p-8 bg-gradient-to-br ${feature.color} ${feature.border} border rounded-3xl h-full overflow-hidden group cursor-pointer`}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="relative z-10">
-                    <motion.div 
-                      className="w-16 h-16 mb-6 rounded-2xl bg-white/10 flex items-center justify-center group-hover:bg-[#F0C040]/20 transition-colors"
-                      whileHover={{ rotate: 10 }}
-                    >
-                      <feature.icon className="w-8 h-8 text-[#F0C040]" />
-                    </motion.div>
-                    <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
-                    <p className="text-white/50 leading-relaxed">{feature.desc}</p>
-                    <motion.div
-                      className="mt-6 flex items-center gap-2 text-[#F0C040] font-semibold"
-                      initial={{ x: 0 }}
-                      whileHover={{ x: 5 }}
-                    >
-                      Explore <ArrowRight className="w-4 h-4" />
-                    </motion.div>
-                  </div>
-                  {/* Hover Glow */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-tr from-[#F0C040]/0 via-[#F0C040]/10 to-[#F0C040]/0"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </motion.div>
+              <Link href={op.href}>
+                <div className="group h-full rounded-3xl border border-white/10 bg-[#0f1528]/70 p-7 transition-all hover:-translate-y-1 hover:border-[#F0C040]/40 hover:bg-[#121a31]">
+                  <op.icon className="h-7 w-7 text-[#F0C040]" />
+                  <h3 className="mt-4 text-2xl font-black text-white">{op.title}</h3>
+                  <p className="mt-3 text-white/65">{op.desc}</p>
+                  <p className="mt-5 inline-flex items-center gap-2 font-semibold text-[#F0C040]">
+                    Enter module <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </p>
+                </div>
               </Link>
             </motion.div>
           ))}
@@ -491,85 +232,17 @@ function FeaturesSection() {
   );
 }
 
-// CTA Section
-function CTASection() {
-  return (
-    <section className="py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#DC2626]/10 via-[#F0C040]/10 to-[#DC2626]/10" />
-      
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="relative max-w-4xl mx-auto px-6 text-center"
-      >
-        <h2 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
-          Ready to find the
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] to-[#DC2626]">
-            One Piece?
-          </span>
-        </h2>
-        <p className="text-white/40 text-xl mb-10 max-w-xl mx-auto">
-          Join thousands of players tracking cards, analyzing matchups, and dominating the meta.
-        </p>
-        <Link href="/market">
-          <motion.button
-            className="px-10 py-5 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-2xl text-lg"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 60px rgba(240, 192, 64, 0.4)" }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="flex items-center gap-2">
-              <Anchor className="w-5 h-5" />
-              Start Your Journey
-            </span>
-          </motion.button>
-        </Link>
-      </motion.div>
-    </section>
-  );
-}
-
-// Footer
-function Footer() {
-  return (
-    <footer className="py-12 border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <img src="/images/logo-concept-crest.svg?v=2" alt="DevilFruitTCG crest logo" className="w-8 h-8 object-contain" />
-            <span className="text-white/40 text-sm">
-              © 2026 DevilFruitTCG.gg — Built for the community
-            </span>
-          </div>
-          <span className="text-white/30 text-xs">
-            Not affiliated with Bandai Namco or Toei Animation
-          </span>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-// Main Page
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] text-white overflow-x-hidden">
-      <AnimatePresence>
-        {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      </AnimatePresence>
+    <div className="min-h-screen overflow-x-hidden bg-[#070b16] text-white">
+      <AnimatePresence>{loading && <LoadingScreen onComplete={() => setLoading(false)} />}</AnimatePresence>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.5 }}
-      >
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: loading ? 0 : 1 }} transition={{ duration: 0.45 }}>
         <HeroSection />
-        <HomeCommandBrief />
-        <StatsSection />
-        <FeaturesSection />
-        <CTASection />
+        <IntelligenceStrip />
+        <OperationsGrid />
       </motion.div>
     </div>
   );
