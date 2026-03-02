@@ -98,11 +98,13 @@ export async function loadCards(): Promise<Card[]> {
     // Keep all unique printings (includes alternate arts when image/name differ)
     const mappedPrints = dedupeByPrint(mapped);
 
-    // Add local fallback only for card IDs missing from feed
-    const mappedIds = new Set(mappedPrints.map((c) => c.id));
-    const fallbackMissing = baseCards.filter((c) => !mappedIds.has(c.id));
+    // Canonical identity guard:
+    // - local base cards are source-of-truth for known IDs (prevents name/image mismatches)
+    // - feed is used to extend coverage for IDs not present locally
+    const baseIds = new Set(baseCards.map((c) => c.id));
+    const feedOnly = mappedPrints.filter((c) => !baseIds.has(c.id));
 
-    const cards = [...mappedPrints, ...fallbackMissing];
+    const cards = [...baseCards, ...feedOnly];
     cache = { cards, fetchedAt: now };
     return cards.length ? cards : baseCards;
   } catch (e) {
