@@ -28,7 +28,7 @@ function MarketContent() {
       if (q.length < 2) { setSuggestions([]); return; }
 
       const setQuery = q.toUpperCase();
-      const isSetCode = /^(OP\d{2}|EB\d{2}|ST\d{2}|P-\d{3})$/.test(setQuery);
+      const isSetCode = /^(OP\d{1,2}|EB\d{1,2}|ST\d{1,2}|PRB\d{1,2}|P-\d{3})$/.test(setQuery);
 
       try {
         const url = isSetCode
