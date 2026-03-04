@@ -184,7 +184,7 @@ export const SETS = [
   { code: "OP05", name: "Awakening of the New Era" },
   { code: "OP06", name: "Wings of the Captain" },
   { code: "OP07", name: "500 Years in the Future" },
-  { code: "OP08", name: "Two Legends" },
+  { code: "OP08", name: "TWO LEGENDS" },
   { code: "OP09", name: "EMPERORS IN THE NEW WORLD" },
   { code: "OP10", name: "ROYAL BLOOD" },
   { code: "OP11", name: "A FIST OF DIVINE SPEED" },
