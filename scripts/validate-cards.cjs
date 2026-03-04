@@ -35,6 +35,14 @@ function normalizeNumber(n) {
   return String(n).padStart(3, "0");
 }
 
+function isAllowedCrossSetVariant(card, idSetCode) {
+  const rarity = String(card.rarity || "").trim().toUpperCase();
+  const id = String(card.id || "");
+  const hasVariantSuffix = /_P\d+$/i.test(id);
+  const showcaseRarity = rarity === "SP" || rarity === "TR" || rarity === "SP CARD";
+  return hasVariantSuffix && showcaseRarity && card.setCode.trim().toUpperCase() !== idSetCode;
+}
+
 function validateCard(card) {
   const issues = [];
   const requiredStrings = ["id", "name", "set", "setCode", "number", "type", "color", "rarity"];
@@ -44,7 +52,7 @@ function validateCard(card) {
   }
   if (issues.length) return issues;
 
-  const idMatch = /^([A-Z0-9]{2,4})-(\d{3,4})$/.exec(card.id.trim().toUpperCase());
+  const idMatch = /^([A-Z0-9]{2,4})-(\d{3,4})(?:_P\d+)?$/.exec(card.id.trim().toUpperCase());
   if (!idMatch) {
     issues.push("bad_id_format");
     return issues;
@@ -54,7 +62,7 @@ function validateCard(card) {
   const setCode = card.setCode.trim().toUpperCase();
   const number = card.number.trim();
 
-  if (setCode !== idSetCode) issues.push("setCode_mismatch_with_id");
+  if (setCode !== idSetCode && !isAllowedCrossSetVariant(card, idSetCode)) issues.push("setCode_mismatch_with_id");
   if (!/^\d{1,4}$/.test(number)) issues.push("bad_number_format");
   else if (normalizeNumber(number) !== normalizeNumber(idNumberRaw)) issues.push("number_mismatch_with_id");
 
@@ -89,11 +97,14 @@ function main() {
 
     const idKey = (card.id || "").toUpperCase();
     if (!byId.has(idKey)) byId.set(idKey, []);
-    byId.get(idKey).push({ id: card.id, name: card.name, file });
+    byId.get(idKey).push({ id: card.id, name: card.name, file, imageUrl: card.imageUrl });
   }
 
   for (const [idKey, entries] of byId.entries()) {
     if (!idKey || entries.length < 2) continue;
+    // Allow intentional duplicates if they have different imageUrls (alt arts, variants)
+    const uniqueImages = new Set(entries.map((e) => e.imageUrl || "base")).size;
+    if (uniqueImages > 1) continue; // Different images = intentional variants, not duplicates
     errors.push({
       id: idKey,
       file: entries.map((e) => e.file).join(","),
