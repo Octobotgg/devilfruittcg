@@ -46,7 +46,7 @@ function isAllowedCrossSetVariant(card, idSetCode) {
   if (hasVariantSuffix && showcaseRarity && setCode !== idSetCode) return true;
 
   // Premium Booster reprint pages (PRB-*) intentionally aggregate many IDs from other sets
-  if (hasVariantSuffix && /^PRB\d{2}$/.test(setCode) && setCode !== idSetCode) return true;
+  if (/^PRB\d{2}$/.test(setCode) && setCode !== idSetCode) return true;
 
   return false;
 }
