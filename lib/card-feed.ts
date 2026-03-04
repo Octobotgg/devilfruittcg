@@ -2,7 +2,7 @@ import { SEED_CARDS, type Card } from "./cards";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
-// All local cards (OP01-OP10, EB01-EB02, ST01-ST21) - used as fallback
+// All local cards (OP01-OP14, EB01-EB04, ST01-ST29) - used as canonical fallback
 export const ALL_SET_CARDS: Card[] = SEED_CARDS;
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
@@ -70,6 +70,12 @@ function dedupeByPrint(cards: Card[]): Card[] {
   return out;
 }
 
+function shouldUseFeedForId(id: string): boolean {
+  // CRITICAL: Only use feed for IDs that don't exist in local data
+  // Local data is the source of truth for ALL known IDs to prevent name mismatches
+  return false; // Conservative: never prefer feed over local for known IDs
+}
+
 function isLikelyEnglish(name: string): boolean {
   if (!name) return false;
   // reject Japanese/CJK scripts
@@ -98,9 +104,9 @@ export async function loadCards(): Promise<Card[]> {
     // Keep all unique printings (includes alternate arts when image/name differ)
     const mappedPrints = dedupeByPrint(mapped);
 
-    // Canonical identity guard:
-    // - local base cards are source-of-truth for known IDs (prevents name/image mismatches)
-    // - feed is used to extend coverage for IDs not present locally
+    // STRICT GUARD: Local data is always source-of-truth for known IDs.
+    // Feed is ONLY used to extend coverage for IDs not present locally.
+    // This prevents card name mismatches that confuse players.
     const baseIds = new Set(baseCards.map((c) => c.id));
     const feedOnly = mappedPrints.filter((c) => !baseIds.has(c.id));
 

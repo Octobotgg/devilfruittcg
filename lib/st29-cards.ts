@@ -1,0 +1,37 @@
+// ST29: EGGHEAD - Synced from official cardlist
+// 31 entries including variants and cross-set SP/TR cards
+const ST29_CARDS = [
+  { id: "ST29-001", name: "Monkey.D.Luffy", set: "EGGHEAD", setCode: "ST29", number: "001", type: "Leader", color: "Yellow", rarity: "L", cost: 6, power: 5000 },
+  { id: "ST29-001_p1", name: "Monkey.D.Luffy (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "001", type: "Leader", color: "Yellow", rarity: "L", cost: 6, power: 5000, imageUrl: "/api/card-image?id=ST29-001&variant=p1" },
+  { id: "ST29-002", name: "Usopp", set: "EGGHEAD", setCode: "ST29", number: "002", type: "Character", color: "Yellow", rarity: "C", cost: 3, power: 4000 },
+  { id: "ST29-002_p1", name: "Usopp (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "002", type: "Character", color: "Yellow", rarity: "C", cost: 3, power: 4000, imageUrl: "/api/card-image?id=ST29-002&variant=p1" },
+  { id: "ST29-003", name: "Kaku", set: "EGGHEAD", setCode: "ST29", number: "003", type: "Character", color: "Yellow", rarity: "C", cost: 4, power: 5000 },
+  { id: "ST29-003_p1", name: "Kaku (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "003", type: "Character", color: "Yellow", rarity: "C", cost: 4, power: 5000, imageUrl: "/api/card-image?id=ST29-003&variant=p1" },
+  { id: "ST29-004", name: "Sanji", set: "EGGHEAD", setCode: "ST29", number: "004", type: "Character", color: "Yellow", rarity: "SR", cost: 4, power: 5000 },
+  { id: "ST29-004_p1", name: "Sanji (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "004", type: "Character", color: "Yellow", rarity: "SR", cost: 4, power: 5000, imageUrl: "/api/card-image?id=ST29-004&variant=p1" },
+  { id: "ST29-005", name: "Jinbe", set: "EGGHEAD", setCode: "ST29", number: "005", type: "Character", color: "Yellow", rarity: "C", cost: 6, power: 5000 },
+  { id: "ST29-005_p1", name: "Jinbe (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "005", type: "Character", color: "Yellow", rarity: "C", cost: 6, power: 5000, imageUrl: "/api/card-image?id=ST29-005&variant=p1" },
+  { id: "ST29-006", name: "Stussy", set: "EGGHEAD", setCode: "ST29", number: "006", type: "Character", color: "Yellow", rarity: "C", cost: 6, power: 7000 },
+  { id: "ST29-006_p1", name: "Stussy (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "006", type: "Character", color: "Yellow", rarity: "C", cost: 6, power: 7000, imageUrl: "/api/card-image?id=ST29-006&variant=p1" },
+  { id: "ST29-007", name: "Tony Tony.Chopper", set: "EGGHEAD", setCode: "ST29", number: "007", type: "Character", color: "Yellow", rarity: "C", cost: 4, power: 5000 },
+  { id: "ST29-007_p1", name: "Tony Tony.Chopper (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "007", type: "Character", color: "Yellow", rarity: "C", cost: 4, power: 5000, imageUrl: "/api/card-image?id=ST29-007&variant=p1" },
+  { id: "ST29-008", name: "Nami", set: "EGGHEAD", setCode: "ST29", number: "008", type: "Character", color: "Yellow", rarity: "C", cost: 3, power: 1000 },
+  { id: "ST29-008_p1", name: "Nami (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "008", type: "Character", color: "Yellow", rarity: "C", cost: 3, power: 1000, imageUrl: "/api/card-image?id=ST29-008&variant=p1" },
+  { id: "ST29-009", name: "Nico Robin", set: "EGGHEAD", setCode: "ST29", number: "009", type: "Character", color: "Yellow", rarity: "C", cost: 4, power: 2000 },
+  { id: "ST29-009_p1", name: "Nico Robin (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "009", type: "Character", color: "Yellow", rarity: "C", cost: 4, power: 2000, imageUrl: "/api/card-image?id=ST29-009&variant=p1" },
+  { id: "ST29-010", name: "Franky", set: "EGGHEAD", setCode: "ST29", number: "010", type: "Character", color: "Yellow", rarity: "C", cost: 5, power: 6000 },
+  { id: "ST29-010_p1", name: "Franky (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "010", type: "Character", color: "Yellow", rarity: "C", cost: 5, power: 6000, imageUrl: "/api/card-image?id=ST29-010&variant=p1" },
+  { id: "ST29-011", name: "Brook", set: "EGGHEAD", setCode: "ST29", number: "011", type: "Character", color: "Yellow", rarity: "C", cost: 2, power: 2000 },
+  { id: "ST29-011_p1", name: "Brook (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "011", type: "Character", color: "Yellow", rarity: "C", cost: 2, power: 2000, imageUrl: "/api/card-image?id=ST29-011&variant=p1" },
+  { id: "ST29-012", name: "Monkey.D.Luffy", set: "EGGHEAD", setCode: "ST29", number: "012", type: "Character", color: "Yellow", rarity: "C", cost: 1 },
+  { id: "ST29-012_p1", name: "Monkey.D.Luffy (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "012", type: "Character", color: "Yellow", rarity: "C", cost: 1, imageUrl: "/api/card-image?id=ST29-012&variant=p1" },
+  { id: "ST29-013", name: "Rob Lucci", set: "EGGHEAD", setCode: "ST29", number: "013", type: "Character", color: "Yellow", rarity: "C", cost: 5, power: 6000 },
+  { id: "ST29-013_p1", name: "Rob Lucci (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "013", type: "Character", color: "Yellow", rarity: "C", cost: 5, power: 6000, imageUrl: "/api/card-image?id=ST29-013&variant=p1" },
+  { id: "ST29-014", name: "Roronoa Zoro", set: "EGGHEAD", setCode: "ST29", number: "014", type: "Character", color: "Yellow", rarity: "SR", cost: 6, power: 8000 },
+  { id: "ST29-014_p1", name: "Roronoa Zoro (Alt Art)", set: "EGGHEAD", setCode: "ST29", number: "014", type: "Character", color: "Yellow", rarity: "SR", cost: 6, power: 8000, imageUrl: "/api/card-image?id=ST29-014&variant=p1" },
+  { id: "ST29-015", name: "Raw Heat Strike", set: "EGGHEAD", setCode: "ST29", number: "015", type: "Event", color: "Yellow", rarity: "C", cost: 1 },
+  { id: "ST29-016", name: "Kizaru!! Compared to Two Years Ago We're a Hundred Times Stronger Now!!", set: "EGGHEAD", setCode: "ST29", number: "016", type: "Event", color: "Yellow", rarity: "C", cost: 1 },
+  { id: "ST29-017", name: "Iai Death Lion Song", set: "EGGHEAD", setCode: "ST29", number: "017", type: "Event", color: "Yellow", rarity: "C", cost: 2 },
+];
+
+export default ST29_CARDS;

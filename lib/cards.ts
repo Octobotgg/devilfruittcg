@@ -37,6 +37,14 @@ import ST18_CARDS from './st18-cards';
 import ST19_CARDS from './st19-cards';
 import ST20_CARDS from './st20-cards';
 import ST21_CARDS from './st21-cards';
+import ST22_CARDS from './st22-cards';
+import ST23_CARDS from './st23-cards';
+import ST24_CARDS from './st24-cards';
+import ST25_CARDS from './st25-cards';
+import ST26_CARDS from './st26-cards';
+import ST27_CARDS from './st27-cards';
+import ST28_CARDS from './st28-cards';
+import ST29_CARDS from './st29-cards';
 
 export interface Card {
   id: string;
@@ -93,6 +101,14 @@ export const SEED_CARDS: Card[] = [
   ...ST19_CARDS,
   ...ST20_CARDS,
   ...ST21_CARDS,
+  ...ST22_CARDS,
+  ...ST23_CARDS,
+  ...ST24_CARDS,
+  ...ST25_CARDS,
+  ...ST26_CARDS,
+  ...ST27_CARDS,
+  ...ST28_CARDS,
+  ...ST29_CARDS,
 ];
 
 export function searchCards(query: string): Card[] {
@@ -197,25 +213,33 @@ export const SETS = [
   { code: "EB02", name: "ANIME 25TH COLLECTION" },
   { code: "EB03", name: "ONE PIECE HEROINES EDITION" },
   { code: "EB04", name: "THE AZURE SEA’S SEVEN" },
-  { code: "ST01", name: "Straw Hat Crew" },
-  { code: "ST02", name: "Worst Generation" },
-  { code: "ST03", name: "The Seven Warlords of the Sea" },
-  { code: "ST04", name: "Animal Kingdom Pirates" },
-  { code: "ST05", name: "ONE PIECE FILM edition" },
-  { code: "ST06", name: "Absolute Justice" },
-  { code: "ST07", name: "Big Mom Pirates" },
-  { code: "ST08", name: "Monkey D. Luffy" },
-  { code: "ST09", name: "Yamato" },
-  { code: "ST10", name: "The Three Captains" },
-  { code: "ST11", name: "Uta" },
-  { code: "ST12", name: "Zoro and Sanji" },
-  { code: "ST13", name: "The Three Brothers" },
+  { code: "ST01", name: "STRAW HAT CREW" },
+  { code: "ST02", name: "WORST GENERATION" },
+  { code: "ST03", name: "THE SEVEN WARLORDS OF THE SEA" },
+  { code: "ST04", name: "ANIMAL KINGDOM PIRATES" },
+  { code: "ST05", name: "ONE PIECE FILM EDITION" },
+  { code: "ST06", name: "ABSOLUTE JUSTICE" },
+  { code: "ST07", name: "BIG MOM PIRATES" },
+  { code: "ST08", name: "MONKEY D. LUFFY" },
+  { code: "ST09", name: "YAMATO" },
+  { code: "ST10", name: "THE THREE CAPTAINS" },
+  { code: "ST11", name: "UTA" },
+  { code: "ST12", name: "ZORO AND SANJI" },
+  { code: "ST13", name: "THE THREE BROTHERS" },
   { code: "ST14", name: "3D2Y" },
-  { code: "ST15", name: "Red Edward Newgate" },
-  { code: "ST16", name: "Green Uta" },
-  { code: "ST17", name: "Blue Donquixote Doflamingo" },
-  { code: "ST18", name: "Purple Monkey D. Luffy" },
-  { code: "ST19", name: "Black Smoker" },
-  { code: "ST20", name: "Yellow Charlotte Katakuri" },
+  { code: "ST15", name: "RED EDWARD.NEWGATE" },
+  { code: "ST16", name: "GREEN UTA" },
+  { code: "ST17", name: "BLUE DONQUIXOTE DOFLAMINGO" },
+  { code: "ST18", name: "PURPLE MONKEY.D.LUFFY" },
+  { code: "ST19", name: "BLACK SMOKER" },
+  { code: "ST20", name: "YELLOW CHARLOTTE KATAKURI" },
   { code: "ST21", name: "GEAR5" },
+  { code: "ST22", name: "ACE & NEWGATE" },
+  { code: "ST23", name: "RED SHANKS" },
+  { code: "ST24", name: "GREEN JEWELRY BONNEY" },
+  { code: "ST25", name: "BLUE BUGGY" },
+  { code: "ST26", name: "PURPLE/BLACK MONKEY.D.LUFFY" },
+  { code: "ST27", name: "BLACK MARSHALL.D.TEACH" },
+  { code: "ST28", name: "GREEN/YELLOW YAMATO" },
+  { code: "ST29", name: "EGGHEAD" },
 ];

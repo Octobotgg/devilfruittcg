@@ -1,0 +1,37 @@
+// ST22: ACE & NEWGATE - Synced from official cardlist
+// 31 entries including variants and cross-set SP/TR cards
+const ST22_CARDS = [
+  { id: "ST22-001", name: "Ace & Newgate", set: "ACE & NEWGATE", setCode: "ST22", number: "001", type: "Leader", color: "Blue", rarity: "L", cost: 5, power: 5000 },
+  { id: "ST22-001_p1", name: "Ace & Newgate (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "001", type: "Leader", color: "Blue", rarity: "L", cost: 5, power: 5000, imageUrl: "/api/card-image?id=ST22-001&variant=p1" },
+  { id: "ST22-002", name: "Izo", set: "ACE & NEWGATE", setCode: "ST22", number: "002", type: "Character", color: "Blue", rarity: "SR", cost: 1 },
+  { id: "ST22-002_p1", name: "Izo (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "002", type: "Character", color: "Blue", rarity: "SR", cost: 1, imageUrl: "/api/card-image?id=ST22-002&variant=p1" },
+  { id: "ST22-003", name: "Edward.Newgate", set: "ACE & NEWGATE", setCode: "ST22", number: "003", type: "Character", color: "Blue", rarity: "C", cost: 9, power: 10000 },
+  { id: "ST22-003_p1", name: "Edward.Newgate (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "003", type: "Character", color: "Blue", rarity: "C", cost: 9, power: 10000, imageUrl: "/api/card-image?id=ST22-003&variant=p1" },
+  { id: "ST22-004", name: "Elmy", set: "ACE & NEWGATE", setCode: "ST22", number: "004", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 5000 },
+  { id: "ST22-004_p1", name: "Elmy (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "004", type: "Character", color: "Blue", rarity: "C", cost: 3, power: 5000, imageUrl: "/api/card-image?id=ST22-004&variant=p1" },
+  { id: "ST22-005", name: "Kouzuki Oden", set: "ACE & NEWGATE", setCode: "ST22", number: "005", type: "Character", color: "Blue", rarity: "SR", cost: 7, power: 8000 },
+  { id: "ST22-005_p1", name: "Kouzuki Oden (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "005", type: "Character", color: "Blue", rarity: "SR", cost: 7, power: 8000, imageUrl: "/api/card-image?id=ST22-005&variant=p1" },
+  { id: "ST22-006", name: "Jozu", set: "ACE & NEWGATE", setCode: "ST22", number: "006", type: "Character", color: "Blue", rarity: "C", cost: 7, power: 8000 },
+  { id: "ST22-006_p1", name: "Jozu (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "006", type: "Character", color: "Blue", rarity: "C", cost: 7, power: 8000, imageUrl: "/api/card-image?id=ST22-006&variant=p1" },
+  { id: "ST22-007", name: "Squard", set: "ACE & NEWGATE", setCode: "ST22", number: "007", type: "Character", color: "Blue", rarity: "C", cost: 1, power: 2000 },
+  { id: "ST22-007_p1", name: "Squard (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "007", type: "Character", color: "Blue", rarity: "C", cost: 1, power: 2000, imageUrl: "/api/card-image?id=ST22-007&variant=p1" },
+  { id: "ST22-008", name: "Decalvan Brothers", set: "ACE & NEWGATE", setCode: "ST22", number: "008", type: "Character", color: "Blue", rarity: "C", cost: 2, power: 4000 },
+  { id: "ST22-008_p1", name: "Decalvan Brothers (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "008", type: "Character", color: "Blue", rarity: "C", cost: 2, power: 4000, imageUrl: "/api/card-image?id=ST22-008&variant=p1" },
+  { id: "ST22-009", name: "Vista", set: "ACE & NEWGATE", setCode: "ST22", number: "009", type: "Character", color: "Blue", rarity: "C", cost: 1, power: 1000 },
+  { id: "ST22-009_p1", name: "Vista (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "009", type: "Character", color: "Blue", rarity: "C", cost: 1, power: 1000, imageUrl: "/api/card-image?id=ST22-009&variant=p1" },
+  { id: "ST22-010", name: "Portgas.D.Ace", set: "ACE & NEWGATE", setCode: "ST22", number: "010", type: "Character", color: "Blue", rarity: "C", cost: 5, power: 6000 },
+  { id: "ST22-010_p1", name: "Portgas.D.Ace (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "010", type: "Character", color: "Blue", rarity: "C", cost: 5, power: 6000, imageUrl: "/api/card-image?id=ST22-010&variant=p1" },
+  { id: "ST22-011", name: "Whitey Bay", set: "ACE & NEWGATE", setCode: "ST22", number: "011", type: "Character", color: "Blue", rarity: "C", cost: 1, power: 1000 },
+  { id: "ST22-011_p1", name: "Whitey Bay (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "011", type: "Character", color: "Blue", rarity: "C", cost: 1, power: 1000, imageUrl: "/api/card-image?id=ST22-011&variant=p1" },
+  { id: "ST22-012", name: "Marco", set: "ACE & NEWGATE", setCode: "ST22", number: "012", type: "Character", color: "Blue", rarity: "C", cost: 4, power: 5000 },
+  { id: "ST22-012_p1", name: "Marco (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "012", type: "Character", color: "Blue", rarity: "C", cost: 4, power: 5000, imageUrl: "/api/card-image?id=ST22-012&variant=p1" },
+  { id: "ST22-013", name: "LittleOars Jr.", set: "ACE & NEWGATE", setCode: "ST22", number: "013", type: "Character", color: "Blue", rarity: "C", cost: 5, power: 7000 },
+  { id: "ST22-013_p1", name: "LittleOars Jr. (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "013", type: "Character", color: "Blue", rarity: "C", cost: 5, power: 7000, imageUrl: "/api/card-image?id=ST22-013&variant=p1" },
+  { id: "ST22-014", name: "A.O.", set: "ACE & NEWGATE", setCode: "ST22", number: "014", type: "Character", color: "Blue", rarity: "C", cost: 4, power: 6000 },
+  { id: "ST22-014_p1", name: "A.O. (Alt Art)", set: "ACE & NEWGATE", setCode: "ST22", number: "014", type: "Character", color: "Blue", rarity: "C", cost: 4, power: 6000, imageUrl: "/api/card-image?id=ST22-014&variant=p1" },
+  { id: "ST22-015", name: "I Am Whitebeard!!", set: "ACE & NEWGATE", setCode: "ST22", number: "015", type: "Event", color: "Blue", rarity: "C", cost: 8 },
+  { id: "ST22-016", name: "Take That Back!! Take Back What You Said!!", set: "ACE & NEWGATE", setCode: "ST22", number: "016", type: "Event", color: "Blue", rarity: "C", cost: 1 },
+  { id: "ST22-017", name: "Fire Fist", set: "ACE & NEWGATE", setCode: "ST22", number: "017", type: "Event", color: "Blue", rarity: "C", cost: 5 },
+];
+
+export default ST22_CARDS;
