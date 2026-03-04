@@ -177,13 +177,13 @@ export function getCardsBySet(setCode: string): Card[] {
 }
 
 export const SETS = [
-  { code: "OP01", name: "Romance Dawn" },
-  { code: "OP02", name: "Paramount War" },
-  { code: "OP03", name: "Pillars of Strength" },
-  { code: "OP04", name: "Kingdoms of Intrigue" },
-  { code: "OP05", name: "Awakening of the New Era" },
-  { code: "OP06", name: "Wings of the Captain" },
-  { code: "OP07", name: "500 Years in the Future" },
+  { code: "OP01", name: "ROMANCE DAWN" },
+  { code: "OP02", name: "PARAMOUNT WAR" },
+  { code: "OP03", name: "PILLARS OF STRENGTH" },
+  { code: "OP04", name: "KINGDOMS OF INTRIGUE" },
+  { code: "OP05", name: "AWAKENING OF THE NEW ERA" },
+  { code: "OP06", name: "WINGS OF THE CAPTAIN" },
+  { code: "OP07", name: "500 YEARS IN THE FUTURE" },
   { code: "OP08", name: "TWO LEGENDS" },
   { code: "OP09", name: "EMPERORS IN THE NEW WORLD" },
   { code: "OP10", name: "ROYAL BLOOD" },
