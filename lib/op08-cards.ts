@@ -1,6 +1,7 @@
 // OP08: TWO LEGENDS - Synced from official cardlist
-// 144 entries including variants
+// 151 entries including variants and cross-set SP/TR cards
 const OP08_CARDS = [
+  { id: "OP07-109_p2", name: "Monkey.D.Luffy (TR)", set: "TWO LEGENDS", setCode: "OP08", number: "109", type: "Character", color: "Yellow", rarity: "TR", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP07-109&variant=p2" },
   { id: "OP08-001", name: "Tony Tony.Chopper", set: "TWO LEGENDS", setCode: "OP08", number: "001", type: "Leader", color: "Red/Green", rarity: "L", cost: 4, power: 5000 },
   { id: "OP08-001_p1", name: "Tony Tony.Chopper (Alt Art)", set: "TWO LEGENDS", setCode: "OP08", number: "001", type: "Leader", color: "Red/Green", rarity: "L", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP08-001&variant=p1" },
   { id: "OP08-002", name: "Marco", set: "TWO LEGENDS", setCode: "OP08", number: "002", type: "Leader", color: "Red/Blue", rarity: "L", cost: 4, power: 5000 },
@@ -145,6 +146,12 @@ const OP08_CARDS = [
   { id: "OP08-118_p2", name: "Silvers Rayleigh (Manga)", set: "TWO LEGENDS", setCode: "OP08", number: "118", type: "Character", color: "Red", rarity: "SEC", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP08-118&variant=p2" },
   { id: "OP08-119", name: "Kaido & Linlin", set: "TWO LEGENDS", setCode: "OP08", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 10, power: 12000 },
   { id: "OP08-119_p1", name: "Kaido & Linlin (Alt Art)", set: "TWO LEGENDS", setCode: "OP08", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP08-119&variant=p1" },
+  { id: "OP02-013_p3", name: "Portgas.D.Ace (SP)", set: "TWO LEGENDS", setCode: "OP08", number: "013", type: "Character", color: "Red", rarity: "SP", cost: 7, power: 7000, imageUrl: "/api/card-image?id=OP02-013&variant=p3" },
+  { id: "OP03-112_p4", name: "Charlotte Pudding (SP)", set: "TWO LEGENDS", setCode: "OP08", number: "112", type: "Character", color: "Yellow", rarity: "SP", cost: 1, power: 2000, imageUrl: "/api/card-image?id=OP03-112&variant=p4" },
+  { id: "ST02-007_p2", name: "Jewelry Bonney (SP)", set: "TWO LEGENDS", setCode: "OP08", number: "007", type: "Character", color: "Green", rarity: "SP", cost: 1, power: 1000, imageUrl: "/api/card-image?id=ST02-007&variant=p2" },
+  { id: "ST03-004_p1", name: "Gecko Moria (SP)", set: "TWO LEGENDS", setCode: "OP08", number: "004", type: "Character", color: "Blue", rarity: "SP", cost: 4, power: 5000, imageUrl: "/api/card-image?id=ST03-004&variant=p1" },
+  { id: "ST04-005_p1", name: "Queen (SP)", set: "TWO LEGENDS", setCode: "OP08", number: "005", type: "Character", color: "Purple", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=ST04-005&variant=p1" },
+  { id: "ST06-006_p2", name: "Tashigi (SP)", set: "TWO LEGENDS", setCode: "OP08", number: "006", type: "Character", color: "Black", rarity: "SP", cost: 3, power: 4000, imageUrl: "/api/card-image?id=ST06-006&variant=p2" },
 ];
 
 export default OP08_CARDS;
