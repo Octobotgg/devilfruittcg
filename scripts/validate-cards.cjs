@@ -6,7 +6,7 @@ const ts = require("typescript");
 
 const ROOT = path.resolve(__dirname, "..");
 const LIB_DIR = path.join(ROOT, "lib");
-const CARD_FILE_RE = /^(op|st|eb)\d{2}-cards\.ts$/i;
+const CARD_FILE_RE = /^(op|st|eb)\d{2}-cards\.ts$|^p-cards\.ts$/i;
 const VALID_TYPES = new Set(["Leader", "Character", "Event", "Stage"]);
 
 function loadCardsFromTs(filePath) {
@@ -52,7 +52,7 @@ function validateCard(card) {
   }
   if (issues.length) return issues;
 
-  const idMatch = /^([A-Z0-9]{2,4})-(\d{3,4})(?:_P\d+)?$/.exec(card.id.trim().toUpperCase());
+  const idMatch = /^([A-Z0-9]{1,4})-(\d{3,4})(?:_P\d+)?$/.exec(card.id.trim().toUpperCase());
   if (!idMatch) {
     issues.push("bad_id_format");
     return issues;

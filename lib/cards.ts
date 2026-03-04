@@ -16,6 +16,7 @@ import EB01_CARDS from './eb01-cards';
 import EB02_CARDS from './eb02-cards';
 import EB03_CARDS from './eb03-cards';
 import EB04_CARDS from './eb04-cards';
+import P_CARDS from './p-cards';
 import ST01_CARDS from './st01-cards';
 import ST02_CARDS from './st02-cards';
 import ST03_CARDS from './st03-cards';
@@ -80,6 +81,7 @@ export const SEED_CARDS: Card[] = [
   ...EB02_CARDS,
   ...EB03_CARDS,
   ...EB04_CARDS,
+  ...P_CARDS,
   ...ST01_CARDS,
   ...ST02_CARDS,
   ...ST03_CARDS,
@@ -213,6 +215,7 @@ export const SETS = [
   { code: "EB02", name: "ANIME 25TH COLLECTION" },
   { code: "EB03", name: "ONE PIECE HEROINES EDITION" },
   { code: "EB04", name: "THE AZURE SEA’S SEVEN" },
+  { code: "P", name: "PROMOTION CARD" },
   { code: "ST01", name: "STRAW HAT CREW" },
   { code: "ST02", name: "WORST GENERATION" },
   { code: "ST03", name: "THE SEVEN WARLORDS OF THE SEA" },
