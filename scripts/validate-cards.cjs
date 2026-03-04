@@ -6,7 +6,7 @@ const ts = require("typescript");
 
 const ROOT = path.resolve(__dirname, "..");
 const LIB_DIR = path.join(ROOT, "lib");
-const CARD_FILE_RE = /^(op|st|eb)\d{2}-cards\.ts$|^p-cards\.ts$/i;
+const CARD_FILE_RE = /^(op|st|eb|prb)\d{2}-cards\.ts$|^p-cards\.ts$/i;
 const VALID_TYPES = new Set(["Leader", "Character", "Event", "Stage"]);
 
 function loadCardsFromTs(filePath) {
@@ -38,9 +38,17 @@ function normalizeNumber(n) {
 function isAllowedCrossSetVariant(card, idSetCode) {
   const rarity = String(card.rarity || "").trim().toUpperCase();
   const id = String(card.id || "");
+  const setCode = String(card.setCode || "").trim().toUpperCase();
   const hasVariantSuffix = /_P\d+$/i.test(id);
+
+  // Official cross-set showcase cards on OP/ST pages
   const showcaseRarity = rarity === "SP" || rarity === "TR" || rarity === "SP CARD";
-  return hasVariantSuffix && showcaseRarity && card.setCode.trim().toUpperCase() !== idSetCode;
+  if (hasVariantSuffix && showcaseRarity && setCode !== idSetCode) return true;
+
+  // Premium Booster reprint pages (PRB-*) intentionally aggregate many IDs from other sets
+  if (hasVariantSuffix && /^PRB\d{2}$/.test(setCode) && setCode !== idSetCode) return true;
+
+  return false;
 }
 
 function validateCard(card) {
@@ -52,7 +60,7 @@ function validateCard(card) {
   }
   if (issues.length) return issues;
 
-  const idMatch = /^([A-Z0-9]{1,4})-(\d{3,4})(?:_P\d+)?$/.exec(card.id.trim().toUpperCase());
+  const idMatch = /^([A-Z0-9]{1,5})-(\d{3,4})(?:_P\d+)?$/.exec(card.id.trim().toUpperCase());
   if (!idMatch) {
     issues.push("bad_id_format");
     return issues;
