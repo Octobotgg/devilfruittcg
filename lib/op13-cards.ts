@@ -1,6 +1,7 @@
 // OP13: CARRYING ON HIS WILL - Synced from official cardlist
-// 165 entries including variants
+// 175 entries including variants and cross-set SP/TR cards
 const OP13_CARDS = [
+  { id: "OP11-058_p1", name: "Monkey.D.Luffy (TR)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "058", type: "Character", color: "Blue", rarity: "TR", cost: 5, power: 7000, imageUrl: "/api/card-image?id=OP11-058&variant=p1" },
   { id: "OP13-001", name: "Monkey.D.Luffy", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "001", type: "Leader", color: "Red/Green", rarity: "L", cost: 4, power: 5000 },
   { id: "OP13-001_p1", name: "Monkey.D.Luffy (Alt Art)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "001", type: "Leader", color: "Red/Green", rarity: "L", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP13-001&variant=p1" },
   { id: "OP13-002", name: "Portgas.D.Ace", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "002", type: "Leader", color: "Red/Blue", rarity: "L", cost: 3, power: 6000 },
@@ -163,6 +164,15 @@ const OP13_CARDS = [
   { id: "OP13-120_p1", name: "Sabo (Alt Art)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "120", type: "Character", color: "Black", rarity: "SEC", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP13-120&variant=p1" },
   { id: "OP13-120_p2", name: "Sabo (Manga)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "120", type: "Character", color: "Black", rarity: "SEC", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP13-120&variant=p2" },
   { id: "OP13-120_p3", name: "Sabo (Manga)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "120", type: "Character", color: "Black", rarity: "SEC", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP13-120&variant=p3" },
+  { id: "EB02-028_p1", name: "Portgas.D.Ace (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "028", type: "Character", color: "Blue", rarity: "SP", cost: 5, power: 5000, imageUrl: "/api/card-image?id=EB02-028&variant=p1" },
+  { id: "OP07-111_p2", name: "Lilith (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "111", type: "Character", color: "Yellow", rarity: "SP", cost: 3, power: 5000, imageUrl: "/api/card-image?id=OP07-111&variant=p2" },
+  { id: "OP07-118_p2", name: "Sabo (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "118", type: "Character", color: "Black", rarity: "SP", cost: 8, power: 9000, imageUrl: "/api/card-image?id=OP07-118&variant=p2" },
+  { id: "OP09-004_p5", name: "Shanks (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "004", type: "Character", color: "Red", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-004&variant=p5" },
+  { id: "OP09-004_p6", name: "Shanks (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "004", type: "Character", color: "Red", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-004&variant=p6" },
+  { id: "OP09-009_p3", name: "Benn.Beckman (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "009", type: "Character", color: "Red", rarity: "SP", cost: 7, power: 7000, imageUrl: "/api/card-image?id=OP09-009&variant=p3" },
+  { id: "OP09-118_p3", name: "Gol.D.Roger (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "118", type: "Character", color: "Red", rarity: "SP", cost: 10, power: 13000, imageUrl: "/api/card-image?id=OP09-118&variant=p3" },
+  { id: "OP09-119_p3", name: "Monkey.D.Luffy (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "119", type: "Character", color: "Purple", rarity: "SP", cost: 9, power: 10000, imageUrl: "/api/card-image?id=OP09-119&variant=p3" },
+  { id: "OP10-030_p2", name: "Smoker (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "030", type: "Character", color: "Green", rarity: "SP", cost: 5, power: 7000, imageUrl: "/api/card-image?id=OP10-030&variant=p2" },
   { id: "OP13-118_p4", name: "Monkey.D.Luffy (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "118", type: "Character", color: "Green", rarity: "SP", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP13-118&variant=p4" },
   { id: "OP13-119_p4", name: "Portgas.D.Ace (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "119", type: "Character", color: "Blue", rarity: "SP", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP13-119&variant=p4" },
   { id: "OP13-120_p4", name: "Sabo (SP)", set: "CARRYING ON HIS WILL", setCode: "OP13", number: "120", type: "Character", color: "Black", rarity: "SP", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP13-120&variant=p4" },

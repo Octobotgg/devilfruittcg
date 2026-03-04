@@ -1,5 +1,5 @@
 // OP09: EMPERORS IN THE NEW WORLD - Synced from official cardlist
-// 151 entries including variants
+// 159 entries including variants and cross-set SP/TR cards
 const OP09_CARDS = [
   { id: "OP09-001", name: "Shanks", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000 },
   { id: "OP09-001_p1", name: "Shanks (Alt Art)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP09-001&variant=p1" },
@@ -149,6 +149,14 @@ const OP09_CARDS = [
   { id: "OP09-119", name: "Monkey.D.Luffy", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 9, power: 10000 },
   { id: "OP09-119_p1", name: "Monkey.D.Luffy (Alt Art)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 9, power: 10000, imageUrl: "/api/card-image?id=OP09-119&variant=p1" },
   { id: "OP09-119_p2", name: "Monkey.D.Luffy (Manga)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 9, power: 10000, imageUrl: "/api/card-image?id=OP09-119&variant=p2" },
+  { id: "ST18-004_p1", name: "Zoro-Juurou (TR)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "004", type: "Character", color: "Purple", rarity: "TR", cost: 4, power: 6000, imageUrl: "/api/card-image?id=ST18-004&variant=p1" },
+  { id: "OP04-119_p2", name: "Donquixote Rosinante (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "119", type: "Character", color: "Green", rarity: "SP", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP04-119&variant=p2" },
+  { id: "OP05-067_p4", name: "Zoro-Juurou (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "067", type: "Character", color: "Purple", rarity: "SP", cost: 3, power: 4000, imageUrl: "/api/card-image?id=OP05-067&variant=p4" },
+  { id: "OP05-093_p2", name: "Rob Lucci (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "093", type: "Character", color: "Black", rarity: "SP", cost: 4, power: 6000, imageUrl: "/api/card-image?id=OP05-093&variant=p2" },
+  { id: "OP05-119_p6", name: "Monkey.D.Luffy (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "119", type: "Character", color: "Purple", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP05-119&variant=p6" },
+  { id: "OP07-015_p2", name: "Monkey.D.Dragon (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "015", type: "Character", color: "Red", rarity: "SP", cost: 8, power: 9000, imageUrl: "/api/card-image?id=OP07-015&variant=p2" },
+  { id: "OP07-051_p3", name: "Boa Hancock (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "051", type: "Character", color: "Blue", rarity: "SP", cost: 6, power: 8000, imageUrl: "/api/card-image?id=OP07-051&variant=p3" },
+  { id: "OP08-106_p2", name: "Nami (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "106", type: "Character", color: "Yellow", rarity: "SP", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP08-106&variant=p2" },
   { id: "OP09-004_p3", name: "Shanks (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "004", type: "Character", color: "Red", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-004&variant=p3" },
   { id: "OP09-051_p3", name: "Buggy (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "051", type: "Character", color: "Blue", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-051&variant=p3" },
   { id: "OP09-093_p3", name: "Marshall.D.Teach (SP)", set: "EMPERORS IN THE NEW WORLD", setCode: "OP09", number: "093", type: "Character", color: "Black", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-093&variant=p3" },

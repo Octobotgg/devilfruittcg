@@ -1,6 +1,7 @@
 // OP11: A FIST OF DIVINE SPEED - Synced from official cardlist
-// 147 entries including variants
+// 156 entries including variants and cross-set SP/TR cards
 const OP11_CARDS = [
+  { id: "OP09-015_p1", name: "Lucky.Roux (TR)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "015", type: "Character", color: "Red", rarity: "TR", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP09-015&variant=p1" },
   { id: "OP11-001", name: "Koby", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 4, power: 5000 },
   { id: "OP11-001_p1", name: "Koby (Alt Art)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP11-001&variant=p1" },
   { id: "OP11-002", name: "Ain", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "002", type: "Character", color: "Red", rarity: "C", cost: 3, power: 4000 },
@@ -148,6 +149,14 @@ const OP11_CARDS = [
   { id: "OP11-118_p2", name: "Monkey.D.Luffy (Manga)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "118", type: "Character", color: "Blue", rarity: "SEC", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP11-118&variant=p2" },
   { id: "OP11-119", name: "Koby", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "119", type: "Character", color: "Black", rarity: "SEC", cost: 8, power: 9000 },
   { id: "OP11-119_p1", name: "Koby (Alt Art)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "119", type: "Character", color: "Black", rarity: "SEC", cost: 8, power: 9000, imageUrl: "/api/card-image?id=OP11-119&variant=p1" },
+  { id: "EB01-057_p2", name: "Shirahoshi (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "057", type: "Character", color: "Yellow", rarity: "SP", cost: 2, imageUrl: "/api/card-image?id=EB01-057&variant=p2" },
+  { id: "OP05-119_p7", name: "Monkey.D.Luffy (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "119", type: "Character", color: "Purple", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP05-119&variant=p7" },
+  { id: "OP05-119_p8", name: "Monkey.D.Luffy (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "119", type: "Character", color: "Purple", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP05-119&variant=p8" },
+  { id: "OP06-119_p2", name: "Sanji (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "119", type: "Character", color: "Blue", rarity: "SP", cost: 9, power: 9000, imageUrl: "/api/card-image?id=OP06-119&variant=p2" },
+  { id: "OP07-085_p2", name: "Stussy (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "085", type: "Character", color: "Black", rarity: "SP", cost: 9, power: 9000, imageUrl: "/api/card-image?id=OP07-085&variant=p2" },
+  { id: "OP09-005_p1", name: "Silvers Rayleigh (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "005", type: "Character", color: "Red", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP09-005&variant=p1" },
+  { id: "ST16-004_p1", name: "Shanks (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "004", type: "Character", color: "Green", rarity: "SP", cost: 9, power: 11000, imageUrl: "/api/card-image?id=ST16-004&variant=p1" },
+  { id: "ST18-005_p1", name: "Luffy-Tarou (SP)", set: "A FIST OF DIVINE SPEED", setCode: "OP11", number: "005", type: "Character", color: "Purple", rarity: "SP", cost: 7, power: 8000, imageUrl: "/api/card-image?id=ST18-005&variant=p1" },
 ];
 
 export default OP11_CARDS;

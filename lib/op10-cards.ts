@@ -1,6 +1,7 @@
 // OP10: ROYAL BLOOD - Synced from official cardlist
-// 144 entries including variants
+// 151 entries including variants and cross-set SP/TR cards
 const OP10_CARDS = [
+  { id: "OP08-052_p2", name: "Portgas.D.Ace (TR)", set: "ROYAL BLOOD", setCode: "OP10", number: "052", type: "Character", color: "Blue", rarity: "TR", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP08-052&variant=p2" },
   { id: "OP10-001", name: "Smoker", set: "ROYAL BLOOD", setCode: "OP10", number: "001", type: "Leader", color: "Red/Green", rarity: "L", cost: 4, power: 5000 },
   { id: "OP10-001_p1", name: "Smoker (Alt Art)", set: "ROYAL BLOOD", setCode: "OP10", number: "001", type: "Leader", color: "Red/Green", rarity: "L", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP10-001&variant=p1" },
   { id: "OP10-002", name: "Caesar Clown", set: "ROYAL BLOOD", setCode: "OP10", number: "002", type: "Leader", color: "Red/Blue", rarity: "L", cost: 4, power: 5000 },
@@ -145,6 +146,12 @@ const OP10_CARDS = [
   { id: "OP10-119", name: "Trafalgar Law", set: "ROYAL BLOOD", setCode: "OP10", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 7, power: 9000 },
   { id: "OP10-119_p1", name: "Trafalgar Law (Alt Art)", set: "ROYAL BLOOD", setCode: "OP10", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 7, power: 9000, imageUrl: "/api/card-image?id=OP10-119&variant=p1" },
   { id: "OP10-119_p2", name: "Trafalgar Law (Manga)", set: "ROYAL BLOOD", setCode: "OP10", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 7, power: 9000, imageUrl: "/api/card-image?id=OP10-119&variant=p2" },
+  { id: "EB01-056_p2", name: "Charlotte Flampe (SP)", set: "ROYAL BLOOD", setCode: "OP10", number: "056", type: "Character", color: "Yellow", rarity: "SP", cost: 1, power: 1000, imageUrl: "/api/card-image?id=EB01-056&variant=p2" },
+  { id: "OP07-021_p2", name: "Urouge (SP)", set: "ROYAL BLOOD", setCode: "OP10", number: "021", type: "Character", color: "Green", rarity: "SP", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP07-021&variant=p2" },
+  { id: "ST12-012_p1", name: "Charlotte Pudding (SP)", set: "ROYAL BLOOD", setCode: "OP10", number: "012", type: "Character", color: "Blue", rarity: "SP", cost: 2, power: 2000, imageUrl: "/api/card-image?id=ST12-012&variant=p1" },
+  { id: "ST14-003_p1", name: "Sanji (SP)", set: "ROYAL BLOOD", setCode: "OP10", number: "003", type: "Character", color: "Black", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=ST14-003&variant=p1" },
+  { id: "ST15-002_p1", name: "Edward.Newgate (SP)", set: "ROYAL BLOOD", setCode: "OP10", number: "002", type: "Character", color: "Red", rarity: "SP", cost: 7, power: 8000, imageUrl: "/api/card-image?id=ST15-002&variant=p1" },
+  { id: "ST18-001_p1", name: "Uso-Hachi (SP)", set: "ROYAL BLOOD", setCode: "OP10", number: "001", type: "Character", color: "Purple", rarity: "SP", cost: 3, power: 3000, imageUrl: "/api/card-image?id=ST18-001&variant=p1" },
 ];
 
 export default OP10_CARDS;

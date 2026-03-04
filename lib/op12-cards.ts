@@ -1,6 +1,7 @@
 // OP12: LEGACY OF THE MASTER - Synced from official cardlist
-// 146 entries including variants
+// 155 entries including variants and cross-set SP/TR cards
 const OP12_CARDS = [
+  { id: "OP10-063_p1", name: "Vinsmoke Sanji (TR)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "063", type: "Character", color: "Purple", rarity: "TR", cost: 1, power: 2000, imageUrl: "/api/card-image?id=OP10-063&variant=p1" },
   { id: "OP12-001", name: "Silvers Rayleigh", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000 },
   { id: "OP12-001_p1", name: "Silvers Rayleigh (Alt Art)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP12-001&variant=p1" },
   { id: "OP12-002", name: "Edward.Newgate", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "002", type: "Character", color: "Red", rarity: "UC", cost: 5, power: 6000 },
@@ -147,6 +148,14 @@ const OP12_CARDS = [
   { id: "OP12-118_p2", name: "Jewelry Bonney (Manga)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "118", type: "Character", color: "Green", rarity: "SEC", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP12-118&variant=p2" },
   { id: "OP12-119", name: "Bartholomew Kuma", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 6, power: 7000 },
   { id: "OP12-119_p1", name: "Bartholomew Kuma (Alt Art)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP12-119&variant=p1" },
+  { id: "OP06-050_p2", name: "Tashigi (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "050", type: "Character", color: "Blue", rarity: "SP", cost: 1, power: 2000, imageUrl: "/api/card-image?id=OP06-050&variant=p2" },
+  { id: "OP09-013_p2", name: "Yasopp (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "013", type: "Character", color: "Red", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP09-013&variant=p2" },
+  { id: "OP09-037_p2", name: "Lim (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "037", type: "Character", color: "Green", rarity: "SP", cost: 3, power: 5000, imageUrl: "/api/card-image?id=OP09-037&variant=p2" },
+  { id: "OP09-093_p4", name: "Marshall.D.Teach (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "093", type: "Character", color: "Black", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-093&variant=p4" },
+  { id: "OP09-093_p5", name: "Marshall.D.Teach (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "093", type: "Character", color: "Black", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP09-093&variant=p5" },
+  { id: "OP10-082_p2", name: "Kuzan (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "082", type: "Character", color: "Black", rarity: "SP", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP10-082&variant=p2" },
+  { id: "ST13-011_p2", name: "Portgas.D.Ace (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "011", type: "Character", color: "Yellow", rarity: "SP", cost: 5, power: 7000, imageUrl: "/api/card-image?id=ST13-011&variant=p2" },
+  { id: "ST18-004_p2", name: "Zoro-Juurou (SP)", set: "LEGACY OF THE MASTER", setCode: "OP12", number: "004", type: "Character", color: "Purple", rarity: "SP", cost: 4, power: 6000, imageUrl: "/api/card-image?id=ST18-004&variant=p2" },
 ];
 
 export default OP12_CARDS;
