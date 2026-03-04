@@ -1,5 +1,5 @@
 // OP03: PILLARS OF STRENGTH - Synced from official cardlist
-// 150 entries including variants
+// 154 entries including variants and cross-set SP/TR cards
 const OP03_CARDS = [
   { id: "OP03-001", name: "Portgas.D.Ace", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000 },
   { id: "OP03-001_p1", name: "Portgas.D.Ace (Alt Art)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP03-001&variant=p1" },
@@ -151,6 +151,10 @@ const OP03_CARDS = [
   { id: "OP03-122_p2", name: "Sogeking (Manga)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "122", type: "Character", color: "Blue", rarity: "SEC", cost: 7, power: 6000, imageUrl: "/api/card-image?id=OP03-122&variant=p2" },
   { id: "OP03-123", name: "Charlotte Katakuri", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "123", type: "Character", color: "Yellow", rarity: "SEC", cost: 8, power: 8000 },
   { id: "OP03-123_p1", name: "Charlotte Katakuri (Alt Art)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "123", type: "Character", color: "Yellow", rarity: "SEC", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP03-123&variant=p1" },
+  { id: "OP01-051_p2", name: "Eustass\"Captain\"Kid (SP)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "051", type: "Character", color: "Green", rarity: "SP", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP01-051&variant=p2" },
+  { id: "ST01-012_p1", name: "Monkey.D.Luffy (SP)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "012", type: "Character", color: "Red", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=ST01-012&variant=p1" },
+  { id: "ST03-009_p1", name: "Donquixote Doflamingo (SP)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "009", type: "Character", color: "Blue", rarity: "SP", cost: 7, power: 7000, imageUrl: "/api/card-image?id=ST03-009&variant=p1" },
+  { id: "ST04-003_p1", name: "Kaido (SP)", set: "PILLARS OF STRENGTH", setCode: "OP03", number: "003", type: "Character", color: "Purple", rarity: "SP", cost: 9, power: 10000, imageUrl: "/api/card-image?id=ST04-003&variant=p1" },
 ];
 
 export default OP03_CARDS;

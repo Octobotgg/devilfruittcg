@@ -1,5 +1,5 @@
 // OP04: KINGDOMS OF INTRIGUE - Synced from official cardlist
-// 144 entries including variants
+// 149 entries including variants and cross-set SP/TR cards
 const OP04_CARDS = [
   { id: "OP04-001", name: "Nefeltari Vivi", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "001", type: "Leader", color: "Red/Blue", rarity: "L", cost: 5, power: 5000 },
   { id: "OP04-001_p1", name: "Nefeltari Vivi (Alt Art)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "001", type: "Leader", color: "Red/Blue", rarity: "L", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP04-001&variant=p1" },
@@ -145,6 +145,11 @@ const OP04_CARDS = [
   { id: "OP04-118_p1", name: "Nefeltari Vivi (Alt Art)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "118", type: "Character", color: "Red", rarity: "SEC", cost: 7, power: 4000, imageUrl: "/api/card-image?id=OP04-118&variant=p1" },
   { id: "OP04-119", name: "Donquixote Rosinante", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "119", type: "Character", color: "Green", rarity: "SEC", cost: 8, power: 8000 },
   { id: "OP04-119_p1", name: "Donquixote Rosinante (Alt Art)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "119", type: "Character", color: "Green", rarity: "SEC", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP04-119&variant=p1" },
+  { id: "OP01-047_p2", name: "Trafalgar Law (SP)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "047", type: "Character", color: "Green", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP01-047&variant=p2" },
+  { id: "OP01-078_p2", name: "Boa Hancock (SP)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "078", type: "Character", color: "Blue", rarity: "SP", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP01-078&variant=p2" },
+  { id: "OP02-004_p2", name: "Edward.Newgate (SP)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "004", type: "Character", color: "Red", rarity: "SP", cost: 9, power: 10000, imageUrl: "/api/card-image?id=OP02-004&variant=p2" },
+  { id: "OP02-085_p2", name: "Magellan (SP)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "085", type: "Character", color: "Purple", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP02-085&variant=p2" },
+  { id: "OP02-099_p2", name: "Sakazuki (SP)", set: "KINGDOMS OF INTRIGUE", setCode: "OP04", number: "099", type: "Character", color: "Black", rarity: "SP", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP02-099&variant=p2" },
 ];
 
 export default OP04_CARDS;

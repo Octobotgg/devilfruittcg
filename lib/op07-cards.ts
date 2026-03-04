@@ -1,5 +1,5 @@
 // OP07: 500 YEARS IN THE FUTURE - Synced from official cardlist
-// 144 entries including variants
+// 151 entries including variants and cross-set SP/TR cards
 const OP07_CARDS = [
   { id: "OP07-001", name: "Monkey.D.Dragon", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000 },
   { id: "OP07-001_p1", name: "Monkey.D.Dragon (Alt Art)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "001", type: "Leader", color: "Red", rarity: "L", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP07-001&variant=p1" },
@@ -145,6 +145,13 @@ const OP07_CARDS = [
   { id: "OP07-118_p1", name: "Sabo (Alt Art)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "118", type: "Character", color: "Black", rarity: "SEC", cost: 8, power: 9000, imageUrl: "/api/card-image?id=OP07-118&variant=p1" },
   { id: "OP07-119", name: "Portgas.D.Ace", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 10, power: 10000 },
   { id: "OP07-119_p1", name: "Portgas.D.Ace (Alt Art)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "119", type: "Character", color: "Yellow", rarity: "SEC", cost: 10, power: 10000, imageUrl: "/api/card-image?id=OP07-119&variant=p1" },
+  { id: "ST10-010_p2", name: "Trafalgar Law (TR)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "010", type: "Character", color: "Purple", rarity: "TR", cost: 4, power: 5000, imageUrl: "/api/card-image?id=ST10-010&variant=p2" },
+  { id: "OP01-035_p2", name: "Okiku (SP)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "035", type: "Character", color: "Green", rarity: "SP", cost: 3, power: 5000, imageUrl: "/api/card-image?id=OP01-035&variant=p2" },
+  { id: "OP01-073_p2", name: "Donquixote Doflamingo (SP)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "073", type: "Character", color: "Blue", rarity: "SP", cost: 3, power: 4000, imageUrl: "/api/card-image?id=OP01-073&variant=p2" },
+  { id: "OP03-003_p1", name: "Izo (SP)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "003", type: "Character", color: "Red", rarity: "SP", cost: 1, power: 2000, imageUrl: "/api/card-image?id=OP03-003&variant=p1" },
+  { id: "OP03-078_p2", name: "Issho (SP)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "078", type: "Character", color: "Black", rarity: "SP", cost: 8, power: 9000, imageUrl: "/api/card-image?id=OP03-078&variant=p2" },
+  { id: "OP05-074_p3", name: "Eustass\"Captain\"Kid (SP)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "074", type: "Character", color: "Purple", rarity: "SP", cost: 5, power: 6000, imageUrl: "/api/card-image?id=OP05-074&variant=p3" },
+  { id: "OP06-101_p2", name: "O-Nami (SP)", set: "500 YEARS IN THE FUTURE", setCode: "OP07", number: "101", type: "Character", color: "Yellow", rarity: "SP", cost: 2, power: 3000, imageUrl: "/api/card-image?id=OP06-101&variant=p2" },
 ];
 
 export default OP07_CARDS;

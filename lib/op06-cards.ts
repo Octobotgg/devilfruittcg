@@ -1,5 +1,5 @@
 // OP06: WINGS OF THE CAPTAIN - Synced from official cardlist
-// 144 entries including variants
+// 151 entries including variants and cross-set SP/TR cards
 const OP06_CARDS = [
   { id: "OP06-001", name: "Uta", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "001", type: "Leader", color: "Red/Purple", rarity: "L", cost: 4, power: 5000 },
   { id: "OP06-001_p1", name: "Uta (Alt Art)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "001", type: "Leader", color: "Red/Purple", rarity: "L", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP06-001&variant=p1" },
@@ -145,6 +145,13 @@ const OP06_CARDS = [
   { id: "OP06-118_p2", name: "Roronoa Zoro (Manga)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "118", type: "Character", color: "Green", rarity: "SEC", cost: 9, power: 9000, imageUrl: "/api/card-image?id=OP06-118&variant=p2" },
   { id: "OP06-119", name: "Sanji", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "119", type: "Character", color: "Blue", rarity: "SEC", cost: 9, power: 9000 },
   { id: "OP06-119_p1", name: "Sanji (Alt Art)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "119", type: "Character", color: "Blue", rarity: "SEC", cost: 9, power: 9000, imageUrl: "/api/card-image?id=OP06-119&variant=p1" },
+  { id: "ST01-007_p3", name: "Nami (TR)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "007", type: "Character", color: "Red", rarity: "TR", cost: 1, power: 1000, imageUrl: "/api/card-image?id=ST01-007&variant=p3" },
+  { id: "OP03-008_p1", name: "Buggy (SP)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "008", type: "Character", color: "Red", rarity: "SP", cost: 1, power: 3000, imageUrl: "/api/card-image?id=OP03-008&variant=p1" },
+  { id: "OP03-114_p2", name: "Charlotte Linlin (SP)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "114", type: "Character", color: "Yellow", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP03-114&variant=p2" },
+  { id: "OP04-024_p2", name: "Sugar (SP)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "024", type: "Character", color: "Green", rarity: "SP", cost: 2, imageUrl: "/api/card-image?id=OP04-024&variant=p2" },
+  { id: "OP04-064_p2", name: "Ms. All Sunday (SP)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "064", type: "Character", color: "Purple", rarity: "SP", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP04-064&variant=p2" },
+  { id: "OP05-051_p2", name: "Borsalino (SP)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "051", type: "Character", color: "Blue", rarity: "SP", cost: 7, power: 8000, imageUrl: "/api/card-image?id=OP05-051&variant=p2" },
+  { id: "OP05-091_p2", name: "Rebecca (SP)", set: "WINGS OF THE CAPTAIN", setCode: "OP06", number: "091", type: "Character", color: "Black", rarity: "SP", cost: 4, imageUrl: "/api/card-image?id=OP05-091&variant=p2" },
 ];
 
 export default OP06_CARDS;

@@ -1,5 +1,5 @@
 // OP05: AWAKENING OF THE NEW ERA - Synced from official cardlist
-// 147 entries including variants
+// 152 entries including variants and cross-set SP/TR cards
 const OP05_CARDS = [
   { id: "OP05-001", name: "Sabo", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 4, power: 5000 },
   { id: "OP05-001_p1", name: "Sabo (Alt Art)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "001", type: "Leader", color: "Red/Black", rarity: "L", cost: 4, power: 5000, imageUrl: "/api/card-image?id=OP05-001&variant=p1" },
@@ -147,6 +147,11 @@ const OP05_CARDS = [
   { id: "OP05-119", name: "Monkey.D.Luffy", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 10, power: 12000 },
   { id: "OP05-119_p1", name: "Monkey.D.Luffy (Alt Art)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP05-119&variant=p1" },
   { id: "OP05-119_p2", name: "Monkey.D.Luffy (Manga)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "119", type: "Character", color: "Purple", rarity: "SEC", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP05-119&variant=p2" },
+  { id: "OP01-016_p4", name: "Nami (SP)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "016", type: "Character", color: "Red", rarity: "SP", cost: 1, power: 2000, imageUrl: "/api/card-image?id=OP01-016&variant=p4" },
+  { id: "OP01-121_p2", name: "Yamato (SP)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "121", type: "Character", color: "Green", rarity: "SP", cost: 5, power: 5000, imageUrl: "/api/card-image?id=OP01-121&variant=p2" },
+  { id: "OP02-120_p2", name: "Uta (SP)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "120", type: "Character", color: "Purple", rarity: "SP", cost: 8, power: 8000, imageUrl: "/api/card-image?id=OP02-120&variant=p2" },
+  { id: "OP03-092_p2", name: "Rob Lucci (SP)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "092", type: "Character", color: "Black", rarity: "SP", cost: 6, power: 7000, imageUrl: "/api/card-image?id=OP03-092&variant=p2" },
+  { id: "OP04-044_p2", name: "Kaido (SP)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "044", type: "Character", color: "Blue", rarity: "SP", cost: 10, power: 12000, imageUrl: "/api/card-image?id=OP04-044&variant=p2" },
   { id: "OP05-100_p2", name: "Enel (SP)", set: "AWAKENING OF THE NEW ERA", setCode: "OP05", number: "100", type: "Character", color: "Yellow", rarity: "SP", cost: 7, power: 7000, imageUrl: "/api/card-image?id=OP05-100&variant=p2" },
 ];
 
