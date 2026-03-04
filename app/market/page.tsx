@@ -1,12 +1,11 @@
 "use client";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Search, TrendingUp, TrendingDown, Minus, ExternalLink, RefreshCw, Zap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import type { MarketData } from "@/lib/ebay";
 import CardModal, { type CardModalData } from "@/components/CardModal";
-import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 
 function MarketContent() {
   const searchParams = useSearchParams();
@@ -30,32 +29,33 @@ function MarketContent() {
 
   useEffect(() => { if (initialCard) fetchMarket(initialCard); }, [initialCard]);
 
+  async function fetchCardList() {
+    const q = query.trim();
+    const setQuery = q.toUpperCase();
+    const isSetCode = /^(OP\d{1,2}|EB\d{1,2}|ST\d{1,2}|PRB\d{1,2}|P-\d{3})$/.test(setQuery);
+
+    if (q.length < 2 && !filterSet && !isSetCode) { setSuggestions([]); return; }
+
+    try {
+      const params = new URLSearchParams();
+      if (isSetCode) params.set("set", setQuery);
+      else if (filterSet) params.set("set", filterSet);
+      if (!isSetCode && q.length >= 2) params.set("q", q);
+      if (filterColor) params.set("color", filterColor);
+      if (filterRarity) params.set("rarity", filterRarity);
+      if (filterCostMin) params.set("costMin", filterCostMin);
+      if (filterCostMax) params.set("costMax", filterCostMax);
+      params.set("pageSize", isSetCode || filterSet ? "240" : "24");
+
+      const res = await fetch(`/api/cards?${params.toString()}`);
+      if (!res.ok) return;
+      const json = await res.json();
+      setSuggestions(json.results || []);
+    } catch { setSuggestions([]); }
+  }
+
   useEffect(() => {
-    const run = async () => {
-      const q = query.trim();
-      const setQuery = q.toUpperCase();
-      const isSetCode = /^(OP\d{1,2}|EB\d{1,2}|ST\d{1,2}|PRB\d{1,2}|P-\d{3})$/.test(setQuery);
-
-      if (q.length < 2 && !filterSet && !isSetCode) { setSuggestions([]); return; }
-
-      try {
-        const params = new URLSearchParams();
-        if (isSetCode) params.set("set", setQuery);
-        else if (filterSet) params.set("set", filterSet);
-        if (!isSetCode && q.length >= 2) params.set("q", q);
-        if (filterColor) params.set("color", filterColor);
-        if (filterRarity) params.set("rarity", filterRarity);
-        if (filterCostMin) params.set("costMin", filterCostMin);
-        if (filterCostMax) params.set("costMax", filterCostMax);
-        params.set("pageSize", isSetCode || filterSet ? "240" : "24");
-
-        const res = await fetch(`/api/cards?${params.toString()}`);
-        if (!res.ok) return;
-        const json = await res.json();
-        setSuggestions(json.results || []);
-      } catch { setSuggestions([]); }
-    };
-    const t = setTimeout(run, 200);
+    const t = setTimeout(fetchCardList, 200);
     return () => clearTimeout(t);
   }, [query, filterSet, filterColor, filterRarity, filterCostMin, filterCostMax]);
 
@@ -90,15 +90,50 @@ function MarketContent() {
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    if (query.trim()) {
-      router.push(`/market?card=${encodeURIComponent(query.trim())}`);
-      fetchMarket(query.trim());
+    const q = query.trim();
+    if (!q && !filterSet) return;
+
+    const setQuery = q.toUpperCase();
+    const isSetCode = /^(OP\d{1,2}|EB\d{1,2}|ST\d{1,2}|PRB\d{1,2}|P-\d{3})$/.test(setQuery);
+
+    if (isSetCode || filterSet) {
       setShowSuggestions(false);
+      fetchCardList();
+      return;
     }
+
+    router.push(`/market?card=${encodeURIComponent(q)}`);
+    fetchMarket(q);
+    setShowSuggestions(false);
   }
 
   const TrendIcon = data?.trend.direction === "up" ? TrendingUp : data?.trend.direction === "down" ? TrendingDown : Minus;
   const trendColor = data?.trend.direction === "up" ? "text-green-400" : data?.trend.direction === "down" ? "text-red-400" : "text-white/40";
+  const isSetBrowse = /^(OP\d{1,2}|EB\d{1,2}|ST\d{1,2}|PRB\d{1,2}|P-\d{3})$/.test(query.trim().toUpperCase()) || !!filterSet;
+
+  const sortedSuggestions = useMemo(() => {
+    if (!isSetBrowse) return suggestions;
+    const variantRank = (id: string) => {
+      if (!id.includes("_")) return 0;
+      if (id.toLowerCase().endsWith("_p1")) return 1;
+      if (id.toLowerCase().endsWith("_p2")) return 2;
+      return 3;
+    };
+    const baseId = (id: string) => id.split("_")[0];
+    const num = (id: string) => {
+      const m = /-(\d+)/.exec(baseId(id));
+      return m ? Number(m[1]) : 9999;
+    };
+    return [...suggestions].sort((a, b) => {
+      const aId = (a.id || "").toUpperCase();
+      const bId = (b.id || "").toUpperCase();
+      const n = num(aId) - num(bId);
+      if (n !== 0) return n;
+      const vr = variantRank(aId) - variantRank(bId);
+      if (vr !== 0) return vr;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+  }, [suggestions, isSetBrowse]);
   useEffect(() => {
     const run = async () => {
       if (!data?.cardId) { setHistoryPoints([]); return; }
@@ -152,13 +187,13 @@ function MarketContent() {
               className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F0C040]/50 focus:bg-white/8 transition-all text-base"
             />
             <AnimatePresence>
-              {showSuggestions && suggestions.length > 0 && (
+              {showSuggestions && sortedSuggestions.length > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.15 }}
                   className="absolute z-20 mt-2 w-full max-h-[420px] overflow-y-auto bg-[#0c1324]/98 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/60"
                 >
-                  {suggestions.map(s => (
+                  {sortedSuggestions.map(s => (
                     <button
                       key={s.id}
                       type="button"
@@ -185,7 +220,7 @@ function MarketContent() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-sm font-bold truncate">{s.name}</p>
-                        <p className="text-white/40 text-xs">{s.id} · {s.setCode ?? s.set}{s.rarity ? ` · ${s.rarity}` : ""}</p>
+                        <p className="text-white/40 text-xs">{(s.id || '').split('_')[0]} · {s.setCode ?? s.set}{s.rarity ? ` · ${s.rarity}` : ""}</p>
                       </div>
                     </button>
                   ))}
@@ -207,7 +242,7 @@ function MarketContent() {
             <option value="">All Sets</option>
             {[
               "OP01","OP02","OP03","OP04","OP05","OP06","OP07","OP08","OP09","OP10","OP11","OP12","OP13","OP14","OP15",
-              "EB01","EB02","EB03",
+              "EB01","EB02","EB03","EB04",
               "ST01","ST02","ST03","ST04","ST05","ST06","ST07","ST08","ST09","ST10","ST11","ST12","ST13","ST14","ST15","ST16","ST17","ST18","ST19","ST20","ST21",
               "PRB01"
             ].map((s) => <option key={s} value={s}>{s}</option>)}
@@ -252,6 +287,39 @@ function MarketContent() {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
           className="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 text-red-400">
           {error}
+        </motion.div>
+      )}
+
+      {/* Set Browse Results */}
+      {isSetBrowse && sortedSuggestions.length > 0 && (
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold text-white">Showing {sortedSuggestions.length} cards</h3>
+            <p className="text-xs text-white/50">Click any card to open market details</p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {sortedSuggestions.map((s) => (
+              <button
+                key={`${s.id}-${s.imageUrl || "base"}`}
+                type="button"
+                onClick={() => {
+                  const selectedId = s.id || s.name;
+                  setQuery(selectedId);
+                  router.push(`/market?card=${encodeURIComponent(selectedId)}`);
+                  fetchMarket(selectedId);
+                }}
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-2 text-left hover:border-[#F0C040]/40 transition-all"
+              >
+                <img
+                  src={s.imageUrl || `/api/card-image?id=${s.id}`}
+                  alt={s.name}
+                  className="w-full aspect-[5/7] object-contain rounded-xl border border-white/10 bg-[#0b1222] p-1 group-hover:scale-[1.02] transition-transform"
+                />
+                <p className="mt-2 text-xs font-bold text-white truncate">{s.name}</p>
+                <p className="text-[11px] text-white/45">{(s.id || '').split('_')[0]}</p>
+              </button>
+            ))}
+          </div>
         </motion.div>
       )}
 
@@ -430,7 +498,7 @@ function MarketContent() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
           <div className="text-7xl mb-6">🍇</div>
           <p className="text-white/30 text-lg">Search a card to see live market data</p>
-          <p className="text-white/20 text-sm mt-2">Try "Shanks", "Luffy", or "OP01-001"</p>
+          <p className="text-white/20 text-sm mt-2">Try &quot;Shanks&quot;, &quot;Luffy&quot;, or &quot;OP01-001&quot;</p>
         </motion.div>
       )}
 

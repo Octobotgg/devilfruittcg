@@ -15,6 +15,7 @@ import OP14_CARDS from './op14-cards';
 import EB01_CARDS from './eb01-cards';
 import EB02_CARDS from './eb02-cards';
 import EB03_CARDS from './eb03-cards';
+import EB04_CARDS from './eb04-cards';
 import ST01_CARDS from './st01-cards';
 import ST02_CARDS from './st02-cards';
 import ST03_CARDS from './st03-cards';
@@ -70,6 +71,7 @@ export const SEED_CARDS: Card[] = [
   ...EB01_CARDS,
   ...EB02_CARDS,
   ...EB03_CARDS,
+  ...EB04_CARDS,
   ...ST01_CARDS,
   ...ST02_CARDS,
   ...ST03_CARDS,
@@ -190,9 +192,11 @@ export const SETS = [
   { code: "OP11", name: "A FIST OF DIVINE SPEED" },
   { code: "OP12", name: "LEGACY OF THE MASTER" },
   { code: "OP13", name: "CARRYING ON HIS WILL" },
-  { code: "OP14", name: "Set OP14" },
-  { code: "EB01", name: "Memorial Collection" },
-  { code: "EB02", name: "Anime 25th Collection" },
+  { code: "OP14", name: "THE AZURE SEA'S SEVEN" },
+  { code: "EB01", name: "MEMORIAL COLLECTION" },
+  { code: "EB02", name: "ANIME 25TH COLLECTION" },
+  { code: "EB03", name: "ONE PIECE HEROINES EDITION" },
+  { code: "EB04", name: "THE AZURE SEA’S SEVEN" },
   { code: "ST01", name: "Straw Hat Crew" },
   { code: "ST02", name: "Worst Generation" },
   { code: "ST03", name: "The Seven Warlords of the Sea" },
