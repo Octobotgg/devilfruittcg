@@ -59,6 +59,11 @@ export default function MatchupsPage() {
   const [recentLeaderIds, setRecentLeaderIds] = useState<string[]>([]);
   const [lookupRate, setLookupRate] = useState<number | null>(null);
   const [reverseRate, setReverseRate] = useState<number | null>(null);
+  const [lookupMatches, setLookupMatches] = useState<number | null>(null);
+  const [reverseMatches, setReverseMatches] = useState<number | null>(null);
+  const [minMatches, setMinMatches] = useState<number>(0);
+  const [activeIndexA, setActiveIndexA] = useState<number>(0);
+  const [activeIndexB, setActiveIndexB] = useState<number>(0);
   const [lookupLoading, setLookupLoading] = useState(false);
 
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
@@ -125,19 +130,33 @@ export default function MatchupsPage() {
     });
   };
 
-  const filteredLeadersA = allLeaders
-    .filter((d) =>
-      d.name.toLowerCase().includes(leaderAQuery.toLowerCase()) ||
-      d.id.toLowerCase().includes(leaderAQuery.toLowerCase())
-    )
-    .slice(0, 8);
+  const fuzzyScore = (query: string, value: string) => {
+    const q = query.trim().toLowerCase();
+    const v = value.toLowerCase();
+    if (!q) return 1;
+    if (v === q) return 100;
+    if (v.startsWith(q)) return 80;
+    if (v.includes(q)) return 60;
+    // lightweight subsequence match
+    let qi = 0;
+    for (let i = 0; i < v.length && qi < q.length; i++) if (v[i] === q[qi]) qi++;
+    return qi === q.length ? 40 : 0;
+  };
 
-  const filteredLeadersB = allLeaders
-    .filter((d) =>
-      d.id !== lookupLeaderCardId &&
-      (d.name.toLowerCase().includes(leaderBQuery.toLowerCase()) || d.id.toLowerCase().includes(leaderBQuery.toLowerCase()))
-    )
-    .slice(0, 8);
+  const rankLeaders = (query: string, items: Array<{ id: string; name: string; setCode: string; color: string }>) =>
+    items
+      .map((d) => ({ d, s: Math.max(fuzzyScore(query, d.name), fuzzyScore(query, d.id)) }))
+      .filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s || a.d.id.localeCompare(b.d.id))
+      .map((x) => x.d)
+      .slice(0, 8);
+
+  const filteredLeadersA = rankLeaders(leaderAQuery, allLeaders);
+
+  const filteredLeadersB = rankLeaders(
+    leaderBQuery,
+    allLeaders.filter((d) => d.id !== lookupLeaderCardId)
+  );
 
   const lookupLeaderMeta = decks.find((d) => d.cardId === lookupLeaderCardId) || null;
   const lookupOpponentMeta = decks.find((d) => d.cardId === lookupOpponentCardId) || null;
@@ -149,12 +168,16 @@ export default function MatchupsPage() {
       if (!lookupLeaderCardId || !lookupOpponentCardId || lookupLeaderCardId === lookupOpponentCardId) {
         setLookupRate(null);
         setReverseRate(null);
+        setLookupMatches(null);
+        setReverseMatches(null);
         return;
       }
 
       if (lookupLeaderDeck && lookupOpponentDeck) {
         setLookupRate(lookupLeaderDeck.matchups[lookupOpponentDeck.id] ?? 50);
         setReverseRate(lookupOpponentDeck.matchups[lookupLeaderDeck.id] ?? 50);
+        setLookupMatches(null);
+        setReverseMatches(null);
         return;
       }
 
@@ -165,9 +188,13 @@ export default function MatchupsPage() {
         const json = await res.json();
         setLookupRate(typeof json?.winRate === 'number' ? json.winRate : null);
         setReverseRate(typeof json?.reverseWinRate === 'number' ? json.reverseWinRate : null);
+        setLookupMatches(typeof json?.matches === 'number' ? json.matches : null);
+        setReverseMatches(typeof json?.reverseMatches === 'number' ? json.reverseMatches : null);
       } catch {
         setLookupRate(null);
         setReverseRate(null);
+        setLookupMatches(null);
+        setReverseMatches(null);
       } finally {
         setLookupLoading(false);
       }
@@ -300,17 +327,23 @@ export default function MatchupsPage() {
             <input
               value={leaderAQuery}
               onFocus={() => setActiveLookupInput("a")}
-              onChange={(e) => setLeaderAQuery(e.target.value)}
+              onChange={(e) => { setLeaderAQuery(e.target.value); setActiveIndexA(0); }}
+              onKeyDown={(e) => {
+                if (!filteredLeadersA.length) return;
+                if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndexA((i) => (i + 1) % filteredLeadersA.length); }
+                if (e.key === "ArrowUp") { e.preventDefault(); setActiveIndexA((i) => (i - 1 + filteredLeadersA.length) % filteredLeadersA.length); }
+                if (e.key === "Enter") { e.preventDefault(); selectLeader("a", filteredLeadersA[activeIndexA]?.id || filteredLeadersA[0].id); }
+              }}
               placeholder="Leader A (type name or ID)"
               className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
             />
             {leaderAQuery.trim().length >= 2 && filteredLeadersA.length > 0 && (
               <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
-                {filteredLeadersA.map((d) => (
+                {filteredLeadersA.map((d, i) => (
                   <button
                     key={d.id}
                     onClick={() => selectLeader("a", d.id)}
-                    className="w-full text-left px-3 py-2 hover:bg-white/10 text-sm text-white"
+                    className={`w-full text-left px-3 py-2 text-sm text-white ${i === activeIndexA ? "bg-white/15" : "hover:bg-white/10"}`}
                   >
                     {d.name} <span className="text-white/40">({d.id})</span>
                   </button>
@@ -323,17 +356,23 @@ export default function MatchupsPage() {
             <input
               value={leaderBQuery}
               onFocus={() => setActiveLookupInput("b")}
-              onChange={(e) => setLeaderBQuery(e.target.value)}
+              onChange={(e) => { setLeaderBQuery(e.target.value); setActiveIndexB(0); }}
+              onKeyDown={(e) => {
+                if (!filteredLeadersB.length) return;
+                if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndexB((i) => (i + 1) % filteredLeadersB.length); }
+                if (e.key === "ArrowUp") { e.preventDefault(); setActiveIndexB((i) => (i - 1 + filteredLeadersB.length) % filteredLeadersB.length); }
+                if (e.key === "Enter") { e.preventDefault(); selectLeader("b", filteredLeadersB[activeIndexB]?.id || filteredLeadersB[0].id); }
+              }}
               placeholder="Leader B / opponent"
               className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
             />
             {leaderBQuery.trim().length >= 2 && filteredLeadersB.length > 0 && (
               <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
-                {filteredLeadersB.map((d) => (
+                {filteredLeadersB.map((d, i) => (
                   <button
                     key={d.id}
                     onClick={() => selectLeader("b", d.id)}
-                    className="w-full text-left px-3 py-2 hover:bg-white/10 text-sm text-white"
+                    className={`w-full text-left px-3 py-2 text-sm text-white ${i === activeIndexB ? "bg-white/15" : "hover:bg-white/10"}`}
                   >
                     {d.name} <span className="text-white/40">({d.id})</span>
                   </button>
@@ -369,12 +408,47 @@ export default function MatchupsPage() {
           ))}
         </div>
 
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="text-xs text-white/50">Min matches</label>
+          <select
+            value={String(minMatches)}
+            onChange={(e) => setMinMatches(Number(e.target.value))}
+            className="bg-white/5 border border-white/15 rounded-md px-2 py-1 text-xs text-white"
+          >
+            {[0, 10, 25, 50, 100].map((n) => (
+              <option key={n} value={n} className="bg-[#0f172a]">{n}</option>
+            ))}
+          </select>
+        </div>
+
         {lookupLeaderCardId && lookupOpponentCardId && (
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <span className="text-white/70">{lookupLeaderCardId} vs {lookupOpponentCardId}</span>
-            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate ?? 50)}`}>{lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}</span>
+            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate ?? 50)}`}>
+              {lookupRate != null && (lookupMatches == null || lookupMatches >= minMatches)
+                ? `${lookupRate}%`
+                : lookupLoading
+                  ? "Loading…"
+                  : "No data"}
+            </span>
             <span className="text-white/40">reverse:</span>
-            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate ?? 50)}`}>{reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}</span>
+            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate ?? 50)}`}>
+              {reverseRate != null && (reverseMatches == null || reverseMatches >= minMatches)
+                ? `${reverseRate}%`
+                : lookupLoading
+                  ? "Loading…"
+                  : "No data"}
+            </span>
+            <span className="px-2 py-1 rounded-md text-xs border border-white/20 text-white/70">
+              Confidence: {(() => {
+                const m = Math.min(lookupMatches ?? 0, reverseMatches ?? lookupMatches ?? 0);
+                if (!m) return "Unknown";
+                if (m >= 100) return "High";
+                if (m >= 30) return "Medium";
+                return "Low";
+              })()}
+            </span>
+            {lookupMatches != null ? <span className="text-xs text-white/40">matches: {lookupMatches}</span> : null}
             {lookupLeaderMeta ? (
               <button
                 onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}
