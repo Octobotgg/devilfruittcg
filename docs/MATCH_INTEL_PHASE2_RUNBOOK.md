@@ -18,6 +18,8 @@
 - `SUPABASE_SERVICE_ROLE_KEY=<service-role-key>`
 - Optional for ingest endpoint auth:
   - `MATCH_INTEL_INGEST_KEY=<secret>`
+- Optional bridge snapshot source URL:
+  - `MATCH_INTEL_SNAPSHOT_BASE_URL=<https://.../stats>`
 - Optional snapshot output override:
   - `MATCH_INTEL_SNAPSHOT_DIR=<absolute-or-relative-path>`
 
@@ -43,7 +45,7 @@ npm run aggregate:match-intel -- --period west_p --date 2026-03-05
 npm run aggregate:match-intel -- --all --date 2026-03-05
 ```
 
-### Bridge import from public Card Kaizoku snapshots (fast bootstrap)
+### Bridge import from external snapshots (fast bootstrap)
 
 #### Single period
 

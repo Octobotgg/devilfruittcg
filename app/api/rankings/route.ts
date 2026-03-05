@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { META_DECKS } from "@/lib/meta-decks";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository, snapshotTotalMatches, type MatchIntelSnapshot } from "@/lib/analytics";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
-import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
+import { fetchExternalSnapshotBridge } from "@/lib/sources/external-snapshot-bridge";
 
 function trendLabel(delta: number): "up" | "down" | "stable" {
   if (delta >= 0.005) return "up";
@@ -83,18 +83,17 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
     if (bridge?.snapshot?.leaders?.length) {
       return NextResponse.json(
         {
-          source: "bridge:cardkaizoku",
-          sources: ["bridge:cardkaizoku"],
+          source: "bridge:external-snapshot",
+          sources: ["bridge:external-snapshot"],
           period,
           snapshotDate: bridge.snapshot.snapshotDate,
           updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
           sampleGames: snapshotTotalMatches(bridge.snapshot),
           leaders: buildLeaders(bridge.snapshot, null, limit),
-          bridgeSourceUrl: bridge.sourceUrl,
           featureFlags: {
             matchIntelV2,
           },

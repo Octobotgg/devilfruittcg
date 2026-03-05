@@ -25,7 +25,11 @@ type RawLeaderRow = {
   }>;
 };
 
-const CDN_BASE = "https://cdn.cardkaizoku.com/stats";
+function snapshotBaseUrl(): string | null {
+  const value = (process.env.MATCH_INTEL_SNAPSHOT_BASE_URL || "").trim();
+  if (!value) return null;
+  return value.replace(/\/$/, "");
+}
 
 function ymd(date: Date): string {
   const y = date.getUTCFullYear();
@@ -113,17 +117,20 @@ function mapSnapshot(period: MatchIntelPeriod, snapshotYmd: string, rows: RawLea
   };
 }
 
-export async function fetchCardKaizokuBridgeSnapshot(
+export async function fetchExternalSnapshotBridge(
   period: MatchIntelPeriod,
   options?: { date?: Date; maxLookbackDays?: number }
-): Promise<{ snapshot: MatchIntelSnapshot; sourceUrl: string } | null> {
+): Promise<{ snapshot: MatchIntelSnapshot } | null> {
+  const base = snapshotBaseUrl();
+  if (!base) return null;
+
   const baseDate = options?.date || new Date();
   const maxLookback = Math.max(0, Math.min(options?.maxLookbackDays ?? 3, 14));
 
   for (let i = 0; i <= maxLookback; i++) {
     const d = new Date(baseDate.getTime() - i * 24 * 60 * 60 * 1000);
     const stamp = ymd(d);
-    const url = `${CDN_BASE}/stats_${period}_${stamp}.json?v=3`;
+    const url = `${base}/stats_${period}_${stamp}.json?v=3`;
 
     try {
       const res = await fetch(url, {
@@ -139,10 +146,7 @@ export async function fetchCardKaizokuBridgeSnapshot(
       const snapshot = mapSnapshot(period, stamp, rows);
       if (!snapshot.leaders.length) continue;
 
-      return {
-        snapshot,
-        sourceUrl: url,
-      };
+      return { snapshot };
     } catch {
       // continue lookback
     }

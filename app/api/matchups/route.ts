@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { META_DECKS } from "@/lib/meta-decks";
-import { fetchKaizokuMatchups } from "@/lib/sources/kaizoku-matchups";
 import { fetchLimitlessMatchups } from "@/lib/sources/limitless-matchups";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import {
@@ -9,7 +8,7 @@ import {
   snapshotToMatchupDecks,
   snapshotTotalMatches,
 } from "@/lib/analytics";
-import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
+import { fetchExternalSnapshotBridge } from "@/lib/sources/external-snapshot-bridge";
 
 export async function GET(req: NextRequest) {
   const set = (req.nextUrl.searchParams.get("set") || process.env.MATCHUPS_SET || "OP12").toUpperCase();
@@ -55,19 +54,18 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
     if (bridge?.snapshot?.leaders?.length) {
       const decks = snapshotToMatchupDecks(bridge.snapshot, null, limit);
       return NextResponse.json(
         {
-          source: "bridge:cardkaizoku",
-          sources: ["bridge:cardkaizoku"],
+          source: "bridge:external-snapshot",
+          sources: ["bridge:external-snapshot"],
           updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
           sampleGames: snapshotTotalMatches(bridge.snapshot),
           period,
           snapshotDate: bridge.snapshot.snapshotDate,
           decks,
-          bridgeSourceUrl: bridge.sourceUrl,
           featureFlags: {
             matchIntelV2,
           },
@@ -98,27 +96,6 @@ export async function GET(req: NextRequest) {
     }
   } catch {
     // continue fallback chain
-  }
-
-  try {
-    const live = await fetchKaizokuMatchups(12);
-    if (live?.decks?.length) {
-      return NextResponse.json(
-        {
-          source: "tournament-aggregate",
-          sources: ["tournament-aggregate"],
-          updatedAt: live.updatedAt,
-          sampleGames: live.sampleGames,
-          decks: live.decks,
-          featureFlags: {
-            matchIntelV2,
-          },
-        },
-        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
-      );
-    }
-  } catch {
-    // fallback
   }
 
   return NextResponse.json(

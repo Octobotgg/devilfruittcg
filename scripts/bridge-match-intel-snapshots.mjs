@@ -16,6 +16,14 @@ function hasFlag(flag) {
   return process.argv.includes(`--${flag}`);
 }
 
+function snapshotBaseUrl() {
+  const value = (process.env.MATCH_INTEL_SNAPSHOT_BASE_URL || "").trim();
+  if (!value) {
+    throw new Error("Missing MATCH_INTEL_SNAPSHOT_BASE_URL");
+  }
+  return value.replace(/\/$/, "");
+}
+
 function formatYmd(date) {
   const y = date.getUTCFullYear();
   const m = String(date.getUTCMonth() + 1).padStart(2, "0");
@@ -36,9 +44,12 @@ function toRate(v) {
   return Number(n.toFixed(6));
 }
 
-async function fetchSnapshot(period, ymd) {
-  const url = `https://cdn.cardkaizoku.com/stats/stats_${period}_${ymd}.json?v=3`;
-  const res = await fetch(url, { cache: "no-store" });
+async function fetchSnapshot(baseUrl, period, ymd) {
+  const url = `${baseUrl}/stats_${period}_${ymd}.json?v=3`;
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
+  });
   if (!res.ok) return null;
   const data = await res.json();
   if (!Array.isArray(data)) return null;
@@ -112,12 +123,14 @@ async function upsertChunks(client, table, rows, onConflict, dryRun = false) {
 }
 
 async function main() {
-  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY;
+  const dbUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const dbKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY;
 
-  if (!url || !key) {
+  if (!dbUrl || !dbKey) {
     throw new Error("Missing SUPABASE_URL and/or SUPABASE_SERVICE_ROLE_KEY");
   }
+
+  const baseUrl = snapshotBaseUrl();
 
   const all = hasFlag("all") || argValue("period", "west_p") === "all";
   const periods = all ? PERIODS : [argValue("period", "west_p")];
@@ -136,7 +149,7 @@ async function main() {
   const fallbackDate = new Date(dateObj.getTime() - 24 * 60 * 60 * 1000);
   const fallbackYmd = formatYmd(fallbackDate);
 
-  const client = createClient(url, key, {
+  const client = createClient(dbUrl, dbKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 
@@ -146,11 +159,11 @@ async function main() {
   }
 
   for (const period of periods) {
-    let raw = await fetchSnapshot(period, ymd);
+    let raw = await fetchSnapshot(baseUrl, period, ymd);
     let usedYmd = ymd;
 
     if (!raw) {
-      raw = await fetchSnapshot(period, fallbackYmd);
+      raw = await fetchSnapshot(baseUrl, period, fallbackYmd);
       usedYmd = fallbackYmd;
     }
 

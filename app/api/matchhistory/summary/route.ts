@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository, snapshotTotalMatches } from "@/lib/analytics";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
-import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
+import { fetchExternalSnapshotBridge } from "@/lib/sources/external-snapshot-bridge";
 
 export async function GET() {
   const matchIntelV2 = isMatchIntelV2Enabled();
@@ -30,13 +30,11 @@ export async function GET() {
     );
   } catch (error) {
     let bridgedSampleGames = 0;
-    let bridgeSourceUrl: string | null = null;
 
     try {
-      const bridge = await fetchCardKaizokuBridgeSnapshot(defaultPeriod, { maxLookbackDays: 2 });
+      const bridge = await fetchExternalSnapshotBridge(defaultPeriod, { maxLookbackDays: 2 });
       if (bridge?.snapshot) {
         bridgedSampleGames = snapshotTotalMatches(bridge.snapshot);
-        bridgeSourceUrl = bridge.sourceUrl;
       }
     } catch {
       // ignore secondary failures
@@ -49,7 +47,6 @@ export async function GET() {
         totalMatchLogs: 0,
         indexedPlayers: 0,
         bridgedSampleGames,
-        bridgeSourceUrl,
         period: defaultPeriod,
         error: error instanceof Error ? error.message : "Repository not configured",
       },

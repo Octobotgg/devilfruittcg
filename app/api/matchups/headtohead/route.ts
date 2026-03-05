@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository } from "@/lib/analytics";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
-import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
+import { fetchExternalSnapshotBridge } from "@/lib/sources/external-snapshot-bridge";
 
 function parseWinRow(html: string, opponentId: string) {
   const re = /<tr\s+data-name="[^"]*"\s+data-matches="(\d+)"\s+data-winrate="([0-9.]+)">[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\/matchups\?game=OP[^\"]*">/gi;
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
     if (bridge?.snapshot?.matchups?.length) {
       const mapped = fromSnapshot(bridge.snapshot, leader, opponent);
       if (mapped) {
@@ -78,8 +78,7 @@ export async function GET(req: NextRequest) {
             leader,
             opponent,
             period,
-            source: "bridge:cardkaizoku",
-            bridgeSourceUrl: bridge.sourceUrl,
+            source: "bridge:external-snapshot",
             featureFlags: { matchIntelV2 },
             ...mapped,
           },

@@ -243,5 +243,5 @@ Output should mirror fields already used in frontend (`leader`, `leaderName`, `w
 ## 11) Compatibility with current codebase
 
 - Existing `lib/sources/optcg-sim.ts` is currently a stub → replace with real ingestion pipeline.
-- Existing `lib/sources/kaizoku-matchups.ts` can remain temporary fallback while v2 ramps.
+- Existing external tournament aggregate connectors can remain temporary fallback while v2 ramps.
 - Existing `/api/meta` and `/api/matchups` can migrate progressively behind `MATCH_INTEL_V2`.

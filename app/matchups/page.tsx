@@ -265,7 +265,7 @@ export default function MatchupsPage() {
           setDecks(json.decks);
           if (json.source) {
             const raw = String(json.source).toLowerCase();
-            if (raw.includes("bridge")) setSourceLabel("CardKaizoku bridge snapshot");
+            if (raw.includes("bridge")) setSourceLabel("External snapshot bridge");
             else if (raw.includes("match-intel-v2")) setSourceLabel("Match Intel V2");
             else if (raw.includes("seeded")) setSourceLabel("Seeded dataset");
             else setSourceLabel("Tournament aggregate");
