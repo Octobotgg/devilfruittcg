@@ -51,26 +51,75 @@ export default function MatchupsPage() {
   const [matchupSet, setMatchupSet] = useState<string>("OP12");
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
   const [leaderSearch, setLeaderSearch] = useState<string>("");
-  const [lookupLeaderId, setLookupLeaderId] = useState<string>("");
-  const [lookupOpponentId, setLookupOpponentId] = useState<string>("");
+  const [allLeaders, setAllLeaders] = useState<Array<{ id: string; name: string; setCode: string; color: string }>>([]);
+  const [lookupLeaderCardId, setLookupLeaderCardId] = useState<string>("");
+  const [lookupOpponentCardId, setLookupOpponentCardId] = useState<string>("");
+  const [lookupRate, setLookupRate] = useState<number | null>(null);
+  const [reverseRate, setReverseRate] = useState<number | null>(null);
+  const [lookupLoading, setLookupLoading] = useState(false);
+
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
   const hasLargeSample = sampleGames >= 1000;
 
   useEffect(() => {
-    if (!decks.length) return;
-    if (!lookupLeaderId) setLookupLeaderId(decks[0].id);
-    if (!lookupOpponentId) setLookupOpponentId(decks[1]?.id || decks[0].id);
-  }, [decks, lookupLeaderId, lookupOpponentId]);
+    const loadLeaders = async () => {
+      try {
+        const res = await fetch('/api/leaders');
+        if (!res.ok) return;
+        const json = await res.json();
+        const leaders = Array.isArray(json?.leaders) ? json.leaders : [];
+        setAllLeaders(leaders);
+        if (leaders.length) {
+          if (!lookupLeaderCardId) setLookupLeaderCardId(leaders[0].id);
+          if (!lookupOpponentCardId) setLookupOpponentCardId(leaders[1]?.id || leaders[0].id);
+        }
+      } catch {
+        // silent
+      }
+    };
+    loadLeaders();
+  }, []);
 
-  const filteredLeaders = decks.filter((d) =>
+  const filteredLeaders = allLeaders.filter((d) =>
     d.name.toLowerCase().includes(leaderSearch.toLowerCase()) ||
-    d.leader.toLowerCase().includes(leaderSearch.toLowerCase())
+    d.id.toLowerCase().includes(leaderSearch.toLowerCase())
   );
 
-  const lookupLeader = decks.find((d) => d.id === lookupLeaderId) || null;
-  const lookupOpponent = decks.find((d) => d.id === lookupOpponentId) || null;
-  const lookupRate = lookupLeader && lookupOpponent ? (lookupLeader.matchups[lookupOpponent.id] ?? 50) : 50;
-  const reverseRate = lookupLeader && lookupOpponent ? (lookupOpponent.matchups[lookupLeader.id] ?? 50) : 50;
+  const lookupLeaderMeta = decks.find((d) => d.cardId === lookupLeaderCardId) || null;
+  const lookupOpponentMeta = decks.find((d) => d.cardId === lookupOpponentCardId) || null;
+  const lookupLeaderDeck = lookupLeaderMeta ? decks.find((d) => d.id === lookupLeaderMeta.id) || null : null;
+  const lookupOpponentDeck = lookupOpponentMeta ? decks.find((d) => d.id === lookupOpponentMeta.id) || null : null;
+
+  useEffect(() => {
+    const run = async () => {
+      if (!lookupLeaderCardId || !lookupOpponentCardId || lookupLeaderCardId === lookupOpponentCardId) {
+        setLookupRate(null);
+        setReverseRate(null);
+        return;
+      }
+
+      if (lookupLeaderDeck && lookupOpponentDeck) {
+        setLookupRate(lookupLeaderDeck.matchups[lookupOpponentDeck.id] ?? 50);
+        setReverseRate(lookupOpponentDeck.matchups[lookupLeaderDeck.id] ?? 50);
+        return;
+      }
+
+      try {
+        setLookupLoading(true);
+        const p = new URLSearchParams({ leader: lookupLeaderCardId, opponent: lookupOpponentCardId, set: matchupSet });
+        const res = await fetch(`/api/matchups/headtohead?${p.toString()}`);
+        const json = await res.json();
+        setLookupRate(typeof json?.winRate === 'number' ? json.winRate : null);
+        setReverseRate(typeof json?.reverseWinRate === 'number' ? json.reverseWinRate : null);
+      } catch {
+        setLookupRate(null);
+        setReverseRate(null);
+      } finally {
+        setLookupLoading(false);
+      }
+    };
+    run();
+  }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, lookupLeaderDeck, lookupOpponentDeck]);
 
   const topDeck = decks.reduce((best, deck) => (
     !best || deck.metaShare > best.metaShare ? deck : best
@@ -200,37 +249,39 @@ export default function MatchupsPage() {
             className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white md:col-span-2"
           />
           <select
-            value={lookupLeaderId}
-            onChange={(e) => setLookupLeaderId(e.target.value)}
+            value={lookupLeaderCardId}
+            onChange={(e) => setLookupLeaderCardId(e.target.value)}
             className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
           >
             {filteredLeaders.map((d) => (
-              <option key={d.id} value={d.id} className="bg-[#0f172a]">{d.name}</option>
+              <option key={d.id} value={d.id} className="bg-[#0f172a]">{d.name} ({d.id})</option>
             ))}
           </select>
           <select
-            value={lookupOpponentId}
-            onChange={(e) => setLookupOpponentId(e.target.value)}
+            value={lookupOpponentCardId}
+            onChange={(e) => setLookupOpponentCardId(e.target.value)}
             className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
           >
-            {decks.filter((d) => d.id !== lookupLeaderId).map((d) => (
-              <option key={d.id} value={d.id} className="bg-[#0f172a]">vs {d.name}</option>
+            {allLeaders.filter((d) => d.id !== lookupLeaderCardId).map((d) => (
+              <option key={d.id} value={d.id} className="bg-[#0f172a]">vs {d.name} ({d.id})</option>
             ))}
           </select>
         </div>
 
-        {lookupLeader && lookupOpponent && (
+        {lookupLeaderCardId && lookupOpponentCardId && (
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="text-white/70">{lookupLeader.name} vs {lookupOpponent.name}</span>
-            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate)}`}>{lookupRate}%</span>
+            <span className="text-white/70">{lookupLeaderCardId} vs {lookupOpponentCardId}</span>
+            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate ?? 50)}`}>{lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}</span>
             <span className="text-white/40">reverse:</span>
-            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate)}`}>{reverseRate}%</span>
-            <button
-              onClick={() => { setSelectedDeckId(lookupLeader.id); setView("detail"); }}
-              className="ml-auto px-3 py-1.5 rounded-lg bg-[#F0C040] text-black font-bold"
-            >
-              Open Full Leader Matrix
-            </button>
+            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate ?? 50)}`}>{reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}</span>
+            {lookupLeaderMeta ? (
+              <button
+                onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}
+                className="ml-auto px-3 py-1.5 rounded-lg bg-[#F0C040] text-black font-bold"
+              >
+                Open Full Leader Matrix
+              </button>
+            ) : null}
           </div>
         )}
       </motion.div>
