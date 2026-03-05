@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
@@ -13,6 +14,7 @@ import {
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
 } from "@/lib/meta-decks";
 import CardModal, { type CardModalData } from "@/components/CardModal";
+import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 
 function getWinRateLabel(rate: number) {
   if (rate >= 60) return "Strong Favored";
@@ -53,7 +55,7 @@ function cleanDeckDescription(text?: string) {
 export default function MatchupsPage() {
   const [decks, setDecks] = useState<MetaDeck[]>(META_DECKS);
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
-  const [view, setView] = useState<"matrix" | "tier" | "detail">("tier");
+  const [view, setView] = useState<"matrix" | "tier" | "detail">("matrix");
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
   const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
@@ -606,7 +608,8 @@ export default function MatchupsPage() {
               ))}
             </div>
 
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hidden md:block">
+            <div className="hidden md:grid md:grid-cols-[1fr_320px] md:gap-4">
+              <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -669,6 +672,23 @@ export default function MatchupsPage() {
                 </table>
               </div>
             </div>
+
+            <aside className="journal-surface rounded-3xl p-4">
+              <h4 className="text-sm font-black text-[var(--theme-accent-2)]">Live Bounties</h4>
+              <p className="mt-1 text-xs text-white/50">Fast market read while scanning matrix.</p>
+              <div className="mt-3 space-y-2">
+                {MARKET_HOT_CARDS.slice(0, 6).map((c) => (
+                  <Link key={`mx-${c.id}`} href={`/market?card=${encodeURIComponent(c.id)}`} className="flex items-center gap-2 rounded-lg border border-white/10 bg-black/20 p-2 hover:bg-black/30">
+                    <img src={`/api/card-image?id=${c.id}`} alt={c.name} className="h-10 w-7 rounded border border-white/10" />
+                    <div className="min-w-0">
+                      <p className="truncate text-xs font-semibold text-white">{c.name}</p>
+                      <p className="text-[10px] text-white/45">{c.id}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </aside>
+          </div>
           </motion.div>
         )}
 
