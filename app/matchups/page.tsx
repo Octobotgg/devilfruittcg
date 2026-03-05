@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus, Copy, FileDown, Shuffle } from "lucide-react";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import DonButton from "@/components/ui/DonButton";
@@ -13,14 +13,6 @@ import {
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
 } from "@/lib/meta-decks";
 import CardModal, { type CardModalData } from "@/components/CardModal";
-
-function getWinRateColor(rate: number) {
-  if (rate >= 60) return "bg-green-500 text-white";
-  if (rate >= 55) return "bg-green-300 text-black";
-  if (rate >= 45) return "bg-white/20 text-white";
-  if (rate >= 40) return "bg-orange-300 text-black";
-  return "bg-red-500 text-white";
-}
 
 function getWinRateLabel(rate: number) {
   if (rate >= 60) return "Strong Favored";
@@ -75,6 +67,7 @@ export default function MatchupsPage() {
   const [activeIndexB, setActiveIndexB] = useState<number>(0);
   const [matrixFilter, setMatrixFilter] = useState<string>("");
   const [lookupLoading, setLookupLoading] = useState(false);
+  const [hoverDeckId, setHoverDeckId] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -236,6 +229,37 @@ export default function MatchupsPage() {
       })))
     .sort((a, b) => b.rate - a.rate)[0];
 
+  const exportMatrixCsv = () => {
+    const header = ["Deck", ...matrixDecks.map((d) => shortDeckName(d.name))].join(",");
+    const rows = matrixDecks.map((row) => {
+      const values = matrixDecks.map((col) => (row.id === col.id ? "-" : String(row.matchups[col.id] ?? 50)));
+      return [`"${row.name.replace(/"/g, '""')}"`, ...values].join(",");
+    });
+    const csv = [header, ...rows].join("\n");
+    navigator.clipboard.writeText(csv);
+  };
+
+  const copyClashReport = () => {
+    const text = [
+      `Matchup Clash`,
+      `A: ${labelForLeader(lookupLeaderCardId)} (${lookupRate ?? "N/A"}%)`,
+      `B: ${labelForLeader(lookupOpponentCardId)} (${reverseRate ?? "N/A"}%)`,
+      `Format: ${matchupSet} · Window: ${matchupTime}`,
+      `Source: ${sourceLabel}`,
+    ].join("\n");
+    navigator.clipboard.writeText(text);
+  };
+
+  const swapLeaders = () => {
+    const a = lookupLeaderCardId;
+    const b = lookupOpponentCardId;
+    if (!a || !b) return;
+    setLookupLeaderCardId(b);
+    setLookupOpponentCardId(a);
+    setLeaderAQuery(labelForLeader(b));
+    setLeaderBQuery(labelForLeader(a));
+  };
+
   useEffect(() => {
     const run = async () => {
       try {
@@ -279,6 +303,7 @@ export default function MatchupsPage() {
         <div className="mt-4 flex flex-wrap gap-2">
           <DonButton href="/deckbuilder">Build Counter Deck</DonButton>
           <DonButton href="/meta">View Meta Snapshot</DonButton>
+          <DonButton onClick={exportMatrixCsv}><span className="inline-flex items-center gap-1"><FileDown className="h-3.5 w-3.5" /> Export Matrix CSV</span></DonButton>
         </div>
         <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
         <div className="mt-3 flex flex-wrap gap-3 items-end">
@@ -454,13 +479,30 @@ export default function MatchupsPage() {
                 <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--theme-accent-2)]">Clash</p>
                 <p className="text-3xl font-black text-[var(--theme-accent-2)] drop-shadow-[0_0_16px_rgba(250,204,21,0.55)]">⚡</p>
                 <div className="mt-1 flex items-center justify-center gap-2">
-                  <span className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(lookupRate ?? 50)}`}>
+                  <motion.span
+                    key={`a-${lookupRate}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(lookupRate ?? 50)}`}
+                  >
                     {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
-                  </span>
+                  </motion.span>
                   <span className="text-white/35">vs</span>
-                  <span className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(reverseRate ?? 50)}`}>
+                  <motion.span
+                    key={`b-${reverseRate}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(reverseRate ?? 50)}`}
+                  >
                     {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
-                  </span>
+                  </motion.span>
+                </div>
+                <div className="mx-auto mt-2 h-1.5 w-44 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full bg-gradient-to-r from-green-400 to-red-400" style={{ width: `${Math.max(0, Math.min(100, lookupRate ?? 50))}%` }} />
+                </div>
+                <div className="mt-2 flex justify-center gap-2">
+                  <DonButton onClick={swapLeaders}><span className="inline-flex items-center gap-1"><Shuffle className="h-3.5 w-3.5" /> Swap</span></DonButton>
+                  <DonButton onClick={copyClashReport}><span className="inline-flex items-center gap-1"><Copy className="h-3.5 w-3.5" /> Copy Report</span></DonButton>
                 </div>
               </div>
 
@@ -602,8 +644,10 @@ export default function MatchupsPage() {
                         Deck ↓ vs →
                       </th>
                       {matrixDecks.map((deck) => (
-                        <th key={deck.id} className="p-2 min-w-[64px] sticky top-0 bg-[#0a0f1e] z-20">
+                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 ${hoverDeckId === deck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
                           <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
+                            onMouseEnter={() => setHoverDeckId(deck.id)}
+                            onMouseLeave={() => setHoverDeckId(null)}
                             className="flex flex-col items-center gap-1 group">
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                               onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
@@ -617,8 +661,10 @@ export default function MatchupsPage() {
                   <tbody>
                     {matrixDecks.map((rowDeck, ri) => (
                       <motion.tr layout key={rowDeck.id} className="border-t border-white/5">
-                        <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
+                        <td className={`p-2 sticky left-0 z-10 ${hoverDeckId === rowDeck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
                           <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
+                            onMouseEnter={() => setHoverDeckId(rowDeck.id)}
+                            onMouseLeave={() => setHoverDeckId(null)}
                             className="flex items-center gap-2 group">
                             <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
                               className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
@@ -637,7 +683,9 @@ export default function MatchupsPage() {
                                 ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
                                 : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)}`}>
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${hoverDeckId && (hoverDeckId === rowDeck.id || hoverDeckId === colDeck.id) ? "ring-1 ring-[var(--theme-accent-2)]" : ""}`}
+                                    onMouseEnter={() => setHoverDeckId(colDeck.id)}
+                                    onMouseLeave={() => setHoverDeckId(null)}>
                                     {rate}%
                                   </button>
                               }
