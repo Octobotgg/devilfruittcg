@@ -1,32 +1,47 @@
 "use client";
-import { useState, useMemo } from "react";
+
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, AlertTriangle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { searchCards, type Card } from "@/lib/cards";
+import DonButton from "@/components/ui/DonButton";
+import { parseLeaderColors } from "@/lib/theme/color-utils";
+import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 
 interface DeckCard { cardId: string; quantity: number; }
 interface Deck {
-  id: string; name: string; leaderId: string | null;
-  cards: DeckCard[]; createdAt: string; updatedAt: string;
+  id: string;
+  name: string;
+  leaderId: string | null;
+  cards: DeckCard[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 const COLORS = ["Red", "Blue", "Green", "Purple", "Black", "Yellow"];
 const TYPES = ["Leader", "Character", "Event", "Stage"];
-const COLOR_HEX: Record<string, string> = {
-  Red: "#ef4444", Blue: "#3b82f6", Green: "#22c55e",
-  Purple: "#a855f7", Black: "#6b7280", Yellow: "#eab308",
-};
 
 function newDeck(): Deck {
-  return { id: Date.now().toString(), name: "My Deck", leaderId: null, cards: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+  return {
+    id: Date.now().toString(),
+    name: "Holy Grail Deck",
+    leaderId: null,
+    cards: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 function saveDecks(decks: Deck[]) {
   localStorage.setItem("devilfruit_decks", JSON.stringify(decks));
 }
 function loadDecks(): Deck[] {
-  try { return JSON.parse(localStorage.getItem("devilfruit_decks") || "[]"); } catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem("devilfruit_decks") || "[]");
+  } catch {
+    return [];
+  }
 }
 
 export default function DeckBuilderPage() {
@@ -34,334 +49,303 @@ export default function DeckBuilderPage() {
   const [colorFilter, setColorFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [deck, setDeck] = useState<Deck>(newDeck());
-  const [allCards] = useState<Map<string, Card>>(() => {
-    const cards = searchCards("");
-    const map = new Map<string, Card>();
-    cards.forEach((c) => map.set(c.id, c));
-    return map;
-  });
   const [saved, setSaved] = useState(false);
   const [exported, setExported] = useState(false);
+  const [isDropActive, setIsDropActive] = useState(false);
+
+  const allCards = useMemo(() => {
+    const map = new Map<string, Card>();
+    searchCards("").forEach((c) => map.set(c.id, c));
+    return map;
+  }, []);
 
   const results = useMemo(() => {
     let res = searchCards(query);
     if (colorFilter) res = res.filter((c) => c.color.toLowerCase().includes(colorFilter.toLowerCase()));
     if (typeFilter) res = res.filter((c) => c.type.toLowerCase() === typeFilter.toLowerCase());
-    return res.slice(0, 48);
+    return res.slice(0, 72);
   }, [query, colorFilter, typeFilter]);
 
   const totalCards = (deck.leaderId ? 1 : 0) + deck.cards.reduce((s, c) => s + c.quantity, 0);
   const isValid = deck.leaderId !== null && totalCards === 50;
 
+  const leaderCard = deck.leaderId ? allCards.get(deck.leaderId) : null;
+
+  useEffect(() => {
+    if (!leaderCard?.color) return;
+    const [color] = parseLeaderColors(leaderCard.color);
+    setThemeByLeaderColor(color);
+  }, [leaderCard?.color]);
+
+  const curveBuckets = useMemo(() => {
+    const b = Array.from({ length: 11 }, (_, i) => ({ cost: i === 10 ? "10+" : String(i), count: 0 }));
+    deck.cards.forEach(({ cardId, quantity }) => {
+      const card = allCards.get(cardId);
+      if (!card || card.type === "Leader") return;
+      const raw = typeof card.cost === "number" ? card.cost : Number(card.cost ?? 0);
+      const idx = Number.isFinite(raw) ? Math.max(0, Math.min(10, raw >= 10 ? 10 : Math.floor(raw))) : 0;
+      b[idx].count += quantity;
+    });
+    return b;
+  }, [deck.cards, allCards]);
+
+  const maxCurveCount = Math.max(1, ...curveBuckets.map((x) => x.count));
+
   function addCard(card: Card) {
     if (card.type === "Leader") {
-      setDeck(d => ({ ...d, leaderId: card.id, updatedAt: new Date().toISOString() }));
+      setDeck((d) => ({ ...d, leaderId: card.id, updatedAt: new Date().toISOString() }));
       return;
     }
-    setDeck(d => {
-      const existing = d.cards.find(c => c.cardId === card.id);
+
+    setDeck((d) => {
+      const existing = d.cards.find((c) => c.cardId === card.id);
       if (existing) {
         if (existing.quantity >= 4) return d;
-        return { ...d, cards: d.cards.map(c => c.cardId === card.id ? { ...c, quantity: c.quantity + 1 } : c), updatedAt: new Date().toISOString() };
+        return {
+          ...d,
+          cards: d.cards.map((c) => (c.cardId === card.id ? { ...c, quantity: c.quantity + 1 } : c)),
+          updatedAt: new Date().toISOString(),
+        };
       }
-      return { ...d, cards: [...d.cards, { cardId: card.id, quantity: 1 }], updatedAt: new Date().toISOString() };
+      return {
+        ...d,
+        cards: [...d.cards, { cardId: card.id, quantity: 1 }],
+        updatedAt: new Date().toISOString(),
+      };
     });
   }
 
   function removeOne(cardId: string) {
-    setDeck(d => {
-      const existing = d.cards.find(c => c.cardId === cardId);
+    setDeck((d) => {
+      const existing = d.cards.find((c) => c.cardId === cardId);
       if (!existing) return d;
-      if (existing.quantity <= 1) return { ...d, cards: d.cards.filter(c => c.cardId !== cardId), updatedAt: new Date().toISOString() };
-      return { ...d, cards: d.cards.map(c => c.cardId === cardId ? { ...c, quantity: c.quantity - 1 } : c), updatedAt: new Date().toISOString() };
+      if (existing.quantity <= 1) {
+        return { ...d, cards: d.cards.filter((c) => c.cardId !== cardId), updatedAt: new Date().toISOString() };
+      }
+      return {
+        ...d,
+        cards: d.cards.map((c) => (c.cardId === cardId ? { ...c, quantity: c.quantity - 1 } : c)),
+        updatedAt: new Date().toISOString(),
+      };
     });
   }
 
   function removeCard(cardId: string) {
-    setDeck(d => ({ ...d, cards: d.cards.filter(c => c.cardId !== cardId), updatedAt: new Date().toISOString() }));
+    setDeck((d) => ({ ...d, cards: d.cards.filter((c) => c.cardId !== cardId), updatedAt: new Date().toISOString() }));
   }
 
   function saveDeck() {
     const decks = loadDecks();
-    const idx = decks.findIndex(d => d.id === deck.id);
-    if (idx >= 0) decks[idx] = deck; else decks.push(deck);
+    const idx = decks.findIndex((d) => d.id === deck.id);
+    if (idx >= 0) decks[idx] = deck;
+    else decks.push(deck);
     saveDecks(decks);
     setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    setTimeout(() => setSaved(false), 1600);
   }
 
   function exportDeck() {
-    const leaderCard = deck.leaderId ? allCards.get(deck.leaderId) : null;
-    const lines = leaderCard ? [`1x ${leaderCard.id} ${leaderCard.name} [Leader]`] : [];
+    const leader = deck.leaderId ? allCards.get(deck.leaderId) : null;
+    const lines = leader ? [`1x ${leader.id} ${leader.name} [Leader]`] : [];
     deck.cards.forEach(({ cardId, quantity }) => {
-      const card = allCards.get(cardId);
-      if (card) lines.push(`${quantity}x ${card.id} ${card.name}`);
+      const c = allCards.get(cardId);
+      if (c) lines.push(`${quantity}x ${c.id} ${c.name}`);
     });
     navigator.clipboard.writeText(lines.join("\n")).then(() => {
       setExported(true);
-      setTimeout(() => setExported(false), 2000);
+      setTimeout(() => setExported(false), 1600);
     });
   }
 
-  // color breakdown
-  const colorCounts: Record<string, number> = {};
-  deck.cards.forEach(({ cardId, quantity }) => {
+  function handleDropCard(cardId?: string) {
+    if (!cardId) return;
     const card = allCards.get(cardId);
-    if (!card) return;
-    card.color.split("/").forEach(col => {
-      const c = col.trim();
-      colorCounts[c] = (colorCounts[c] || 0) + quantity;
-    });
-  });
+    if (card) addCard(card);
+  }
 
   return (
-    <div className="min-h-screen" style={{ background: "#0a0f1e" }}>
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-6">
-          <h1 className="text-3xl font-black text-white">Deck Builder</h1>
-          <p className="text-white/40 text-sm mt-1">Build and save your One Piece TCG decks</p>
-        </div>
+    <div className="space-y-6 pb-20">
+      <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 md:p-6">
+        <h1 className="text-3xl font-black text-white md:text-4xl">Deck Lab — Phase 4</h1>
+        <p className="mt-2 text-sm text-white/60">Drag cards into your deck zone, tune your DON curve, and export tournament-ready lists.</p>
 
-        <div className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 mb-6">
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.14),transparent_45%),radial-gradient(circle_at_88%_78%,rgba(220,38,38,0.14),transparent_45%)]" />
-          <div className="relative grid gap-3 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck size</p>
-              <p className="mt-2 text-2xl font-black text-white">{totalCards}/50</p>
-              <p className="text-sm text-white/50">{isValid ? "Tournament legal" : "Keep building"}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Leader status</p>
-              <p className="mt-2 text-2xl font-black text-[#F0C040]">{deck.leaderId ? "Set" : "Missing"}</p>
-              <p className="text-sm text-white/50">{deck.leaderId ? "Command chain established" : "Choose a leader to anchor colors"}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck file</p>
-              <p className="mt-2 text-lg font-black text-white truncate">{deck.name || "Untitled"}</p>
-              <p className="text-sm text-white/50">Save before exporting</p>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Deck Size</p>
+            <p className="mt-1 text-2xl font-black text-white">{totalCards}/50</p>
+            <p className="text-xs text-white/50">{isValid ? "Tournament legal" : "Target exactly 50 with leader"}</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Leader</p>
+            <p className="mt-1 text-2xl font-black text-[var(--theme-accent-2)]">{leaderCard ? leaderCard.name : "Not set"}</p>
+            <p className="text-xs text-white/50">{leaderCard ? leaderCard.color : "Drop/select a Leader card first"}</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Status</p>
+            <div className={`mt-1 inline-flex items-center gap-2 text-sm font-bold ${isValid ? "text-green-400" : "text-amber-400"}`}>
+              {isValid ? <CheckCircle2 className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
+              {isValid ? "Battle Ready" : "Needs tuning"}
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
-          {/* LEFT: Card Search */}
-          <div>
-            {/* Search + Filters */}
-            <div className="rounded-2xl p-4 mb-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <div className="relative mb-3">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
-                <input
-                  value={query}
-                  onChange={e => setQuery(e.target.value)}
-                  placeholder="Search cards..."
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-white placeholder-white/30 outline-none"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
-                />
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <select
-                  value={colorFilter}
-                  onChange={e => setColorFilter(e.target.value)}
-                  className="px-3 py-1.5 rounded-lg text-xs text-white outline-none"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
-                >
-                  <option value="">All Colors</option>
-                  {COLORS.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-                <select
-                  value={typeFilter}
-                  onChange={e => setTypeFilter(e.target.value)}
-                  className="px-3 py-1.5 rounded-lg text-xs text-white outline-none"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}
-                >
-                  <option value="">All Types</option>
-                  {TYPES.map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
-                {(colorFilter || typeFilter || query) && (
-                  <button onClick={() => { setColorFilter(""); setTypeFilter(""); setQuery(""); }} className="px-3 py-1.5 rounded-lg text-xs text-white/50 hover:text-white" style={{ background: "rgba(255,255,255,0.04)" }}>
-                    Clear
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Card Grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-2">
-              {results.map(card => {
-                const inDeck = card.type === "Leader"
-                  ? deck.leaderId === card.id
-                  : deck.cards.find(c => c.cardId === card.id);
-                const qty = card.type === "Leader" ? (deck.leaderId === card.id ? 1 : 0) : (deck.cards.find(c => c.cardId === card.id)?.quantity ?? 0);
-                return (
-                  <motion.div
-                    key={card.id}
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={() => addCard(card)}
-                    className="relative rounded-xl overflow-hidden cursor-pointer"
-                    style={{ border: inDeck ? "2px solid #f0c040" : "2px solid rgba(255,255,255,0.06)", aspectRatio: "63/88" }}
-                  >
-                    <img
-                      src={`/api/card-image?id=${card.id}`}
-                      alt={card.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {qty > 0 && (
-                      <div className="absolute top-1 right-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-black" style={{ background: "#f0c040" }}>
-                        {qty}
-                      </div>
-                    )}
-                    <div className="absolute inset-x-0 bottom-0 px-1 py-1 text-center" style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.85))" }}>
-                      <p className="text-[9px] text-white/80 leading-tight truncate">{card.name}</p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-            {results.length === 0 && (
-              <div className="text-center py-12 text-white/30">No cards found</div>
-            )}
-          </div>
-
-          {/* RIGHT: Deck Panel */}
-          <div className="lg:sticky lg:top-4 self-start">
-            <div className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              {/* Deck Name */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_420px]">
+        <section className="space-y-4">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <div className="relative mb-3">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
               <input
-                value={deck.name}
-                onChange={e => setDeck(d => ({ ...d, name: e.target.value }))}
-                className="w-full text-lg font-bold text-white bg-transparent outline-none border-b mb-3 pb-1"
-                style={{ borderColor: "rgba(255,255,255,0.1)" }}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Set sail to a card..."
+                className="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
               />
-
-              {/* Card Count */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className={`flex items-center gap-1.5 text-sm font-semibold ${isValid ? "text-green-400" : totalCards > 50 ? "text-red-400" : "text-white/50"}`}>
-                  {isValid ? <CheckCircle2 className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
-                  {totalCards}/50 cards
-                </div>
-                {!deck.leaderId && <span className="text-xs text-amber-400">No leader set</span>}
-              </div>
-
-              {/* Color Bars */}
-              {Object.keys(colorCounts).length > 0 && (
-                <div className="mb-3 space-y-1">
-                  {Object.entries(colorCounts).map(([color, count]) => (
-                    <div key={color} className="flex items-center gap-2">
-                      <span className="text-xs text-white/40 w-12">{color}</span>
-                      <div className="flex-1 h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.06)" }}>
-                        <div className="h-full rounded-full" style={{ width: `${Math.min(100, (count / 49) * 100)}%`, background: COLOR_HEX[color] || "#888" }} />
-                      </div>
-                      <span className="text-xs text-white/30 w-4 text-right">{count}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Leader */}
-              <div className="mb-3">
-                <div className="text-xs text-white/30 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                  <Crown className="w-3 h-3 text-amber-400" /> Leader
-                </div>
-                {deck.leaderId ? (
-                  <div className="flex items-center gap-2 p-2 rounded-xl" style={{ background: "rgba(240,192,64,0.08)", border: "1px solid rgba(240,192,64,0.2)" }}>
-                    <img src={`/api/card-image?id=${deck.leaderId}`} alt="Leader" className="w-10 h-14 object-cover rounded-lg" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-white truncate">{allCards.get(deck.leaderId)?.name}</p>
-                      <p className="text-xs text-white/30">{deck.leaderId}</p>
-                    </div>
-                    <button onClick={() => setDeck(d => ({ ...d, leaderId: null }))} className="text-white/30 hover:text-red-400">
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ) : (
-                  <div className="rounded-xl p-3 text-center text-xs text-white/20" style={{ border: "1px dashed rgba(255,255,255,0.1)" }}>
-                    Click a Leader card to set
-                  </div>
-                )}
-              </div>
-
-              {/* Deck Cards */}
-              <div className="mb-3">
-                <div className="text-xs text-white/30 uppercase tracking-wider mb-1.5">Cards ({deck.cards.reduce((s, c) => s + c.quantity, 0)})</div>
-                <div className="space-y-1 max-h-64 overflow-y-auto pr-1">
-                  <AnimatePresence>
-                    {deck.cards.map(({ cardId, quantity }) => {
-                      const card = allCards.get(cardId);
-                      if (!card) return null;
-                      return (
-                        <motion.div
-                          key={cardId}
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 10 }}
-                          className="flex items-center gap-2 px-2 py-1 rounded-lg"
-                          style={{ background: "rgba(255,255,255,0.04)" }}
-                        >
-                          <img src={`/api/card-image?id=${cardId}`} alt={card.name} className="w-7 h-10 object-cover rounded" />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs text-white truncate">{card.name}</p>
-                            <p className="text-[10px] text-white/30">{card.id}</p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <button onClick={() => removeOne(cardId)} className="w-5 h-5 rounded flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10">
-                              <Minus className="w-3 h-3" />
-                            </button>
-                            <span className="text-xs text-white w-4 text-center font-bold">{quantity}</span>
-                            <button onClick={() => addCard(card)} className="w-5 h-5 rounded flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10" disabled={quantity >= 4}>
-                              <Plus className="w-3 h-3" />
-                            </button>
-                            <button onClick={() => removeCard(cardId)} className="w-5 h-5 rounded flex items-center justify-center text-white/30 hover:text-red-400 ml-1">
-                              <X className="w-3 h-3" />
-                            </button>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </AnimatePresence>
-                  {deck.cards.length === 0 && (
-                    <p className="text-center text-xs text-white/20 py-4">Click cards to add them</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={saveDeck}
-                  className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-bold transition-all"
-                  style={{ background: saved ? "#22c55e" : "linear-gradient(135deg, #f0c040, #dc8a00)", color: "#000" }}
-                >
-                  {saved ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
-                  {saved ? "Saved!" : "Save"}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <select value={colorFilter} onChange={(e) => setColorFilter(e.target.value)} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white">
+                <option value="">All Colors</option>
+                {COLORS.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+              <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white">
+                <option value="">All Types</option>
+                {TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+              </select>
+              {(query || colorFilter || typeFilter) ? (
+                <button onClick={() => { setQuery(""); setColorFilter(""); setTypeFilter(""); }} className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 hover:text-white">
+                  Clear
                 </button>
-                <button
-                  onClick={exportDeck}
-                  className="flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-bold text-white transition-all"
-                  style={{ background: exported ? "#22c55e" : "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}
-                >
-                  <Download className="w-4 h-4" />
-                  {exported ? "Copied!" : "Export"}
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 mt-2">
-                <button
-                  onClick={() => setDeck(newDeck())}
-                  className="flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs text-red-400 hover:text-red-300 transition-colors"
-                  style={{ border: "1px solid rgba(239,68,68,0.2)" }}
-                >
-                  <Trash2 className="w-3.5 h-3.5" /> Clear
-                </button>
-                <Link href="/decks">
-                  <button className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs text-white/40 hover:text-white transition-colors" style={{ border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <BookOpen className="w-3.5 h-3.5" /> My Decks
-                  </button>
-                </Link>
-              </div>
+              ) : null}
             </div>
           </div>
-        </div>
+
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6">
+            {results.map((card) => {
+              const qty = card.type === "Leader"
+                ? (deck.leaderId === card.id ? 1 : 0)
+                : (deck.cards.find((c) => c.cardId === card.id)?.quantity ?? 0);
+
+              return (
+                <motion.div
+                  key={card.id}
+                  draggable
+                  onDragStart={(e: any) => e.dataTransfer?.setData("text/plain", card.id)}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => addCard(card)}
+                  className={`relative cursor-grab overflow-hidden rounded-xl border ${qty > 0 ? "border-[var(--theme-accent)]" : "border-white/10"}`}
+                >
+                  <img src={`/api/card-image?id=${card.id}`} alt={card.name} className="aspect-[63/88] w-full object-cover" />
+                  {qty > 0 ? <span className="absolute right-1 top-1 rounded-full bg-[var(--theme-accent)] px-1.5 text-[10px] font-black text-black">{qty}</span> : null}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-1 py-1">
+                    <p className="truncate text-[9px] text-white/85">{card.name}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        <aside className="space-y-4 lg:sticky lg:top-4 self-start">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <input
+              value={deck.name}
+              onChange={(e) => setDeck((d) => ({ ...d, name: e.target.value }))}
+              className="w-full border-b border-white/10 bg-transparent pb-1 text-lg font-bold text-white outline-none"
+            />
+
+            <div
+              onDragOver={(e) => { e.preventDefault(); setIsDropActive(true); }}
+              onDragLeave={() => setIsDropActive(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setIsDropActive(false);
+                handleDropCard(e.dataTransfer.getData("text/plain"));
+              }}
+              className={`mt-3 rounded-xl border border-dashed p-3 text-xs transition-all ${isDropActive ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/10 text-white" : "border-white/20 bg-black/20 text-white/55"}`}
+            >
+              Drag card here to add to deck
+            </div>
+
+            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
+              <div className="rounded-lg border border-white/10 bg-black/20 p-2"><p className="text-[10px] text-white/45">Leader</p><p className="mt-1 text-xs font-bold text-white">{deck.leaderId ? "SET" : "NONE"}</p></div>
+              <div className="rounded-lg border border-white/10 bg-black/20 p-2"><p className="text-[10px] text-white/45">Main</p><p className="mt-1 text-xs font-bold text-white">{deck.cards.reduce((s, c) => s + c.quantity, 0)}</p></div>
+              <div className="rounded-lg border border-white/10 bg-black/20 p-2"><p className="text-[10px] text-white/45">Total</p><p className="mt-1 text-xs font-bold text-white">{totalCards}/50</p></div>
+            </div>
+
+            <div className="mt-4">
+              <p className="mb-2 flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-white/45"><Crown className="h-3 w-3" />Leader</p>
+              {leaderCard ? (
+                <div className="flex items-center gap-2 rounded-xl border border-[var(--theme-ring)] bg-black/20 p-2">
+                  <img src={`/api/card-image?id=${leaderCard.id}`} alt={leaderCard.name} className="h-14 w-10 rounded object-cover" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-xs font-bold text-white">{leaderCard.name}</p>
+                    <p className="text-[10px] text-white/45">{leaderCard.id} · {leaderCard.color}</p>
+                  </div>
+                  <button onClick={() => setDeck((d) => ({ ...d, leaderId: null }))} className="text-white/45 hover:text-red-400"><X className="h-4 w-4" /></button>
+                </div>
+              ) : <p className="rounded-xl border border-dashed border-white/15 p-3 text-xs text-white/35">Pick or drop a Leader card</p>}
+            </div>
+
+            <div className="mt-4">
+              <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Visual Stack</p>
+              <div className="max-h-48 space-y-1 overflow-y-auto pr-1">
+                <AnimatePresence>
+                  {deck.cards.map(({ cardId, quantity }) => {
+                    const card = allCards.get(cardId);
+                    if (!card) return null;
+                    return (
+                      <motion.div key={cardId} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 8 }} className="flex items-center gap-2 rounded-lg bg-black/25 px-2 py-1.5">
+                        <img src={`/api/card-image?id=${cardId}`} alt={card.name} className="h-10 w-7 rounded object-cover" />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-xs text-white">{card.name}</p>
+                          <p className="text-[10px] text-white/40">{card.id}</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <button onClick={() => removeOne(cardId)} className="rounded p-1 text-white/50 hover:bg-white/10 hover:text-white"><Minus className="h-3 w-3" /></button>
+                          <span className="w-4 text-center text-xs font-bold text-white">{quantity}</span>
+                          <button onClick={() => addCard(card)} disabled={quantity >= 4} className="rounded p-1 text-white/50 hover:bg-white/10 hover:text-white disabled:opacity-30"><Plus className="h-3 w-3" /></button>
+                          <button onClick={() => removeCard(cardId)} className="rounded p-1 text-white/40 hover:text-red-400"><X className="h-3 w-3" /></button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">DON Curve</p>
+              <div className="flex items-end gap-1 rounded-xl border border-white/10 bg-black/25 p-2">
+                {curveBuckets.map((b) => {
+                  const h = Math.max(8, Math.round((b.count / maxCurveCount) * 58));
+                  return (
+                    <div key={b.cost} className="flex-1 text-center">
+                      <div className="mx-auto flex w-full max-w-[26px] items-end justify-center rounded-sm border border-white/20 bg-[#0f1117] text-[9px] font-black text-white" style={{ height: `${h}px` }}>
+                        {b.count > 0 ? b.count : ""}
+                      </div>
+                      <p className="mt-1 text-[9px] text-white/45">{b.cost}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              <DonButton onClick={saveDeck}>{saved ? <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-4 w-4" />Saved</span> : <span className="inline-flex items-center gap-1"><Save className="h-4 w-4" />Save</span>}</DonButton>
+              <DonButton onClick={exportDeck}>{exported ? <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-4 w-4" />Copied</span> : <span className="inline-flex items-center gap-1"><Download className="h-4 w-4" />Export</span>}</DonButton>
+            </div>
+
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              <button onClick={() => setDeck(newDeck())} className="flex items-center justify-center gap-1 rounded-xl border border-red-500/30 py-2 text-xs text-red-400 hover:text-red-300">
+                <Trash2 className="h-3.5 w-3.5" /> Clear
+              </button>
+              <Link href="/decks" className="flex items-center justify-center gap-1 rounded-xl border border-white/10 py-2 text-xs text-white/60 hover:text-white">
+                <BookOpen className="h-3.5 w-3.5" /> My Decks
+              </Link>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
   );
