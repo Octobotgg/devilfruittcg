@@ -69,6 +69,56 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "leader and opponent are required" }, { status: 400 });
   }
 
+  // Prefer large-sample external snapshot bridge first.
+  let bridgeSnapshotAvailable = false;
+  try {
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.matchups?.length) {
+      bridgeSnapshotAvailable = true;
+      const mapped = fromSnapshot(bridge.snapshot, leader, opponent);
+      if (mapped) {
+        return NextResponse.json(
+          {
+            leader,
+            opponent,
+            period,
+            source: "bridge:external-snapshot",
+            featureFlags: { matchIntelV2 },
+            ...mapped,
+          },
+          { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+        );
+      }
+
+      // Snapshot exists but pair is not represented in large-sample data.
+      return NextResponse.json(
+        {
+          leader,
+          opponent,
+          period,
+          source: "bridge:external-snapshot",
+          featureFlags: { matchIntelV2 },
+          winRate: null,
+          matches: 0,
+          firstWinRate: null,
+          firstGames: null,
+          secondWinRate: null,
+          secondGames: null,
+          reverseWinRate: null,
+          reverseMatches: 0,
+          reverseFirstWinRate: null,
+          reverseFirstGames: null,
+          reverseSecondWinRate: null,
+          reverseSecondGames: null,
+          note: "no_large_sample_pair_data",
+        },
+        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+      );
+    }
+  } catch {
+    // continue
+  }
+
   if (matchIntelV2) {
     try {
       const repo = createMatchIntelSupabaseRepository();
@@ -94,69 +144,79 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  try {
-    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
-    if (bridge?.snapshot?.matchups?.length) {
-      const mapped = fromSnapshot(bridge.snapshot, leader, opponent);
-      if (mapped) {
-        return NextResponse.json(
-          {
-            leader,
-            opponent,
-            period,
-            source: "bridge:external-snapshot",
-            featureFlags: { matchIntelV2 },
-            ...mapped,
+  // Only use small-sample tournament fallback when no bridge snapshot is available.
+  if (!bridgeSnapshotAvailable) {
+    try {
+      const aHtml = await fetch(
+        `https://play.limitlesstcg.com/decks/${leader}/matchups?game=OP&set=${encodeURIComponent(set)}&time=${encodeURIComponent(time)}`,
+        {
+          headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
+          cache: "no-store",
+        }
+      ).then((r) => r.text());
+
+      const bHtml = await fetch(
+        `https://play.limitlesstcg.com/decks/${opponent}/matchups?game=OP&set=${encodeURIComponent(set)}&time=${encodeURIComponent(time)}`,
+        {
+          headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
+          cache: "no-store",
+        }
+      ).then((r) => r.text());
+
+      const a = parseWinRow(aHtml, opponent);
+      const b = parseWinRow(bHtml, leader);
+
+      return NextResponse.json(
+        {
+          leader,
+          opponent,
+          set,
+          time,
+          period,
+          winRate: a?.winRate ?? null,
+          matches: a?.matches ?? 0,
+          firstWinRate: null,
+          firstGames: null,
+          secondWinRate: null,
+          secondGames: null,
+          reverseWinRate: b?.winRate ?? null,
+          reverseMatches: b?.matches ?? 0,
+          reverseFirstWinRate: null,
+          reverseFirstGames: null,
+          reverseSecondWinRate: null,
+          reverseSecondGames: null,
+          source: "tournament-aggregate",
+          featureFlags: {
+            matchIntelV2,
           },
-          { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
-        );
-      }
-    }
-  } catch {
-    // continue to old external fallback
-  }
-
-  try {
-    const aHtml = await fetch(`https://play.limitlesstcg.com/decks/${leader}/matchups?game=OP&set=${encodeURIComponent(set)}&time=${encodeURIComponent(time)}`, {
-      headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
-      cache: "no-store",
-    }).then((r) => r.text());
-
-    const bHtml = await fetch(`https://play.limitlesstcg.com/decks/${opponent}/matchups?game=OP&set=${encodeURIComponent(set)}&time=${encodeURIComponent(time)}`, {
-      headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
-      cache: "no-store",
-    }).then((r) => r.text());
-
-    const a = parseWinRow(aHtml, opponent);
-    const b = parseWinRow(bHtml, leader);
-
-    return NextResponse.json(
-      {
-        leader,
-        opponent,
-        set,
-        time,
-        period,
-        winRate: a?.winRate ?? null,
-        matches: a?.matches ?? 0,
-        firstWinRate: null,
-        firstGames: null,
-        secondWinRate: null,
-        secondGames: null,
-        reverseWinRate: b?.winRate ?? null,
-        reverseMatches: b?.matches ?? 0,
-        reverseFirstWinRate: null,
-        reverseFirstGames: null,
-        reverseSecondWinRate: null,
-        reverseSecondGames: null,
-        source: "tournament-aggregate",
-        featureFlags: {
-          matchIntelV2,
         },
-      },
-      { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
-    );
-  } catch {
-    return NextResponse.json({ error: "failed_to_fetch" }, { status: 500 });
+        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
+      );
+    } catch {
+      // continue to terminal no-data response
+    }
   }
+
+  return NextResponse.json(
+    {
+      leader,
+      opponent,
+      period,
+      source: "no-data",
+      featureFlags: { matchIntelV2 },
+      winRate: null,
+      matches: 0,
+      firstWinRate: null,
+      firstGames: null,
+      secondWinRate: null,
+      secondGames: null,
+      reverseWinRate: null,
+      reverseMatches: 0,
+      reverseFirstWinRate: null,
+      reverseFirstGames: null,
+      reverseSecondWinRate: null,
+      reverseSecondGames: null,
+    },
+    { status: 200, headers: { "Cache-Control": "no-store" } }
+  );
 }

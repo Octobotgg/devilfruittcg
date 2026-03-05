@@ -19,6 +19,31 @@ export async function GET(req: NextRequest) {
   const period = asMatchIntelPeriod(req.nextUrl.searchParams.get("period") || "west_p");
   const matchIntelV2 = isMatchIntelV2Enabled();
 
+  // Prefer large-sample external snapshot bridge first.
+  try {
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.leaders?.length) {
+      const decks = snapshotToMatchupDecks(bridge.snapshot, null, limit);
+      return NextResponse.json(
+        {
+          source: "bridge:external-snapshot",
+          sources: ["bridge:external-snapshot"],
+          updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
+          sampleGames: snapshotTotalMatches(bridge.snapshot),
+          period,
+          snapshotDate: bridge.snapshot.snapshotDate,
+          decks,
+          featureFlags: {
+            matchIntelV2,
+          },
+        },
+        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+      );
+    }
+  } catch {
+    // continue to v2/fallback chain
+  }
+
   if (matchIntelV2) {
     try {
       const repo = createMatchIntelSupabaseRepository();
@@ -49,32 +74,8 @@ export async function GET(req: NextRequest) {
         }
       }
     } catch {
-      // fall through to bridge/external sources
+      // continue fallback chain
     }
-  }
-
-  try {
-    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
-    if (bridge?.snapshot?.leaders?.length) {
-      const decks = snapshotToMatchupDecks(bridge.snapshot, null, limit);
-      return NextResponse.json(
-        {
-          source: "bridge:external-snapshot",
-          sources: ["bridge:external-snapshot"],
-          updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
-          sampleGames: snapshotTotalMatches(bridge.snapshot),
-          period,
-          snapshotDate: bridge.snapshot.snapshotDate,
-          decks,
-          featureFlags: {
-            matchIntelV2,
-          },
-        },
-        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
-      );
-    }
-  } catch {
-    // continue fallback chain
   }
 
   try {

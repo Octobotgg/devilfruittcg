@@ -15,6 +15,30 @@ export async function GET(req: NextRequest) {
   const period = asMatchIntelPeriod(req.nextUrl.searchParams.get("period") || periodFromRegion(region));
   const matchIntelV2 = isMatchIntelV2Enabled();
 
+  // Prefer large-sample external snapshot bridge first.
+  try {
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.leaders?.length) {
+      const payload = snapshotToMetaResponse(bridge.snapshot, period, null);
+      return NextResponse.json(
+        {
+          ...payload,
+          source: "bridge:external-snapshot",
+          sources: ["bridge:external-snapshot"],
+          featureFlags: {
+            matchIntelV2,
+          },
+        },
+        {
+          status: 200,
+          headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" },
+        }
+      );
+    }
+  } catch {
+    // continue to v2/live/seeded paths
+  }
+
   if (matchIntelV2) {
     try {
       const repo = createMatchIntelSupabaseRepository();
@@ -42,31 +66,8 @@ export async function GET(req: NextRequest) {
         }
       }
     } catch {
-      // fall through to bridge/live/seeded paths
+      // fall through to live/seeded paths
     }
-  }
-
-  try {
-    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
-    if (bridge?.snapshot?.leaders?.length) {
-      const payload = snapshotToMetaResponse(bridge.snapshot, period, null);
-      return NextResponse.json(
-        {
-          ...payload,
-          source: "bridge:external-snapshot",
-          sources: ["bridge:external-snapshot"],
-          featureFlags: {
-            matchIntelV2,
-          },
-        },
-        {
-          status: 200,
-          headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" },
-        }
-      );
-    }
-  } catch {
-    // continue to existing live/seeded flows
   }
 
   try {

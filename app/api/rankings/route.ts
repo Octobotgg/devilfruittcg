@@ -49,6 +49,30 @@ export async function GET(req: NextRequest) {
   const limit = Math.max(5, Math.min(50, Number(req.nextUrl.searchParams.get("limit") || 20)));
   const matchIntelV2 = isMatchIntelV2Enabled();
 
+  // Prefer large-sample external snapshot bridge first.
+  try {
+    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.leaders?.length) {
+      return NextResponse.json(
+        {
+          source: "bridge:external-snapshot",
+          sources: ["bridge:external-snapshot"],
+          period,
+          snapshotDate: bridge.snapshot.snapshotDate,
+          updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
+          sampleGames: snapshotTotalMatches(bridge.snapshot),
+          leaders: buildLeaders(bridge.snapshot, null, limit),
+          featureFlags: {
+            matchIntelV2,
+          },
+        },
+        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+      );
+    }
+  } catch {
+    // continue to v2/fallback chain
+  }
+
   if (matchIntelV2) {
     try {
       const repo = createMatchIntelSupabaseRepository();
@@ -78,31 +102,8 @@ export async function GET(req: NextRequest) {
         }
       }
     } catch {
-      // continue to bridge fallback
+      // continue to seeded fallback
     }
-  }
-
-  try {
-    const bridge = await fetchExternalSnapshotBridge(period, { maxLookbackDays: 2 });
-    if (bridge?.snapshot?.leaders?.length) {
-      return NextResponse.json(
-        {
-          source: "bridge:external-snapshot",
-          sources: ["bridge:external-snapshot"],
-          period,
-          snapshotDate: bridge.snapshot.snapshotDate,
-          updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
-          sampleGames: snapshotTotalMatches(bridge.snapshot),
-          leaders: buildLeaders(bridge.snapshot, null, limit),
-          featureFlags: {
-            matchIntelV2,
-          },
-        },
-        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
-      );
-    }
-  } catch {
-    // continue to seeded fallback
   }
 
   const fallback = META_DECKS.slice(0, limit).map((deck, i) => ({
