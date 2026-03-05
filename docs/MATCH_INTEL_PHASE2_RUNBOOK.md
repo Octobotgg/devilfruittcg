@@ -29,16 +29,32 @@ Run the Phase 0 SQL migration:
 
 ## Run aggregation
 
-### Single period (default: west_p)
+### Native aggregation from `match_events` (recommended long-term)
+
+#### Single period (default: west_p)
 
 ```bash
 npm run aggregate:match-intel -- --period west_p --date 2026-03-05
 ```
 
-### All periods
+#### All periods
 
 ```bash
 npm run aggregate:match-intel -- --all --date 2026-03-05
+```
+
+### Bridge import from public Card Kaizoku snapshots (fast bootstrap)
+
+#### Single period
+
+```bash
+npm run bridge:match-intel -- --period west_p --date 2026-03-05
+```
+
+#### All periods
+
+```bash
+npm run bridge:match-intel -- --all --date 2026-03-05
 ```
 
 ### Dry run (no DB upsert)
@@ -59,6 +75,7 @@ npm run aggregate:match-intel -- --all --public
 curl -s "https://devilfruittcg.gg/api/rankings?period=west_p&limit=20"
 curl -s "https://devilfruittcg.gg/api/matchups?period=west_p&limit=12"
 curl -s "https://devilfruittcg.gg/api/meta?period=west_p"
+curl -s "https://devilfruittcg.gg/api/matchhistory/summary"
 ```
 
 If no snapshot rows exist yet, APIs fallback gracefully to existing aggregate/seeded modes.

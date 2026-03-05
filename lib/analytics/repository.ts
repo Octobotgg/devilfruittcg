@@ -21,6 +21,8 @@ export interface MatchIntelRepository {
 
   getMatchesByDeviceHash(deviceHash: string, options?: MatchEventQueryOptions): Promise<MatchEventRow[]>;
   getLatestPlayerIndexMatches(searchTerm: string, limit?: number): Promise<PlayerIndexRow[]>;
+  countMatchEvents(): Promise<number>;
+  countPlayerIndex(): Promise<number>;
 
   getSnapshot(period: MatchIntelPeriod, snapshotDate: string): Promise<MatchIntelSnapshot | null>;
   getLatestSnapshot(period: MatchIntelPeriod): Promise<MatchIntelSnapshot | null>;
@@ -179,6 +181,24 @@ class SupabaseMatchIntelRepository implements MatchIntelRepository {
         return tb - ta;
       })
       .slice(0, normalizedLimit);
+  }
+
+  async countMatchEvents(): Promise<number> {
+    const { count, error } = await this.client
+      .from("match_events")
+      .select("id", { count: "exact", head: true });
+
+    if (error) throw error;
+    return count || 0;
+  }
+
+  async countPlayerIndex(): Promise<number> {
+    const { count, error } = await this.client
+      .from("player_index")
+      .select("device_hash", { count: "exact", head: true });
+
+    if (error) throw error;
+    return count || 0;
   }
 
   async getSnapshot(period: MatchIntelPeriod, snapshotDate: string): Promise<MatchIntelSnapshot | null> {
