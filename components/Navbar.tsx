@@ -13,12 +13,10 @@ const links = [
   { href: "/collection",  label: "Collection", icon: Package    },
 ];
 
-export default function Navbar({ brandClass = "" }: { brandClass?: string }) {
+export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Homepage has its own premium nav
-  if (pathname === "/") return null;
 
   return (
     <motion.nav
@@ -31,19 +29,12 @@ export default function Navbar({ brandClass = "" }: { brandClass?: string }) {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobileOpen(false)}>
           <motion.div
-            whileHover={{ scale: 1.1, rotate: 10 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="relative w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-red-500/20"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 280 }}
+            className="relative"
           >
-            <img src="/images/logo-concept-crest.svg?v=2" alt="DevilFruitTCG crest logo" className="w-full h-full object-cover" />
-            <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#F0C040] rounded-full animate-pulse" />
+            <img src="/images/logo-wordmark.svg" alt="DevilFruitTCG logo" className="h-9 w-auto" />
           </motion.div>
-          <div>
-            <span className={`${brandClass} brand-title text-[var(--brass)] text-lg leading-none`}>
-              DevilFruit
-            </span>
-            <span className="block text-[9px] text-white/35 tracking-[0.3em] uppercase leading-none">TCG Intelligence</span>
-          </div>
         </Link>
 
         {/* Desktop Nav */}
