@@ -50,8 +50,27 @@ export default function MatchupsPage() {
   const [sampleGames, setSampleGames] = useState<number>(0);
   const [matchupSet, setMatchupSet] = useState<string>("OP12");
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
+  const [leaderSearch, setLeaderSearch] = useState<string>("");
+  const [lookupLeaderId, setLookupLeaderId] = useState<string>("");
+  const [lookupOpponentId, setLookupOpponentId] = useState<string>("");
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
   const hasLargeSample = sampleGames >= 1000;
+
+  useEffect(() => {
+    if (!decks.length) return;
+    if (!lookupLeaderId) setLookupLeaderId(decks[0].id);
+    if (!lookupOpponentId) setLookupOpponentId(decks[1]?.id || decks[0].id);
+  }, [decks, lookupLeaderId, lookupOpponentId]);
+
+  const filteredLeaders = decks.filter((d) =>
+    d.name.toLowerCase().includes(leaderSearch.toLowerCase()) ||
+    d.leader.toLowerCase().includes(leaderSearch.toLowerCase())
+  );
+
+  const lookupLeader = decks.find((d) => d.id === lookupLeaderId) || null;
+  const lookupOpponent = decks.find((d) => d.id === lookupOpponentId) || null;
+  const lookupRate = lookupLeader && lookupOpponent ? (lookupLeader.matchups[lookupOpponent.id] ?? 50) : 50;
+  const reverseRate = lookupLeader && lookupOpponent ? (lookupOpponent.matchups[lookupLeader.id] ?? 50) : 50;
 
   const topDeck = decks.reduce((best, deck) => (
     !best || deck.metaShare > best.metaShare ? deck : best
@@ -166,6 +185,54 @@ export default function MatchupsPage() {
             <p className="text-sm text-white/50">{sampleGames ? "Logged cross-match games" : "Awaiting live game logs"}</p>
           </div>
         </div>
+      </motion.div>
+
+      {/* Leader lookup */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+        className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
+        <h3 className="text-white font-black">Leader Matchup Finder</h3>
+
+        <div className="grid md:grid-cols-4 gap-3">
+          <input
+            value={leaderSearch}
+            onChange={(e) => setLeaderSearch(e.target.value)}
+            placeholder="Search leader..."
+            className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white md:col-span-2"
+          />
+          <select
+            value={lookupLeaderId}
+            onChange={(e) => setLookupLeaderId(e.target.value)}
+            className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+          >
+            {filteredLeaders.map((d) => (
+              <option key={d.id} value={d.id} className="bg-[#0f172a]">{d.name}</option>
+            ))}
+          </select>
+          <select
+            value={lookupOpponentId}
+            onChange={(e) => setLookupOpponentId(e.target.value)}
+            className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+          >
+            {decks.filter((d) => d.id !== lookupLeaderId).map((d) => (
+              <option key={d.id} value={d.id} className="bg-[#0f172a]">vs {d.name}</option>
+            ))}
+          </select>
+        </div>
+
+        {lookupLeader && lookupOpponent && (
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            <span className="text-white/70">{lookupLeader.name} vs {lookupOpponent.name}</span>
+            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate)}`}>{lookupRate}%</span>
+            <span className="text-white/40">reverse:</span>
+            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate)}`}>{reverseRate}%</span>
+            <button
+              onClick={() => { setSelectedDeckId(lookupLeader.id); setView("detail"); }}
+              className="ml-auto px-3 py-1.5 rounded-lg bg-[#F0C040] text-black font-bold"
+            >
+              Open Full Leader Matrix
+            </button>
+          </div>
+        )}
       </motion.div>
 
       {/* View Toggle */}
