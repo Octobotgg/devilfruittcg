@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus, Copy, Shuffle } from "lucide-react";
+import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import DonButton from "@/components/ui/DonButton";
@@ -105,10 +105,6 @@ export default function MatchupsPage() {
         const json = await res.json();
         const leaders = Array.isArray(json?.leaders) ? json.leaders : [];
         setAllLeaders(leaders);
-        if (leaders.length) {
-          if (!lookupLeaderCardId) setLookupLeaderCardId(leaders[0].id);
-          if (!lookupOpponentCardId) setLookupOpponentCardId(leaders[1]?.id || leaders[0].id);
-        }
       } catch {
         // silent
       }
@@ -116,15 +112,6 @@ export default function MatchupsPage() {
     loadLeaders();
   }, []);
 
-  useEffect(() => {
-    if (lookupLeaderCardId && !leaderAQuery) setLeaderAQuery(labelForLeader(lookupLeaderCardId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lookupLeaderCardId, allLeaders.length]);
-
-  useEffect(() => {
-    if (lookupOpponentCardId && !leaderBQuery) setLeaderBQuery(labelForLeader(lookupOpponentCardId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lookupOpponentCardId, allLeaders.length]);
 
   const labelForLeader = (id: string) => {
     const l = allLeaders.find((x) => x.id === id);
@@ -236,27 +223,6 @@ export default function MatchupsPage() {
         rate: rowDeck.matchups[colDeck.id] ?? 50,
       })))
     .sort((a, b) => b.rate - a.rate)[0];
-
-  const copyClashReport = () => {
-    const text = [
-      `Matchup Clash`,
-      `A: ${labelForLeader(lookupLeaderCardId)} (${lookupRate ?? "N/A"}%)`,
-      `B: ${labelForLeader(lookupOpponentCardId)} (${reverseRate ?? "N/A"}%)`,
-      `Format: ${matchupSet} · Window: ${matchupTime}`,
-      `Source: ${sourceLabel}`,
-    ].join("\n");
-    navigator.clipboard.writeText(text);
-  };
-
-  const swapLeaders = () => {
-    const a = lookupLeaderCardId;
-    const b = lookupOpponentCardId;
-    if (!a || !b) return;
-    setLookupLeaderCardId(b);
-    setLookupOpponentCardId(a);
-    setLeaderAQuery(labelForLeader(b));
-    setLeaderBQuery(labelForLeader(a));
-  };
 
   useEffect(() => {
     const run = async () => {
@@ -396,6 +362,7 @@ export default function MatchupsPage() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
         <h3 className="text-white font-black">Leader Matchup Finder</h3>
+        <p className="text-xs text-white/55">Pick any two leaders to run your own head-to-head test.</p>
 
         <div className="grid md:grid-cols-2 gap-3">
           <div className="relative">
@@ -409,8 +376,15 @@ export default function MatchupsPage() {
                 if (e.key === "Enter") { e.preventDefault(); selectLeader("a", filteredLeadersA[activeIndexA]?.id || filteredLeadersA[0].id); }
               }}
               placeholder="Leader A (type name or ID)"
-              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 pr-14 text-sm text-white"
             />
+            <button
+              type="button"
+              onClick={() => { setLeaderAQuery(""); setLookupLeaderCardId(""); setActiveIndexA(0); }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-bold text-white/70 hover:text-white"
+            >
+              Clear
+            </button>
             {leaderAQuery.trim().length >= 2 && filteredLeadersA.length > 0 && (
               <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
                 {filteredLeadersA.map((d, i) => (
@@ -437,8 +411,15 @@ export default function MatchupsPage() {
                 if (e.key === "Enter") { e.preventDefault(); selectLeader("b", filteredLeadersB[activeIndexB]?.id || filteredLeadersB[0].id); }
               }}
               placeholder="Leader B / opponent"
-              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 pr-14 text-sm text-white"
             />
+            <button
+              type="button"
+              onClick={() => { setLeaderBQuery(""); setLookupOpponentCardId(""); setActiveIndexB(0); }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-bold text-white/70 hover:text-white"
+            >
+              Clear
+            </button>
             {leaderBQuery.trim().length >= 2 && filteredLeadersB.length > 0 && (
               <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
                 {filteredLeadersB.map((d, i) => (
@@ -492,10 +473,6 @@ export default function MatchupsPage() {
                 </div>
                 <div className="mx-auto mt-2 h-1.5 w-44 overflow-hidden rounded-full bg-white/10">
                   <div className="h-full bg-gradient-to-r from-green-400 to-red-400" style={{ width: `${Math.max(0, Math.min(100, lookupRate ?? 50))}%` }} />
-                </div>
-                <div className="mt-2 flex justify-center gap-2">
-                  <DonButton onClick={swapLeaders}><span className="inline-flex items-center gap-1"><Shuffle className="h-3.5 w-3.5" /> Swap</span></DonButton>
-                  <DonButton onClick={copyClashReport}><span className="inline-flex items-center gap-1"><Copy className="h-3.5 w-3.5" /> Copy Report</span></DonButton>
                 </div>
               </div>
 
