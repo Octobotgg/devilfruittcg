@@ -193,12 +193,13 @@ function MarketContent() {
           <p className="text-xs text-white/45">Popular + premium targets</p>
         </div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {MARKET_HOT_CARDS.slice(0, 4).map((c) => (
+          {MARKET_HOT_CARDS.slice(0, 4).map((c, i) => (
             <WantedPosterCard
               key={c.id}
               id={c.id}
               name={c.name}
               subtitle={c.id}
+              rotateDeg={[-1.6, 1.1, -0.8, 1.5][i] ?? 0}
               href={`/market?card=${encodeURIComponent(c.id)}`}
             />
           ))}

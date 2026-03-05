@@ -14,6 +14,7 @@ import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import LeaderColorTag from "@/components/ui/LeaderColorTag";
 import LiveStatusStrip from "@/components/ui/LiveStatusStrip";
+import TiltCard from "@/components/ui/TiltCard";
 
 function ago(iso?: string) {
   if (!iso) return "—";
@@ -111,13 +112,13 @@ export default function HomePagePhase1() {
             {topDecks.map((deck, i) => (
               <Link key={deck.name} href={deck.deckId ? `/meta?deck=${deck.deckId}` : "/meta"} className="group">
                 <div className={`relative rounded-xl border border-white/15 bg-black/20 p-3 ${i === 1 ? "md:-mt-2" : ""}`}>
-                  <div className="relative mx-auto h-44 w-32">
+                  <TiltCard className="relative mx-auto h-44 w-32 rounded-xl">
                     <img
                       src={`/api/card-image?id=${deck.cardId || "OP14-001"}&variant=p1`}
                       alt={deck.name}
                       className="h-44 w-32 rounded-xl border border-white/20 object-cover shadow-2xl"
                     />
-                  </div>
+                  </TiltCard>
                   <p className="mt-3 line-clamp-1 text-sm font-black text-white">{deck.name}</p>
                   <div className="mt-1 flex items-center justify-between text-xs">
                     <GlowTag>#{deck.rank}</GlowTag>

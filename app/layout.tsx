@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Cinzel } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
+const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-display", weight: ["600", "700", "800"] });
 
 export const metadata: Metadata = {
   title: "DevilFruitTCG.gg — Your One Piece TCG Command Center",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} min-h-screen playmat-shell`}>
+      <body className={`${inter.className} ${cinzel.variable} min-h-screen playmat-shell`}>
         <div className="relative z-10">
           <Navbar />
           <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
