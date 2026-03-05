@@ -330,11 +330,13 @@ export default function MatchupsPage() {
 
   useEffect(() => {
     if (view !== "detail" || !selectedDeck) return;
-    if (lookupLeaderCardId === selectedDeck.cardId) return;
+    if (lookupLeaderCardId) return;
 
     setLookupLeaderCardId(selectedDeck.cardId);
     setLeaderAQuery(labelForLeader(selectedDeck.cardId));
-  }, [view, selectedDeck, lookupLeaderCardId]);
+    // intentionally not keyed on lookupLeaderCardId so custom user selections are not overwritten
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, selectedDeck?.cardId]);
 
   const matrixDecks = decks.filter((d) =>
     d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
