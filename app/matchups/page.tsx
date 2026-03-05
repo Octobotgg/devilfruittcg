@@ -133,6 +133,10 @@ export default function MatchupsPage() {
     if (slot === "a") {
       setLookupLeaderCardId(id);
       setLeaderAQuery(labelForLeader(id));
+
+      // Keep analysis panels in sync with the selected Leader A.
+      const deck = decks.find((d) => d.cardId === id) || null;
+      setSelectedDeckId(deck?.id || null);
     } else {
       setLookupOpponentCardId(id);
       setLeaderBQuery(labelForLeader(id));
@@ -140,13 +144,8 @@ export default function MatchupsPage() {
   };
 
   const selectSuggestedOpponent = (cardId: string) => {
-    // Switch analysis to this leader (make it Leader A)
-    selectLeader("a", cardId);
-    // Also update the selected deck to match
-    const deck = decks.find((d) => d.cardId === cardId);
-    if (deck) {
-      setSelectedDeckId(deck.id);
-    }
+    // Analyze buttons should replace Leader B only.
+    selectLeader("b", cardId);
     requestAnimationFrame(() => {
       finderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -536,9 +535,6 @@ export default function MatchupsPage() {
           <button
             key={v.id}
             onClick={() => {
-              if (v.id === "detail" && !selectedDeckId && topDeck) {
-                setSelectedDeckId(topDeck.id);
-              }
               setView(v.id);
             }}
             className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
@@ -569,7 +565,7 @@ export default function MatchupsPage() {
       </motion.div>
 
       {/* Leader lookup (analysis view only) */}
-      {view === "detail" && selectedDeck && (
+      {view === "detail" && (
       <motion.div
         ref={finderRef}
         initial={{ opacity: 0, y: 10 }}
@@ -598,7 +594,7 @@ export default function MatchupsPage() {
             />
             <button
               type="button"
-              onClick={() => { setLeaderAQuery(""); setLookupLeaderCardId(""); setActiveIndexA(0); }}
+              onClick={() => { setLeaderAQuery(""); setLookupLeaderCardId(""); setSelectedDeckId(null); setActiveIndexA(0); }}
               className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-bold text-white/70 hover:text-white"
             >
               Clear
@@ -1053,17 +1049,13 @@ export default function MatchupsPage() {
               <button
                 key={v.id}
                 onClick={() => {
-                  if (v.id === "detail" && !selectedDeckId && topDeck) {
-                    setSelectedDeckId(topDeck.id);
-                  }
-                  if (v.id === "detail" && !selectedDeck && !topDeck) return;
                   setView(v.id);
                 }}
                 className={`h-11 rounded-xl text-xs font-bold transition-all ${
                   view === v.id
                     ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
                     : "bg-white/5 text-white/60 border border-white/10"
-                } ${v.id === "detail" && !selectedDeck && !topDeck ? "opacity-50" : ""}`}
+                }`}
               >
                 {v.label}
               </button>
