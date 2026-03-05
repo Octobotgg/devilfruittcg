@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
+
 type GlowTagProps = {
-  children: string;
+  children: ReactNode;
   className?: string;
 };
 
