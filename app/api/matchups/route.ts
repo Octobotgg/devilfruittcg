@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     if (live?.decks?.length) {
       return NextResponse.json(
         {
-          source: live.source,
+          source: "tournament-aggregate",
           sources: ["tournament-aggregate"],
           updatedAt: live.updatedAt,
           sampleGames: live.sampleGames,
@@ -32,8 +32,8 @@ export async function GET(req: NextRequest) {
     if (live?.decks?.length) {
       return NextResponse.json(
         {
-          source: live.source,
-          sources: ["kaizoku"],
+          source: "tournament-aggregate",
+          sources: ["tournament-aggregate"],
           updatedAt: live.updatedAt,
           sampleGames: live.sampleGames,
           decks: live.decks,

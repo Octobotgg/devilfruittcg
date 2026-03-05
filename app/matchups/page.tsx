@@ -229,7 +229,7 @@ export default function MatchupsPage() {
           setDecks(json.decks);
           if (json.source) {
             const raw = String(json.source).toLowerCase();
-            setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : String(json.source));
+            setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : "Tournament aggregate");
           }
           if (typeof json.sampleGames === "number") setSampleGames(json.sampleGames);
           setLastSuccessAt(new Date().toISOString());
