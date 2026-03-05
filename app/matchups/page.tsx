@@ -72,6 +72,14 @@ export default function MatchupsPage() {
   const [reverseRate, setReverseRate] = useState<number | null>(null);
   const [lookupMatches, setLookupMatches] = useState<number | null>(null);
   const [reverseMatches, setReverseMatches] = useState<number | null>(null);
+  const [lookupFirstRate, setLookupFirstRate] = useState<number | null>(null);
+  const [lookupSecondRate, setLookupSecondRate] = useState<number | null>(null);
+  const [lookupFirstGames, setLookupFirstGames] = useState<number | null>(null);
+  const [lookupSecondGames, setLookupSecondGames] = useState<number | null>(null);
+  const [reverseFirstRate, setReverseFirstRate] = useState<number | null>(null);
+  const [reverseSecondRate, setReverseSecondRate] = useState<number | null>(null);
+  const [reverseFirstGames, setReverseFirstGames] = useState<number | null>(null);
+  const [reverseSecondGames, setReverseSecondGames] = useState<number | null>(null);
   const [activeIndexA, setActiveIndexA] = useState<number>(0);
   const [activeIndexB, setActiveIndexB] = useState<number>(0);
   const [matrixFilter, setMatrixFilter] = useState<string>("");
@@ -163,6 +171,15 @@ export default function MatchupsPage() {
   const lookupLeaderDeck = lookupLeaderMeta ? decks.find((d) => d.id === lookupLeaderMeta.id) || null : null;
   const lookupOpponentDeck = lookupOpponentMeta ? decks.find((d) => d.id === lookupOpponentMeta.id) || null : null;
 
+  const leaderSideEdge =
+    lookupFirstRate != null && lookupSecondRate != null
+      ? Number((lookupFirstRate - lookupSecondRate).toFixed(2))
+      : null;
+  const opponentSideEdge =
+    reverseFirstRate != null && reverseSecondRate != null
+      ? Number((reverseFirstRate - reverseSecondRate).toFixed(2))
+      : null;
+
   useEffect(() => {
     let cancelled = false;
 
@@ -170,14 +187,21 @@ export default function MatchupsPage() {
       if (lookupLeaderDeck && lookupOpponentDeck) {
         setLookupRate(lookupLeaderDeck.matchups[lookupOpponentDeck.id] ?? 50);
         setReverseRate(lookupOpponentDeck.matchups[lookupLeaderDeck.id] ?? 50);
-        setLookupMatches(null);
-        setReverseMatches(null);
       } else {
         setLookupRate(null);
         setReverseRate(null);
-        setLookupMatches(null);
-        setReverseMatches(null);
       }
+
+      setLookupMatches(null);
+      setReverseMatches(null);
+      setLookupFirstRate(null);
+      setLookupSecondRate(null);
+      setLookupFirstGames(null);
+      setLookupSecondGames(null);
+      setReverseFirstRate(null);
+      setReverseSecondRate(null);
+      setReverseFirstGames(null);
+      setReverseSecondGames(null);
     };
 
     const run = async () => {
@@ -186,6 +210,14 @@ export default function MatchupsPage() {
         setReverseRate(null);
         setLookupMatches(null);
         setReverseMatches(null);
+        setLookupFirstRate(null);
+        setLookupSecondRate(null);
+        setLookupFirstGames(null);
+        setLookupSecondGames(null);
+        setReverseFirstRate(null);
+        setReverseSecondRate(null);
+        setReverseFirstGames(null);
+        setReverseSecondGames(null);
         return;
       }
 
@@ -209,6 +241,16 @@ export default function MatchupsPage() {
           setReverseRate(typeof json?.reverseWinRate === "number" ? json.reverseWinRate : null);
           setLookupMatches(typeof json?.matches === "number" ? json.matches : null);
           setReverseMatches(typeof json?.reverseMatches === "number" ? json.reverseMatches : null);
+
+          setLookupFirstRate(typeof json?.firstWinRate === "number" ? json.firstWinRate : null);
+          setLookupSecondRate(typeof json?.secondWinRate === "number" ? json.secondWinRate : null);
+          setLookupFirstGames(typeof json?.firstGames === "number" ? json.firstGames : null);
+          setLookupSecondGames(typeof json?.secondGames === "number" ? json.secondGames : null);
+
+          setReverseFirstRate(typeof json?.reverseFirstWinRate === "number" ? json.reverseFirstWinRate : null);
+          setReverseSecondRate(typeof json?.reverseSecondWinRate === "number" ? json.reverseSecondWinRate : null);
+          setReverseFirstGames(typeof json?.reverseFirstGames === "number" ? json.reverseFirstGames : null);
+          setReverseSecondGames(typeof json?.reverseSecondGames === "number" ? json.reverseSecondGames : null);
         } else {
           applyLocalFallback();
         }
@@ -535,24 +577,85 @@ export default function MatchupsPage() {
               </div>
             </div>
 
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-              <span className="rounded-md border border-white/20 px-2 py-1 text-white/75">
-                Confidence: {(() => {
-                  const m = Math.min(lookupMatches ?? 0, reverseMatches ?? lookupMatches ?? 0);
-                  if (!m) return "Unknown";
-                  if (m >= 100) return "High";
-                  if (m >= 30) return "Medium";
-                  return "Low";
-                })()}
-              </span>
-              {lookupMatches != null ? <span className="text-white/45">matches: {lookupMatches}</span> : null}
-              {lookupLeaderMeta ? (
-                <div className="ml-auto">
-                  <DonButton onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}>
-                    Open Full Leader Matrix
-                  </DonButton>
+            <div className="mt-3 space-y-3 text-xs">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-md border border-white/20 px-2 py-1 text-white/75">
+                  Confidence: {(() => {
+                    const m = Math.min(lookupMatches ?? 0, reverseMatches ?? lookupMatches ?? 0);
+                    if (!m) return "Unknown";
+                    if (m >= 100) return "High";
+                    if (m >= 30) return "Medium";
+                    return "Low";
+                  })()}
+                </span>
+                {lookupMatches != null ? <span className="text-white/45">matches: {lookupMatches}</span> : null}
+                {lookupFirstGames != null || lookupSecondGames != null ? (
+                  <span className="text-white/45">
+                    side sample: {(lookupFirstGames ?? 0).toLocaleString()} first · {(lookupSecondGames ?? 0).toLocaleString()} second
+                  </span>
+                ) : null}
+                {lookupLeaderMeta ? (
+                  <div className="ml-auto">
+                    <DonButton onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}>
+                      Open Full Leader Matrix
+                    </DonButton>
+                  </div>
+                ) : null}
+              </div>
+
+              {(lookupFirstRate != null || lookupSecondRate != null || reverseFirstRate != null || reverseSecondRate != null) && (
+                <div className="grid gap-2 md:grid-cols-2">
+                  <div className="rounded-xl border border-white/10 bg-black/20 p-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">{labelForLeader(lookupLeaderCardId)} side split</p>
+                    <div className="mt-2 grid grid-cols-2 gap-2">
+                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going First</p>
+                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(lookupFirstRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                          {lookupFirstRate != null ? `${lookupFirstRate.toFixed(2)}%` : "—"}
+                        </p>
+                        <p className="mt-1 text-[10px] text-white/45">{lookupFirstGames != null ? `${lookupFirstGames.toLocaleString()} games` : "—"}</p>
+                      </div>
+                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going Second</p>
+                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(lookupSecondRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                          {lookupSecondRate != null ? `${lookupSecondRate.toFixed(2)}%` : "—"}
+                        </p>
+                        <p className="mt-1 text-[10px] text-white/45">{lookupSecondGames != null ? `${lookupSecondGames.toLocaleString()} games` : "—"}</p>
+                      </div>
+                    </div>
+                    {leaderSideEdge != null ? (
+                      <p className="mt-2 text-[11px] text-white/65">
+                        Side edge: <span className={leaderSideEdge >= 0 ? "text-emerald-300" : "text-orange-300"}>{leaderSideEdge >= 0 ? `+${leaderSideEdge}` : leaderSideEdge}pp</span> {leaderSideEdge >= 0 ? "when going first" : "when going second"}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-black/20 p-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">{labelForLeader(lookupOpponentCardId)} side split</p>
+                    <div className="mt-2 grid grid-cols-2 gap-2">
+                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going First</p>
+                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(reverseFirstRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                          {reverseFirstRate != null ? `${reverseFirstRate.toFixed(2)}%` : "—"}
+                        </p>
+                        <p className="mt-1 text-[10px] text-white/45">{reverseFirstGames != null ? `${reverseFirstGames.toLocaleString()} games` : "—"}</p>
+                      </div>
+                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going Second</p>
+                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(reverseSecondRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                          {reverseSecondRate != null ? `${reverseSecondRate.toFixed(2)}%` : "—"}
+                        </p>
+                        <p className="mt-1 text-[10px] text-white/45">{reverseSecondGames != null ? `${reverseSecondGames.toLocaleString()} games` : "—"}</p>
+                      </div>
+                    </div>
+                    {opponentSideEdge != null ? (
+                      <p className="mt-2 text-[11px] text-white/65">
+                        Side edge: <span className={opponentSideEdge >= 0 ? "text-emerald-300" : "text-orange-300"}>{opponentSideEdge >= 0 ? `+${opponentSideEdge}` : opponentSideEdge}pp</span> {opponentSideEdge >= 0 ? "when going first" : "when going second"}
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
-              ) : null}
+              )}
             </div>
           </div>
         )}

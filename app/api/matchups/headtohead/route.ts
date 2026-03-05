@@ -17,17 +17,43 @@ function parseWinRow(html: string, opponentId: string) {
   return null;
 }
 
-function fromSnapshot(snapshot: { matchups: Array<{ leader_id: string; opponent_id: string; matchup_win_rate: number | null; total_games: number }> }, leader: string, opponent: string) {
+function fromSnapshot(
+  snapshot: {
+    matchups: Array<{
+      leader_id: string;
+      opponent_id: string;
+      matchup_win_rate: number | null;
+      total_games: number;
+      first_win_rate?: number | null;
+      first_games?: number;
+      second_win_rate?: number | null;
+      second_games?: number;
+    }>;
+  },
+  leader: string,
+  opponent: string
+) {
   const forward = snapshot.matchups.find((r) => r.leader_id === leader && r.opponent_id === opponent);
   const reverse = snapshot.matchups.find((r) => r.leader_id === opponent && r.opponent_id === leader);
 
   if (!forward && !reverse) return null;
 
+  const pct = (v?: number | null) => (typeof v === "number" ? Number((v * 100).toFixed(2)) : null);
+
   return {
-    winRate: typeof forward?.matchup_win_rate === "number" ? Number((forward.matchup_win_rate * 100).toFixed(2)) : null,
+    winRate: pct(forward?.matchup_win_rate),
     matches: forward?.total_games ?? 0,
-    reverseWinRate: typeof reverse?.matchup_win_rate === "number" ? Number((reverse.matchup_win_rate * 100).toFixed(2)) : null,
+    firstWinRate: pct(forward?.first_win_rate),
+    firstGames: forward?.first_games ?? null,
+    secondWinRate: pct(forward?.second_win_rate),
+    secondGames: forward?.second_games ?? null,
+
+    reverseWinRate: pct(reverse?.matchup_win_rate),
     reverseMatches: reverse?.total_games ?? 0,
+    reverseFirstWinRate: pct(reverse?.first_win_rate),
+    reverseFirstGames: reverse?.first_games ?? null,
+    reverseSecondWinRate: pct(reverse?.second_win_rate),
+    reverseSecondGames: reverse?.second_games ?? null,
   };
 }
 
@@ -113,8 +139,16 @@ export async function GET(req: NextRequest) {
         period,
         winRate: a?.winRate ?? null,
         matches: a?.matches ?? 0,
+        firstWinRate: null,
+        firstGames: null,
+        secondWinRate: null,
+        secondGames: null,
         reverseWinRate: b?.winRate ?? null,
         reverseMatches: b?.matches ?? 0,
+        reverseFirstWinRate: null,
+        reverseFirstGames: null,
+        reverseSecondWinRate: null,
+        reverseSecondGames: null,
         source: "tournament-aggregate",
         featureFlags: {
           matchIntelV2,
