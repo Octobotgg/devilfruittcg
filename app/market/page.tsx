@@ -164,12 +164,12 @@ function MarketContent() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-[#F0C040]/10 border border-[#F0C040]/20 rounded-full">
           <TrendingUp className="w-3.5 h-3.5 text-[#F0C040]" />
-          <span className="text-[#F0C040] text-xs font-semibold tracking-wider uppercase">Live Prices</span>
+          <span className="text-[#F0C040] text-xs font-semibold tracking-wider uppercase">Bounty Board</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
-          Market <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] to-[#DC2626]">Watch</span>
+          The <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F0C040] to-[#DC2626]">Bounty Board</span>
         </h1>
-        <p className="text-white/40 text-lg">Real-time prices from eBay last sold + TCGPlayer</p>
+        <p className="text-white/40 text-lg">Live bounties from eBay sold comps + TCGPlayer market</p>
       </motion.div>
 
       {/* Search */}
@@ -183,7 +183,7 @@ function MarketContent() {
               onChange={e => { setQuery(e.target.value); setShowSuggestions(true); }}
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-              placeholder="Search any card — Shanks, Luffy, OP01-001..."
+              placeholder="Set sail to a card — Shanks, Luffy, OP01-001..."
               className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white placeholder:text-white/30 focus:outline-none focus:border-[#F0C040]/50 focus:bg-white/8 transition-all text-base"
             />
             <AnimatePresence>

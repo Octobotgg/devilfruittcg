@@ -29,6 +29,14 @@ function getWinRateLabel(rate: number) {
   return "Tough Matchup";
 }
 
+function getHeatCellClass(rate: number) {
+  if (rate >= 60) return "bg-[#14532d] text-green-100 border border-green-400/35 shadow-[0_0_16px_rgba(34,197,94,0.35)]";
+  if (rate >= 55) return "bg-[#166534] text-green-100 border border-green-300/30";
+  if (rate >= 45) return "bg-[#1f2937] text-slate-100 border border-white/10";
+  if (rate >= 40) return "bg-[#7c2d12] text-orange-100 border border-orange-300/30";
+  return "bg-[#7f1d1d] text-red-100 border border-red-300/35 shadow-[0_0_16px_rgba(239,68,68,0.32)]";
+}
+
 function TrendIcon({ trend }: { trend: string }) {
   if (trend === "▲" || trend === "up") return <TrendingUp className="w-3.5 h-3.5 text-green-400" />;
   if (trend === "▼" || trend === "down") return <TrendingDown className="w-3.5 h-3.5 text-red-400" />;
@@ -423,34 +431,59 @@ export default function MatchupsPage() {
 
 
         {lookupLeaderCardId && lookupOpponentCardId && (
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="text-white/70">{labelForLeader(lookupLeaderCardId)} vs {labelForLeader(lookupOpponentCardId)}</span>
-            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate ?? 50)}`}>
-              {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
-            </span>
-            <span className="text-white/40">reverse:</span>
-            <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate ?? 50)}`}>
-              {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
-            </span>
-            <span className="px-2 py-1 rounded-md text-xs border border-white/20 text-white/70">
-              Confidence: {(() => {
-                const m = Math.min(lookupMatches ?? 0, reverseMatches ?? lookupMatches ?? 0);
-                if (!m) return "Unknown";
-                if (m >= 100) return "High";
-                if (m >= 30) return "Medium";
-                return "Low";
-              })()}
-            </span>
-            {lookupMatches != null ? <span className="text-xs text-white/40">matches: {lookupMatches}</span> : null}
-            {lookupLeaderMeta ? (
-              <button
-                onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}
-                className="ml-auto px-3 py-1.5 rounded-lg bg-[#F0C040] text-black font-bold"
-              >
-                Open Full Leader Matrix
-              </button>
-            ) : null}
-            <span className="text-xs text-white/40 w-full">Interpretation: 55% means Leader A wins about 55 out of 100 games against Leader B.</span>
+          <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
+            <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
+              <div className="flex items-center gap-3">
+                <img src={`/api/card-image?id=${lookupLeaderCardId}`} alt={labelForLeader(lookupLeaderCardId)} className="h-20 w-14 rounded-lg border border-white/15" />
+                <div>
+                  <p className="text-sm font-bold text-white">{labelForLeader(lookupLeaderCardId)}</p>
+                  <p className="text-xs text-white/50">Leader A</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--theme-accent-2)]">Clash</p>
+                <p className="text-2xl font-black text-white">⚡</p>
+                <div className="mt-1 flex items-center justify-center gap-2">
+                  <span className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(lookupRate ?? 50)}`}>
+                    {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
+                  </span>
+                  <span className="text-white/35">vs</span>
+                  <span className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(reverseRate ?? 50)}`}>
+                    {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-start gap-3 md:justify-end">
+                <div className="text-right">
+                  <p className="text-sm font-bold text-white">{labelForLeader(lookupOpponentCardId)}</p>
+                  <p className="text-xs text-white/50">Leader B</p>
+                </div>
+                <img src={`/api/card-image?id=${lookupOpponentCardId}`} alt={labelForLeader(lookupOpponentCardId)} className="h-20 w-14 rounded-lg border border-white/15" />
+              </div>
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+              <span className="rounded-md border border-white/20 px-2 py-1 text-white/75">
+                Confidence: {(() => {
+                  const m = Math.min(lookupMatches ?? 0, reverseMatches ?? lookupMatches ?? 0);
+                  if (!m) return "Unknown";
+                  if (m >= 100) return "High";
+                  if (m >= 30) return "Medium";
+                  return "Low";
+                })()}
+              </span>
+              {lookupMatches != null ? <span className="text-white/45">matches: {lookupMatches}</span> : null}
+              {lookupLeaderMeta ? (
+                <button
+                  onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}
+                  className="ml-auto rounded-lg bg-[var(--theme-accent)] px-3 py-1.5 font-bold text-black"
+                >
+                  Open Full Leader Matrix
+                </button>
+              ) : null}
+            </div>
           </div>
         )}
       </motion.div>
@@ -513,11 +546,11 @@ export default function MatchupsPage() {
             </div>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
-                { color: "bg-green-500", label: "60%+ Strong Favored" },
-                { color: "bg-green-300", label: "55-59% Favored" },
-                { color: "bg-white/20", label: "45-54% Even-ish" },
-                { color: "bg-orange-300", label: "40-44% Unfavored" },
-                { color: "bg-red-500", label: "<40% Tough Matchup" },
+                { color: "bg-[#14532d]", label: "60%+ Strong Favored" },
+                { color: "bg-[#166534]", label: "55-59% Favored" },
+                { color: "bg-[#1f2937]", label: "45-54% Even-ish" },
+                { color: "bg-[#7c2d12]", label: "40-44% Unfavored" },
+                { color: "bg-[#7f1d1d]", label: "<40% Tough Matchup" },
               ].map(l => (
                 <div key={l.label} className="flex items-center gap-1.5">
                   <div className={`w-3 h-3 rounded ${l.color}`} />
@@ -540,7 +573,7 @@ export default function MatchupsPage() {
                         <button
                           key={`${rowDeck.id}-${opp.id}`}
                           onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
-                          className={`rounded-md px-2 py-1 text-xs font-bold ${getWinRateColor(rate)}`}
+                          className={`rounded-md px-2 py-1 text-xs font-bold ${getHeatCellClass(rate)}`}
                           title={`${rowDeck.name} vs ${opp.name}: ${rate}%`}
                         >
                           {shortDeckName(opp.name)} {rate}%
@@ -596,7 +629,7 @@ export default function MatchupsPage() {
                                 ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
                                 : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 hover:shadow-lg ${getWinRateColor(rate)}`}>
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)}`}>
                                     {rate}%
                                   </button>
                               }
