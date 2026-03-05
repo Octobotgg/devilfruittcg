@@ -1,12 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
 import { META_DECKS } from "@/lib/meta-decks";
-import { asMatchIntelPeriod, createMatchIntelSupabaseRepository, snapshotTotalMatches } from "@/lib/analytics";
+import { asMatchIntelPeriod, createMatchIntelSupabaseRepository, snapshotTotalMatches, type MatchIntelSnapshot } from "@/lib/analytics";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
+import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
 
 function trendLabel(delta: number): "up" | "down" | "stable" {
   if (delta >= 0.005) return "up";
   if (delta <= -0.005) return "down";
   return "stable";
+}
+
+function buildLeaders(snapshot: MatchIntelSnapshot, previousSnapshot: MatchIntelSnapshot | null, limit: number) {
+  const prevMap = new Map<string, number>();
+  for (const row of previousSnapshot?.leaders || []) {
+    prevMap.set(row.leader_id, row.weighted_win_rate ?? row.raw_win_rate ?? 0.5);
+  }
+
+  return [...snapshot.leaders]
+    .sort((a, b) => {
+      const wa = a.weighted_win_rate ?? a.raw_win_rate ?? 0;
+      const wb = b.weighted_win_rate ?? b.raw_win_rate ?? 0;
+      if (wb !== wa) return wb - wa;
+      return b.number_of_matches - a.number_of_matches;
+    })
+    .slice(0, limit)
+    .map((row, index) => {
+      const wr = row.weighted_win_rate ?? row.raw_win_rate ?? 0.5;
+      const prev = prevMap.get(row.leader_id) ?? wr;
+      return {
+        rank: index + 1,
+        leader: row.leader_id,
+        leaderName: row.leader_name,
+        wins: row.wins,
+        number_of_matches: row.number_of_matches,
+        total_matches: row.total_matches,
+        raw_win_rate: row.raw_win_rate,
+        play_rate: row.play_rate,
+        weighted_win_rate: row.weighted_win_rate,
+        first_win_rate: row.first_win_rate,
+        second_win_rate: row.second_win_rate,
+        trend: trendLabel(wr - prev),
+      };
+    });
 }
 
 export async function GET(req: NextRequest) {
@@ -25,38 +60,6 @@ export async function GET(req: NextRequest) {
         ]);
 
         if (currentSnapshot?.leaders?.length) {
-          const prevMap = new Map<string, number>();
-          for (const row of previousSnapshot?.leaders || []) {
-            prevMap.set(row.leader_id, row.weighted_win_rate ?? row.raw_win_rate ?? 0.5);
-          }
-
-          const leaders = [...currentSnapshot.leaders]
-            .sort((a, b) => {
-              const wa = a.weighted_win_rate ?? a.raw_win_rate ?? 0;
-              const wb = b.weighted_win_rate ?? b.raw_win_rate ?? 0;
-              if (wb !== wa) return wb - wa;
-              return b.number_of_matches - a.number_of_matches;
-            })
-            .slice(0, limit)
-            .map((row, index) => {
-              const wr = row.weighted_win_rate ?? row.raw_win_rate ?? 0.5;
-              const prev = prevMap.get(row.leader_id) ?? wr;
-              return {
-                rank: index + 1,
-                leader: row.leader_id,
-                leaderName: row.leader_name,
-                wins: row.wins,
-                number_of_matches: row.number_of_matches,
-                total_matches: row.total_matches,
-                raw_win_rate: row.raw_win_rate,
-                play_rate: row.play_rate,
-                weighted_win_rate: row.weighted_win_rate,
-                first_win_rate: row.first_win_rate,
-                second_win_rate: row.second_win_rate,
-                trend: trendLabel(wr - prev),
-              };
-            });
-
           return NextResponse.json(
             {
               source: "match-intel-v2",
@@ -65,7 +68,7 @@ export async function GET(req: NextRequest) {
               snapshotDate: currentSnapshot.snapshotDate,
               updatedAt: new Date(`${currentSnapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
               sampleGames: snapshotTotalMatches(currentSnapshot),
-              leaders,
+              leaders: buildLeaders(currentSnapshot, previousSnapshot, limit),
               featureFlags: {
                 matchIntelV2,
               },
@@ -75,8 +78,32 @@ export async function GET(req: NextRequest) {
         }
       }
     } catch {
-      // continue to fallback response
+      // continue to bridge fallback
     }
+  }
+
+  try {
+    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.leaders?.length) {
+      return NextResponse.json(
+        {
+          source: "bridge:cardkaizoku",
+          sources: ["bridge:cardkaizoku"],
+          period,
+          snapshotDate: bridge.snapshot.snapshotDate,
+          updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
+          sampleGames: snapshotTotalMatches(bridge.snapshot),
+          leaders: buildLeaders(bridge.snapshot, null, limit),
+          bridgeSourceUrl: bridge.sourceUrl,
+          featureFlags: {
+            matchIntelV2,
+          },
+        },
+        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+      );
+    }
+  } catch {
+    // continue to seeded fallback
   }
 
   const fallback = META_DECKS.slice(0, limit).map((deck, i) => ({

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository } from "@/lib/analytics";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
+import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
 
 function parseWinRow(html: string, opponentId: string) {
   const re = /<tr\s+data-name="[^"]*"\s+data-matches="(\d+)"\s+data-winrate="([0-9.]+)">[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\/matchups\?game=OP[^\"]*">/gi;
@@ -14,6 +15,20 @@ function parseWinRow(html: string, opponentId: string) {
     }
   }
   return null;
+}
+
+function fromSnapshot(snapshot: { matchups: Array<{ leader_id: string; opponent_id: string; matchup_win_rate: number | null; total_games: number }> }, leader: string, opponent: string) {
+  const forward = snapshot.matchups.find((r) => r.leader_id === leader && r.opponent_id === opponent);
+  const reverse = snapshot.matchups.find((r) => r.leader_id === opponent && r.opponent_id === leader);
+
+  if (!forward && !reverse) return null;
+
+  return {
+    winRate: typeof forward?.matchup_win_rate === "number" ? Number((forward.matchup_win_rate * 100).toFixed(2)) : null,
+    matches: forward?.total_games ?? 0,
+    reverseWinRate: typeof reverse?.matchup_win_rate === "number" ? Number((reverse.matchup_win_rate * 100).toFixed(2)) : null,
+    reverseMatches: reverse?.total_games ?? 0,
+  };
 }
 
 export async function GET(req: NextRequest) {
@@ -33,32 +48,47 @@ export async function GET(req: NextRequest) {
       const repo = createMatchIntelSupabaseRepository();
       const snapshot = await repo.getLatestSnapshot(period);
       if (snapshot?.matchups?.length) {
-        const forward = snapshot.matchups.find((r) => r.leader_id === leader && r.opponent_id === opponent);
-        const reverse = snapshot.matchups.find((r) => r.leader_id === opponent && r.opponent_id === leader);
-
-        if (forward || reverse) {
+        const mapped = fromSnapshot(snapshot, leader, opponent);
+        if (mapped) {
           return NextResponse.json(
             {
               leader,
               opponent,
               period,
-              winRate: typeof forward?.matchup_win_rate === "number" ? Number((forward.matchup_win_rate * 100).toFixed(2)) : null,
-              matches: forward?.total_games ?? 0,
-              reverseWinRate:
-                typeof reverse?.matchup_win_rate === "number" ? Number((reverse.matchup_win_rate * 100).toFixed(2)) : null,
-              reverseMatches: reverse?.total_games ?? 0,
               source: "match-intel-v2",
-              featureFlags: {
-                matchIntelV2,
-              },
+              featureFlags: { matchIntelV2 },
+              ...mapped,
             },
             { status: 200, headers: { "Cache-Control": "s-maxage=120, stale-while-revalidate=300" } }
           );
         }
       }
     } catch {
-      // continue to external fallback path
+      // continue
     }
+  }
+
+  try {
+    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.matchups?.length) {
+      const mapped = fromSnapshot(bridge.snapshot, leader, opponent);
+      if (mapped) {
+        return NextResponse.json(
+          {
+            leader,
+            opponent,
+            period,
+            source: "bridge:cardkaizoku",
+            bridgeSourceUrl: bridge.sourceUrl,
+            featureFlags: { matchIntelV2 },
+            ...mapped,
+          },
+          { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+        );
+      }
+    }
+  } catch {
+    // continue to old external fallback
   }
 
   try {

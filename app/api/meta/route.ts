@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getLiveMeta, getSeededMeta } from "@/lib/data/meta";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository, snapshotToMetaResponse } from "@/lib/analytics";
+import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
 
 function periodFromRegion(region: string): ReturnType<typeof asMatchIntelPeriod> {
   if (region === "asia" || region === "east") return "east_p";
@@ -41,8 +42,32 @@ export async function GET(req: NextRequest) {
         }
       }
     } catch {
-      // fall through to existing live/seeded paths
+      // fall through to bridge/live/seeded paths
     }
+  }
+
+  try {
+    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.leaders?.length) {
+      const payload = snapshotToMetaResponse(bridge.snapshot, period, null);
+      return NextResponse.json(
+        {
+          ...payload,
+          source: "bridge:cardkaizoku",
+          sources: ["bridge:cardkaizoku"],
+          bridgeSourceUrl: bridge.sourceUrl,
+          featureFlags: {
+            matchIntelV2,
+          },
+        },
+        {
+          status: 200,
+          headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" },
+        }
+      );
+    }
+  } catch {
+    // continue to existing live/seeded flows
   }
 
   try {

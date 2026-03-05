@@ -9,6 +9,7 @@ import {
   snapshotToMatchupDecks,
   snapshotTotalMatches,
 } from "@/lib/analytics";
+import { fetchCardKaizokuBridgeSnapshot } from "@/lib/sources/cardkaizoku-bridge";
 
 export async function GET(req: NextRequest) {
   const set = (req.nextUrl.searchParams.get("set") || process.env.MATCHUPS_SET || "OP12").toUpperCase();
@@ -49,8 +50,33 @@ export async function GET(req: NextRequest) {
         }
       }
     } catch {
-      // fall through to external sources and seeded fallback
+      // fall through to bridge/external sources
     }
+  }
+
+  try {
+    const bridge = await fetchCardKaizokuBridgeSnapshot(period, { maxLookbackDays: 2 });
+    if (bridge?.snapshot?.leaders?.length) {
+      const decks = snapshotToMatchupDecks(bridge.snapshot, null, limit);
+      return NextResponse.json(
+        {
+          source: "bridge:cardkaizoku",
+          sources: ["bridge:cardkaizoku"],
+          updatedAt: new Date(`${bridge.snapshot.snapshotDate}T00:00:00.000Z`).toISOString(),
+          sampleGames: snapshotTotalMatches(bridge.snapshot),
+          period,
+          snapshotDate: bridge.snapshot.snapshotDate,
+          decks,
+          bridgeSourceUrl: bridge.sourceUrl,
+          featureFlags: {
+            matchIntelV2,
+          },
+        },
+        { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=900" } }
+      );
+    }
+  } catch {
+    // continue fallback chain
   }
 
   try {
