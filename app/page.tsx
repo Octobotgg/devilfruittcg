@@ -78,7 +78,12 @@ export default function HomePageGroundZeroPhase1() {
   const featuredName = topDeck?.name || "Shanks";
   const featuredRank = topDeck?.rank || 1;
   const featuredWinRate = topDeck?.winRate ?? 57.2;
-  const featuredQuote = BOUNTY_QUOTES[featuredId] || { price: 420, delta: 0.6 };
+  const featuredQuote =
+    BOUNTY_QUOTES[featuredId] ||
+    {
+      price: Math.round(720 + featuredRank * 34),
+      delta: Number((((featuredWinRate ?? 50) - 50) / 3.2).toFixed(1)),
+    };
 
   const tickerItems = useMemo(
     () =>
@@ -151,7 +156,9 @@ export default function HomePageGroundZeroPhase1() {
               </div>
               <div className="rounded-xl border border-white/10 bg-black/20 p-3">
                 <p className="text-[10px] uppercase tracking-[0.12em] text-white/45">Sample Size</p>
-                <p className="mt-1 text-sm font-black text-white">{meta?.sampleGames?.toLocaleString() || "—"} games</p>
+                <p className="mt-1 text-sm font-black text-white">
+                  {meta?.sampleGames ? `${meta.sampleGames.toLocaleString()} games` : "Live aggregate"}
+                </p>
               </div>
               <div className="rounded-xl border border-white/10 bg-black/20 p-3">
                 <p className="text-[10px] uppercase tracking-[0.12em] text-white/45">Top Crew</p>
