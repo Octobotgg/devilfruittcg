@@ -9,37 +9,7 @@ import CardModal, { type CardModalData } from "@/components/CardModal";
 import DonButton from "@/components/ui/DonButton";
 import WantedPosterCard from "@/components/ui/WantedPosterCard";
 import TickerRow from "@/components/ui/TickerRow";
-
-const MOST_WANTED_CUSTOM = [
-  {
-    id: "OP13-118",
-    variant: "p3",
-    name: "Monkey.D.Luffy (Manga)",
-    subtitle: "OP13 Red Manga Luffy",
-    searchId: "OP13-118",
-  },
-  {
-    id: "OP05-119",
-    variant: "p6",
-    name: "Monkey.D.Luffy (SP)",
-    subtitle: "OP05 Gold Luffy SP",
-    searchId: "OP05-119",
-  },
-  {
-    id: "OP09-118",
-    variant: "p2",
-    name: "Gol.D.Roger (Manga)",
-    subtitle: "OP09 Gold Manga Roger",
-    searchId: "OP09-118",
-  },
-  {
-    id: "ST01-012",
-    variant: "p1",
-    name: "Monkey.D.Luffy (SP)",
-    subtitle: "ST01 Oda Signed Gold Stamp",
-    searchId: "ST01-012",
-  },
-];
+import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 
 function MarketContent() {
   const searchParams = useSearchParams();
@@ -223,15 +193,13 @@ function MarketContent() {
           <p className="text-xs text-white/45">Popular + premium targets</p>
         </div>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {MOST_WANTED_CUSTOM.map((c) => (
+          {MARKET_HOT_CARDS.slice(0, 4).map((c) => (
             <WantedPosterCard
-              key={`${c.id}-${c.variant}`}
+              key={c.id}
               id={c.id}
-              variant={c.variant}
               name={c.name}
-              subtitle={c.subtitle}
-              searchId={c.searchId}
-              href={`/market?card=${encodeURIComponent(c.searchId)}`}
+              subtitle={c.id}
+              href={`/market?card=${encodeURIComponent(c.id)}`}
             />
           ))}
         </div>
