@@ -192,7 +192,7 @@ export default function DeckBuilderPage() {
   return (
     <div className="space-y-6 pb-20">
       <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 md:p-6">
-        <h1 className="text-3xl font-black text-white md:text-4xl">Deck Lab — Phase 4</h1>
+        <h1 className="text-3xl font-black text-white md:text-4xl">Deck Lab</h1>
         <p className="mt-2 text-sm text-white/60">Drag cards into your deck zone, tune your DON curve, and export tournament-ready lists.</p>
         <div className="mt-3">
           <button
