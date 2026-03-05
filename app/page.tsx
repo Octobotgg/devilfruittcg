@@ -36,7 +36,7 @@ export default function HomePageV3() {
   const topDeck = useMemo(() => meta?.metaDecks?.[0], [meta]);
 
   const nav = [
-    { href: "/market", label: "Cards" },
+    { href: "/collection", label: "Cards" },
     { href: "/meta", label: "Meta" },
     { href: "/matchups", label: "Matchups" },
     { href: "/decks", label: "Decklists" },
@@ -45,7 +45,7 @@ export default function HomePageV3() {
 
   const modules = [
     {
-      href: "/market",
+      href: "/collection",
       title: "Card Database",
       note: "Official card data across OP/EB/ST/PRB/P",
       icon: Search,
