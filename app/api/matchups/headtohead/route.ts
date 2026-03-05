@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { asMatchIntelPeriod, createMatchIntelSupabaseRepository } from "@/lib/analytics";
+import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 
 function parseWinRow(html: string, opponentId: string) {
   const re = /<tr\s+data-name="[^"]*"\s+data-matches="(\d+)"\s+data-winrate="([0-9.]+)">[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\/matchups\?game=OP[^\"]*">/gi;
@@ -19,9 +21,44 @@ export async function GET(req: NextRequest) {
   const opponent = (req.nextUrl.searchParams.get("opponent") || "").toUpperCase();
   const set = (req.nextUrl.searchParams.get("set") || "OP12").toUpperCase();
   const time = (req.nextUrl.searchParams.get("time") || "3months").toLowerCase();
+  const period = asMatchIntelPeriod(req.nextUrl.searchParams.get("period") || "west_p");
+  const matchIntelV2 = isMatchIntelV2Enabled();
 
   if (!leader || !opponent) {
     return NextResponse.json({ error: "leader and opponent are required" }, { status: 400 });
+  }
+
+  if (matchIntelV2) {
+    try {
+      const repo = createMatchIntelSupabaseRepository();
+      const snapshot = await repo.getLatestSnapshot(period);
+      if (snapshot?.matchups?.length) {
+        const forward = snapshot.matchups.find((r) => r.leader_id === leader && r.opponent_id === opponent);
+        const reverse = snapshot.matchups.find((r) => r.leader_id === opponent && r.opponent_id === leader);
+
+        if (forward || reverse) {
+          return NextResponse.json(
+            {
+              leader,
+              opponent,
+              period,
+              winRate: typeof forward?.matchup_win_rate === "number" ? Number((forward.matchup_win_rate * 100).toFixed(2)) : null,
+              matches: forward?.total_games ?? 0,
+              reverseWinRate:
+                typeof reverse?.matchup_win_rate === "number" ? Number((reverse.matchup_win_rate * 100).toFixed(2)) : null,
+              reverseMatches: reverse?.total_games ?? 0,
+              source: "match-intel-v2",
+              featureFlags: {
+                matchIntelV2,
+              },
+            },
+            { status: 200, headers: { "Cache-Control": "s-maxage=120, stale-while-revalidate=300" } }
+          );
+        }
+      }
+    } catch {
+      // continue to external fallback path
+    }
   }
 
   try {
@@ -44,11 +81,15 @@ export async function GET(req: NextRequest) {
         opponent,
         set,
         time,
+        period,
         winRate: a?.winRate ?? null,
         matches: a?.matches ?? 0,
         reverseWinRate: b?.winRate ?? null,
         reverseMatches: b?.matches ?? 0,
         source: "tournament-aggregate",
+        featureFlags: {
+          matchIntelV2,
+        },
       },
       { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
     );

@@ -21,7 +21,10 @@ export interface MatchIntelRepository {
 
   getMatchesByDeviceHash(deviceHash: string, options?: MatchEventQueryOptions): Promise<MatchEventRow[]>;
   getLatestPlayerIndexMatches(searchTerm: string, limit?: number): Promise<PlayerIndexRow[]>;
+
+  getSnapshot(period: MatchIntelPeriod, snapshotDate: string): Promise<MatchIntelSnapshot | null>;
   getLatestSnapshot(period: MatchIntelPeriod): Promise<MatchIntelSnapshot | null>;
+  getRecentSnapshotDates(period: MatchIntelPeriod, limit?: number): Promise<string[]>;
 }
 
 function requireServerSupabaseConfig(): { url: string; serviceRoleKey: string } {
@@ -178,20 +181,7 @@ class SupabaseMatchIntelRepository implements MatchIntelRepository {
       .slice(0, normalizedLimit);
   }
 
-  async getLatestSnapshot(period: MatchIntelPeriod): Promise<MatchIntelSnapshot | null> {
-    const { data: head, error: headError } = await this.client
-      .from("leader_daily_stats")
-      .select("snapshot_date")
-      .eq("period", period)
-      .order("snapshot_date", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    if (headError) throw headError;
-    if (!head?.snapshot_date) return null;
-
-    const snapshotDate = String(head.snapshot_date);
-
+  async getSnapshot(period: MatchIntelPeriod, snapshotDate: string): Promise<MatchIntelSnapshot | null> {
     const [leadersRes, matchupsRes] = await Promise.all([
       this.client
         .from("leader_daily_stats")
@@ -209,11 +199,45 @@ class SupabaseMatchIntelRepository implements MatchIntelRepository {
     if (leadersRes.error) throw leadersRes.error;
     if (matchupsRes.error) throw matchupsRes.error;
 
+    const leaders = (leadersRes.data || []) as LeaderDailyStatRow[];
+    const matchups = (matchupsRes.data || []) as LeaderMatchupDailyStatRow[];
+
+    if (!leaders.length) return null;
+
     return {
       snapshotDate,
       period,
-      leaders: (leadersRes.data || []) as LeaderDailyStatRow[],
-      matchups: (matchupsRes.data || []) as LeaderMatchupDailyStatRow[],
+      leaders,
+      matchups,
     };
+  }
+
+  async getRecentSnapshotDates(period: MatchIntelPeriod, limit = 2): Promise<string[]> {
+    const normalizedLimit = Math.max(1, Math.min(limit, 30));
+
+    const { data, error } = await this.client
+      .from("leader_daily_stats")
+      .select("snapshot_date")
+      .eq("period", period)
+      .order("snapshot_date", { ascending: false })
+      .limit(normalizedLimit);
+
+    if (error) throw error;
+
+    const seen = new Set<string>();
+    const dates: string[] = [];
+    for (const row of data || []) {
+      const d = String(row.snapshot_date);
+      if (seen.has(d)) continue;
+      seen.add(d);
+      dates.push(d);
+    }
+    return dates;
+  }
+
+  async getLatestSnapshot(period: MatchIntelPeriod): Promise<MatchIntelSnapshot | null> {
+    const dates = await this.getRecentSnapshotDates(period, 1);
+    if (!dates.length) return null;
+    return this.getSnapshot(period, dates[0]);
   }
 }
