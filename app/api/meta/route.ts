@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
-import { getSeededMeta } from "@/lib/data/meta";
+import { getLiveMeta, getSeededMeta } from "@/lib/data/meta";
 
 export async function GET() {
-  const seeded = getSeededMeta();
-  return NextResponse.json(seeded, { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } });
+  try {
+    const live = await getLiveMeta();
+    return NextResponse.json(live, {
+      status: 200,
+      headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" },
+    });
+  } catch {
+    const seeded = getSeededMeta();
+    return NextResponse.json(seeded, {
+      status: 200,
+      headers: { "Cache-Control": "s-maxage=120, stale-while-revalidate=300" },
+    });
+  }
 }
