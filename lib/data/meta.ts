@@ -114,8 +114,8 @@ export async function getLiveMeta(opts?: { format?: string; region?: string }): 
 
   return {
     updatedAt: new Date().toISOString(),
-    source: `live:limitless:${format}:${region}`,
-    sources: [url],
+    source: `live:tournament-aggregate:${format}:${region}`,
+    sources: ["tournament-aggregate"],
     metaDecks: metaDecks.slice(0, 15),
     regions: [
       {

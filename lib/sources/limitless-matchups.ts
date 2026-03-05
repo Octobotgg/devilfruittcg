@@ -97,7 +97,7 @@ export async function fetchLimitlessMatchups(limit = 12, set = "OP12"): Promise<
     }
 
     return {
-      source: `limitless-play (${set})`,
+      source: `tournament-aggregate (${set})`,
       updatedAt: new Date().toISOString(),
       sampleGames,
       decks,

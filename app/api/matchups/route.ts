@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(
         {
           source: live.source,
-          sources: ["limitless-play"],
+          sources: ["tournament-aggregate"],
           updatedAt: live.updatedAt,
           sampleGames: live.sampleGames,
           decks: live.decks,

@@ -37,13 +37,11 @@ export async function GET(req: NextRequest) {
     ];
 
     let listId: string | null = null;
-    let sourceUrl = "";
     for (const url of candidates) {
       const html = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" }, cache: "no-store" }).then((r) => r.text());
       const found = extractFirstDecklistId(html);
       if (found) {
         listId = found;
-        sourceUrl = url;
         break;
       }
     }
@@ -63,8 +61,6 @@ export async function GET(req: NextRequest) {
         format,
         region,
         listId,
-        sourceUrl,
-        listUrl,
         count: cards.length,
         cards,
       },
