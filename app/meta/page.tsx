@@ -158,13 +158,24 @@ export default function MetaPage() {
           <div key={i} className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-6 overflow-hidden group hover:border-white/20 transition-all">
             <div className="absolute top-0 right-0 text-6xl opacity-10 p-4">{item.icon}</div>
             <p className="text-white/40 text-xs uppercase tracking-wider mb-2">{item.label}</p>
-            <p className="text-white text-xl font-black mb-1">{item.deck?.name ?? "—"}</p>
-            <div className="flex items-center gap-3 text-sm">
-              <span className="text-[#F0C040] font-bold">{item.deck?.winRate != null ? `${item.deck.winRate}% WR` : "— WR"}</span>
-              <span className="text-white/30">·</span>
-              <span className="text-white/40">{item.deck?.popularity ?? "—"}% field</span>
+            <div className="flex gap-3 items-start">
+              {item.deck?.cardId ? (
+                <img
+                  src={`/api/card-image?id=${item.deck.cardId}&variant=p1`}
+                  alt={`${item.deck.name} alt art`}
+                  className="w-14 h-20 rounded-lg border border-white/15 object-cover"
+                />
+              ) : null}
+              <div>
+                <p className="text-white text-xl font-black mb-1">{item.deck?.name ?? "—"}</p>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="text-[#F0C040] font-bold">{item.deck?.winRate != null ? `${item.deck.winRate}% WR` : "— WR"}</span>
+                  <span className="text-white/30">·</span>
+                  <span className="text-white/40">{item.deck?.popularity ?? "—"}% field</span>
+                </div>
+                {item.deck && <div className="mt-3"><TrendBadge trend={item.deck.trend} /></div>}
+              </div>
             </div>
-            {item.deck && <div className="mt-3"><TrendBadge trend={item.deck.trend} /></div>}
           </div>
         ))}
       </motion.div>
@@ -197,7 +208,18 @@ export default function MetaPage() {
                     transition={{ delay: 0.25 + i * 0.04 }}
                     className="border-b border-white/5 hover:bg-white/5 transition-colors">
                     <td className="p-4 text-white/30 font-mono text-sm">#{deck.rank}</td>
-                    <td className="p-4 text-white font-bold">{deck.name}</td>
+                    <td className="p-4 text-white font-bold">
+                      <div className="flex items-center gap-3">
+                        {deck.cardId ? (
+                          <img
+                            src={`/api/card-image?id=${deck.cardId}&variant=p1`}
+                            alt={`${deck.name} alt art`}
+                            className="w-8 h-11 rounded border border-white/15 object-cover"
+                          />
+                        ) : null}
+                        <span>{deck.name}</span>
+                      </div>
+                    </td>
                     <td className="p-4">
                       <span className={`inline-flex px-2.5 py-1 rounded-lg text-xs font-black border shadow-lg ${t.bg} ${t.text} ${t.border} ${t.glow}`}>
                         {deck.tier}

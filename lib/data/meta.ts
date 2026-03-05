@@ -8,6 +8,7 @@ export interface MetaDeck {
   winRate: number | null;
   popularity: number;
   trend: "▲" | "▼" | "—";
+  cardId?: string;
 }
 
 export interface RegionStat {
@@ -70,25 +71,36 @@ export async function getLiveMeta(opts?: { format?: string; region?: string }): 
     cache: "no-store",
   }).then((r) => r.text());
 
-  const rowRegex = /<tr>\s*<td>(\d+)<\/td>[\s\S]*?<a class="deck-link"[^>]*>[\s\S]*?<span class="sm-only">([^<]+)<\/span>[\s\S]*?<span>([^<]+)<\/span>[\s\S]*?<\/a>[\s\S]*?<td>([\d,]+)<\/td>[\s\S]*?<td>([\d.]+)%<\/td>[\s\S]*?<\/tr>/gi;
-
+  const rows = html.match(/<tr>[\s\S]*?<\/tr>/gi) || [];
   const metaDecks: MetaDeck[] = [];
-  let m: RegExpExecArray | null;
-  while ((m = rowRegex.exec(html)) !== null) {
-    const rank = Number(m[1]);
-    const color = cleanHtml(m[2]);
-    const name = cleanHtml(m[3]);
-    const popularity = Number(m[5]);
+
+  for (const row of rows) {
+    const rankMatch = row.match(/<td>(\d+)<\/td>/i);
+    if (!rankMatch) continue;
+
+    const rank = Number(rankMatch[1]);
+
+    const colorMatch = row.match(/<span class="sm-only">([^<]+)<\/span>/i);
+    const color = colorMatch ? cleanHtml(colorMatch[1]) : "Mixed";
+
+    const nameMatch = row.match(/<span>([^<]+)<\/span>\s*<\/a>/i);
+    const name = nameMatch ? cleanHtml(nameMatch[1]) : "Unknown";
+
+    const shareMatch = row.match(/<td>([\d.]+)%<\/td>/i);
+    const popularity = shareMatch ? Number(shareMatch[1]) : 0;
+
+    const cardIdMatch = row.match(/one-piece\/[A-Z0-9]+\/([A-Z0-9-]+)_EN\.webp/i);
+    const cardId = cardIdMatch?.[1];
 
     metaDecks.push({
       rank,
       name,
       tier: tierFromRank(rank),
       color,
-      // Source page provides points/share but not win-rate directly
       winRate: null,
       popularity,
       trend: "—",
+      cardId,
     });
   }
 
@@ -115,14 +127,14 @@ export async function getLiveMeta(opts?: { format?: string; region?: string }): 
 
 export function getSeededMeta(): MetaSnapshot {
   const metaDecks: MetaDeck[] = [
-    { rank: 1, name: "Luffy Gear 5 (OP07)", tier: "S", color: "Red", winRate: 58, popularity: 22, trend: "▲" },
-    { rank: 2, name: "Blackbeard (OP08)", tier: "S", color: "Black/Yellow", winRate: 56, popularity: 18, trend: "▲" },
-    { rank: 3, name: "Enel (OP05)", tier: "A", color: "Yellow", winRate: 53, popularity: 14, trend: "—" },
-    { rank: 4, name: "Shanks (OP05)", tier: "A", color: "Red", winRate: 51, popularity: 12, trend: "▼" },
-    { rank: 5, name: "Kaido (OP04)", tier: "A", color: "Purple", winRate: 50, popularity: 10, trend: "—" },
-    { rank: 6, name: "Big Mom (OP04)", tier: "B", color: "Black", winRate: 48, popularity: 9, trend: "▼" },
-    { rank: 7, name: "Law (OP02)", tier: "B", color: "Blue", winRate: 47, popularity: 8, trend: "—" },
-    { rank: 8, name: "Zoro (OP01)", tier: "C", color: "Green", winRate: 44, popularity: 7, trend: "▼" },
+    { rank: 1, name: "Luffy Gear 5 (OP07)", tier: "S", color: "Red", winRate: 58, popularity: 22, trend: "▲", cardId: "OP07-001" },
+    { rank: 2, name: "Blackbeard (OP08)", tier: "S", color: "Black/Yellow", winRate: 56, popularity: 18, trend: "▲", cardId: "OP09-001" },
+    { rank: 3, name: "Enel (OP05)", tier: "A", color: "Yellow", winRate: 53, popularity: 14, trend: "—", cardId: "OP05-001" },
+    { rank: 4, name: "Shanks (OP05)", tier: "A", color: "Red", winRate: 51, popularity: 12, trend: "▼", cardId: "OP09-006" },
+    { rank: 5, name: "Kaido (OP04)", tier: "A", color: "Purple", winRate: 50, popularity: 10, trend: "—", cardId: "OP09-004" },
+    { rank: 6, name: "Big Mom (OP04)", tier: "B", color: "Black", winRate: 48, popularity: 9, trend: "▼", cardId: "OP03-099" },
+    { rank: 7, name: "Law (OP02)", tier: "B", color: "Blue", winRate: 47, popularity: 8, trend: "—", cardId: "OP09-002" },
+    { rank: 8, name: "Zoro (OP01)", tier: "C", color: "Green", winRate: 44, popularity: 7, trend: "▼", cardId: "OP12-020" },
   ];
 
   const regions: RegionStat[] = [
