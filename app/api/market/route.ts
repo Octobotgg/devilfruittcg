@@ -15,6 +15,17 @@ export async function GET(req: NextRequest) {
   // Find card (prefer full feed so new sets/promos are searchable, fallback to local seeds)
   let cardName = cardParam;
   let cardId = idParam;
+  let cardInfo:
+    | {
+        id: string;
+        name: string;
+        rarity?: string;
+        baseCardId?: string;
+        variantType?: "base" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
+        variantLabel?: string;
+        canonicalVariantId?: string;
+      }
+    | undefined;
 
   if (!cardName || !cardId) {
     try {
@@ -27,6 +38,15 @@ export async function GET(req: NextRequest) {
       if (fromFeed) {
         cardName = fromFeed.name;
         cardId = fromFeed.id;
+        cardInfo = {
+          id: fromFeed.id,
+          name: fromFeed.name,
+          rarity: fromFeed.rarity,
+          baseCardId: fromFeed.baseCardId,
+          variantType: fromFeed.variantType,
+          variantLabel: fromFeed.variantLabel,
+          canonicalVariantId: fromFeed.canonicalVariantId,
+        };
       }
     } catch {
       // fallback to local static set search
@@ -34,6 +54,15 @@ export async function GET(req: NextRequest) {
       if (results.length > 0) {
         cardName = results[0].name;
         cardId = results[0].id;
+        cardInfo = {
+          id: results[0].id,
+          name: results[0].name,
+          rarity: results[0].rarity,
+          baseCardId: results[0].baseCardId,
+          variantType: results[0].variantType,
+          variantLabel: results[0].variantLabel,
+          canonicalVariantId: results[0].canonicalVariantId,
+        };
       }
     }
   }
@@ -50,7 +79,7 @@ export async function GET(req: NextRequest) {
 
   // Fetch fresh data
   try {
-    const data = await fetchEbaySales(cardName, cardId);
+    const data = await fetchEbaySales(cardName, cardId, cardInfo);
     setCache(cardId, cardName, data);
     return NextResponse.json({ ...data, cached: false });
   } catch (err) {

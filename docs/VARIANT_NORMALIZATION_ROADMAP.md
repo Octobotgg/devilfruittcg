@@ -29,10 +29,19 @@
 
 ---
 
-## Phase 2 (pricing precision) — next
-- Build variant-specific eBay query templates from canonical variant metadata.
-- Tighten EN-only sold listing matching and remove cross-variant contamination.
-- Add per-variant confidence + sample count.
+## Phase 2 (pricing precision) — ✅ started
+- Built variant-specific eBay query templates from canonical variant metadata.
+- EN-only strict matching with non-graded filtering.
+- Added hard variant signal matching to reduce cross-variant contamination.
+- Added query template visibility in market payload (`ebay.queryTemplate`) for QA.
+
+### Implemented in this pass
+- `lib/ebay.ts` now:
+  - derives variant template (`base/alt_art/sp/manga/manga_red/manga_gold/anniversary`)
+  - builds variant-specific eBay query string with exclusion terms
+  - applies strict title-level variant filters before pricing aggregation
+  - excludes graded + non-EN listings
+- `app/api/market/route.ts` now passes variant metadata into pricing fetch for template selection.
 
 ## Phase 3 (migration cleanup)
 - Migrate user-facing references to canonical variant IDs/labels everywhere.

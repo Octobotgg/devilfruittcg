@@ -1,3 +1,6 @@
+import { deriveCardVariantInfo, type EnVariantType } from "@/lib/card-variants";
+import type { Card } from "@/lib/cards";
+
 export interface EbaySale {
   title: string;
   price: number;
@@ -22,6 +25,13 @@ export interface MarketData {
     qualityConfidence: number;
     filteredOut: number;
     source: "completed" | "active" | "mock";
+    queryTemplate?: {
+      query: string;
+      variantLabel: string;
+      variantType: EnVariantType;
+      language: "EN";
+      excludedSignals: string[];
+    };
   };
   tcgplayer: {
     low: number | null;
@@ -35,6 +45,47 @@ export interface MarketData {
   };
   lastUpdated: string;
 }
+
+export type EbayCardInput = Pick<Card, "id" | "name" | "rarity"> & {
+  baseCardId?: string;
+  variantType?: EnVariantType;
+  variantLabel?: string;
+  canonicalVariantId?: string;
+  language?: "EN";
+};
+
+type VariantTemplate = {
+  baseCardId: string;
+  baseName: string;
+  variantType: EnVariantType;
+  variantLabel: string;
+  query: string;
+  mustMatchAny: RegExp[];
+  mustNotMatch: RegExp[];
+  excludedSignals: string[];
+};
+
+const COMMON_EXCLUSION_WORDS = [
+  "PSA",
+  "BGS",
+  "CGC",
+  "SGC",
+  "graded",
+  "slab",
+  "proxy",
+  "custom",
+  "orica",
+  "playmat",
+  "sleeves",
+  "starter deck",
+  "booster box",
+  "lot",
+  "bundle",
+  "japanese",
+  "jp",
+  "chinese",
+  "korean",
+];
 
 async function getEbayToken(): Promise<string> {
   const clientId = process.env.EBAY_APP_ID;
@@ -64,11 +115,17 @@ function normalize(input: string): string {
   return input.toLowerCase().replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function stripVariantWords(name: string): string {
+  return name
+    .replace(/\b(alt\s*art|manga|red\s*manga|gold\s*manga|anniversary|\bsp\b|special)\b/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function isLikelyEnglish(title: string): boolean {
-  // Reject titles with heavy CJK/Kana usage (commonly JP/CN listings for this niche)
   const cjkKana = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g;
   const match = title.match(cjkKana) || [];
-  return match.length <= 2;
+  return match.length <= 1;
 }
 
 function listingLooksLikeSingleCard(titleNorm: string): boolean {
@@ -86,7 +143,10 @@ function listingLooksLikeSingleCard(titleNorm: string): boolean {
     "digital",
     "lot of",
     "bundle",
-    "psa slab lot",
+    "playset",
+    "set of",
+    "x4",
+    "4x",
     "grading service",
   ];
 
@@ -104,10 +164,114 @@ function normalizeCondition(raw: string): string {
   return raw;
 }
 
-function scoreListing(title: string, cardName: string, cardId: string, price: number): number {
+function buildVariantTemplate(input: EbayCardInput): VariantTemplate {
+  const info = deriveCardVariantInfo({ id: input.id, name: input.name, rarity: input.rarity || "" });
+  const variantType = input.variantType || info.variantType;
+  const variantLabel = input.variantLabel || info.variantLabel;
+  const baseCardId = input.baseCardId || info.baseCardId;
+  const baseName = stripVariantWords(input.name) || input.name;
+
+  const queryParts = ["One Piece TCG", baseCardId, baseName];
+  const mustMatchAny: RegExp[] = [];
+  const mustNotMatch: RegExp[] = [
+    /\b(psa|bgs|cgc|sgc|graded|grading|slab|beckett|hga)\b/i,
+    /\b(japanese|jp\b|chinese|korean)\b/i,
+    /\b(proxy|custom|orica)\b/i,
+  ];
+
+  const excludedSignals = [...COMMON_EXCLUSION_WORDS];
+
+  switch (variantType) {
+    case "alt_art":
+      queryParts.push('"Alt Art"');
+      mustMatchAny.push(/\balt\s*art\b/i, /\baa\b/i, /\bparallel\b/i);
+      mustNotMatch.push(/\bmanga\b/i, /\banniversary\b/i);
+      excludedSignals.push("manga", "anniversary");
+      break;
+    case "sp":
+      queryParts.push("SP");
+      mustMatchAny.push(/\bsp\b/i, /\bspecial\b/i);
+      mustNotMatch.push(/\bmanga\b/i, /\balt\s*art\b/i);
+      excludedSignals.push("manga", "alt art");
+      break;
+    case "manga":
+      queryParts.push("Manga");
+      mustMatchAny.push(/\bmanga\b/i);
+      mustNotMatch.push(/\bred\s*manga\b/i, /\bgold\s*manga\b/i);
+      excludedSignals.push("red manga", "gold manga");
+      break;
+    case "manga_red":
+      queryParts.push('"Red Manga"');
+      mustMatchAny.push(/\bred\s*manga\b/i);
+      mustNotMatch.push(/\bgold\s*manga\b/i);
+      excludedSignals.push("gold manga");
+      break;
+    case "manga_gold":
+      queryParts.push('"Gold Manga"');
+      mustMatchAny.push(/\bgold\s*manga\b/i);
+      mustNotMatch.push(/\bred\s*manga\b/i);
+      excludedSignals.push("red manga");
+      break;
+    case "anniversary":
+      queryParts.push("Anniversary");
+      mustMatchAny.push(/\banniversary\b/i);
+      mustNotMatch.push(/\bmanga\b/i);
+      excludedSignals.push("manga");
+      break;
+    case "base":
+    default:
+      // Base print should avoid premium variants.
+      mustNotMatch.push(/\balt\s*art\b/i, /\baa\b/i, /\bsp\b/i, /\bmanga\b/i, /\banniversary\b/i, /\bparallel\b/i);
+      excludedSignals.push("alt art", "aa", "sp", "manga", "anniversary", "parallel");
+      break;
+  }
+
+  // eBay Finding query string (negative keywords included directly)
+  const query = [
+    ...queryParts,
+    ...["-PSA", "-BGS", "-CGC", "-SGC", "-graded", "-slab", "-japanese", "-jp", "-proxy", "-custom", "-orica", "-lot", "-bundle"],
+  ]
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return {
+    baseCardId,
+    baseName,
+    variantType,
+    variantLabel,
+    query,
+    mustMatchAny,
+    mustNotMatch,
+    excludedSignals,
+  };
+}
+
+function matchesTemplate(title: string, template: VariantTemplate): boolean {
+  const tNorm = normalize(title);
+
+  if (!listingLooksLikeSingleCard(tNorm)) return false;
+  if (!isLikelyEnglish(title)) return false;
+
+  // Must include card id or enough name tokens.
+  const hasId = tNorm.includes(template.baseCardId.toLowerCase());
+  const tokens = normalize(template.baseName)
+    .split(" ")
+    .filter((x) => x.length > 2 && !["one", "piece", "tcg", "card"].includes(x));
+  const tokenHits = tokens.filter((tk) => tNorm.includes(tk)).length;
+  const hasNameSignal = tokens.length ? tokenHits >= Math.min(2, tokens.length) : false;
+  if (!hasId && !hasNameSignal) return false;
+
+  if (template.mustNotMatch.some((rx) => rx.test(title))) return false;
+  if (template.mustMatchAny.length && !template.mustMatchAny.some((rx) => rx.test(title))) return false;
+
+  return true;
+}
+
+function scoreListing(title: string, cardName: string, template: VariantTemplate, price: number): number {
   const t = normalize(title);
   const cardNameNorm = normalize(cardName);
-  const cardIdNorm = normalize(cardId);
+  const cardIdNorm = normalize(template.baseCardId);
 
   let score = 0;
 
@@ -121,13 +285,14 @@ function scoreListing(title: string, cardName: string, cardId: string, price: nu
     score += Math.min(0.25, (tokenHits / nameTokens.length) * 0.25);
   }
 
-  if (t.includes("alt art") || t.includes("aa")) score += 0.05;
-  if (t.includes("japanese") || t.includes("jp ver") || t.includes("chinese")) score -= 0.4;
+  if (template.mustMatchAny.length && template.mustMatchAny.some((rx) => rx.test(title))) score += 0.15;
+  if (template.mustNotMatch.some((rx) => rx.test(title))) score -= 0.6;
+
   if (!isLikelyEnglish(title)) score -= 0.35;
   if (!listingLooksLikeSingleCard(t)) score -= 0.5;
 
-  // Basic outlier guardrails for single-card comps
-  if (price <= 0.99 || price > 2000) score -= 0.4;
+  // Outlier guardrails for single-card comps
+  if (price <= 0.99 || price > 5000) score -= 0.4;
 
   return Math.max(0, Math.min(1, score));
 }
@@ -154,51 +319,21 @@ function trimPriceOutliersByIqr(candidates: EbaySale[]): EbaySale[] {
   const upper = q3 + 1.5 * iqr;
   const trimmed = candidates.filter((c) => c.price >= lower && c.price <= upper);
 
-  // Avoid over-trimming thin samples
   return trimmed.length >= 3 ? trimmed : candidates;
 }
 
-function detectVariantSignals(text: string): { manga: boolean; altArt: boolean; sp: boolean } {
-  const t = normalize(text);
-  return {
-    manga: /\bmanga\b/.test(t),
-    altArt: /\balt\s*art\b|\baa\b/.test(t),
-    sp: /\bsp\b|special/.test(t),
-  };
-}
-
-function variantMatchScore(title: string, cardName: string, cardId: string): number {
-  const wanted = detectVariantSignals(`${cardName} ${cardId}`);
-  const got = detectVariantSignals(title);
-
-  let score = 0;
-  if (wanted.manga && got.manga) score += 0.2;
-  if (wanted.altArt && got.altArt) score += 0.15;
-  if (wanted.sp && got.sp) score += 0.12;
-
-  if (wanted.manga && !got.manga) score -= 0.3;
-  if (wanted.altArt && !got.altArt) score -= 0.2;
-  if (wanted.sp && !got.sp) score -= 0.15;
-
-  // If query is base print and listing screams premium variant, lightly penalize to reduce mixing
-  if (!wanted.manga && got.manga) score -= 0.1;
-
-  return score;
-}
-
-async function fetchCompletedSalesViaFinding(cardName: string, cardId: string): Promise<EbaySale[]> {
+async function fetchCompletedSalesViaFinding(template: VariantTemplate, cardName: string): Promise<EbaySale[]> {
   const appId = process.env.EBAY_APP_ID;
   if (!appId) return [];
 
-  const keywords = encodeURIComponent(`One Piece TCG ${cardName} ${cardId}`);
-  const url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findCompletedItems&SERVICE-VERSION=1.13.0&SECURITY-APPNAME=${encodeURIComponent(appId)}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${keywords}&categoryId=2536&itemFilter(0).name=SoldItemsOnly&itemFilter(0).value=true&itemFilter(1).name=Condition&itemFilter(1).value=1000&sortOrder=EndTimeSoonest&paginationInput.entriesPerPage=30`;
+  const keywords = encodeURIComponent(template.query);
+  const url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findCompletedItems&SERVICE-VERSION=1.13.0&SECURITY-APPNAME=${encodeURIComponent(appId)}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${keywords}&categoryId=2536&itemFilter(0).name=SoldItemsOnly&itemFilter(0).value=true&sortOrder=EndTimeSoonest&paginationInput.entriesPerPage=60`;
 
   const res = await fetch(url);
   if (!res.ok) return [];
   const data = await res.json();
 
-  const items =
-    data?.findCompletedItemsResponse?.[0]?.searchResult?.[0]?.item || [];
+  const items = data?.findCompletedItemsResponse?.[0]?.searchResult?.[0]?.item || [];
 
   const parsed: EbaySale[] = items.map((item: Record<string, unknown>) => {
     const title = String((item.title as string[] | undefined)?.[0] || "");
@@ -209,7 +344,7 @@ async function fetchCompletedSalesViaFinding(cardName: string, cardId: string): 
       ) || "0"
     );
 
-    const confidence = Math.max(0, Math.min(1, scoreListing(title, cardName, cardId, price) + variantMatchScore(title, cardName, cardId)));
+    const confidence = Math.max(0, Math.min(1, scoreListing(title, cardName, template, price)));
 
     return {
       title,
@@ -229,22 +364,33 @@ async function fetchCompletedSalesViaFinding(cardName: string, cardId: string): 
   return parsed.filter((p) => p.price > 0);
 }
 
-export async function fetchEbaySales(cardName: string, cardId: string): Promise<MarketData> {
+export async function fetchEbaySales(cardName: string, cardId: string, cardInput?: Partial<EbayCardInput>): Promise<MarketData> {
+  const input: EbayCardInput = {
+    id: cardId,
+    name: cardName,
+    rarity: cardInput?.rarity || "",
+    baseCardId: cardInput?.baseCardId,
+    variantType: cardInput?.variantType,
+    variantLabel: cardInput?.variantLabel,
+    canonicalVariantId: cardInput?.canonicalVariantId,
+    language: "EN",
+  };
+
+  const template = buildVariantTemplate(input);
+
   let sales: EbaySale[] = [];
   let filteredOut = 0;
   let source: "completed" | "active" | "mock" = "completed";
 
   try {
-    // Prefer sold/completed data path first (true comps)
-    let candidates: EbaySale[] = await fetchCompletedSalesViaFinding(cardName, cardId);
+    let candidates: EbaySale[] = await fetchCompletedSalesViaFinding(template, cardName);
 
-    // If completed path is thin/unavailable, backfill with Browse API results
-    if (candidates.length < 5) {
+    if (candidates.length < 6) {
       const token = await getEbayToken();
-      const query = encodeURIComponent(`One Piece TCG ${cardName} ${cardId}`);
+      const query = encodeURIComponent(template.query);
 
       const res = await fetch(
-        `https://api.ebay.com/buy/browse/v1/item_summary/search?q=${query}&filter=buyingOptions%3A%7BFIXED_PRICE%7D,conditions%3A%7BNEW%7D&category_ids=2536&limit=20`,
+        `https://api.ebay.com/buy/browse/v1/item_summary/search?q=${query}&filter=buyingOptions%3A%7BFIXED_PRICE%7D&category_ids=2536&limit=30`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -258,7 +404,7 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
         const browseCandidates: EbaySale[] = (data.itemSummaries || []).map((item: Record<string, unknown>) => {
           const title = (item.title as string) || "";
           const price = parseFloat((item.price as Record<string, string>)?.value || "0");
-          const confidence = Math.max(0, Math.min(1, scoreListing(title, cardName, cardId, price) + variantMatchScore(title, cardName, cardId)));
+          const confidence = Math.max(0, Math.min(1, scoreListing(title, cardName, template, price)));
 
           return {
             title,
@@ -277,16 +423,16 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
       }
     }
 
-    const deduped = Array.from(
-      new Map(candidates.filter((c) => c.url).map((c) => [c.url, c])).values()
-    );
+    const deduped = Array.from(new Map(candidates.filter((c) => c.url).map((c) => [c.url, c])).values());
 
-    const completedCount = deduped.filter((c) => c.sourceType === "completed").length;
-    source = completedCount > 0 ? "completed" : "active";
+    const strict = deduped.filter((c) => matchesTemplate(c.title, template));
+    const completedCount = strict.filter((c) => c.sourceType === "completed").length;
+    source = completedCount > 0 ? "completed" : strict.some((c) => c.sourceType === "active") ? "active" : "mock";
 
-    const qualityKept = deduped.filter((c) => c.confidence !== undefined && c.confidence >= 0.45);
-    const outlierTrimmed = trimPriceOutliersByIqr(qualityKept);
-    const kept = outlierTrimmed.sort((a, b) => (b.confidence || 0) - (a.confidence || 0)).slice(0, 5);
+    const qualityKept = strict.filter((c) => c.confidence !== undefined && c.confidence >= 0.42);
+    const basePool = qualityKept.length >= 2 ? qualityKept : strict;
+    const outlierTrimmed = trimPriceOutliersByIqr(basePool);
+    const kept = outlierTrimmed.sort((a, b) => (b.confidence || 0) - (a.confidence || 0)).slice(0, 8);
 
     filteredOut = Math.max(0, deduped.length - kept.length);
     sales = kept;
@@ -294,7 +440,7 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
     console.error("eBay fetch error:", err);
   }
 
-  // Use mock data if no real data or API not configured
+  // If no reliable real data, return mock skeleton (temporary fallback until phase 3 strict no-data mode).
   if (sales.length === 0) {
     sales = getMockSales(cardName, cardId);
     source = "mock";
@@ -308,7 +454,6 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
     ? sales.reduce((sum, s) => sum + (s.confidence || 0.5), 0) / sales.length
     : 0.5;
 
-  // Mock TCGPlayer data (replace with real API when key is available)
   const tcgMock = getMockTCGPlayer(avg);
 
   return {
@@ -323,6 +468,13 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
       qualityConfidence: parseFloat(qualityConfidence.toFixed(2)),
       filteredOut,
       source,
+      queryTemplate: {
+        query: template.query,
+        variantLabel: template.variantLabel,
+        variantType: template.variantType,
+        language: "EN",
+        excludedSignals: template.excludedSignals,
+      },
     },
     tcgplayer: tcgMock,
     trend: {
@@ -335,15 +487,15 @@ export async function fetchEbaySales(cardName: string, cardId: string): Promise<
 
 function getMockSales(cardName: string, cardId: string): EbaySale[] {
   const basePrice = getBasePrice(cardId);
-  const dates = ["2025-02-24", "2025-02-23", "2025-02-22", "2025-02-21", "2025-02-20"];
+  const dates = ["2026-03-04", "2026-03-03", "2026-03-02", "2026-03-01", "2026-02-28"];
   return dates.map((date, i) => ({
     title: `One Piece TCG ${cardName} ${cardId} NM/M`,
-    price: parseFloat((basePrice * (0.85 + Math.random() * 0.3)).toFixed(2)),
+    price: parseFloat((basePrice * (0.88 + Math.random() * 0.24)).toFixed(2)),
     currency: "USD",
     soldDate: date,
     condition: i % 3 === 0 ? "Near Mint" : i % 3 === 1 ? "Lightly Played" : "Near Mint",
-    url: `https://www.ebay.com/sch/i.html?_nkw=one+piece+tcg+${encodeURIComponent(cardName)}`,
-    confidence: 0.75,
+    url: `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(`one piece tcg ${cardName} ${cardId}`)}`,
+    confidence: 0.45,
     sourceType: "mock",
   }));
 }
