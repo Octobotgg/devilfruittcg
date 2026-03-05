@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus, Copy, FileDown, Shuffle } from "lucide-react";
+import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus, Copy, Shuffle } from "lucide-react";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import DonButton from "@/components/ui/DonButton";
@@ -229,16 +229,6 @@ export default function MatchupsPage() {
       })))
     .sort((a, b) => b.rate - a.rate)[0];
 
-  const exportMatrixCsv = () => {
-    const header = ["Deck", ...matrixDecks.map((d) => shortDeckName(d.name))].join(",");
-    const rows = matrixDecks.map((row) => {
-      const values = matrixDecks.map((col) => (row.id === col.id ? "-" : String(row.matchups[col.id] ?? 50)));
-      return [`"${row.name.replace(/"/g, '""')}"`, ...values].join(",");
-    });
-    const csv = [header, ...rows].join("\n");
-    navigator.clipboard.writeText(csv);
-  };
-
   const copyClashReport = () => {
     const text = [
       `Matchup Clash`,
@@ -300,11 +290,6 @@ export default function MatchupsPage() {
           Matchup <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#F0C040]">Matrix</span>
         </h1>
         <p className="text-white/40 text-lg">Matchup analysis · Click any deck for full breakdown</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <DonButton href="/deckbuilder">Build Counter Deck</DonButton>
-          <DonButton href="/meta">View Meta Snapshot</DonButton>
-          <DonButton onClick={exportMatrixCsv}><span className="inline-flex items-center gap-1"><FileDown className="h-3.5 w-3.5" /> Export Matrix CSV</span></DonButton>
-        </div>
         <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
         <div className="mt-3 flex flex-wrap gap-3 items-end">
           <div>
