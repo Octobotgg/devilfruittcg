@@ -13,6 +13,7 @@ import TickerRow from "@/components/ui/TickerRow";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import LeaderColorTag from "@/components/ui/LeaderColorTag";
+import LiveStatusStrip from "@/components/ui/LiveStatusStrip";
 
 function ago(iso?: string) {
   if (!iso) return "—";
@@ -95,6 +96,13 @@ export default function HomePagePhase1() {
           { label: "SP Nami", value: "$620", delta: 2.3 },
           { label: "OP12-020", value: "$208", delta: 1.2 },
         ]}
+      />
+
+      <LiveStatusStrip
+        updatedAt={meta?.updatedAt}
+        sourceLabel={meta?.source?.toLowerCase().includes("seeded") ? "Seeded" : "Tournament Aggregate"}
+        sampleGames={meta?.sampleGames}
+        formatLabel="OP14"
       />
 
       <section className="bento-grid">

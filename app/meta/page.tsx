@@ -8,6 +8,7 @@ import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import DonButton from "@/components/ui/DonButton";
 import LeaderColorTag from "@/components/ui/LeaderColorTag";
+import LiveStatusStrip from "@/components/ui/LiveStatusStrip";
 
 const tierConfig: Record<string, { bg: string; text: string; border: string; glow: string }> = {
   S: { bg: "bg-[#F0C040]/10", text: "text-[#F0C040]", border: "border-[#F0C040]/30", glow: "shadow-[#F0C040]/20" },
@@ -155,6 +156,13 @@ export default function MetaPage() {
           <div className="ml-auto"><DonButton href="/matchups">Open Matchup Matrix</DonButton></div>
         </div>
       </motion.div>
+
+      <LiveStatusStrip
+        updatedAt={lastSuccessAt || meta.updatedAt}
+        sourceLabel={isSeeded ? "Seeded" : "Tournament Aggregate"}
+        sampleGames={meta.sampleGames}
+        formatLabel={format}
+      />
 
       {/* Command Brief */}
       <motion.div

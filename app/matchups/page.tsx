@@ -7,6 +7,7 @@ import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import DonButton from "@/components/ui/DonButton";
 import LeaderColorTag from "@/components/ui/LeaderColorTag";
+import LiveStatusStrip from "@/components/ui/LiveStatusStrip";
 import {
   META_DECKS,
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
@@ -324,6 +325,13 @@ export default function MatchupsPage() {
         </div>
       </motion.div>
 
+      <LiveStatusStrip
+        updatedAt={lastSuccessAt || new Date().toISOString()}
+        sourceLabel={sourceLabel}
+        sampleGames={sampleGames}
+        formatLabel={matchupSet}
+      />
+
       {!hasLargeSample && (
         <motion.div
           initial={{ opacity: 0, y: 8 }}
@@ -431,8 +439,9 @@ export default function MatchupsPage() {
 
 
         {lookupLeaderCardId && lookupOpponentCardId && (
-          <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
-            <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
+          <div className="relative overflow-hidden rounded-2xl border border-[var(--theme-ring)] bg-black/30 p-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(250,204,21,0.12),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(239,68,68,0.12),transparent_45%)]" />
+            <div className="relative z-10 grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
               <div className="flex items-center gap-3">
                 <img src={`/api/card-image?id=${lookupLeaderCardId}`} alt={labelForLeader(lookupLeaderCardId)} className="h-20 w-14 rounded-lg border border-white/15" />
                 <div>
@@ -443,7 +452,7 @@ export default function MatchupsPage() {
 
               <div className="text-center">
                 <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--theme-accent-2)]">Clash</p>
-                <p className="text-2xl font-black text-white">⚡</p>
+                <p className="text-3xl font-black text-[var(--theme-accent-2)] drop-shadow-[0_0_16px_rgba(250,204,21,0.55)]">⚡</p>
                 <div className="mt-1 flex items-center justify-center gap-2">
                   <span className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(lookupRate ?? 50)}`}>
                     {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
