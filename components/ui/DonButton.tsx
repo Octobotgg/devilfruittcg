@@ -10,6 +10,7 @@ type DonButtonProps = {
   href?: string;
   onClick?: () => void;
   className?: string;
+  type?: "button" | "submit" | "reset";
 };
 
 function DonVisual({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -25,7 +26,7 @@ function DonVisual({ children, className = "" }: { children: ReactNode; classNam
   );
 }
 
-export default function DonButton({ children, href, onClick, className = "" }: DonButtonProps) {
+export default function DonButton({ children, href, onClick, className = "", type = "button" }: DonButtonProps) {
   const reduced = useReducedMotion();
 
   const content = (
@@ -41,7 +42,7 @@ export default function DonButton({ children, href, onClick, className = "" }: D
 
   if (href) return <Link href={href}>{content}</Link>;
   return (
-    <button type="button" onClick={onClick}>
+    <button type={type} onClick={onClick}>
       {content}
     </button>
   );

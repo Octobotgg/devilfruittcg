@@ -476,12 +476,11 @@ export default function MatchupsPage() {
               </span>
               {lookupMatches != null ? <span className="text-white/45">matches: {lookupMatches}</span> : null}
               {lookupLeaderMeta ? (
-                <button
-                  onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}
-                  className="ml-auto rounded-lg bg-[var(--theme-accent)] px-3 py-1.5 font-bold text-black"
-                >
-                  Open Full Leader Matrix
-                </button>
+                <div className="ml-auto">
+                  <DonButton onClick={() => { setSelectedDeckId(lookupLeaderMeta.id); setView("detail"); }}>
+                    Open Full Leader Matrix
+                  </DonButton>
+                </div>
               ) : null}
             </div>
           </div>

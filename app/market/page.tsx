@@ -6,6 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import type { MarketData } from "@/lib/ebay";
 import CardModal, { type CardModalData } from "@/components/CardModal";
+import DonButton from "@/components/ui/DonButton";
+import WantedPosterCard from "@/components/ui/WantedPosterCard";
+import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 
 function MarketContent() {
   const searchParams = useSearchParams();
@@ -172,6 +175,25 @@ function MarketContent() {
         <p className="text-white/40 text-lg">Live bounties from eBay sold comps + TCGPlayer market</p>
       </motion.div>
 
+      {/* Most Wanted */}
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.45 }}>
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-black text-white">Most Wanted Bounties</h3>
+          <p className="text-xs text-white/45">Popular + premium targets</p>
+        </div>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          {MARKET_HOT_CARDS.slice(0, 4).map((c) => (
+            <WantedPosterCard
+              key={c.id}
+              id={c.id}
+              name={c.name}
+              subtitle={c.id}
+              href={`/market?card=${encodeURIComponent(c.id)}`}
+            />
+          ))}
+        </div>
+      </motion.div>
+
       {/* Search */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.5 }}>
         <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 max-w-2xl">
@@ -228,13 +250,9 @@ function MarketContent() {
               )}
             </AnimatePresence>
           </div>
-          <motion.button
-            type="submit" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto justify-center flex items-center gap-2 px-7 py-4 bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black font-bold rounded-2xl text-base"
-          >
-            <Zap className="w-4 h-4" />
-            Search
-          </motion.button>
+          <DonButton type="submit" className="h-[52px] w-full sm:w-auto">
+            <span className="inline-flex items-center gap-2"><Zap className="w-4 h-4" /> Search</span>
+          </DonButton>
         </form>
 
         <div className="mt-3 grid grid-cols-2 md:grid-cols-6 gap-2 max-w-5xl">
@@ -512,9 +530,9 @@ function MarketContent() {
               placeholder="Search card..."
               className="flex-1 h-11 rounded-xl bg-white/5 border border-white/10 px-3 text-white text-sm placeholder:text-white/30"
             />
-            <button className="h-11 px-4 rounded-xl bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black text-sm font-bold">
+            <DonButton type="submit" className="h-11 px-4">
               Search
-            </button>
+            </DonButton>
           </form>
         </div>
       </div>
