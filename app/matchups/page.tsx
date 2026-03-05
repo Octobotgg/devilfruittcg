@@ -140,7 +140,13 @@ export default function MatchupsPage() {
   };
 
   const selectSuggestedOpponent = (cardId: string) => {
-    selectLeader("b", cardId);
+    // Switch analysis to this leader (make it Leader A)
+    selectLeader("a", cardId);
+    // Also update the selected deck to match
+    const deck = decks.find((d) => d.cardId === cardId);
+    if (deck) {
+      setSelectedDeckId(deck.id);
+    }
     requestAnimationFrame(() => {
       finderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
