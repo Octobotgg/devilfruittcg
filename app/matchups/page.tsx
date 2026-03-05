@@ -30,13 +30,6 @@ function getHeatCellClass(rate: number) {
   return "bg-[#7f1d1d] text-red-100 border border-red-300/35 shadow-[0_0_16px_rgba(239,68,68,0.32)]";
 }
 
-function confidenceLabel(sampleGames: number) {
-  if (sampleGames >= 1000) return "High";
-  if (sampleGames >= 300) return "Medium";
-  if (sampleGames > 0) return "Low";
-  return "Unknown";
-}
-
 function TrendIcon({ trend }: { trend: string }) {
   if (trend === "▲" || trend === "up") return <TrendingUp className="w-3.5 h-3.5 text-green-400" />;
   if (trend === "▼" || trend === "down") return <TrendingDown className="w-3.5 h-3.5 text-red-400" />;
@@ -75,7 +68,6 @@ export default function MatchupsPage() {
   const [matrixFilter, setMatrixFilter] = useState<string>("");
   const [lookupLoading, setLookupLoading] = useState(false);
   const [hoverDeckId, setHoverDeckId] = useState<string | null>(null);
-  const [hoverCell, setHoverCell] = useState<{ rowId: string; colId: string; rate: number } | null>(null);
 
   useEffect(() => {
     try {
@@ -217,20 +209,6 @@ export default function MatchupsPage() {
     d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
     d.cardId.toLowerCase().includes(matrixFilter.toLowerCase())
   );
-
-  const inspectorDeck = matrixDecks.find((d) => d.id === hoverDeckId) || matrixDecks[0] || null;
-  const inspectorBest = inspectorDeck
-    ? matrixDecks.filter((d) => d.id !== inspectorDeck.id)
-      .map((d) => ({ deck: d, rate: inspectorDeck.matchups[d.id] ?? 50 }))
-      .sort((a, b) => b.rate - a.rate)
-      .slice(0, 5)
-    : [];
-  const inspectorWorst = inspectorDeck
-    ? matrixDecks.filter((d) => d.id !== inspectorDeck.id)
-      .map((d) => ({ deck: d, rate: inspectorDeck.matchups[d.id] ?? 50 }))
-      .sort((a, b) => a.rate - b.rate)
-      .slice(0, 5)
-    : [];
 
   const topDeck = decks.reduce((best, deck) => (
     !best || deck.metaShare > best.metaShare ? deck : best
@@ -616,7 +594,7 @@ export default function MatchupsPage() {
                 Clear filter
               </button>
             </div>
-            <div className="flex flex-wrap gap-3 mb-3 text-xs">
+            <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
                 { color: "bg-[#14532d]", label: "60%+ Strong Favored" },
                 { color: "bg-[#166534]", label: "55-59% Favored" },
@@ -630,16 +608,6 @@ export default function MatchupsPage() {
                 </div>
               ))}
             </div>
-
-            {hoverCell ? (
-              <div className="mb-4 rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-white/75">
-                <span className="font-bold text-white">{shortDeckName(matrixDecks.find(d => d.id === hoverCell.rowId)?.name || hoverCell.rowId)}</span>
-                <span className="text-white/40"> vs </span>
-                <span className="font-bold text-white">{shortDeckName(matrixDecks.find(d => d.id === hoverCell.colId)?.name || hoverCell.colId)}</span>
-                <span className="mx-2 text-[var(--theme-accent-2)] font-black">{hoverCell.rate}%</span>
-                <span className="text-white/45">confidence: {confidenceLabel(sampleGames)}</span>
-              </div>
-            ) : null}
 
             <div className="md:hidden space-y-2 mb-4">
               {matrixDecks.slice(0, 20).map((rowDeck) => (
@@ -667,101 +635,68 @@ export default function MatchupsPage() {
               ))}
             </div>
 
-            <div className="hidden gap-4 md:grid md:grid-cols-[1fr_280px]">
-              <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th className="p-3 text-left text-white/30 text-xs sticky top-0 left-0 bg-[#0a0f1e] z-30 min-w-[120px]">
-                          Deck ↓ vs →
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hidden md:block">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="p-3 text-left text-white/30 text-xs sticky top-0 left-0 bg-[#0a0f1e] z-30 min-w-[120px]">
+                        Deck ↓ vs →
+                      </th>
+                      {matrixDecks.map((deck) => (
+                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 ${hoverDeckId === deck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
+                          <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
+                            onMouseEnter={() => setHoverDeckId(deck.id)}
+                            onMouseLeave={() => setHoverDeckId(null)}
+                            className="flex flex-col items-center gap-1 group">
+                            <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
+                              onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
+                              className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105 cursor-zoom-in" />
+                            <span className="text-[10px] text-white/30 truncate max-w-[70px]">{shortDeckName(deck.name)}</span>
+                          </button>
                         </th>
-                        {matrixDecks.map((deck) => (
-                          <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 ${hoverDeckId === deck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
-                            <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
-                              onMouseEnter={() => { setHoverDeckId(deck.id); setHoverCell(null); }}
-                              onMouseLeave={() => setHoverDeckId(null)}
-                              className="flex flex-col items-center gap-1 group">
-                              <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
-                                onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
-                                className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105 cursor-zoom-in" />
-                              <span className="text-[10px] text-white/30 truncate max-w-[70px]">{shortDeckName(deck.name)}</span>
-                            </button>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {matrixDecks.map((rowDeck) => (
-                        <motion.tr layout key={rowDeck.id} className="border-t border-white/5">
-                          <td className={`p-2 sticky left-0 z-10 ${hoverDeckId === rowDeck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
-                            <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
-                              onMouseEnter={() => { setHoverDeckId(rowDeck.id); setHoverCell(null); }}
-                              onMouseLeave={() => setHoverDeckId(null)}
-                              className="flex items-center gap-2 group">
-                              <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
-                                className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
-                              <div className="text-left">
-                                <div className="text-xs text-white font-semibold leading-tight">{shortDeckName(rowDeck.name)}</div>
-                                <span className={`text-[10px] px-1 rounded border font-bold ${TIER_COLORS[rowDeck.tier]}`}>{rowDeck.tier}</span>
-                              </div>
-                            </button>
-                          </td>
-                          {matrixDecks.map((colDeck) => {
-                            const rate = rowDeck.matchups[colDeck.id] ?? 50;
-                            const isSelf = rowDeck.id === colDeck.id;
-                            return (
-                              <td key={colDeck.id} className="p-1">
-                                {isSelf
-                                  ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
-                                  : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
-                                      title={`${rowDeck.name} vs ${colDeck.name}: ${rate}% · confidence ${confidenceLabel(sampleGames)} · sample ${sampleGames || "N/A"}`}
-                                      className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${hoverDeckId && (hoverDeckId === rowDeck.id || hoverDeckId === colDeck.id) ? "ring-1 ring-[var(--theme-accent-2)]" : ""}`}
-                                      onMouseEnter={() => { setHoverDeckId(colDeck.id); setHoverCell({ rowId: rowDeck.id, colId: colDeck.id, rate }); }}
-                                      onMouseLeave={() => { setHoverDeckId(null); setHoverCell(null); }}>
-                                      {rate}%
-                                    </button>
-                                }
-                              </td>
-                            );
-                          })}
-                        </motion.tr>
                       ))}
-                    </tbody>
-                  </table>
-                </div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {matrixDecks.map((rowDeck, ri) => (
+                      <motion.tr layout key={rowDeck.id} className="border-t border-white/5">
+                        <td className={`p-2 sticky left-0 z-10 ${hoverDeckId === rowDeck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
+                          <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
+                            onMouseEnter={() => setHoverDeckId(rowDeck.id)}
+                            onMouseLeave={() => setHoverDeckId(null)}
+                            className="flex items-center gap-2 group">
+                            <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
+                              className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
+                            <div className="text-left">
+                              <div className="text-xs text-white font-semibold leading-tight">{shortDeckName(rowDeck.name)}</div>
+                              <span className={`text-[10px] px-1 rounded border font-bold ${TIER_COLORS[rowDeck.tier]}`}>{rowDeck.tier}</span>
+                            </div>
+                          </button>
+                        </td>
+                        {matrixDecks.map((colDeck) => {
+                          const rate = rowDeck.matchups[colDeck.id] ?? 50;
+                          const isSelf = rowDeck.id === colDeck.id;
+                          return (
+                            <td key={colDeck.id} className="p-1">
+                              {isSelf
+                                ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
+                                : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
+                                    title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${hoverDeckId && (hoverDeckId === rowDeck.id || hoverDeckId === colDeck.id) ? "ring-1 ring-[var(--theme-accent-2)]" : ""}`}
+                                    onMouseEnter={() => setHoverDeckId(colDeck.id)}
+                                    onMouseLeave={() => setHoverDeckId(null)}>
+                                    {rate}%
+                                  </button>
+                              }
+                            </td>
+                          );
+                        })}
+                      </motion.tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-
-              <aside className="sticky top-4 h-fit rounded-2xl border border-white/10 bg-black/25 p-3">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/45">Mini Inspector</p>
-                {inspectorDeck ? (
-                  <>
-                    <div className="mt-2 flex items-center gap-2">
-                      <img src={`/api/card-image?id=${inspectorDeck.cardId}`} alt={inspectorDeck.name} className="h-14 w-10 rounded border border-white/15" />
-                      <div>
-                        <p className="text-sm font-bold text-white">{shortDeckName(inspectorDeck.name)}</p>
-                        <p className="text-[11px] text-white/45">{inspectorDeck.metaShare}% meta · {inspectorDeck.winRate}% WR</p>
-                      </div>
-                    </div>
-                    <div className="mt-3">
-                      <p className="text-[10px] uppercase tracking-[0.12em] text-green-300">Best edges</p>
-                      <div className="mt-1 space-y-1">
-                        {inspectorBest.slice(0, 3).map((x) => (
-                          <div key={x.deck.id} className="flex justify-between text-xs text-white/75"><span>{shortDeckName(x.deck.name)}</span><span className="font-bold text-green-300">{x.rate}%</span></div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="mt-3">
-                      <p className="text-[10px] uppercase tracking-[0.12em] text-red-300">Worst edges</p>
-                      <div className="mt-1 space-y-1">
-                        {inspectorWorst.slice(0, 3).map((x) => (
-                          <div key={x.deck.id} className="flex justify-between text-xs text-white/75"><span>{shortDeckName(x.deck.name)}</span><span className="font-bold text-red-300">{x.rate}%</span></div>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                ) : <p className="mt-2 text-xs text-white/45">No deck in current filter.</p>}
-              </aside>
             </div>
           </motion.div>
         )}
