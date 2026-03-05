@@ -59,6 +59,7 @@ export default function MatchupsPage() {
   const [sampleGames, setSampleGames] = useState<number>(0);
   const [matchupSet, setMatchupSet] = useState<string>("OP14");
   const [matchupTime, setMatchupTime] = useState<string>("1month");
+  const [matchupPeriod, setMatchupPeriod] = useState<string>("west_p");
   const [deckLimit, setDeckLimit] = useState<number>(12);
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
   const [allLeaders, setAllLeaders] = useState<Array<{ id: string; name: string; setCode: string; color: string }>>([]);
@@ -163,6 +164,22 @@ export default function MatchupsPage() {
   const lookupOpponentDeck = lookupOpponentMeta ? decks.find((d) => d.id === lookupOpponentMeta.id) || null : null;
 
   useEffect(() => {
+    let cancelled = false;
+
+    const applyLocalFallback = () => {
+      if (lookupLeaderDeck && lookupOpponentDeck) {
+        setLookupRate(lookupLeaderDeck.matchups[lookupOpponentDeck.id] ?? 50);
+        setReverseRate(lookupOpponentDeck.matchups[lookupLeaderDeck.id] ?? 50);
+        setLookupMatches(null);
+        setReverseMatches(null);
+      } else {
+        setLookupRate(null);
+        setReverseRate(null);
+        setLookupMatches(null);
+        setReverseMatches(null);
+      }
+    };
+
     const run = async () => {
       if (!lookupLeaderCardId || !lookupOpponentCardId || lookupLeaderCardId === lookupOpponentCardId) {
         setLookupRate(null);
@@ -172,34 +189,41 @@ export default function MatchupsPage() {
         return;
       }
 
-      if (lookupLeaderDeck && lookupOpponentDeck) {
-        setLookupRate(lookupLeaderDeck.matchups[lookupOpponentDeck.id] ?? 50);
-        setReverseRate(lookupOpponentDeck.matchups[lookupLeaderDeck.id] ?? 50);
-        setLookupMatches(null);
-        setReverseMatches(null);
-        return;
-      }
-
       try {
         setLookupLoading(true);
-        const p = new URLSearchParams({ leader: lookupLeaderCardId, opponent: lookupOpponentCardId, set: matchupSet, time: matchupTime });
+        const p = new URLSearchParams({
+          leader: lookupLeaderCardId,
+          opponent: lookupOpponentCardId,
+          set: matchupSet,
+          time: matchupTime,
+          period: matchupPeriod,
+        });
         const res = await fetch(`/api/matchups/headtohead?${p.toString()}`);
         const json = await res.json();
-        setLookupRate(typeof json?.winRate === 'number' ? json.winRate : null);
-        setReverseRate(typeof json?.reverseWinRate === 'number' ? json.reverseWinRate : null);
-        setLookupMatches(typeof json?.matches === 'number' ? json.matches : null);
-        setReverseMatches(typeof json?.reverseMatches === 'number' ? json.reverseMatches : null);
+
+        if (cancelled) return;
+
+        const hasDirectionalData = typeof json?.winRate === "number" || typeof json?.reverseWinRate === "number";
+        if (hasDirectionalData) {
+          setLookupRate(typeof json?.winRate === "number" ? json.winRate : null);
+          setReverseRate(typeof json?.reverseWinRate === "number" ? json.reverseWinRate : null);
+          setLookupMatches(typeof json?.matches === "number" ? json.matches : null);
+          setReverseMatches(typeof json?.reverseMatches === "number" ? json.reverseMatches : null);
+        } else {
+          applyLocalFallback();
+        }
       } catch {
-        setLookupRate(null);
-        setReverseRate(null);
-        setLookupMatches(null);
-        setReverseMatches(null);
+        if (!cancelled) applyLocalFallback();
       } finally {
-        setLookupLoading(false);
+        if (!cancelled) setLookupLoading(false);
       }
     };
+
     run();
-  }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, matchupTime, lookupLeaderDeck, lookupOpponentDeck]);
+    return () => {
+      cancelled = true;
+    };
+  }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, matchupTime, matchupPeriod, lookupLeaderDeck, lookupOpponentDeck]);
 
   const matrixDecks = decks.filter((d) =>
     d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
@@ -228,7 +252,12 @@ export default function MatchupsPage() {
   useEffect(() => {
     const run = async () => {
       try {
-        const params = new URLSearchParams({ set: matchupSet, time: matchupTime, limit: String(deckLimit) });
+        const params = new URLSearchParams({
+          set: matchupSet,
+          time: matchupTime,
+          period: matchupPeriod,
+          limit: String(deckLimit),
+        });
         const res = await fetch(`/api/matchups?${params.toString()}`);
         if (!res.ok) return;
         const json = await res.json();
@@ -236,7 +265,10 @@ export default function MatchupsPage() {
           setDecks(json.decks);
           if (json.source) {
             const raw = String(json.source).toLowerCase();
-            setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : "Tournament aggregate");
+            if (raw.includes("bridge")) setSourceLabel("CardKaizoku bridge snapshot");
+            else if (raw.includes("match-intel-v2")) setSourceLabel("Match Intel V2");
+            else if (raw.includes("seeded")) setSourceLabel("Seeded dataset");
+            else setSourceLabel("Tournament aggregate");
           }
           if (typeof json.sampleGames === "number") setSampleGames(json.sampleGames);
           setLastSuccessAt(new Date().toISOString());
@@ -246,7 +278,7 @@ export default function MatchupsPage() {
       }
     };
     run();
-  }, [matchupSet, matchupTime, deckLimit]);
+  }, [matchupSet, matchupTime, matchupPeriod, deckLimit]);
 
   function openDeckModal(deck: MetaDeck) {
     setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
@@ -293,6 +325,21 @@ export default function MatchupsPage() {
             </select>
           </div>
           <div>
+            <label className="block text-xs text-white/40 mb-1">Data Period</label>
+            <select
+              value={matchupPeriod}
+              onChange={(e) => setMatchupPeriod(e.target.value)}
+              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            >
+              <option value="west_p" className="bg-[#0f172a]">West (Private)</option>
+              <option value="east_p" className="bg-[#0f172a]">East (Private)</option>
+              <option value="west" className="bg-[#0f172a]">West (All)</option>
+              <option value="east" className="bg-[#0f172a]">East (All)</option>
+              <option value="lw_p" className="bg-[#0f172a]">Last Week (Private)</option>
+              <option value="lw" className="bg-[#0f172a]">Last Week (All)</option>
+            </select>
+          </div>
+          <div>
             <label className="block text-xs text-white/40 mb-1">Deck depth</label>
             <select
               value={String(deckLimit)}
@@ -314,7 +361,7 @@ export default function MatchupsPage() {
         updatedAt={lastSuccessAt || new Date().toISOString()}
         sourceLabel={sourceLabel}
         sampleGames={sampleGames}
-        formatLabel={matchupSet}
+        formatLabel={`${matchupSet} · ${matchupPeriod.toUpperCase()}`}
       />
 
       {!hasLargeSample && (
@@ -363,7 +410,9 @@ export default function MatchupsPage() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
         <h3 className="text-white font-black">Leader Matchup Finder</h3>
-        <p className="text-xs text-white/55">Pick any two leaders to run your own head-to-head test.</p>
+        <p className="text-xs text-white/55">
+          Pick any two leaders to run your own head-to-head test. Powered by {sourceLabel} ({matchupPeriod.toUpperCase()}).
+        </p>
 
         <div className="grid md:grid-cols-2 gap-3">
           <div className="relative">
