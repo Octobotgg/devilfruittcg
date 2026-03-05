@@ -51,13 +51,11 @@ export default function MatchupsPage() {
   const [lookupOpponentCardId, setLookupOpponentCardId] = useState<string>("");
   const [leaderAQuery, setLeaderAQuery] = useState<string>("");
   const [leaderBQuery, setLeaderBQuery] = useState<string>("");
-  const [activeLookupInput, setActiveLookupInput] = useState<"a" | "b">("a");
-  const [recentLeaderIds, setRecentLeaderIds] = useState<string[]>([]);
+
   const [lookupRate, setLookupRate] = useState<number | null>(null);
   const [reverseRate, setReverseRate] = useState<number | null>(null);
   const [lookupMatches, setLookupMatches] = useState<number | null>(null);
   const [reverseMatches, setReverseMatches] = useState<number | null>(null);
-  const [minMatches, setMinMatches] = useState<number>(0);
   const [activeIndexA, setActiveIndexA] = useState<number>(0);
   const [activeIndexB, setActiveIndexB] = useState<number>(0);
   const [matrixFilter, setMatrixFilter] = useState<string>("");
@@ -103,17 +101,6 @@ export default function MatchupsPage() {
   }, []);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("matchups_recent_leaders");
-      if (!raw) return;
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) setRecentLeaderIds(parsed.filter((x) => typeof x === "string").slice(0, 5));
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  useEffect(() => {
     if (lookupLeaderCardId && !leaderAQuery) setLeaderAQuery(labelForLeader(lookupLeaderCardId));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lookupLeaderCardId, allLeaders.length]);
@@ -136,12 +123,6 @@ export default function MatchupsPage() {
       setLookupOpponentCardId(id);
       setLeaderBQuery(labelForLeader(id));
     }
-
-    setRecentLeaderIds((prev) => {
-      const next = [id, ...prev.filter((x) => x !== id)].slice(0, 5);
-      try { localStorage.setItem("matchups_recent_leaders", JSON.stringify(next)); } catch {}
-      return next;
-    });
   };
 
   const fuzzyScore = (query: string, value: string) => {
@@ -171,17 +152,6 @@ export default function MatchupsPage() {
     leaderBQuery,
     allLeaders.filter((d) => d.id !== lookupLeaderCardId)
   );
-
-  const swapLeaders = () => {
-    const aId = lookupLeaderCardId;
-    const bId = lookupOpponentCardId;
-    const aQ = leaderAQuery;
-    const bQ = leaderBQuery;
-    setLookupLeaderCardId(bId);
-    setLookupOpponentCardId(aId);
-    setLeaderAQuery(bQ);
-    setLeaderBQuery(aQ);
-  };
 
   const lookupLeaderMeta = decks.find((d) => d.cardId === lookupLeaderCardId) || null;
   const lookupOpponentMeta = decks.find((d) => d.cardId === lookupOpponentCardId) || null;
@@ -356,7 +326,6 @@ export default function MatchupsPage() {
           <div className="relative">
             <input
               value={leaderAQuery}
-              onFocus={() => setActiveLookupInput("a")}
               onChange={(e) => { setLeaderAQuery(e.target.value); setActiveIndexA(0); }}
               onKeyDown={(e) => {
                 if (!filteredLeadersA.length) return;
@@ -385,7 +354,6 @@ export default function MatchupsPage() {
           <div className="relative">
             <input
               value={leaderBQuery}
-              onFocus={() => setActiveLookupInput("b")}
               onChange={(e) => { setLeaderBQuery(e.target.value); setActiveIndexB(0); }}
               onKeyDown={(e) => {
                 if (!filteredLeadersB.length) return;
@@ -412,69 +380,16 @@ export default function MatchupsPage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          <span className="text-xs text-white/40 mr-1">Recent:</span>
-          {recentLeaderIds.map((id) => (
-            <button
-              key={id}
-              onClick={() => selectLeader(activeLookupInput, id)}
-              className="px-2 py-1 rounded-md bg-white/10 text-xs text-white/80 hover:bg-white/20"
-            >
-              {labelForLeader(id)}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <span className="text-xs text-white/40 mr-1">Popular:</span>
-          {decks.slice(0, 6).map((d) => (
-            <button
-              key={d.id}
-              onClick={() => selectLeader(activeLookupInput, d.cardId)}
-              className="px-2 py-1 rounded-md bg-[#F0C040]/15 text-xs text-[#F0C040] hover:bg-[#F0C040]/25"
-            >
-              {d.name}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="text-xs text-white/50">Min matches</label>
-          <select
-            value={String(minMatches)}
-            onChange={(e) => setMinMatches(Number(e.target.value))}
-            className="bg-white/5 border border-white/15 rounded-md px-2 py-1 text-xs text-white"
-          >
-            {[0, 10, 25, 50, 100].map((n) => (
-              <option key={n} value={n} className="bg-[#0f172a]">{n}</option>
-            ))}
-          </select>
-        </div>
 
         {lookupLeaderCardId && lookupOpponentCardId && (
           <div className="flex flex-wrap items-center gap-3 text-sm">
             <span className="text-white/70">{labelForLeader(lookupLeaderCardId)} vs {labelForLeader(lookupOpponentCardId)}</span>
-            <button
-              onClick={swapLeaders}
-              className="px-2 py-1 rounded-md bg-white/10 text-white/80 hover:bg-white/20 text-xs font-bold"
-              title="Swap Leader A and Leader B"
-            >
-              Swap A ↔ B
-            </button>
             <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate ?? 50)}`}>
-              {lookupRate != null && (lookupMatches == null || lookupMatches >= minMatches)
-                ? `${lookupRate}%`
-                : lookupLoading
-                  ? "Loading…"
-                  : "No data"}
+              {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
             </span>
             <span className="text-white/40">reverse:</span>
             <span className={`px-2 py-1 rounded font-black ${getWinRateColor(reverseRate ?? 50)}`}>
-              {reverseRate != null && (reverseMatches == null || reverseMatches >= minMatches)
-                ? `${reverseRate}%`
-                : lookupLoading
-                  ? "Loading…"
-                  : "No data"}
+              {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
             </span>
             <span className="px-2 py-1 rounded-md text-xs border border-white/20 text-white/70">
               Confidence: {(() => {
@@ -495,9 +410,6 @@ export default function MatchupsPage() {
               </button>
             ) : null}
             <span className="text-xs text-white/40 w-full">Interpretation: 55% means Leader A wins about 55 out of 100 games against Leader B.</span>
-            {!lookupLoading && (lookupRate == null || reverseRate == null || ((lookupMatches ?? 0) < minMatches && (reverseMatches ?? 0) < minMatches)) ? (
-              <span className="text-xs text-amber-300 w-full">No reliable data for this pair in current filter. Try lowering min matches or switching format.</span>
-            ) : null}
           </div>
         )}
       </motion.div>
