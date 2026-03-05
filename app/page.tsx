@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Compass, Crown, ScrollText, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarDays, Crown, ScrollText, Sparkles, TrendingUp } from "lucide-react";
 import type { MetaSnapshot } from "@/lib/data/meta";
 import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 import TickerRow from "@/components/ui/TickerRow";
@@ -21,6 +21,12 @@ const BOUNTY_QUOTES: Record<string, { price: number; delta: number }> = {
   "OP06-007": { price: 312, delta: 0.9 },
 };
 
+const TOURNAMENT_LOG = [
+  { event: "Treasure Cup · Newark", winner: "Imu Control", code: "TC-NWK-IMU-7L8H", when: "Last weekend" },
+  { event: "Regionals · Dallas", winner: "Luffy Gear 5", code: "RG-DAL-LFY-2Q1P", when: "5 days ago" },
+  { event: "Online Major", winner: "Blackbeard Midrange", code: "ONL-BBD-5M9R", when: "3 days ago" },
+];
+
 function ago(iso?: string) {
   if (!iso) return "—";
   const diff = Date.now() - new Date(iso).getTime();
@@ -35,10 +41,19 @@ function formatBeli(value: number) {
   return `฿${value.toLocaleString()}`;
 }
 
-export default function HomePageGroundZeroPhase1() {
+function heatClass(rate: number) {
+  if (rate >= 60) return "border-emerald-400/35 bg-emerald-500/18 text-emerald-100";
+  if (rate >= 55) return "border-emerald-300/30 bg-emerald-500/12 text-emerald-100";
+  if (rate >= 45) return "border-white/15 bg-white/8 text-white";
+  if (rate >= 40) return "border-orange-300/30 bg-orange-500/14 text-orange-100";
+  return "border-red-300/28 bg-red-500/15 text-red-100";
+}
+
+export default function HomePageGroundZeroPhase2() {
   const [meta, setMeta] = useState<MetaSnapshot | null>(null);
   const [scrollY, setScrollY] = useState(0);
   const [heroHover, setHeroHover] = useState(false);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   useEffect(() => {
     const run = async () => {
@@ -68,6 +83,7 @@ export default function HomePageGroundZeroPhase1() {
   }, []);
 
   const topDeck = useMemo(() => meta?.metaDecks?.[0] || null, [meta]);
+  const topDecks = useMemo(() => meta?.metaDecks?.slice(0, 4) || [], [meta]);
 
   useEffect(() => {
     const [topColor] = parseLeaderColors(topDeck?.color);
@@ -97,6 +113,36 @@ export default function HomePageGroundZeroPhase1() {
       }),
     []
   );
+
+  const bountyCards = useMemo(
+    () =>
+      MARKET_HOT_CARDS.slice(0, 6).map((card) => {
+        const q = BOUNTY_QUOTES[card.id] || { price: 320, delta: 0.5 };
+        return { ...card, ...q };
+      }),
+    []
+  );
+
+  const matrixTeaser = useMemo(() => {
+    const anchor = meta?.decks?.[0];
+    if (!anchor || !meta?.matchups?.[anchor.id]) return null;
+    const opponents = (meta.decks || [])
+      .filter((d) => d.id !== anchor.id)
+      .map((d) => ({ deck: d, rate: meta.matchups?.[anchor.id]?.[d.id] ?? 50 }))
+      .sort((a, b) => a.rate - b.rate)
+      .slice(0, 6);
+    return { anchor, opponents };
+  }, [meta]);
+
+  async function copyDeckCode(code: string) {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(code);
+      setTimeout(() => setCopiedCode((current) => (current === code ? null : current)), 1400);
+    } catch {
+      // noop
+    }
+  }
 
   return (
     <div className="relative pb-14 md:pb-20">
@@ -227,40 +273,181 @@ export default function HomePageGroundZeroPhase1() {
           </motion.article>
         </section>
 
-        <section className="grid gap-3 md:grid-cols-3">
-          {[
-            {
-              href: "/market",
-              icon: Crown,
-              title: "Bounty Board",
-              subtitle: "High-signal market movement and premium targets.",
-            },
-            {
-              href: "/matchups",
-              icon: Compass,
-              title: "Matchup Matrix",
-              subtitle: "From vibe to value: full heatmap and threat reads.",
-            },
-            {
-              href: "/deckbuilder",
-              icon: ArrowRight,
-              title: "Deck Lab",
-              subtitle: "Launch your crew with drag-and-drop deckbuilding.",
-            },
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
+        <section className="space-y-4">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Bento Engine</p>
+              <h2 className="mt-1 text-2xl font-black text-white md:text-3xl">From Vibe to Value</h2>
+              <p className="mt-1 text-sm text-white/60">Clean signal tiles for meta reads, market checks, and matchup decisions.</p>
+            </div>
+            <Link href="/matchups" className="hidden items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white/65 hover:text-white md:inline-flex">
+              Open Full Matrix <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <div className="captains-bento-grid">
+            <motion.article
+              initial={{ opacity: 0, x: -14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.38 }}
+              className="captains-bento-card col-span-12 md:col-span-8"
+            >
+              <div className="mb-3 flex items-end justify-between gap-2">
+                <div>
+                  <p className="text-lg font-black text-white">The Yonko</p>
+                  <p className="text-xs text-white/50">Top crews · refreshed {ago(meta?.updatedAt)}</p>
+                </div>
+                <Link href="/meta" className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--theme-accent-2)] hover:text-white">View all</Link>
+              </div>
+
+              <div className="space-y-2.5">
+                {topDecks.map((deck, i) => (
+                  <Link
+                    key={deck.name}
+                    href={deck.deckId ? `/meta?deck=${deck.deckId}` : "/meta"}
+                    className="captains-yonko-strip group"
+                  >
+                    <img
+                      src={`/api/card-image?id=${deck.cardId || "OP01-001"}&variant=p1`}
+                      alt={deck.name}
+                      className="h-16 w-12 rounded-lg border border-white/20 object-cover"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="truncate text-sm font-black text-white">{deck.name}</p>
+                        <p className="text-xs font-black text-emerald-300">{(deck.winRate ?? 50).toFixed(1)}%</p>
+                      </div>
+
+                      <div className="captains-winrate-track mt-1.5">
+                        <div
+                          className="captains-winrate-fill"
+                          style={{ width: `${Math.max(12, Math.min(100, (deck.winRate ?? 50) + 8))}%` }}
+                        />
+                      </div>
+
+                      <div className="mt-1 flex items-center justify-between text-[10px] text-white/50">
+                        <span>#{deck.rank} · {deck.color || "Mixed"}</span>
+                        <span>{deck.popularity.toFixed(1)}% field</span>
+                      </div>
+                    </div>
+                    <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${i === 0 ? "bg-[#f8d479]/20 text-[#f8d479]" : "bg-white/10 text-white/75"}`}>
+                      #{deck.rank}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </motion.article>
+
+            <motion.article
+              initial={{ opacity: 0, x: 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.38, delay: 0.04 }}
+              className="captains-bento-card col-span-12 md:col-span-4 md:row-span-2"
+            >
+              <div className="mb-3">
+                <p className="text-lg font-black text-white">Bounty Board</p>
+                <p className="text-xs text-white/50">Premium watchlist · 24h pulse</p>
+              </div>
+
+              <div className="space-y-2">
+                {bountyCards.map((card, i) => (
+                  <Link
+                    key={card.id}
+                    href={`/market?card=${encodeURIComponent(card.id)}`}
+                    className="captains-bounty-row"
+                    style={{ transform: `rotate(${[-1.1, 0.8, -0.5, 1.1, -0.4, 0.6][i] ?? 0}deg)` }}
+                  >
+                    <img src={`/api/card-image?id=${card.id}`} alt={card.name} className="h-12 w-9 rounded border border-black/30" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-xs font-black text-[#2c1c0d]">{card.name}</p>
+                      <p className="text-[10px] text-[#614022]">{card.id}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-black text-[#2c1c0d]">{formatBeli(card.price)}</p>
+                      <p className={`text-[10px] font-bold ${card.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
+                        {card.delta >= 0 ? "+" : ""}{card.delta.toFixed(1)}%
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              <div className="mt-3">
+                <DonButton href="/market" className="w-full justify-center px-3 py-2 text-[10px]">
+                  Open Full Bounty Board
+                </DonButton>
+              </div>
+            </motion.article>
+
+            <motion.article
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.18 + i * 0.07, duration: 0.35 }}
+              transition={{ duration: 0.35, delay: 0.08 }}
+              className="captains-bento-card col-span-12 md:col-span-5"
             >
-              <Link href={item.href} className="captains-link-tile block rounded-2xl p-4">
-                <item.icon className="h-4 w-4 text-[var(--theme-accent-2)]" />
-                <p className="mt-2 text-sm font-black text-white">{item.title}</p>
-                <p className="mt-1 text-xs text-white/55">{item.subtitle}</p>
-              </Link>
-            </motion.div>
-          ))}
+              <div className="mb-3 flex items-end justify-between gap-2">
+                <div>
+                  <p className="text-lg font-black text-white">Tournament Radar</p>
+                  <p className="text-xs text-white/50">Recent winning lists · click to copy deck code</p>
+                </div>
+                <CalendarDays className="h-4 w-4 text-[var(--theme-accent-2)]" />
+              </div>
+
+              <div className="space-y-2">
+                {TOURNAMENT_LOG.map((entry) => (
+                  <div key={entry.code} className="rounded-xl border border-white/10 bg-black/25 p-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-black text-white">{entry.winner}</p>
+                        <p className="text-[11px] text-white/55">{entry.event} · {entry.when}</p>
+                      </div>
+                      <button
+                        onClick={() => copyDeckCode(entry.code)}
+                        className="rounded-md border border-white/15 bg-black/35 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-white/70 hover:text-white"
+                      >
+                        {copiedCode === entry.code ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                    <p className="mt-2 font-mono text-[11px] text-[var(--theme-accent-2)]">{entry.code}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.article>
+
+            <motion.article
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.12 }}
+              className="captains-bento-card col-span-12 md:col-span-3"
+            >
+              <div className="mb-3 flex items-end justify-between gap-2">
+                <div>
+                  <p className="text-base font-black text-white">Matchup Teaser</p>
+                  <p className="text-[11px] text-white/50">Worst pairings for current #1</p>
+                </div>
+                <TrendingUp className="h-4 w-4 text-[var(--theme-accent-2)]" />
+              </div>
+
+              {matrixTeaser ? (
+                <>
+                  <p className="mb-2 text-xs text-white/70">#{1} {matrixTeaser.anchor.name}</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {matrixTeaser.opponents.map((m) => (
+                      <div key={m.deck.id} className={`rounded-lg border px-2 py-1.5 text-xs ${heatClass(m.rate)}`}>
+                        <p className="truncate text-[10px] font-bold opacity-85">{m.deck.name}</p>
+                        <p className="text-sm font-black">{m.rate}%</p>
+                      </div>
+                    ))}
+                  </div>
+                  <Link href="/matchups" className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--theme-accent-2)] hover:text-white">
+                    See full matrix <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </>
+              ) : (
+                <p className="text-sm text-white/55">Matchup telemetry syncing...</p>
+              )}
+            </motion.article>
+          </div>
         </section>
       </div>
     </div>
