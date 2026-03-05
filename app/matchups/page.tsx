@@ -75,7 +75,8 @@ export default function MatchupsPage() {
   const [activeIndexB, setActiveIndexB] = useState<number>(0);
   const [matrixFilter, setMatrixFilter] = useState<string>("");
   const [lookupLoading, setLookupLoading] = useState(false);
-  const [hoverDeckId, setHoverDeckId] = useState<string | null>(null);
+  const [hoverRowId, setHoverRowId] = useState<string | null>(null);
+  const [hoverColId, setHoverColId] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -614,10 +615,10 @@ export default function MatchupsPage() {
                         Deck ↓ vs →
                       </th>
                       {matrixDecks.map((deck) => (
-                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 ${hoverDeckId === deck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
+                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 ${hoverColId === deck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
                           <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
-                            onMouseEnter={() => setHoverDeckId(deck.id)}
-                            onMouseLeave={() => setHoverDeckId(null)}
+                            onMouseEnter={() => { setHoverColId(deck.id); setHoverRowId(null); }}
+                            onMouseLeave={() => { setHoverColId(null); setHoverRowId(null); }}
                             className="flex flex-col items-center gap-1 group">
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                               onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
@@ -631,10 +632,10 @@ export default function MatchupsPage() {
                   <tbody>
                     {matrixDecks.map((rowDeck, ri) => (
                       <motion.tr layout key={rowDeck.id} className="border-t border-white/5">
-                        <td className={`p-2 sticky left-0 z-10 ${hoverDeckId === rowDeck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
+                        <td className={`p-2 sticky left-0 z-10 ${hoverRowId === rowDeck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
                           <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
-                            onMouseEnter={() => setHoverDeckId(rowDeck.id)}
-                            onMouseLeave={() => setHoverDeckId(null)}
+                            onMouseEnter={() => { setHoverRowId(rowDeck.id); setHoverColId(null); }}
+                            onMouseLeave={() => { setHoverRowId(null); setHoverColId(null); }}
                             className="flex items-center gap-2 group">
                             <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
                               className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
@@ -653,9 +654,9 @@ export default function MatchupsPage() {
                                 ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
                                 : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${hoverDeckId && (hoverDeckId === rowDeck.id || hoverDeckId === colDeck.id) ? "ring-1 ring-[var(--theme-accent-2)]" : ""}`}
-                                    onMouseEnter={() => setHoverDeckId(colDeck.id)}
-                                    onMouseLeave={() => setHoverDeckId(null)}>
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${(hoverRowId === rowDeck.id || hoverColId === colDeck.id) ? "ring-1 ring-[var(--theme-accent-2)]" : ""}`}
+                                    onMouseEnter={() => { setHoverRowId(rowDeck.id); setHoverColId(colDeck.id); }}
+                                    onMouseLeave={() => { setHoverRowId(null); setHoverColId(null); }}>
                                     {rate}%
                                   </button>
                               }
