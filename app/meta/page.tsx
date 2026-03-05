@@ -12,7 +12,8 @@ const tierConfig: Record<string, { bg: string; text: string; border: string; glo
   C: { bg: "bg-white/5",      text: "text-white/50",  border: "border-white/15",     glow: ""                   },
 };
 
-function barColor(win: number) {
+function barColor(win: number | null) {
+  if (win == null) return "bg-white/20";
   if (win >= 56) return "bg-green-400";
   if (win >= 52) return "bg-blue-400";
   if (win >= 48) return "bg-orange-400";
@@ -28,22 +29,35 @@ function TrendBadge({ trend }: { trend: string }) {
 export default function MetaPage() {
   const [meta, setMeta] = useState<MetaSnapshot>(getSeededMeta());
   const [status, setStatus] = useState<"idle" | "loading" | "live" | "fallback">("idle");
+  const [format, setFormat] = useState("OP14");
+  const [region, setRegion] = useState("global");
+  const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
 
   useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | null = null;
+
     const run = async () => {
       try {
         setStatus("loading");
-        const res = await fetch("/api/meta");
+        const params = new URLSearchParams({ format, region });
+        const res = await fetch(`/api/meta?${params.toString()}`);
         if (!res.ok) throw new Error();
         setMeta(await res.json());
         setStatus("live");
+        setLastSuccessAt(new Date().toISOString());
       } catch {
         setStatus("fallback");
         setMeta(getSeededMeta());
       }
     };
+
     run();
-  }, []);
+    timer = setInterval(run, 5 * 60 * 1000);
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [format, region]);
 
   const decks = meta.metaDecks;
   const isSeeded = String(meta.source).toLowerCase().includes("seeded");
@@ -69,6 +83,41 @@ export default function MetaPage() {
           Meta <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#F0C040]">Snapshot</span>
         </h1>
         <p className="text-white/40 text-lg">{isSeeded ? "Seeded meta snapshot" : "Top decks from public aggregate tournaments"} · Updated {new Date(meta.updatedAt).toLocaleDateString()}</p>
+
+        <div className="mt-4 flex flex-wrap gap-3 items-end">
+          <div>
+            <label className="block text-xs text-white/40 mb-1">Format</label>
+            <select
+              value={format}
+              onChange={(e) => setFormat(e.target.value)}
+              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            >
+              {["OP14", "OP13", "OP12", "OP11", "OP10", "OP09", "OP08"].map((f) => (
+                <option key={f} value={f} className="bg-[#0f172a]">{f}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-xs text-white/40 mb-1">Region</label>
+            <select
+              value={region}
+              onChange={(e) => setRegion(e.target.value)}
+              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            >
+              <option value="global" className="bg-[#0f172a]">Global</option>
+              <option value="na" className="bg-[#0f172a]">North America</option>
+              <option value="eu" className="bg-[#0f172a]">Europe</option>
+              <option value="la" className="bg-[#0f172a]">Latin America</option>
+              <option value="oc" className="bg-[#0f172a]">Oceania</option>
+              <option value="asia" className="bg-[#0f172a]">Asia</option>
+            </select>
+          </div>
+
+          <div className="text-xs text-white/40 pb-1">
+            Last successful fetch: {lastSuccessAt ? new Date(lastSuccessAt).toLocaleTimeString() : "—"}
+          </div>
+        </div>
       </motion.div>
 
       {/* Command Brief */}
@@ -83,7 +132,7 @@ export default function MetaPage() {
           <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
             <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck to beat</p>
             <p className="mt-2 text-lg font-black text-white">{decks[0]?.name ?? "—"}</p>
-            <p className="text-sm text-[#F0C040]">{decks[0]?.winRate ?? "—"}% win rate</p>
+            <p className="text-sm text-[#F0C040]">{decks[0]?.winRate != null ? `${decks[0].winRate}% win rate` : "Win rate not provided by source"}</p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
             <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Meta pressure</p>
@@ -111,7 +160,7 @@ export default function MetaPage() {
             <p className="text-white/40 text-xs uppercase tracking-wider mb-2">{item.label}</p>
             <p className="text-white text-xl font-black mb-1">{item.deck?.name ?? "—"}</p>
             <div className="flex items-center gap-3 text-sm">
-              <span className="text-[#F0C040] font-bold">{item.deck?.winRate ?? "—"}% WR</span>
+              <span className="text-[#F0C040] font-bold">{item.deck?.winRate != null ? `${item.deck.winRate}% WR` : "— WR"}</span>
               <span className="text-white/30">·</span>
               <span className="text-white/40">{item.deck?.popularity ?? "—"}% field</span>
             </div>
@@ -159,10 +208,10 @@ export default function MetaPage() {
                       <div className="flex items-center gap-2 justify-end">
                         <div className="w-24 bg-white/10 h-2 rounded-full overflow-hidden">
                           <motion.div className={`h-2 rounded-full ${barColor(deck.winRate)}`}
-                            initial={{ width: 0 }} animate={{ width: `${deck.winRate}%` }}
+                            initial={{ width: 0 }} animate={{ width: `${deck.winRate ?? 50}%` }}
                             transition={{ delay: 0.5 + i * 0.05, duration: 0.6 }} />
                         </div>
-                        <span className="text-white font-bold text-sm w-12 text-right">{deck.winRate}%</span>
+                        <span className="text-white font-bold text-sm w-12 text-right">{deck.winRate != null ? `${deck.winRate}%` : "—"}</span>
                       </div>
                     </td>
                     <td className="p-4 text-right text-white/60">{deck.popularity}%</td>

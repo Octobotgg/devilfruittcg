@@ -5,7 +5,7 @@ export interface MetaDeck {
   name: string;
   tier: "S" | "A" | "B" | "C";
   color: string;
-  winRate: number;
+  winRate: number | null;
   popularity: number;
   trend: "▲" | "▼" | "—";
 }
@@ -43,43 +43,50 @@ function cleanHtml(text: string): string {
     .trim();
 }
 
+const REGION_LABEL: Record<string, string> = {
+  global: "Global",
+  na: "North America",
+  eu: "Europe",
+  la: "Latin America",
+  oc: "Oceania",
+  asia: "Asia",
+};
+
 /**
- * Live tournament aggregate from Limitless Play (public metagame table)
- * Example source: https://play.limitlesstcg.com/decks?game=OP
+ * Live tournament aggregate from Limitless One Piece decks page
+ * Supports filters: format (OP14...) and region (na/eu/la/oc/asia)
  */
-export async function getLiveMeta(): Promise<MetaSnapshot> {
-  const url = "https://play.limitlesstcg.com/decks?game=OP";
+export async function getLiveMeta(opts?: { format?: string; region?: string }): Promise<MetaSnapshot> {
+  const format = (opts?.format || "OP14").toUpperCase();
+  const region = (opts?.region || "global").toLowerCase();
+
+  const params = new URLSearchParams();
+  params.set("format", format);
+  if (region !== "global") params.set("region", region);
+
+  const url = `https://onepiece.limitlesstcg.com/decks?${params.toString()}`;
   const html = await fetch(url, {
-    headers: {
-      "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0",
-    },
+    headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
     cache: "no-store",
   }).then((r) => r.text());
 
-  const summaryMatch = html.match(/(\d+) tournaments,\s*(\d+) players,\s*(\d+) matches/i);
-  const events = summaryMatch ? Number(summaryMatch[1]) : 0;
-  const players = summaryMatch ? Number(summaryMatch[2]) : 0;
-  const matches = summaryMatch ? Number(summaryMatch[3]) : 0;
-
-  const selectedSetMatch = html.match(/<option[^>]*selected[^>]*>([^<]+)<\/option>/i);
-  const selectedSet = selectedSetMatch ? cleanHtml(selectedSetMatch[1]) : "Current";
-
-  const rowRegex = /<tr[^>]*data-share="([0-9.]+)"[^>]*data-winrate="([0-9.]+)"[^>]*>\s*<td>(\d+)<\/td>[\s\S]*?<a href="\/decks\/[^"]+">([\s\S]*?)<\/a>[\s\S]*?<td>([0-9.]+)%<\/td>[\s\S]*?<td><a [^>]*>([0-9.]+)%<\/a><\/td>[\s\S]*?<\/tr>/gi;
+  const rowRegex = /<tr>\s*<td>(\d+)<\/td>[\s\S]*?<a class="deck-link"[^>]*>[\s\S]*?<span class="sm-only">([^<]+)<\/span>[\s\S]*?<span>([^<]+)<\/span>[\s\S]*?<\/a>[\s\S]*?<td>([\d,]+)<\/td>[\s\S]*?<td>([\d.]+)%<\/td>[\s\S]*?<\/tr>/gi;
 
   const metaDecks: MetaDeck[] = [];
   let m: RegExpExecArray | null;
   while ((m = rowRegex.exec(html)) !== null) {
-    const rank = Number(m[3]);
-    const name = cleanHtml(m[4]);
+    const rank = Number(m[1]);
+    const color = cleanHtml(m[2]);
+    const name = cleanHtml(m[3]);
     const popularity = Number(m[5]);
-    const winRate = Number(m[6]);
 
     metaDecks.push({
       rank,
       name,
       tier: tierFromRank(rank),
-      color: "Mixed",
-      winRate,
+      color,
+      // Source page provides points/share but not win-rate directly
+      winRate: null,
       popularity,
       trend: "—",
     });
@@ -91,11 +98,16 @@ export async function getLiveMeta(): Promise<MetaSnapshot> {
 
   return {
     updatedAt: new Date().toISOString(),
-    source: `live:limitless:${selectedSet}`,
+    source: `live:limitless:${format}:${region}`,
     sources: [url],
-    sampleGames: matches,
     metaDecks: metaDecks.slice(0, 15),
-    regions: [{ region: "Global", events, players }],
+    regions: [
+      {
+        region: REGION_LABEL[region] || region.toUpperCase(),
+        events: 0,
+        players: 0,
+      },
+    ],
     decks: SEEDED_DECKS,
     matchups: SEEDED_MATCHUPS,
   };
