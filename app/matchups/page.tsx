@@ -42,6 +42,14 @@ function shortDeckName(name: string): string {
   return parts.slice(0, 2).join(" ");
 }
 
+function cleanDeckDescription(text?: string) {
+  const t = (text || "")
+    .replace(/Live aggregate from Limitless\s*\([^)]+\)/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return t || "Tournament matchup profile";
+}
+
 export default function MatchupsPage() {
   const [decks, setDecks] = useState<MetaDeck[]>(META_DECKS);
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
@@ -712,7 +720,7 @@ export default function MatchupsPage() {
                             <span className="text-white font-bold text-lg">{deck.name}</span>
                             <TrendIcon trend={deck.trend} />
                           </div>
-                          <p className="text-white/40 text-sm truncate">{deck.description}</p>
+                          <p className="text-white/40 text-sm truncate">{cleanDeckDescription(deck.description)}</p>
                           <div className="flex items-center gap-4 mt-2 text-sm">
                             <LeaderColorTag colorLabel={deck.color} />
                             <span className="text-[#F0C040] font-bold">{deck.metaShare}% meta</span>
@@ -805,7 +813,7 @@ function DeckDetail({ deck, decks, onBack, onImageClick }: { deck: MetaDeck; dec
               <h2 className="text-3xl font-black text-white">{deck.name}</h2>
               <span className={`px-3 py-1 rounded-xl border font-black text-sm ${TIER_COLORS[deck.tier]}`}>Tier {deck.tier}</span>
             </div>
-            <p className="text-white/40 mb-6 text-base">{deck.description}</p>
+            <p className="text-white/40 mb-6 text-base">{cleanDeckDescription(deck.description)}</p>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { value: `${deck.metaShare}%`, label: "Meta Share", color: "text-[#F0C040]" },
