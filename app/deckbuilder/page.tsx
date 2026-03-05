@@ -52,6 +52,8 @@ export default function DeckBuilderPage() {
   const [saved, setSaved] = useState(false);
   const [exported, setExported] = useState(false);
   const [isDropActive, setIsDropActive] = useState(false);
+  const [maxRarityView, setMaxRarityView] = useState(false);
+  const [techSlots, setTechSlots] = useState<string[]>([]);
 
   const allCards = useMemo(() => {
     const map = new Map<string, Card>();
@@ -90,6 +92,30 @@ export default function DeckBuilderPage() {
   }, [deck.cards, allCards]);
 
   const maxCurveCount = Math.max(1, ...curveBuckets.map((x) => x.count));
+
+  const imageFor = (id: string) => `/api/card-image?id=${id}${maxRarityView ? "&variant=p1" : ""}`;
+
+  useEffect(() => {
+    setTechSlots((prev) => prev.filter((id) => deck.cards.some((c) => c.cardId === id)).slice(0, 8));
+  }, [deck.cards]);
+
+  function toggleTechSlot(cardId: string) {
+    setTechSlots((prev) => {
+      if (prev.includes(cardId)) return prev.filter((id) => id !== cardId);
+      if (prev.length >= 8) return prev;
+      return [...prev, cardId];
+    });
+  }
+
+  function reorderTechSlots(from: number, to: number) {
+    setTechSlots((prev) => {
+      if (from === to || from < 0 || to < 0 || from >= prev.length || to >= prev.length) return prev;
+      const copy = [...prev];
+      const [moved] = copy.splice(from, 1);
+      copy.splice(to, 0, moved);
+      return copy;
+    });
+  }
 
   function addCard(card: Card) {
     if (card.type === "Leader") {
@@ -168,6 +194,14 @@ export default function DeckBuilderPage() {
       <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 md:p-6">
         <h1 className="text-3xl font-black text-white md:text-4xl">Deck Lab — Phase 4</h1>
         <p className="mt-2 text-sm text-white/60">Drag cards into your deck zone, tune your DON curve, and export tournament-ready lists.</p>
+        <div className="mt-3">
+          <button
+            onClick={() => setMaxRarityView((v) => !v)}
+            className={`rounded-lg border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] ${maxRarityView ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/20 text-[var(--theme-accent-2)]" : "border-white/20 bg-white/5 text-white/70"}`}
+          >
+            {maxRarityView ? "Holo View: ON" : "Holo View: OFF"}
+          </button>
+        </div>
 
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
@@ -235,7 +269,7 @@ export default function DeckBuilderPage() {
                   onClick={() => addCard(card)}
                   className={`relative cursor-grab overflow-hidden rounded-xl border ${qty > 0 ? "border-[var(--theme-accent)]" : "border-white/10"}`}
                 >
-                  <img src={`/api/card-image?id=${card.id}`} alt={card.name} className="aspect-[63/88] w-full object-cover" />
+                  <img src={imageFor(card.id)} alt={card.name} className={`aspect-[63/88] w-full object-cover ${maxRarityView ? "holo-card" : ""}`} />
                   {qty > 0 ? <span className="absolute right-1 top-1 rounded-full bg-[var(--theme-accent)] px-1.5 text-[10px] font-black text-black">{qty}</span> : null}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-1 py-1">
                     <p className="truncate text-[9px] text-white/85">{card.name}</p>
@@ -277,7 +311,7 @@ export default function DeckBuilderPage() {
               <p className="mb-2 flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-white/45"><Crown className="h-3 w-3" />Leader</p>
               {leaderCard ? (
                 <div className="flex items-center gap-2 rounded-xl border border-[var(--theme-ring)] bg-black/20 p-2">
-                  <img src={`/api/card-image?id=${leaderCard.id}`} alt={leaderCard.name} className="h-14 w-10 rounded object-cover" />
+                  <img src={imageFor(leaderCard.id)} alt={leaderCard.name} className={`h-14 w-10 rounded object-cover ${maxRarityView ? "holo-card" : ""}`} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-xs font-bold text-white">{leaderCard.name}</p>
                     <p className="text-[10px] text-white/45">{leaderCard.id} · {leaderCard.color}</p>
@@ -285,6 +319,39 @@ export default function DeckBuilderPage() {
                   <button onClick={() => setDeck((d) => ({ ...d, leaderId: null }))} className="text-white/45 hover:text-red-400"><X className="h-4 w-4" /></button>
                 </div>
               ) : <p className="rounded-xl border border-dashed border-white/15 p-3 text-xs text-white/35">Pick or drop a Leader card</p>}
+            </div>
+
+            <div className="mt-4">
+              <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Captain's Tech Board (drag to reorder)</p>
+              <div className="rounded-xl border border-white/10 bg-black/20 p-3">
+                {techSlots.length === 0 ? (
+                  <p className="text-xs text-white/35">Mark cards with the T button to pin up to 8 key tech slots.</p>
+                ) : (
+                  <div className="flex flex-wrap items-end gap-1">
+                    {techSlots.map((cardId, idx) => {
+                      const card = allCards.get(cardId);
+                      if (!card) return null;
+                      return (
+                        <div
+                          key={cardId}
+                          draggable
+                          onDragStart={(e: any) => e.dataTransfer?.setData("text/tech-index", String(idx))}
+                          onDragOver={(e) => e.preventDefault()}
+                          onDrop={(e: any) => {
+                            const from = Number(e.dataTransfer?.getData("text/tech-index"));
+                            reorderTechSlots(from, idx);
+                          }}
+                          className="cursor-grab"
+                          style={{ transform: `rotate(${(idx - (techSlots.length - 1) / 2) * 4}deg)` }}
+                          title={`${idx + 1}. ${card.name}`}
+                        >
+                          <img src={imageFor(cardId)} alt={card.name} className={`h-16 w-11 rounded border border-white/20 object-cover shadow-lg ${maxRarityView ? "holo-card" : ""}`} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="mt-4">
@@ -296,7 +363,7 @@ export default function DeckBuilderPage() {
                     if (!card) return null;
                     return (
                       <motion.div key={cardId} initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 8 }} className="flex items-center gap-2 rounded-lg bg-black/25 px-2 py-1.5">
-                        <img src={`/api/card-image?id=${cardId}`} alt={card.name} className="h-10 w-7 rounded object-cover" />
+                        <img src={imageFor(cardId)} alt={card.name} className={`h-10 w-7 rounded object-cover ${maxRarityView ? "holo-card" : ""}`} />
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-xs text-white">{card.name}</p>
                           <p className="text-[10px] text-white/40">{card.id}</p>
@@ -305,6 +372,13 @@ export default function DeckBuilderPage() {
                           <button onClick={() => removeOne(cardId)} className="rounded p-1 text-white/50 hover:bg-white/10 hover:text-white"><Minus className="h-3 w-3" /></button>
                           <span className="w-4 text-center text-xs font-bold text-white">{quantity}</span>
                           <button onClick={() => addCard(card)} disabled={quantity >= 4} className="rounded p-1 text-white/50 hover:bg-white/10 hover:text-white disabled:opacity-30"><Plus className="h-3 w-3" /></button>
+                          <button
+                            onClick={() => toggleTechSlot(cardId)}
+                            className={`rounded px-1.5 py-1 text-[10px] font-bold ${techSlots.includes(cardId) ? "bg-[var(--theme-accent)] text-black" : "bg-white/10 text-white/65 hover:text-white"}`}
+                            title="Toggle tech slot"
+                          >
+                            T
+                          </button>
                           <button onClick={() => removeCard(cardId)} className="rounded p-1 text-white/40 hover:text-red-400"><X className="h-3 w-3" /></button>
                         </div>
                       </motion.div>
