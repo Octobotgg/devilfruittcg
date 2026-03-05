@@ -140,13 +140,7 @@ export default function MatchupsPage() {
   };
 
   const selectSuggestedOpponent = (cardId: string) => {
-    // Switch analysis to this leader (make it Leader A)
-    selectLeader("a", cardId);
-    // Also update the selected deck to match
-    const deck = decks.find((d) => d.cardId === cardId);
-    if (deck) {
-      setSelectedDeckId(deck.id);
-    }
+    selectLeader("b", cardId);
     requestAnimationFrame(() => {
       finderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -333,16 +327,6 @@ export default function MatchupsPage() {
       cancelled = true;
     };
   }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, matchupTime, matchupPeriod, lookupLeaderDeck, lookupOpponentDeck]);
-
-  useEffect(() => {
-    if (view !== "detail" || !selectedDeck) return;
-    if (lookupLeaderCardId) return;
-
-    setLookupLeaderCardId(selectedDeck.cardId);
-    setLeaderAQuery(labelForLeader(selectedDeck.cardId));
-    // intentionally not keyed on lookupLeaderCardId so custom user selections are not overwritten
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view, selectedDeck?.cardId]);
 
   const matrixDecks = decks.filter((d) =>
     d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
@@ -536,9 +520,6 @@ export default function MatchupsPage() {
           <button
             key={v.id}
             onClick={() => {
-              if (v.id === "detail" && !selectedDeckId && topDeck) {
-                setSelectedDeckId(topDeck.id);
-              }
               setView(v.id);
             }}
             className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
@@ -1053,17 +1034,13 @@ export default function MatchupsPage() {
               <button
                 key={v.id}
                 onClick={() => {
-                  if (v.id === "detail" && !selectedDeckId && topDeck) {
-                    setSelectedDeckId(topDeck.id);
-                  }
-                  if (v.id === "detail" && !selectedDeck && !topDeck) return;
                   setView(v.id);
                 }}
                 className={`h-11 rounded-xl text-xs font-bold transition-all ${
                   view === v.id
                     ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
                     : "bg-white/5 text-white/60 border border-white/10"
-                } ${v.id === "detail" && !selectedDeck && !topDeck ? "opacity-50" : ""}`}
+                } ${v.id === "detail" && !selectedDeck ? "opacity-50" : ""}`}
               >
                 {v.label}
               </button>
