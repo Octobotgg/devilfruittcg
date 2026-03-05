@@ -60,6 +60,7 @@ export default function MatchupsPage() {
   const [minMatches, setMinMatches] = useState<number>(0);
   const [activeIndexA, setActiveIndexA] = useState<number>(0);
   const [activeIndexB, setActiveIndexB] = useState<number>(0);
+  const [matrixFilter, setMatrixFilter] = useState<string>("");
   const [lookupLoading, setLookupLoading] = useState(false);
 
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
@@ -208,6 +209,11 @@ export default function MatchupsPage() {
     };
     run();
   }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, lookupLeaderDeck, lookupOpponentDeck]);
+
+  const matrixDecks = decks.filter((d) =>
+    d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
+    d.cardId.toLowerCase().includes(matrixFilter.toLowerCase())
+  );
 
   const topDeck = decks.reduce((best, deck) => (
     !best || deck.metaShare > best.metaShare ? deck : best
@@ -472,6 +478,9 @@ export default function MatchupsPage() {
               </button>
             ) : null}
             <span className="text-xs text-white/40 w-full">Interpretation: 55% means Leader A wins about 55 out of 100 games against Leader B.</span>
+            {!lookupLoading && (lookupRate == null || reverseRate == null || ((lookupMatches ?? 0) < minMatches && (reverseMatches ?? 0) < minMatches)) ? (
+              <span className="text-xs text-amber-300 w-full">No reliable data for this pair in current filter. Try lowering min matches or switching format.</span>
+            ) : null}
           </div>
         )}
       </motion.div>
@@ -518,6 +527,14 @@ export default function MatchupsPage() {
           <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             {/* Legend */}
             <p className="md:hidden text-white/40 text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
+            <div className="mb-3">
+              <input
+                value={matrixFilter}
+                onChange={(e) => setMatrixFilter(e.target.value)}
+                placeholder="Filter matrix leaders (name or card ID)"
+                className="w-full md:w-96 bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              />
+            </div>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
                 { color: "bg-green-500", label: "60%+ Strong Favored" },
@@ -533,7 +550,33 @@ export default function MatchupsPage() {
               ))}
             </div>
 
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
+            <div className="md:hidden space-y-2 mb-4">
+              {matrixDecks.slice(0, 20).map((rowDeck) => (
+                <div key={`mobile-${rowDeck.id}`} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name} className="w-8 h-11 rounded border border-white/10" />
+                    <div className="text-sm font-semibold text-white truncate">{rowDeck.name}</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {matrixDecks.filter((d) => d.id !== rowDeck.id).slice(0, 6).map((opp) => {
+                      const rate = rowDeck.matchups[opp.id] ?? 50;
+                      return (
+                        <button
+                          key={`${rowDeck.id}-${opp.id}`}
+                          onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
+                          className={`rounded-md px-2 py-1 text-xs font-bold ${getWinRateColor(rate)}`}
+                          title={`${rowDeck.name} vs ${opp.name}: ${rate}%`}
+                        >
+                          {shortDeckName(opp.name)} {rate}%
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hidden md:block">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -541,7 +584,7 @@ export default function MatchupsPage() {
                       <th className="p-3 text-left text-white/30 text-xs sticky top-0 left-0 bg-[#0a0f1e] z-30 min-w-[120px]">
                         Deck ↓ vs →
                       </th>
-                      {decks.map((deck) => (
+                      {matrixDecks.map((deck) => (
                         <th key={deck.id} className="p-2 min-w-[64px] sticky top-0 bg-[#0a0f1e] z-20">
                           <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
                             className="flex flex-col items-center gap-1 group">
@@ -555,7 +598,7 @@ export default function MatchupsPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {decks.map((rowDeck, ri) => (
+                    {matrixDecks.map((rowDeck, ri) => (
                       <tr key={rowDeck.id} className="border-t border-white/5">
                         <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
                           <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
@@ -568,7 +611,7 @@ export default function MatchupsPage() {
                             </div>
                           </button>
                         </td>
-                        {decks.map((colDeck) => {
+                        {matrixDecks.map((colDeck) => {
                           const rate = rowDeck.matchups[colDeck.id] ?? 50;
                           const isSelf = rowDeck.id === colDeck.id;
                           return (
