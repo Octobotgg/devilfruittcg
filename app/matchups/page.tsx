@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus, Copy, FileDown, Shuffle } from "lucide-react";
+import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus, Copy, FileDown, Shuffle, Pin, PinOff } from "lucide-react";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import DonButton from "@/components/ui/DonButton";
@@ -76,6 +76,8 @@ export default function MatchupsPage() {
   const [lookupLoading, setLookupLoading] = useState(false);
   const [hoverDeckId, setHoverDeckId] = useState<string | null>(null);
   const [hoverCell, setHoverCell] = useState<{ rowId: string; colId: string; rate: number } | null>(null);
+  const [pinnedInspectorDeckId, setPinnedInspectorDeckId] = useState<string | null>(null);
+  const [matchupNotes, setMatchupNotes] = useState<Record<string, string>>({});
 
   useEffect(() => {
     try {
@@ -93,6 +95,23 @@ export default function MatchupsPage() {
       // ignore
     }
   }, [matrixFilter]);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("matchups_notes");
+      if (raw) setMatchupNotes(JSON.parse(raw));
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("matchups_notes", JSON.stringify(matchupNotes));
+    } catch {
+      // ignore
+    }
+  }, [matchupNotes]);
 
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
   const hasLargeSample = sampleGames >= 1000;
@@ -218,7 +237,8 @@ export default function MatchupsPage() {
     d.cardId.toLowerCase().includes(matrixFilter.toLowerCase())
   );
 
-  const inspectorDeck = matrixDecks.find((d) => d.id === hoverDeckId) || matrixDecks[0] || null;
+  const inspectorFocusId = pinnedInspectorDeckId || hoverDeckId;
+  const inspectorDeck = matrixDecks.find((d) => d.id === inspectorFocusId) || matrixDecks[0] || null;
   const inspectorBest = inspectorDeck
     ? matrixDecks.filter((d) => d.id !== inspectorDeck.id)
       .map((d) => ({ deck: d, rate: inspectorDeck.matchups[d.id] ?? 50 }))
@@ -261,6 +281,8 @@ export default function MatchupsPage() {
     navigator.clipboard.writeText(csv);
   };
 
+  const noteKey = `${lookupLeaderCardId || "none"}__${lookupOpponentCardId || "none"}`;
+
   const copyClashReport = () => {
     const text = [
       `Matchup Clash`,
@@ -268,8 +290,39 @@ export default function MatchupsPage() {
       `B: ${labelForLeader(lookupOpponentCardId)} (${reverseRate ?? "N/A"}%)`,
       `Format: ${matchupSet} · Window: ${matchupTime}`,
       `Source: ${sourceLabel}`,
-    ].join("\n");
+      matchupNotes[noteKey] ? `Notes: ${matchupNotes[noteKey]}` : "",
+    ].filter(Boolean).join("\n");
     navigator.clipboard.writeText(text);
+  };
+
+  const exportClashImage = () => {
+    const title = `${labelForLeader(lookupLeaderCardId)} vs ${labelForLeader(lookupOpponentCardId)}`.replace(/&/g, "and");
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1224"/>
+      <stop offset="100%" stop-color="#1d1230"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="60" y="80" fill="#facc15" font-size="28" font-family="Arial" font-weight="700">DevilFruitTCG Matchup Clash</text>
+  <text x="60" y="140" fill="#ffffff" font-size="44" font-family="Arial" font-weight="800">${title}</text>
+  <text x="60" y="230" fill="#93c5fd" font-size="30" font-family="Arial" font-weight="700">${lookupRate ?? "N/A"}%</text>
+  <text x="180" y="230" fill="#9ca3af" font-size="28" font-family="Arial">vs</text>
+  <text x="250" y="230" fill="#fca5a5" font-size="30" font-family="Arial" font-weight="700">${reverseRate ?? "N/A"}%</text>
+  <text x="60" y="300" fill="#d1d5db" font-size="24" font-family="Arial">Format: ${matchupSet} · Window: ${matchupTime}</text>
+  <text x="60" y="345" fill="#9ca3af" font-size="20" font-family="Arial">Source: ${sourceLabel}</text>
+  <text x="60" y="395" fill="#e5e7eb" font-size="20" font-family="Arial">Confidence: ${confidenceLabel(sampleGames)}</text>
+</svg>`;
+
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `matchup-clash-${lookupLeaderCardId || "A"}-vs-${lookupOpponentCardId || "B"}.svg`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const swapLeaders = () => {
@@ -525,6 +578,7 @@ export default function MatchupsPage() {
                 <div className="mt-2 flex justify-center gap-2">
                   <DonButton onClick={swapLeaders}><span className="inline-flex items-center gap-1"><Shuffle className="h-3.5 w-3.5" /> Swap</span></DonButton>
                   <DonButton onClick={copyClashReport}><span className="inline-flex items-center gap-1"><Copy className="h-3.5 w-3.5" /> Copy Report</span></DonButton>
+                  <DonButton onClick={exportClashImage}><span className="inline-flex items-center gap-1"><FileDown className="h-3.5 w-3.5" /> Export Image</span></DonButton>
                 </div>
               </div>
 
@@ -555,6 +609,16 @@ export default function MatchupsPage() {
                   </DonButton>
                 </div>
               ) : null}
+            </div>
+
+            <div className="mt-3 rounded-xl border border-white/10 bg-black/20 p-3">
+              <p className="mb-1 text-[10px] uppercase tracking-[0.12em] text-white/45">Matchup Notes</p>
+              <textarea
+                value={matchupNotes[noteKey] || ""}
+                onChange={(e) => setMatchupNotes((prev) => ({ ...prev, [noteKey]: e.target.value }))}
+                placeholder="Add your read: mulligan plan, key tech, turn timing..."
+                className="h-20 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-xs text-white placeholder:text-white/35"
+              />
             </div>
           </div>
         )}
@@ -733,7 +797,18 @@ export default function MatchupsPage() {
               </div>
 
               <aside className="sticky top-4 h-fit rounded-2xl border border-white/10 bg-black/25 p-3">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/45">Mini Inspector</p>
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-white/45">Mini Inspector</p>
+                  {inspectorDeck ? (
+                    <button
+                      onClick={() => setPinnedInspectorDeckId((p) => (p === inspectorDeck.id ? null : inspectorDeck.id))}
+                      className="rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-bold text-white/75 hover:text-white"
+                      title={pinnedInspectorDeckId === inspectorDeck.id ? "Unpin inspector" : "Pin inspector"}
+                    >
+                      {pinnedInspectorDeckId === inspectorDeck.id ? <span className="inline-flex items-center gap-1"><PinOff className="h-3 w-3" /> Unpin</span> : <span className="inline-flex items-center gap-1"><Pin className="h-3 w-3" /> Pin</span>}
+                    </button>
+                  ) : null}
+                </div>
                 {inspectorDeck ? (
                   <>
                     <div className="mt-2 flex items-center gap-2">
@@ -741,6 +816,7 @@ export default function MatchupsPage() {
                       <div>
                         <p className="text-sm font-bold text-white">{shortDeckName(inspectorDeck.name)}</p>
                         <p className="text-[11px] text-white/45">{inspectorDeck.metaShare}% meta · {inspectorDeck.winRate}% WR</p>
+                        {pinnedInspectorDeckId === inspectorDeck.id ? <p className="text-[10px] text-[var(--theme-accent-2)]">Pinned focus</p> : null}
                       </div>
                     </div>
                     <div className="mt-3">
