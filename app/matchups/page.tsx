@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
@@ -86,6 +86,7 @@ export default function MatchupsPage() {
   const [lookupLoading, setLookupLoading] = useState(false);
   const [hoverRowId, setHoverRowId] = useState<string | null>(null);
   const [hoverColId, setHoverColId] = useState<string | null>(null);
+  const finderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     try {
@@ -136,6 +137,13 @@ export default function MatchupsPage() {
       setLookupOpponentCardId(id);
       setLeaderBQuery(labelForLeader(id));
     }
+  };
+
+  const selectSuggestedOpponent = (cardId: string) => {
+    selectLeader("b", cardId);
+    requestAnimationFrame(() => {
+      finderRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   };
 
   const fuzzyScore = (query: string, value: string) => {
@@ -554,11 +562,16 @@ export default function MatchupsPage() {
 
       {/* Leader lookup (analysis view only) */}
       {view === "detail" && selectedDeck && (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+      <motion.div
+        ref={finderRef}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
         className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
         <h3 className="text-white font-black">Leader Matchup Finder</h3>
         <p className="text-xs text-white/55">
           Pick any two leaders to run your own head-to-head test. Powered by {sourceLabel} ({matchupPeriod.toUpperCase()}).
+          Use <span className="font-bold text-white/80">Analyze</span> on suggested matchups below to instantly replace Leader B.
         </p>
 
         <div className="grid md:grid-cols-2 gap-3">
@@ -1009,7 +1022,13 @@ export default function MatchupsPage() {
         {/* Detail View */}
         {view === "detail" && selectedDeck && (
           <motion.div key="detail" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-            <DeckDetail deck={selectedDeck} decks={decks} onBack={() => setView("matrix")} onImageClick={openDeckModal} />
+            <DeckDetail
+              deck={selectedDeck}
+              decks={decks}
+              onBack={() => setView("matrix")}
+              onImageClick={openDeckModal}
+              onSelectSuggestedOpponent={(opp) => selectSuggestedOpponent(opp.cardId)}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -1048,7 +1067,13 @@ export default function MatchupsPage() {
   );
 }
 
-function DeckDetail({ deck, decks, onBack, onImageClick }: { deck: MetaDeck; decks: MetaDeck[]; onBack: () => void; onImageClick: (d: MetaDeck) => void }) {
+function DeckDetail({ deck, decks, onBack, onImageClick, onSelectSuggestedOpponent }: {
+  deck: MetaDeck;
+  decks: MetaDeck[];
+  onBack: () => void;
+  onImageClick: (d: MetaDeck) => void;
+  onSelectSuggestedOpponent: (d: MetaDeck) => void;
+}) {
   const best = decks
     .filter((d) => d.id !== deck.id)
     .map((d) => ({ deck: d, winRate: deck.matchups[d.id] ?? 50 }))
@@ -1110,14 +1135,27 @@ function DeckDetail({ deck, decks, onBack, onImageClick }: { deck: MetaDeck; dec
                 <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
                   onClick={() => onImageClick(opp)}
                   className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
-                <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-sm truncate">{opp.name}</div>
-                  <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
-                    <motion.div className="bg-green-400 h-1.5 rounded-full"
+                <button
+                  type="button"
+                  onClick={() => onSelectSuggestedOpponent(opp)}
+                  className="flex-1 min-w-0 text-left"
+                >
+                  <div className="truncate text-sm font-semibold text-white transition-colors hover:text-[#F0C040]">{opp.name}</div>
+                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                    <motion.div className="h-1.5 rounded-full bg-green-400"
                       initial={{ width: 0 }} animate={{ width: `${winRate}%` }} transition={{ duration: 0.6 }} />
                   </div>
+                </button>
+                <div className="text-right">
+                  <span className="text-sm font-black text-green-400">{winRate}%</span>
+                  <button
+                    type="button"
+                    onClick={() => onSelectSuggestedOpponent(opp)}
+                    className="mt-1 block rounded-md border border-white/15 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75 hover:text-white"
+                  >
+                    Analyze
+                  </button>
                 </div>
-                <span className="text-green-400 font-black text-sm">{winRate}%</span>
               </div>
             ))}
           </div>
@@ -1131,14 +1169,27 @@ function DeckDetail({ deck, decks, onBack, onImageClick }: { deck: MetaDeck; dec
                 <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
                   onClick={() => onImageClick(opp)}
                   className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
-                <div className="flex-1 min-w-0">
-                  <div className="text-white font-semibold text-sm truncate">{opp.name}</div>
-                  <div className="w-full bg-white/10 rounded-full h-1.5 mt-1 overflow-hidden">
-                    <motion.div className="bg-red-400 h-1.5 rounded-full"
+                <button
+                  type="button"
+                  onClick={() => onSelectSuggestedOpponent(opp)}
+                  className="flex-1 min-w-0 text-left"
+                >
+                  <div className="truncate text-sm font-semibold text-white transition-colors hover:text-[#F0C040]">{opp.name}</div>
+                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                    <motion.div className="h-1.5 rounded-full bg-red-400"
                       initial={{ width: 0 }} animate={{ width: `${winRate}%` }} transition={{ duration: 0.6 }} />
                   </div>
+                </button>
+                <div className="text-right">
+                  <span className="text-sm font-black text-red-400">{winRate}%</span>
+                  <button
+                    type="button"
+                    onClick={() => onSelectSuggestedOpponent(opp)}
+                    className="mt-1 block rounded-md border border-white/15 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75 hover:text-white"
+                  >
+                    Analyze
+                  </button>
                 </div>
-                <span className="text-red-400 font-black text-sm">{winRate}%</span>
               </div>
             ))}
           </div>
@@ -1170,6 +1221,13 @@ function DeckDetail({ deck, decks, onBack, onImageClick }: { deck: MetaDeck; dec
                     <div className={`text-xl font-black ${favored ? "text-green-400" : "text-red-400"}`}>{rate}%</div>
                     <div className="text-xs text-white/30">{getWinRateLabel(rate)}</div>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => onSelectSuggestedOpponent(opp)}
+                    className="rounded-md border border-white/15 bg-black/25 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75 hover:text-white"
+                  >
+                    Analyze
+                  </button>
                 </motion.div>
               );
             })}
