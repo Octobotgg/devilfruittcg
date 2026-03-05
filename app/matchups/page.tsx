@@ -11,22 +11,18 @@ import CardModal, { type CardModalData } from "@/components/CardModal";
 
 function getWinRateColor(rate: number) {
   if (rate >= 60) return "bg-green-500 text-white";
-  if (rate >= 55) return "bg-green-400/80 text-black";
-  if (rate >= 52) return "bg-green-300/60 text-black";
-  if (rate >= 50) return "bg-white/15 text-white";
-  if (rate >= 48) return "bg-orange-300/60 text-black";
-  if (rate >= 45) return "bg-orange-400/80 text-black";
+  if (rate >= 55) return "bg-green-300 text-black";
+  if (rate >= 45) return "bg-white/20 text-white";
+  if (rate >= 40) return "bg-orange-300 text-black";
   return "bg-red-500 text-white";
 }
 
 function getWinRateLabel(rate: number) {
-  if (rate >= 60) return "Very Favored";
+  if (rate >= 60) return "Strong Favored";
   if (rate >= 55) return "Favored";
-  if (rate >= 52) return "Slight Edge";
-  if (rate >= 50) return "Even";
-  if (rate >= 48) return "Slight Disadv.";
-  if (rate >= 45) return "Unfavored";
-  return "Very Unfavored";
+  if (rate >= 45) return "Even-ish";
+  if (rate >= 40) return "Unfavored";
+  return "Tough Matchup";
 }
 
 function TrendIcon({ trend }: { trend: string }) {
@@ -157,6 +153,17 @@ export default function MatchupsPage() {
     leaderBQuery,
     allLeaders.filter((d) => d.id !== lookupLeaderCardId)
   );
+
+  const swapLeaders = () => {
+    const aId = lookupLeaderCardId;
+    const bId = lookupOpponentCardId;
+    const aQ = leaderAQuery;
+    const bQ = leaderBQuery;
+    setLookupLeaderCardId(bId);
+    setLookupOpponentCardId(aId);
+    setLeaderAQuery(bQ);
+    setLeaderBQuery(aQ);
+  };
 
   const lookupLeaderMeta = decks.find((d) => d.cardId === lookupLeaderCardId) || null;
   const lookupOpponentMeta = decks.find((d) => d.cardId === lookupOpponentCardId) || null;
@@ -423,7 +430,14 @@ export default function MatchupsPage() {
 
         {lookupLeaderCardId && lookupOpponentCardId && (
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="text-white/70">{lookupLeaderCardId} vs {lookupOpponentCardId}</span>
+            <span className="text-white/70">{labelForLeader(lookupLeaderCardId)} vs {labelForLeader(lookupOpponentCardId)}</span>
+            <button
+              onClick={swapLeaders}
+              className="px-2 py-1 rounded-md bg-white/10 text-white/80 hover:bg-white/20 text-xs font-bold"
+              title="Swap Leader A and Leader B"
+            >
+              Swap A ↔ B
+            </button>
             <span className={`px-2 py-1 rounded font-black ${getWinRateColor(lookupRate ?? 50)}`}>
               {lookupRate != null && (lookupMatches == null || lookupMatches >= minMatches)
                 ? `${lookupRate}%`
@@ -457,6 +471,7 @@ export default function MatchupsPage() {
                 Open Full Leader Matrix
               </button>
             ) : null}
+            <span className="text-xs text-white/40 w-full">Interpretation: 55% means Leader A wins about 55 out of 100 games against Leader B.</span>
           </div>
         )}
       </motion.div>
@@ -505,11 +520,11 @@ export default function MatchupsPage() {
             <p className="md:hidden text-white/40 text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
-                { color: "bg-green-500", label: "60%+ Favored" },
-                { color: "bg-green-400/80", label: "55-59%" },
-                { color: "bg-white/15", label: "50% Even" },
-                { color: "bg-orange-400/80", label: "45-49%" },
-                { color: "bg-red-500", label: "<45% Unfavored" },
+                { color: "bg-green-500", label: "60%+ Strong Favored" },
+                { color: "bg-green-300", label: "55-59% Favored" },
+                { color: "bg-white/20", label: "45-54% Even-ish" },
+                { color: "bg-orange-300", label: "40-44% Unfavored" },
+                { color: "bg-red-500", label: "<40% Tough Matchup" },
               ].map(l => (
                 <div key={l.label} className="flex items-center gap-1.5">
                   <div className={`w-3 h-3 rounded ${l.color}`} />
@@ -523,11 +538,11 @@ export default function MatchupsPage() {
                 <table className="w-full">
                   <thead>
                     <tr>
-                      <th className="p-3 text-left text-white/30 text-xs sticky left-0 bg-[#0a0f1e] z-20 min-w-[120px]">
+                      <th className="p-3 text-left text-white/30 text-xs sticky top-0 left-0 bg-[#0a0f1e] z-30 min-w-[120px]">
                         Deck ↓ vs →
                       </th>
                       {decks.map((deck) => (
-                        <th key={deck.id} className="p-2 min-w-[64px]">
+                        <th key={deck.id} className="p-2 min-w-[64px] sticky top-0 bg-[#0a0f1e] z-20">
                           <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
                             className="flex flex-col items-center gap-1 group">
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
