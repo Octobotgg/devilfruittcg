@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swords, ArrowLeft, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { parseLeaderColors } from "@/lib/theme/color-utils";
+import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
+import DonButton from "@/components/ui/DonButton";
+import LeaderColorTag from "@/components/ui/LeaderColorTag";
 import {
   META_DECKS,
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
@@ -208,6 +212,11 @@ export default function MatchupsPage() {
     !best || deck.metaShare > best.metaShare ? deck : best
   ), null as MetaDeck | null);
 
+  useEffect(() => {
+    const [c] = parseLeaderColors(topDeck?.color);
+    setThemeByLeaderColor(c);
+  }, [topDeck]);
+
   const strongestEdge = decks
     .flatMap((rowDeck) => decks
       .filter((colDeck) => colDeck.id !== rowDeck.id)
@@ -258,6 +267,10 @@ export default function MatchupsPage() {
           Matchup <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#F0C040]">Matrix</span>
         </h1>
         <p className="text-white/40 text-lg">Matchup analysis · Click any deck for full breakdown</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <DonButton href="/deckbuilder">Build Counter Deck</DonButton>
+          <DonButton href="/meta">View Meta Snapshot</DonButton>
+        </div>
         <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
         <div className="mt-3 flex flex-wrap gap-3 items-end">
           <div>
@@ -627,7 +640,7 @@ export default function MatchupsPage() {
                           </div>
                           <p className="text-white/40 text-sm truncate">{deck.description}</p>
                           <div className="flex items-center gap-4 mt-2 text-sm">
-                            <span className="text-white/40">{deck.color}</span>
+                            <LeaderColorTag colorLabel={deck.color} />
                             <span className="text-[#F0C040] font-bold">{deck.metaShare}% meta</span>
                             <span className="text-green-400 font-bold">{deck.winRate}% WR</span>
                           </div>

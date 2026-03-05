@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Crown, TrendingUp, TrendingDown, Minus, Activity, Globe, Database } from "lucide-react";
 import { getSeededMeta, type MetaSnapshot } from "@/lib/data/meta";
+import { parseLeaderColors } from "@/lib/theme/color-utils";
+import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
+import DonButton from "@/components/ui/DonButton";
+import LeaderColorTag from "@/components/ui/LeaderColorTag";
 
 const tierConfig: Record<string, { bg: string; text: string; border: string; glow: string }> = {
   S: { bg: "bg-[#F0C040]/10", text: "text-[#F0C040]", border: "border-[#F0C040]/30", glow: "shadow-[#F0C040]/20" },
@@ -66,6 +70,11 @@ export default function MetaPage() {
 
   const decks = meta.metaDecks;
   const isSeeded = String(meta.source).toLowerCase().includes("seeded");
+
+  useEffect(() => {
+    const [c] = parseLeaderColors(decks[0]?.color);
+    setThemeByLeaderColor(c);
+  }, [decks]);
 
   const loadDecklist = async (deckName: string, deckId?: string) => {
     if (!deckId) return;
@@ -143,6 +152,7 @@ export default function MetaPage() {
           <div className="text-xs text-white/40 pb-1">
             Last successful fetch: {lastSuccessAt ? new Date(lastSuccessAt).toLocaleTimeString() : "—"}
           </div>
+          <div className="ml-auto"><DonButton href="/matchups">Open Matchup Matrix</DonButton></div>
         </div>
       </motion.div>
 
@@ -257,7 +267,7 @@ export default function MetaPage() {
                         {deck.tier}
                       </span>
                     </td>
-                    <td className="p-4 text-white/40 hidden md:table-cell">{deck.color}</td>
+                    <td className="p-4 text-white/40 hidden md:table-cell"><LeaderColorTag colorLabel={deck.color} /></td>
                     <td className="p-4 hidden md:table-cell">
                       <div className="flex items-center gap-2 justify-end">
                         <div className="w-24 bg-white/10 h-2 rounded-full overflow-hidden">

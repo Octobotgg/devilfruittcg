@@ -10,7 +10,9 @@ import DashboardCard from "@/components/ui/DashboardCard";
 import GlowTag from "@/components/ui/GlowTag";
 import DonButton from "@/components/ui/DonButton";
 import TickerRow from "@/components/ui/TickerRow";
-import { setThemeByLeaderColor, type LeaderColor } from "@/lib/theme/leader-theme";
+import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
+import { parseLeaderColors } from "@/lib/theme/color-utils";
+import LeaderColorTag from "@/components/ui/LeaderColorTag";
 
 function ago(iso?: string) {
   if (!iso) return "—";
@@ -22,16 +24,6 @@ function ago(iso?: string) {
   return `${Math.floor(hrs / 24)}d ago`;
 }
 
-function toLeaderColor(raw?: string): LeaderColor {
-  const v = (raw || "").toLowerCase();
-  if (v.includes("red")) return "red";
-  if (v.includes("green")) return "green";
-  if (v.includes("blue")) return "blue";
-  if (v.includes("purple")) return "purple";
-  if (v.includes("black")) return "black";
-  if (v.includes("yellow")) return "yellow";
-  return "red";
-}
 
 export default function HomePagePhase1() {
   const [meta, setMeta] = useState<MetaSnapshot | null>(null);
@@ -52,7 +44,7 @@ export default function HomePagePhase1() {
   const topDecks = useMemo(() => meta?.metaDecks?.slice(0, 3) || [], [meta]);
 
   useEffect(() => {
-    const topColor = toLeaderColor(topDecks[0]?.color);
+    const [topColor] = parseLeaderColors(topDecks[0]?.color);
     setThemeByLeaderColor(topColor);
   }, [topDecks]);
 
@@ -124,7 +116,7 @@ export default function HomePagePhase1() {
                     <span className="font-bold text-[var(--theme-accent-2)]">{(deck.winRate ?? 50).toFixed(1)}%</span>
                   </div>
                   <div className="mt-2 flex items-center justify-between text-xs text-white/60">
-                    <span>{deck.color}</span>
+                    <LeaderColorTag colorLabel={deck.color} />
                     <span>{deck.popularity.toFixed(1)}% field</span>
                   </div>
                 </div>
