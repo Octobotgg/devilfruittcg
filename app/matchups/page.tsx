@@ -48,6 +48,8 @@ export default function MatchupsPage() {
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
   const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
+  const [matchupSet, setMatchupSet] = useState<string>("OP12");
+  const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
   const hasLargeSample = sampleGames >= 1000;
 
@@ -68,23 +70,24 @@ export default function MatchupsPage() {
   useEffect(() => {
     const run = async () => {
       try {
-        const res = await fetch("/api/matchups");
+        const res = await fetch(`/api/matchups?set=${encodeURIComponent(matchupSet)}`);
         if (!res.ok) return;
         const json = await res.json();
         if (Array.isArray(json.decks) && json.decks.length) {
           setDecks(json.decks);
           if (json.source) {
             const raw = String(json.source).toLowerCase();
-            setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : "Public aggregate");
+            setSourceLabel(raw.includes("seeded") ? "Seeded dataset" : String(json.source));
           }
           if (typeof json.sampleGames === "number") setSampleGames(json.sampleGames);
+          setLastSuccessAt(new Date().toISOString());
         }
       } catch {
         // fallback silently
       }
     };
     run();
-  }, []);
+  }, [matchupSet]);
 
   function openDeckModal(deck: MetaDeck) {
     setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
@@ -104,6 +107,23 @@ export default function MatchupsPage() {
         </h1>
         <p className="text-white/40 text-lg">Matchup analysis · Click any deck for full breakdown</p>
         <p className="text-xs text-white/30 mt-2">Source: {sourceLabel}{sampleGames ? ` · ${sampleGames.toLocaleString()} logged games` : ""}</p>
+        <div className="mt-3 flex flex-wrap gap-3 items-end">
+          <div>
+            <label className="block text-xs text-white/40 mb-1">Matchup Format</label>
+            <select
+              value={matchupSet}
+              onChange={(e) => setMatchupSet(e.target.value)}
+              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            >
+              {['OP14','OP13','OP12','OP11','OP10','OP09','OP08'].map((s) => (
+                <option key={s} value={s} className="bg-[#0f172a]">{s}</option>
+              ))}
+            </select>
+          </div>
+          <div className="text-xs text-white/40 pb-1">
+            Last successful fetch: {lastSuccessAt ? new Date(lastSuccessAt).toLocaleTimeString() : '—'}
+          </div>
+        </div>
       </motion.div>
 
       {!hasLargeSample && (
