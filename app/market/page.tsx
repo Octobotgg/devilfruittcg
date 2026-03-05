@@ -8,6 +8,7 @@ import type { MarketData } from "@/lib/ebay";
 import CardModal, { type CardModalData } from "@/components/CardModal";
 import DonButton from "@/components/ui/DonButton";
 import WantedPosterCard from "@/components/ui/WantedPosterCard";
+import TickerRow from "@/components/ui/TickerRow";
 import { MARKET_HOT_CARDS } from "@/lib/featured-cards";
 
 function MarketContent() {
@@ -174,6 +175,16 @@ function MarketContent() {
         </h1>
         <p className="text-white/40 text-lg">Live bounties from eBay sold comps + TCGPlayer market</p>
       </motion.div>
+
+      <TickerRow
+        items={[
+          { label: "OP01-120", value: "$1,429", delta: 5.2 },
+          { label: "OP09-118", value: "$899", delta: -1.7 },
+          { label: "Manga Ace", value: "$2,750", delta: 3.1 },
+          { label: "SP Nami", value: "$620", delta: 2.3 },
+          { label: "OP12-020", value: "$208", delta: 1.2 },
+        ]}
+      />
 
       {/* Most Wanted */}
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.45 }}>
