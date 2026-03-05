@@ -57,9 +57,9 @@ export default function MatchupsPage() {
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
   const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
-  const [matchupSet, setMatchupSet] = useState<string>("OP12");
-  const [matchupTime, setMatchupTime] = useState<string>("3months");
-  const [deckLimit, setDeckLimit] = useState<number>(18);
+  const [matchupSet, setMatchupSet] = useState<string>("OP14");
+  const [matchupTime, setMatchupTime] = useState<string>("1month");
+  const [deckLimit, setDeckLimit] = useState<number>(12);
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
   const [allLeaders, setAllLeaders] = useState<Array<{ id: string; name: string; setCode: string; color: string }>>([]);
   const [lookupLeaderCardId, setLookupLeaderCardId] = useState<string>("");
