@@ -63,6 +63,23 @@ export default function MatchupsPage() {
   const [matrixFilter, setMatrixFilter] = useState<string>("");
   const [lookupLoading, setLookupLoading] = useState(false);
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("matchups_matrix_filter");
+      if (saved) setMatrixFilter(saved);
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("matchups_matrix_filter", matrixFilter);
+    } catch {
+      // ignore
+    }
+  }, [matrixFilter]);
+
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
   const hasLargeSample = sampleGames >= 1000;
 
@@ -527,13 +544,19 @@ export default function MatchupsPage() {
           <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             {/* Legend */}
             <p className="md:hidden text-white/40 text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
-            <div className="mb-3">
+            <div className="mb-3 flex flex-wrap gap-2 items-center">
               <input
                 value={matrixFilter}
                 onChange={(e) => setMatrixFilter(e.target.value)}
                 placeholder="Filter matrix leaders (name or card ID)"
                 className="w-full md:w-96 bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
               />
+              <button
+                onClick={() => setMatrixFilter("")}
+                className="px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-xs text-white/70 hover:text-white hover:bg-white/10"
+              >
+                Clear filter
+              </button>
             </div>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
@@ -552,7 +575,7 @@ export default function MatchupsPage() {
 
             <div className="md:hidden space-y-2 mb-4">
               {matrixDecks.slice(0, 20).map((rowDeck) => (
-                <div key={`mobile-${rowDeck.id}`} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <motion.div layout key={`mobile-${rowDeck.id}`} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
                   <div className="flex items-center gap-2 mb-2">
                     <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name} className="w-8 h-11 rounded border border-white/10" />
                     <div className="text-sm font-semibold text-white truncate">{rowDeck.name}</div>
@@ -572,7 +595,7 @@ export default function MatchupsPage() {
                       );
                     })}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -599,7 +622,7 @@ export default function MatchupsPage() {
                   </thead>
                   <tbody>
                     {matrixDecks.map((rowDeck, ri) => (
-                      <tr key={rowDeck.id} className="border-t border-white/5">
+                      <motion.tr layout key={rowDeck.id} className="border-t border-white/5">
                         <td className="p-2 sticky left-0 bg-[#0a0f1e] z-10">
                           <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                             className="flex items-center gap-2 group">
@@ -627,7 +650,7 @@ export default function MatchupsPage() {
                             </td>
                           );
                         })}
-                      </tr>
+                      </motion.tr>
                     ))}
                   </tbody>
                 </table>
