@@ -5,6 +5,7 @@ import type {
   LeaderMatchupDailyStatInsert,
   LeaderMatchupDailyStatRow,
   MatchEventInsert,
+  MatchEventQueryOptions,
   MatchEventRow,
   MatchIntelPeriod,
   MatchIntelSnapshot,
@@ -18,7 +19,7 @@ export interface MatchIntelRepository {
   upsertLeaderDailyStats(rows: LeaderDailyStatInsert[]): Promise<number>;
   upsertLeaderMatchupDailyStats(rows: LeaderMatchupDailyStatInsert[]): Promise<number>;
 
-  getMatchesByDeviceHash(deviceHash: string, limit?: number, offset?: number): Promise<MatchEventRow[]>;
+  getMatchesByDeviceHash(deviceHash: string, options?: MatchEventQueryOptions): Promise<MatchEventRow[]>;
   getLatestPlayerIndexMatches(searchTerm: string, limit?: number): Promise<PlayerIndexRow[]>;
   getLatestSnapshot(period: MatchIntelPeriod): Promise<MatchIntelSnapshot | null>;
 }
@@ -31,6 +32,14 @@ function requireServerSupabaseConfig(): { url: string; serviceRoleKey: string } 
   if (!serviceRoleKey) throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SERVICE_KEY)");
 
   return { url, serviceRoleKey };
+}
+
+function normalizeSearchTerm(searchTerm: string): string {
+  return searchTerm
+    .trim()
+    .replace(/[%_]/g, "")
+    .replace(/[^a-zA-Z0-9#\-\s]/g, "")
+    .slice(0, 80);
 }
 
 export function createMatchIntelSupabaseRepository(client?: SupabaseClient): MatchIntelRepository {
@@ -102,37 +111,71 @@ class SupabaseMatchIntelRepository implements MatchIntelRepository {
     return Array.isArray(data) ? data.length : 0;
   }
 
-  async getMatchesByDeviceHash(deviceHash: string, limit = 100, offset = 0): Promise<MatchEventRow[]> {
-    const normalizedLimit = Math.max(1, Math.min(limit, 200));
-    const from = Math.max(0, offset);
+  async getMatchesByDeviceHash(deviceHash: string, options: MatchEventQueryOptions = {}): Promise<MatchEventRow[]> {
+    const normalizedLimit = Math.max(1, Math.min(options.limit ?? 100, 500));
+    const from = Math.max(0, options.offset ?? 0);
     const to = from + normalizedLimit - 1;
 
-    const { data, error } = await this.client
+    let query = this.client
       .from("match_events")
       .select("*")
       .or(`p1_device_hash.eq.${deviceHash},p2_device_hash.eq.${deviceHash}`)
       .order("played_at", { ascending: false })
       .range(from, to);
 
+    if (options.startDate) {
+      const iso = new Date(options.startDate).toISOString();
+      query = query.gte("played_at", iso);
+    }
+
+    if (options.endDate) {
+      const iso = new Date(options.endDate).toISOString();
+      query = query.lte("played_at", iso);
+    }
+
+    const { data, error } = await query;
+
     if (error) throw error;
     return (data || []) as MatchEventRow[];
   }
 
   async getLatestPlayerIndexMatches(searchTerm: string, limit = 25): Promise<PlayerIndexRow[]> {
-    const q = searchTerm.trim();
+    const q = normalizeSearchTerm(searchTerm);
     if (!q) return [];
 
     const normalizedLimit = Math.max(1, Math.min(limit, 100));
 
-    const { data, error } = await this.client
+    const nameResult = await this.client
       .from("player_index")
       .select("*")
-      .or(`latest_player_name.ilike.%${q}%,device_hash.ilike.%${q}%`)
+      .ilike("latest_player_name", `%${q}%`)
       .order("last_seen_at", { ascending: false })
       .limit(normalizedLimit);
 
-    if (error) throw error;
-    return (data || []) as PlayerIndexRow[];
+    if (nameResult.error) throw nameResult.error;
+
+    const merged = new Map<string, PlayerIndexRow>();
+    (nameResult.data || []).forEach((row) => merged.set(row.device_hash, row as PlayerIndexRow));
+
+    if (merged.size < normalizedLimit && q.length >= 5) {
+      const deviceResult = await this.client
+        .from("player_index")
+        .select("*")
+        .ilike("device_hash", `%${q.toLowerCase()}%`)
+        .order("last_seen_at", { ascending: false })
+        .limit(normalizedLimit);
+
+      if (deviceResult.error) throw deviceResult.error;
+      (deviceResult.data || []).forEach((row) => merged.set(row.device_hash, row as PlayerIndexRow));
+    }
+
+    return [...merged.values()]
+      .sort((a, b) => {
+        const ta = a.last_seen_at ? new Date(a.last_seen_at).getTime() : 0;
+        const tb = b.last_seen_at ? new Date(b.last_seen_at).getTime() : 0;
+        return tb - ta;
+      })
+      .slice(0, normalizedLimit);
   }
 
   async getLatestSnapshot(period: MatchIntelPeriod): Promise<MatchIntelSnapshot | null> {

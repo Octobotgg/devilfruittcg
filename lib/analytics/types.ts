@@ -42,6 +42,13 @@ export interface MatchEventRow extends MatchEventInsert {
   created_at: string;
 }
 
+export interface MatchEventQueryOptions {
+  startDate?: string;
+  endDate?: string;
+  limit?: number;
+  offset?: number;
+}
+
 export interface PlayerIndexUpsert {
   device_hash: string;
   latest_player_name: string | null;
