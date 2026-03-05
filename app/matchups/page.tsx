@@ -180,6 +180,50 @@ export default function MatchupsPage() {
       ? Number((reverseFirstRate - reverseSecondRate).toFixed(2))
       : null;
 
+  const overallEdge =
+    lookupRate != null && reverseRate != null
+      ? Number((lookupRate - reverseRate).toFixed(2))
+      : null;
+
+  const leaderPreferredSide =
+    leaderSideEdge == null
+      ? null
+      : leaderSideEdge >= 1
+        ? "first"
+        : leaderSideEdge <= -1
+          ? "second"
+          : "neutral";
+
+  const opponentPreferredSide =
+    opponentSideEdge == null
+      ? null
+      : opponentSideEdge >= 1
+        ? "first"
+        : opponentSideEdge <= -1
+          ? "second"
+          : "neutral";
+
+  const directionalSamples = [
+    lookupFirstGames,
+    lookupSecondGames,
+    reverseFirstGames,
+    reverseSecondGames,
+  ].filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+
+  const directionalMinSample = directionalSamples.length ? Math.min(...directionalSamples) : null;
+
+  const directionalConfidence =
+    directionalMinSample == null
+      ? "Unknown"
+      : directionalMinSample >= 1000
+        ? "High"
+        : directionalMinSample >= 200
+          ? "Medium"
+          : "Low";
+
+  const sideSensitive =
+    Math.abs(leaderSideEdge ?? 0) >= 5 || Math.abs(opponentSideEdge ?? 0) >= 5;
+
   useEffect(() => {
     let cancelled = false;
 
@@ -654,6 +698,49 @@ export default function MatchupsPage() {
                       </p>
                     ) : null}
                   </div>
+                </div>
+              )}
+
+              {(overallEdge != null || leaderPreferredSide || opponentPreferredSide) && (
+                <div className="rounded-xl border border-[var(--theme-ring)]/60 bg-black/35 p-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Matchup Analysis</p>
+                  <ul className="mt-2 space-y-1.5 text-[12px] text-white/75">
+                    {overallEdge != null ? (
+                      <li>
+                        Overall edge: <span className={overallEdge >= 0 ? "text-emerald-300 font-bold" : "text-orange-300 font-bold"}>{overallEdge >= 0 ? `Leader A +${overallEdge}pp` : `Leader B +${Math.abs(overallEdge)}pp`}</span>
+                      </li>
+                    ) : null}
+
+                    {leaderPreferredSide === "first" ? (
+                      <li>
+                        Recommended side ({labelForLeader(lookupLeaderCardId)}): <span className="text-emerald-300 font-bold">go first</span> for ~{Math.abs(leaderSideEdge ?? 0).toFixed(2)}pp lift.
+                      </li>
+                    ) : leaderPreferredSide === "second" ? (
+                      <li>
+                        Recommended side ({labelForLeader(lookupLeaderCardId)}): <span className="text-emerald-300 font-bold">go second</span> for ~{Math.abs(leaderSideEdge ?? 0).toFixed(2)}pp lift.
+                      </li>
+                    ) : leaderPreferredSide === "neutral" ? (
+                      <li>
+                        {labelForLeader(lookupLeaderCardId)} shows <span className="font-bold text-white">minimal side dependency</span> (first/second nearly equal).
+                      </li>
+                    ) : null}
+
+                    {opponentPreferredSide === "first" ? (
+                      <li>
+                        Opponent profile: {labelForLeader(lookupOpponentCardId)} spikes when <span className="text-orange-300 font-bold">going first</span> (+{Math.abs(opponentSideEdge ?? 0).toFixed(2)}pp).
+                      </li>
+                    ) : opponentPreferredSide === "second" ? (
+                      <li>
+                        Opponent profile: {labelForLeader(lookupOpponentCardId)} spikes when <span className="text-orange-300 font-bold">going second</span> (+{Math.abs(opponentSideEdge ?? 0).toFixed(2)}pp).
+                      </li>
+                    ) : null}
+
+                    <li>
+                      Directional confidence: <span className="font-bold text-white">{directionalConfidence}</span>
+                      {directionalMinSample != null ? ` (min side sample ${directionalMinSample.toLocaleString()} games)` : ""}
+                      {sideSensitive ? " · side-sensitive matchup" : ""}
+                    </li>
+                  </ul>
                 </div>
               )}
             </div>
