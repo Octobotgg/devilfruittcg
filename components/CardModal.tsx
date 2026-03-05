@@ -17,6 +17,12 @@ export interface CardModalData {
   power?: number;
   attribute?: string;
   imageUrl?: string;
+
+  baseCardId?: string;
+  variantType?: "base" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
+  variantLabel?: string;
+  canonicalVariantId?: string;
+  variantOrder?: number;
 }
 
 const rarityBadge: Record<string, string> = {
@@ -169,19 +175,23 @@ export default function CardModal({ card, onClose }: Props) {
               {/* Alternate arts / print variants */}
               {variants.length > 1 && (
                 <div className="mb-4">
-                  <p className="text-white/40 text-xs mb-2">Alternate Arts / Print Variants ({variants.length})</p>
+                  <p className="mb-2 text-xs text-white/40">Card Variants ({variants.length})</p>
                   <div className="flex gap-2 overflow-x-auto pb-1">
                     {variants.map((v, idx) => {
                       const src = v.imageUrl || `/api/card-image?id=${v.id}`;
                       const active = imageUrl === src;
+                      const label = v.variantLabel || v.rarity || `Variant ${idx + 1}`;
                       return (
                         <button
                           key={`${v.id}-${idx}-${src}`}
                           onClick={() => setSelectedImage(src)}
-                          className={`rounded-lg border ${active ? "border-[#F0C040]/60" : "border-white/10"} hover:border-[#F0C040]/40 transition-all flex-shrink-0`}
-                          title={`Variant ${idx + 1}`}
+                          className={`relative overflow-hidden rounded-lg border ${active ? "border-[#F0C040]/60" : "border-white/10"} transition-all hover:border-[#F0C040]/40 flex-shrink-0`}
+                          title={label}
                         >
-                          <img src={src} alt={`${v.name} variant ${idx + 1}`} className="w-12 h-16 object-cover rounded-lg" />
+                          <img src={src} alt={`${v.name} ${label}`} className="h-16 w-12 object-cover rounded-lg" />
+                          <span className="absolute bottom-0 left-0 right-0 bg-black/70 px-1 py-0.5 text-center text-[9px] font-bold text-white">
+                            {label}
+                          </span>
                         </button>
                       );
                     })}

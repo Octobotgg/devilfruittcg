@@ -1,9 +1,10 @@
 import { SEED_CARDS, type Card } from "./cards";
+import { attachVariantInfo } from "./card-variants";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
 // All local cards (OP01-OP14, EB01-EB04, ST01-ST29) - used as canonical fallback
-export const ALL_SET_CARDS: Card[] = SEED_CARDS;
+export const ALL_SET_CARDS: Card[] = SEED_CARDS.map(attachVariantInfo);
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
@@ -42,7 +43,7 @@ function mapFeedCard(raw: Record<string, unknown>): Card | null {
       attribute,
       imageUrl: image,
     };
-    return card;
+    return attachVariantInfo(card);
   } catch {
     return null;
   }
@@ -89,7 +90,7 @@ export async function loadCards(): Promise<Card[]> {
   if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return cache.cards;
 
   // Start with all set cards + seed cards as base, then dedupe locally
-  const baseCards = dedupeById([...ALL_SET_CARDS, ...SEED_CARDS]);
+  const baseCards = dedupeById([...ALL_SET_CARDS, ...SEED_CARDS.map(attachVariantInfo)]);
 
   try {
     const res = await fetch(DEFAULT_FEED, { next: { revalidate: 300 } });

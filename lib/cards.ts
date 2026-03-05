@@ -62,6 +62,17 @@ export interface Card {
   power?: number;
   attribute?: string;
   imageUrl?: string;
+
+  // Phase 1 variant normalization (EN-only)
+  baseCardId?: string;
+  legacyVariantCode?: string | null;
+  baseRarity?: string;
+  variantType?: "base" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
+  variantLabel?: string;
+  variantOrder?: number;
+  canonicalVariantKey?: string;
+  canonicalVariantId?: string;
+  language?: "EN";
 }
 
 export const SEED_CARDS: Card[] = [

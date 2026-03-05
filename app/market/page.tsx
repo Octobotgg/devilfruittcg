@@ -117,24 +117,24 @@ function MarketContent() {
 
   const sortedSuggestions = useMemo(() => {
     if (!isSetBrowse) return suggestions;
-    const variantRank = (id: string) => {
-      if (!id.includes("_")) return 0;
-      if (id.toLowerCase().endsWith("_p1")) return 1;
-      if (id.toLowerCase().endsWith("_p2")) return 2;
-      return 3;
-    };
-    const baseId = (id: string) => id.split("_")[0];
-    const num = (id: string) => {
-      const m = /-(\d+)/.exec(baseId(id));
+
+    const baseId = (id: string, explicit?: string) => (explicit || id.split("_")[0]).toUpperCase();
+    const num = (id: string, explicit?: string) => {
+      const m = /-(\d+)/.exec(baseId(id, explicit));
       return m ? Number(m[1]) : 9999;
     };
+
     return [...suggestions].sort((a, b) => {
       const aId = (a.id || "").toUpperCase();
       const bId = (b.id || "").toUpperCase();
-      const n = num(aId) - num(bId);
+
+      const n = num(aId, a.baseCardId) - num(bId, b.baseCardId);
       if (n !== 0) return n;
-      const vr = variantRank(aId) - variantRank(bId);
-      if (vr !== 0) return vr;
+
+      const aVariant = typeof a.variantOrder === "number" ? a.variantOrder : 999;
+      const bVariant = typeof b.variantOrder === "number" ? b.variantOrder : 999;
+      if (aVariant !== bVariant) return aVariant - bVariant;
+
       return (a.name || "").localeCompare(b.name || "");
     });
   }, [suggestions, isSetBrowse]);
@@ -254,7 +254,10 @@ function MarketContent() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-white text-sm font-bold truncate">{s.name}</p>
-                        <p className="text-white/40 text-xs">{(s.id || '').split('_')[0]} · {s.setCode ?? s.set}{s.rarity ? ` · ${s.rarity}` : ""}</p>
+                        <p className="text-xs text-white/40">
+                          {s.baseCardId || s.id} · {s.setCode ?? s.set}
+                          {s.variantLabel ? ` · ${s.variantLabel}` : s.rarity ? ` · ${s.rarity}` : ""}
+                        </p>
                       </div>
                     </button>
                   ))}
@@ -346,7 +349,10 @@ function MarketContent() {
                   className="w-full aspect-[5/7] object-contain rounded-xl border border-white/10 bg-[#0b1222] p-1 group-hover:scale-[1.02] transition-transform"
                 />
                 <p className="mt-2 text-xs font-bold text-white truncate">{s.name}</p>
-                <p className="text-[11px] text-white/45">{(s.id || '').split('_')[0]}</p>
+                <p className="text-[11px] text-white/45">
+                  {s.baseCardId || s.id}
+                  {s.variantLabel ? ` · ${s.variantLabel}` : ""}
+                </p>
               </button>
             ))}
           </div>
