@@ -449,6 +449,42 @@ export default function HomePageGroundZeroPhase2() {
             </motion.article>
           </div>
         </section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.14 }}
+          className="captains-tool-teaser"
+        >
+          <div className="captains-tool-copy">
+            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Tool Teaser</p>
+            <h2 className="mt-2 text-3xl font-black text-white md:text-4xl">
+              Theorycraft your next crew with the fastest deck lab on the seas.
+            </h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65 md:text-base">
+              Drag cards. Test ratios. Refine on matchup pressure. Then launch straight into ranked play with a tighter list.
+            </p>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <DonButton href="/deckbuilder" className="px-6 py-3 text-[11px]">
+                Open Deck Builder
+              </DonButton>
+              <Link
+                href="/decks"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/80 hover:text-white"
+              >
+                Explore Top Decklists <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="captains-card-fan" aria-hidden>
+            {[featuredId, MARKET_HOT_CARDS[2]?.id || "OP09-118", MARKET_HOT_CARDS[1]?.id || "OP01-001"].map((id, i) => (
+              <div key={`${id}-${i}`} className={`captains-fan-card captains-fan-${i + 1}`}>
+                <img src={`/api/card-image?id=${id}&variant=p1`} alt="" className="h-full w-full rounded-xl object-cover" />
+              </div>
+            ))}
+          </div>
+        </motion.section>
       </div>
     </div>
   );
