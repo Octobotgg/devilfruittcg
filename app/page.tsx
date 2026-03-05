@@ -49,14 +49,6 @@ export default function HomePagePhase1() {
     setThemeByLeaderColor(topColor);
   }, [topDecks]);
 
-  const nav = [
-    { href: "/collection", label: "Cards" },
-    { href: "/meta", label: "Meta" },
-    { href: "/matchups", label: "Matchups" },
-    { href: "/decks", label: "Decklists" },
-    { href: "/market", label: "Bounty Board" },
-  ];
-
   const movers = MARKET_HOT_CARDS.slice(0, 5).map((c, i) => ({
     ...c,
     delta: [6.4, 3.2, -1.1, 2.7, -0.8][i] ?? 0,
@@ -70,23 +62,6 @@ export default function HomePagePhase1() {
 
   return (
     <div className="space-y-4 pb-12 md:space-y-5 md:pb-16">
-      <motion.header initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="sticky top-3 z-40">
-        <div className="mx-auto flex max-w-6xl items-center justify-between rounded-2xl border border-[var(--panel-border)] bg-[var(--panel-bg)] px-4 py-2 backdrop-blur-md md:px-5">
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/images/logo-wordmark.svg" alt="DevilFruitTCG" className="h-8 w-auto" />
-          </Link>
-
-          <nav className="hidden items-center gap-1 md:flex">
-            {nav.map((n) => (
-              <Link key={n.label} href={n.href} className="rounded-lg px-3 py-2 text-sm font-semibold text-[var(--text-primary)]/90 hover:bg-white/10">
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-
-          <DonButton href="/deckbuilder">Build Deck</DonButton>
-        </div>
-      </motion.header>
 
       <TickerRow
         items={[
