@@ -166,6 +166,15 @@ export default function MatchupsPage() {
     allLeaders.filter((d) => d.id !== lookupLeaderCardId)
   );
 
+  const lookupOpponentLeader = allLeaders.find((d) => d.id === lookupOpponentCardId) || null;
+  const opponentSetCode = lookupOpponentLeader?.setCode || (lookupOpponentCardId ? lookupOpponentCardId.split("-")[0] : "");
+  const otherLeadersFromOpponentSet = opponentSetCode
+    ? allLeaders
+        .filter((d) => (d.setCode || d.id.split("-")[0]) === opponentSetCode && d.id !== lookupOpponentCardId)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 10)
+    : [];
+
   const lookupLeaderMeta = decks.find((d) => d.cardId === lookupLeaderCardId) || null;
   const lookupOpponentMeta = decks.find((d) => d.cardId === lookupOpponentCardId) || null;
   const lookupLeaderDeck = lookupLeaderMeta ? decks.find((d) => d.id === lookupLeaderMeta.id) || null : null;
@@ -310,6 +319,14 @@ export default function MatchupsPage() {
       cancelled = true;
     };
   }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, matchupTime, matchupPeriod, lookupLeaderDeck, lookupOpponentDeck]);
+
+  useEffect(() => {
+    if (view !== "detail" || !selectedDeck) return;
+    if (lookupLeaderCardId === selectedDeck.cardId) return;
+
+    setLookupLeaderCardId(selectedDeck.cardId);
+    setLeaderAQuery(labelForLeader(selectedDeck.cardId));
+  }, [view, selectedDeck, lookupLeaderCardId]);
 
   const matrixDecks = decks.filter((d) =>
     d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
@@ -492,7 +509,8 @@ export default function MatchupsPage() {
         </div>
       </motion.div>
 
-      {/* Leader lookup */}
+      {/* Leader lookup (analysis view only) */}
+      {view === "detail" && selectedDeck && (
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
         className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
         <h3 className="text-white font-black">Leader Matchup Finder</h3>
@@ -572,6 +590,28 @@ export default function MatchupsPage() {
           </div>
         </div>
 
+        {lookupOpponentCardId && otherLeadersFromOpponentSet.length > 0 && (
+          <div className="rounded-xl border border-white/10 bg-black/20 p-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">
+              Other leaders from {opponentSetCode}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {otherLeadersFromOpponentSet.map((d) => (
+                <button
+                  key={`same-set-${d.id}`}
+                  onClick={() => selectLeader("b", d.id)}
+                  className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition-colors ${
+                    lookupOpponentCardId === d.id
+                      ? "border-[var(--theme-accent-2)] bg-[var(--theme-accent-2)]/20 text-[var(--theme-accent-2)]"
+                      : "border-white/15 bg-black/30 text-white/75 hover:text-white"
+                  }`}
+                >
+                  {d.name} <span className="text-white/45">({d.id})</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {lookupLeaderCardId && lookupOpponentCardId && (
           <div className="relative overflow-hidden rounded-2xl border border-[var(--theme-ring)] bg-black/30 p-4">
@@ -747,6 +787,7 @@ export default function MatchupsPage() {
           </div>
         )}
       </motion.div>
+      )}
 
       {/* View Toggle */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
@@ -756,7 +797,14 @@ export default function MatchupsPage() {
           { id: "tier",   label: "Tier List" },
           { id: "detail", label: "Analysis" },
         ] as const).map((v) => (
-          <button key={v.id} onClick={() => setView(v.id)}
+          <button
+            key={v.id}
+            onClick={() => {
+              if (v.id === "detail" && !selectedDeckId && topDeck) {
+                setSelectedDeckId(topDeck.id);
+              }
+              setView(v.id);
+            }}
             className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
               view === v.id
                 ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black shadow-lg"
@@ -977,14 +1025,17 @@ export default function MatchupsPage() {
               <button
                 key={v.id}
                 onClick={() => {
-                  if (v.id === "detail" && !selectedDeck) return;
+                  if (v.id === "detail" && !selectedDeckId && topDeck) {
+                    setSelectedDeckId(topDeck.id);
+                  }
+                  if (v.id === "detail" && !selectedDeck && !topDeck) return;
                   setView(v.id);
                 }}
                 className={`h-11 rounded-xl text-xs font-bold transition-all ${
                   view === v.id
                     ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
                     : "bg-white/5 text-white/60 border border-white/10"
-                } ${v.id === "detail" && !selectedDeck ? "opacity-50" : ""}`}
+                } ${v.id === "detail" && !selectedDeck && !topDeck ? "opacity-50" : ""}`}
               >
                 {v.label}
               </button>
