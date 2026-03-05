@@ -26,9 +26,12 @@ function tierFromRank(rank: number): MetaDeck["tier"] {
   return "D";
 }
 
-export async function fetchLimitlessMatchups(limit = 12, set = "OP12"): Promise<LimitlessSnapshot | null> {
+export async function fetchLimitlessMatchups(limit = 12, set = "OP12", time = "3months", type = "all"): Promise<LimitlessSnapshot | null> {
   try {
-    const topUrl = `https://play.limitlesstcg.com/decks?game=OP&set=${encodeURIComponent(set)}`;
+    const qs = new URLSearchParams({ game: "OP", set });
+    if (time && time !== "all") qs.set("time", time);
+    if (type && type !== "all") qs.set("type", type);
+    const topUrl = `https://play.limitlesstcg.com/decks?${qs.toString()}`;
     const topHtml = await fetch(topUrl, {
       headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
       next: { revalidate: 900 },
@@ -97,7 +100,7 @@ export async function fetchLimitlessMatchups(limit = 12, set = "OP12"): Promise<
     }
 
     return {
-      source: `tournament-aggregate (${set})`,
+      source: `tournament-aggregate (${set}, ${time}${type !== "all" ? `, ${type}` : ""})`,
       updatedAt: new Date().toISOString(),
       sampleGames,
       decks,

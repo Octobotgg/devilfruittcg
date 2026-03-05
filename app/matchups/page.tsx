@@ -45,6 +45,8 @@ export default function MatchupsPage() {
   const [sourceLabel, setSourceLabel] = useState<string>("Seeded dataset");
   const [sampleGames, setSampleGames] = useState<number>(0);
   const [matchupSet, setMatchupSet] = useState<string>("OP12");
+  const [matchupTime, setMatchupTime] = useState<string>("3months");
+  const [deckLimit, setDeckLimit] = useState<number>(18);
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
   const [allLeaders, setAllLeaders] = useState<Array<{ id: string; name: string; setCode: string; color: string }>>([]);
   const [lookupLeaderCardId, setLookupLeaderCardId] = useState<string>("");
@@ -178,7 +180,7 @@ export default function MatchupsPage() {
 
       try {
         setLookupLoading(true);
-        const p = new URLSearchParams({ leader: lookupLeaderCardId, opponent: lookupOpponentCardId, set: matchupSet });
+        const p = new URLSearchParams({ leader: lookupLeaderCardId, opponent: lookupOpponentCardId, set: matchupSet, time: matchupTime });
         const res = await fetch(`/api/matchups/headtohead?${p.toString()}`);
         const json = await res.json();
         setLookupRate(typeof json?.winRate === 'number' ? json.winRate : null);
@@ -195,7 +197,7 @@ export default function MatchupsPage() {
       }
     };
     run();
-  }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, lookupLeaderDeck, lookupOpponentDeck]);
+  }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, matchupTime, lookupLeaderDeck, lookupOpponentDeck]);
 
   const matrixDecks = decks.filter((d) =>
     d.name.toLowerCase().includes(matrixFilter.toLowerCase()) ||
@@ -219,7 +221,8 @@ export default function MatchupsPage() {
   useEffect(() => {
     const run = async () => {
       try {
-        const res = await fetch(`/api/matchups?set=${encodeURIComponent(matchupSet)}`);
+        const params = new URLSearchParams({ set: matchupSet, time: matchupTime, limit: String(deckLimit) });
+        const res = await fetch(`/api/matchups?${params.toString()}`);
         if (!res.ok) return;
         const json = await res.json();
         if (Array.isArray(json.decks) && json.decks.length) {
@@ -236,7 +239,7 @@ export default function MatchupsPage() {
       }
     };
     run();
-  }, [matchupSet]);
+  }, [matchupSet, matchupTime, deckLimit]);
 
   function openDeckModal(deck: MetaDeck) {
     setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
@@ -266,6 +269,31 @@ export default function MatchupsPage() {
             >
               {['OP14','OP13','OP12','OP11','OP10','OP09','OP08'].map((s) => (
                 <option key={s} value={s} className="bg-[#0f172a]">{s}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs text-white/40 mb-1">Window</label>
+            <select
+              value={matchupTime}
+              onChange={(e) => setMatchupTime(e.target.value)}
+              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            >
+              <option value="1month" className="bg-[#0f172a]">Past month</option>
+              <option value="3months" className="bg-[#0f172a]">Past 3 months</option>
+              <option value="6months" className="bg-[#0f172a]">Past 6 months</option>
+              <option value="12months" className="bg-[#0f172a]">Past 12 months</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs text-white/40 mb-1">Deck depth</label>
+            <select
+              value={String(deckLimit)}
+              onChange={(e) => setDeckLimit(Number(e.target.value))}
+              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            >
+              {[12, 18, 24, 30].map((n) => (
+                <option key={n} value={n} className="bg-[#0f172a]">Top {n}</option>
               ))}
             </select>
           </div>

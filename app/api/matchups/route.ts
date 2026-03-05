@@ -5,9 +5,12 @@ import { fetchLimitlessMatchups } from "@/lib/sources/limitless-matchups";
 
 export async function GET(req: NextRequest) {
   const set = (req.nextUrl.searchParams.get("set") || process.env.MATCHUPS_SET || "OP12").toUpperCase();
+  const time = (req.nextUrl.searchParams.get("time") || "3months").toLowerCase();
+  const type = (req.nextUrl.searchParams.get("type") || "all").toLowerCase();
+  const limit = Math.min(30, Math.max(8, Number(req.nextUrl.searchParams.get("limit") || 18)));
 
   try {
-    const live = await fetchLimitlessMatchups(12, set);
+    const live = await fetchLimitlessMatchups(limit, set, time, type);
     if (live?.decks?.length) {
       return NextResponse.json(
         {

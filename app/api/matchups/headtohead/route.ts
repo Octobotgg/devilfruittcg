@@ -18,18 +18,19 @@ export async function GET(req: NextRequest) {
   const leader = (req.nextUrl.searchParams.get("leader") || "").toUpperCase();
   const opponent = (req.nextUrl.searchParams.get("opponent") || "").toUpperCase();
   const set = (req.nextUrl.searchParams.get("set") || "OP12").toUpperCase();
+  const time = (req.nextUrl.searchParams.get("time") || "3months").toLowerCase();
 
   if (!leader || !opponent) {
     return NextResponse.json({ error: "leader and opponent are required" }, { status: 400 });
   }
 
   try {
-    const aHtml = await fetch(`https://play.limitlesstcg.com/decks/${leader}/matchups?game=OP&set=${encodeURIComponent(set)}`, {
+    const aHtml = await fetch(`https://play.limitlesstcg.com/decks/${leader}/matchups?game=OP&set=${encodeURIComponent(set)}&time=${encodeURIComponent(time)}`, {
       headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
       cache: "no-store",
     }).then((r) => r.text());
 
-    const bHtml = await fetch(`https://play.limitlesstcg.com/decks/${opponent}/matchups?game=OP&set=${encodeURIComponent(set)}`, {
+    const bHtml = await fetch(`https://play.limitlesstcg.com/decks/${opponent}/matchups?game=OP&set=${encodeURIComponent(set)}&time=${encodeURIComponent(time)}`, {
       headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
       cache: "no-store",
     }).then((r) => r.text());
@@ -42,6 +43,7 @@ export async function GET(req: NextRequest) {
         leader,
         opponent,
         set,
+        time,
         winRate: a?.winRate ?? null,
         matches: a?.matches ?? 0,
         reverseWinRate: b?.winRate ?? null,

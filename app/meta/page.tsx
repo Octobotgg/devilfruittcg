@@ -34,6 +34,8 @@ export default function MetaPage() {
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
   const [activeDeck, setActiveDeck] = useState<{ name: string; deckId: string } | null>(null);
   const [deckCards, setDeckCards] = useState<Array<{ id: string; name: string; count: number; imageUrl: string }>>([]);
+  const [deckLists, setDeckLists] = useState<Array<{ listId: string; place: string; player: string; tournament: string; format: string }>>([]);
+  const [deckUsage, setDeckUsage] = useState<Array<{ id: string; name: string; imageUrl: string; usagePct: number; avgQty: number }>>([]);
   const [deckLoading, setDeckLoading] = useState(false);
 
   useEffect(() => {
@@ -70,11 +72,15 @@ export default function MetaPage() {
     setActiveDeck({ name: deckName, deckId });
     setDeckLoading(true);
     setDeckCards([]);
+    setDeckLists([]);
+    setDeckUsage([]);
     try {
-      const params = new URLSearchParams({ deckId, format, region });
+      const params = new URLSearchParams({ deckId, format, region, lists: "8" });
       const res = await fetch(`/api/meta/deck?${params.toString()}`);
       const json = await res.json();
       setDeckCards(Array.isArray(json?.cards) ? json.cards : []);
+      setDeckLists(Array.isArray(json?.lists) ? json.lists : []);
+      setDeckUsage(Array.isArray(json?.usage) ? json.usage : []);
     } catch {
       setDeckCards([]);
     } finally {
@@ -358,16 +364,48 @@ export default function MetaPage() {
             ) : deckCards.length === 0 ? (
               <p className="text-orange-300">No decklist found for this filter. Try Global region or another format.</p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {deckCards.map((c, i) => (
-                  <div key={`${c.id}-${i}`} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-2">
-                    <img src={c.imageUrl} alt={c.name} className="w-10 h-14 rounded border border-white/10 object-cover" />
-                    <div className="min-w-0">
-                      <div className="text-white font-semibold text-sm truncate">{c.name}</div>
-                      <div className="text-white/50 text-xs">{c.id} · x{c.count}</div>
-                    </div>
+              <div className="space-y-5">
+                <div>
+                  <h4 className="text-white font-bold mb-2">Recent Tournament Placings ({deckLists.length})</h4>
+                  <div className="space-y-2">
+                    {deckLists.slice(0, 8).map((l) => (
+                      <div key={l.listId} className="rounded-lg border border-white/10 bg-white/[0.03] p-2 text-sm">
+                        <div className="text-white font-semibold">{l.place} · {l.player}</div>
+                        <div className="text-white/50 text-xs">{l.tournament || "Tournament"} · {l.format} · list #{l.listId}</div>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                <div>
+                  <h4 className="text-white font-bold mb-2">Core Card Usage (across fetched lists)</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {deckUsage.slice(0, 20).map((u) => (
+                      <div key={u.id} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-2">
+                        <img src={u.imageUrl} alt={u.name} className="w-10 h-14 rounded border border-white/10 object-cover" />
+                        <div className="min-w-0">
+                          <div className="text-white font-semibold text-sm truncate">{u.name}</div>
+                          <div className="text-white/50 text-xs">{u.id} · {u.usagePct}% lists · avg {u.avgQty}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-white font-bold mb-2">Representative List</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {deckCards.map((c, i) => (
+                      <div key={`${c.id}-${i}`} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-2">
+                        <img src={c.imageUrl} alt={c.name} className="w-10 h-14 rounded border border-white/10 object-cover" />
+                        <div className="min-w-0">
+                          <div className="text-white font-semibold text-sm truncate">{c.name}</div>
+                          <div className="text-white/50 text-xs">{c.id} · x{c.count}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
