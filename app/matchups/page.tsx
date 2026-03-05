@@ -50,10 +50,13 @@ export default function MatchupsPage() {
   const [sampleGames, setSampleGames] = useState<number>(0);
   const [matchupSet, setMatchupSet] = useState<string>("OP12");
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
-  const [leaderSearch, setLeaderSearch] = useState<string>("");
   const [allLeaders, setAllLeaders] = useState<Array<{ id: string; name: string; setCode: string; color: string }>>([]);
   const [lookupLeaderCardId, setLookupLeaderCardId] = useState<string>("");
   const [lookupOpponentCardId, setLookupOpponentCardId] = useState<string>("");
+  const [leaderAQuery, setLeaderAQuery] = useState<string>("");
+  const [leaderBQuery, setLeaderBQuery] = useState<string>("");
+  const [activeLookupInput, setActiveLookupInput] = useState<"a" | "b">("a");
+  const [recentLeaderIds, setRecentLeaderIds] = useState<string[]>([]);
   const [lookupRate, setLookupRate] = useState<number | null>(null);
   const [reverseRate, setReverseRate] = useState<number | null>(null);
   const [lookupLoading, setLookupLoading] = useState(false);
@@ -80,10 +83,61 @@ export default function MatchupsPage() {
     loadLeaders();
   }, []);
 
-  const filteredLeaders = allLeaders.filter((d) =>
-    d.name.toLowerCase().includes(leaderSearch.toLowerCase()) ||
-    d.id.toLowerCase().includes(leaderSearch.toLowerCase())
-  );
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("matchups_recent_leaders");
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) setRecentLeaderIds(parsed.filter((x) => typeof x === "string").slice(0, 5));
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    if (lookupLeaderCardId && !leaderAQuery) setLeaderAQuery(labelForLeader(lookupLeaderCardId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lookupLeaderCardId, allLeaders.length]);
+
+  useEffect(() => {
+    if (lookupOpponentCardId && !leaderBQuery) setLeaderBQuery(labelForLeader(lookupOpponentCardId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lookupOpponentCardId, allLeaders.length]);
+
+  const labelForLeader = (id: string) => {
+    const l = allLeaders.find((x) => x.id === id);
+    return l ? `${l.name} (${l.id})` : id;
+  };
+
+  const selectLeader = (slot: "a" | "b", id: string) => {
+    if (slot === "a") {
+      setLookupLeaderCardId(id);
+      setLeaderAQuery(labelForLeader(id));
+    } else {
+      setLookupOpponentCardId(id);
+      setLeaderBQuery(labelForLeader(id));
+    }
+
+    setRecentLeaderIds((prev) => {
+      const next = [id, ...prev.filter((x) => x !== id)].slice(0, 5);
+      try { localStorage.setItem("matchups_recent_leaders", JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
+
+  const filteredLeadersA = allLeaders
+    .filter((d) =>
+      d.name.toLowerCase().includes(leaderAQuery.toLowerCase()) ||
+      d.id.toLowerCase().includes(leaderAQuery.toLowerCase())
+    )
+    .slice(0, 8);
+
+  const filteredLeadersB = allLeaders
+    .filter((d) =>
+      d.id !== lookupLeaderCardId &&
+      (d.name.toLowerCase().includes(leaderBQuery.toLowerCase()) || d.id.toLowerCase().includes(leaderBQuery.toLowerCase()))
+    )
+    .slice(0, 8);
 
   const lookupLeaderMeta = decks.find((d) => d.cardId === lookupLeaderCardId) || null;
   const lookupOpponentMeta = decks.find((d) => d.cardId === lookupOpponentCardId) || null;
@@ -241,31 +295,78 @@ export default function MatchupsPage() {
         className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
         <h3 className="text-white font-black">Leader Matchup Finder</h3>
 
-        <div className="grid md:grid-cols-4 gap-3">
-          <input
-            value={leaderSearch}
-            onChange={(e) => setLeaderSearch(e.target.value)}
-            placeholder="Search leader..."
-            className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white md:col-span-2"
-          />
-          <select
-            value={lookupLeaderCardId}
-            onChange={(e) => setLookupLeaderCardId(e.target.value)}
-            className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
-          >
-            {filteredLeaders.map((d) => (
-              <option key={d.id} value={d.id} className="bg-[#0f172a]">{d.name} ({d.id})</option>
-            ))}
-          </select>
-          <select
-            value={lookupOpponentCardId}
-            onChange={(e) => setLookupOpponentCardId(e.target.value)}
-            className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
-          >
-            {allLeaders.filter((d) => d.id !== lookupLeaderCardId).map((d) => (
-              <option key={d.id} value={d.id} className="bg-[#0f172a]">vs {d.name} ({d.id})</option>
-            ))}
-          </select>
+        <div className="grid md:grid-cols-2 gap-3">
+          <div className="relative">
+            <input
+              value={leaderAQuery}
+              onFocus={() => setActiveLookupInput("a")}
+              onChange={(e) => setLeaderAQuery(e.target.value)}
+              placeholder="Leader A (type name or ID)"
+              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            />
+            {leaderAQuery.trim().length >= 2 && filteredLeadersA.length > 0 && (
+              <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
+                {filteredLeadersA.map((d) => (
+                  <button
+                    key={d.id}
+                    onClick={() => selectLeader("a", d.id)}
+                    className="w-full text-left px-3 py-2 hover:bg-white/10 text-sm text-white"
+                  >
+                    {d.name} <span className="text-white/40">({d.id})</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <input
+              value={leaderBQuery}
+              onFocus={() => setActiveLookupInput("b")}
+              onChange={(e) => setLeaderBQuery(e.target.value)}
+              placeholder="Leader B / opponent"
+              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+            />
+            {leaderBQuery.trim().length >= 2 && filteredLeadersB.length > 0 && (
+              <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
+                {filteredLeadersB.map((d) => (
+                  <button
+                    key={d.id}
+                    onClick={() => selectLeader("b", d.id)}
+                    className="w-full text-left px-3 py-2 hover:bg-white/10 text-sm text-white"
+                  >
+                    {d.name} <span className="text-white/40">({d.id})</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <span className="text-xs text-white/40 mr-1">Recent:</span>
+          {recentLeaderIds.map((id) => (
+            <button
+              key={id}
+              onClick={() => selectLeader(activeLookupInput, id)}
+              className="px-2 py-1 rounded-md bg-white/10 text-xs text-white/80 hover:bg-white/20"
+            >
+              {labelForLeader(id)}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <span className="text-xs text-white/40 mr-1">Popular:</span>
+          {decks.slice(0, 6).map((d) => (
+            <button
+              key={d.id}
+              onClick={() => selectLeader(activeLookupInput, d.cardId)}
+              className="px-2 py-1 rounded-md bg-[#F0C040]/15 text-xs text-[#F0C040] hover:bg-[#F0C040]/25"
+            >
+              {d.name}
+            </button>
+          ))}
         </div>
 
         {lookupLeaderCardId && lookupOpponentCardId && (
