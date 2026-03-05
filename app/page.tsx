@@ -28,6 +28,7 @@ function ago(iso?: string) {
 
 export default function HomePagePhase1() {
   const [meta, setMeta] = useState<MetaSnapshot | null>(null);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const run = async () => {
@@ -40,6 +41,20 @@ export default function HomePagePhase1() {
       }
     };
     run();
+  }, []);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => setScrollY(window.scrollY || 0));
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   const topDecks = useMemo(() => meta?.metaDecks?.slice(0, 3) || [], [meta]);
@@ -61,8 +76,18 @@ export default function HomePagePhase1() {
   ];
 
   return (
-    <div className="space-y-4 pb-12 md:space-y-5 md:pb-16">
+    <div className="relative">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
+        <div
+          className="captains-parallax-map absolute inset-[-12%]"
+          style={{ transform: `translate3d(0, ${Math.round(scrollY * 0.18)}px, 0)` }}
+        />
+        <div className="captains-lantern captains-lantern-left" />
+        <div className="captains-lantern captains-lantern-right" />
+        <div className="captains-dust" />
+      </div>
 
+      <div className="relative z-10 space-y-4 pb-12 md:space-y-5 md:pb-16">
       <TickerRow
         items={[
           { label: "OP01-120", value: "$1,429", delta: 5.2 },
@@ -158,6 +183,7 @@ export default function HomePagePhase1() {
           </div>
         </DashboardCard>
       </section>
+      </div>
     </div>
   );
 }
