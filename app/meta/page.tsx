@@ -32,6 +32,9 @@ export default function MetaPage() {
   const [format, setFormat] = useState("OP14");
   const [region, setRegion] = useState("global");
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(null);
+  const [activeDeck, setActiveDeck] = useState<{ name: string; deckId: string } | null>(null);
+  const [deckCards, setDeckCards] = useState<Array<{ id: string; name: string; count: number; imageUrl: string }>>([]);
+  const [deckLoading, setDeckLoading] = useState(false);
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval> | null = null;
@@ -61,6 +64,23 @@ export default function MetaPage() {
 
   const decks = meta.metaDecks;
   const isSeeded = String(meta.source).toLowerCase().includes("seeded");
+
+  const loadDecklist = async (deckName: string, deckId?: string) => {
+    if (!deckId) return;
+    setActiveDeck({ name: deckName, deckId });
+    setDeckLoading(true);
+    setDeckCards([]);
+    try {
+      const params = new URLSearchParams({ deckId, format, region });
+      const res = await fetch(`/api/meta/deck?${params.toString()}`);
+      const json = await res.json();
+      setDeckCards(Array.isArray(json?.cards) ? json.cards : []);
+    } catch {
+      setDeckCards([]);
+    } finally {
+      setDeckLoading(false);
+    }
+  };
 
   return (
     <div className="space-y-10 pb-24 md:pb-0">
@@ -217,7 +237,13 @@ export default function MetaPage() {
                             className="w-8 h-11 rounded border border-white/15 object-cover"
                           />
                         ) : null}
-                        <span>{deck.name}</span>
+                        <button
+                          onClick={() => loadDecklist(deck.name, deck.deckId)}
+                          className="text-left hover:text-[#F0C040] transition-colors"
+                          title={deck.deckId ? "View real decklist" : "Decklist unavailable"}
+                        >
+                          {deck.name}
+                        </button>
                       </div>
                     </td>
                     <td className="p-4">
@@ -318,6 +344,35 @@ export default function MetaPage() {
           </p>
         </div>
       </motion.div>
+
+      {activeDeck && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end md:items-center justify-center p-3" onClick={() => setActiveDeck(null)}>
+          <div className="w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/15 bg-[#0c1324] p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-white text-lg md:text-xl font-black">{activeDeck.name} · Decklist</h3>
+              <button onClick={() => setActiveDeck(null)} className="text-white/60 hover:text-white">Close</button>
+            </div>
+
+            {deckLoading ? (
+              <p className="text-white/50">Loading real tournament list…</p>
+            ) : deckCards.length === 0 ? (
+              <p className="text-orange-300">No decklist found for this filter. Try Global region or another format.</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {deckCards.map((c, i) => (
+                  <div key={`${c.id}-${i}`} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-2">
+                    <img src={c.imageUrl} alt={c.name} className="w-10 h-14 rounded border border-white/10 object-cover" />
+                    <div className="min-w-0">
+                      <div className="text-white font-semibold text-sm truncate">{c.name}</div>
+                      <div className="text-white/50 text-xs">{c.id} · x{c.count}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Mobile one-thumb utility bar */}
       <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">

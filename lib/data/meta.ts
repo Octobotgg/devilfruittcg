@@ -9,6 +9,7 @@ export interface MetaDeck {
   popularity: number;
   trend: "▲" | "▼" | "—";
   cardId?: string;
+  deckId?: string;
 }
 
 export interface RegionStat {
@@ -91,6 +92,8 @@ export async function getLiveMeta(opts?: { format?: string; region?: string }): 
 
     const cardIdMatch = row.match(/one-piece\/[A-Z0-9]+\/([A-Z0-9-]+)_EN\.webp/i);
     const cardId = cardIdMatch?.[1];
+    const deckIdMatch = row.match(/href="\/decks\/(\d+)"/i);
+    const deckId = deckIdMatch?.[1];
 
     metaDecks.push({
       rank,
@@ -101,6 +104,7 @@ export async function getLiveMeta(opts?: { format?: string; region?: string }): 
       popularity,
       trend: "—",
       cardId,
+      deckId,
     });
   }
 
