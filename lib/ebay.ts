@@ -27,6 +27,7 @@ export interface MarketData {
     source: "completed" | "active" | "mock";
     queryTemplate?: {
       query: string;
+      searchUrl: string;
       variantLabel: string;
       variantType: EnVariantType;
       language: "EN";
@@ -57,9 +58,11 @@ export type EbayCardInput = Pick<Card, "id" | "name" | "rarity"> & {
 type VariantTemplate = {
   baseCardId: string;
   baseName: string;
+  baseRarity: string;
   variantType: EnVariantType;
   variantLabel: string;
   query: string;
+  searchUrl: string;
   mustMatchAny: RegExp[];
   mustNotMatch: RegExp[];
   excludedSignals: string[];
@@ -118,6 +121,7 @@ function normalize(input: string): string {
 function stripVariantWords(name: string): string {
   return name
     .replace(/\b(alt\s*art|manga|red\s*manga|gold\s*manga|anniversary|\bsp\b|special)\b/gi, " ")
+    .replace(/[()\[\]{}]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -169,9 +173,13 @@ function buildVariantTemplate(input: EbayCardInput): VariantTemplate {
   const variantType = input.variantType || info.variantType;
   const variantLabel = input.variantLabel || info.variantLabel;
   const baseCardId = input.baseCardId || info.baseCardId;
+  const baseRarity = info.baseRarity;
   const baseName = stripVariantWords(input.name) || input.name;
 
   const queryParts = ["One Piece TCG", baseCardId, baseName];
+  if (variantType === "base" && ["SR", "SEC"].includes(baseRarity)) {
+    queryParts.push(baseRarity);
+  }
   const mustMatchAny: RegExp[] = [];
   const mustNotMatch: RegExp[] = [
     /\b(psa|bgs|cgc|sgc|graded|grading|slab|beckett|hga)\b/i,
@@ -235,12 +243,16 @@ function buildVariantTemplate(input: EbayCardInput): VariantTemplate {
     .replace(/\s+/g, " ")
     .trim();
 
+  const searchUrl = `https://www.ebay.com/sch/i.html?_nkw=${encodeURIComponent(query)}&_sacat=0&LH_Sold=1&LH_Complete=1`;
+
   return {
     baseCardId,
     baseName,
+    baseRarity,
     variantType,
     variantLabel,
     query,
+    searchUrl,
     mustMatchAny,
     mustNotMatch,
     excludedSignals,
@@ -470,6 +482,7 @@ export async function fetchEbaySales(cardName: string, cardId: string, cardInput
       source,
       queryTemplate: {
         query: template.query,
+        searchUrl: template.searchUrl,
         variantLabel: template.variantLabel,
         variantType: template.variantType,
         language: "EN",

@@ -477,8 +477,28 @@ function MarketContent() {
             {/* eBay Sales Table */}
             <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
               <div className="p-5 border-b border-white/10 flex items-center justify-between flex-wrap gap-2">
-                <h3 className="font-bold text-white text-lg">Recent eBay Sales</h3>
-                <p className="text-xs text-white/30">{new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""} · source {data.ebay.source === "completed" ? "sold comps" : data.ebay.source === "active" ? "active fallback" : "seeded fallback"}</p>
+                <div>
+                  <h3 className="font-bold text-white text-lg">Recent eBay Sales</h3>
+                  <p className="text-[11px] text-white/35">
+                    Variant target: {data.ebay.queryTemplate?.variantLabel || "Unknown"}
+                    {data.ebay.queryTemplate?.query ? ` · ${data.ebay.queryTemplate.query}` : ""}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-white/30">
+                    {new Date(data.lastUpdated).toLocaleString()} {data.cached ? "(cached)" : ""} · source {data.ebay.source === "completed" ? "sold comps" : data.ebay.source === "active" ? "active fallback" : "seeded fallback"}
+                  </p>
+                  {data.ebay.queryTemplate?.searchUrl && (
+                    <a
+                      href={data.ebay.queryTemplate.searchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-flex items-center gap-1 text-[11px] text-[#F0C040] hover:text-[#ffd56a]"
+                    >
+                      Open strict eBay query <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+                </div>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
