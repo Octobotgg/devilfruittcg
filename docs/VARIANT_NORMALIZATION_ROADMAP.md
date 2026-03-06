@@ -43,6 +43,17 @@
   - excludes graded + non-EN listings
 - `app/api/market/route.ts` now passes variant metadata into pricing fetch for template selection.
 
+## Phase 2B (audit + QA) — ✅ started
+- Added full-run audit tool: `scripts/audit-variant-pricing.cjs`
+  - Crawls EN cards and evaluates variant pricing output from `/api/market`
+  - Flags issues (`mock_source`, `low_sales`, `low_confidence`, `variant_label_mismatch`, etc.)
+  - Writes resumable state + JSON report under `.cache/phase2b/`
+
+Run:
+```bash
+npm run audit:variant-pricing -- --base https://devilfruittcg.gg --maxCards 300 --concurrency 3 --delayMs 250 --resume
+```
+
 ## Phase 3 (migration cleanup)
 - Migrate user-facing references to canonical variant IDs/labels everywhere.
 - Keep compatibility adapter for legacy `_p*` data during transition window.

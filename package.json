@@ -11,6 +11,7 @@
     "backfill:market-history": "node scripts/backfill-market-history.cjs",
     "aggregate:match-intel": "node scripts/aggregate-match-intel.mjs",
     "bridge:match-intel": "node scripts/bridge-match-intel-snapshots.mjs",
+    "audit:variant-pricing": "node scripts/audit-variant-pricing.cjs",
     "prebuild": "npm run validate:cards && npm run validate:featured",
     "build": "next build",
     "start": "next start",
