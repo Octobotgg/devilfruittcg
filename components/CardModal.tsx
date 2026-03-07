@@ -13,10 +13,10 @@ export interface CardModalData {
   type?: string;
   color?: string;
   rarity?: string;
-  cost?: number;
-  power?: number;
-  attribute?: string;
-  imageUrl?: string;
+  cost?: number | null;
+  power?: number | null;
+  attribute?: string | null;
+  imageUrl?: string | null;
 
   baseCardId?: string;
   variantType?: "base" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
@@ -156,8 +156,8 @@ export default function CardModal({ card, onClose }: Props) {
                   { label: "Set",    value: card.set ?? "—" },
                   { label: "Type",   value: card.type ?? "—" },
                   { label: "Color",  value: card.color ?? "—", isColor: true },
-                  { label: "Cost",   value: card.cost !== undefined ? String(card.cost) : "—" },
-                  { label: "Power",  value: card.power !== undefined ? card.power.toLocaleString() : "—" },
+                  { label: "Cost",   value: card.cost != null ? String(card.cost) : "—" },
+                  { label: "Power",  value: card.power != null ? card.power.toLocaleString() : "—" },
                   { label: "Attribute", value: card.attribute ?? "—" },
                 ].map(stat => (
                   <div key={stat.label} className="bg-white/5 border border-white/8 rounded-xl px-3 py-2.5">

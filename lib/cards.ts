@@ -1,70 +1,31 @@
-import OP01_CARDS from './op01-cards';
-import OP02_CARDS from './op02-cards';
-import OP03_CARDS from './op03-cards';
-import OP04_CARDS from './op04-cards';
-import OP05_CARDS from './op05-cards';
-import OP06_CARDS from './op06-cards';
-import OP07_CARDS from './op07-cards';
-import OP08_CARDS from './op08-cards';
-import OP09_CARDS from './op09-cards';
-import OP10_CARDS from './op10-cards';
-import OP11_CARDS from './op11-cards';
-import OP12_CARDS from './op12-cards';
-import OP13_CARDS from './op13-cards';
-import OP14_CARDS from './op14-cards';
-import EB01_CARDS from './eb01-cards';
-import EB02_CARDS from './eb02-cards';
-import EB03_CARDS from './eb03-cards';
-import EB04_CARDS from './eb04-cards';
-import P_CARDS from './p-cards';
-import PRB01_CARDS from './prb01-cards';
-import PRB02_CARDS from './prb02-cards';
-import ST01_CARDS from './st01-cards';
-import ST02_CARDS from './st02-cards';
-import ST03_CARDS from './st03-cards';
-import ST04_CARDS from './st04-cards';
-import ST05_CARDS from './st05-cards';
-import ST06_CARDS from './st06-cards';
-import ST07_CARDS from './st07-cards';
-import ST08_CARDS from './st08-cards';
-import ST09_CARDS from './st09-cards';
-import ST10_CARDS from './st10-cards';
-import ST11_CARDS from './st11-cards';
-import ST12_CARDS from './st12-cards';
-import ST13_CARDS from './st13-cards';
-import ST14_CARDS from './st14-cards';
-import ST15_CARDS from './st15-cards';
-import ST16_CARDS from './st16-cards';
-import ST17_CARDS from './st17-cards';
-import ST18_CARDS from './st18-cards';
-import ST19_CARDS from './st19-cards';
-import ST20_CARDS from './st20-cards';
-import ST21_CARDS from './st21-cards';
-import ST22_CARDS from './st22-cards';
-import ST23_CARDS from './st23-cards';
-import ST24_CARDS from './st24-cards';
-import ST25_CARDS from './st25-cards';
-import ST26_CARDS from './st26-cards';
-import ST27_CARDS from './st27-cards';
-import ST28_CARDS from './st28-cards';
-import ST29_CARDS from './st29-cards';
+import BASE_CARDS_JSON from "@/data/bandai-en-base-cards.json";
+import { attachVariantInfo } from "@/lib/card-variants";
 
 export interface Card {
   id: string;
+  baseId?: string;
+  baseCardId?: string;
+  printedCardId?: string;
   name: string;
   set: string;
+  cardSetNames?: string[];
   setCode: string;
   number: string;
   type: string;
   color: string;
   rarity: string;
-  cost?: number;
-  power?: number;
-  attribute?: string;
-  imageUrl?: string;
-
-  // Phase 1 variant normalization (EN-only)
-  baseCardId?: string;
+  cost?: number | null;
+  life?: number | null;
+  power?: number | null;
+  counter?: number | null;
+  attribute?: string | null;
+  traits?: string | null;
+  effect?: string | null;
+  trigger?: string | null;
+  imageUrl?: string | null;
+  notes?: string[];
+  variantCode?: string | null;
+  isVariant?: boolean;
   legacyVariantCode?: string | null;
   baseRarity?: string;
   variantType?: "base" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
@@ -72,65 +33,29 @@ export interface Card {
   variantOrder?: number;
   canonicalVariantKey?: string;
   canonicalVariantId?: string;
+  isReprint?: boolean;
+  releaseCode?: string | null;
+  releaseDate?: string | null;
+  releaseDatePrecision?: string | null;
+  releaseDateRaw?: string | null;
+  releaseUrl?: string | null;
+  originCardId?: string | null;
+  originSet?: string | null;
   language?: "EN";
+  seriesId?: string;
+  seriesLabel?: string;
+  seriesCategory?: string;
+  seriesIds?: string[];
+  seriesLabels?: string[];
+  seriesCategories?: string[];
+  manualReview?: string[];
 }
 
-export const SEED_CARDS: Card[] = [
-  ...OP01_CARDS,
-  ...OP02_CARDS,
-  ...OP03_CARDS,
-  ...OP04_CARDS,
-  ...OP05_CARDS,
-  ...OP06_CARDS,
-  ...OP07_CARDS,
-  ...OP08_CARDS,
-  ...OP09_CARDS,
-  ...OP10_CARDS,
-  ...OP11_CARDS,
-  ...OP12_CARDS,
-  ...OP13_CARDS,
-  ...OP14_CARDS,
-  ...EB01_CARDS,
-  ...EB02_CARDS,
-  ...EB03_CARDS,
-  ...EB04_CARDS,
-  ...P_CARDS,
-  ...PRB01_CARDS,
-  ...PRB02_CARDS,
-  ...ST01_CARDS,
-  ...ST02_CARDS,
-  ...ST03_CARDS,
-  ...ST04_CARDS,
-  ...ST05_CARDS,
-  ...ST06_CARDS,
-  ...ST07_CARDS,
-  ...ST08_CARDS,
-  ...ST09_CARDS,
-  ...ST10_CARDS,
-  ...ST11_CARDS,
-  ...ST12_CARDS,
-  ...ST13_CARDS,
-  ...ST14_CARDS,
-  ...ST15_CARDS,
-  ...ST16_CARDS,
-  ...ST17_CARDS,
-  ...ST18_CARDS,
-  ...ST19_CARDS,
-  ...ST20_CARDS,
-  ...ST21_CARDS,
-  ...ST22_CARDS,
-  ...ST23_CARDS,
-  ...ST24_CARDS,
-  ...ST25_CARDS,
-  ...ST26_CARDS,
-  ...ST27_CARDS,
-  ...ST28_CARDS,
-  ...ST29_CARDS,
-];
+export const SEED_CARDS: Card[] = (BASE_CARDS_JSON as Card[]).map(attachVariantInfo);
 
 export function searchCards(query: string): Card[] {
   const q = query.toLowerCase().trim();
-  if (!q) return SEED_CARDS.slice(0, 12);
+  if (!q) return SEED_CARDS;
 
   const scored = SEED_CARDS.map((card) => {
     let score = 0;
@@ -138,34 +63,27 @@ export function searchCards(query: string): Card[] {
     const idLower = card.id.toLowerCase();
     const setCodeLower = card.setCode.toLowerCase();
 
-    if (idLower === q) score += 1000;
-    else if (idLower.startsWith(q)) score += 500;
-    else if (idLower.includes(q)) score += 300;
+    if (idLower === q) score += 1200;
+    else if (idLower.startsWith(q)) score += 700;
+    else if (idLower.includes(q)) score += 500;
 
-    if (nameLower === q) score += 900;
-    else if (nameLower.startsWith(q)) score += 400;
-    else if (nameLower.includes(` ${q}`) || nameLower.includes(`${q} `)) score += 350;
-    else if (nameLower.includes(q)) score += 200;
+    if (nameLower === q) score += 1000;
+    else if (nameLower.startsWith(q)) score += 600;
+    else if (nameLower.includes(` ${q}`) || nameLower.includes(`${q} `)) score += 500;
+    else if (nameLower.includes(q)) score += 350;
 
-    if (setCodeLower === q) score += 100;
-    if (card.set.toLowerCase().includes(q)) score += 50;
-    if (card.color.toLowerCase().includes(q)) score += 40;
-    if (card.type.toLowerCase().includes(q)) score += 30;
+    if (setCodeLower === q) score += 200;
+    if (card.set.toLowerCase().includes(q)) score += 120;
+    if (card.color.toLowerCase().includes(q)) score += 80;
+    if (card.type.toLowerCase().includes(q)) score += 60;
 
     return { card, score };
   });
 
-  const results = scored
+  return scored
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)
     .map((item) => item.card);
-
-  const seen = new Set<string>();
-  return results.filter((card) => {
-    if (seen.has(card.id)) return false;
-    seen.add(card.id);
-    return true;
-  });
 }
 
 export function advancedSearch(params: {
@@ -177,89 +95,45 @@ export function advancedSearch(params: {
   minCost?: number;
   maxCost?: number;
 }): Card[] {
-  let results = SEED_CARDS;
-
-  if (params.query) {
-    results = searchCards(params.query);
-  }
+  const results = params.query ? searchCards(params.query) : SEED_CARDS;
 
   return results.filter((card) => {
-    if (params.setCode && !card.setCode.toLowerCase().includes(params.setCode.toLowerCase())) return false;
+    if (params.setCode && card.setCode.toLowerCase() !== params.setCode.toLowerCase()) return false;
     if (params.color && !card.color.toLowerCase().includes(params.color.toLowerCase())) return false;
-    if (params.type && !card.type.toLowerCase().includes(params.type.toLowerCase())) return false;
-    if (params.rarity && !card.rarity.toLowerCase().includes(params.rarity.toLowerCase())) return false;
-    if (params.minCost !== undefined && (card.cost === undefined || card.cost < params.minCost)) return false;
-    if (params.maxCost !== undefined && (card.cost === undefined || card.cost > params.maxCost)) return false;
+    if (params.type && card.type.toLowerCase() !== params.type.toLowerCase()) return false;
+    if (params.rarity && card.rarity.toLowerCase() !== params.rarity.toLowerCase()) return false;
+    if (params.minCost !== undefined && (card.cost ?? -1) < params.minCost) return false;
+    if (params.maxCost !== undefined && (card.cost ?? Number.MAX_SAFE_INTEGER) > params.maxCost) return false;
     return true;
   });
 }
 
 export function findCardExact(query: string): Card | null {
   const q = query.toLowerCase().trim();
-  const exactId = SEED_CARDS.find((c) => c.id.toLowerCase() === q);
-  if (exactId) return exactId;
-  const exactName = SEED_CARDS.find((c) => c.name.toLowerCase() === q);
-  if (exactName) return exactName;
-  return null;
+  return SEED_CARDS.find((card) => card.id.toLowerCase() === q || card.name.toLowerCase() === q) ?? null;
 }
 
 export function getCardById(id: string): Card | undefined {
-  return SEED_CARDS.find((c) => c.id === id);
+  return SEED_CARDS.find((card) => card.id === id);
 }
 
 export function getCardsBySet(setCode: string): Card[] {
-  return SEED_CARDS.filter((c) => c.setCode === setCode);
+  return SEED_CARDS.filter((card) => card.setCode === setCode);
 }
 
-export const SETS = [
-  { code: "OP01", name: "ROMANCE DAWN" },
-  { code: "OP02", name: "PARAMOUNT WAR" },
-  { code: "OP03", name: "PILLARS OF STRENGTH" },
-  { code: "OP04", name: "KINGDOMS OF INTRIGUE" },
-  { code: "OP05", name: "AWAKENING OF THE NEW ERA" },
-  { code: "OP06", name: "WINGS OF THE CAPTAIN" },
-  { code: "OP07", name: "500 YEARS IN THE FUTURE" },
-  { code: "OP08", name: "TWO LEGENDS" },
-  { code: "OP09", name: "EMPERORS IN THE NEW WORLD" },
-  { code: "OP10", name: "ROYAL BLOOD" },
-  { code: "OP11", name: "A FIST OF DIVINE SPEED" },
-  { code: "OP12", name: "LEGACY OF THE MASTER" },
-  { code: "OP13", name: "CARRYING ON HIS WILL" },
-  { code: "OP14", name: "THE AZURE SEA'S SEVEN" },
-  { code: "EB01", name: "MEMORIAL COLLECTION" },
-  { code: "EB02", name: "ANIME 25TH COLLECTION" },
-  { code: "EB03", name: "ONE PIECE HEROINES EDITION" },
-  { code: "EB04", name: "THE AZURE SEA’S SEVEN" },
-  { code: "P", name: "PROMOTION CARD" },
-  { code: "PRB01", name: "ONE PIECE CARD THE BEST" },
-  { code: "PRB02", name: "ONE PIECE CARD THE BEST VOL.2" },
-  { code: "ST01", name: "STRAW HAT CREW" },
-  { code: "ST02", name: "WORST GENERATION" },
-  { code: "ST03", name: "THE SEVEN WARLORDS OF THE SEA" },
-  { code: "ST04", name: "ANIMAL KINGDOM PIRATES" },
-  { code: "ST05", name: "ONE PIECE FILM EDITION" },
-  { code: "ST06", name: "ABSOLUTE JUSTICE" },
-  { code: "ST07", name: "BIG MOM PIRATES" },
-  { code: "ST08", name: "MONKEY D. LUFFY" },
-  { code: "ST09", name: "YAMATO" },
-  { code: "ST10", name: "THE THREE CAPTAINS" },
-  { code: "ST11", name: "UTA" },
-  { code: "ST12", name: "ZORO AND SANJI" },
-  { code: "ST13", name: "THE THREE BROTHERS" },
-  { code: "ST14", name: "3D2Y" },
-  { code: "ST15", name: "RED EDWARD.NEWGATE" },
-  { code: "ST16", name: "GREEN UTA" },
-  { code: "ST17", name: "BLUE DONQUIXOTE DOFLAMINGO" },
-  { code: "ST18", name: "PURPLE MONKEY.D.LUFFY" },
-  { code: "ST19", name: "BLACK SMOKER" },
-  { code: "ST20", name: "YELLOW CHARLOTTE KATAKURI" },
-  { code: "ST21", name: "GEAR5" },
-  { code: "ST22", name: "ACE & NEWGATE" },
-  { code: "ST23", name: "RED SHANKS" },
-  { code: "ST24", name: "GREEN JEWELRY BONNEY" },
-  { code: "ST25", name: "BLUE BUGGY" },
-  { code: "ST26", name: "PURPLE/BLACK MONKEY.D.LUFFY" },
-  { code: "ST27", name: "BLACK MARSHALL.D.TEACH" },
-  { code: "ST28", name: "GREEN/YELLOW YAMATO" },
-  { code: "ST29", name: "EGGHEAD" },
-];
+const SET_NAME_OVERRIDES: Record<string, string> = {
+  P: "Promotion Card [P]",
+};
+
+export const SETS = Object.values(
+  SEED_CARDS.reduce<Record<string, { code: string; name: string }>>((acc, card) => {
+    if (acc[card.setCode]) return acc;
+
+    acc[card.setCode] = {
+      code: card.setCode,
+      name: SET_NAME_OVERRIDES[card.setCode] || card.set,
+    };
+
+    return acc;
+  }, {}),
+).sort((a, b) => a.code.localeCompare(b.code));

@@ -1,0 +1,4087 @@
+[
+  {
+    "key": "ANIMAL KINGDOM PIRATES",
+    "name": "Animal Kingdom Pirates [ST-04]",
+    "codes": [
+      "ST04"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569004"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Animal Kingdom Pirates- [ST-04]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Animal Kingdom Pirates- [ST-04]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st01-04.php",
+    "releaseDate": "2022-12-02",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "December 2, 2022",
+    "manualReview": []
+  },
+  {
+    "key": "ROMANCE DAWN",
+    "name": "ROMANCE DAWN [OP01]",
+    "codes": [
+      "OP01"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569101"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-ROMANCE DAWN- [OP-01]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 154,
+    "baseCardCount": 121,
+    "productTitle": "BOOSTER PACK -ROMANCE DAWN- [OP-01]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op01.php",
+    "releaseDate": "2022-12-02",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "December 2, 2022",
+    "manualReview": []
+  },
+  {
+    "key": "STRAW HAT CREW",
+    "name": "Straw Hat Crew [ST-01]",
+    "codes": [
+      "ST01"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569001"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Straw Hat Crew- [ST-01]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Straw Hat Crew- [ST-01]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st01-04.php",
+    "releaseDate": "2022-12-02",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "December 2, 2022",
+    "manualReview": []
+  },
+  {
+    "key": "THE SEVEN WARLORDS OF THE SEA",
+    "name": "The Seven Warlords of the Sea [ST-03]",
+    "codes": [
+      "ST03"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569003"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-The Seven Warlords of the Sea- [ST-03]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -The Seven Warlords of the Sea- [ST-03]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st01-04.php",
+    "releaseDate": "2022-12-02",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "December 2, 2022",
+    "manualReview": []
+  },
+  {
+    "key": "WORST GENERATION",
+    "name": "Worst Generation [ST-02]",
+    "codes": [
+      "ST02"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569002"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Worst Generation- [ST-02]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Worst Generation- [ST-02]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st01-04.php",
+    "releaseDate": "2022-12-02",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "December 2, 2022",
+    "manualReview": []
+  },
+  {
+    "key": "ONE PIECE FILM EDITION",
+    "name": "ONE PIECE FILM edition [ST-05]",
+    "codes": [
+      "ST05"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569005"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-ONE PIECE FILM edition- [ST-05]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK ONE PIECE FILM edition [ST-05]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st05.php",
+    "releaseDate": "2023-02-03",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "February 3, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "ABSOLUTE JUSTICE",
+    "name": "Absolute Justice [ST-06]",
+    "codes": [
+      "ST06"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569006"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Absolute Justice- [ST-06]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Absolute Justice- [ST-06]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st06.php",
+    "releaseDate": "2023-03-10",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "March 10, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "PARAMOUNT WAR",
+    "name": "PARAMOUNT WAR [OP02]",
+    "codes": [
+      "OP02"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569102"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-PARAMOUNT WAR- [OP-02]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 154,
+    "baseCardCount": 121,
+    "productTitle": "BOOSTER PACK -PARAMOUNT WAR- [OP-02]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op02.php",
+    "releaseDate": "2023-03-10",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "March 10, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "BIG MOM PIRATES",
+    "name": "Big Mom Pirates [ST-07]",
+    "codes": [
+      "ST07"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569007"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Big Mom Pirates- [ST-07]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Big Mom Pirates- [ST-07]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st07.php",
+    "releaseDate": "2023-06-30",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 30, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "PILLARS OF STRENGTH",
+    "name": "PILLARS OF STRENGTH [OP03]",
+    "codes": [
+      "OP03"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569103"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-PILLARS OF STRENGTH- [OP-03]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 154,
+    "baseCardCount": 127,
+    "productTitle": "BOOSTER PACK -PILLARS OF STRENGTH- [OP-03]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op03.php",
+    "releaseDate": "2023-06-30",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 30, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "MONKEY D. LUFFY",
+    "name": "Monkey D. Luffy [ST-08]",
+    "codes": [
+      "ST08"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569008"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Monkey D. Luffy- [ST-08]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -Monkey D. Luffy- [ST-08]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st08.php",
+    "releaseDate": "2023-08-11",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "August 11, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "YAMATO",
+    "name": "Yamato [ST-09]",
+    "codes": [
+      "ST09"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569009"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Yamato- [ST-09]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -Yamato- [ST-09]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st09.php",
+    "releaseDate": "2023-08-11",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "August 11, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "KINGDOMS OF INTRIGUE",
+    "name": "KINGDOMS OF INTRIGUE [OP04]",
+    "codes": [
+      "OP04"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569104"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-KINGDOMS OF INTRIGUE- [OP-04]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 149,
+    "baseCardCount": 124,
+    "productTitle": "BOOSTER PACK -KINGDOMS OF INTRIGUE- [OP-04]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op04.php",
+    "releaseDate": "2023-09-22",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "September 22, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "GIFT COLLECTION 2023",
+    "name": "GIFT COLLECTION 2023 [GC-01]",
+    "codes": [
+      "GC01"
+    ],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 13,
+    "baseCardCount": 13,
+    "productTitle": "GIFT COLLECTION 2023 [GC-01]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/gb01.php",
+    "releaseDate": "2023-10-27",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 27, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "THE THREE CAPTAINS",
+    "name": "The Three Captains [ST-10]",
+    "codes": [
+      "ST10"
+    ],
+    "category": "ULTRA_DECK",
+    "seriesIds": [
+      "569010"
+    ],
+    "seriesLabels": [
+      "ULTRA DECK <br class=\"spInline\">-The Three Captains- [ST-10]"
+    ],
+    "seriesCategories": [
+      "ULTRA_DECK"
+    ],
+    "printCount": 19,
+    "baseCardCount": 19,
+    "productTitle": "ULTRA DECK -The Three Captains- [ST-10]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st10.php",
+    "releaseDate": "2023-11-10",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "November 10, 2023",
+    "manualReview": []
+  },
+  {
+    "key": "UTA",
+    "name": "Uta [ST-11]",
+    "codes": [
+      "ST11"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569011"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Uta- [ST-11]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -Uta- [ST-11]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st11.php",
+    "releaseDate": "2024-02-02",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "February 2, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "WINGS OF THE CAPTAIN",
+    "name": "WINGS OF THE CAPTAIN [OP06]",
+    "codes": [
+      "OP06"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569106"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-WINGS OF THE CAPTAIN- [OP-06]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 151,
+    "baseCardCount": 126,
+    "productTitle": "BOOSTER PACK -WINGS OF THE CAPTAIN- [OP-06]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op06.php",
+    "releaseDate": "2024-03-15",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "March 15, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "ZORO & SANJI",
+    "name": "Zoro & Sanji [ST-12]",
+    "codes": [
+      "ST12"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569012"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Zoro and Sanji- [ST-12]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Zoro and Sanji- [ST-12]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st12.php",
+    "releaseDate": "2024-03-15",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "March 15, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "THE THREE BROTHERS",
+    "name": "The Three Brothers [ST13]",
+    "codes": [
+      "ST13"
+    ],
+    "category": "ULTRA_DECK",
+    "seriesIds": [
+      "569013"
+    ],
+    "seriesLabels": [
+      "ULTRA DECK <br class=\"spInline\">-The Three Brothers- [ST-13]"
+    ],
+    "seriesCategories": [
+      "ULTRA_DECK"
+    ],
+    "printCount": 35,
+    "baseCardCount": 19,
+    "productTitle": "ULTRA DECK -The Three Brothers- [ST-13]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st13.php",
+    "releaseDate": "2024-04-19",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "April 19, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "MEMORIAL COLLECTION",
+    "name": "Memorial Collection [EB-01]",
+    "codes": [
+      "EB01"
+    ],
+    "category": "EXTRA_BOOSTER",
+    "seriesIds": [
+      "569201"
+    ],
+    "seriesLabels": [
+      "EXTRA BOOSTER <br class=\"spInline\">-MEMORIAL COLLECTION- [EB-01]"
+    ],
+    "seriesCategories": [
+      "EXTRA_BOOSTER"
+    ],
+    "printCount": 80,
+    "baseCardCount": 61,
+    "productTitle": "EXTRA BOOSTER -MEMORIAL COLLECTION- [EB-01]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/eb01.php",
+    "releaseDate": "2024-05-03",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "May 3, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "500 YEARS IN THE FUTURE",
+    "name": "500 YEARS IN THE FUTURE [OP-07]",
+    "codes": [
+      "OP07"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569107"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-500 YEARS IN THE FUTURE- [OP-07]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 151,
+    "baseCardCount": 126,
+    "productTitle": "BOOSTER PACK -500 YEARS IN THE FUTURE- [OP-07]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op07.php",
+    "releaseDate": "2024-06-28",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 28, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "3D2Y",
+    "name": "3D2Y [ST-14]",
+    "codes": [
+      "ST14"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569014"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-3D2Y- [ST-14]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 17,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -3D2Y- [ST-14]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st14.php",
+    "releaseDate": "2024-08-16",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "August 16, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "TWO LEGENDS",
+    "name": "TWO LEGENDS [OP-08]",
+    "codes": [
+      "OP08"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569108"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-TWO LEGENDS- [OP-08]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 151,
+    "baseCardCount": 126,
+    "productTitle": "BOOSTER PACK -TWO LEGENDS- [OP-08]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op08.php",
+    "releaseDate": "2024-09-13",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "September 13, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "BLACK SMOKER",
+    "name": "Black Smoker [ST-19]",
+    "codes": [
+      "ST19"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569019"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Black Smoker- [ST-19]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -BLACK Smoker- [ST-19]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st15-20.php",
+    "releaseDate": "2024-10-25",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 25, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "BLUE DONQUIXOTE DOFLAMINGO",
+    "name": "Blue Donquixote Doflamingo [ST-17]",
+    "codes": [
+      "ST17"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569017"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Blue Donquixote Doflamingo- [ST-17]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -BLUE Donquixote Doflamingo- [ST-17]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st15-20.php",
+    "releaseDate": "2024-10-25",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 25, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "GREEN UTA",
+    "name": "Green Uta [ST-16]",
+    "codes": [
+      "ST16"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569016"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Green Uta- [ST-16]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -GREEN Uta- [ST-16]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st15-20.php",
+    "releaseDate": "2024-10-25",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 25, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "PURPLE MONKEY.D.LUFFY",
+    "name": "Purple Monkey.D.Luffy [ST-18]",
+    "codes": [
+      "ST18"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569018"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Purple Monkey.D.Luffy- [ST-18]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -PURPLE Monkey.D.Luffy- [ST-18]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st15-20.php",
+    "releaseDate": "2024-10-25",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 25, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "RED EDWARD.NEWGATE",
+    "name": "Red Edward.Newgate [ST-15]",
+    "codes": [
+      "ST15"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569015"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Red Edward.Newgate- [ST-15]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -RED Edward.Newgate- [ST-15]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st15-20.php",
+    "releaseDate": "2024-10-25",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 25, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "YELLOW CHARLOTTE KATAKURI",
+    "name": "Yellow Charlotte Katakuri [ST-20]",
+    "codes": [
+      "ST20"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569020"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Yellow Charlotte Katakuri- [ST-20]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -YELLOW Charlotte Katakuri- [ST-20]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st15-20.php",
+    "releaseDate": "2024-10-25",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 25, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "ONE PIECE CARD THE BEST",
+    "name": "ONE PIECE CARD THE BEST [PRB-01]",
+    "codes": [
+      "PRB01"
+    ],
+    "category": "PREMIUM_BOOSTER",
+    "seriesIds": [
+      "569301"
+    ],
+    "seriesLabels": [
+      "PREMIUM BOOSTER <br class=\"spInline\">-ONE PIECE CARD THE BEST- [PRB-01]"
+    ],
+    "seriesCategories": [
+      "PREMIUM_BOOSTER"
+    ],
+    "printCount": 319,
+    "baseCardCount": 111,
+    "productTitle": "PREMIUM BOOSTER -ONE PIECE CARD THE BEST- [PRB-01]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/prb01.php",
+    "releaseDate": "2024-11-08",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "November 8, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "EMPERORS IN THE NEW WORLD",
+    "name": "EMPERORS IN THE NEW WORLD [OP-09]",
+    "codes": [
+      "OP09"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569109"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-EMPERORS IN THE NEW WORLD- [OP-09]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 159,
+    "baseCardCount": 127,
+    "productTitle": "BOOSTER PACK -EMPERORS IN THE NEW WORLD- [OP-09]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op09.php",
+    "releaseDate": "2024-12-13",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "December 13, 2024",
+    "manualReview": []
+  },
+  {
+    "key": "GEAR5",
+    "name": "GEAR5 [ST-21]",
+    "codes": [
+      "ST21"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569021"
+    ],
+    "seriesLabels": [
+      "STARTER DECK EX <br class=\"spInline\">-GEAR5- [ST-21]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 32,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK EX -GEAR5- [ST-21]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st21.php",
+    "releaseDate": "2025-03-14",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "March 14, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "ROYAL BLOOD",
+    "name": "ROYAL BLOOD [OP-10]",
+    "codes": [
+      "OP10"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569110"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-ROYAL BLOOD- [OP-10]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 151,
+    "baseCardCount": 126,
+    "productTitle": "BOOSTER PACK -ROYAL BLOOD- [OP-10]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op10.php",
+    "releaseDate": "2025-03-21",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "March 21, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "ANIME 25TH COLLECTION",
+    "name": "Anime 25th Collection [EB-02]",
+    "codes": [
+      "EB02"
+    ],
+    "category": "EXTRA_BOOSTER",
+    "seriesIds": [
+      "569202"
+    ],
+    "seriesLabels": [
+      "EXTRA BOOSTER <br class=\"spInline\">-Anime 25th Collection- [EB-02]"
+    ],
+    "seriesCategories": [
+      "EXTRA_BOOSTER"
+    ],
+    "printCount": 105,
+    "baseCardCount": 87,
+    "productTitle": "EXTRA BOOSTER -Anime 25th Collection- [EB-02]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/eb02.php",
+    "releaseDate": "2025-05-09",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "May 9, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "A FIST OF DIVINE SPEED",
+    "name": "A FIST OF DIVINE SPEED [OP-11]",
+    "codes": [
+      "OP11"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569111"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-A FIST OF DIVINE SPEED- [OP-11]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 156,
+    "baseCardCount": 127,
+    "productTitle": "BOOSTER PACK -A FIST OF DIVINE SPEED- [OP-11]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op11.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "BLACK MARSHALL.D.TEACH",
+    "name": "BLACK Marshall.D.Teach [ST-27]",
+    "codes": [
+      "ST27"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569027"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-BLACK Marshall.D.Teach- [ST-27]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -BLACK Marshall.D.Teach- [ST-27]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st27.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "BLUE BUGGY",
+    "name": "BLUE Buggy [ST-25]",
+    "codes": [
+      "ST25"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569025"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-BLUE Buggy- [ST-25]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -BLUE Buggy- [ST-25]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st25.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "GREEN JEWELRY BONNEY",
+    "name": "GREEN Jewelry Bonney [ST-24]",
+    "codes": [
+      "ST24"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569024"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-GREEN Jewelry Bonney- [ST-24]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -GREEN Jewelry Bonney- [ST-24]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st24.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "GREEN/YELLOW YAMATO",
+    "name": "GREEN/YELLOW Yamato [ST-28]",
+    "codes": [
+      "ST28"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569028"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-GREEN/YELLOW Yamato- [ST-28]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -GREEN/YELLOW Yamato- [ST-28]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st28.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "PURPLE/BLACK MONKEY.D.LUFFY",
+    "name": "PURPLE/BLACK Monkey.D.Luffy [ST-26]",
+    "codes": [
+      "ST26"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569026"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-PURPLE/BLACK Monkey.D.Luffy- [ST-26]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 14,
+    "baseCardCount": 14,
+    "productTitle": "STARTER DECK -PURPLE/BLACK Monkey.D.Luffy- [ST-26]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st26.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "RED SHANKS",
+    "name": "RED Shanks [ST-23]",
+    "codes": [
+      "ST23"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569023"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-RED Shanks- [ST-23]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 15,
+    "baseCardCount": 15,
+    "productTitle": "STARTER DECK -RED Shanks- [ST-23]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st23.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "STARTER DECK -PURPLE/BLACK MONKEY.D.LUFFY-",
+    "name": "STARTER DECK <br class=\"spInline\">-PURPLE/BLACK Monkey.D.Luffy- [ST-26]",
+    "codes": [
+      "ST26"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569026"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-PURPLE/BLACK Monkey.D.Luffy- [ST-26]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": "STARTER DECK -PURPLE/BLACK Monkey.D.Luffy- [ST-26]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st26.php",
+    "releaseDate": "2025-06-06",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "June 6, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "LEGACY OF THE MASTER",
+    "name": "LEGACY OF THE MASTER [OP-12]",
+    "codes": [
+      "OP12"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569112"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-LEGACY OF THE MASTER- [OP-12]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 155,
+    "baseCardCount": 127,
+    "productTitle": "BOOSTER PACK -LEGACY OF THE MASTER- [OP-12]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op12.php",
+    "releaseDate": "2025-08-22",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "August 22, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "ACE & NEWGATE",
+    "name": "Ace & Newgate [ST-22]",
+    "codes": [
+      "ST22"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569022"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Ace & Newgate- [ST-22]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 31,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Ace & Newgate- [ST-22]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st22.php",
+    "releaseDate": "2025-09-05",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "September 5, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "LEARN TOGETHER DECK SET",
+    "name": "Learn Together Deck Set",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": "Learn Together Deck Set",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/ld01.php",
+    "releaseDate": "2025-10-03",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 3, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "ONE PIECE CARD THE BEST VOL.2",
+    "name": "ONE PIECE CARD THE BEST vol.2 [PRB-02]",
+    "codes": [
+      "PRB02"
+    ],
+    "category": "PREMIUM_BOOSTER",
+    "seriesIds": [
+      "569302"
+    ],
+    "seriesLabels": [
+      "PREMIUM BOOSTER <br class=\"spInline\">-ONE PIECE CARD THE BEST vol.2- [PRB-02]"
+    ],
+    "seriesCategories": [
+      "PREMIUM_BOOSTER"
+    ],
+    "printCount": 316,
+    "baseCardCount": 173,
+    "productTitle": "PREMIUM BOOSTER -ONE PIECE CARD THE BEST vol.2- [PRB-02]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/prb02.php",
+    "releaseDate": "2025-10-03",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "October 3, 2025",
+    "manualReview": []
+  },
+  {
+    "key": "EGGHEAD",
+    "name": "Egghead [ST-29]",
+    "codes": [
+      "ST29"
+    ],
+    "category": "STARTER_DECK",
+    "seriesIds": [
+      "569029"
+    ],
+    "seriesLabels": [
+      "STARTER DECK <br class=\"spInline\">-Egghead- [ST-29]"
+    ],
+    "seriesCategories": [
+      "STARTER_DECK"
+    ],
+    "printCount": 31,
+    "baseCardCount": 17,
+    "productTitle": "STARTER DECK -Egghead- [ST-29]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/decks/st29.php",
+    "releaseDate": "2026-01-16",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "January 16, 2026",
+    "manualReview": []
+  },
+  {
+    "key": "ILLUSTRATION BOX VOL.5",
+    "name": "Illustration Box Vol.5",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 2,
+    "baseCardCount": 2,
+    "productTitle": "Illustration Box Vol.5",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/ib05.php",
+    "releaseDate": "2026-01-16",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "January 16, 2026",
+    "manualReview": []
+  },
+  {
+    "key": "ILLUSTRATION BOX VOL.6",
+    "name": "Illustration Box Vol.6",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 2,
+    "baseCardCount": 2,
+    "productTitle": "Illustration Box Vol.6",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/ib06.php",
+    "releaseDate": "2026-01-16",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "January 16, 2026",
+    "manualReview": []
+  },
+  {
+    "key": "THE AZURE SEA'S SEVEN",
+    "name": "THE AZURE SEA’S SEVEN [OP14-EB04]",
+    "codes": [
+      "OP14EB04"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569114"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-THE AZURE SEA’S SEVEN- [OP14-EB04]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 199,
+    "baseCardCount": 160,
+    "productTitle": "BOOSTER PACK -THE AZURE SEA’S SEVEN- [OP14-EB04]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op14-eb04.php",
+    "releaseDate": "2026-01-16",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "January 16, 2026",
+    "manualReview": []
+  },
+  {
+    "key": "ONE PIECE HEROINES EDITION",
+    "name": "ONE PIECE HEROINES EDITION [EB-03]",
+    "codes": [
+      "EB03"
+    ],
+    "category": "EXTRA_BOOSTER",
+    "seriesIds": [
+      "569203"
+    ],
+    "seriesLabels": [
+      "EXTRA BOOSTER <br class=\"spInline\">-ONE PIECE HEROINES EDITION- [EB-03]"
+    ],
+    "seriesCategories": [
+      "EXTRA_BOOSTER"
+    ],
+    "printCount": 90,
+    "baseCardCount": 62,
+    "productTitle": "EXTRA BOOSTER -ONE PIECE HEROINES EDITION- [EB-03]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/eb03.php",
+    "releaseDate": "2026-02-20",
+    "releaseDatePrecision": "day",
+    "releaseDateRaw": "February 20, 2026",
+    "manualReview": []
+  },
+  {
+    "key": "2025 NEW YEAR EVENT",
+    "name": "2025 NEW YEAR EVENT",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "3RD ANNIVERSARY EVENT",
+    "name": "3rd Anniversary Event",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 6,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ANIME EXPO 2023",
+    "name": "Anime Expo 2023",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "AWAKENING OF THE NEW ERA",
+    "name": "AWAKENING OF THE NEW ERA [OP05]",
+    "codes": [
+      "OP05"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569105"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-AWAKENING OF THE NEW ERA- [OP-05]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 154,
+    "baseCardCount": 125,
+    "productTitle": "BOOSTER PACK -Awakening of the New Era- [OP-05]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op05.php",
+    "releaseDate": null,
+    "releaseDatePrecision": "month",
+    "releaseDateRaw": "December 2023",
+    "manualReview": []
+  },
+  {
+    "key": "BANDAI CARD GAMES FEST 25-26",
+    "name": "BANDAI CARD GAMES Fest 25-26",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CARRYING ON HIS WILL",
+    "name": "CARRYING ON HIS WILL [OP-13]",
+    "codes": [
+      "OP13"
+    ],
+    "category": "BOOSTER_PACK",
+    "seriesIds": [
+      "569113"
+    ],
+    "seriesLabels": [
+      "BOOSTER PACK <br class=\"spInline\">-CARRYING ON HIS WILL- [OP-13]"
+    ],
+    "seriesCategories": [
+      "BOOSTER_PACK"
+    ],
+    "printCount": 175,
+    "baseCardCount": 129,
+    "productTitle": "BOOSTER PACK -CARRYING ON HIS WILL- [OP-13]",
+    "productUrl": "https://en.onepiece-cardgame.com/products/boosters/op13.php",
+    "releaseDate": null,
+    "releaseDatePrecision": "month",
+    "releaseDateRaw": "November 2025",
+    "manualReview": []
+  },
+  {
+    "key": "CHAMPIONSHIP 25-26 FINALS SEASON 1",
+    "name": "Championship 25-26 Finals Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CHAMPIONSHIP 25-26 OFFLINE REGIONALS SEASON 2",
+    "name": "Championship 25-26 Offline Regionals Season 2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 CELEBRATION PACK",
+    "name": "CS 25-26 Celebration Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 EVENT PACK",
+    "name": "CS 25-26 Event Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 8,
+    "baseCardCount": 8,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 EVENT PACK FINALIST VER.",
+    "name": "CS 25-26 Event Pack Finalist Ver.",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 8,
+    "baseCardCount": 8,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 FINALIST CARD SET 1",
+    "name": "CS 25-26 Finalist Card Set 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 6,
+    "baseCardCount": 6,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 FINALIST CARD SET 2",
+    "name": "CS 25-26 Finalist Card Set 2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 TOP PLAYER PACK",
+    "name": "CS 25-26 Top Player Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 6,
+    "baseCardCount": 6,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 TOP PLAYER PACK 2",
+    "name": "CS 25-26 Top Player Pack 2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "CS 25-26 WINNER CARD SET 2",
+    "name": "CS 25-26 Winner Card Set 2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "DODGERS ONE PIECE NIGHT",
+    "name": "DODGERS ONE PIECE NIGHT",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "DREAMHACK DALLAS 2024",
+    "name": "Dreamhack Dallas 2024",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ENGLISH VERSION 1ST ANNIVERSARY SET",
+    "name": "English Version 1st Anniversary Set",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 10,
+    "baseCardCount": 10,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "EVENT PACK VOL. 8",
+    "name": "Event Pack Vol. 8",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "EVENT PACK VOL.3",
+    "name": "Event Pack Vol.3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "EVENT PACK VOL.5",
+    "name": "Event Pack Vol.5",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "EVENT PACK VOL.6",
+    "name": "Event Pack Vol.6",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "EVENT PACK VOL.7",
+    "name": "Event Pack vol.7",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "HEROINES BATTLE PACK",
+    "name": "Heroines Battle Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "HEROINES BATTLE WINNER PACK",
+    "name": "Heroines Battle Winner Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN EVENT PACK VOL.1",
+    "name": "Included in Event Pack Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN EVENT PACK VOL.2",
+    "name": "Included in Event Pack Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 6,
+    "baseCardCount": 6,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN FILM RED PROMOTION CARD SET",
+    "name": "Included in FILM RED Promotion Card Set",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 13,
+    "baseCardCount": 13,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN ONLINE REGIONAL PARTICIPATION PACK VOL.1",
+    "name": "Included in Online Regional Participation Pack Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 6,
+    "baseCardCount": 6,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN PIRATES PARTY CARD VOL.1",
+    "name": "Included in Pirates Party Card Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN PIRATES PARTY CARD VOL.2",
+    "name": "Included in Pirates Party Card Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "INCLUDED IN PROMOTION PACK 2022",
+    "name": "Included in Promotion Pack 2022",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "JAPANESE 1ST ANNIVERSARY SET",
+    "name": "Japanese 1st Anniversary Set",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": "Japanese 1st Anniversary Set",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/goods_set_1st-anniversary.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "JAPANESE 2ND ANNIVERSARY SET",
+    "name": "Japanese 2nd Anniversary Set",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 9,
+    "baseCardCount": 9,
+    "productTitle": "Japanese 2nd Anniversary Set",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/goods_set_2nd-anniversary.php",
+    "releaseDate": null,
+    "releaseDatePrecision": "month",
+    "releaseDateRaw": "March 2025",
+    "manualReview": []
+  },
+  {
+    "key": "JAPANESE 3RD ANNIVERSARY SET",
+    "name": "Japanese 3rd ANNIVERSARY SET",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 10,
+    "baseCardCount": 10,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "OFFICIAL PLAYMAT LIMITED EDITION VOL.3",
+    "name": "Official Playmat Limited Edition Vol.3",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": "Official Playmat Limited Edition Vol.3",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/playmat007.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "OFFICIAL PLAYMAT LIMITED EDITION VOL.4",
+    "name": "Official Playmat Limited Edition Vol.4",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": "Official Playmat Limited Edition Vol.4",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/playmat008.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "OFFLINE REGIONAL CHAMPION CARD SET 2025 VOL.2",
+    "name": "Offline Regional Champion Card Set 2025 Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL CHAMPION CARD SET 25-26 SEASON 1",
+    "name": "Offline Regional Champion Card Set 25-26 Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL FINALIST CARD SET 2024 VOL. 3",
+    "name": "Offline Regional Finalist Card Set 2024 Vol. 3",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "OFFLINE REGIONAL FINALIST CARD SET 2025 VOL.2",
+    "name": "Offline Regional Finalist Card Set 2025 Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL FINALIST CARD SET 25-26 SEASON 1",
+    "name": "Offline Regional Finalist Card Set 25-26 Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL PARTICIPATION PACK 2024 VOL. 1",
+    "name": "Offline Regional Participation Pack 2024 Vol. 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL PARTICIPATION PACK 2024 VOL. 2",
+    "name": "Offline Regional Participation Pack 2024 Vol. 2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL PARTICIPATION PACK 2024 VOL. 3",
+    "name": "Offline Regional Participation Pack 2024 Vol. 3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL PARTICIPATION PACK 2025 VOL.1",
+    "name": "Offline Regional Participation Pack 2025 Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OFFLINE REGIONAL PARTICIPATION PACK 2025 VOL.2",
+    "name": "Offline Regional Participation Pack 2025 Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONE PIECE CARD GAME AND FOOTBALL TEAM DORTMUND COLLABORATION EVENT",
+    "name": "ONE PIECE CARD GAME and Football Team DORTMUND collaboration event",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONE PIECE CARD GAME X PSA EXCLUSIVE PROMO CARD",
+    "name": "One Piece Card Game x PSA Exclusive Promo Card",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONE PIECE DAY DALLAS -CARD GAME CELEBRATION-",
+    "name": "ONE PIECE DAY Dallas -Card Game Celebration-",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 2,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONE PIECE HEROINES CAMPAIGN DASH PACK",
+    "name": "ONE PIECE HEROINES CAMPAIGN Dash Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONLINE REGIONAL CHAMPION CARD SET 25-26 SEASON 1",
+    "name": "Online Regional Champion Card Set 25-26 Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONLINE REGIONAL FINALIST CARD SET 25-26 SEASON 1",
+    "name": "Online Regional Finalist Card Set 25-26 Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ONLINE REGIONAL PARTICIPATION PACK 25-26 SEASON 1",
+    "name": "Online Regional Participation Pack 25-26 Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OP-11 RELEASE EVENT",
+    "name": "OP-11 Release Event",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OP-12 RELEASE EVENT",
+    "name": "OP-12 Release Event",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "OP14-EB04 RELEASE EVENT",
+    "name": "OP14-EB04 Release Event",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES LEAGUE STORE QUALIFIER",
+    "name": "Pirates League Store Qualifier",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES LEAGUE THREE CAPTAINS BATTLE & SUPPORT CREW BATTLE",
+    "name": "Pirates League Three Captains Battle & Support Crew Battle",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES PARTY VOL.3",
+    "name": "Pirates Party Vol.3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES PARTY VOL.4",
+    "name": "Pirates Party Vol.4",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES PARTY VOL.5",
+    "name": "Pirates Party Vol.5",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES PARTY VOL.6",
+    "name": "Pirates Party Vol.6",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PIRATES PARTY VOL.7",
+    "name": "Pirates Party Vol.7",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 2,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PRE-RELEASE OP02",
+    "name": "Pre-Release OP02",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PRE-RELEASE OP03",
+    "name": "Pre-Release OP03",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PRE-RELEASE OP04",
+    "name": "Pre-Release OP04",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PRE-RELEASE OP06",
+    "name": "Pre-Release OP06",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PRE-RELEASE OP08",
+    "name": "Pre-Release OP08",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -25TH EDITION-",
+    "name": "Premium Card Collection -25th Edition-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 10,
+    "baseCardCount": 10,
+    "productTitle": "Premium Card Collection -25th Edition-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection25th.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -BANDAI CARD GAMES FEST. 23-24 EDITION-",
+    "name": "Premium Card Collection -BANDAI CARD GAMES Fest. 23-24 Edition-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": "Premium Card Collection -BANDAI CARD GAMES Fest. 23-24 Edition-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_bcgfest23-24.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -BEST SELECTION VOL.3-",
+    "name": "Premium Card Collection -Best Selection Vol.3-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": "Premium Card Collection -Best Selection Vol.3-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_bestselection_vol3.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -BEST SELECTION VOL.4-",
+    "name": "Premium Card Collection -Best Selection Vol.4-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": "Premium Card Collection -Best Selection Vol.4-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_bestselection_vol4.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -BEST SELECTION VOL.5-",
+    "name": "Premium Card Collection -Best Selection Vol.5-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": "Premium Card Collection -Best Selection Vol.5-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_bestselection_vol5.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -BEST SELECTION-",
+    "name": "Premium Card Collection -Best Selection-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": "Premium Card Collection -Best Selection-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_bestselection.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -FILM RED EDITION-",
+    "name": "Premium Card Collection -FILM RED Edition-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 12,
+    "productTitle": "Premium Card Collection -FILM RED Edition-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_filmred.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "PREMIUM CARD COLLECTION -LIVE ACTION EDITION-",
+    "name": "Premium Card Collection -Live Action Edition-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 9,
+    "baseCardCount": 9,
+    "productTitle": "Premium Card Collection –Live Action Edition-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/cardcollection_liveaction.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "REGIONAL 2024 WAVE1",
+    "name": "Regional 2024 wave1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "REGIONAL 2024 WAVE2",
+    "name": "Regional 2024 wave2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "REGIONAL 25-26 SEASON1",
+    "name": "Regional 25-26 Season1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "REGIONALS SEASON 1",
+    "name": "Regionals Season 1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "REGIONALS WAVE 3",
+    "name": "Regionals Wave 3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "SEALED BATTLE 2023 VOL.1",
+    "name": "Sealed Battle 2023 Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "SEALED BATTLE KIT VOL.1",
+    "name": "Sealed Battle Kit Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "SEVEN WARLORDS OF THE SEA BINDER SET",
+    "name": "Seven Warlords of the Sea Binder Set",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 12,
+    "baseCardCount": 11,
+    "productTitle": "Seven Warlords of the Sea Binder Set",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/anniversaryset2nd-cn.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "SPECIAL GOODS SET -ACE/SABO/LUFFY-",
+    "name": "Special Goods Set -Ace/Sabo/Luffy-",
+    "codes": [],
+    "category": "OTHER_PRODUCT",
+    "seriesIds": [
+      "569801"
+    ],
+    "seriesLabels": [
+      "Other Product Card"
+    ],
+    "seriesCategories": [
+      "OTHER_PRODUCT"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": "Special Goods Set -Ace/Sabo/Luffy-",
+    "productUrl": "https://en.onepiece-cardgame.com/products/other/goods_set_acesaboluffy.php",
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": []
+  },
+  {
+    "key": "ST-11 UTA DECK BATTLE PARTICIPATION PACK",
+    "name": "ST-11 Uta Deck Battle Participation Pack",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 8,
+    "baseCardCount": 8,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "ST15-20 RELEASE EVENT",
+    "name": "ST15-20 Release Event",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 6,
+    "baseCardCount": 6,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "STORE 2-ON-2 BATTLE",
+    "name": "Store 2-on-2 Battle",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "STORE TOURNAMENT 2025 VOL. 4",
+    "name": "Store Tournament 2025 Vol. 4",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 8,
+    "baseCardCount": 8,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "STORE TREASURE CUP AUGUST - SEPTEMBER 2024",
+    "name": "Store Treasure Cup August – September 2024",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "SUPER PRE-RELEASE",
+    "name": "Super Pre-Release",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 2,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT KIT 2025 VOL.2",
+    "name": "Tournament Kit 2025 Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK 2024 OCT.-DEC.",
+    "name": "Tournament Pack 2024 Oct.-Dec.",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK 2025 VOL. 3",
+    "name": "Tournament Pack 2025 Vol. 3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK 2025 VOL. 4",
+    "name": "Tournament Pack 2025 Vol. 4",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.1",
+    "name": "Tournament Pack Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 5,
+    "baseCardCount": 5,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.2",
+    "name": "Tournament Pack Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.3",
+    "name": "Tournament Pack Vol.3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.4",
+    "name": "Tournament Pack Vol.4",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.5",
+    "name": "Tournament Pack Vol.5",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.6",
+    "name": "Tournament Pack Vol.6",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TOURNAMENT PACK VOL.7",
+    "name": "Tournament Pack Vol.7",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TREASURE CUP AUGUST - SEPTEMBER",
+    "name": "Treasure Cup August – September",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TREASURE CUP AUGUST 2025~",
+    "name": "Treasure Cup August 2025~",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TREASURE CUP FEBRUARY 2025",
+    "name": "Treasure Cup February 2025",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TREASURE CUP MAY 2025~",
+    "name": "Treasure Cup May 2025~",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TREASURE CUP NOVEMBER 2025~",
+    "name": "Treasure Cup November 2025~",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "TREASURE CUP NOVEMBER-DECEMBER",
+    "name": "Treasure Cup November-December",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 3,
+    "baseCardCount": 3,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "WINNER PACK 2025 VOL. 3",
+    "name": "Winner Pack 2025 Vol. 3",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "WINNER PACK 2025 VOL. 4",
+    "name": "Winner Pack 2025 Vol. 4",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "WINNER PACK 2025 VOL.2",
+    "name": "Winner Pack 2025 Vol.2",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 4,
+    "baseCardCount": 4,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  },
+  {
+    "key": "WINNER PRIZE FOR SEALED BATTLE 2023 VOL.1",
+    "name": "Winner prize for Sealed Battle 2023 Vol.1",
+    "codes": [],
+    "category": "PROMOTION",
+    "seriesIds": [
+      "569901"
+    ],
+    "seriesLabels": [
+      "Promotion card"
+    ],
+    "seriesCategories": [
+      "PROMOTION"
+    ],
+    "printCount": 1,
+    "baseCardCount": 1,
+    "productTitle": null,
+    "productUrl": null,
+    "releaseDate": null,
+    "releaseDatePrecision": null,
+    "releaseDateRaw": null,
+    "manualReview": [
+      "No direct Bandai product page match on /products/; release date needs manual review."
+    ]
+  }
+]

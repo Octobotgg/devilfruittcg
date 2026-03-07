@@ -1,54 +1,17 @@
-/* eslint-disable no-console */
 const fs = require("node:fs");
 const path = require("node:path");
-const vm = require("node:vm");
-const ts = require("typescript");
 
 const ROOT = path.resolve(__dirname, "..");
-const LIB_DIR = path.join(ROOT, "lib");
-const CARD_FILE_RE = /^(op|st|eb|prb)\d{2}-cards\.ts$|^p-cards\.ts$/i;
-const VALID_TYPES = new Set(["Leader", "Character", "Event", "Stage"]);
+const OFFICIAL_PATH = path.join(ROOT, "data", "bandai-en-official-cards.json");
+const BASE_PATH = path.join(ROOT, "data", "bandai-en-base-cards.json");
+const VALID_TYPES = new Set(["Leader", "Character", "Event", "Stage", "DON!!"]);
 
-function loadCardsFromTs(filePath) {
-  const source = fs.readFileSync(filePath, "utf8");
-  const transpiled = ts.transpileModule(source, {
-    compilerOptions: {
-      module: ts.ModuleKind.CommonJS,
-      target: ts.ScriptTarget.ES2020,
-      esModuleInterop: true,
-    },
-    fileName: filePath,
-  }).outputText;
-
-  const mod = { exports: {} };
-  const sandbox = {
-    module: mod,
-    exports: mod.exports,
-    require: () => ({}),
-  };
-
-  vm.runInNewContext(transpiled, sandbox, { filename: filePath });
-  return mod.exports.default || mod.exports || [];
+function loadJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
-function normalizeNumber(n) {
-  return String(n).padStart(3, "0");
-}
-
-function isAllowedCrossSetVariant(card, idSetCode) {
-  const rarity = String(card.rarity || "").trim().toUpperCase();
-  const id = String(card.id || "");
-  const setCode = String(card.setCode || "").trim().toUpperCase();
-  const hasVariantSuffix = /_P\d+$/i.test(id);
-
-  // Official cross-set showcase cards on OP/ST pages
-  const showcaseRarity = rarity === "SP" || rarity === "TR" || rarity === "SP CARD";
-  if (hasVariantSuffix && showcaseRarity && setCode !== idSetCode) return true;
-
-  // Premium Booster reprint pages (PRB-*) intentionally aggregate many IDs from other sets
-  if (/^PRB\d{2}$/.test(setCode) && setCode !== idSetCode) return true;
-
-  return false;
+function normalizeNumber(value) {
+  return String(value).padStart(3, "0");
 }
 
 function validateCard(card) {
@@ -60,75 +23,73 @@ function validateCard(card) {
   }
   if (issues.length) return issues;
 
-  const idMatch = /^([A-Z0-9]{1,5})-(\d{3,4})(?:_P\d+)?$/.exec(card.id.trim().toUpperCase());
-  if (!idMatch) {
-    issues.push("bad_id_format");
-    return issues;
-  }
+  const id = String(card.id).trim().toUpperCase();
+  const baseId = String(card.baseId || id).trim().toUpperCase();
 
-  const [, idSetCode, idNumberRaw] = idMatch;
-  const setCode = card.setCode.trim().toUpperCase();
-  const number = card.number.trim();
+  if (!/^[A-Z0-9]{1,6}-\d{3}(?:_[A-Z0-9]+)?$/.test(id)) issues.push("bad_id_format");
+  if (!/^[A-Z0-9]{1,6}-\d{3}$/.test(baseId)) issues.push("bad_base_id_format");
 
-  if (setCode !== idSetCode && !isAllowedCrossSetVariant(card, idSetCode)) issues.push("setCode_mismatch_with_id");
-  if (!/^\d{1,4}$/.test(number)) issues.push("bad_number_format");
-  else if (normalizeNumber(number) !== normalizeNumber(idNumberRaw)) issues.push("number_mismatch_with_id");
+  const idMatch = /^([A-Z0-9]{1,6})-(\d{3})(?:_([A-Z0-9]+))?$/.exec(id);
+  const baseMatch = /^([A-Z0-9]{1,6})-(\d{3})$/.exec(baseId);
 
+  if (!idMatch || !baseMatch) return issues;
+
+  const [, idSetCode, idNumberRaw] = baseMatch;
+  if (String(card.setCode).trim().toUpperCase() !== idSetCode) issues.push("setCode_mismatch_with_id");
+  if (normalizeNumber(card.number) !== normalizeNumber(idNumberRaw)) issues.push("number_mismatch_with_id");
   if (!VALID_TYPES.has(card.type)) issues.push("invalid_type");
+
   return issues;
 }
 
 function main() {
-  const files = fs.readdirSync(LIB_DIR).filter((name) => CARD_FILE_RE.test(name)).sort();
-  if (!files.length) {
-    console.error("No card set files found.");
+  if (!fs.existsSync(OFFICIAL_PATH) || !fs.existsSync(BASE_PATH)) {
+    console.error("Bandai JSON exports are missing. Run `npm run fetch:bandai` first.");
     process.exit(1);
   }
 
-  const allCards = [];
-  for (const file of files) {
-    const filePath = path.join(LIB_DIR, file);
-    const cards = loadCardsFromTs(filePath);
-    if (!Array.isArray(cards)) {
-      console.error(`Expected array export in ${file}`);
-      process.exit(1);
-    }
-    allCards.push(...cards.map((card) => ({ card, file })));
-  }
+  const official = loadJson(OFFICIAL_PATH);
+  const base = loadJson(BASE_PATH);
 
   const errors = [];
   const byId = new Map();
+  const baseById = new Map(base.map((card) => [card.id, card]));
 
-  for (const { card, file } of allCards) {
+  for (const card of official) {
     const issues = validateCard(card);
-    if (issues.length) errors.push({ id: card.id || "<missing>", file, issues });
+    if (issues.length) errors.push({ id: card.id || "<missing>", issues });
 
-    const idKey = (card.id || "").toUpperCase();
-    if (!byId.has(idKey)) byId.set(idKey, []);
-    byId.get(idKey).push({ id: card.id, name: card.name, file, imageUrl: card.imageUrl });
+    const idKey = String(card.id || "").toUpperCase();
+    if (!byId.has(idKey)) byId.set(idKey, 0);
+    byId.set(idKey, byId.get(idKey) + 1);
+
+    if (card.id === card.baseId && !baseById.has(card.id)) {
+      errors.push({ id: card.id, issues: ["missing_from_base_dataset"] });
+    }
   }
 
-  for (const [idKey, entries] of byId.entries()) {
-    if (!idKey || entries.length < 2) continue;
-    // Allow intentional duplicates if they have different imageUrls (alt arts, variants)
-    const uniqueImages = new Set(entries.map((e) => e.imageUrl || "base")).size;
-    if (uniqueImages > 1) continue; // Different images = intentional variants, not duplicates
-    errors.push({
-      id: idKey,
-      file: entries.map((e) => e.file).join(","),
-      issues: [`duplicate_id: ${entries.map((e) => `${e.id} (${e.name})`).join(" | ")}`],
-    });
+  for (const [id, count] of byId.entries()) {
+    if (id && count > 1) errors.push({ id, issues: [`duplicate_id (${count})`] });
+  }
+
+  for (const card of base) {
+    const issues = validateCard(card);
+    if (issues.length) errors.push({ id: card.id || "<missing>", issues: issues.map((issue) => `base_${issue}`) });
+
+    if (!official.find((entry) => entry.id === card.id)) {
+      errors.push({ id: card.id, issues: ["base_card_missing_from_official_dataset"] });
+    }
   }
 
   if (errors.length) {
-    console.error(`\n❌ Card validation failed with ${errors.length} issue group(s):\n`);
-    for (const err of errors.slice(0, 80)) {
-      console.error(`- ${err.id} [${err.file}] -> ${err.issues.join(", ")}`);
+    console.error(`\nCard validation failed with ${errors.length} issue group(s):\n`);
+    for (const err of errors.slice(0, 120)) {
+      console.error(`- ${err.id} -> ${err.issues.join(", ")}`);
     }
     process.exit(1);
   }
 
-  console.log(`✅ Card validation passed (${allCards.length} cards checked across ${files.length} set files).`);
+  console.log(`Card validation passed (${official.length} official prints, ${base.length} base cards).`);
 }
 
 main();

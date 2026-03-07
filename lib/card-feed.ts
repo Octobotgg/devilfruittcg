@@ -1,10 +1,9 @@
 import { SEED_CARDS, type Card } from "./cards";
-import { attachVariantInfo } from "./card-variants";
 
 const DEFAULT_FEED = process.env.CARD_FEED_URL || "https://optcgdb.com/api/cards.json";
 
-// All local cards (OP01-OP14, EB01-EB04, ST01-ST29) - used as canonical fallback
-export const ALL_SET_CARDS: Card[] = SEED_CARDS.map(attachVariantInfo);
+// All local cards (OP01-OP10, EB01-EB02, ST01-ST21) - used as fallback
+export const ALL_SET_CARDS: Card[] = SEED_CARDS;
 
 let cache: { cards: Card[]; fetchedAt: number } | null = null;
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
@@ -43,7 +42,7 @@ function mapFeedCard(raw: Record<string, unknown>): Card | null {
       attribute,
       imageUrl: image,
     };
-    return attachVariantInfo(card);
+    return card;
   } catch {
     return null;
   }
@@ -71,12 +70,6 @@ function dedupeByPrint(cards: Card[]): Card[] {
   return out;
 }
 
-function shouldUseFeedForId(id: string): boolean {
-  // CRITICAL: Only use feed for IDs that don't exist in local data
-  // Local data is the source of truth for ALL known IDs to prevent name mismatches
-  return false; // Conservative: never prefer feed over local for known IDs
-}
-
 function isLikelyEnglish(name: string): boolean {
   if (!name) return false;
   // reject Japanese/CJK scripts
@@ -90,7 +83,7 @@ export async function loadCards(): Promise<Card[]> {
   if (cache && now - cache.fetchedAt < CACHE_TTL_MS) return cache.cards;
 
   // Start with all set cards + seed cards as base, then dedupe locally
-  const baseCards = dedupeById([...ALL_SET_CARDS, ...SEED_CARDS.map(attachVariantInfo)]);
+  const baseCards = dedupeById([...ALL_SET_CARDS, ...SEED_CARDS]);
 
   try {
     const res = await fetch(DEFAULT_FEED, { next: { revalidate: 300 } });
@@ -105,13 +98,11 @@ export async function loadCards(): Promise<Card[]> {
     // Keep all unique printings (includes alternate arts when image/name differ)
     const mappedPrints = dedupeByPrint(mapped);
 
-    // STRICT GUARD: Local data is always source-of-truth for known IDs.
-    // Feed is ONLY used to extend coverage for IDs not present locally.
-    // This prevents card name mismatches that confuse players.
-    const baseIds = new Set(baseCards.map((c) => c.id));
-    const feedOnly = mappedPrints.filter((c) => !baseIds.has(c.id));
+    // Add local fallback only for card IDs missing from feed
+    const mappedIds = new Set(mappedPrints.map((c) => c.id));
+    const fallbackMissing = baseCards.filter((c) => !mappedIds.has(c.id));
 
-    const cards = [...baseCards, ...feedOnly];
+    const cards = [...mappedPrints, ...fallbackMissing];
     cache = { cards, fetchedAt: now };
     return cards.length ? cards : baseCards;
   } catch (e) {
@@ -195,8 +186,8 @@ export function filterCards(cards: Card[], params: {
   if (set) filtered = filtered.filter((c) => c.setCode.toLowerCase() === set.toLowerCase());
   if (color) filtered = filtered.filter((c) => c.color.toLowerCase() === color.toLowerCase());
   if (rarity) filtered = filtered.filter((c) => c.rarity.toLowerCase() === rarity.toLowerCase());
-  if (costMin !== undefined) filtered = filtered.filter((c) => c.cost === undefined || c.cost >= costMin);
-  if (costMax !== undefined) filtered = filtered.filter((c) => c.cost === undefined || c.cost <= costMax);
+  if (costMin !== undefined) filtered = filtered.filter((c) => c.cost == null || c.cost >= costMin);
+  if (costMax !== undefined) filtered = filtered.filter((c) => c.cost == null || c.cost <= costMax);
 
   const total = filtered.length;
   const start = (page - 1) * pageSize;
