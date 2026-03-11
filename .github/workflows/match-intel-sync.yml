@@ -26,7 +26,6 @@ jobs:
           import os
           import time
           import urllib.error
-          import urllib.parse
           import urllib.request
 
           periods = ["west", "lw", "east", "east_lw", "west_p", "lw_p", "east_p", "east_lw_p"]
@@ -61,15 +60,6 @@ jobs:
               with urllib.request.urlopen(req, timeout=120) as resp:
                   return resp.status
 
-          def latest_snapshot_date(period):
-              encoded_period = urllib.parse.quote(f"eq.{period}", safe=".=:")
-              rows = rest_get(
-                  f"/rest/v1/leader_daily_stats?select=snapshot_date&period={encoded_period}&order=snapshot_date.desc&limit=1"
-              )
-              if rows:
-                  return rows[0]["snapshot_date"]
-              return None
-
           def daterange(start_date, end_date):
               current = start_date
               while current <= end_date:
@@ -82,15 +72,7 @@ jobs:
           total_matchup_rows = 0
 
           for period in periods:
-              latest = latest_snapshot_date(period)
-              if latest:
-                  start = datetime.date.fromisoformat(latest) + datetime.timedelta(days=1)
-              else:
-                  start = today - datetime.timedelta(days=13)
-
-              if start > today:
-                  print(f"{period}: already up to date")
-                  continue
+              start = today - datetime.timedelta(days=13)
 
               for current in daterange(start, today):
                   stamp = current.strftime("%Y%m%d")
