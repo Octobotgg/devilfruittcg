@@ -1,0 +1,25 @@
+name: Match Intel Sync
+
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger match-intel sync
+        env:
+          DEVILFRUIT_CRON_SECRET: ${{ secrets.DEVILFRUIT_CRON_SECRET }}
+        run: |
+          if [ -z "$DEVILFRUIT_CRON_SECRET" ]; then
+            echo "Missing DEVILFRUIT_CRON_SECRET GitHub secret, skipping scheduled sync."
+            exit 0
+          fi
+
+          curl --fail-with-body \
+            -X POST \
+            "https://devilfruittcg.gg/api/matchhistory/sync?mode=incremental" \
+            -H "Authorization: Bearer ${DEVILFRUIT_CRON_SECRET}" \
+            -H "User-Agent: GitHubActions/MatchIntelSync"
