@@ -50371,8 +50371,8 @@
     "seriesCategories": [
       "EXTRA_BOOSTER"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-004",
@@ -175531,7 +175531,7 @@
       "PROMOTION"
     ],
     "variantType": "sp",
-    "variantLabel": "SP"
+    "variantLabel": "Participation Pack"
   },
   {
     "id": "EB01-003_p3",
@@ -175582,7 +175582,7 @@
       "PROMOTION"
     ],
     "variantType": "sp",
-    "variantLabel": "SP"
+    "variantLabel": "Finalist"
   },
   {
     "id": "EB01-003_p4",
@@ -175633,7 +175633,7 @@
       "PROMOTION"
     ],
     "variantType": "sp",
-    "variantLabel": "SP"
+    "variantLabel": "Champion"
   },
   {
     "id": "EB01-006_p3",
