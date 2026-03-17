@@ -28,7 +28,7 @@ export type CardVariantInfo = {
 };
 
 type VariantSource = Pick<Card, "id" | "name" | "rarity"> &
-  Partial<Pick<Card, "set" | "notes" | "seriesCategory" | "isVariant">>;
+  Partial<Pick<Card, "set" | "notes" | "seriesCategory" | "isVariant" | "variantType" | "variantLabel">>;
 
 function normalize(text: string): string {
   return text
@@ -47,7 +47,39 @@ export function getLegacyVariantCode(cardId: string): string | null {
   return m ? m[1].toLowerCase() : null;
 }
 
+function inferVariantTypeFromLabel(label: string | null | undefined): EnVariantType | null {
+  const text = normalize(String(label || ""));
+  if (!text) return null;
+  if (text.includes("gold manga")) return "manga_gold";
+  if (text.includes("red manga")) return "manga_red";
+  if (text.includes("manga")) return "manga";
+  if (text.includes("anniversary") || text.includes("25th edition")) return "anniversary";
+  if (/\bsp\b/.test(text) || text.includes("special")) return "sp";
+  if (text.includes("alternate art") || text.includes("alt art") || text.includes("super alternate art")) return "alt_art";
+  if (text.includes("parallel")) return "parallel";
+  return null;
+}
+
+function normalizeExplicitVariantType(type: string | null | undefined): EnVariantType | null {
+  const value = normalize(String(type || ""));
+  if (!value) return null;
+  if (value === "base") return "base";
+  if (value === "parallel") return "parallel";
+  if (value === "alt art" || value === "alternate art" || value === "alt_art" || value === "super alternate art" || value === "red super alternate art") {
+    return "alt_art";
+  }
+  if (value === "sp" || value === "special card") return "sp";
+  if (value === "manga") return "manga";
+  if (value === "red manga") return "manga_red";
+  if (value === "gold manga") return "manga_gold";
+  if (value === "anniversary") return "anniversary";
+  return null;
+}
+
 export function inferVariantType(card: VariantSource): EnVariantType {
+  const explicitType = normalizeExplicitVariantType(card.variantType) || inferVariantTypeFromLabel(card.variantLabel);
+  if (explicitType) return explicitType;
+
   const text = normalize([
     card.name || "",
     card.set || "",
@@ -78,14 +110,44 @@ export function toBaseRarity(rarity?: string): string {
   return r || "UNKNOWN";
 }
 
-export function variantLabel(type: EnVariantType, baseRarity: string): string {
+function normalizeExplicitVariantLabel(label: string | null | undefined, type: EnVariantType): string | null {
+  const text = normalize(String(label || ""));
+  if (!text) return null;
+
+  switch (type) {
+    case "parallel":
+      return "Parallel";
+    case "alt_art":
+      if (text.includes("red super alternate art")) return "Red Super Alternate Art";
+      if (text.includes("super alternate art")) return "Super Alternate Art";
+      if (text.includes("alternate art") || text.includes("alt art")) return "Alternate Art";
+      return "Alternate Art";
+    case "sp":
+      return "SP";
+    case "manga":
+      return "Manga";
+    case "manga_red":
+      return "Red Manga";
+    case "manga_gold":
+      return "Gold Manga";
+    case "anniversary":
+      return "Anniversary";
+    case "base":
+    default:
+      return String(label || "").trim() || null;
+  }
+}
+
+export function variantLabel(type: EnVariantType, baseRarity: string, explicitLabel?: string | null): string {
+  const normalizedExplicit = normalizeExplicitVariantLabel(explicitLabel, type);
+  if (normalizedExplicit) return normalizedExplicit;
   if (type === "base") return baseRarity;
 
   switch (type) {
     case "parallel":
       return "Parallel";
     case "alt_art":
-      return "Alt Art";
+      return "Alternate Art";
     case "sp":
       return "SP";
     case "manga":
@@ -150,7 +212,7 @@ export function deriveCardVariantInfo(card: VariantSource): CardVariantInfo {
     legacyVariantCode,
     baseRarity,
     variantType: type,
-    variantLabel: variantLabel(type, baseRarity),
+    variantLabel: variantLabel(type, baseRarity, card.variantLabel),
     variantOrder,
     canonicalVariantKey: key,
     canonicalVariantId: id,
