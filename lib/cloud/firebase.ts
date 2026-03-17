@@ -1,7 +1,8 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth, signInAnonymously, signOut as fbSignOut } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import type { CloudAdapter, CloudUser, Deck, Collection } from "./types";
+import type { CloudAdapter, CloudUser, Deck, Collection, CloudSignInOptions } from "./types";
+import { normalizeCollection, normalizeDecks } from "./normalize";
 
 function getFirebase() {
   const config = {
@@ -18,9 +19,19 @@ function getFirebase() {
 }
 
 export const firebaseAdapter: CloudAdapter = {
-  async signIn() {
+  async signIn(options?: CloudSignInOptions) {
+    void options;
     const { auth } = getFirebase();
     await signInAnonymously(auth);
+  },
+  async signUp() {
+    throw new Error("Firebase email/password auth is not configured.");
+  },
+  async sendPasswordReset() {
+    throw new Error("Firebase password reset is not configured.");
+  },
+  async updatePassword() {
+    throw new Error("Firebase password updates are not configured.");
   },
   async signOut() {
     const { auth } = getFirebase();
@@ -35,7 +46,7 @@ export const firebaseAdapter: CloudAdapter = {
     const { db } = getFirebase();
     const snap = await getDoc(doc(db, "users", userId));
     const data = snap.data();
-    return (data?.decks as Deck[] | undefined) || [];
+    return normalizeDecks(data?.decks);
   },
   async saveDecks(userId: string, decks: Deck[]): Promise<void> {
     const { db } = getFirebase();
@@ -45,7 +56,7 @@ export const firebaseAdapter: CloudAdapter = {
     const { db } = getFirebase();
     const snap = await getDoc(doc(db, "users", userId));
     const data = snap.data();
-    return (data?.collection as Collection | undefined) || {};
+    return normalizeCollection(data?.collection);
   },
   async saveCollection(userId: string, collection: Collection): Promise<void> {
     const { db } = getFirebase();

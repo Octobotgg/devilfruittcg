@@ -5,8 +5,7 @@ const vm = require("node:vm");
 const ts = require("typescript");
 
 const ROOT = path.resolve(__dirname, "..");
-const LIB_DIR = path.join(ROOT, "lib");
-const CARD_FILE_RE = /^(op|st|eb)\d{2}-cards\.ts$/i;
+const OFFICIAL_CARDS_PATH = path.join(ROOT, "data", "bandai-en-official-cards.json");
 
 function transpileAndRun(filePath) {
   const source = fs.readFileSync(filePath, "utf8");
@@ -38,20 +37,21 @@ function norm(s) {
 }
 
 function loadCanonicalCards() {
-  const files = fs.readdirSync(LIB_DIR).filter((n) => CARD_FILE_RE.test(n)).sort();
+  const cards = JSON.parse(fs.readFileSync(OFFICIAL_CARDS_PATH, "utf8"));
   const map = new Map();
-  for (const file of files) {
-    const cards = transpileAndRun(path.join(LIB_DIR, file));
-    if (!Array.isArray(cards)) continue;
-    for (const c of cards) {
-      map.set(String(c.id).toUpperCase(), { name: c.name, setCode: c.setCode });
-    }
+  if (!Array.isArray(cards)) return map;
+
+  for (const c of cards) {
+    const id = String(c.id || "").toUpperCase();
+    const baseId = String(c.baseId || c.id || "").toUpperCase();
+    if (!id || id !== baseId) continue;
+    map.set(id, { name: c.name, setCode: c.setCode });
   }
   return map;
 }
 
 function main() {
-  const featured = transpileAndRun(path.join(LIB_DIR, "featured-cards.ts"));
+  const featured = transpileAndRun(path.join(ROOT, "lib", "featured-cards.ts"));
   const lists = {
     HOME_FEATURED_CARDS: featured.HOME_FEATURED_CARDS || [],
     MARKET_HOT_CARDS: featured.MARKET_HOT_CARDS || [],

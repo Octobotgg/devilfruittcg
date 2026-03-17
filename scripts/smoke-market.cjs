@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 const baseCandidates = ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"];
 
 async function resolveBase() {

@@ -1,223 +1,1228 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Trash2, Edit2, Crown, BookOpen, Calendar } from "lucide-react";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  AlertTriangle,
+  ArrowRight,
+  BookOpen,
+  Calendar,
+  ChevronUp,
+  CheckCircle2,
+  Copy,
+  Crown,
+  Eye,
+  Filter,
+  FlaskConical,
+  Globe2,
+  Lock,
+  Loader2,
+  Minus,
+  Plus,
+  Search,
+  Star,
+  Trash2,
+} from "lucide-react";
 import type { Card } from "@/lib/cards";
+import CardModal, { type CardModalData } from "@/components/CardModal";
+import DonButton from "@/components/ui/DonButton";
+import { getBaseCardId } from "@/lib/card-variants";
+import type { Deck } from "@/lib/cloud/types";
+import { useCloudSync } from "@/lib/cloud/useCloudSync";
+import { fetchWithClientAuth } from "@/lib/client-auth";
+import { buildDeckSummaryPatch } from "@/lib/profile-summary";
+import { logProfileActivity, syncProfileSummaryPatch } from "@/lib/profile-sync-client";
 
-interface DeckCard { cardId: string; quantity: number; }
-interface Deck {
-  id: string; name: string; leaderId: string | null;
-  cards: DeckCard[]; createdAt: string; updatedAt: string;
-}
-
-const COLOR_HEX: Record<string, string> = {
-  Red: "#ef4444", Blue: "#3b82f6", Green: "#22c55e",
-  Purple: "#a855f7", Black: "#6b7280", Yellow: "#eab308",
+type StatusFilter = "all" | "ready" | "draft";
+type SortMode = "updated" | "created" | "name";
+type DeckPreviewGroup = {
+  key: "leader" | "character" | "event" | "stage";
+  label: string;
+  total: number;
+  entries: Array<{ card: Card; quantity: number; imageCardId: string }>;
 };
 
-function loadDecks(): Deck[] {
-  try { return JSON.parse(localStorage.getItem("devilfruit_decks") || "[]"); } catch { return []; }
+type FeaturedNotice = {
+  tone: "error" | "success";
+  message: string;
+};
+
+const COLOR_HEX: Record<string, string> = {
+  Red: "#ef4444",
+  Blue: "#3b82f6",
+  Green: "#22c55e",
+  Purple: "#a855f7",
+  Black: "#6b7280",
+  Yellow: "#eab308",
+};
+
+function mainDeckCardCount(deck: Deck) {
+  return deck.cards.reduce((sum, c) => sum + c.quantity, 0);
 }
-function saveDecks(decks: Deck[]) {
-  localStorage.setItem("devilfruit_decks", JSON.stringify(decks));
+
+function uniqueCards(deck: Deck) {
+  return deck.cards.length + (deck.leaderId ? 1 : 0);
+}
+
+function isBattleReady(deck: Deck) {
+  return Boolean(deck.leaderId) && mainDeckCardCount(deck) === 50;
+}
+
+function formatShortDate(iso: string) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function recency(iso: string) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.max(1, Math.floor(diff / 60000));
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+function makeDeckCopy(base: Deck): Deck {
+  const now = new Date().toISOString();
+  return {
+    ...base,
+    id: `copy-${globalThis.crypto?.randomUUID?.() || now}`,
+    name: `${base.name} (Copy)`,
+    visibility: "private",
+    createdAt: now,
+    updatedAt: now,
+  };
+}
+
+function countRecentlyUpdated(decks: Deck[]) {
+  const cutoff = Date.now() - 1000 * 60 * 60 * 24 * 7;
+  return decks.filter((deck) => new Date(deck.updatedAt).getTime() >= cutoff).length;
+}
+
+function buildCardModalData(card: Card): CardModalData {
+  return {
+    id: card.id,
+    name: card.name,
+    set: card.set,
+    setCode: card.setCode,
+    number: card.number,
+    type: card.type,
+    color: card.color,
+    rarity: card.rarity,
+    cost: card.cost,
+    power: card.power,
+    attribute: card.attribute,
+    imageUrl: card.imageUrl,
+    variantType: card.variantType,
+    variantLabel: card.variantLabel,
+    canonicalVariantId: card.canonicalVariantId,
+    variantOrder: card.variantOrder,
+  };
+}
+
+function normalizeDeckVariantId(cardId: string, variantId?: string | null) {
+  const baseId = getBaseCardId(cardId.toUpperCase());
+  const nextVariantId = String(variantId || "").trim().toUpperCase();
+  if (!nextVariantId || nextVariantId === baseId) return undefined;
+  return nextVariantId;
+}
+
+function resolveDeckImageId(cardId: string, variantId?: string | null) {
+  return normalizeDeckVariantId(cardId, variantId) || getBaseCardId(cardId.toUpperCase());
+}
+
+function compareDeckCardsByCost(a: Card, b: Card) {
+  const costA = typeof a.cost === "number" ? a.cost : Number(a.cost ?? 0);
+  const costB = typeof b.cost === "number" ? b.cost : Number(b.cost ?? 0);
+  if (costA !== costB) return costA - costB;
+  return a.name.localeCompare(b.name);
+}
+
+function buildDeckPreviewGroups(deck: Deck, cardCache: Map<string, Card>): DeckPreviewGroup[] {
+  const groups: DeckPreviewGroup[] = [];
+
+  if (deck.leaderId) {
+    const leaderCard = cardCache.get(deck.leaderId);
+    if (leaderCard) {
+      groups.push({
+        key: "leader",
+        label: "Leader",
+        total: 1,
+        entries: [{ card: leaderCard, quantity: 1, imageCardId: resolveDeckImageId(deck.leaderId, deck.leaderVariantId) }],
+      });
+    }
+  }
+
+  const typeBuckets = new Map<DeckPreviewGroup["key"], Array<{ card: Card; quantity: number; imageCardId: string }>>([
+    ["character", []],
+    ["event", []],
+    ["stage", []],
+  ]);
+
+  deck.cards.forEach((entry) => {
+    const card = cardCache.get(entry.cardId);
+    if (!card) return;
+    const imageCardId = resolveDeckImageId(entry.cardId, entry.variantId);
+
+    if (card.type === "Character") typeBuckets.get("character")?.push({ card, quantity: entry.quantity, imageCardId });
+    if (card.type === "Event") typeBuckets.get("event")?.push({ card, quantity: entry.quantity, imageCardId });
+    if (card.type === "Stage") typeBuckets.get("stage")?.push({ card, quantity: entry.quantity, imageCardId });
+  });
+
+  ([
+    ["character", "Characters"],
+    ["event", "Events"],
+    ["stage", "Stages"],
+  ] as const).forEach(([key, label]) => {
+    const entries = [...(typeBuckets.get(key) || [])].sort((a, b) => compareDeckCardsByCost(a.card, b.card));
+    if (!entries.length) return;
+    groups.push({
+      key,
+      label,
+      total: entries.reduce((sum, entry) => sum + entry.quantity, 0),
+      entries,
+    });
+  });
+
+  return groups;
+}
+
+function normalizeFeaturedDeckIds(ids: string[]) {
+  return Array.from(new Set(ids.map((deckId) => String(deckId || "").trim()).filter(Boolean))).slice(0, 3);
+}
+
+function deckVisibility(deck: Deck) {
+  return deck.visibility === "public" ? "public" : "private";
 }
 
 export default function DecksPage() {
+  const { loadDecks: loadDecksFromStore, saveDecks: saveDecksToStore, ready: cloudReady, user, hasCloud } = useCloudSync();
   const [decks, setDecks] = useState<Deck[]>([]);
   const [cardCache, setCardCache] = useState<Map<string, Card>>(new Map());
+  const hydratedIdsRef = useRef<Set<string>>(new Set());
+  const [storageReady, setStorageReady] = useState(false);
+  const [expandedDeckId, setExpandedDeckId] = useState<string | null>(null);
+  const [previewSearch, setPreviewSearch] = useState("");
+  const [previewResults, setPreviewResults] = useState<Card[]>([]);
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [modalCard, setModalCard] = useState<CardModalData | null>(null);
+  const [featuredDeckIds, setFeaturedDeckIds] = useState<string[]>([]);
+  const [featuredDeckSavingId, setFeaturedDeckSavingId] = useState<string | null>(null);
+  const [featuredNotice, setFeaturedNotice] = useState<FeaturedNotice | null>(null);
 
-  useEffect(() => {
-    setDecks(loadDecks());
-  }, []);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [sortMode, setSortMode] = useState<SortMode>("updated");
 
-  // Fetch card info for all leader IDs
-  useEffect(() => {
-    const leaderIds = decks.map(d => d.leaderId).filter(Boolean) as string[];
-    if (leaderIds.length === 0) return;
-    const missing = leaderIds.filter(id => !cardCache.has(id));
-    if (missing.length === 0) return;
+  async function persist(
+    next: Deck[],
+    activity?: {
+      kind: "deck_created" | "deck_updated";
+      title: string;
+      detail: string;
+      deckId: string;
+    },
+  ) {
+    setDecks(next);
+    await saveDecksToStore(next);
 
-    fetch(`/api/cards?q=${missing[0]}&pageSize=1`)
-      .then(r => r.json())
-      .then(data => {
-        const newCache = new Map(cardCache);
-        (data.results || []).forEach((c: Card) => newCache.set(c.id, c));
-        setCardCache(newCache);
-      }).catch(() => {});
-  }, [decks]);
+    if (!user) return;
 
-  function deleteDeck(id: string) {
-    const updated = decks.filter(d => d.id !== id);
-    setDecks(updated);
-    saveDecks(updated);
+    const tasks: Promise<unknown>[] = [
+      syncProfileSummaryPatch(
+        buildDeckSummaryPatch({
+          decks: next,
+          cards: Array.from(cardCache.values()),
+        }),
+      ),
+    ];
+
+    if (activity) {
+      tasks.push(
+        logProfileActivity({
+          kind: activity.kind,
+          title: activity.title,
+          detail: activity.detail,
+          deckId: activity.deckId,
+          publicVisible: true,
+        }),
+      );
+    }
+
+    await Promise.allSettled(tasks);
   }
 
-  function getColorBreakdown(deck: Deck): Record<string, number> {
-    const counts: Record<string, number> = {};
-    deck.cards.forEach(({ cardId, quantity }) => {
-      const card = cardCache.get(cardId);
-      if (!card) return;
-      card.color.split("/").forEach(col => {
-        const c = col.trim();
-        counts[c] = (counts[c] || 0) + quantity;
+  useEffect(() => {
+    if (!cloudReady) return;
+
+    let cancelled = false;
+
+    void loadDecksFromStore()
+      .then((next) => {
+        if (cancelled) return;
+        setDecks(next);
+        setStorageReady(true);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setDecks([]);
+        setStorageReady(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cloudReady, loadDecksFromStore]);
+
+  useEffect(() => {
+    if (!cloudReady) return;
+    if (!user) {
+      setFeaturedDeckIds([]);
+      return;
+    }
+
+    let cancelled = false;
+
+    void fetchWithClientAuth("/api/me/profile", { cache: "no-store" })
+      .then(async (res) => (res.ok ? await res.json() : null))
+      .then((json) => {
+        if (cancelled) return;
+        const nextIds = Array.isArray(json?.profile?.featuredDeckIds)
+          ? normalizeFeaturedDeckIds(json.profile.featuredDeckIds as string[])
+          : [];
+        setFeaturedDeckIds(nextIds);
+      })
+      .catch(() => {
+        if (!cancelled) setFeaturedDeckIds([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cloudReady, user]);
+
+  useEffect(() => {
+    setPreviewSearch("");
+    setPreviewResults([]);
+    setPreviewLoading(false);
+  }, [expandedDeckId]);
+
+  useEffect(() => {
+    if (!featuredNotice) return;
+    const timeout = window.setTimeout(() => setFeaturedNotice(null), 2400);
+    return () => window.clearTimeout(timeout);
+  }, [featuredNotice]);
+
+  const allCardIds = useMemo(() => {
+    const ids = new Set<string>();
+    decks.forEach((deck) => {
+      if (deck.leaderId) ids.add(deck.leaderId);
+      if (deck.leaderId && deck.leaderVariantId) ids.add(resolveDeckImageId(deck.leaderId, deck.leaderVariantId));
+      deck.cards.forEach((c) => ids.add(c.cardId));
+      deck.cards.forEach((c) => {
+        if (c.variantId) ids.add(resolveDeckImageId(c.cardId, c.variantId));
       });
     });
-    return counts;
+    return Array.from(ids);
+  }, [decks]);
+
+  useEffect(() => {
+    const missing = allCardIds.filter((id) => !hydratedIdsRef.current.has(id));
+    if (!missing.length) return;
+
+    let cancelled = false;
+
+    (async () => {
+      const fetched = await Promise.all(
+        missing.map(async (id) => {
+          try {
+            const res = await fetch(`/api/cards?q=${encodeURIComponent(id)}&pageSize=1`);
+            if (!res.ok) return null;
+            const json = await res.json();
+            return (json.results?.[0] as Card | undefined) || null;
+          } catch {
+            return null;
+          }
+        })
+      );
+
+      if (cancelled) return;
+
+      setCardCache((prev) => {
+        const next = new Map(prev);
+        fetched.forEach((card, i) => {
+          hydratedIdsRef.current.add(missing[i]);
+          if (card) next.set(card.id, card);
+        });
+        return next;
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [allCardIds]);
+
+  const expandedDeck = useMemo(
+    () => (expandedDeckId ? decks.find((deck) => deck.id === expandedDeckId) || null : null),
+    [decks, expandedDeckId],
+  );
+
+  useEffect(() => {
+    if (expandedDeckId && !expandedDeck) {
+      setExpandedDeckId(null);
+    }
+  }, [expandedDeck, expandedDeckId]);
+
+  useEffect(() => {
+    if (!expandedDeck) return;
+
+    const ids = new Set<string>();
+    if (expandedDeck.leaderId) ids.add(expandedDeck.leaderId);
+    if (expandedDeck.leaderId && expandedDeck.leaderVariantId) ids.add(resolveDeckImageId(expandedDeck.leaderId, expandedDeck.leaderVariantId));
+    expandedDeck.cards.forEach((entry) => ids.add(entry.cardId));
+    expandedDeck.cards.forEach((entry) => {
+      if (entry.variantId) ids.add(resolveDeckImageId(entry.cardId, entry.variantId));
+    });
+
+    const missing = Array.from(ids).filter((id) => !cardCache.has(id));
+    if (!missing.length) return;
+
+    let cancelled = false;
+
+    void (async () => {
+      try {
+        const res = await fetch(`/api/cards?ids=${encodeURIComponent(missing.join(","))}`, { cache: "no-store" });
+        if (!res.ok) throw new Error("Unable to hydrate deck preview");
+        const json = await res.json();
+        const results = Array.isArray(json.results) ? (json.results as Card[]) : [];
+
+        if (cancelled) return;
+
+        setCardCache((prev) => {
+          const next = new Map(prev);
+          results.forEach((card) => {
+            hydratedIdsRef.current.add(card.id);
+            next.set(card.id, card);
+          });
+          return next;
+        });
+      } catch {
+        // keep current cache
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cardCache, expandedDeck]);
+
+  useEffect(() => {
+    const trimmed = previewSearch.trim();
+    if (!expandedDeckId || trimmed.length < 2) {
+      setPreviewResults([]);
+      setPreviewLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setPreviewLoading(true);
+
+    const timeout = window.setTimeout(() => {
+      void (async () => {
+        try {
+          const res = await fetch(`/api/cards?q=${encodeURIComponent(trimmed)}&pageSize=8`, { cache: "no-store" });
+          if (!res.ok) throw new Error("Unable to search cards");
+          const json = await res.json();
+          const results = Array.isArray(json.results) ? (json.results as Card[]) : [];
+
+          if (cancelled) return;
+
+          setPreviewResults(results);
+          setCardCache((prev) => {
+            const next = new Map(prev);
+            results.forEach((card) => next.set(card.id, card));
+            return next;
+          });
+        } catch {
+          if (!cancelled) setPreviewResults([]);
+        } finally {
+          if (!cancelled) setPreviewLoading(false);
+        }
+      })();
+    }, 180);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeout);
+    };
+  }, [expandedDeckId, previewSearch]);
+
+  function updateDeck(deckId: string, updater: (deck: Deck) => Deck) {
+    let updatedDeck: Deck | undefined;
+    const next = decks.map((deck) => {
+      if (deck.id !== deckId) return deck;
+      updatedDeck = updater(deck);
+      return updatedDeck;
+    });
+    if (!updatedDeck) {
+      void persist(next);
+      return;
+    }
+
+    const changedDeck: Deck = updatedDeck;
+    const activity = {
+      kind: "deck_updated" as const,
+      title: `Updated ${changedDeck.name}`,
+      detail: `Updated deck: ${changedDeck.name}.`,
+      deckId: changedDeck.id,
+    };
+
+    void persist(next, activity);
   }
 
-  function totalCards(deck: Deck) {
-    return (deck.leaderId ? 1 : 0) + deck.cards.reduce((s, c) => s + c.quantity, 0);
+  function deleteDeck(id: string) {
+    const deck = decks.find((d) => d.id === id);
+    const ok = window.confirm(`Delete deck \"${deck?.name || "Untitled"}\"?`);
+    if (!ok) return;
+    if (featuredDeckIds.includes(id)) {
+      const nextFeatured = featuredDeckIds.filter((deckId) => deckId !== id);
+      setFeaturedDeckIds(nextFeatured);
+      void saveFeaturedDeckIds(nextFeatured);
+    }
+    void persist(decks.filter((d) => d.id !== id));
   }
+
+  function duplicateDeck(id: string) {
+    const base = decks.find((d) => d.id === id);
+    if (!base) return;
+    const copy = makeDeckCopy(base);
+    void persist([copy, ...decks], {
+      kind: "deck_created",
+      title: `Built ${copy.name}`,
+      detail: `Built a new deck: ${copy.name}.`,
+      deckId: copy.id,
+    });
+  }
+
+  function toggleDeckPreview(deckId: string) {
+    setExpandedDeckId((current) => (current === deckId ? null : deckId));
+  }
+
+  async function saveFeaturedDeckIds(nextIds: string[]) {
+    if (!user) return false;
+    const normalized = normalizeFeaturedDeckIds(nextIds);
+
+    try {
+      const res = await fetchWithClientAuth("/api/me/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ featuredDeckIds: normalized }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(String(json?.error || "Could not update featured decks."));
+      }
+
+      const syncedIds = Array.isArray(json?.profile?.featuredDeckIds)
+        ? normalizeFeaturedDeckIds(json.profile.featuredDeckIds as string[])
+        : normalized;
+      setFeaturedDeckIds(syncedIds);
+      return true;
+    } catch (error) {
+      setFeaturedNotice({
+        tone: "error",
+        message: error instanceof Error ? error.message : "Could not update featured decks.",
+      });
+      return false;
+    }
+  }
+
+  async function toggleFeaturedDeck(deckId: string) {
+    if (!user) {
+      setFeaturedNotice({ tone: "error", message: "Sign in to feature decks on your profile." });
+      return;
+    }
+
+    const deck = decks.find((row) => row.id === deckId);
+    if (!deck) return;
+
+    const isFeatured = featuredDeckIds.includes(deckId);
+    if (!isFeatured && deckVisibility(deck) !== "public") {
+      setFeaturedNotice({ tone: "error", message: "Make a deck public before featuring it on your profile." });
+      return;
+    }
+
+    if (!isFeatured && featuredDeckIds.length >= 3) {
+      setFeaturedNotice({ tone: "error", message: "You can feature up to 3 decks. Unpin one first." });
+      return;
+    }
+
+    const nextIds = isFeatured
+      ? featuredDeckIds.filter((id) => id !== deckId)
+      : [...featuredDeckIds, deckId];
+
+    setFeaturedDeckSavingId(deckId);
+    setFeaturedDeckIds(nextIds);
+
+    const ok = await saveFeaturedDeckIds(nextIds);
+    if (ok) {
+      setFeaturedNotice({
+        tone: "success",
+        message: isFeatured ? "Deck removed from your profile." : "Deck featured on your profile.",
+      });
+    } else {
+      setFeaturedDeckIds(featuredDeckIds);
+    }
+
+    setFeaturedDeckSavingId(null);
+  }
+
+  async function setDeckVisibility(deckId: string, nextVisibility: "public" | "private") {
+    const deck = decks.find((row) => row.id === deckId);
+    if (!deck || deckVisibility(deck) === nextVisibility) return;
+
+    const nextDecks = decks.map((row) =>
+      row.id === deckId
+        ? { ...row, visibility: nextVisibility, updatedAt: new Date().toISOString() }
+        : row,
+    );
+
+    const nextFeaturedIds =
+      nextVisibility === "private"
+        ? featuredDeckIds.filter((rowId) => rowId !== deckId)
+        : featuredDeckIds;
+
+    const removedFromProfile = nextFeaturedIds.length !== featuredDeckIds.length;
+
+    setDecks(nextDecks);
+    if (removedFromProfile) {
+      setFeaturedDeckIds(nextFeaturedIds);
+    }
+
+    await persist(nextDecks, {
+      kind: "deck_updated",
+      title: `Updated ${deck.name}`,
+      detail:
+        nextVisibility === "public"
+          ? `Made ${deck.name} public on the profile.`
+          : `Made ${deck.name} private in Crew Hangar.`,
+      deckId,
+    });
+
+    if (removedFromProfile) {
+      const ok = await saveFeaturedDeckIds(nextFeaturedIds);
+      if (!ok) {
+        setFeaturedDeckIds(featuredDeckIds);
+      }
+    }
+
+    setFeaturedNotice({
+      tone: "success",
+      message:
+        nextVisibility === "public"
+          ? `${deck.name} is now public on your profile.`
+          : removedFromProfile
+            ? `${deck.name} is now private and was removed from your featured decks.`
+            : `${deck.name} is now private.`,
+    });
+  }
+
+  function removeCardFromDeck(deckId: string, card: Card) {
+    updateDeck(deckId, (deck) => {
+      const nextDeck: Deck = { ...deck, cards: [...deck.cards], updatedAt: new Date().toISOString() };
+
+      if (card.type === "Leader") {
+        nextDeck.leaderId = null;
+        nextDeck.leaderVariantId = null;
+        return nextDeck;
+      }
+
+      nextDeck.cards = nextDeck.cards
+        .map((entry) =>
+          entry.cardId === card.id
+            ? { ...entry, quantity: Math.max(0, entry.quantity - 1) }
+            : entry,
+        )
+        .filter((entry) => entry.quantity > 0);
+
+      return nextDeck;
+    });
+  }
+
+  function addCardToDeck(deckId: string, card: Card) {
+    updateDeck(deckId, (deck) => {
+      const nextDeck: Deck = { ...deck, cards: [...deck.cards], updatedAt: new Date().toISOString() };
+      const baseId = getBaseCardId(card.id.toUpperCase());
+      const variantId = normalizeDeckVariantId(baseId, card.id);
+
+      if (card.type === "Leader") {
+        nextDeck.leaderId = baseId;
+        nextDeck.leaderVariantId = variantId ?? null;
+        return nextDeck;
+      }
+
+      const existingIndex = nextDeck.cards.findIndex((entry) => entry.cardId === baseId);
+      if (existingIndex >= 0) {
+        nextDeck.cards[existingIndex] = {
+          ...nextDeck.cards[existingIndex],
+          quantity: Math.min(4, nextDeck.cards[existingIndex].quantity + 1),
+          ...(variantId ? { variantId } : {}),
+        };
+      } else {
+        nextDeck.cards.push({ cardId: baseId, quantity: 1, ...(variantId ? { variantId } : {}) });
+      }
+
+      return nextDeck;
+    });
+    setPreviewSearch("");
+    setPreviewResults([]);
+  }
+
+  function colorBreakdown(deck: Deck) {
+    const tally: Record<string, number> = {};
+
+    if (deck.leaderId) {
+      const leader = cardCache.get(deck.leaderId);
+      if (leader?.color) {
+        leader.color.split("/").forEach((part) => {
+          const c = part.trim();
+          tally[c] = (tally[c] || 0) + 1;
+        });
+      }
+    }
+
+    deck.cards.forEach(({ cardId, quantity }) => {
+      const card = cardCache.get(cardId);
+      if (!card?.color) return;
+      card.color.split("/").forEach((part) => {
+        const c = part.trim();
+        tally[c] = (tally[c] || 0) + quantity;
+      });
+    });
+
+    return Object.entries(tally)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4);
+  }
+
+  const filteredDecks = useMemo(() => {
+    const q = query.trim().toLowerCase();
+
+    const filtered = decks.filter((deck) => {
+      const leader = deck.leaderId ? cardCache.get(deck.leaderId) : null;
+      const matchQuery =
+        !q ||
+        deck.name.toLowerCase().includes(q) ||
+        leader?.name?.toLowerCase().includes(q) ||
+        deck.leaderId?.toLowerCase().includes(q);
+
+      const ready = isBattleReady(deck);
+      const matchStatus = statusFilter === "all" || (statusFilter === "ready" ? ready : !ready);
+
+      return matchQuery && matchStatus;
+    });
+
+    filtered.sort((a, b) => {
+      if (sortMode === "name") return a.name.localeCompare(b.name);
+      if (sortMode === "created") return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    });
+
+    return filtered;
+  }, [decks, query, statusFilter, sortMode, cardCache]);
+
+  const totalDecks = decks.length;
+  const readyDecks = decks.filter(isBattleReady).length;
+  const avgCompletion = totalDecks
+    ? Math.round((decks.reduce((sum, d) => sum + Math.min(50, mainDeckCardCount(d)), 0) / (totalDecks * 50)) * 100)
+    : 0;
+  const recentlyUpdated = countRecentlyUpdated(decks);
+  const storageLabel = user ? "Account sync active" : hasCloud ? "Sign in required to save decks" : "Saved locally";
 
   return (
-    <div className="min-h-screen" style={{ background: "#0a0f1e" }}>
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+    <div className="space-y-6 pb-20">
+      <CardModal card={modalCard} onClose={() => setModalCard(null)} />
+
+      <section className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.18),transparent_40%),radial-gradient(circle_at_88%_82%,rgba(220,38,38,0.12),transparent_42%)]" />
+
+        <div className="relative flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black text-white flex items-center gap-3">
-              <BookOpen className="w-7 h-7 text-yellow-400" />
-              My Decks
-            </h1>
-            <p className="text-white/40 text-sm mt-1">{decks.length} deck{decks.length !== 1 ? "s" : ""} saved</p>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#f8d479]/35 bg-black/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f8d479]">
+              <FlaskConical className="h-3.5 w-3.5" /> Deck Lab Archive
+            </div>
+            <h1 className="mt-3 text-3xl font-black text-white md:text-4xl">Your Crew Hangar</h1>
+            <p className="mt-2 max-w-2xl text-sm text-white/65">
+              Manage every saved list, track build readiness, and jump back into Deck Lab with one click.
+            </p>
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
+              {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-white/45" : "animate-spin text-white/45"}`} />}
+              {storageReady ? storageLabel : "Checking saved decks"}
+            </div>
           </div>
-          <Link href="/deckbuilder">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm text-black"
-              style={{ background: "linear-gradient(135deg, #f0c040, #dc8a00)" }}
-            >
-              <Plus className="w-4 h-4" />
-              New Deck
-            </motion.button>
-          </Link>
+
+          <div className="flex items-center gap-2">
+            <Link href="/deckbuilder">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/85"
+              >
+                <BookOpen className="h-3.5 w-3.5" /> Open Lab
+              </motion.button>
+            </Link>
+            <DonButton href="/deckbuilder" className="px-4 py-2 text-[11px]">
+              <span className="inline-flex items-center gap-1.5"><Plus className="h-3.5 w-3.5" /> New Deck</span>
+            </DonButton>
+          </div>
         </div>
 
-        {/* Empty state */}
-        {decks.length === 0 && (
-          <div className="text-center py-24">
-            <BookOpen className="w-16 h-16 text-white/10 mx-auto mb-4" />
-            <p className="text-white/30 text-lg font-semibold">No decks yet</p>
-            <p className="text-white/20 text-sm mt-1 mb-6">Build your first deck to get started</p>
-            <Link href="/deckbuilder">
-              <button className="px-6 py-3 rounded-xl font-bold text-black text-sm" style={{ background: "linear-gradient(135deg, #f0c040, #dc8a00)" }}>
-                Build a Deck
-              </button>
-            </Link>
+        <div className="relative mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Vault</p>
+            <p className="mt-1 text-2xl font-black text-white">{totalDecks}</p>
+            <p className="text-xs text-white/50">Saved lists</p>
           </div>
-        )}
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Battle Ready</p>
+            <p className="mt-1 text-2xl font-black text-emerald-300">{readyDecks}</p>
+            <p className="text-xs text-white/50">50 cards + leader</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Avg Completion</p>
+            <p className="mt-1 text-2xl font-black text-[var(--theme-accent-2)]">{avgCompletion}%</p>
+            <p className="text-xs text-white/50">Across all decks</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Updated (7d)</p>
+            <p className="mt-1 text-2xl font-black text-white">{recentlyUpdated}</p>
+            <p className="text-xs text-white/50">Recently tuned</p>
+          </div>
+        </div>
+      </section>
 
-        {/* Deck Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence>
-            {decks.map(deck => {
-              const leader = deck.leaderId ? cardCache.get(deck.leaderId) : null;
-              const total = totalCards(deck);
-              const isValid = deck.leaderId !== null && total === 50;
-              const colors = getColorBreakdown(deck);
+      {!storageReady ? (
+        <section className="rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-14 text-center">
+          <Loader2 className="mx-auto h-10 w-10 animate-spin text-white/20" />
+          <p className="mt-4 text-sm text-white/55">Loading your saved decks...</p>
+        </section>
+      ) : totalDecks === 0 ? (
+        <section className="rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-14 text-center">
+          <BookOpen className="mx-auto h-14 w-14 text-white/15" />
+          <h2 className="mt-4 text-xl font-black text-white">No crews in your hangar yet</h2>
+          <p className="mt-2 text-sm text-white/55">Build your first deck and it will appear here instantly.</p>
+          <div className="mt-6">
+            <DonButton href="/deckbuilder" className="px-6 py-3 text-[11px]">Start in Deck Lab</DonButton>
+          </div>
+        </section>
+      ) : (
+        <>
+          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="relative w-full lg:max-w-md">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search by deck name, leader, or card ID..."
+                  className="w-full rounded-xl border border-white/10 bg-black/25 py-2.5 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
+                />
+              </div>
 
-              return (
-                <motion.div
-                  key={deck.id}
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="rounded-2xl overflow-hidden relative group"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-2 py-1.5">
+                  <Filter className="h-3.5 w-3.5 text-white/45" />
+                  {(["all", "ready", "draft"] as const).map((f) => (
+                    <button
+                      key={f}
+                      onClick={() => setStatusFilter(f)}
+                      className={`rounded-lg px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] ${
+                        statusFilter === f
+                          ? "bg-[var(--theme-accent)]/20 text-[var(--theme-accent-2)]"
+                          : "text-white/60 hover:text-white"
+                      }`}
+                    >
+                      {f}
+                    </button>
+                  ))}
+                </div>
+
+                <select
+                  value={sortMode}
+                  onChange={(e) => setSortMode(e.target.value as SortMode)}
+                  className="rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-white/80"
                 >
-                  {/* Leader Art Background */}
-                  {deck.leaderId && (
-                    <div className="absolute inset-0 opacity-10 group-hover:opacity-15 transition-opacity">
-                      <img
-                        src={`/api/card-image?id=${deck.leaderId}`}
-                        alt=""
-                        className="w-full h-full object-cover object-top scale-110"
-                      />
-                    </div>
-                  )}
+                  <option value="updated">Sort: Updated</option>
+                  <option value="created">Sort: Created</option>
+                  <option value="name">Sort: Name</option>
+                </select>
+              </div>
+            </div>
+          </section>
 
-                  <div className="relative p-4">
-                    {/* Top row: leader thumb + name */}
-                    <div className="flex items-start gap-3 mb-3">
+          {featuredNotice ? (
+            <section
+              className={`rounded-2xl border px-4 py-3 text-sm ${
+                featuredNotice.tone === "error"
+                  ? "border-red-400/20 bg-red-500/10 text-red-200"
+                  : "border-emerald-400/20 bg-emerald-500/10 text-emerald-200"
+              }`}
+            >
+              {featuredNotice.message}
+            </section>
+          ) : null}
+
+          {filteredDecks.length === 0 ? (
+            <section className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-10 text-center">
+              <p className="text-sm text-white/60">No decks match your current search/filter.</p>
+            </section>
+          ) : (
+            <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <AnimatePresence>
+                {filteredDecks.map((deck, index) => {
+                  const leader = deck.leaderId ? cardCache.get(deck.leaderId) : null;
+                  const leaderImageId = deck.leaderId ? resolveDeckImageId(deck.leaderId, deck.leaderVariantId) : null;
+                  const total = mainDeckCardCount(deck);
+                  const unique = uniqueCards(deck);
+                  const ready = isBattleReady(deck);
+                  const colors = colorBreakdown(deck);
+                  const isFeaturedDeck = featuredDeckIds.includes(deck.id);
+                  const previewOpen = expandedDeckId === deck.id;
+                  const previewGroups = previewOpen ? buildDeckPreviewGroups(deck, cardCache) : [];
+                  const previewHasLeader = Boolean(deck.leaderId);
+
+                  return (
+                    <motion.article
+                      key={deck.id}
+                      layout
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ delay: index * 0.03 }}
+                      className="group relative overflow-hidden rounded-2xl border border-white/12 bg-[linear-gradient(180deg,rgba(10,14,24,0.86),rgba(7,10,18,0.9))]"
+                    >
                       {deck.leaderId ? (
-                        <div className="relative shrink-0">
+                        <div className="pointer-events-none absolute inset-0 opacity-[0.12] transition-opacity duration-200 group-hover:opacity-[0.18]">
                           <img
-                            src={`/api/card-image?id=${deck.leaderId}`}
-                            alt="Leader"
-                            className="w-14 h-20 object-cover rounded-xl shadow-lg"
+                            src={`/api/card-image?id=${encodeURIComponent(leaderImageId || deck.leaderId)}`}
+                            alt=""
+                            className="h-full w-full object-cover object-top"
                           />
-                          <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-amber-400 flex items-center justify-center">
-                            <Crown className="w-2.5 h-2.5 text-black" />
+                        </div>
+                      ) : null}
+
+                      <div className="relative space-y-3 p-4">
+                        <div className="flex items-start gap-3">
+                          {deck.leaderId ? (
+                            <div className="relative shrink-0">
+                              <img
+                                src={`/api/card-image?id=${encodeURIComponent(leaderImageId || deck.leaderId)}`}
+                                alt={leader?.name || "Leader"}
+                                className="h-20 w-14 rounded-xl border border-white/20 object-cover"
+                              />
+                              <div className="absolute -right-1 -top-1 rounded-full bg-[var(--theme-accent)] p-1">
+                                <Crown className="h-2.5 w-2.5 text-black" />
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/30">
+                              <Crown className="h-4 w-4 text-white/30" />
+                            </div>
+                          )}
+
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-black text-white">{deck.name}</p>
+                            <p className="truncate text-[11px] text-white/45">{leader?.name || "No leader selected"}</p>
+
+                            <div className="mt-2 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em]">
+                              {ready ? (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-emerald-300">
+                                  <CheckCircle2 className="h-3 w-3" /> Battle Ready
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-amber-300">
+                                  <AlertTriangle className="h-3 w-3" /> Needs Tuning
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="mt-2">
+                              {deckVisibility(deck) === "public" ? (
+                                <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/20 bg-sky-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-sky-200">
+                                  <Globe2 className="h-3 w-3" /> Public
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 rounded-full border border-white/12 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/55">
+                                  <Lock className="h-3 w-3" /> Private
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      ) : (
-                        <div className="w-14 h-20 rounded-xl flex items-center justify-center shrink-0" style={{ border: "1px dashed rgba(255,255,255,0.1)" }}>
-                          <Crown className="w-5 h-5 text-white/20" />
-                        </div>
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-white font-bold text-sm leading-tight mb-0.5 truncate">{deck.name}</h3>
-                        {leader && <p className="text-white/40 text-xs truncate">{leader.name}</p>}
-                        <div className={`mt-1.5 inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-semibold ${isValid ? "text-green-400 bg-green-400/10" : "text-white/30 bg-white/5"}`}>
-                          {total}/50
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* Color bars */}
-                    {Object.keys(colors).length > 0 && (
-                      <div className="flex gap-1 mb-3 h-1.5">
-                        {Object.entries(colors).map(([color, count]) => (
-                          <div
-                            key={color}
-                            className="h-full rounded-full"
-                            style={{
-                              background: COLOR_HEX[color] || "#888",
-                              flex: count,
-                              opacity: 0.8
-                            }}
-                            title={`${color}: ${count}`}
-                          />
-                        ))}
-                      </div>
-                    )}
+                        {colors.length ? (
+                          <div className="flex flex-wrap gap-1.5">
+                            {colors.map(([color, count]) => (
+                              <span
+                                key={`${deck.id}-${color}`}
+                                className="inline-flex items-center gap-1 rounded-full border border-white/12 bg-black/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/80"
+                              >
+                                <span className="h-1.5 w-1.5 rounded-full" style={{ background: COLOR_HEX[color] || "#999" }} />
+                                {color} · {count}
+                              </span>
+                            ))}
+                          </div>
+                        ) : null}
 
-                    {/* Date + actions */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1 text-xs text-white/25">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(deck.createdAt).toLocaleDateString()}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Link href={`/deckbuilder?id=${deck.id}`}>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="w-7 h-7 rounded-lg flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-colors"
+                        <div className="grid grid-cols-3 gap-2 text-center">
+                          <div className="rounded-lg border border-white/10 bg-black/20 px-2 py-2">
+                            <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Cards</p>
+                            <p className="text-sm font-black text-white">{total}/50</p>
+                          </div>
+                          <div className="rounded-lg border border-white/10 bg-black/20 px-2 py-2">
+                            <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Unique</p>
+                            <p className="text-sm font-black text-white">{unique}</p>
+                          </div>
+                          <div className="rounded-lg border border-white/10 bg-black/20 px-2 py-2">
+                            <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Updated</p>
+                            <p className="text-sm font-black text-white">{recency(deck.updatedAt)}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[11px] text-white/45">
+                          <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {formatShortDate(deck.createdAt)}</span>
+                          <span>#{deck.id.slice(-4)}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <Link href={`/deckbuilder?id=${deck.id}`} className="flex-1">
+                            <button className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-white/80 hover:text-white">
+                              Open in Lab <ArrowRight className="h-3.5 w-3.5" />
+                            </button>
+                          </Link>
+
+                          <button
+                            onClick={() => toggleDeckPreview(deck.id)}
+                            className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors ${
+                              previewOpen
+                                ? "border-[#F0C040]/35 bg-[#F0C040]/12 text-[#F0C040]"
+                                : "border-white/15 bg-black/30 text-white/80 hover:text-white"
+                            }`}
+                            title={previewOpen ? "Hide deck preview" : "View deck"}
                           >
-                            <Edit2 className="w-3.5 h-3.5" />
-                          </motion.button>
-                        </Link>
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => deleteDeck(deck.id)}
-                          className="w-7 h-7 rounded-lg flex items-center justify-center text-white/30 hover:text-red-400 hover:bg-red-400/10 transition-colors"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </motion.button>
+                            {previewOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                            <span className="hidden sm:inline">{previewOpen ? "Hide Deck" : "View Deck"}</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              void setDeckVisibility(deck.id, deckVisibility(deck) === "public" ? "private" : "public");
+                            }}
+                            className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors ${
+                              deckVisibility(deck) === "public"
+                                ? "border-sky-400/25 bg-sky-500/10 text-sky-200"
+                                : "border-white/15 bg-black/30 text-white/80 hover:text-white"
+                            }`}
+                            title={deckVisibility(deck) === "public" ? "Make deck private" : "Make deck public"}
+                          >
+                            {deckVisibility(deck) === "public" ? <Globe2 className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
+                            <span className="hidden sm:inline">{deckVisibility(deck) === "public" ? "Public" : "Private"}</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              void toggleFeaturedDeck(deck.id);
+                            }}
+                            disabled={featuredDeckSavingId === deck.id}
+                            className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border transition-colors ${
+                              isFeaturedDeck
+                                ? "border-[#F0C040]/35 bg-[#F0C040]/12 text-[#F0C040]"
+                                : "border-white/15 bg-black/30 text-white/65 hover:text-white"
+                            } disabled:opacity-60`}
+                            title={isFeaturedDeck ? "Remove from profile" : "Feature on profile"}
+                            aria-label={isFeaturedDeck ? `Remove ${deck.name} from profile` : `Feature ${deck.name} on profile`}
+                          >
+                            {featuredDeckSavingId === deck.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Star className={`h-3.5 w-3.5 ${isFeaturedDeck ? "fill-current" : ""}`} />}
+                          </button>
+
+                          <button
+                            onClick={() => duplicateDeck(deck.id)}
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-black/30 text-white/65 hover:text-white"
+                            title="Duplicate deck"
+                          >
+                            <Copy className="h-3.5 w-3.5" />
+                          </button>
+
+                          <button
+                            onClick={() => deleteDeck(deck.id)}
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-300/20 bg-red-500/10 text-red-200/75 hover:text-red-200"
+                            title="Delete deck"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+
+                        <AnimatePresence initial={false}>
+                          {previewOpen ? (
+                            <motion.div
+                              key={`${deck.id}-preview`}
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.24, ease: "easeOut" }}
+                              className="overflow-hidden"
+                            >
+                              <div className="mt-3 rounded-2xl border border-white/10 bg-[rgba(4,7,14,0.72)] p-4">
+                                <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-3">
+                                  <div>
+                                    <p className="text-lg font-black text-white">{deck.name}</p>
+                                    <p className="text-sm text-white/50">{leader?.name || "No leader set."}</p>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="text-right">
+                                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/35">Main Deck</p>
+                                      <p className="text-sm font-black text-[#F0C040]">{total}/50</p>
+                                    </div>
+                                    <button
+                                      type="button"
+                                      onClick={() => setExpandedDeckId(null)}
+                                      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/65 hover:text-white"
+                                      aria-label={`Collapse ${deck.name}`}
+                                    >
+                                      <ChevronUp className="h-4 w-4" />
+                                    </button>
+                                  </div>
+                                </div>
+
+                                {!previewHasLeader ? (
+                                  <p className="mt-3 text-sm text-white/45">No leader set.</p>
+                                ) : null}
+
+                                <div className="mt-4 space-y-4">
+                                  {previewGroups.map((group) => (
+                                    <section key={`${deck.id}-${group.key}`} className="space-y-3">
+                                      <div className="flex items-center justify-between gap-3">
+                                        <p className="text-[11px] font-black uppercase tracking-[0.14em] text-white/45">
+                                          {group.key === "leader" ? group.label : `${group.label} (${group.total})`}
+                                        </p>
+                                      </div>
+
+                                      <div className="flex flex-wrap gap-3">
+                                        {group.entries.map(({ card, quantity, imageCardId }) => (
+                                          <div
+                                            key={`${deck.id}-${group.key}-${card.id}-${imageCardId}`}
+                                            className={`group/card relative ${
+                                              group.key === "leader" ? "w-[96px] sm:w-[112px]" : "w-[68px] sm:w-[88px]"
+                                            }`}
+                                          >
+                                            <button
+                                              type="button"
+                                              onClick={() => setModalCard(buildCardModalData(cardCache.get(imageCardId) || card))}
+                                              className="block w-full"
+                                              aria-label={`Open ${card.name}`}
+                                            >
+                                              <img
+                                                src={`/api/card-image?id=${encodeURIComponent(imageCardId)}`}
+                                                alt={card.name}
+                                                className={`w-full rounded-xl border border-white/15 object-cover shadow-[0_12px_28px_rgba(0,0,0,0.35)] ${
+                                                  group.key === "leader" ? "h-[134px] sm:h-[156px]" : "h-[96px] sm:h-[124px]"
+                                                }`}
+                                              />
+                                            </button>
+
+                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 rounded-b-xl bg-gradient-to-t from-black/85 to-transparent px-2 pb-2 pt-6">
+                                              <p className="line-clamp-2 text-[10px] font-bold text-white">{card.name}</p>
+                                            </div>
+
+                                            {group.key !== "leader" ? (
+                                              <span className="absolute left-2 top-2 rounded-full bg-[#F0C040] px-2 py-0.5 text-[10px] font-black text-black">
+                                                ×{quantity}
+                                              </span>
+                                            ) : null}
+
+                                            <button
+                                              type="button"
+                                              onClick={() => removeCardFromDeck(deck.id, card)}
+                                              className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-red-300/25 bg-red-500/90 text-white opacity-100 shadow-lg transition-opacity md:opacity-0 md:group-hover/card:opacity-100"
+                                              aria-label={group.key === "leader" ? `Remove leader ${card.name}` : `Remove one copy of ${card.name}`}
+                                            >
+                                              <Minus className="h-3.5 w-3.5" />
+                                            </button>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </section>
+                                  ))}
+                                </div>
+
+                                <div className="mt-5 border-t border-white/10 pt-4">
+                                  <label className="block text-[11px] font-black uppercase tracking-[0.14em] text-white/45">
+                                    Quick Add a Card
+                                  </label>
+                                  <div className="relative mt-2">
+                                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+                                    <input
+                                      value={previewSearch}
+                                      onChange={(event) => setPreviewSearch(event.target.value)}
+                                      placeholder="Quick add a card..."
+                                      className="w-full rounded-xl border border-white/10 bg-black/25 py-3 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
+                                    />
+                                  </div>
+
+                                  {previewSearch.trim().length >= 2 ? (
+                                    <div className="mt-3 rounded-xl border border-white/10 bg-black/25">
+                                      {previewLoading ? (
+                                        <div className="flex items-center gap-2 px-3 py-3 text-sm text-white/55">
+                                          <Loader2 className="h-4 w-4 animate-spin" />
+                                          Searching cards...
+                                        </div>
+                                      ) : previewResults.length ? (
+                                        <div className="divide-y divide-white/8">
+                                          {previewResults.map((card) => (
+                                            <button
+                                              key={`${deck.id}-search-${card.id}`}
+                                              type="button"
+                                              onClick={() => addCardToDeck(deck.id, card)}
+                                              className="flex w-full items-center justify-between gap-3 px-3 py-3 text-left transition-colors hover:bg-white/5"
+                                            >
+                                              <div className="min-w-0">
+                                                <p className="truncate text-sm font-bold text-white">{card.name}</p>
+                                                <p className="text-[11px] text-white/45">
+                                                  {card.id} · {card.type} · {card.setCode}
+                                                </p>
+                                              </div>
+                                              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-white/70">
+                                                Add
+                                              </span>
+                                            </button>
+                                          ))}
+                                        </div>
+                                      ) : (
+                                        <div className="px-3 py-3 text-sm text-white/50">No cards match that search.</div>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <p className="mt-2 text-xs text-white/40">
+                                      Type at least 2 characters to search the card database and add a card without leaving Crew Hangar.
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </motion.div>
+                          ) : null}
+                        </AnimatePresence>
                       </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </div>
-      </div>
+                    </motion.article>
+                  );
+                })}
+              </AnimatePresence>
+            </section>
+          )}
+        </>
+      )}
     </div>
   );
 }

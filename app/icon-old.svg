@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="brand-core" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(36 28) rotate(44) scale(86)">
+      <stop stop-color="#9E6AF5" />
+      <stop offset="0.55" stop-color="#7B3FE4" />
+      <stop offset="1" stop-color="#33145E" />
+    </radialGradient>
+    <linearGradient id="brand-ring" x1="20" y1="18" x2="100" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2D784" />
+      <stop offset="1" stop-color="#D4AF37" />
+    </linearGradient>
+  </defs>
+
+  <rect width="120" height="120" rx="30" fill="#0A0A0A" />
+  <circle cx="60" cy="60" r="45" fill="url(#brand-core)" />
+  <circle cx="60" cy="60" r="45" stroke="url(#brand-ring)" stroke-width="2.4" />
+  <circle cx="60" cy="60" r="38" stroke="rgba(245,245,247,0.16)" stroke-width="0.8" />
+
+  <g fill="none" stroke="#D4AF37" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M38 47C44 37 58 36 63 45C67 53 61 63 51 61" stroke-width="2.6" />
+    <path d="M67 38C77 35 84 44 82 52C80 60 70 63 63 58" stroke-width="2.4" />
+    <path d="M40 70C47 61 60 62 64 71C68 80 61 88 51 86" stroke-width="2.6" />
+    <path d="M70 66C80 63 87 71 86 79C85 88 75 91 67 86" stroke-width="2.4" />
+    <path d="M54 25C54 19 58 14 66 12" stroke-width="2.1" />
+  </g>
+</svg>

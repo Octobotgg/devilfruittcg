@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Repo utility scripts are Node/CommonJS and validated separately
+    "scripts/**",
   ]),
 ]);
 

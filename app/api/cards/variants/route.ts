@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { loadCards } from "@/lib/card-feed";
+import { getOfficialVariantsByBaseId } from "@/lib/official-cards";
 
 export async function GET(req: NextRequest) {
   const id = (req.nextUrl.searchParams.get("id") || "").trim().toUpperCase();
   if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 });
 
-  const cards = await loadCards();
-  const variants = cards.filter((c) => c.id.toUpperCase() === id);
+  const variants = getOfficialVariantsByBaseId(id);
 
   return NextResponse.json(
     {
@@ -14,6 +13,6 @@ export async function GET(req: NextRequest) {
       count: variants.length,
       variants,
     },
-    { status: 200, headers: { "Cache-Control": "no-store" } }
+    { status: 200, headers: { "Cache-Control": "no-store" } },
   );
 }

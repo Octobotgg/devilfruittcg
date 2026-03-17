@@ -1,0 +1,591 @@
+{
+  "generatedAt": "2026-03-07T23:17:54.944Z",
+  "summary": {
+    "officialCardCount": 4145,
+    "officialReleaseCount": 165,
+    "apiRoundTripCount": 4145,
+    "missingFromApi": 0,
+    "mismatchedFromApi": 0,
+    "uniqueImageUrls": 4145,
+    "sampledImageChecks": 208,
+    "sampledImageFailures": 0
+  },
+  "checks": [
+    "Validated active server /api/cards?ids=... round-trips all 4,145 official print records with zero missing and zero mismatched payloads.",
+    "Validated /api/cards/variants returns full official print groups for representative cards including OP01-001, OP07-091, and P-001.",
+    "Verified every official print record has a distinct Bandai image URL (4,145 unique URLs for 4,145 prints).",
+    "Verified a 208-record spread sample of official Bandai image URLs returned HTTP success with zero failures."
+  ],
+  "manualReviewReleases": [
+    {
+      "name": "2025 NEW YEAR EVENT",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "3rd Anniversary Event",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Anime Expo 2023",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "BANDAI CARD GAMES Fest 25-26",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Championship 25-26 Finals Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Championship 25-26 Offline Regionals Season 2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Celebration Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Event Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Event Pack Finalist Ver.",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Finalist Card Set 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Finalist Card Set 2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Top Player Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Top Player Pack 2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "CS 25-26 Winner Card Set 2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "DODGERS ONE PIECE NIGHT",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Dreamhack Dallas 2024",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Event Pack Vol. 8",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Event Pack Vol.3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Event Pack Vol.5",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Event Pack Vol.6",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Event Pack vol.7",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Heroines Battle Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Heroines Battle Winner Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in Event Pack Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in Event Pack Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in FILM RED Promotion Card Set",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in Online Regional Participation Pack Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in Pirates Party Card Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in Pirates Party Card Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Included in Promotion Pack 2022",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Champion Card Set 2025 Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Champion Card Set 25-26 Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Finalist Card Set 2025 Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Finalist Card Set 25-26 Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Participation Pack 2024 Vol. 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Participation Pack 2024 Vol. 2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Participation Pack 2024 Vol. 3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Participation Pack 2025 Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Offline Regional Participation Pack 2025 Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "ONE PIECE CARD GAME and Football Team DORTMUND collaboration event",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "One Piece Card Game x PSA Exclusive Promo Card",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "ONE PIECE DAY Dallas -Card Game Celebration-",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "ONE PIECE HEROINES CAMPAIGN Dash Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Online Regional Champion Card Set 25-26 Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Online Regional Finalist Card Set 25-26 Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Online Regional Participation Pack 25-26 Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "OP-11 Release Event",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "OP-12 Release Event",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "OP14-EB04 Release Event",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates League Store Qualifier",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates League Three Captains Battle & Support Crew Battle",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates Party Vol.3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates Party Vol.4",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates Party Vol.5",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates Party Vol.6",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pirates Party Vol.7",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pre-Release OP02",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pre-Release OP03",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pre-Release OP04",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pre-Release OP06",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Pre-Release OP08",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Regional 2024 wave1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Regional 2024 wave2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Regional 25-26 Season1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Regionals Season 1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Regionals Wave 3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Sealed Battle 2023 Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Sealed Battle Kit Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "ST-11 Uta Deck Battle Participation Pack",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "ST15-20 Release Event",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Store 2-on-2 Battle",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Store Tournament 2025 Vol. 4",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Store Treasure Cup August – September 2024",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Super Pre-Release",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Kit 2025 Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack 2024 Oct.-Dec.",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack 2025 Vol. 3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack 2025 Vol. 4",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.4",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.5",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.6",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Tournament Pack Vol.7",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Treasure Cup August – September",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Treasure Cup August 2025~",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Treasure Cup February 2025",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Treasure Cup May 2025~",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Treasure Cup November 2025~",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Treasure Cup November-December",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Winner Pack 2025 Vol. 3",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Winner Pack 2025 Vol. 4",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Winner Pack 2025 Vol.2",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    },
+    {
+      "name": "Winner prize for Sealed Battle 2023 Vol.1",
+      "manualReview": [
+        "No direct Bandai product page match on /products/; release date needs manual review."
+      ]
+    }
+  ]
+}

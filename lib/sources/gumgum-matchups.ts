@@ -1,11 +1,9 @@
+import { getOfficialCardById } from "@/lib/official-cards";
 import type { MetaDeck } from "@/lib/meta-decks";
-import { formatDeckDisplayName, normalizeDeckLabel } from "@/lib/deck-names";
 
 interface RawDeck {
-  keyId: string;
-  keyName: string;
-  leader: string;
   cardId: string;
+  leader: string;
   variant: string;
   wins: number;
   losses: number;
@@ -16,17 +14,6 @@ const URL = "https://gumgum.gg/tier-list";
 
 const TOP_RE = /\\"([A-Z0-9]{2,5}-\d{3}) ([^\\"]+)\\":\{\\"leader\\":\\"([^\\"]+)\\",\\"id\\":\\"([A-Z0-9-]+)\\",\\"variant\\":\\"([^\\"]+)\\",\\"data\\":\{\\"wins\\":(\d+),\\"losses\\":(\d+),\\"vs\\":\{/g;
 const VS_RE = /\\"([A-Z0-9]{2,5}-\d{3}) ([^\\"]+)\\":\{\\"wins\\":(\d+),\\"losses\\":(\d+)/g;
-
-function inferColor(name: string): string {
-  const n = name.toLowerCase();
-  if (n.includes("sakazuki") || n.includes("moria") || n.includes("lucci") || n.includes("rebecca")) return "Black";
-  if (n.includes("enel") || n.includes("katakuri") || n.includes("linlin")) return "Yellow";
-  if (n.includes("doflamingo") || n.includes("law") || n.includes("uta")) return "Blue";
-  if (n.includes("luffy") || n.includes("zoro") || n.includes("ace") || n.includes("shanks") || n.includes("newgate")) return "Red";
-  if (n.includes("kid") || n.includes("bonney") || n.includes("yamato")) return "Green";
-  if (n.includes("kaido") || n.includes("queen") || n.includes("king")) return "Purple";
-  return "Mixed";
-}
 
 function tierByRank(rank: number): MetaDeck["tier"] {
   if (rank <= 2) return "S";
@@ -41,14 +28,28 @@ function trendByWinRate(rate: number): MetaDeck["trend"] {
   return "stable";
 }
 
-export interface LiveMatchupSnapshot {
+function colorForCard(cardId: string, leaderName: string): string {
+  const official = getOfficialCardById(cardId);
+  if (official?.color) return official.color;
+
+  const n = leaderName.toLowerCase();
+  if (n.includes("sakazuki") || n.includes("moria") || n.includes("lucci") || n.includes("rebecca")) return "Black";
+  if (n.includes("enel") || n.includes("katakuri") || n.includes("linlin")) return "Yellow";
+  if (n.includes("doflamingo") || n.includes("law") || n.includes("uta")) return "Blue";
+  if (n.includes("luffy") || n.includes("zoro") || n.includes("ace") || n.includes("shanks") || n.includes("newgate")) return "Red";
+  if (n.includes("kid") || n.includes("bonney") || n.includes("yamato")) return "Green";
+  if (n.includes("kaido") || n.includes("queen") || n.includes("king")) return "Purple";
+  return "Mixed";
+}
+
+export interface GumGumMatchupSnapshot {
   source: string;
   updatedAt: string;
   sampleGames: number;
   decks: MetaDeck[];
 }
 
-export async function fetchGumGumMatchups(limit = 12): Promise<LiveMatchupSnapshot | null> {
+export async function fetchGumGumMatchups(limit = 18): Promise<GumGumMatchupSnapshot | null> {
   const res = await fetch(URL, {
     headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
     next: { revalidate: 900 },
@@ -57,15 +58,15 @@ export async function fetchGumGumMatchups(limit = 12): Promise<LiveMatchupSnapsh
 
   const html = await res.text();
 
-  const starts: Array<{ idx: number; m: RegExpExecArray }> = [];
-  let m: RegExpExecArray | null;
-  while ((m = TOP_RE.exec(html))) starts.push({ idx: m.index, m });
+  const starts: Array<{ idx: number; match: RegExpExecArray }> = [];
+  let topMatch: RegExpExecArray | null;
+  while ((topMatch = TOP_RE.exec(html)) !== null) starts.push({ idx: topMatch.index, match: topMatch });
   if (!starts.length) return null;
 
   const rawDecks: RawDeck[] = [];
 
   for (let i = 0; i < starts.length; i++) {
-    const cur = starts[i].m;
+    const cur = starts[i].match;
     const start = starts[i].idx;
     const end = i + 1 < starts.length ? starts[i + 1].idx : html.length;
     const segment = html.slice(start, end);
@@ -80,10 +81,8 @@ export async function fetchGumGumMatchups(limit = 12): Promise<LiveMatchupSnapsh
     }
 
     rawDecks.push({
-      keyId: cur[1].toUpperCase(),
-      keyName: cur[2],
-      leader: cur[3],
       cardId: cur[4].toUpperCase(),
+      leader: cur[3],
       variant: cur[5],
       wins: Number(cur[6]),
       losses: Number(cur[7]),
@@ -92,71 +91,74 @@ export async function fetchGumGumMatchups(limit = 12): Promise<LiveMatchupSnapsh
   }
 
   const merged = new Map<string, RawDeck>();
-  for (const d of rawDecks) {
-    const prev = merged.get(d.cardId);
-    if (!prev || d.wins + d.losses > prev.wins + prev.losses) merged.set(d.cardId, d);
+  for (const deck of rawDecks) {
+    const prev = merged.get(deck.cardId);
+    if (!prev || deck.wins + deck.losses > prev.wins + prev.losses) merged.set(deck.cardId, deck);
   }
 
-  const selected = [...merged.values()]
-    .filter((d) => d.wins + d.losses >= 200)
-    .sort((a, b) => (b.wins + b.losses) - (a.wins + a.losses))
-    .slice(0, limit);
+  const eligible = [...merged.values()]
+    .filter((deck) => deck.wins + deck.losses >= 200)
+    .sort((a, b) => b.wins + b.losses - (a.wins + a.losses));
+
+  const selected = eligible.slice(0, limit);
 
   if (!selected.length) return null;
 
-  const idMap = new Map<string, string>(); // cardId -> appId
-  for (const d of selected) idMap.set(d.cardId, d.cardId.toLowerCase());
+  const totalGames = eligible.reduce((sum, deck) => sum + deck.wins + deck.losses, 0);
 
-  const totalGames = selected.reduce((s, d) => s + d.wins + d.losses, 0);
-
-  const decks: MetaDeck[] = selected
-    .map((d) => {
-      const games = d.wins + d.losses;
-      const winRate = Math.round((d.wins / games) * 1000) / 10;
-      const displayName = formatDeckDisplayName(d.leader, d.variant, d.cardId);
-      const cleanLeader = normalizeDeckLabel(d.leader);
+  const decks = selected
+    .map((deck) => {
+      const games = deck.wins + deck.losses;
+      const official = getOfficialCardById(deck.cardId);
+      const winRate = Number(((deck.wins / games) * 100).toFixed(2));
       return {
-        id: idMap.get(d.cardId)!,
-        name: displayName,
-        leader: cleanLeader,
-        cardId: d.cardId,
-        color: inferColor(cleanLeader),
-        tier: "C",
-        metaShare: Math.round(((games / totalGames) * 100) * 10) / 10,
+        id: deck.cardId.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        name: official?.name || deck.leader,
+        leader: official?.name || deck.leader,
+        cardId: deck.cardId,
+        color: colorForCard(deck.cardId, official?.name || deck.leader),
+        tier: "C" as const,
+        metaShare: Number((((games / totalGames) * 100)).toFixed(2)),
         winRate,
         trend: trendByWinRate(winRate),
-        description: `Live from GumGum (${games} logged games)`,
-        matchups: {},
+        description: `Live aggregate (${games.toLocaleString()} logged games)`,
+        matchups: {} as Record<string, number>,
       };
     })
     .sort((a, b) => b.winRate - a.winRate)
-    .map((d, i) => ({ ...d, tier: tierByRank(i + 1) }));
+    .map((deck, index) => ({ ...deck, tier: tierByRank(index + 1) }));
 
-  // matchup matrix (only between selected decks)
-  const deckByCard = new Map(selected.map((d) => [d.cardId, d]));
-  const outById = new Map(decks.map((d) => [d.id, d]));
+  const outById = new Map(decks.map((deck) => [deck.id, deck]));
 
-  for (const d of selected) {
-    const rowId = idMap.get(d.cardId)!;
-    const row = outById.get(rowId)!;
+  for (const deck of selected) {
+    const rowId = deck.cardId.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const row = outById.get(rowId);
+    if (!row) continue;
 
-    for (const opp of selected) {
-      const colId = idMap.get(opp.cardId)!;
-      if (d.cardId === opp.cardId) {
+    for (const opponent of selected) {
+      const colId = opponent.cardId.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      if (deck.cardId === opponent.cardId) {
         row.matchups[colId] = 50;
         continue;
       }
-      const rec = d.vs[opp.cardId];
-      if (rec && rec.wins + rec.losses > 0) {
-        row.matchups[colId] = Math.round((rec.wins / (rec.wins + rec.losses)) * 100);
+
+      const record = deck.vs[opponent.cardId];
+      if (record && record.wins + record.losses > 0) {
+        row.matchups[colId] = Number(((record.wins / (record.wins + record.losses)) * 100).toFixed(2));
       } else {
         row.matchups[colId] = 50;
       }
     }
   }
 
+  for (const row of decks) {
+    for (const col of decks) {
+      if (row.matchups[col.id] == null) row.matchups[col.id] = 50;
+    }
+  }
+
   return {
-    source: "gumgum.gg public aggregate",
+    source: "live-aggregate",
     updatedAt: new Date().toISOString(),
     sampleGames: totalGames,
     decks,

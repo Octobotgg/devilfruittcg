@@ -13,10 +13,16 @@ export interface CardModalData {
   type?: string;
   color?: string;
   rarity?: string;
-  cost?: number;
-  power?: number;
-  attribute?: string;
-  imageUrl?: string;
+  cost?: number | null;
+  power?: number | null;
+  attribute?: string | null;
+  imageUrl?: string | null;
+
+  baseCardId?: string;
+  variantType?: "base" | "parallel" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
+  variantLabel?: string;
+  canonicalVariantId?: string;
+  variantOrder?: number;
 }
 
 const rarityBadge: Record<string, string> = {
@@ -64,10 +70,7 @@ export default function CardModal({ card, onClose }: Props) {
 
   // Load alternate arts / print variants for this card ID
   useEffect(() => {
-    if (!card?.id) {
-      setVariants([]);
-      return;
-    }
+    if (!card?.id) return;
 
     const run = async () => {
       try {
@@ -77,20 +80,12 @@ export default function CardModal({ card, onClose }: Props) {
         const v = (json.variants || []) as CardModalData[];
         setVariants(v);
       } catch {
-        setVariants([]);
+        // keep prior variants on transient failure
       }
     };
 
     run();
   }, [card?.id]);
-
-  useEffect(() => {
-    if (!card) {
-      setSelectedImage("");
-      return;
-    }
-    setSelectedImage(card.imageUrl || `/api/card-image?id=${card.id}`);
-  }, [card]);
 
   const imageUrl = selectedImage || card?.imageUrl || (card ? `/api/card-image?id=${card.id}` : "");
 
@@ -161,14 +156,14 @@ export default function CardModal({ card, onClose }: Props) {
                   { label: "Set",    value: card.set ?? "—" },
                   { label: "Type",   value: card.type ?? "—" },
                   { label: "Color",  value: card.color ?? "—", isColor: true },
-                  { label: "Cost",   value: card.cost !== undefined ? String(card.cost) : "—" },
-                  { label: "Power",  value: card.power !== undefined ? card.power.toLocaleString() : "—" },
+                  { label: "Cost",   value: card.cost != null ? String(card.cost) : "—" },
+                  { label: "Power",  value: card.power != null ? card.power.toLocaleString() : "—" },
                   { label: "Attribute", value: card.attribute ?? "—" },
                 ].map(stat => (
                   <div key={stat.label} className="bg-white/5 border border-white/8 rounded-xl px-3 py-2.5">
                     <div className="text-white/30 text-[10px] uppercase tracking-wider mb-0.5">{stat.label}</div>
                     <div className="text-white text-sm font-semibold flex items-center gap-1.5">
-                      {(stat as any).isColor && stat.value !== "—" && (
+                      {("isColor" in stat) && stat.isColor && stat.value !== "—" && (
                         <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${colorDot[stat.value.split("/")[0]] ?? "bg-white/30"}`} />
                       )}
                       {stat.value}
@@ -180,19 +175,23 @@ export default function CardModal({ card, onClose }: Props) {
               {/* Alternate arts / print variants */}
               {variants.length > 1 && (
                 <div className="mb-4">
-                  <p className="text-white/40 text-xs mb-2">Alternate Arts / Print Variants ({variants.length})</p>
+                  <p className="mb-2 text-xs text-white/40">Card Variants ({variants.length})</p>
                   <div className="flex gap-2 overflow-x-auto pb-1">
                     {variants.map((v, idx) => {
                       const src = v.imageUrl || `/api/card-image?id=${v.id}`;
                       const active = imageUrl === src;
+                      const label = v.variantLabel || v.rarity || `Variant ${idx + 1}`;
                       return (
                         <button
                           key={`${v.id}-${idx}-${src}`}
                           onClick={() => setSelectedImage(src)}
-                          className={`rounded-lg border ${active ? "border-[#F0C040]/60" : "border-white/10"} hover:border-[#F0C040]/40 transition-all flex-shrink-0`}
-                          title={`Variant ${idx + 1}`}
+                          className={`relative overflow-hidden rounded-lg border ${active ? "border-[#F0C040]/60" : "border-white/10"} transition-all hover:border-[#F0C040]/40 flex-shrink-0`}
+                          title={label}
                         >
-                          <img src={src} alt={`${v.name} variant ${idx + 1}`} className="w-12 h-16 object-cover rounded-lg" />
+                          <img src={src} alt={`${v.name} ${label}`} className="h-16 w-12 object-cover rounded-lg" />
+                          <span className="absolute bottom-0 left-0 right-0 bg-black/70 px-1 py-0.5 text-center text-[9px] font-bold text-white">
+                            {label}
+                          </span>
                         </button>
                       );
                     })}
@@ -207,7 +206,7 @@ export default function CardModal({ card, onClose }: Props) {
 
               {/* Actions */}
               <div className="flex gap-3">
-                <Link href={`/market?card=${encodeURIComponent(card.name)}`} className="flex-1">
+                <Link href={`/cards/${encodeURIComponent(card.id)}`} className="flex-1">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
@@ -215,7 +214,7 @@ export default function CardModal({ card, onClose }: Props) {
                     onClick={onClose}
                   >
                     <TrendingUp className="w-4 h-4" />
-                    Check Price
+                    Open Card
                   </motion.button>
                 </Link>
                 <a

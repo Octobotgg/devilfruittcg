@@ -1,0 +1,12369 @@
+# DevilFruitTCG.gg vs Bandai Official English Audit
+
+Generated: 2026-03-07T23:01:32.776Z
+
+## Summary Stats
+
+- Official English print records checked: 4145
+- Current site cards checked: 1591
+- Missing cards: 2554
+- Extra/unknown cards: 0
+- Cards with data errors: 1591
+- Total field discrepancies: 7728
+- Image issues: 0
+
+## Missing Cards
+
+### ROMANCE DAWN [OP01]
+- OP01-001_p1 | Roronoa Zoro
+- OP01-002_p1 | Trafalgar Law
+- OP01-003_p1 | Monkey.D.Luffy
+- OP01-008_p1 | Cavendish
+- OP01-013_p1 | Sanji
+- OP01-016_p1 | Nami
+- OP01-024_p1 | Monkey.D.Luffy
+- OP01-025_p1 | Roronoa Zoro
+- OP01-031_p1 | Kouzuki Oden
+- OP01-034_p1 | Inuarashi
+- OP01-040_p1 | Kin'emon
+- OP01-047_p1 | Trafalgar Law
+- OP01-048_p1 | Nekomamushi
+- OP01-051_p1 | Eustass"Captain"Kid
+- OP01-060_p1 | Donquixote Doflamingo
+- OP01-061_p1 | Kaido
+- OP01-062_p1 | Crocodile
+- OP01-064_p1 | Alvida
+- OP01-067_p1 | Crocodile
+- OP01-070_p1 | Dracule Mihawk
+- OP01-073_p1 | Donquixote Doflamingo
+- OP01-077_p1 | Perona
+- OP01-078_p1 | Boa Hancock
+- OP01-091_p1 | King
+- OP01-093_p1 | Ulti
+- OP01-094_p1 | Kaido
+- OP01-096_p1 | King
+- OP01-097_p1 | Queen
+- OP01-102_p1 | Jack
+- OP01-109_p1 | Who's.Who
+- OP01-120_p1 | Shanks
+- OP01-120_p2 | Shanks
+- OP01-121_p1 | Yamato
+
+### PARAMOUNT WAR [OP02]
+- OP02-001_p1 | Edward.Newgate
+- OP02-002_p1 | Monkey.D.Garp
+- OP02-004_p1 | Edward.Newgate
+- OP02-009_p1 | Squard
+- OP02-013_p1 | Portgas.D.Ace
+- OP02-013_p2 | Portgas.D.Ace
+- OP02-017_p1 | Masked Deuce
+- OP02-018_p1 | Marco
+- OP02-025_p1 | Kin'emon
+- OP02-026_p1 | Sanji
+- OP02-030_p1 | Kouzuki Oden
+- OP02-031_p1 | Kouzuki Toki
+- OP02-036_p1 | Nami
+- OP02-041_p1 | Monkey.D.Luffy
+- OP02-049_p1 | Emporio.Ivankov
+- OP02-051_p1 | Emporio.Ivankov
+- OP02-058_p1 | Buggy
+- OP02-059_p1 | Boa Hancock
+- OP02-062_p1 | Monkey.D.Luffy
+- OP02-071_p1 | Magellan
+- OP02-072_p1 | Zephyr
+- OP02-073_p1 | Little Sadi
+- OP02-085_p1 | Magellan
+- OP02-086_p1 | Minokoala
+- OP02-093_p1 | Smoker
+- OP02-096_p1 | Kuzan
+- OP02-099_p1 | Sakazuki
+- OP02-105_p1 | Tashigi
+- OP02-108_p1 | Donquixote Rosinante
+- OP02-114_p1 | Borsalino
+- OP02-115_p1 | Monkey.D.Garp
+- OP02-120_p1 | Uta
+- OP02-121_p1 | Kuzan
+
+### PILLARS OF STRENGTH [OP03]
+- OP01-051_p2 | Eustass"Captain"Kid
+- OP03-001_p1 | Portgas.D.Ace
+- OP03-013_p1 | Marco
+- OP03-018_p1 | Fire Fist
+- OP03-021_p1 | Kuro
+- OP03-022_p1 | Arlong
+- OP03-024_p1 | Gin
+- OP03-025_p1 | Krieg
+- OP03-040_p1 | Nami
+- OP03-041_p1 | Usopp
+- OP03-047_p1 | Zeff
+- OP03-058_p1 | Iceburg
+- OP03-066_p1 | Paulie
+- OP03-076_p1 | Rob Lucci
+- OP03-077_p1 | Charlotte Linlin
+- OP03-078_p1 | Issho
+- OP03-080_p1 | Kaku
+- OP03-081_p1 | Kalifa
+- OP03-086_p1 | Spandam
+- OP03-092_p1 | Rob Lucci
+- OP03-099_p1 | Charlotte Katakuri
+- OP03-108_p1 | Charlotte Cracker
+- OP03-112_p1 | Charlotte Pudding
+- OP03-113_p1 | Charlotte Perospero
+- OP03-114_p1 | Charlotte Linlin
+- OP03-122_p1 | Sogeking
+- OP03-122_p2 | Sogeking
+- OP03-123_p1 | Charlotte Katakuri
+- ST01-012_p1 | Monkey.D.Luffy
+- ST03-009_p1 | Donquixote Doflamingo
+- ST04-003_p1 | Kaido
+
+### KINGDOMS OF INTRIGUE [OP04]
+- OP01-047_p2 | Trafalgar Law
+- OP01-078_p2 | Boa Hancock
+- OP02-004_p2 | Edward.Newgate
+- OP02-085_p2 | Magellan
+- OP02-099_p2 | Sakazuki
+- OP04-001_p1 | Nefeltari Vivi
+- OP04-013_p1 | Pell
+- OP04-019_p1 | Donquixote Doflamingo
+- OP04-020_p1 | Issho
+- OP04-024_p1 | Sugar
+- OP04-028_p1 | Diamante
+- OP04-030_p1 | Trebol
+- OP04-031_p1 | Donquixote Doflamingo
+- OP04-039_p1 | Rebecca
+- OP04-040_p1 | Queen
+- OP04-044_p1 | Kaido
+- OP04-051_p1 | Who's.Who
+- OP04-058_p1 | Crocodile
+- OP04-060_p1 | Crocodile
+- OP04-064_p1 | Ms. All Sunday
+- OP04-072_p1 | Mr.5(Gem)
+- OP04-082_p1 | Kyros
+- OP04-083_p1 | Sabo
+- OP04-083_p2 | Sabo
+- OP04-090_p1 | Monkey.D.Luffy
+- OP04-100_p1 | Capone"Gang"Bege
+- OP04-104_p1 | Sanji
+- OP04-112_p1 | Yamato
+- OP04-118_p1 | Nefeltari Vivi
+- OP04-119_p1 | Donquixote Rosinante
+
+### GIFT COLLECTION 2023 [GC-01]
+- OP01-005_p2 | Uta
+- OP01-013_p3 | Sanji
+- OP01-016_p5 | Nami
+- OP01-021_p3 | Franky
+- OP02-059_p2 | Boa Hancock
+- P-001_p4 | Monkey.D.Luffy
+- P-028_p1 | Portgas.D.Ace
+- ST01-005_p2 | Jinbe
+- ST01-006_p3 | Tony Tony.Chopper
+- ST01-008_p2 | Nico Robin
+- ST01-013_p2 | Roronoa Zoro
+- ST03-008_p1 | Trafalgar Law
+- ST09-012_p1 | Yamato
+
+### The Three Captains [ST-10]
+- OP01-016_p3 | Nami
+- OP01-025_p2 | Roronoa Zoro
+
+### Uta [ST-11]
+- OP02-028_p1 | Usopp
+- OP02-033_p1 | Jinbe
+- OP02-034_p1 | Tony Tony.Chopper
+- OP02-035_p2 | Trafalgar Law
+- OP02-037_p1 | Nico Robin
+- OP02-039_p1 | Franky
+- OP02-040_p1 | Brook
+- OP02-041_p2 | Monkey.D.Luffy
+- OP02-043_p1 | Roronoa Zoro
+- OP02-045_p1 | Three Sword Style Oni Giri
+
+### WINGS OF THE CAPTAIN [OP06]
+- OP03-008_p1 | Buggy
+- OP03-114_p2 | Charlotte Linlin
+- OP04-024_p2 | Sugar
+- OP04-064_p2 | Ms. All Sunday
+- OP05-051_p2 | Borsalino
+- OP05-091_p2 | Rebecca
+- OP06-001_p1 | Uta
+- OP06-007_p1 | Shanks
+- OP06-009_p1 | Shuraiya
+- OP06-013_p1 | Monkey.D.Luffy
+- OP06-020_p1 | Hody Jones
+- OP06-021_p1 | Perona
+- OP06-022_p1 | Yamato
+- OP06-025_p1 | Camie
+- OP06-035_p1 | Hody Jones
+- OP06-042_p1 | Vinsmoke Reiju
+- OP06-043_p1 | Aramaki
+- OP06-050_p1 | Tashigi
+- OP06-061_p1 | Vinsmoke Ichiji
+- OP06-062_p1 | Vinsmoke Judge
+- OP06-069_p1 | Vinsmoke Reiju
+- OP06-080_p1 | Gecko Moria
+- OP06-081_p1 | Absalom
+- OP06-086_p1 | Gecko Moria
+- OP06-093_p1 | Perona
+- OP06-101_p1 | O-Nami
+- OP06-106_p1 | Kouzuki Hiyori
+- OP06-107_p1 | Kouzuki Momonosuke
+- OP06-118_p1 | Roronoa Zoro
+- OP06-118_p2 | Roronoa Zoro
+- OP06-119_p1 | Sanji
+- ST01-007_p3 | Nami
+
+### The Three Brothers [ST13]
+- ST13-001_p1 | Sabo
+- ST13-002_p1 | Portgas.D.Ace
+- ST13-003_p1 | Monkey.D.Luffy
+- ST13-004_p1 | Edward.Newgate
+- ST13-005_p1 | Emporio.Ivankov
+- ST13-006_p1 | Curly.Dadan
+- ST13-007_p1 | Sabo
+- ST13-008_p1 | Sabo
+- ST13-009_p1 | Shanks
+- ST13-010_p1 | Portgas.D.Ace
+- ST13-011_p1 | Portgas.D.Ace
+- ST13-012_p1 | Makino
+- ST13-013_p1 | Monkey.D.Garp
+- ST13-014_p1 | Monkey.D.Luffy
+- ST13-015_p1 | Monkey.D.Luffy
+- ST13-016_p1 | Yamato
+
+### Memorial Collection [EB-01]
+- EB01-001_p1 | Kouzuki Oden
+- EB01-003_p1 | Kid & Killer
+- EB01-006_p1 | Tony Tony.Chopper
+- EB01-006_p2 | Tony Tony.Chopper
+- EB01-012_p1 | Cavendish
+- EB01-013_p1 | Kouzuki Hiyori
+- EB01-021_p1 | Hannyabal
+- EB01-022_p1 | Inazuma
+- EB01-027_p1 | Mr.1(Daz.Bonez)
+- EB01-031_p1 | Kalifa
+- EB01-034_p1 | Ms. Wednesday
+- EB01-040_p1 | Kyros
+- EB01-046_p1 | Brook
+- EB01-048_p1 | Laboon
+- EB01-049_p1 | T-Bone
+- EB01-052_p1 | Viola
+- EB01-056_p1 | Charlotte Flampe
+- EB01-057_p1 | Shirahoshi
+- EB01-061_p1 | Mr.2.Bon.Kurei(Bentham)
+
+### 500 YEARS IN THE FUTURE [OP-07]
+- OP01-035_p2 | Okiku
+- OP01-073_p2 | Donquixote Doflamingo
+- OP03-003_p1 | Izo
+- OP03-078_p2 | Issho
+- OP05-074_p3 | Eustass"Captain"Kid
+- OP06-101_p2 | O-Nami
+- OP07-001_p1 | Monkey.D.Dragon
+- OP07-005_p1 | Carina
+- OP07-015_p1 | Monkey.D.Dragon
+- OP07-019_p1 | Jewelry Bonney
+- OP07-022_p1 | Otama
+- OP07-026_p1 | Jewelry Bonney
+- OP07-029_p1 | Basil Hawkins
+- OP07-038_p1 | Boa Hancock
+- OP07-045_p1 | Jinbe
+- OP07-046_p1 | Sengoku
+- OP07-047_p1 | Trafalgar Law
+- OP07-051_p1 | Boa Hancock
+- OP07-051_p2 | Boa Hancock
+- OP07-059_p1 | Foxy
+- OP07-064_p1 | Sanji
+- OP07-071_p1 | Foxy
+- OP07-072_p1 | Porche
+- OP07-079_p1 | Rob Lucci
+- OP07-085_p1 | Stussy
+- OP07-097_p1 | Vegapunk
+- OP07-107_p1 | Franky
+- OP07-109_p1 | Monkey.D.Luffy
+- OP07-111_p1 | Lilith
+- OP07-118_p1 | Sabo
+- OP07-119_p1 | Portgas.D.Ace
+- ST10-010_p2 | Trafalgar Law
+
+### TWO LEGENDS [OP-08]
+- OP02-013_p3 | Portgas.D.Ace
+- OP03-112_p4 | Charlotte Pudding
+- OP07-109_p2 | Monkey.D.Luffy
+- OP08-001_p1 | Tony Tony.Chopper
+- OP08-002_p1 | Marco
+- OP08-007_p1 | Tony Tony.Chopper
+- OP08-015_p1 | Dr.Kureha
+- OP08-021_p1 | Carrot
+- OP08-023_p1 | Carrot
+- OP08-030_p1 | Pedro
+- OP08-043_p1 | Edward.Newgate
+- OP08-052_p1 | Portgas.D.Ace
+- OP08-057_p1 | King
+- OP08-058_p1 | Charlotte Pudding
+- OP08-067_p1 | Charlotte Pudding
+- OP08-069_p1 | Charlotte Linlin
+- OP08-074_p1 | Black Maria
+- OP08-079_p1 | Kaido
+- OP08-080_p1 | Queen
+- OP08-084_p1 | Jack
+- OP08-098_p1 | Kalgara
+- OP08-105_p1 | Jewelry Bonney
+- OP08-106_p1 | Nami
+- OP08-110_p1 | Wyper
+- OP08-112_p1 | S-Snake
+- OP08-118_p1 | Silvers Rayleigh
+- OP08-118_p2 | Silvers Rayleigh
+- OP08-119_p1 | Kaido & Linlin
+- ST02-007_p2 | Jewelry Bonney
+- ST03-004_p1 | Gecko Moria
+- ST04-005_p1 | Queen
+- ST06-006_p2 | Tashigi
+
+### Black Smoker [ST-19]
+- OP02-093_p2 | Smoker
+- OP02-098_r1 | Koby
+- OP02-106_r1 | Tsuru
+- OP02-108_r1 | Donquixote Rosinante
+- OP02-109_r1 | Jaguar.D.Saul
+- OP02-113_r1 | Helmeppo
+- OP02-116_r1 | Yamakaji
+- OP02-117_r1 | Ice Age
+- OP03-079_r1 | Vergo
+- OP03-089_r1 | Brannew
+
+### Blue Donquixote Doflamingo [ST-17]
+- OP01-060_p2 | Donquixote Doflamingo
+- OP01-073_r1 | Donquixote Doflamingo
+- OP01-086_r1 | Overheat
+- OP02-054_r1 | Gecko Moria
+- OP02-057_r1 | Bartholomew Kuma
+- P-030_r1 | Jinbe
+- ST03-002_r1 | Edward Weevil
+- ST03-004_r1 | Gecko Moria
+- ST03-005_r1 | Dracule Mihawk
+- ST03-008_r1 | Trafalgar Law
+
+### Green Uta [ST-16]
+- P-029_r1 | Bartolomeo
+- P-057_p1 | Fleeting Lullaby
+- P-058_p1 | Where the Wind Blows
+- P-059_p1 | The World's Continuation
+- P-060_p1 | Tot Musica
+- P-061_r1 | Monkey.D.Luffy
+- ST11-001_p1 | Uta
+- ST11-003_p2 | Backlight
+- ST11-004_p2 | New Genesis
+- ST11-005_p2 | I'm invincible
+
+### Purple Monkey.D.Luffy [ST-18]
+- OP05-060_p3 | Monkey.D.Luffy
+- OP05-061_r1 | Uso-Hachi
+- OP05-063_r1 | O-Robi
+- OP05-066_r1 | Jinbe
+- OP05-067_r1 | Zoro-Juurou
+- OP05-068_r1 | Chopa-Emon
+- OP05-070_r1 | Fra-Nosuke
+- OP05-072_r1 | Hone-Kichi
+- OP05-076_p1 | When You're at Sea You Fight against Pirates!!
+- P-041_r1 | Monkey.D.Luffy
+
+### Red Edward.Newgate [ST-15]
+- OP02-001_p2 | Edward.Newgate
+- OP02-008_r1 | Jozu
+- OP02-018_r1 | Marco
+- OP02-019_r1 | Rakuyo
+- OP02-023_r1 | You May Be a Fool...but I Still Love You
+- OP03-003_r1 | Izo
+- OP03-006_r1 | Speed Jil
+- OP03-007_r1 | Namule
+- OP03-009_r1 | Haruta
+- OP03-010_r1 | Fossa
+
+### Yellow Charlotte Katakuri [ST-20]
+- OP03-099_p2 | Charlotte Katakuri
+- OP03-106_r1 | Charlotte Opera
+- OP03-107_r1 | Charlotte Galette
+- OP03-110_r1 | Charlotte Smoothie
+- OP03-112_r1 | Charlotte Pudding
+- OP03-115_r1 | Streusen
+- OP03-118_r1 | Ikoku Sovereignty
+- OP03-121_r1 | Thunder Bolt
+- ST07-005_r1 | Charlotte Daifuku
+- ST07-014_r1 | Pekoms
+
+### ONE PIECE CARD THE BEST [PRB-01]
+- EB01-006_r1 | Tony Tony.Chopper
+- OP01-006_p3 | Otama
+- OP01-006_p4 | Otama
+- OP01-006_p5 | Otama
+- OP01-006_r1 | Otama
+- OP01-016_p8 | Nami
+- OP01-024_p3 | Monkey.D.Luffy
+- OP01-024_r1 | Monkey.D.Luffy
+- OP01-029_p2 | Radical Beam!!
+- OP01-029_p3 | Radical Beam!!
+- OP01-029_r1 | Radical Beam!!
+- OP01-033_p3 | Izo
+- OP01-033_p4 | Izo
+- OP01-033_p5 | Izo
+- OP01-033_r1 | Izo
+- OP01-041_p3 | Kouzuki Momonosuke
+- OP01-041_p4 | Kouzuki Momonosuke
+- OP01-041_p5 | Kouzuki Momonosuke
+- OP01-041_r1 | Kouzuki Momonosuke
+- OP01-047_p4 | Trafalgar Law
+- OP01-047_r1 | Trafalgar Law
+- OP01-051_p4 | Eustass"Captain"Kid
+- OP01-051_r1 | Eustass"Captain"Kid
+- OP01-052_p3 | Raizo
+- OP01-052_p4 | Raizo
+- OP01-052_r1 | Raizo
+- OP01-070_p4 | Dracule Mihawk
+- OP01-070_r1 | Dracule Mihawk
+- OP01-078_p4 | Boa Hancock
+- OP01-078_r1 | Boa Hancock
+- OP01-120_p5 | Shanks
+- OP01-120_r1 | Shanks
+- OP01-120_r2 | Shanks
+- OP01-121_p4 | Yamato
+- OP01-121_r1 | Yamato
+- OP02-004_p4 | Edward.Newgate
+- OP02-004_r1 | Edward.Newgate
+- OP02-013_r1 | Portgas.D.Ace
+- OP02-015_p3 | Makino
+- OP02-015_p4 | Makino
+- OP02-015_r1 | Makino
+- OP02-018_p4 | Marco
+- OP02-018_p5 | Marco
+- OP02-018_p6 | Marco
+- OP02-018_r2 | Marco
+- OP02-089_p2 | Judgment of Hell
+- OP02-089_p3 | Judgment of Hell
+- OP02-089_p4 | Judgment of Hell
+- OP02-089_r1 | Judgment of Hell
+- OP02-096_p3 | Kuzan
+- OP02-096_r1 | Kuzan
+- OP02-099_p4 | Sakazuki
+- OP02-099_r1 | Sakazuki
+- OP02-106_p4 | Tsuru
+- OP02-106_p5 | Tsuru
+- OP02-106_r2 | Tsuru
+- OP02-114_p3 | Borsalino
+- OP02-114_r1 | Borsalino
+- OP02-117_p5 | Ice Age
+- OP02-117_p6 | Ice Age
+- OP02-117_r2 | Ice Age
+- OP02-121_p3 | Kuzan
+- OP02-121_r1 | Kuzan
+- OP03-003_p4 | Izo
+- OP03-003_p5 | Izo
+- OP03-003_p6 | Izo
+- OP03-003_r2 | Izo
+- OP03-055_p2 | Gum-Gum Giant Gavel
+- OP03-055_p3 | Gum-Gum Giant Gavel
+- OP03-055_r1 | Gum-Gum Giant Gavel
+- OP03-056_p2 | Sanji's Pilaf
+- OP03-056_p3 | Sanji's Pilaf
+- OP03-056_p4 | Sanji's Pilaf
+- OP03-056_r1 | Sanji's Pilaf
+- OP03-057_p2 | Three Thousand Worlds
+- OP03-057_p3 | Three Thousand Worlds
+- OP03-057_p4 | Three Thousand Worlds
+- OP03-057_r1 | Three Thousand Worlds
+- OP03-060_p2 | Kalifa
+- OP03-060_p3 | Kalifa
+- OP03-060_r1 | Kalifa
+- OP03-079_p3 | Vergo
+- OP03-079_p4 | Vergo
+- OP03-079_r2 | Vergo
+- OP03-089_p4 | Brannew
+- OP03-089_p5 | Brannew
+- OP03-089_p6 | Brannew
+- OP03-089_r2 | Brannew
+- OP03-094_p2 | Air Door
+- OP03-094_p3 | Air Door
+- OP03-094_r1 | Air Door
+- OP03-108_p3 | Charlotte Cracker
+- OP03-108_r1 | Charlotte Cracker
+- OP03-110_p3 | Charlotte Smoothie
+- OP03-110_p4 | Charlotte Smoothie
+- OP03-110_p5 | Charlotte Smoothie
+- OP03-110_r2 | Charlotte Smoothie
+- OP03-113_p3 | Charlotte Perospero
+- OP03-113_r1 | Charlotte Perospero
+- OP03-116_p5 | Shirahoshi
+- OP03-116_p6 | Shirahoshi
+- OP03-116_r1 | Shirahoshi
+- OP03-121_p3 | Thunder Bolt
+- OP03-121_p4 | Thunder Bolt
+- OP03-121_r2 | Thunder Bolt
+- OP03-122_r1 | Sogeking
+- OP03-123_p4 | Charlotte Katakuri
+- OP03-123_r1 | Charlotte Katakuri
+- OP04-029_p2 | Dellinger
+- OP04-029_p3 | Dellinger
+- OP04-029_r1 | Dellinger
+- OP04-031_p3 | Donquixote Doflamingo
+- OP04-031_r1 | Donquixote Doflamingo
+- OP04-032_p2 | Baby 5
+- OP04-032_p3 | Baby 5
+- OP04-032_r1 | Baby 5
+- OP04-036_p2 | Donquixote Family
+- OP04-036_p3 | Donquixote Family
+- OP04-036_r1 | Donquixote Family
+- OP04-044_p4 | Kaido
+- OP04-044_r1 | Kaido
+- OP04-056_p2 | Gum-Gum Red Roc
+- OP04-056_p3 | Gum-Gum Red Roc
+- OP04-056_p4 | Gum-Gum Red Roc
+- OP04-056_r1 | Gum-Gum Red Roc
+- OP04-083_r1 | Sabo
+- OP04-089_p2 | Bartolomeo
+- OP04-089_p3 | Bartolomeo
+- OP04-089_p4 | Bartolomeo
+- OP04-089_r1 | Bartolomeo
+- OP04-095_p2 | Barrier!!
+- OP04-095_p3 | Barrier!!
+- OP04-095_r1 | Barrier!!
+- OP04-100_p3 | Capone"Gang"Bege
+- OP04-100_p4 | Capone"Gang"Bege
+- OP04-100_p5 | Capone"Gang"Bege
+- OP04-100_r1 | Capone"Gang"Bege
+- OP04-104_p3 | Sanji
+- OP04-104_r1 | Sanji
+- OP04-112_p3 | Yamato
+- OP04-112_r1 | Yamato
+- OP05-006_p3 | Koala
+- OP05-006_r1 | Koala
+- OP05-007_p3 | Sabo
+- OP05-007_r1 | Sabo
+- OP05-010_p2 | Nico Robin
+- OP05-010_p3 | Nico Robin
+- OP05-010_r1 | Nico Robin
+- OP05-015_p3 | Belo Betty
+- OP05-015_p4 | Belo Betty
+- OP05-015_p5 | Belo Betty
+- OP05-015_r1 | Belo Betty
+- OP05-034_p3 | Baby 5
+- OP05-034_p4 | Baby 5
+- OP05-034_p5 | Baby 5
+- OP05-034_r1 | Baby 5
+- OP05-043_p3 | Ulti
+- OP05-043_r1 | Ulti
+- OP05-057_p2 | Hound Blaze
+- OP05-057_p3 | Hound Blaze
+- OP05-057_p4 | Hound Blaze
+- OP05-057_r1 | Hound Blaze
+- OP05-069_r1 | Trafalgar Law
+- OP05-073_p2 | Miss Doublefinger(Zala)
+- OP05-073_p3 | Miss Doublefinger(Zala)
+- OP05-073_r1 | Miss Doublefinger(Zala)
+- OP05-074_p5 | Eustass"Captain"Kid
+- OP05-074_r1 | Eustass"Captain"Kid
+- OP05-074_r2 | Eustass"Captain"Kid
+- OP05-081_p2 | One-Legged Toy Soldier
+- OP05-081_p3 | One-Legged Toy Soldier
+- OP05-081_p4 | One-Legged Toy Soldier
+- OP05-081_r1 | One-Legged Toy Soldier
+- OP05-082_p2 | Shirahoshi
+- OP05-082_p3 | Shirahoshi
+- OP05-082_p4 | Shirahoshi
+- OP05-082_r1 | Shirahoshi
+- OP05-105_p2 | Satori
+- OP05-105_p3 | Satori
+- OP05-105_p4 | Satori
+- OP05-105_r1 | Satori
+- OP05-114_p2 | El Thor
+- OP05-114_p3 | El Thor
+- OP05-114_r1 | El Thor
+- OP05-115_p2 | Two-Hundred Million Volts Amaru
+- OP05-115_p3 | Two-Hundred Million Volts Amaru
+- OP05-115_p4 | Two-Hundred Million Volts Amaru
+- OP05-115_r1 | Two-Hundred Million Volts Amaru
+- OP05-117_p2 | Upper Yard
+- OP05-117_p3 | Upper Yard
+- OP05-117_p4 | Upper Yard
+- OP05-117_r1 | Upper Yard
+- OP05-118_p3 | Kaido
+- OP05-118_r1 | Kaido
+- OP05-119_p4 | Monkey.D.Luffy
+- OP05-119_r1 | Monkey.D.Luffy
+- OP05-119_r2 | Monkey.D.Luffy
+- OP06-003_p2 | Emporio.Ivankov
+- OP06-003_p3 | Emporio.Ivankov
+- OP06-003_r1 | Emporio.Ivankov
+- OP06-023_p2 | Arlong
+- OP06-023_p3 | Arlong
+- OP06-023_p4 | Arlong
+- OP06-023_r1 | Arlong
+- OP06-035_p3 | Hody Jones
+- OP06-035_r1 | Hody Jones
+- OP06-036_p2 | Ryuma
+- OP06-036_p3 | Ryuma
+- OP06-036_p4 | Ryuma
+- OP06-036_r1 | Ryuma
+- OP06-038_p2 | The Billion-fold World Trichiliocosm
+- OP06-038_p3 | The Billion-fold World Trichiliocosm
+- OP06-038_r1 | The Billion-fold World Trichiliocosm
+- OP06-056_p2 | Ama no Murakumo Sword
+- OP06-056_p3 | Ama no Murakumo Sword
+- OP06-056_r1 | Ama no Murakumo Sword
+- OP06-060_p2 | Vinsmoke Ichiji
+- OP06-060_p3 | Vinsmoke Ichiji
+- OP06-060_r1 | Vinsmoke Ichiji
+- OP06-064_p2 | Vinsmoke Niji
+- OP06-064_p3 | Vinsmoke Niji
+- OP06-064_r1 | Vinsmoke Niji
+- OP06-065_p2 | Vinsmoke Niji
+- OP06-065_p3 | Vinsmoke Niji
+- OP06-065_p4 | Vinsmoke Niji
+- OP06-065_r1 | Vinsmoke Niji
+- OP06-066_p2 | Vinsmoke Yonji
+- OP06-066_p3 | Vinsmoke Yonji
+- OP06-066_r1 | Vinsmoke Yonji
+- OP06-067_p2 | Vinsmoke Yonji
+- OP06-067_p3 | Vinsmoke Yonji
+- OP06-067_p4 | Vinsmoke Yonji
+- OP06-067_r1 | Vinsmoke Yonji
+- OP06-068_p2 | Vinsmoke Reiju
+- OP06-068_p3 | Vinsmoke Reiju
+- OP06-068_r1 | Vinsmoke Reiju
+- OP06-069_p4 | Vinsmoke Reiju
+- OP06-069_r1 | Vinsmoke Reiju
+- OP06-079_p2 | Kingdom of GERMA
+- OP06-079_p3 | Kingdom of GERMA
+- OP06-079_p4 | Kingdom of GERMA
+- OP06-079_r1 | Kingdom of GERMA
+- OP06-086_p3 | Gecko Moria
+- OP06-086_r1 | Gecko Moria
+- OP06-091_p2 | Victoria Cindry
+- OP06-091_p3 | Victoria Cindry
+- OP06-091_r1 | Victoria Cindry
+- OP06-100_p2 | Inuarashi
+- OP06-100_p3 | Inuarashi
+- OP06-100_r1 | Inuarashi
+- OP06-106_p3 | Kouzuki Hiyori
+- OP06-106_r1 | Kouzuki Hiyori
+- OP06-110_p3 | Nekomamushi
+- OP06-110_p4 | Nekomamushi
+- OP06-110_r1 | Nekomamushi
+- OP06-114_p2 | Wyper
+- OP06-114_p3 | Wyper
+- OP06-114_r1 | Wyper
+- OP06-118_r1 | Roronoa Zoro
+- P-014_p2 | Koby
+- P-014_p3 | Koby
+- P-014_r1 | Koby
+- P-029_p3 | Bartolomeo
+- P-029_p4 | Bartolomeo
+- P-029_r2 | Bartolomeo
+- P-053_p2 | Nami
+- P-053_p3 | Nami
+- P-053_r1 | Nami
+- P-055_p2 | Monkey.D.Luffy
+- P-055_p3 | Monkey.D.Luffy
+- P-055_r1 | Monkey.D.Luffy
+- PRB01-001 | Sanji
+- PRB01-001_p1 | Sanji
+- ST01-006_p6 | Tony Tony.Chopper
+- ST01-006_p7 | Tony Tony.Chopper
+- ST01-006_p8 | Tony Tony.Chopper
+- ST01-006_r1 | Tony Tony.Chopper
+- ST01-014_p2 | Guard Point
+- ST01-014_p3 | Guard Point
+- ST01-014_r1 | Guard Point
+- ST02-004_p2 | Capone"Gang"Bege
+- ST02-004_p3 | Capone"Gang"Bege
+- ST02-004_p4 | Capone"Gang"Bege
+- ST02-004_r1 | Capone"Gang"Bege
+- ST03-005_p4 | Dracule Mihawk
+- ST03-005_p5 | Dracule Mihawk
+- ST03-005_r2 | Dracule Mihawk
+- ST03-008_p6 | Trafalgar Law
+- ST03-008_p7 | Trafalgar Law
+- ST03-008_r2 | Trafalgar Law
+- ST03-013_p2 | Boa Hancock
+- ST03-013_p3 | Boa Hancock
+- ST03-013_p4 | Boa Hancock
+- ST03-013_r1 | Boa Hancock
+- ST04-003_p4 | Kaido
+- ST04-003_r1 | Kaido
+- ST04-005_p3 | Queen
+- ST04-005_p4 | Queen
+- ST04-005_r1 | Queen
+- ST04-016_p2 | Blast Breath
+- ST04-016_p3 | Blast Breath
+- ST04-016_r1 | Blast Breath
+- ST06-010_p2 | Helmeppo
+- ST06-010_p3 | Helmeppo
+- ST06-010_r1 | Helmeppo
+- ST06-014_p2 | Shockwave
+- ST06-014_p3 | Shockwave
+- ST06-014_r1 | Shockwave
+- ST07-007_p2 | Charlotte Brulee
+- ST07-007_p3 | Charlotte Brulee
+- ST07-007_r1 | Charlotte Brulee
+- ST09-014_p2 | Narikabura Arrow
+- ST09-014_p3 | Narikabura Arrow
+- ST09-014_r1 | Narikabura Arrow
+- ST10-010_p4 | Trafalgar Law
+- ST10-010_r1 | Trafalgar Law
+- ST12-014_p2 | Duval
+- ST12-014_p3 | Duval
+- ST12-014_r1 | Duval
+
+### EMPERORS IN THE NEW WORLD [OP-09]
+- OP04-119_p2 | Donquixote Rosinante
+- OP05-067_p4 | Zoro-Juurou
+- OP05-093_p2 | Rob Lucci
+- OP05-119_p6 | Monkey.D.Luffy
+- OP07-015_p2 | Monkey.D.Dragon
+- OP07-051_p3 | Boa Hancock
+- OP08-106_p2 | Nami
+- OP09-001_p1 | Shanks
+- OP09-002_p1 | Uta
+- OP09-004_p1 | Shanks
+- OP09-004_p2 | Shanks
+- OP09-004_p3 | Shanks
+- OP09-009_p1 | Benn.Beckman
+- OP09-022_p1 | Lim
+- OP09-023_p1 | Adio
+- OP09-034_p1 | Perona
+- OP09-037_p1 | Lim
+- OP09-042_p1 | Buggy
+- OP09-046_p1 | Crocodile
+- OP09-048_p1 | Dracule Mihawk
+- OP09-050_p1 | Nami
+- OP09-051_p1 | Buggy
+- OP09-051_p2 | Buggy
+- OP09-051_p3 | Buggy
+- OP09-061_p1 | Monkey.D.Luffy
+- OP09-062_p1 | Nico Robin
+- OP09-065_p1 | Sanji
+- OP09-069_p1 | Trafalgar Law
+- OP09-072_p1 | Franky
+- OP09-081_p1 | Marshall.D.Teach
+- OP09-093_p1 | Marshall.D.Teach
+- OP09-093_p2 | Marshall.D.Teach
+- OP09-093_p3 | Marshall.D.Teach
+- OP09-103_p1 | Koala
+- OP09-107_p1 | Nico Robin
+- OP09-118_p1 | Gol.D.Roger
+- OP09-118_p2 | Gol.D.Roger
+- OP09-119_p1 | Monkey.D.Luffy
+- OP09-119_p2 | Monkey.D.Luffy
+- ST18-004_p1 | Zoro-Juurou
+
+### GEAR5 [ST-21]
+- ST21-001_p1 | Monkey.D.Luffy
+- ST21-002_p1 | Usopp
+- ST21-003_p1 | Sanji
+- ST21-004_p1 | Jewelry Bonney
+- ST21-005_p1 | Jinbe
+- ST21-006_p1 | Stussy
+- ST21-007_p1 | Sentomaru
+- ST21-008_p1 | Tony Tony.Chopper
+- ST21-009_p1 | Nami
+- ST21-010_p1 | Nico Robin
+- ST21-011_p1 | Franky
+- ST21-012_p1 | Brook
+- ST21-013_p1 | Vegapunk
+- ST21-014_p1 | Monkey.D.Luffy
+- ST21-015_p1 | Roronoa Zoro
+
+### ROYAL BLOOD [OP-10]
+- EB01-056_p2 | Charlotte Flampe
+- OP07-021_p2 | Urouge
+- OP08-052_p2 | Portgas.D.Ace
+- OP10-001_p1 | Smoker
+- OP10-002_p1 | Caesar Clown
+- OP10-003_p1 | Sugar
+- OP10-005_p1 | Sanji
+- OP10-016_p1 | Monet
+- OP10-019_p1 | Divine Departure
+- OP10-022_p1 | Trafalgar Law
+- OP10-030_p1 | Smoker
+- OP10-032_p1 | Tashigi
+- OP10-037_p1 | Lim
+- OP10-042_p1 | Usopp
+- OP10-045_p1 | Cavendish
+- OP10-046_p1 | Kyros
+- OP10-058_p1 | Rebecca
+- OP10-067_p1 | Senor Pink
+- OP10-071_p1 | Donquixote Doflamingo
+- OP10-072_p1 | Donquixote Rosinante
+- OP10-082_p1 | Kuzan
+- OP10-090_p1 | Franky
+- OP10-099_p1 | Eustass"Captain"Kid
+- OP10-111_p1 | Monkey.D.Luffy
+- OP10-112_p1 | Eustass"Captain"Kid
+- OP10-118_p1 | Monkey.D.Luffy
+- OP10-119_p1 | Trafalgar Law
+- OP10-119_p2 | Trafalgar Law
+- ST12-012_p1 | Charlotte Pudding
+- ST14-003_p1 | Sanji
+- ST15-002_p1 | Edward.Newgate
+- ST18-001_p1 | Uso-Hachi
+
+### Anime 25th Collection [EB-02]
+- EB01-001_p2 | Kouzuki Oden
+- EB01-021_p2 | Hannyabal
+- EB01-040_p2 | Kyros
+- EB02-003_p1 | Tony Tony.Chopper
+- EB02-006_p1 | Yamato
+- EB02-010_p1 | Monkey.D.Luffy
+- EB02-011_p1 | Arlong
+- EB02-015_p1 | Jewelry Bonney
+- EB02-017_p1 | Nami
+- EB02-022_p1 | Usopp
+- EB02-026_p1 | Nefeltari Vivi
+- EB02-035_p1 | Sanji & Pudding
+- EB02-036_p1 | Nico Robin
+- EB02-044_p1 | Sengoku
+- EB02-045_p1 | Trafalgar Law
+- EB02-048_p1 | Brook
+- EB02-052_p1 | Enel
+- EB02-054_p1 | Sanji
+- EB02-056_p1 | Vegapunk
+- EB02-061_p1 | Monkey.D.Luffy
+- EB02-061_p2 | Monkey.D.Luffy
+- OP05-001_p2 | Sabo
+- OP05-002_p2 | Belo Betty
+- OP05-022_p2 | Donquixote Rosinante
+- OP05-060_p4 | Monkey.D.Luffy
+- OP05-098_p2 | Enel
+- OP06-001_p2 | Uta
+- OP06-020_p2 | Hody Jones
+- OP06-021_p2 | Perona
+- OP06-022_p2 | Yamato
+- OP06-042_p2 | Vinsmoke Reiju
+- OP06-080_p2 | Gecko Moria
+- OP07-001_p2 | Monkey.D.Dragon
+- OP07-019_p2 | Jewelry Bonney
+- OP07-038_p2 | Boa Hancock
+- OP07-059_p2 | Foxy
+- OP07-079_p2 | Rob Lucci
+- OP07-097_p2 | Vegapunk
+- OP08-001_p2 | Tony Tony.Chopper
+- OP08-002_p2 | Marco
+- OP08-021_p2 | Carrot
+- OP08-057_p2 | King
+- OP08-058_p2 | Charlotte Pudding
+- OP08-098_p2 | Kalgara
+
+### A FIST OF DIVINE SPEED [OP-11]
+- EB01-057_p2 | Shirahoshi
+- OP05-119_p7 | Monkey.D.Luffy
+- OP05-119_p8 | Monkey.D.Luffy
+- OP06-119_p2 | Sanji
+- OP07-085_p2 | Stussy
+- OP09-005_p1 | Silvers Rayleigh
+- OP09-015_p1 | Lucky.Roux
+- OP11-001 | Koby
+- OP11-001_p1 | Koby
+- OP11-002 | Ain
+- OP11-003 | Usopp
+- OP11-004 | Kujyaku
+- OP11-004_p1 | Kujyaku
+- OP11-005 | Smoker
+- OP11-006 | Zephyr
+- OP11-007 | Tashigi
+- OP11-008 | Doll
+- OP11-008_p1 | Doll
+- OP11-009 | Nico Robin
+- OP11-010 | Hibari
+- OP11-010_p1 | Hibari
+- OP11-011 | Bins
+- OP11-012 | Franky
+- OP11-013 | Prince Grus
+- OP11-014 | Borsalino
+- OP11-015 | Mocha
+- OP11-016 | Roronoa Zoro
+- OP11-017 | X.Drake
+- OP11-018 | Honesty Impact
+- OP11-018_p1 | Honesty Impact
+- OP11-019 | Glorp Web!!
+- OP11-020 | X Calibur
+- OP11-021 | Jinbe
+- OP11-021_p1 | Jinbe
+- OP11-022 | Shirahoshi
+- OP11-022_p1 | Shirahoshi
+- OP11-023 | Arlong
+- OP11-023_p1 | Arlong
+- OP11-024 | Aladine
+- OP11-025 | Ishilly
+- OP11-026 | Scaled Neptunian
+- OP11-027 | Bulge-Eyed Neptunian
+- OP11-028 | Lord of the Coast
+- OP11-029 | Charlotte Praline
+- OP11-030 | Shirahoshi
+- OP11-031 | Jinbe
+- OP11-031_p1 | Jinbe
+- OP11-032 | Surume
+- OP11-033 | Bird Neptunian
+- OP11-034 | Hatchan
+- OP11-035 | Fisher Tiger
+- OP11-036 | Spotted Neptunian
+- OP11-037 | Ancient Weapon Poseidon
+- OP11-038 | Gum-Gum Elephant Gatling
+- OP11-039 | Vagabond Drill
+- OP11-040 | Monkey.D.Luffy
+- OP11-040_p1 | Monkey.D.Luffy
+- OP11-041 | Nami
+- OP11-041_p1 | Nami
+- OP11-042 | Vito
+- OP11-043 | Vinsmoke Ichiji
+- OP11-044 | Vinsmoke Judge
+- OP11-045 | Vinsmoke Niji
+- OP11-046 | Vinsmoke Yonji
+- OP11-047 | Vinsmoke Reiju
+- OP11-047_p1 | Vinsmoke Reiju
+- OP11-048 | Capone"Gang"Bege
+- OP11-049 | Carrot
+- OP11-050 | Gotti
+- OP11-051 | Sanji
+- OP11-051_p1 | Sanji
+- OP11-052 | Charlotte Lola
+- OP11-053 | Tony Tony.Chopper
+- OP11-054 | Nami
+- OP11-054_p1 | Nami
+- OP11-055 | Bartolomeo
+- OP11-056 | Brook
+- OP11-057 | Pedro
+- OP11-058 | Monkey.D.Luffy
+- OP11-059 | Gum-Gum King Cobra
+- OP11-060 | Let's Crash This Wedding!!!
+- OP11-061 | Gum-Gum Jet Culverin
+- OP11-062 | Charlotte Katakuri
+- OP11-062_p1 | Charlotte Katakuri
+- OP11-063 | Little Sadi
+- OP11-064 | Saldeath
+- OP11-065 | Charlotte Anana
+- OP11-066 | Charlotte Oven
+- OP11-067 | Charlotte Katakuri
+- OP11-067_p1 | Charlotte Katakuri
+- OP11-068 | Charlotte Daifuku
+- OP11-069 | Charlotte Brulee
+- OP11-070 | Charlotte Pudding
+- OP11-070_p1 | Charlotte Pudding
+- OP11-071 | Charlotte Perospero
+- OP11-072 | Charlotte Mont-d'or
+- OP11-073 | Charlotte Linlin
+- OP11-073_p1 | Charlotte Linlin
+- OP11-074 | Streusen
+- OP11-075 | Jaguar.D.Saul
+- OP11-076 | Hannyabal
+- OP11-077 | Randolph
+- OP11-078 | Decuplets
+- OP11-079 | When Two Men Are Fighting the Last Thing I Need Is Some Half-Hearted Assistance!!!!
+- OP11-080 | Gear Two
+- OP11-080_p1 | Gear Two
+- OP11-081 | Cognac Mama-Mash
+- OP11-082 | Aramaki
+- OP11-083 | Caribou
+- OP11-084 | Kuzan
+- OP11-084_p1 | Kuzan
+- OP11-085 | Kurozumi Orochi
+- OP11-086 | Coribou
+- OP11-087 | Miss Sarahebi
+- OP11-088 | Shu
+- OP11-089 | Black Maria
+- OP11-090 | Briscola
+- OP11-091 | Berry Good
+- OP11-092 | Helmeppo
+- OP11-092_p1 | Helmeppo
+- OP11-093 | Bogard
+- OP11-094 | Morgan
+- OP11-095 | Monkey.D.Garp
+- OP11-095_p1 | Monkey.D.Garp
+- OP11-096 | Ripper
+- OP11-097 | After All These Years I'm Losing My Edge!!!
+- OP11-098 | Blue Hole
+- OP11-099 | I'm Gonna Be a Navy Officer!!!
+- OP11-100 | Otohime
+- OP11-101 | Capone"Gang"Bege
+- OP11-101_p1 | Capone"Gang"Bege
+- OP11-102 | Camie
+- OP11-103 | Long-Jaw Neptunian
+- OP11-104 | Shirley
+- OP11-105 | Charlotte Chiffon
+- OP11-106 | Zeus
+- OP11-106_p1 | Zeus
+- OP11-107 | Topknot Neptunian
+- OP11-108 | Neptune
+- OP11-109 | Pappag
+- OP11-110 | Fukaboshi
+- OP11-111 | Mamboshi
+- OP11-112 | Megalo
+- OP11-113 | Ryuboshi
+- OP11-114 | Gum-Gum Fire-Fist Pistol Red Hawk
+- OP11-114_p1 | Gum-Gum Fire-Fist Pistol Red Hawk
+- OP11-115 | You're Just Not My Type!
+- OP11-116 | Merman Combat Ultramarine
+- OP11-117 | Fish-Man Island
+- OP11-118 | Monkey.D.Luffy
+- OP11-118_p1 | Monkey.D.Luffy
+- OP11-118_p2 | Monkey.D.Luffy
+- OP11-119 | Koby
+- OP11-119_p1 | Koby
+- ST16-004_p1 | Shanks
+- ST18-005_p1 | Luffy-Tarou
+
+### BLACK Marshall.D.Teach [ST-27]
+- OP09-081_p2 | Marshall.D.Teach
+- OP09-083_r1 | Van Augur
+- OP09-086_r1 | Jesus Burgess
+- OP09-088_r1 | Shiryu
+- OP09-089_r1 | Stronger
+- OP09-090_r1 | Doc Q
+- OP09-091_r1 | Vasco Shot
+- OP09-095_r1 | Laffitte
+- OP09-099_r1 | Fullalead
+- OP10-084_r1 | Sanjuan.Wolf
+- ST27-001 | Avalo Pizarro
+- ST27-002 | Catarina Devon
+- ST27-003 | Kuzan
+- ST27-004 | Sanjuan.Wolf
+- ST27-005 | Marshall.D.Teach
+
+### BLUE Buggy [ST-25]
+- OP09-042_p2 | Buggy
+- OP09-043_r1 | Alvida
+- OP09-045_r1 | Cabaji
+- OP09-051_r1 | Buggy
+- OP09-053_r1 | Mohji
+- OP09-054_r1 | Richie
+- OP09-055_r1 | Mr.1(Daz.Bonez)
+- OP09-056_r1 | Mr.3(Galdino)
+- OP09-057_r1 | Cross Guild
+- P-084 | Buggy
+- ST25-001 | Alvida
+- ST25-002 | Cabaji
+- ST25-003 | Crocodile & Mihawk
+- ST25-004 | Buggy
+- ST25-005 | Mohji
+
+### GREEN Jewelry Bonney [ST-24]
+- EB01-015_p3 | Scratchmen Apoo
+- OP07-019_p3 | Jewelry Bonney
+- OP07-021_r1 | Urouge
+- OP07-023_r1 | Caribou
+- OP07-025_r1 | Coribou
+- OP07-031_r1 | Bartolomeo
+- OP07-033_r1 | Monkey.D.Luffy
+- OP07-034_r1 | Roronoa Zoro
+- OP07-036_p1 | Demonic Aura Nine-Sword Style Asura Demon Nine Flash
+- OP07-037_r1 | More Pizza!!
+- ST24-001 | Capone"Gang"Bege
+- ST24-002 | Kid & Killer
+- ST24-003 | Basil Hawkins
+- ST24-004 | Law & Bepo
+- ST24-005 | X.Drake
+
+### GREEN/YELLOW Yamato [ST-28]
+- OP06-022_p3 | Yamato
+- OP06-100_r2 | Inuarashi
+- OP06-103_r1 | Kawamatsu
+- OP06-104_r1 | Kikunojo
+- OP06-109_r1 | Denjiro
+- OP06-110_r2 | Nekomamushi
+- OP06-112_r1 | Raizo
+- OP07-116_p1 | Blaze Slice
+- OP09-035_r1 | Portgas.D.Ace
+- ST13-016_r1 | Yamato
+- ST28-001 | Ashura Doji
+- ST28-002 | Izo
+- ST28-003 | Kin'emon
+- ST28-004 | Kouzuki Momonosuke
+- ST28-005 | Yamato
+
+### PURPLE/BLACK Monkey.D.Luffy [ST-26]
+- OP05-065_r1 | San-Gorou
+- OP05-066_r2 | Jinbe
+- OP05-070_r2 | Fra-Nosuke
+- OP09-061_p2 | Monkey.D.Luffy
+- OP09-063_r1 | Usopp
+- OP09-070_r1 | Nami
+- OP09-076_r1 | Roronoa Zoro
+- OP09-077_r1 | Gum-Gum Lightning
+- OP09-078_p1 | Gum-Gum Giant
+- ST26-001 | Soba Mask
+- ST26-002 | Tony Tony.Chopper
+- ST26-003 | Nico Robin
+- ST26-004 | General Franky
+- ST26-005 | Monkey.D.Luffy
+
+### RED Shanks [ST-23]
+- OP09-001_p2 | Shanks
+- OP09-006_r1 | Howling Gab
+- OP09-010_r1 | Bonk Punch
+- OP09-011_r1 | Hongo
+- OP09-012_r1 | Monster
+- OP09-013_r1 | Yasopp
+- OP09-014_r1 | Limejuice
+- OP09-015_r1 | Lucky.Roux
+- OP09-016_r1 | Rockstar
+- OP09-020_r1 | Come On!! We'll Fight You!!
+- ST23-001 | Uta
+- ST23-002 | Shanks
+- ST23-003 | Benn.Beckman
+- ST23-004 | Monkey.D.Luffy
+- ST23-005 | Yasopp
+
+### STARTER DECK <br class="spInline">-PURPLE/BLACK Monkey.D.Luffy- [ST-26]
+- ST14-010_r1 | Brook
+
+### LEGACY OF THE MASTER [OP-12]
+- OP06-050_p2 | Tashigi
+- OP09-013_p2 | Yasopp
+- OP09-037_p2 | Lim
+- OP09-093_p4 | Marshall.D.Teach
+- OP09-093_p5 | Marshall.D.Teach
+- OP10-063_p1 | Vinsmoke Sanji
+- OP10-082_p2 | Kuzan
+- OP12-001 | Silvers Rayleigh
+- OP12-001_p1 | Silvers Rayleigh
+- OP12-002 | Edward.Newgate
+- OP12-003 | Crocus
+- OP12-004 | Kouzuki Oden
+- OP12-005 | Shiki
+- OP12-006 | Shakuyaku
+- OP12-007 | Shanks
+- OP12-008 | Shanks
+- OP12-008_p1 | Shanks
+- OP12-009 | Jinbe
+- OP12-010 | Douglas Bullet
+- OP12-011 | Duval
+- OP12-012 | Buggy
+- OP12-013 | Hatchan
+- OP12-014 | Boa Hancock
+- OP12-014_p1 | Boa Hancock
+- OP12-015 | Monkey.D.Luffy
+- OP12-015_p1 | Monkey.D.Luffy
+- OP12-016 | To Never Doubt--That Is Power!
+- OP12-017 | Color of Observation Haki
+- OP12-018 | Color of the Supreme King Haki
+- OP12-019 | Color of Arms Haki
+- OP12-020 | Roronoa Zoro
+- OP12-020_p1 | Roronoa Zoro
+- OP12-021 | Ipponmatsu
+- OP12-022 | Inuarashi
+- OP12-023 | Kawamatsu
+- OP12-024 | Gyukimaru
+- OP12-025 | Kin'emon
+- OP12-026 | Kuina
+- OP12-027 | Koushirou
+- OP12-028 | Kouzuki Hiyori
+- OP12-029 | Shimotsuki Kouzaburou
+- OP12-030 | Dracule Mihawk
+- OP12-030_p1 | Dracule Mihawk
+- OP12-031 | Tashigi
+- OP12-031_p1 | Tashigi
+- OP12-032 | Nekomamushi
+- OP12-033 | Helmeppo
+- OP12-034 | Perona
+- OP12-034_p1 | Perona
+- OP12-035 | Morgan
+- OP12-036 | Roronoa Zoro
+- OP12-037 | Demon Aura Nine Sword Style Asura Blades Drawn Dead Man's Game
+- OP12-037_p1 | Demon Aura Nine Sword Style Asura Blades Drawn Dead Man's Game
+- OP12-038 | Two-Sword Style Rashomon
+- OP12-039 | Luffy Is the Man Who Will Become the King of Pirates!!!
+- OP12-040 | Kuzan
+- OP12-040_p1 | Kuzan
+- OP12-041 | Sanji
+- OP12-041_p1 | Sanji
+- OP12-042 | Alvida
+- OP12-043 | Kuzan
+- OP12-043_p1 | Kuzan
+- OP12-044 | Sakazuki
+- OP12-045 | Jango
+- OP12-046 | Zephyr(Navy)
+- OP12-047 | Sengoku
+- OP12-048 | Donquixote Rosinante
+- OP12-049 | Buggy
+- OP12-050 | Jaguar.D.Saul
+- OP12-051 | Hina
+- OP12-052 | Fullbody
+- OP12-053 | Borsalino
+- OP12-054 | Marshall.D.Teach
+- OP12-055 | Mohji & Cabaji
+- OP12-056 | Monkey.D.Garp
+- OP12-056_p1 | Monkey.D.Garp
+- OP12-057 | Ice Block Pheasant Peck
+- OP12-058 | I Will Make Whitebeard the King of the Pirates
+- OP12-059 | Concasser
+- OP12-060 | Boeuf Burst
+- OP12-060_p1 | Boeuf Burst
+- OP12-061 | Donquixote Rosinante
+- OP12-061_p1 | Donquixote Rosinante
+- OP12-062 | Vinsmoke Sora
+- OP12-063 | Vinsmoke Reiju
+- OP12-063_p1 | Vinsmoke Reiju
+- OP12-064 | Vergo
+- OP12-065 | Emporio.Ivankov
+- OP12-066 | Carne
+- OP12-067 | Carmen
+- OP12-068 | Gin
+- OP12-069 | Crocodile
+- OP12-070 | Sanji
+- OP12-070_p1 | Sanji
+- OP12-071 | Charlotte Pudding
+- OP12-072 | Zeff
+- OP12-073 | Trafalgar Law
+- OP12-073_p1 | Trafalgar Law
+- OP12-074 | Patty
+- OP12-075 | Ms. All Sunday
+- OP12-076 | Monet
+- OP12-077 | The "Extinguishes All Sound Created by Your Influence" Technique
+- OP12-078 | Brochette Blow
+- OP12-079 | Luffy Is the Man Who Will Be King of the Pirates!!!
+- OP12-080 | Baratie
+- OP12-081 | Koala
+- OP12-081_p1 | Koala
+- OP12-082 | Issho
+- OP12-083 | Inazuma
+- OP12-084 | Emporio.Ivankov
+- OP12-085 | Karasu
+- OP12-086 | Koala
+- OP12-086_p1 | Koala
+- OP12-087 | Nico Robin
+- OP12-087_p1 | Nico Robin
+- OP12-088 | Bastille
+- OP12-089 | Hack
+- OP12-090 | Belo Betty
+- OP12-091 | Poker
+- OP12-092 | Mizerka
+- OP12-093 | Morley
+- OP12-094 | Monkey.D.Dragon
+- OP12-094_p1 | Monkey.D.Dragon
+- OP12-095 | Lindbergh
+- OP12-096 | Ursa Shock
+- OP12-097 | Captains Assembled
+- OP12-098 | Hair Removal Fist
+- OP12-099 | Kalgara
+- OP12-100 | Sabo
+- OP12-101 | Jewelry Bonney
+- OP12-102 | Shirahoshi
+- OP12-102_p1 | Shirahoshi
+- OP12-103 | Seto
+- OP12-104 | Sentomaru
+- OP12-105 | Trafalgar Lammy
+- OP12-106 | Trafalgar Law
+- OP12-107 | Donquixote Doflamingo
+- OP12-108 | Donquixote Rosinante
+- OP12-108_p1 | Donquixote Rosinante
+- OP12-109 | Pacifista
+- OP12-110 | Buffalo
+- OP12-111 | Baby 5
+- OP12-112 | Baby 5
+- OP12-113 | Roronoa Zoro
+- OP12-114 | Wyper
+- OP12-115 | I Love You!!
+- OP12-116 | We'll Ring the Bell Waiting for You!!
+- OP12-117 | Slam Gibson
+- OP12-118 | Jewelry Bonney
+- OP12-118_p1 | Jewelry Bonney
+- OP12-118_p2 | Jewelry Bonney
+- OP12-119 | Bartholomew Kuma
+- OP12-119_p1 | Bartholomew Kuma
+- ST13-011_p2 | Portgas.D.Ace
+- ST18-004_p2 | Zoro-Juurou
+
+### Ace & Newgate [ST-22]
+- ST22-001 | Ace & Newgate
+- ST22-001_p1 | Ace & Newgate
+- ST22-002 | Izo
+- ST22-002_p1 | Izo
+- ST22-003 | Edward.Newgate
+- ST22-003_p1 | Edward.Newgate
+- ST22-004 | Elmy
+- ST22-004_p1 | Elmy
+- ST22-005 | Kouzuki Oden
+- ST22-005_p1 | Kouzuki Oden
+- ST22-006 | Jozu
+- ST22-006_p1 | Jozu
+- ST22-007 | Squard
+- ST22-007_p1 | Squard
+- ST22-008 | Decalvan Brothers
+- ST22-008_p1 | Decalvan Brothers
+- ST22-009 | Vista
+- ST22-009_p1 | Vista
+- ST22-010 | Portgas.D.Ace
+- ST22-010_p1 | Portgas.D.Ace
+- ST22-011 | Whitey Bay
+- ST22-011_p1 | Whitey Bay
+- ST22-012 | Marco
+- ST22-012_p1 | Marco
+- ST22-013 | LittleOars Jr.
+- ST22-013_p1 | LittleOars Jr.
+- ST22-014 | A.O.
+- ST22-014_p1 | A.O.
+- ST22-015 | I Am Whitebeard!!
+- ST22-016 | Take That Back!! Take Back What You Said!!
+- ST22-017 | Fire Fist
+
+### Learn Together Deck Set
+- OP11-041_p2 | Nami
+- OP12-020_p3 | Roronoa Zoro
+- ST21-001_p2 | Monkey.D.Luffy
+
+### ONE PIECE CARD THE BEST vol.2 [PRB-02]
+- EB01-009_p1 | Just Shut Up and Come with Us!!!!
+- EB01-009_r1 | Just Shut Up and Come with Us!!!!
+- EB01-012_r1 | Cavendish
+- EB01-015_p5 | Scratchmen Apoo
+- EB01-015_r1 | Scratchmen Apoo
+- EB01-018_p1 | Mountain God
+- EB01-018_r1 | Mountain God
+- EB01-038_p1 | Oh Come My Way
+- EB01-038_r1 | Oh Come My Way
+- EB01-046_r1 | Brook
+- EB01-048_r1 | Laboon
+- EB01-051_p1 | Finger Pistol
+- EB01-051_r1 | Finger Pistol
+- EB01-057_r1 | Shirahoshi
+- EB01-060_p1 | Did Someone Say...Kami?
+- EB01-060_r1 | Did Someone Say...Kami?
+- EB01-061_r1 | Mr.2.Bon.Kurei(Bentham)
+- EB02-061_p3 | Monkey.D.Luffy
+- EB02-061_r1 | Monkey.D.Luffy
+- OP01-039_p1 | Killer
+- OP01-039_r1 | Killer
+- OP01-055_p1 | You Can Be My Samurai!!
+- OP01-055_r1 | You Can Be My Samurai!!
+- OP02-005_p1 | Curly.Dadan
+- OP02-005_r1 | Curly.Dadan
+- OP02-068_p1 | Gum-Gum Rain
+- OP02-068_r1 | Gum-Gum Rain
+- OP03-008_p2 | Buggy
+- OP03-008_r1 | Buggy
+- OP03-044_r1 | Kaya
+- OP03-048_p1 | Nojiko
+- OP03-048_r1 | Nojiko
+- OP03-072_p1 | Gum-Gum Jet Gatling
+- OP03-072_r1 | Gum-Gum Jet Gatling
+- OP03-097_r1 | Six King Pistol
+- OP04-016_p1 | Bad Manners Kick Course
+- OP04-016_r1 | Bad Manners Kick Course
+- OP04-077_p1 | Ideo
+- OP04-077_r1 | Ideo
+- OP04-083_r2 | Sabo
+- OP04-096_p1 | Corrida Coliseum
+- OP04-096_r1 | Corrida Coliseum
+- OP05-004_p1 | Emporio.Ivankov
+- OP05-004_r1 | Emporio.Ivankov
+- OP05-021_p1 | Revolutionary Army HQ
+- OP05-021_r1 | Revolutionary Army HQ
+- OP05-030_p1 | Donquixote Rosinante
+- OP05-030_r1 | Donquixote Rosinante
+- OP05-036_p2 | Monet
+- OP05-036_r1 | Monet
+- OP05-037_r1 | Because the Side of Justice Will Be Whichever Side Wins!!
+- OP05-052_p1 | Maynard
+- OP05-052_r1 | Maynard
+- OP05-077_p1 | Gamma Knife
+- OP05-077_r1 | Gamma Knife
+- OP05-091_p4 | Rebecca
+- OP05-091_r1 | Rebecca
+- OP05-097_p1 | Mary Geoise
+- OP05-097_p2 | Mary Geoise
+- OP05-097_r1 | Mary Geoise
+- OP05-102_r1 | Gedatsu
+- OP06-007_p2 | Shanks
+- OP06-007_r1 | Shanks
+- OP06-044_p1 | Gion
+- OP06-044_r1 | Gion
+- OP06-047_p2 | Charlotte Pudding
+- OP06-047_r1 | Charlotte Pudding
+- OP06-049_p1 | Sengoku
+- OP06-049_r1 | Sengoku
+- OP06-056_p4 | Ama no Murakumo Sword
+- OP06-056_r2 | Ama no Murakumo Sword
+- OP06-058_p1 | Gravity Blade Raging Tiger
+- OP06-058_r1 | Gravity Blade Raging Tiger
+- OP06-059_p1 | White Snake
+- OP06-059_r1 | White Snake
+- OP06-063_p1 | Vinsmoke Sora
+- OP06-063_r1 | Vinsmoke Sora
+- OP06-073_p1 | Shiki
+- OP06-073_r1 | Shiki
+- OP06-076_p2 | Hitokiri Kamazo
+- OP06-076_r1 | Hitokiri Kamazo
+- OP06-078_p1 | GERMA 66
+- OP06-078_r1 | GERMA 66
+- OP06-107_r1 | Kouzuki Momonosuke
+- OP06-115_p1 | You're the One Who Should Disappear.
+- OP06-115_r1 | You're the One Who Should Disappear.
+- OP06-118_r2 | Roronoa Zoro
+- OP06-119_p3 | Sanji
+- OP06-119_r1 | Sanji
+- OP07-014_p1 | Moda
+- OP07-014_r1 | Moda
+- OP07-015_r1 | Monkey.D.Dragon
+- OP07-017_p1 | Dragon Breath
+- OP07-017_r1 | Dragon Breath
+- OP07-021_p8 | Urouge
+- OP07-021_r2 | Urouge
+- OP07-026_r1 | Jewelry Bonney
+- OP07-029_r1 | Basil Hawkins
+- OP07-031_p1 | Bartolomeo
+- OP07-031_r2 | Bartolomeo
+- OP07-040_p2 | Crocodile
+- OP07-040_p3 | Crocodile
+- OP07-040_r1 | Crocodile
+- OP07-056_p1 | Slave Arrow
+- OP07-056_r1 | Slave Arrow
+- OP07-064_r1 | Sanji
+- OP07-076_p1 | Slow-Slow Beam Sword
+- OP07-076_r1 | Slow-Slow Beam Sword
+- OP07-107_r1 | Franky
+- OP07-109_r1 | Monkey.D.Luffy
+- OP07-114_p1 | He Possesses the World's Most Brilliant Mind
+- OP07-114_r1 | He Possesses the World's Most Brilliant Mind
+- OP07-118_r1 | Sabo
+- OP07-119_r1 | Portgas.D.Ace
+- OP08-023_p2 | Carrot
+- OP08-023_r1 | Carrot
+- OP08-067_r1 | Charlotte Pudding
+- OP08-074_r1 | Black Maria
+- OP08-076_p1 | It's to Die For...
+- OP08-076_r1 | It's to Die For...
+- OP08-087_p1 | Scratchmen Apoo
+- OP08-087_r1 | Scratchmen Apoo
+- OP08-099_p1 | Kalgara
+- OP08-099_r1 | Kalgara
+- OP08-118_r1 | Silvers Rayleigh
+- OP09-002_r1 | Uta
+- OP09-004_r1 | Shanks
+- OP09-005_r1 | Silvers Rayleigh
+- OP09-009_r1 | Benn.Beckman
+- OP09-014_p1 | Limejuice
+- OP09-014_p2 | Limejuice
+- OP09-014_r2 | Limejuice
+- OP09-020_p2 | Come On!! We'll Fight You!!
+- OP09-020_r2 | Come On!! We'll Fight You!!
+- OP09-027_p1 | Sabo
+- OP09-027_r1 | Sabo
+- OP09-033_p1 | Nico Robin
+- OP09-033_r1 | Nico Robin
+- OP09-046_r1 | Crocodile
+- OP09-048_r1 | Dracule Mihawk
+- OP09-056_p1 | Mr.3(Galdino)
+- OP09-056_r2 | Mr.3(Galdino)
+- OP09-057_p2 | Cross Guild
+- OP09-057_r2 | Cross Guild
+- OP09-065_r1 | Sanji
+- OP09-069_r1 | Trafalgar Law
+- OP09-072_r1 | Franky
+- OP09-076_p2 | Roronoa Zoro
+- OP09-076_r2 | Roronoa Zoro
+- OP09-077_p1 | Gum-Gum Lightning
+- OP09-077_r2 | Gum-Gum Lightning
+- OP09-078_p2 | Gum-Gum Giant
+- OP09-078_r1 | Gum-Gum Giant
+- OP09-079_p1 | Gum-Gum Jump Rope
+- OP09-079_r1 | Gum-Gum Jump Rope
+- OP09-084_p1 | Catarina Devon
+- OP09-084_r1 | Catarina Devon
+- OP09-086_p1 | Jesus Burgess
+- OP09-086_r2 | Jesus Burgess
+- OP09-093_r1 | Marshall.D.Teach
+- OP09-096_p1 | My Era...Begins!!
+- OP09-096_r1 | My Era...Begins!!
+- OP09-097_p1 | Black Vortex
+- OP09-097_r1 | Black Vortex
+- OP09-098_p1 | Black Hole
+- OP09-098_r1 | Black Hole
+- OP10-011_p1 | Tony Tony.Chopper
+- OP10-011_r1 | Tony Tony.Chopper
+- OP10-018_p2 | Ten-Layer Igloo
+- OP10-018_r1 | Ten-Layer Igloo
+- OP10-032_r1 | Tashigi
+- OP10-046_r1 | Kyros
+- OP10-079_p1 | God Thread
+- OP10-079_r1 | God Thread
+- OP10-095_p1 | Roronoa Zoro
+- OP10-095_r1 | Roronoa Zoro
+- OP10-105_p1 | Cavendish
+- OP10-105_r1 | Cavendish
+- OP10-108_p1 | Scratchmen Apoo
+- OP10-108_r1 | Scratchmen Apoo
+- OP10-109_p1 | Basil Hawkins
+- OP10-109_r1 | Basil Hawkins
+- OP10-112_r1 | Eustass"Captain"Kid
+- OP10-114_p1 | X.Drake
+- OP10-114_p2 | X.Drake
+- OP10-114_r1 | X.Drake
+- OP10-119_p3 | Trafalgar Law
+- OP10-119_r1 | Trafalgar Law
+- P-044 | Sabo
+- P-044_r1 | Sabo
+- P-063 | Jinbe
+- P-063_p1 | Jinbe
+- P-063_r1 | Jinbe
+- P-068_p1 | Sanji
+- P-068_r1 | Sanji
+- P-069_p3 | Koala
+- P-069_r1 | Koala
+- P-070_p3 | Carrot
+- P-070_r1 | Carrot
+- P-073 | Sabo
+- P-073_r1 | Sabo
+- P-074 | Portgas.D.Ace
+- P-074_r1 | Portgas.D.Ace
+- P-075 | Monkey.D.Luffy
+- P-075_r1 | Monkey.D.Luffy
+- P-078_p6 | Adio
+- P-078_r1 | Adio
+- P-079_p3 | Lim
+- P-079_r1 | Lim
+- P-081_p2 | Dracule Mihawk
+- P-081_r1 | Dracule Mihawk
+- P-082_p2 | Crocodile
+- P-082_r1 | Crocodile
+- P-083_p3 | Shanks
+- P-083_r1 | Shanks
+- P-085_p3 | Jewelry Bonney
+- P-085_r1 | Jewelry Bonney
+- P-088_p3 | Trafalgar Law
+- P-088_r1 | Trafalgar Law
+- PRB02-001 | Koby
+- PRB02-001_p1 | Koby
+- PRB02-002 | Trafalgar Law
+- PRB02-002_p1 | Trafalgar Law
+- PRB02-003 | Lucky.Roux
+- PRB02-003_p1 | Lucky.Roux
+- PRB02-004 | Jewelry Bonney
+- PRB02-004_p1 | Jewelry Bonney
+- PRB02-005 | Monkey.D.Luffy
+- PRB02-005_p1 | Monkey.D.Luffy
+- PRB02-006 | Roronoa Zoro
+- PRB02-006_p1 | Roronoa Zoro
+- PRB02-007 | Jinbe
+- PRB02-007_p1 | Jinbe
+- PRB02-008 | Marco
+- PRB02-008_p1 | Marco
+- PRB02-009 | Mr.3(Galdino)
+- PRB02-009_p1 | Mr.3(Galdino)
+- PRB02-010 | Charlotte Pudding
+- PRB02-010_p1 | Charlotte Pudding
+- PRB02-011 | Donquixote Doflamingo
+- PRB02-011_p1 | Donquixote Doflamingo
+- PRB02-012 | Nami
+- PRB02-012_p1 | Nami
+- PRB02-013 | Gecko Moria
+- PRB02-013_p1 | Gecko Moria
+- PRB02-014 | Sabo
+- PRB02-014_p1 | Sabo
+- PRB02-015 | Shiryu
+- PRB02-015_p1 | Shiryu
+- PRB02-016 | Otama
+- PRB02-016_p1 | Otama
+- PRB02-017 | Boa Hancock
+- PRB02-017_p1 | Boa Hancock
+- PRB02-018 | Portgas.D.Ace
+- PRB02-018_p1 | Portgas.D.Ace
+- ST01-011_p4 | Brook
+- ST01-011_r1 | Brook
+- ST02-007_p3 | Jewelry Bonney
+- ST02-007_r1 | Jewelry Bonney
+- ST06-008_p1 | Hina
+- ST06-008_r1 | Hina
+- ST10-005_p2 | Jinbe
+- ST10-005_r1 | Jinbe
+- ST10-008_p3 | Shachi & Penguin
+- ST10-008_r1 | Shachi & Penguin
+- ST12-005_p1 | Perona
+- ST12-005_r1 | Perona
+- ST12-017_p1 | Plastic Surgery Shot
+- ST12-017_r1 | Plastic Surgery Shot
+- ST13-004_p2 | Edward.Newgate
+- ST13-004_r1 | Edward.Newgate
+- ST13-007_p2 | Sabo
+- ST13-007_r1 | Sabo
+- ST13-010_p2 | Portgas.D.Ace
+- ST13-010_r1 | Portgas.D.Ace
+- ST13-014_p2 | Monkey.D.Luffy
+- ST13-014_r1 | Monkey.D.Luffy
+- ST13-019_p1 | The Three Brothers' Bond
+- ST13-019_r1 | The Three Brothers' Bond
+- ST14-007_p1 | Nico Robin
+- ST14-007_r1 | Nico Robin
+- ST14-010_p1 | Brook
+- ST14-010_r2 | Brook
+- ST14-013_p1 | Roronoa Zoro
+- ST14-013_r1 | Roronoa Zoro
+- ST14-016_p1 | I Have My Crew!!
+- ST14-016_r1 | I Have My Crew!!
+- ST14-017_p1 | Thousand Sunny
+- ST14-017_r1 | Thousand Sunny
+- ST15-002_p2 | Edward.Newgate
+- ST15-002_r1 | Edward.Newgate
+- ST16-003_p1 | Charlotte Katakuri
+- ST16-003_r1 | Charlotte Katakuri
+- ST16-004_p2 | Shanks
+- ST16-004_r1 | Shanks
+- ST16-005_p1 | Monkey.D.Luffy
+- ST16-005_r1 | Monkey.D.Luffy
+- ST17-002_p1 | Trafalgar Law
+- ST17-002_r1 | Trafalgar Law
+- ST17-003_p3 | Buggy
+- ST17-003_r1 | Buggy
+- ST17-005_p1 | Marshall.D.Teach
+- ST17-005_r1 | Marshall.D.Teach
+- ST18-001_p2 | Uso-Hachi
+- ST18-001_p3 | Uso-Hachi
+- ST18-001_r1 | Uso-Hachi
+- ST18-002_p1 | O-Nami
+- ST18-002_r1 | O-Nami
+- ST18-003_p2 | San-Gorou
+- ST18-003_r1 | San-Gorou
+- ST19-002_p3 | Sengoku
+- ST19-002_r1 | Sengoku
+- ST20-003_p1 | Charlotte Brulee
+- ST20-003_r1 | Charlotte Brulee
+- ST21-003_p2 | Sanji
+- ST21-003_r1 | Sanji
+
+### Egghead [ST-29]
+- ST29-001 | Monkey.D.Luffy
+- ST29-001_p1 | Monkey.D.Luffy
+- ST29-002 | Usopp
+- ST29-002_p1 | Usopp
+- ST29-003 | Kaku
+- ST29-003_p1 | Kaku
+- ST29-004 | Sanji
+- ST29-004_p1 | Sanji
+- ST29-005 | Jinbe
+- ST29-005_p1 | Jinbe
+- ST29-006 | Stussy
+- ST29-006_p1 | Stussy
+- ST29-007 | Tony Tony.Chopper
+- ST29-007_p1 | Tony Tony.Chopper
+- ST29-008 | Nami
+- ST29-008_p1 | Nami
+- ST29-009 | Nico Robin
+- ST29-009_p1 | Nico Robin
+- ST29-010 | Franky
+- ST29-010_p1 | Franky
+- ST29-011 | Brook
+- ST29-011_p1 | Brook
+- ST29-012 | Monkey.D.Luffy
+- ST29-012_p1 | Monkey.D.Luffy
+- ST29-013 | Rob Lucci
+- ST29-013_p1 | Rob Lucci
+- ST29-014 | Roronoa Zoro
+- ST29-014_p1 | Roronoa Zoro
+- ST29-015 | Raw Heat Strike
+- ST29-016 | Kizaru!! Compared to Two Years Ago We're a Hundred Times Stronger Now!!
+- ST29-017 | Iai Death Lion Song
+
+### Illustration Box Vol.5
+- OP05-007_p4 | Sabo
+- ST15-005_p3 | Portgas.D.Ace
+
+### Illustration Box Vol.6
+- OP12-108_p3 | Donquixote Rosinante
+- P-093 | Trafalgar Law
+
+### THE AZURE SEA’S SEVEN [OP14-EB04]
+- EB01-003_p5 | Kid & Killer
+- EB01-023_p1 | Edward Weevil
+- EB04-011 | Scaled Neptunian
+- EB04-012 | Kikunojo
+- EB04-012_p1 | Kikunojo
+- EB04-013 | Carrot
+- EB04-013_p1 | Carrot
+- EB04-014 | Kozuki Sukiyaki
+- EB04-015 | Jinbe
+- EB04-016 | Bird Neptunian
+- EB04-017 | Mystoms
+- EB04-018 | Megalo
+- EB04-018_p1 | Megalo
+- EB04-019 | Eleclaw
+- EB04-020 | Shark Brick Fist
+- EB04-021 | Igaram
+- EB04-022 | Issho
+- EB04-022_p1 | Issho
+- EB04-023 | Chaka & Pell
+- EB04-024 | Terracotta
+- EB04-025 | Nefeltari Vivi
+- EB04-025_p1 | Nefeltari Vivi
+- EB04-026 | Bluegrass
+- EB04-027 | Boa Hancock
+- EB04-028 | Ice Time
+- EB04-029 | I Heard the Sound...of a Lady's Teardrops Falling
+- EB04-030 | Kaido
+- EB04-031 | King
+- EB04-031_p1 | King
+- EB04-032 | Queen
+- EB04-033 | Groggy Monsters
+- EB04-034 | Charlotte Pudding
+- EB04-035 | Hitokiri Kamazo
+- EB04-036 | Foxy
+- EB04-036_p1 | Foxy
+- EB04-037 | Porche
+- EB04-038 | Rosinante & Law
+- EB04-038_p1 | Rosinante & Law
+- EB04-039 | Eustass"Captain"Kid
+- EB04-039_p1 | Eustass"Captain"Kid
+- EB04-040 | Flame Dragon Torch
+- EB04-041 | Stealth Black
+- OP06-093_p5 | Perona
+- OP07-046_p2 | Sengoku
+- OP09-051_p4 | Buggy
+- OP09-051_p5 | Buggy
+- OP10-065_p1 | Sugar
+- OP12-030_p2 | Dracule Mihawk
+- OP12-108_p2 | Donquixote Rosinante
+- OP14-001 | Trafalgar Law
+- OP14-001_p1 | Trafalgar Law
+- OP14-002 | Urouge
+- OP14-003 | Capone"Gang"Bege
+- OP14-004 | Cavendish
+- OP14-005 | Killer
+- OP14-006 | Shachi & Penguin
+- OP14-007 | Jewelry Bonney
+- OP14-008 | Scratchmen Apoo
+- OP14-009 | Trafalgar Law
+- OP14-009_p1 | Trafalgar Law
+- OP14-010 | Basil Hawkins
+- OP14-011 | Bartolomeo
+- OP14-012 | Bepo
+- OP14-013 | Monkey.D.Luffy
+- OP14-013_p1 | Monkey.D.Luffy
+- OP14-014 | Eustass"Captain"Kid
+- OP14-015 | Roronoa Zoro
+- OP14-015_p1 | Roronoa Zoro
+- OP14-016 | X.Drake
+- OP14-017 | Chambres
+- OP14-018 | Time for the Counterattack
+- OP14-019 | I Have a Plan to Take Down One of the Four Emperors!!
+- OP14-020 | Dracule Mihawk
+- OP14-020_p1 | Dracule Mihawk
+- OP14-021 | Issho
+- OP14-022 | Usopp
+- OP14-023 | Kikunojo
+- OP14-024 | Kin'emon
+- OP14-025 | Kuro
+- OP14-026 | Kouzuki Oden
+- OP14-027 | Shanks
+- OP14-027_p1 | Shanks
+- OP14-028 | Johnny
+- OP14-029 | Tashigi
+- OP14-030 | Chaka & Pell
+- OP14-031 | Nami
+- OP14-031_p1 | Nami
+- OP14-032 | Humandrill
+- OP14-033 | Perona
+- OP14-033_p1 | Perona
+- OP14-034 | Monkey.D.Luffy
+- OP14-035 | Yosaku
+- OP14-036 | Strive to Surpass me, Roronoa Zoro!!!
+- OP14-037 | For Fun
+- OP14-038 | I Never Bother to Remember the Faces of Trash
+- OP14-039 | Coffin Boat
+- OP14-040 | Jinbe
+- OP14-040_p1 | Jinbe
+- OP14-041 | Boa Hancock
+- OP14-041_p1 | Boa Hancock
+- OP14-042 | Arlong
+- OP14-042_p1 | Arlong
+- OP14-043 | Aladine
+- OP14-044 | Edward.Newgate
+- OP14-045 | Kuroobi
+- OP14-046 | Koala
+- OP14-047 | Shirahoshi
+- OP14-048 | Shiryu
+- OP14-049 | Jinbe
+- OP14-049_p1 | Jinbe
+- OP14-050 | Chew
+- OP14-051 | Hatchan
+- OP14-052 | Hannyabal
+- OP14-053 | Vista
+- OP14-054 | Fisher Tiger
+- OP14-055 | The Macro Gang
+- OP14-056 | Wadatsumi
+- OP14-057 | Don't Worry!! I'm Here!!
+- OP14-058 | Ocean Current Shoulder Throw
+- OP14-059 | Please Take Me with You!! I Can Be of Great Help to You!!
+- OP14-060 | Donquixote Doflamingo
+- OP14-060_p1 | Donquixote Doflamingo
+- OP14-061 | Vergo
+- OP14-061_p1 | Vergo
+- OP14-062 | Gladius
+- OP14-063 | Sugar
+- OP14-064 | Giolla
+- OP14-065 | Senor Pink
+- OP14-066 | Diamante
+- OP14-067 | Dellinger
+- OP14-068 | Trebol
+- OP14-069 | Donquixote Doflamingo
+- OP14-069_p1 | Donquixote Doflamingo
+- OP14-070 | Buffalo
+- OP14-071 | Pica
+- OP14-072 | Baby 5
+- OP14-073 | Machvise
+- OP14-074 | Monet
+- OP14-075 | Lao.G
+- OP14-076 | Ever White
+- OP14-077 | Penta-Chromatic String
+- OP14-078 | Bullet String
+- OP14-079 | Crocodile
+- OP14-079_p1 | Crocodile
+- OP14-080 | Gecko Moria
+- OP14-080_p1 | Gecko Moria
+- OP14-081 | Spider Mice
+- OP14-082 | Oinkchuck
+- OP14-083 | Ms. Wednesday
+- OP14-084 | Ms. All Sunday
+- OP14-084_p1 | Ms. All Sunday
+- OP14-085 | Miss.Goldenweek(Marianne)
+- OP14-086 | Miss Doublefinger(Zala)
+- OP14-087 | Miss.Valentine(Mikita)
+- OP14-088 | Miss.MerryChristmas(Drophy)
+- OP14-089 | Ryuma
+- OP14-090 | Mr.1(Daz.Bonez)
+- OP14-090_p1 | Mr.1(Daz.Bonez)
+- OP14-091 | Mr.2.Bon.Kurei(Bentham)
+- OP14-091_p1 | Mr.2.Bon.Kurei(Bentham)
+- OP14-092 | Mr.3(Galdino)
+- OP14-093 | Mr.4(Babe)
+- OP14-094 | Mr.5(Gem)
+- OP14-095 | Mr.9
+- OP14-096 | Ground Death
+- OP14-096_p1 | Ground Death
+- OP14-097 | Hurry Up and Make Me the Pirate King!
+- OP14-098 | Crescent Cutlass
+- OP14-099 | Disappointed?
+- OP14-100 | Absalom
+- OP14-101 | Oars
+- OP14-102 | Kumacy
+- OP14-103 | Gloriosa (Grandma Nyon)
+- OP14-104 | Gecko Moria
+- OP14-104_p1 | Gecko Moria
+- OP14-105 | Gorgon Sisters
+- OP14-106 | Salome
+- OP14-107 | Shakuyaku
+- OP14-108 | Silvers Rayleigh
+- OP14-109 | Victoria Cindry
+- OP14-110 | Dr. Hogback
+- OP14-111 | Perona
+- OP14-111_p1 | Perona
+- OP14-112 | Boa Hancock
+- OP14-112_p1 | Boa Hancock
+- OP14-112_p2 | Boa Hancock
+- OP14-113 | Marguerite
+- OP14-114 | Ran
+- OP14-115 | Rindo
+- OP14-116 | Salamander
+- OP14-117 | Brick Bat
+- OP14-118 | You'll Frighten Me... ♡
+- OP14-118_p1 | You'll Frighten Me... ♡
+- OP14-119 | Dracule Mihawk
+- OP14-119_p1 | Dracule Mihawk
+- OP14-119_p2 | Dracule Mihawk
+- OP14-120 | Crocodile
+- OP14-120_p1 | Crocodile
+- PRB02-006_p2 | Roronoa Zoro
+
+### ONE PIECE HEROINES EDITION [EB-03]
+- EB03-001 | Nefeltari Vivi
+- EB03-001_p1 | Nefeltari Vivi
+- EB03-002 | Ain
+- EB03-003 | Uta
+- EB03-003_p1 | Uta
+- EB03-003_p2 | Uta
+- EB03-004 | Carina
+- EB03-005 | Sugar
+- EB03-006 | Nami
+- EB03-007 | Baccarat
+- EB03-008 | Hibari
+- EB03-008_p1 | Hibari
+- EB03-009 | Makino
+- EB03-010 | Monet
+- EB03-011 | But If We Ever See Each Other Again... Will You Call Me Your Shipmate?!!
+- EB03-012 | Otama
+- EB03-013 | Carrot
+- EB03-013_p1 | Carrot
+- EB03-014 | Kuina
+- EB03-015 | Camie
+- EB03-016 | Kouzuki Hiyori
+- EB03-017 | Jewelry Bonney
+- EB03-018 | Tashigi
+- EB03-018_p1 | Tashigi
+- EB03-018_p2 | Tashigi
+- EB03-019 | Wanda
+- EB03-020 | There You Are, Sore Loser!
+- EB03-021 | Alvida
+- EB03-022 | Isuka
+- EB03-023 | Kaya
+- EB03-024 | Nefeltari Vivi
+- EB03-024_p1 | Nefeltari Vivi
+- EB03-024_p2 | Nefeltari Vivi
+- EB03-025 | Hina
+- EB03-025_p1 | Hina
+- EB03-026 | Boa Hancock
+- EB03-026_p1 | Boa Hancock
+- EB03-026_p2 | Boa Hancock
+- EB03-027 | Marguerite
+- EB03-028 | Yu
+- EB03-029 | Insolent Fool!! Stand Down!!
+- EB03-030 | Viola
+- EB03-031 | Vinsmoke Reiju
+- EB03-031_p1 | Vinsmoke Reiju
+- EB03-031_p2 | Vinsmoke Reiju
+- EB03-032 | Charlotte Flampe
+- EB03-033 | Charlotte Brulee
+- EB03-034 | Charlotte Linlin
+- EB03-034_p1 | Charlotte Linlin
+- EB03-035 | Charlotte Pudding
+- EB03-036 | Baby 5
+- EB03-037 | Lim
+- EB03-038 | Thanks for the Treat. ♡
+- EB03-039 | Ulti
+- EB03-040 | Kalifa
+- EB03-041 | Kujyaku
+- EB03-041_p1 | Kujyaku
+- EB03-042 | Koala
+- EB03-042_p1 | Koala
+- EB03-042_p2 | Koala
+- EB03-043 | Stussy
+- EB03-044 | Black Maria
+- EB03-045 | Perona
+- EB03-045_p1 | Perona
+- EB03-045_p2 | Perona
+- EB03-046 | Miss Doublefinger(Zala)
+- EB03-047 | Miss.Valentine(Mikita)
+- EB03-048 | Rebecca
+- EB03-049 | I Knew You People Were Behind This.
+- EB03-050 | Conis
+- EB03-051 | Charlotte Smoothie
+- EB03-052 | Shirahoshi
+- EB03-053 | Nami
+- EB03-053_p1 | Nami
+- EB03-053_p2 | Nami
+- EB03-054 | Nico Robin
+- EB03-055 | Nico Robin
+- EB03-055_p1 | Nico Robin
+- EB03-055_p2 | Nico Robin
+- EB03-056 | Belo Betty
+- EB03-057 | Yamato
+- EB03-057_p1 | Yamato
+- EB03-058 | Lilith
+- EB03-059 | S-Snake
+- EB03-060 | Will You Be My Servant?
+- EB03-061 | Uta
+- EB03-061_p1 | Uta
+- EB03-061_p2 | Uta
+- EB03-062 | Trafalgar Law
+- EB03-062_p1 | Trafalgar Law
+
+### 2025 NEW YEAR EVENT
+- ST01-007_p4 | Nami
+- ST01-007_p5 | Nami
+
+### 3rd Anniversary Event
+- OP07-053_p3 | Portgas.D.Ace
+- OP07-053_p4 | Portgas.D.Ace
+- OP09-027_p2 | Sabo
+- OP09-027_p3 | Sabo
+- ST01-012_p5 | Monkey.D.Luffy
+- ST01-012_p6 | Monkey.D.Luffy
+
+### Anime Expo 2023
+- P-037 | Monkey.D.Luffy
+
+### AWAKENING OF THE NEW ERA [OP05]
+- OP01-016_p4 | Nami
+- OP01-121_p2 | Yamato
+- OP02-120_p2 | Uta
+- OP03-092_p2 | Rob Lucci
+- OP04-044_p2 | Kaido
+- OP05-001_p1 | Sabo
+- OP05-002_p1 | Belo Betty
+- OP05-006_p1 | Koala
+- OP05-007_p1 | Sabo
+- OP05-015_p1 | Belo Betty
+- OP05-022_p1 | Donquixote Rosinante
+- OP05-032_p1 | Pica
+- OP05-034_p1 | Baby 5
+- OP05-041_p1 | Sakazuki
+- OP05-043_p1 | Ulti
+- OP05-051_p1 | Borsalino
+- OP05-055_p1 | X.Drake
+- OP05-060_p1 | Monkey.D.Luffy
+- OP05-067_p1 | Zoro-Juurou
+- OP05-069_p1 | Trafalgar Law
+- OP05-069_p2 | Trafalgar Law
+- OP05-074_p1 | Eustass"Captain"Kid
+- OP05-074_p2 | Eustass"Captain"Kid
+- OP05-088_p1 | Mansherry
+- OP05-091_p1 | Rebecca
+- OP05-093_p1 | Rob Lucci
+- OP05-098_p1 | Enel
+- OP05-100_p1 | Enel
+- OP05-100_p2 | Enel
+- OP05-102_p1 | Gedatsu
+- OP05-118_p1 | Kaido
+- OP05-119_p1 | Monkey.D.Luffy
+- OP05-119_p2 | Monkey.D.Luffy
+- ST01-012_p2 | Monkey.D.Luffy
+- ST01-012_p3 | Monkey.D.Luffy
+
+### BANDAI CARD GAMES Fest 25-26
+- OP07-073_p1 | Monkey.D.Luffy
+
+### CARRYING ON HIS WILL [OP-13]
+- EB02-028_p1 | Portgas.D.Ace
+- OP07-111_p2 | Lilith
+- OP07-118_p2 | Sabo
+- OP09-004_p5 | Shanks
+- OP09-004_p6 | Shanks
+- OP09-009_p3 | Benn.Beckman
+- OP09-118_p3 | Gol.D.Roger
+- OP09-119_p3 | Monkey.D.Luffy
+- OP10-030_p2 | Smoker
+- OP11-058_p1 | Monkey.D.Luffy
+- OP13-001 | Monkey.D.Luffy
+- OP13-001_p1 | Monkey.D.Luffy
+- OP13-002 | Portgas.D.Ace
+- OP13-002_p1 | Portgas.D.Ace
+- OP13-003 | Gol.D.Roger
+- OP13-003_p1 | Gol.D.Roger
+- OP13-004 | Sabo
+- OP13-004_p1 | Sabo
+- OP13-005 | Inazuma
+- OP13-006 | Woop Slap
+- OP13-007 | Ace & Sabo & Luffy
+- OP13-007_p1 | Ace & Sabo & Luffy
+- OP13-008 | Emporio.Ivankov
+- OP13-009 | Curly.Dadan
+- OP13-010 | Lord of the Coast
+- OP13-011 | Nefeltari Cobra
+- OP13-012 | Nefeltari Vivi
+- OP13-013 | Higuma
+- OP13-014 | Portgas.D.Rouge
+- OP13-015 | Makino
+- OP13-016 | Monkey.D.Garp
+- OP13-016_p1 | Monkey.D.Garp
+- OP13-017 | Monkey.D.Dragon
+- OP13-018 | Wapol
+- OP13-019 | But Ace Here Said You Deserved It!!
+- OP13-020 | Meteor Fist
+- OP13-021 | Gum-Gum Gatling Gun
+- OP13-022 | Windmill Village
+- OP13-023 | Uta
+- OP13-023_p1 | Uta
+- OP13-024 | Gordon
+- OP13-025 | Koby
+- OP13-026 | Sunny-Kun
+- OP13-027 | Sanji
+- OP13-027_p1 | Sanji
+- OP13-028 | Shanks
+- OP13-028_p1 | Shanks
+- OP13-029 | Jinbe
+- OP13-030 | Tony Tony.Chopper
+- OP13-031 | Trafalgar Law
+- OP13-032 | Nico Robin
+- OP13-033 | Franky
+- OP13-034 | Brook
+- OP13-035 | Bepo
+- OP13-036 | Helmeppo
+- OP13-037 | Roronoa Zoro
+- OP13-038 | Gum-Gum Elephant Gun
+- OP13-039 | Gum-Gum Snake Shot
+- OP13-040 | I Know You're Strong... So I'll Go All Out from the Very Start!!!
+- OP13-041 | Izo
+- OP13-042 | Edward.Newgate
+- OP13-042_p1 | Edward.Newgate
+- OP13-043 | Otama
+- OP13-044 | Curiel
+- OP13-045 | Haruta
+- OP13-046 | Vista
+- OP13-047 | Fossa
+- OP13-048 | Blamenco
+- OP13-049 | Blenheim
+- OP13-050 | Boa Sandersonia
+- OP13-051 | Boa Hancock
+- OP13-051_p1 | Boa Hancock
+- OP13-052 | Boa Marigold
+- OP13-053 | Marshall.D.Teach
+- OP13-054 | Yamato
+- OP13-054_p1 | Yamato
+- OP13-055 | Rakuyo
+- OP13-056 | LittleOars Jr.
+- OP13-057 | If I Bowed Down to Power, What's the Point in Living?
+- OP13-058 | Phoenix Pyreapple
+- OP13-059 | Brilliant Punk
+- OP13-060 | Amatsuki Toki
+- OP13-061 | Inuarashi
+- OP13-062 | Crocus
+- OP13-063 | Kouzuki Oden
+- OP13-064 | Gol.D.Roger
+- OP13-064_p1 | Gol.D.Roger
+- OP13-065 | Shanks
+- OP13-065_p1 | Shanks
+- OP13-066 | Silvers Rayleigh
+- OP13-066_p1 | Silvers Rayleigh
+- OP13-067 | Scopper Gaban
+- OP13-068 | Douglas Bullet
+- OP13-069 | Tom
+- OP13-070 | Napoleon
+- OP13-071 | Nekomamushi
+- OP13-072 | Buggy
+- OP13-073 | Prometheus
+- OP13-074 | Hera
+- OP13-075 | Guess We'll Have Another Scrap. You Can Only Risk Death While You're Still Alive!!
+- OP13-076 | Divine Departure
+- OP13-076_p1 | Divine Departure
+- OP13-077 | Go All the Way to the Top!!
+- OP13-078 | Oro Jackson
+- OP13-079 | Imu
+- OP13-079_p1 | Imu
+- OP13-080 | St. Ethanbaron V. Nusjuro
+- OP13-080_p1 | St. Ethanbaron V. Nusjuro
+- OP13-080_p2 | St. Ethanbaron V. Nusjuro
+- OP13-081 | Koala
+- OP13-082 | Five Elders
+- OP13-082_p1 | Five Elders
+- OP13-083 | St. Jaygarcia Saturn
+- OP13-083_p1 | St. Jaygarcia Saturn
+- OP13-083_p2 | St. Jaygarcia Saturn
+- OP13-084 | St. Shepherd Ju Peter
+- OP13-084_p1 | St. Shepherd Ju Peter
+- OP13-084_p2 | St. Shepherd Ju Peter
+- OP13-085 | Saint Jalmac
+- OP13-086 | Saint Shalria
+- OP13-087 | Saint Charlos
+- OP13-088 | Terry Gilteo
+- OP13-089 | St. Topman Warcury
+- OP13-089_p1 | St. Topman Warcury
+- OP13-089_p2 | St. Topman Warcury
+- OP13-090 | Hack
+- OP13-091 | St. Marcus Mars
+- OP13-091_p1 | St. Marcus Mars
+- OP13-091_p2 | St. Marcus Mars
+- OP13-092 | Saint Mjosgard
+- OP13-093 | Morgans
+- OP13-094 | York
+- OP13-095 | Saint Rosward
+- OP13-096 | The Five Elders Are at Your Service!!!
+- OP13-097 | The World's Equilibrium Cannot Be Maintained Forever
+- OP13-098 | Never Existed... in the First Place...
+- OP13-099 | The Empty Throne
+- OP13-100 | Jewelry Bonney
+- OP13-100_p1 | Jewelry Bonney
+- OP13-101 | Atlas
+- OP13-102 | Edison
+- OP13-103 | Gyogyo
+- OP13-104 | Kouzuki Hiyori
+- OP13-105 | Kouzuki Momonosuke
+- OP13-106 | Conney
+- OP13-107 | Shaka
+- OP13-108 | Jewelry Bonney
+- OP13-108_p1 | Jewelry Bonney
+- OP13-109 | Jewelry Bonney
+- OP13-110 | Stussy
+- OP13-110_p1 | Stussy
+- OP13-111 | Pythagoras
+- OP13-112 | Vegapunk
+- OP13-113 | Lilith
+- OP13-113_p1 | Lilith
+- OP13-114 | S-Snake
+- OP13-114_p1 | S-Snake
+- OP13-115 | Paper Art Afterimage
+- OP13-116 | The One Who Is the Most Free Is the Pirate King!!!
+- OP13-117 | Gum-Gum Dawn Stamp
+- OP13-118 | Monkey.D.Luffy
+- OP13-118_p1 | Monkey.D.Luffy
+- OP13-118_p2 | Monkey.D.Luffy
+- OP13-118_p3 | Monkey.D.Luffy
+- OP13-118_p4 | Monkey.D.Luffy
+- OP13-119 | Portgas.D.Ace
+- OP13-119_p1 | Portgas.D.Ace
+- OP13-119_p2 | Portgas.D.Ace
+- OP13-119_p3 | Portgas.D.Ace
+- OP13-119_p4 | Portgas.D.Ace
+- OP13-120 | Sabo
+- OP13-120_p1 | Sabo
+- OP13-120_p2 | Sabo
+- OP13-120_p3 | Sabo
+- OP13-120_p4 | Sabo
+
+### Championship 25-26 Finals Season 1
+- ST21-015_p2 | Roronoa Zoro
+- ST21-015_p3 | Roronoa Zoro
+- ST21-015_p4 | Roronoa Zoro
+
+### Championship 25-26 Offline Regionals Season 2
+- OP09-004_p4 | Shanks
+- OP09-009_p2 | Benn.Beckman
+- OP09-013_p1 | Yasopp
+
+### CS 25-26 Celebration Pack
+- EB01-014_p1 | Sanji
+- EB01-015_p4 | Scratchmen Apoo
+- OP03-112_p6 | Charlotte Pudding
+- OP04-010_p2 | Tony Tony.Chopper
+- OP04-092_p3 | Rebecca
+- OP06-047_p1 | Charlotte Pudding
+- OP06-076_p1 | Hitokiri Kamazo
+- OP07-053_p2 | Portgas.D.Ace
+- OP07-080_p1 | Kaku
+- OP07-100_p2 | Edison
+- OP08-110_p4 | Wyper
+- OP09-011_p3 | Hongo
+
+### CS 25-26 Event Pack
+- OP05-067_p5 | Zoro-Juurou
+- OP06-101_p4 | O-Nami
+- P-065_p1 | Tony Tony.Chopper
+- P-069_p1 | Koala
+- P-070_p1 | Carrot
+- P-077_p1 | Ulti
+- P-079_p1 | Lim
+- P-083_p1 | Shanks
+
+### CS 25-26 Event Pack Finalist Ver.
+- OP05-067_p6 | Zoro-Juurou
+- OP06-101_p5 | O-Nami
+- P-065_p2 | Tony Tony.Chopper
+- P-069_p2 | Koala
+- P-070_p2 | Carrot
+- P-077_p2 | Ulti
+- P-079_p2 | Lim
+- P-083_p2 | Shanks
+
+### CS 25-26 Finalist Card Set 1
+- OP07-066_p2 | Tony Tony.Chopper
+- OP07-109_p4 | Monkey.D.Luffy
+- OP10-033_p2 | Nami
+- OP10-092_p2 | Perona
+- ST15-005_p2 | Portgas.D.Ace
+- ST17-003_p2 | Buggy
+
+### CS 25-26 Finalist Card Set 2
+- OP06-063_p3 | Vinsmoke Sora
+- OP09-043_p2 | Alvida
+- OP09-089_p2 | Stronger
+- OP10-107_p2 | Jewelry Bonney
+- P-069_p5 | Koala
+
+### CS 25-26 Top Player Pack
+- OP07-066_p1 | Tony Tony.Chopper
+- OP07-109_p3 | Monkey.D.Luffy
+- OP10-033_p1 | Nami
+- OP10-092_p1 | Perona
+- ST15-005_p1 | Portgas.D.Ace
+- ST17-003_p1 | Buggy
+
+### CS 25-26 Top Player Pack 2
+- OP06-063_p2 | Vinsmoke Sora
+- OP09-043_p1 | Alvida
+- OP09-089_p1 | Stronger
+- OP10-107_p1 | Jewelry Bonney
+- P-069_p4 | Koala
+
+### CS 25-26 Winner Card Set 2
+- OP06-063_p4 | Vinsmoke Sora
+- OP09-043_p3 | Alvida
+- OP09-089_p3 | Stronger
+- OP10-107_p3 | Jewelry Bonney
+- P-069_p6 | Koala
+
+### DODGERS ONE PIECE NIGHT
+- EB02-010_p2 | Monkey.D.Luffy
+
+### Dreamhack Dallas 2024
+- P-043 | Monkey.D.Luffy
+
+### English Version 1st Anniversary Set
+- OP01-004_p1 | Usopp
+- OP01-013_p4 | Sanji
+- OP01-016_p7 | Nami
+- OP01-017_p2 | Nico Robin
+- OP01-025_p3 | Roronoa Zoro
+- ST01-006_p4 | Tony Tony.Chopper
+- ST01-010_p2 | Franky
+- ST01-011_p3 | Brook
+- ST10-005_p1 | Jinbe
+- ST10-006_p2 | Monkey.D.Luffy
+
+### Event Pack Vol. 8
+- P-097 | Shanks
+- P-098 | Buggy
+- P-099 | Monkey.D.Luffy
+- P-100 | Marshall.D.Teach
+
+### Event Pack Vol.3
+- OP05-036_p1 | Monet
+- P-042 | Roronoa Zoro
+- P-046 | Yamato
+- ST03-008_p2 | Trafalgar Law
+
+### Event Pack Vol.5
+- OP05-067_p2 | Zoro-Juurou
+- OP06-101_p3 | O-Nami
+- P-065 | Tony Tony.Chopper
+- P-069 | Koala
+
+### Event Pack Vol.6
+- P-070 | Carrot
+- P-077 | Ulti
+- P-079 | Lim
+- P-083 | Shanks
+
+### Event Pack vol.7
+- P-088 | Trafalgar Law
+- P-090 | Charlotte Smoothie
+- P-091 | Shirahoshi
+- P-092 | Koby
+
+### Heroines Battle Pack
+- P-111 | Nico Robin
+- P-112 | Nami
+- P-113 | Jewelry Bonney
+
+### Heroines Battle Winner Pack
+- P-111_p1 | Nico Robin
+- P-112_p1 | Nami
+- P-113_p1 | Jewelry Bonney
+
+### Included in Event Pack Vol.1
+- P-028 | Portgas.D.Ace
+- P-029 | Bartolomeo
+- P-030 | Jinbe
+- P-031 | Uta
+- P-032 | Sengoku
+
+### Included in Event Pack Vol.2
+- OP01-052_p1 | Raizo
+- OP01-101_p1 | Sasaki
+- OP02-106_p1 | Tsuru
+- P-027 | General Franky
+- P-033 | Monkey.D.Luffy
+- P-034 | Sanji
+
+### Included in FILM RED Promotion Card Set
+- P-011 | Uta
+- P-012 | Jellyfish Pirates
+- P-013 | Gordon
+- P-014 | Koby
+- P-015 | Sunny-Kun
+- P-016 | Shanks
+- P-017 | Trafalgar Law
+- P-018 | Bartolomeo
+- P-019 | Bepo
+- P-020 | Helmeppo
+- P-021 | Benn.Beckman
+- P-022 | Monkey.D.Luffy
+- P-023 | Yasopp
+
+### Included in Online Regional Participation Pack Vol.1
+- OP02-035_p1 | Trafalgar Law
+- OP02-098_p1 | Koby
+- ST01-004_p1 | Sanji
+- ST03-014_p1 | Marshall.D.Teach
+- ST04-008_p1 | Jack
+- ST07-008_p1 | Charlotte Pudding
+
+### Included in Pirates Party Card Vol.1
+- P-024 | I'm Gonna Be King of the Pirates!!
+
+### Included in Pirates Party Card Vol.2
+- P-026 | Morgan
+
+### Included in Promotion Pack 2022
+- P-001 | Monkey.D.Luffy
+- P-002 | I Smell Adventure!!!
+- P-003 | Eustass"Captain"Kid
+- P-004 | Crocodile
+- P-005 | Kaido
+
+### Japanese 1st Anniversary Set
+- OP01-006_p1 | Otama
+- OP02-015_p1 | Makino
+- OP03-013_p2 | Marco
+
+### Japanese 2nd Anniversary Set
+- OP01-030_p1 | In Two Years!! At the Sabaody Archipelago!!
+- OP02-013_p5 | Portgas.D.Ace
+- OP03-044_p2 | Kaya
+- OP04-083_p5 | Sabo
+- OP05-030_p2 | Donquixote Rosinante
+- OP06-118_p4 | Roronoa Zoro
+- OP07-064_p2 | Sanji
+- OP08-069_p2 | Charlotte Linlin
+- ST13-015_p2 | Monkey.D.Luffy
+
+### Japanese 3rd ANNIVERSARY SET
+- OP07-118_p3 | Sabo
+- OP09-119_p4 | Monkey.D.Luffy
+- OP11-054_p2 | Nami
+- OP11-067_p2 | Charlotte Katakuri
+- OP12-034_p2 | Perona
+- OP12-039_p1 | Luffy Is the Man Who Will Become the King of Pirates!!!
+- OP12-079_p1 | Luffy Is the Man Who Will Be King of the Pirates!!!
+- OP12-094_p2 | Monkey.D.Dragon
+- OP12-119_p2 | Bartholomew Kuma
+- ST15-005_p4 | Portgas.D.Ace
+
+### Official Playmat Limited Edition Vol.3
+- OP10-042_p2 | Usopp
+
+### Official Playmat Limited Edition Vol.4
+- OP12-020_p4 | Roronoa Zoro
+
+### Offline Regional Champion Card Set 2025 Vol.2
+- EB01-003_p4 | Kid & Killer
+- OP07-047_p4 | Trafalgar Law
+- P-085_p2 | Jewelry Bonney
+- P-089_p2 | Tony Tony.Chopper
+
+### Offline Regional Champion Card Set 25-26 Season 1
+- EB01-043_p3 | Spandine
+- OP07-021_p4 | Urouge
+- OP09-106_p3 | Nico Olvia
+- P-078_p2 | Adio
+
+### Offline Regional Finalist Card Set 2024 Vol. 3
+- OP07-091_p1 | Monkey.D.Luffy
+
+### Offline Regional Finalist Card Set 2025 Vol.2
+- EB01-003_p3 | Kid & Killer
+- OP07-047_p3 | Trafalgar Law
+- P-085_p1 | Jewelry Bonney
+- P-089_p1 | Tony Tony.Chopper
+
+### Offline Regional Finalist Card Set 25-26 Season 1
+- EB01-043_p2 | Spandine
+- OP07-021_p3 | Urouge
+- OP09-106_p2 | Nico Olvia
+- P-078_p1 | Adio
+
+### Offline Regional Participation Pack 2024 Vol. 1
+- OP03-089_p1 | Brannew
+- OP03-102_p1 | Sanji
+- ST01-015_p1 | Gum-Gum Jet Pistol
+- ST02-008_p1 | Scratchmen Apoo
+
+### Offline Regional Participation Pack 2024 Vol. 2
+- P-001_p5 | Monkey.D.Luffy
+- P-003_p1 | Eustass"Captain"Kid
+- P-041_p1 | Monkey.D.Luffy
+- ST03-008_p3 | Trafalgar Law
+
+### Offline Regional Participation Pack 2024 Vol. 3
+- OP01-015_p1 | Tony Tony.Chopper
+- OP02-063_p1 | Mr.1(Daz.Bonez)
+- OP06-110_p1 | Nekomamushi
+
+### Offline Regional Participation Pack 2025 Vol.1
+- EB01-043_p1 | Spandine
+- OP07-021_p1 | Urouge
+- OP09-106_p1 | Nico Olvia
+- P-078 | Adio
+
+### Offline Regional Participation Pack 2025 Vol.2
+- EB01-003_p2 | Kid & Killer
+- OP07-047_p2 | Trafalgar Law
+- P-085 | Jewelry Bonney
+- P-089 | Tony Tony.Chopper
+
+### ONE PIECE CARD GAME and Football Team DORTMUND collaboration event
+- ST13-003_p2 | Monkey.D.Luffy
+
+### One Piece Card Game x PSA Exclusive Promo Card
+- OP05-060_p2 | Monkey.D.Luffy
+
+### ONE PIECE DAY Dallas -Card Game Celebration-
+- OP07-113_p1 | Roronoa Zoro
+- ST10-006_p4 | Monkey.D.Luffy
+
+### ONE PIECE HEROINES CAMPAIGN Dash Pack
+- EB02-026_p2 | Nefeltari Vivi
+- OP05-006_p4 | Koala
+- OP09-034_p2 | Perona
+- ST18-002_p2 | O-Nami
+
+### Online Regional Champion Card Set 25-26 Season 1
+- EB01-043_p6 | Spandine
+- OP07-021_p7 | Urouge
+- OP09-106_p6 | Nico Olvia
+- P-078_p5 | Adio
+
+### Online Regional Finalist Card Set 25-26 Season 1
+- EB01-043_p5 | Spandine
+- OP07-021_p6 | Urouge
+- OP09-106_p5 | Nico Olvia
+- P-078_p4 | Adio
+
+### Online Regional Participation Pack 25-26 Season 1
+- EB01-043_p4 | Spandine
+- OP07-021_p5 | Urouge
+- OP09-106_p4 | Nico Olvia
+- P-078_p3 | Adio
+
+### OP-11 Release Event
+- P-081 | Dracule Mihawk
+- P-081_p1 | Dracule Mihawk
+
+### OP-12 Release Event
+- P-092_p1 | Koby
+- P-092_p2 | Koby
+
+### OP14-EB04 Release Event
+- P-096 | Girl
+- P-096_p1 | Girl
+
+### Pirates League Store Qualifier
+- OP05-076_p2 | When You're at Sea You Fight against Pirates!!
+- OP05-076_p3 | When You're at Sea You Fight against Pirates!!
+
+### Pirates League Three Captains Battle & Support Crew Battle
+- OP05-076_p4 | When You're at Sea You Fight against Pirates!!
+
+### Pirates Party Vol.3
+- P-035 | Monkey.D.Luffy
+
+### Pirates Party Vol.4
+- P-039 | Bellamy
+
+### Pirates Party Vol.5
+- P-041 | Monkey.D.Luffy
+
+### Pirates Party Vol.6
+- P-062 | Hody & Hyouzou
+
+### Pirates Party Vol.7
+- P-068 | Sanji
+- P-076 | Sakazuki
+
+### Pre-Release OP02
+- P-025 | Smoker
+
+### Pre-Release OP03
+- ST01-009_p1 | Nefeltari Vivi
+
+### Pre-Release OP04
+- P-036 | Monkey.D.Luffy
+
+### Pre-Release OP06
+- P-045 | Roronoa Zoro
+
+### Pre-Release OP08
+- P-071 | Marco
+
+### Premium Card Collection -25th Edition-
+- OP01-001_p2 | Roronoa Zoro
+- OP01-013_p2 | Sanji
+- OP01-016_p2 | Nami
+- OP01-022_p1 | Brook
+- P-001_p3 | Monkey.D.Luffy
+- ST01-002_p2 | Usopp
+- ST01-005_p1 | Jinbe
+- ST01-006_p2 | Tony Tony.Chopper
+- ST01-008_p1 | Nico Robin
+- ST01-010_p1 | Franky
+
+### Premium Card Collection -BANDAI CARD GAMES Fest. 23-24 Edition-
+- OP01-033_p6 | Izo
+- OP01-035_p3 | Okiku
+- OP03-088_p2 | Fukurou
+- OP03-102_p2 | Sanji
+- OP03-116_p7 | Shirahoshi
+- P-001_p6 | Monkey.D.Luffy
+- P-030_p3 | Jinbe
+- ST01-011_p5 | Brook
+- ST03-007_p2 | Sentomaru
+- ST04-008_p2 | Jack
+- ST04-011_p2 | Black Maria
+- ST06-006_p4 | Tashigi
+
+### Premium Card Collection -Best Selection Vol.3-
+- OP04-032_p4 | Baby 5
+- OP05-004_p2 | Emporio.Ivankov
+- OP06-016_p1 | Raise Max
+- OP06-090_p1 | Dr. Hogback
+- OP08-040_p1 | Atmos
+- P-072 | Ryuma
+- P-073_p1 | Sabo
+- P-074_p1 | Portgas.D.Ace
+- P-075_p1 | Monkey.D.Luffy
+- ST04-002_p1 | Ulti
+- ST05-002_p1 | Ain
+- ST13-012_p2 | Makino
+
+### Premium Card Collection -Best Selection Vol.4-
+- EB01-007_p1 | Yamato
+- OP07-037_p1 | More Pizza!!
+- OP07-057_p1 | Perfume Femur
+- OP08-099_p2 | Kalgara
+- OP09-008_p1 | Building Snake
+- OP09-070_p1 | Nami
+- OP09-077_p2 | Gum-Gum Lightning
+- OP09-095_p1 | Laffitte
+- OP09-117_p1 | Dereshi!
+- OP10-028_p1 | Kouzuki Momonosuke
+- OP10-049_p1 | Sabo
+- OP10-092_p3 | Perona
+
+### Premium Card Collection -Best Selection Vol.5-
+- EB02-041_p1 | Merry Go
+- OP07-116_p2 | Blaze Slice
+- OP08-036_p1 | Electrical Luna
+- OP11-060_p1 | Let's Crash This Wedding!!!
+- OP12-006_p1 | Shakuyaku
+- OP12-026_p1 | Kuina
+- OP12-051_p1 | Hina
+- OP12-098_p1 | Hair Removal Fist
+- OP12-112_p1 | Baby 5
+- OP13-063_p1 | Kouzuki Oden
+- OP13-086_p1 | Saint Shalria
+- ST21-017_p1 | Gum-Gum Mole Pistol
+
+### Premium Card Collection -Best Selection-
+- OP01-029_p4 | Radical Beam!!
+- OP01-057_p1 | Paradise Waterfall
+- OP02-005_p2 | Curly.Dadan
+- OP02-036_p2 | Nami
+- OP02-106_p6 | Tsuru
+- OP02-117_p7 | Ice Age
+- OP03-121_p5 | Thunder Bolt
+- OP04-105_p1 | Charlotte Amande
+- ST03-012_p1 | Pacifista
+- ST03-017_p1 | Love-Love Mellow
+- ST04-016_p4 | Blast Breath
+- ST05-014_p1 | Buena Festa
+
+### Premium Card Collection -FILM RED Edition-
+- OP01-005_p1 | Uta
+- OP01-014_p1 | Jinbe
+- OP01-017_p1 | Nico Robin
+- OP01-021_p1 | Franky
+- P-016_p1 | Shanks
+- P-022_p1 | Monkey.D.Luffy
+- ST01-002_p1 | Usopp
+- ST01-004_p2 | Sanji
+- ST01-006_p1 | Tony Tony.Chopper
+- ST01-007_p1 | Nami
+- ST01-011_p1 | Brook
+- ST01-013_p1 | Roronoa Zoro
+
+### Premium Card Collection -Live Action Edition-
+- P-047_p1 | Monkey.D.Luffy
+- P-048_p1 | Arlong
+- P-049_p1 | Usopp
+- P-050_p1 | Sanji
+- P-051_p1 | Shanks
+- P-052_p1 | Dracule Mihawk
+- P-053_p4 | Nami
+- P-055_p4 | Monkey.D.Luffy
+- P-056_p1 | Roronoa Zoro
+
+### Regional 2024 wave1
+- ST10-006_p1 | Monkey.D.Luffy
+- ST10-010_p1 | Trafalgar Law
+- ST10-013_p1 | Eustass"Captain"Kid
+
+### Regional 2024 wave2
+- OP03-112_p2 | Charlotte Pudding
+- OP03-114_p3 | Charlotte Linlin
+- OP03-123_p2 | Charlotte Katakuri
+
+### Regional 25-26 Season1
+- OP09-050_p2 | Nami
+- OP09-065_p2 | Sanji
+- OP09-076_p1 | Roronoa Zoro
+
+### Regionals Season 1
+- OP07-119_p2 | Portgas.D.Ace
+
+### Regionals Wave 3
+- OP03-116_p2 | Shirahoshi
+- OP05-086_p1 | Nefeltari Vivi
+- OP05-091_p3 | Rebecca
+
+### Sealed Battle 2023 Vol.1
+- P-047 | Monkey.D.Luffy
+- P-048 | Arlong
+- P-049 | Usopp
+- P-050 | Sanji
+- P-051 | Shanks
+
+### Sealed Battle Kit Vol.1
+- P-052 | Dracule Mihawk
+- P-053 | Nami
+- P-054 | Monkey.D.Garp
+- P-055 | Monkey.D.Luffy
+- P-056 | Roronoa Zoro
+
+### Seven Warlords of the Sea Binder Set
+- EB01-023_p2 | Edward Weevil
+- OP05-011_p1 | Bartholomew Kuma
+- OP07-040_p4 | Crocodile
+- OP07-044_p1 | Dracule Mihawk
+- OP07-047_p5 | Trafalgar Law
+- OP07-048_p1 | Donquixote Doflamingo
+- OP07-051_p4 | Boa Hancock
+- OP07-051_p5 | Boa Hancock
+- P-030_p2 | Jinbe
+- ST03-004_p3 | Gecko Moria
+- ST17-003_p4 | Buggy
+- ST17-005_p2 | Marshall.D.Teach
+
+### Special Goods Set -Ace/Sabo/Luffy-
+- OP03-001_p2 | Portgas.D.Ace
+
+### ST-11 Uta Deck Battle Participation Pack
+- P-057 | Fleeting Lullaby
+- P-058 | Where the Wind Blows
+- P-059 | The World's Continuation
+- P-060 | Tot Musica
+- P-061 | Monkey.D.Luffy
+- ST11-003_p1 | Backlight
+- ST11-004_p1 | New Genesis
+- ST11-005_p1 | I'm invincible
+
+### ST15-20 Release Event
+- OP02-022_p1 | Whitebeard Pirates
+- OP02-034_p2 | Tony Tony.Chopper
+- OP03-116_p3 | Shirahoshi
+- OP07-040_p1 | Crocodile
+- P-045_p1 | Roronoa Zoro
+- ST06-006_p3 | Tashigi
+
+### Store 2-on-2 Battle
+- P-082 | Crocodile
+- P-082_p1 | Crocodile
+
+### Store Tournament 2025 Vol. 4
+- P-101 | Tony Tony.Chopper
+- P-102 | Nami
+- P-103 | Portgas.D.Ace
+- P-104 | Shanks
+- P-105 | Sabo
+- P-106 | Monkey.D.Luffy
+- P-107 | Gol.D.Roger
+- P-117 | Nami
+
+### Store Treasure Cup August – September 2024
+- OP06-093_p4 | Perona
+
+### Super Pre-Release
+- P-001_p1 | Monkey.D.Luffy
+- P-001_p2 | Monkey.D.Luffy
+
+### Tournament Kit 2025 Vol.2
+- EB01-015_p1 | Scratchmen Apoo
+- OP04-092_p1 | Rebecca
+- OP08-110_p2 | Wyper
+- OP09-011_p1 | Hongo
+
+### Tournament Pack 2024 Oct.-Dec.
+- OP03-112_p3 | Charlotte Pudding
+- OP04-010_p1 | Tony Tony.Chopper
+- OP07-053_p1 | Portgas.D.Ace
+- OP07-100_p1 | Edison
+
+### Tournament Pack 2025 Vol. 3
+- EB02-019_p1 | Roronoa Zoro
+- EB02-055_p1 | Jinbe
+- OP08-062_p1 | Charlotte Katakuri
+- ST19-002_p1 | Sengoku
+
+### Tournament Pack 2025 Vol. 4
+- OP05-037_p1 | Because the Side of Justice Will Be Whichever Side Wins!!
+- OP06-051_p1 | Tsuru
+- OP09-108_p1 | Bartholomew Kuma
+- ST10-008_p1 | Shachi & Penguin
+
+### Tournament Pack Vol.1
+- P-006 | Monkey.D.Luffy
+- P-007 | Monkey.D.Luffy
+- P-008 | Yamato
+- P-009 | Trafalgar Law
+- P-010 | Kaido
+
+### Tournament Pack Vol.2
+- OP01-021_p2 | Franky
+- OP01-033_p1 | Izo
+- ST04-011_p1 | Black Maria
+
+### Tournament Pack Vol.3
+- ST01-007_p2 | Nami
+- ST02-007_p1 | Jewelry Bonney
+- ST03-007_p1 | Sentomaru
+- ST04-010_p1 | Who's.Who
+
+### Tournament Pack Vol.4
+- OP01-035_p1 | Okiku
+- ST01-011_p2 | Brook
+- ST03-005_p1 | Dracule Mihawk
+- ST06-006_p1 | Tashigi
+
+### Tournament Pack Vol.5
+- ST01-012_p4 | Monkey.D.Luffy
+- ST02-013_p1 | Eustass"Captain"Kid
+- ST03-003_p1 | Crocodile
+- ST04-003_p2 | Kaido
+
+### Tournament Pack Vol.6
+- OP03-033_p1 | Hatchan
+- OP03-044_p1 | Kaya
+- OP03-088_p1 | Fukurou
+- OP03-116_p1 | Shirahoshi
+
+### Tournament Pack Vol.7
+- OP01-041_p1 | Kouzuki Momonosuke
+- OP05-106_p1 | Shura
+- P-017_p1 | Trafalgar Law
+- P-019_p1 | Bepo
+
+### Treasure Cup August – September
+- OP01-070_p2 | Dracule Mihawk
+- OP06-093_p3 | Perona
+- ST12-008_p1 | Roronoa Zoro
+
+### Treasure Cup August 2025~
+- OP11-004_p2 | Kujyaku
+- OP11-010_p2 | Hibari
+- OP11-119_p2 | Koby
+
+### Treasure Cup February 2025
+- OP08-084_p2 | Jack
+- OP09-002_p2 | Uta
+- ST18-003_p1 | San-Gorou
+
+### Treasure Cup May 2025~
+- EB01-048_p2 | Laboon
+- OP08-067_p2 | Charlotte Pudding
+- OP09-069_p2 | Trafalgar Law
+
+### Treasure Cup November 2025~
+- OP10-005_p2 | Sanji
+- OP12-015_p2 | Monkey.D.Luffy
+- OP12-020_p2 | Roronoa Zoro
+- OP12-031_p2 | Tashigi
+
+### Treasure Cup November-December
+- EB01-006_p3 | Tony Tony.Chopper
+- EB01-012_p3 | Cavendish
+- OP06-069_p2 | Vinsmoke Reiju
+
+### Winner Pack 2025 Vol. 3
+- EB02-019_p2 | Roronoa Zoro
+- EB02-055_p2 | Jinbe
+- OP08-062_p2 | Charlotte Katakuri
+- ST19-002_p2 | Sengoku
+
+### Winner Pack 2025 Vol. 4
+- OP05-037_p2 | Because the Side of Justice Will Be Whichever Side Wins!!
+- OP06-051_p2 | Tsuru
+- OP09-108_p2 | Bartholomew Kuma
+- ST10-008_p2 | Shachi & Penguin
+
+### Winner Pack 2025 Vol.2
+- EB01-015_p2 | Scratchmen Apoo
+- OP04-092_p2 | Rebecca
+- OP08-110_p3 | Wyper
+- OP09-011_p2 | Hongo
+
+### Winner prize for Sealed Battle 2023 Vol.1
+- OP04-083_p3 | Sabo
+
+## Data Errors
+
+### Animal Kingdom Pirates [ST-04]
+- ST04-001 | Kaido
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −7 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Trash up to 1 of your opponent's Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-002 | Ulti
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 [Page One] card with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-003 | Kaido
+  - Effect: current="missing" | should="[On Play] DON!! −5 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 6 or less. This Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST04-004 | King
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST04-005 | Queen
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-006 | Sasaki
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Draw 1 card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-007 | Sheepshead
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Smile"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-008 | Jack
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-009 | Ginrummy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Smile"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-010 | Who's.Who
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-011 | Black Maria
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-012 | Page One
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-013 | X.Drake
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy/Drake Pirates/Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-014 | Lead Performer "Disaster"
+  - Effect: current="missing" | should="[Main] Draw 1 card, then add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-015 | Brachio Bomber
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost of 6 or less, then add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-016 | Blast Breath
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your Leader or Character cards gains +4000 power during this battle."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST04-017 | Onigashima Island
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader has the {Animal Kingdom Pirates} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Animal Kingdom Pirates" | should="Animal Kingdom Pirates [ST-04]"
+  - Release date: current="missing" | should="2022-12-02"
+
+### ROMANCE DAWN [OP01]
+- OP01-001 | Roronoa Zoro
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] All of your Characters gain +1000 power."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-002 | Trafalgar Law
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ➁ (You may rest the specified number of DON!! cards in your cost area.): If you have 5 Characters, return 1 of your Characters to the owner's hand. Then, play up to 1 Character with a cost of 5 or less from your hand that is a different color than the returned Character."
+  - Type line: current="missing" | should="Supernovas/Heart Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-003 | Monkey.D.Luffy
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ➃ (You may rest the specified number of DON!! cards in your cost area.): Set up to 1 of your {Supernovas} or {Straw Hat Crew} type Character cards with a cost of 5 or less as active. It gains +1000 power during this turn."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-004 | Usopp
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] [Once Per Turn] Draw 1 card when your opponent activates an Event."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-005 | Uta
+  - Effect: current="missing" | should="[On Play] Add up to 1 red Character card other than [Uta] with a cost of 3 or less from your trash to your hand."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-006 | Otama
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-007 | Caribou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="Supernovas/Caribou Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-008 | Cavendish
+  - Effect: current="missing" | should="[On Play] You may add 1 card from your Life area to your hand: This Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Supernovas/Beautiful Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-009 | Carrot
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-010 | Komachiyo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-011 | Gordon
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may place 1 card from your hand at the bottom of your deck: Draw 1 card."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-012 | Sai
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Happosui Army"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-013 | Sanji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may add 1 card from your Life area to your hand: This Character gains +2000 power during this turn. Then, give this Character up to 2 rested DON!! cards."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-014 | Jinbe
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x1] [On Block] Play up to 1 red Character card with a cost of 2 or less from your hand."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-015 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may trash 1 card from your hand: Add up to 1 {Straw Hat Crew} type Character card other than [Tony Tony.Chopper] with a cost of 4 or less from your trash to your hand."
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-016 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Straw Hat Crew} type card other than [Nami] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-017 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-018 | Hajrudin
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/New Giant Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-019 | Bartolomeo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x2] [Opponent's Turn] This Character gains +3000 power."
+  - Type line: current="missing" | should="Supernovas/Barto Club"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-020 | Hyogoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your Leader or Character cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-021 | Franky
+  - Effect: current="missing" | should="[DON!! x1] This Character can also attack your opponent's active Characters."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-022 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 2 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-023 | Marco
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Former Whitebeard Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-024 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] This Character cannot be K.O.'d in battle by ＜Strike＞ attribute Characters. [Activate: Main] [Once Per Turn] Give this Character up to 2 rested DON!! cards."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-025 | Roronoa Zoro
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-026 | Gum-Gum Fire-Fist Pistol Red Hawk
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Give up to 1 of your opponent's Leader or Character cards −10000 power during this turn."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-027 | Round Table
+  - Effect: current="missing" | should="[Main] Give up to 1 of your opponent's Characters −10000 power during this turn."
+  - Type line: current="missing" | should="Supernovas/Beautiful Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-028 | Green Star Rafflesia
+  - Effect: current="missing" | should="[Counter] Give up to 1 of your opponent's Leader or Character cards −2000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Counter] effect."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-029 | Radical Beam!!
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 2 or less Life cards, that card gains an additional +2000 power."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-030 | In Two Years!! At the Sabaody Archipelago!!
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 {Straw Hat Crew} type Character card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-031 | Kouzuki Oden
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You can trash 1 {Land of Wano} type card from your hand: Set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-032 | Ashura Doji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If your opponent has 2 or more rested Characters, this Character gains +2000 power."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-033 | Izo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Land of Wano/Former Whitebeard Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-034 | Inuarashi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] Set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Minks/Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-035 | Okiku
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] [Once Per Turn] Rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-036 | Otsuru
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-037 | Kawamatsu
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Fish-Man/Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-038 | Kanjuro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] K.O. up to 1 of your opponent's rested Characters with a cost of 2 or less. [On K.O.] Your opponent chooses 1 card from your hand; trash that card."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-039 | Killer
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x1] [On Block] If you have 3 or more Characters, draw 1 card."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-040 | Kin'emon
+  - Effect: current="missing" | should="[On Play] If your Leader is [Kouzuki Oden], play up to 1 {The Akazaya Nine} type Character card with a cost of 3 or less from your hand. [DON!! x1] [When Attacking] [Once Per Turn] Set up to 1 of your {The Akazaya Nine} type Character cards with a cost of 3 or less as active."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-041 | Kouzuki Momonosuke
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area) You may rest this Character: Look at 5 cards from the top of your deck; reveal up to 1 {Land of Wano} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-042 | Komurasaki
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] ③ (You may rest the specified number of DON!! cards in your cost area.): If your Leader is [Kouzuki Oden], set up to 1 of your {Land of Wano} type Character cards with a cost of 3 or less as active."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-043 | Shinobu
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-044 | Shachi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you don't have [Penguin], play up to 1 [Penguin] from your hand."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-045 | Jean Bart
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-046 | Denjiro
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If your Leader is [Kouzuki Oden], set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-047 | Trafalgar Law
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] You may return 1 Character to your hand: Play up to 1 Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Supernovas/Heart Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-048 | Nekomamushi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Rest up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Minks/Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-049 | Bepo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Play up to 1 {Heart Pirates} type Character card other than [Bepo] with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Minks/Heart Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-050 | Penguin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you don't have [Shachi], play up to 1 [Shachi] from your hand."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-051 | Eustass"Captain"Kid
+  - Effect: current="missing" | should="[DON!! x1] [Opponent's Turn] If this Character is rested, your opponent cannot attack any card other than the Character [Eustass"Captain"Kid]. [Activate: Main] [Once Per Turn] You may rest this Character: Play up to 1 Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-052 | Raizo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] If you have 2 or more rested Characters, draw 1 card."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-053 | Wire
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-054 | X.Drake
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Supernovas/Navy/Drake Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-055 | You Can Be My Samurai!!
+  - Effect: current="missing" | should="[Main] You may rest 2 of your Characters: Draw 2 cards."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-056 | Demon Face
+  - Effect: current="missing" | should="[Main] K.O. up to 2 of your opponent's rested Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Supernovas/Hawkins Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-057 | Paradise Waterfall
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, set up to 1 of your Characters as active."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-058 | Punk Gibson
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-059 | BE-BENG!!
+  - Effect: current="missing" | should="[Main] You may trash 1 {Land of Wano} type card from your hand: Set up to 1 of your {Land of Wano} type Character cards with a cost of 3 or less as active."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-060 | Donquixote Doflamingo
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] ➀ (You may rest the specified number of DON!! cards in your cost area.): Reveal 1 card from the top of your deck. If that card is a {The Seven Warlords of the Sea} type Character card with a cost of 4 or less, you may play that card rested."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-061 | Kaido
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] [Once Per Turn] When your opponent's Character is K.O.'d, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-062 | Crocodile
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] When you activate an Event, you may draw 1 card if you have 4 or less cards in your hand and haven't drawn a card using this Leader's effect during this turn."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-063 | Arlong
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] You may rest this Character: Choose 1 card from your opponent's hand; your opponent reveals that card. If the revealed card is an Event, place up to 1 card from your opponent's Life area at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Fish-Man/Arlong Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-064 | Alvida
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may trash 1 card from your hand: Return up to 1 of your opponent's Characters with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="Buggy Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-065 | Vergo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy/Donquixote Pirates/Punk Hazard"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-066 | Krieg
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Krieg Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-067 | Crocodile
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Banish] (When this card deals damage, the target card is trashed without activating its Trigger.) [DON!! x1] Give blue Events in your hand −1 cost."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-068 | Gecko Moria
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] This Character gains [Double Attack] if you have 5 or more cards in your hand. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-069 | Caesar Clown
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Play up to 1 [Smiley] from your deck, then shuffle your deck."
+  - Type line: current="missing" | should="Scientist/Punk Hazard"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-070 | Dracule Mihawk
+  - Effect: current="missing" | should="[On Play] Place up to 1 Character with a cost of 7 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-071 | Jinbe
+  - Effect: current="missing" | should="[On Play] Place up to 1 Character with a cost of 3 or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-072 | Smiley
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] This Character gains +1000 power for every card in your hand."
+  - Type line: current="missing" | should="Biological Weapon/Punk Hazard"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-073 | Donquixote Doflamingo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Look at 5 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-074 | Bartholomew Kuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Play up to 1 [Pacifista] with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Revolutionary Army"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-075 | Pacifista
+  - Effect: current="missing" | should="Under the rules of this game, you may have any number of this card in your deck. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Biological Weapon/Navy"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-076 | Bellamy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-077 | Perona
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-078 | Boa Hancock
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x1] [When Attacking]/[On Block] Draw 1 card if you have 5 or less cards in your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-079 | Ms. All Sunday
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] If your Leader has the {Baroque Works} type, add up to 1 Event from your trash to your hand."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-080 | Miss Doublefinger(Zala)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Draw 1 card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-081 | Mocha
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Punk Hazard"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-082 | Monet
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Donquixote Pirates/Punk Hazard"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-083 | Mr.1(Daz.Bonez)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] If your Leader has the {Baroque Works} type, this Character gains +1000 power for every 2 Events in your trash."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-084 | Mr.2.Bon.Kurei(Bentham)
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Look at 5 cards from the top of your deck; reveal up to 1 {Baroque Works} type Event card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-085 | Mr.3(Galdino)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Baroque Works} type, select up to 1 of your opponent's Characters with a cost of 4 or less. The selected Character cannot attack until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-086 | Overheat
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, return up to 1 active Character with a cost of 3 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-087 | Officer Agents
+  - Effect: current="missing" | should="[Counter] Play up to 1 {Baroque Works} type Character card with a cost of 3 or less from your hand."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Counter] effect."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-088 | Desert Spada
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, look at 3 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-089 | Crescent Cutlass
+  - Effect: current="missing" | should="[Counter] If your Leader has the {The Seven Warlords of the Sea} type, return up to 1 Character with a cost of 5 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-090 | Baroque Works
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 {Baroque Works} type card other than [Baroque Works] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-091 | King
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Your Turn] If you have 10 DON!! cards on your field, give all of your opponent's Characters −1000 power."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-092 | Urashima
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-093 | Ulti
+  - Effect: current="missing" | should="[On Play] ① (You may rest the specified number of DON!! cards in your cost area.): Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-094 | Kaido
+  - Effect: current="missing" | should="[On Play] DON!! −6 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Animal Kingdom Pirates} type, K.O. all Characters other than this Character."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-095 | Kyoshirou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Draw 1 card if you have 8 or more DON!! cards on your field."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-096 | King
+  - Effect: current="missing" | should="[On Play] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 3 or less and up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- OP01-097 | Queen
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character gains [Rush] during this turn. Then, give up to 1 of your opponent's Characters −2000 power during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-098 | Kurozumi Orochi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Reveal up to 1 [Artificial Devil Fruit SMILE] from your deck and add it to your hand. Then, shuffle your deck."
+  - Type line: current="missing" | should="Land of Wano/Kurozumi Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-099 | Kurozumi Semimaru
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="{Kurozumi Clan} type Characters other than your [Kurozumi Semimaru] cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="Land of Wano/Kurozumi Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-100 | Kurozumi Higurashi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Land of Wano/Kurozumi Clan"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-101 | Sasaki
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may trash 1 card from your hand: Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-102 | Jack
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-103 | Scratchmen Apoo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/On-Air Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-104 | Speed
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-105 | Bao Huang
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Choose 2 cards from your opponent's hand; your opponent reveals those cards."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-106 | Basil Hawkins
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Hawkins Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-107 | Babanuki
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-108 | Hitokiri Kamazo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-109 | Who's.Who
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] If you have 8 or more DON!! cards on your field, this Character gains +1000 power."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-110 | Fukurokuju
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano/Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-111 | Black Maria
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character gains +1000 power during this turn."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-112 | Page One
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character can also attack your opponent's active Characters during this turn."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-113 | Holedem
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-114 | X.Drake
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Navy/Drake Pirates/Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-115 | Elephant's Marchoo
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost of 2 or less, then add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-116 | Artificial Devil Fruit SMILE
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; play up to 1 {SMILE} type Character card with a cost of 3 or less. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-117 | Sheep's Horn
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 1 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-118 | Ulti-Mortar
+  - Effect: current="missing" | should="[Counter] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-119 | Thunder Bagua
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, if you have 2 or less Life cards, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+- OP01-120 | Shanks
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [When Attacking] Your opponent cannot activate a [Blocker] Character that has 2000 or less power during this battle."
+  - Type line: current="missing" | should="The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP01-121 | Yamato
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Also treat this card's name as [Kouzuki Oden] according to the rules. [Double Attack] (This card deals 2 damage.) [Banish] (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Romance Dawn" | should="ROMANCE DAWN [OP01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### Straw Hat Crew [ST-01]
+- ST01-001 | Monkey.D.Luffy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give this Leader or 1 of your Characters up to 1 rested DON!! card."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-002 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] Your opponent cannot activate a [Blocker] Character that has 5000 or more power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-003 | Karoo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Alabasta"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-004 | Sanji
+  - Effect: current="missing" | should="[DON!! x2] This Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-005 | Jinbe
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Up to 1 of your Leader or Character cards other than this card gains +1000 power during this turn."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-006 | Tony Tony.Chopper
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-007 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-008 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-009 | Nefeltari Vivi
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-010 | Franky
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-011 | Brook
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Give up to 2 rested DON!! cards to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-012 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [DON!! x2] [When Attacking] Your opponent cannot activate [Blocker] during this battle."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST01-013 | Roronoa Zoro
+  - Effect: current="missing" | should="[DON!! x1] This Character gains +1000 power."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST01-014 | Guard Point
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-015 | Gum-Gum Jet Pistol
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with 6000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-016 | Diable Jambe
+  - Effect: current="missing" | should="[Main] Select up to 1 of your {Straw Hat Crew} type Leader or Character cards. Your opponent cannot activate [Blocker] if that Leader or Character attacks during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's [Blocker] Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST01-017 | Thousand Sunny
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: Up to 1 {Straw Hat Crew} type Leader or Character card on your field gains +1000 power during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Straw Hat Crew" | should="Straw Hat Crew [ST-01]"
+  - Release date: current="missing" | should="2022-12-02"
+
+### The Seven Warlords of the Sea [ST-03]
+- ST03-001 | Crocodile
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −4 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Return up to 1 Character with a cost of 5 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-002 | Edward Weevil
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-003 | Crocodile
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x1] [On Block] Place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST03-004 | Gecko Moria
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 {The Seven Warlords of the Sea} or {Thriller Bark Pirates} type Character with a cost of 4 or less other than [Gecko Moria] from your trash to your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-005 | Dracule Mihawk
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-006 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/The Seven Warlords of the Sea/The Sun Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-007 | Sentomaru
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] ➁ (You may rest the specified number of DON!! cards in your cost area.): Play up to 1 [Pacifista] with a cost of 4 or less from your deck, then shuffle your deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-008 | Trafalgar Law
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Heart Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-009 | Donquixote Doflamingo
+  - Effect: current="missing" | should="[On Play] Return up to 1 Character with a cost of 7 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST03-010 | Bartholomew Kuma
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck and return them to the top or bottom of the deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Revolutionary Army"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-011 | Buggy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Buggy's Delivery"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-012 | Pacifista
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Biological Weapon/Navy"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-013 | Boa Hancock
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-014 | Marshall.D.Teach
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Blackbeard Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-015 | Sables
+  - Effect: current="missing" | should="[Main] Return up to 1 Character with a cost of 7 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-016 | Thrust Pad Cannon
+  - Effect: current="missing" | should="[Counter] Return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Counter] effect."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Revolutionary Army"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST03-017 | Love-Love Mellow
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, draw 1 card if you have 3 or less cards in your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="The Seven Warlords of the Sea" | should="The Seven Warlords of the Sea [ST-03]"
+  - Release date: current="missing" | should="2022-12-02"
+
+### Worst Generation [ST-02]
+- ST02-001 | Eustass"Captain"Kid
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ③ (You may rest the specified number of DON!! cards in your cost area.) You may trash 1 card from your hand: Set this Leader as active."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-002 | Vito
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Firetank Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-003 | Urouge
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If you have 3 or more Characters, this card gains +2000 power."
+  - Type line: current="missing" | should="Supernovas/Fallen Monk Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-004 | Capone"Gang"Bege
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Supernovas/Firetank Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-005 | Killer
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-006 | Koby
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-007 | Jewelry Bonney
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Character: Look at 5 cards from the top of your deck; reveal up to 1 {Supernovas} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Supernovas/Bonney Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-008 | Scratchmen Apoo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Rest up to 1 of your opponent's DON!! cards."
+  - Type line: current="missing" | should="Supernovas/On-Air Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-009 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Set up to 1 of your {Supernovas} or {Heart Pirates} type rested Characters with a cost of 5 or less as active."
+  - Type line: current="missing" | should="Supernovas/Heart Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST02-010 | Basil Hawkins
+  - Effect: current="missing" | should="[DON!! x1] [Once Per Turn] [Your Turn] If this Character battles your opponent's Character, set this card as active."
+  - Type line: current="missing" | should="Supernovas/Hawkins Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-011 | Heat
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-012 | Bepo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Minks/Heart Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-013 | Eustass"Captain"Kid
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x1] [End of Your Turn] Set this Character as active."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST02-014 | X.Drake
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] If this Character is rested, your {Supernovas} or {Navy} type Leaders and Characters gain +1000 power."
+  - Type line: current="missing" | should="Navy/Supernovas/Drake Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-015 | Scalpel
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, set up to 1 of your DON!! cards as active."
+  - Trigger: current="missing" | should="[Trigger] Set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Supernovas/Heart Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-016 | Repel
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+- ST02-017 | Straw Sword
+  - Effect: current="missing" | should="[Main] Rest up to 1 of your opponent's Characters."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 {Supernovas} type card with a cost of 2 or less from your hand."
+  - Type line: current="missing" | should="Supernovas/Hawkins Pirates"
+  - Set name: current="Worst Generation" | should="Worst Generation [ST-02]"
+  - Release date: current="missing" | should="2022-12-02"
+
+### ONE PIECE FILM edition [ST-05]
+- ST05-001 | Shanks
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −3 (You may return the specified number of DON!! cards from your field to your DON!! deck.): All of your {FILM} type Characters gain +2000 power during this turn."
+  - Type line: current="missing" | should="FILM/The Four Emperors/Red-Haired Pirates"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-002 | Ain
+  - Effect: current="missing" | should="[On Play] Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="FILM/Neo Navy"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-003 | Ann
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="FILM/The Pirates Fest"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-004 | Uta
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+  - Rarity: current="SuperRare" | should="SR"
+- ST05-005 | Carina
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may rest this Character and trash 1 {FILM} type card from your hand: If your opponent has more DON!! cards on their field than you, add 2 DON!! cards from your DON!! deck and rest them."
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-006 | Gild Tesoro
+  - Effect: current="missing" | should="[When Attacking] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Draw 2 cards."
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-007 | Gordon
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-008 | Shiki
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 8 or more DON!! cards on your field, this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="FILM/Golden Lion Pirates"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-009 | Scarlet
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="FILM/Animal/Golden Lion Pirates"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-010 | Zephyr
+  - Effect: current="missing" | should="When this Character battles ＜Strike＞ attribute Characters, this Character gains +3000 power during this turn. [Activate: Main] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character gains +2000 power during this turn."
+  - Type line: current="missing" | should="FILM/Neo Navy"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-011 | Douglas Bullet
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −4 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 2 of your opponent's Characters with a cost of 6 or less. Then, this Character gains [Double Attack] during this turn. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="FILM/The Pirates Fest"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+  - Rarity: current="SuperRare" | should="SR"
+- ST05-012 | Baccarat
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-013 | Bins
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Neo Navy"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-014 | Buena Festa
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {FILM} type card other than [Buena Festa] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="FILM/The Pirates Fest"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-015 | Dr. Indigo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Scientist/Golden Lion Pirates"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-016 | Lion's Threat Imperial Earth Bind
+  - Effect: current="missing" | should="[Main] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="FILM/Golden Lion Pirates"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+- ST05-017 | Union Armada
+  - Effect: current="missing" | should="[Counter] Up to 1 of your {FILM} type Leader or Character cards gains +4000 power during this battle. If that card is a Character, that Character cannot be K.O.'d during this turn."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="FILM/The Pirates Fest"
+  - Set name: current="ONE PIECE FILM edition" | should="ONE PIECE FILM edition [ST-05]"
+  - Release date: current="missing" | should="2023-02-03"
+
+### Absolute Justice [ST-06]
+- ST06-001 | Sakazuki
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ③ (You may rest the specified number of DON!! cards in your cost area.) You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-002 | Koby
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-003 | Jango
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-004 | Smoker
+  - Effect: current="missing" | should="This Character cannot be K.O.'d by effects. [DON!! x1] If there is a Character with a cost of 0, this Character gains [Double Attack]. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- ST06-005 | Sengoku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-006 | Tashigi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-007 | Tsuru
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-008 | Hina
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-009 | Fullbody
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-010 | Helmeppo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −3 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-011 | Momonga
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-012 | Monkey.D.Garp
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Character: K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- ST06-013 | T-Bone
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-014 | Shockwave
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, K.O. up to 1 of your opponent's active Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-015 | Great Eruption
+  - Effect: current="missing" | should="[Main] Draw 1 card. Then, give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Trigger: current="missing" | should="[Trigger] Your opponent chooses 1 card from their hand and trashes it."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-016 | White Out
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card and none of your Characters can be K.O.'d during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+- ST06-017 | Navy HQ
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −1 cost during this turn. [Activate: Main] You may rest this Stage: If your Leader has the {Navy} type, give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Absolute Justice" | should="Absolute Justice [ST-06]"
+  - Release date: current="missing" | should="2023-03-10"
+
+### PARAMOUNT WAR [OP02]
+- OP02-001 | Edward.Newgate
+  - Cost: current="6" | should="missing"
+  - Life: current="missing" | should="6"
+  - Effect: current="missing" | should="[End of Your Turn] Add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-002 | Monkey.D.Garp
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Your Turn] When this Leader or any of your Characters is given a DON!! card, give up to 1 of your opponent's Characters with a cost of 7 or less −1 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-003 | Atmos
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-004 | Edward.Newgate
+  - Effect: current="missing" | should="[On Play] Up to 1 of your Leader gains +2000 power until the start of your next turn. Then, you cannot add Life cards to your hand using your own effects during this turn. [DON!! x2] [When Attacking] K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-005 | Curly.Dadan
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at up to 5 cards from the top of your deck; reveal up to 1 red Character with a cost of 1 and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-006 | Kingdew
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-007 | Thatch
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-008 | Jozu
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] If you have 2 or less Life cards and your Leader's type includes "Whitebeard Pirates", this Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-009 | Squard
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "Whitebeard Pirates", give up to 1 of your opponent's Characters −4000 power during this turn and add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Whitebeard Pirates Allies"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-010 | Dogura
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Play up to 1 red Character other than [Dogura] with a cost of 1 from your hand."
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-011 | Vista
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-012 | Blenheim
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-013 | Portgas.D.Ace
+  - Effect: current="missing" | should="[On Play] Give up to 2 of your opponent's Characters −3000 power during this turn. Then, if your Leader's type includes "Whitebeard Pirates", this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-014 | Whitey Bay
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] This Character can also attack your opponent's active Characters."
+  - Type line: current="missing" | should="Whitebeard Pirates Allies"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-015 | Makino
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your red Characters with a cost of 1 gains +3000 power during this turn."
+  - Type line: current="missing" | should="Windmill Village"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-016 | Magura
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your red Characters with a cost of 1 gains +3000 power during this turn."
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-017 | Masked Deuce
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Type line: current="missing" | should="Spade Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-018 | Marco
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] You may trash 1 card with a type including "Whitebeard Pirates" from your hand: If you have 2 or less Life cards, play this Character card from your trash rested."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-019 | Rakuyo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] All of your Characters with a type including "Whitebeard Pirates" gain +1000 power."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-020 | LittleOars Jr.
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Whitebeard Pirates Allies"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-021 | Seaquake
+  - Effect: current="missing" | should="[Main] If your Leader's type includes "Whitebeard Pirates", K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Give up to 1 of your opponent's Leader or Character cards −3000 power during this turn."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-022 | Whitebeard Pirates
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 Character card with a type including "Whitebeard Pirates" and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-023 | You May Be a Fool...but I Still Love You
+  - Effect: current="missing" | should="[Main] If you have 3 or less Life cards, you cannot add Life cards to your hand using your own effects during this turn."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader gains +1000 power during this turn."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-024 | Moby Dick
+  - Effect: current="missing" | should="[Your Turn] If you have 1 or less Life cards, your [Edward.Newgate] and all your Characters with a type including "Whitebeard Pirates" gain +2000 power."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-025 | Kin'emon
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If you have 1 or less Characters, the next time you play a {Land of Wano} type Character card with a cost of 3 or more from your hand during this turn, the cost will be reduced by 1."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-026 | Sanji
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Once Per Turn] When you play a Character with no base effect from your hand, if you have 3 or less Characters, set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-027 | Inuarashi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If all of your DON!! cards are rested, this Character cannot be removed from the field by your opponent's effects."
+  - Type line: current="missing" | should="Minks/Land of Wano/The Akazaya Nine"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-028 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-029 | Carrot
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[End of Your Turn] Set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-030 | Kouzuki Oden
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ③ (You may rest the specified number of DON!! cards in your cost area.): Set this Character as active. [On K.O.] Play up to 1 green {Land of Wano} type Character card with a cost of 3 from your deck. Then, shuffle your deck."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-031 | Kouzuki Toki
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a [Kouzuki Oden] Character, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-032 | Shishilian
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] ② (You may rest the specified number of DON!! cards in your cost area.): Set up to 1 of your {Minks} type Characters with a cost of 5 or less as active."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-033 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Fish-Man/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-034 | Tony Tony.Chopper
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Rest up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="FILM/Animal/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-035 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may return this Character to the owner's hand: Play up to 1 Character with a cost of 3 from your hand."
+  - Type line: current="missing" | should="FILM/Supernovas/Heart Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-036 | Nami
+  - Effect: current="missing" | should="[On Play]/[When Attacking] ➀ (You may rest the specified number of DON!! cards in your cost area.): Look at 3 cards from the top of your deck; reveal up to 1 {FILM} type card other than [Nami] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-037 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {FILM} or {Straw Hat Crew} type Character card with a cost of 2 or less from your hand."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-038 | Nekomamushi
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Minks/Land of Wano/The Akazaya Nine"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-039 | Franky
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-040 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {FILM} or {Straw Hat Crew} type Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-041 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Play up to 1 {FILM} or {Straw Hat Crew} type Character card with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="FILM/Supernovas/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-042 | Yamato
+  - Effect: current="missing" | should="Also treat this card's name as [Kouzuki Oden] according to the rules. [On Play] Rest up to 1 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-043 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Supernovas/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-044 | Wanda
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Minks} type Character card other than [Wanda] with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-045 | Three Sword Style Oni Giri
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +6000 power during this battle. Then, play up to 1 Character card with a cost of 3 or less and no base effect from your hand."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Leader or Character cards with a cost of 5 or less."
+  - Type line: current="missing" | should="FILM/Supernovas/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-046 | Diable Jambe Venaison Shoot
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 Character card with a cost of 4 or less and no base effect from your hand."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-047 | Paradise Totsuka
+  - Effect: current="missing" | should="[Main] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-048 | Land of Wano
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 {Land of Wano} type card from your hand and rest this Stage: Set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-049 | Emporio.Ivankov
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[End of Your Turn] If you have 0 cards in your hand, draw 2 cards."
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-050 | Inazuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 1 or less cards in your hand, this Character gains +2000 power. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-051 | Emporio.Ivankov
+  - Effect: current="missing" | should="[On Play] Draw card(s) so that you have 3 cards in your hand and then play up to 1 blue {Impel Down} type Character card with a cost of 6 or less from your hand."
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-052 | Cabaji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have [Mohji], draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Buggy Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-053 | Crocodile
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Impel Down/Former Baroque Works"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-054 | Gecko Moria
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-055 | Dracule Mihawk
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-056 | Donquixote Doflamingo
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck and place them at the top or bottom of the deck in any order. [DON!! x1] [When Attacking] You may trash 1 card from your hand: Place up to 1 of your opponent's Characters with a cost of 1 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-057 | Bartholomew Kuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 2 cards from the top of your deck; reveal up to 1 {The Seven Warlords of the Sea} type card and add it to your hand. Then, place the rest at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Revolutionary Army"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-058 | Buggy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 blue {Impel Down} type card other than [Buggy] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Impel Down/Buggy Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-059 | Boa Hancock
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Draw 1 card and trash 1 card from your hand. Then, trash up to 3 cards from your hand."
+  - Type line: current="missing" | should="Impel Down/The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-060 | Mohji
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Buggy Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-061 | Morley
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If you have 1 or less cards in your hand, your opponent cannot activate the [Blocker] of any Character with a cost of 5 or less during this battle."
+  - Type line: current="missing" | should="Giant/Revolutionary Army"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-062 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[On Play]/[When Attacking] You may trash 2 cards from your hand: Return up to 1 Character with a cost of 4 or less to the owner's hand. Then, this Character gains [Double Attack] during this turn. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="Impel Down/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-063 | Mr.1(Daz.Bonez)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 blue Event card with a cost of 1 from your trash to your hand."
+  - Type line: current="missing" | should="Impel Down/Former Baroque Works"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-064 | Mr.2.Bon.Kurei(Bentham)
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may trash 1 card from your hand: Place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck. Then, at the end of this battle, place this Character at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Impel Down/Former Baroque Works"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-065 | Mr.3(Galdino)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [End of Your Turn] You may trash 1 card from your hand: Set this Character as active."
+  - Type line: current="missing" | should="Impel Down/Former Baroque Works"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-066 | Impel Down All Stars
+  - Effect: current="missing" | should="[Main] You may trash 2 cards from your hand: If your Leader has the {Impel Down} type, draw up to 2 cards."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-067 | Arabesque Brick Fist
+  - Effect: current="missing" | should="[Main] Return up to 1 Character with a cost of 4 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Fish-Man/Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-068 | Gum-Gum Rain
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 2 or less to the owner's hand."
+  - Type line: current="missing" | should="Impel Down/Straw Hat Crew"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-069 | DEATH WINK
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +6000 power during this battle. Then, draw cards so that you have 2 cards in your hand."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 7 or less to the owner's hand."
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-070 | New Kama Land
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader is [Emporio.Ivankov], draw 1 card and trash 1 card from your hand. Then, trash up to 3 cards from your hand."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-071 | Magellan
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on the field is returned to your DON!! deck, this Leader gains +1000 power during this turn."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-072 | Zephyr
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[When Attacking] DON!! −4 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 3 or less. Then, this Leader gains +1000 power during this turn."
+  - Type line: current="missing" | should="FILM/Neo Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-073 | Little Sadi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Jailer Beast} type Character card from your hand."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-074 | Saldeath
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Your [Blugori] gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-075 | Shiki
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="FILM/Golden Lion Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-076 | Shiryu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-077 | Solitaire
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-078 | Daifugo
+  - Effect: current="missing" | should="[On Play] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 {SMILE} type Character card other than [Daifugo] with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-079 | Douglas Bullet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="FILM/The Pirates Fest"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-080 | Dobon
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-081 | Domino
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-082 | Byrnndi World
+  - Effect: current="missing" | should="[Activate: Main] DON!! −8 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character gains +792000 power during this turn."
+  - Type line: current="missing" | should="World Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-083 | Hannyabal
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 purple {Impel Down} type card other than [Hannyabal] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-084 | Blugori
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-085 | Magellan
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Your opponent returns 1 DON!! card from their field to their DON!! deck. [Opponent's Turn] When this Character is K.O.'d, your opponent returns 2 DON!! cards from their field to their DON!! deck."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-086 | Minokoala
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] If your Leader has the {Impel Down} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Impel Down/Jailer Beast"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-087 | Minotaur
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Double Attack] (This card deals 2 damage.) [On K.O.] If your Leader has the {Impel Down} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Impel Down/Jailer Beast"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-088 | Sphinx
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-089 | Judgment of Hell
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Give up to a total of 2 of your opponent's Leader or Character cards −3000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 6 or more DON!! cards on their field, your opponent returns 1 DON!! card from their field to their DON!! deck."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-090 | Hydra
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 6 or more DON!! cards on their field, your opponent returns 1 DON!! card from their field to their DON!! deck."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-091 | Venom Road
+  - Effect: current="missing" | should="[Main] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 6 or more DON!! cards on their field, your opponent returns 1 DON!! card from their field to their DON!! deck."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-092 | Impel Down
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Stage: Look at 3 cards from the top of your deck; reveal up to 1 {Impel Down} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-093 | Smoker
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] Give up to 1 of your opponent's Characters −1 cost during this turn. Then, if there is a Character with a cost of 0, this Leader gains +1000 power during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-094 | Isuka
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Once Per Turn] When this Character battles and K.O.'s your opponent's Character, set this Character as active."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-095 | Onigumo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If there is a Character with a cost of 0, this Character gains [Banish]. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-096 | Kuzan
+  - Effect: current="missing" | should="[On Play] Draw 1 card. [When Attacking] Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-097 | Komille
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-098 | Koby
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-099 | Sakazuki
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-100 | Jango
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have [Fullbody], this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-101 | Strawberry
+  - Effect: current="missing" | should="[When Attacking] If there is a Character with a cost of 0, your opponent cannot activate the [Blocker] of any Character with a cost of 5 or less during this battle."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-102 | Smoker
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="This Character cannot be K.O.'d by effects. [When Attacking] If there is a Character with a cost of 0, this Character gains +2000 power during this battle."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-103 | Sengoku
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-104 | Sentomaru
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-105 | Tashigi
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −3 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-106 | Tsuru
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-107 | Doberman
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-108 | Donquixote Rosinante
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-109 | Jaguar.D.Saul
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-110 | Hina
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] Select up to 1 of your opponent's Characters with a cost of 6 or less. The selected Character cannot attack during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-111 | Fullbody
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If you have [Jango], this card gains +3000 power during this battle."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-112 | Bell-mère
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Give up to 1 of your opponent's Characters −1 cost during this turn. Then, up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-113 | Helmeppo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Give up to 1 of your opponent's Characters −2 cost during this turn. Then, if there is a Character with a cost of 0, this Character gains +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-114 | Borsalino
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Opponent's Turn] This Character gains +1000 power and cannot be K.O.'d by effects. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SuperRare" | should="SR"
+- OP02-115 | Monkey.D.Garp
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-116 | Yamakaji
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-117 | Ice Age
+  - Effect: current="missing" | should="[Main] Give up to 1 of your opponent's Characters −5 cost during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-118 | Yasakani Sacred Jewel
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Select up to 1 of your Characters. The selected Character cannot be K.O.'d during this battle."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Stages with a cost of 3 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-119 | Meteor Volcano
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+- OP02-120 | Uta
+  - Effect: current="missing" | should="[On Play] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Your Leader and all of your Characters gain +1000 power until the start of your next turn."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP02-121 | Kuzan
+  - Effect: current="missing" | should="[Your Turn] Give all of your opponent's Characters −5 cost. [On Play] K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Former Navy"
+  - Set name: current="Paramount War" | should="PARAMOUNT WAR [OP02]"
+  - Release date: current="missing" | should="2023-03-10"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### Big Mom Pirates [ST-07]
+- ST07-001 | Charlotte Linlin
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: If you have 2 or less Life cards, add up to 1 card from your hand to the top of your Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-002 | Charlotte Anana
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-003 | Charlotte Katakuri
+  - Effect: current="missing" | should="[On Play] Look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards. Then, if you have less Life cards than your opponent, this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- ST07-004 | Charlotte Snack
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: This Character gains [Banish] and +1000 power during this battle. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-005 | Charlotte Daifuku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-006 | Charlotte Flampe
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-007 | Charlotte Brulee
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-008 | Charlotte Pudding
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-009 | Charlotte Mont-d'or
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and add 1 card from the top or bottom of your Life cards to your hand: K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-010 | Charlotte Linlin
+  - Effect: current="missing" | should="[On Play] Your opponent chooses one: - Trash 1 card from the top of your opponent's Life cards. - Add 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- ST07-011 | Zeus
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your [Charlotte Linlin] cards gains [Banish] during this turn. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-012 | Baron Tamago
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-013 | Prometheus
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your [Charlotte Linlin] cards gains [Double Attack] during this turn. (This card deals 2 damage.)"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-014 | Pekoms
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Minks/Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-015 | Soul Pocus
+  - Effect: current="missing" | should="[Main] Your opponent chooses one: - Trash 1 card from the top of your opponent's Life cards. - Add 1 card from the top of your deck to the top of your Life cards."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-016 | Power Mochi
+  - Effect: current="missing" | should="[Counter] Look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards. Then, up to 1 of your Leader or Character cards gains +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card, look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+- ST07-017 | Queen Mama Chanter
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage and add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 of your Characters with a cost of 3 to the top of the owner's Life cards face-up."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Big Mom Pirates" | should="Big Mom Pirates [ST-07]"
+  - Release date: current="missing" | should="2023-06-30"
+
+### PILLARS OF STRENGTH [OP03]
+- OP03-001 | Portgas.D.Ace
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="When this Leader attacks or is attacked, you may trash any number of Event or Stage cards from your hand. This Leader gains +1000 power during this battle for every card trashed."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-002 | Adio
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Your opponent cannot activate a [Blocker] Character that has 2000 or less power during this battle."
+  - Type line: current="missing" | should="ODYSSEY"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-003 | Izo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 card with a type including "Whitebeard Pirates" other than [Izo] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Land of Wano/Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-004 | Curiel
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="This Character cannot attack a Leader on the turn in which it is played. [DON!! x1] This Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-005 | Thatch
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] This Character gains +2000 power during this turn. Then, trash this Character at the end of this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-006 | Speed Jil
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-007 | Namule
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-008 | Buggy
+  - Effect: current="missing" | should="This Character cannot be K.O.'d in battle by <Slash> attribute cards. [On Play] Look at 5 cards from the top of your deck; reveal up to 1 red Event and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Buggy Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-009 | Haruta
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-010 | Fossa
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-011 | Blamenco
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-012 | Marshall.D.Teach
+  - Effect: current="missing" | should="[When Attacking] You may trash 1 of your red Characters with 4000 power or more: Draw 1 card. Then, this Character gains +1000 power during this battle."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-013 | Marco
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [On Play] K.O. up to 1 of your opponent's Characters with 3000 power or less. [On K.O.] You may trash 1 Event from your hand: You may play this Character card from your trash rested."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-014 | Monkey.D.Garp
+  - Effect: current="missing" | should="[When Attacking] Play up to 1 red Character card with a cost of 1 from your hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-015 | Lim
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Opponent's Turn] When this Character is K.O.'d, give up to 1 of your opponent's Leader or Character cards −2000 power during this turn."
+  - Type line: current="missing" | should="ODYSSEY"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-016 | Flame Emperor
+  - Effect: current="missing" | should="[Main] If your Leader is [Portgas.D.Ace], K.O. up to 1 of your opponent's Characters with 8000 power or less, and your Leader gains [Double Attack] and +3000 power during this turn. (This card deals 2 damage.)"
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 6000 power or less."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-017 | Cross Fire
+  - Effect: current="missing" | should="[Main]/[Counter] If your Leader's type includes "Whitebeard Pirates", give up to 1 of your opponent's Characters −4000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-018 | Fire Fist
+  - Effect: current="missing" | should="[Main] You may trash 1 Event from your hand: K.O. up to 1 of your opponent's Characters with 5000 power or less and up to 1 of your opponent's Characters with 4000 power or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 5000 power or less."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-019 | Fiery Doll
+  - Effect: current="missing" | should="[Main] Your Leader gains +4000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Give up to 1 of your opponent's Leader or Character cards −10000 power during this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-020 | Striker
+  - Effect: current="missing" | should="[Activate: Main] ② (You may rest the specified number of DON!! cards in your cost area.) You may rest this Stage: If your Leader is [Portgas.D.Ace], look at 5 cards from the top of your deck; reveal up to 1 Event and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-021 | Kuro
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] ③ (You may rest the specified number of DON!! cards in your cost area.) You may rest 2 of your {East Blue} type Characters: Set this Leader as active, and rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-022 | Arlong
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] ① (You may rest the specified number of DON!! cards in your cost area.): Play up to 1 Character card with a cost of 4 or less and a [Trigger] from your hand."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-023 | Alvida
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="East Blue/Alvida Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-024 | Gin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {East Blue} type, rest up to 2 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="East Blue/Krieg Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-025 | Krieg
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 2 of your opponent's rested Characters with a cost of 4 or less. [DON!! x1] This Character gains [Double Attack]. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="East Blue/Krieg Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-026 | Kuroobi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {East Blue} type, rest up to 1 of your opponent's Characters."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-027 | Sham
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {East Blue} type, rest up to 1 of your opponent's Characters with a cost of 2 or less and, if you don't have [Buchi], play up to 1 [Buchi] from your hand."
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-028 | Jango
+  - Effect: current="missing" | should="[On Play] Choose one: • Set up to 1 of your {East Blue} type Leader or Character cards with a cost of 6 or less as active. • Rest this Character and up to 1 of your opponent's Characters."
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-029 | Chew
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-030 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 green {East Blue} type card other than [Nami] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="East Blue/Arlong Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-031 | Pearl
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="East Blue/Krieg Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-032 | Buggy
+  - Effect: current="missing" | should="This Character cannot be K.O.'d in battle by attribute cards."
+  - Type line: current="missing" | should="East Blue/Buggy Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-033 | Hatchan
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {East Blue} type, play this card."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-034 | Buchi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's rested Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-035 | Momoo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-036 | Out-of-the-Bag
+  - Effect: current="missing" | should="[Main] You may rest 1 of your {East Blue} type Characters: Set up to 1 of your [Kuro] cards as active."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-037 | Tooth Attack
+  - Effect: current="missing" | should="[Main] You may rest 1 of your {East Blue} type Characters: K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 Character card with a cost of 4 or less and a [Trigger] from your hand."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-038 | Deathly Poison Gas Bomb MH5
+  - Effect: current="missing" | should="[Main] Rest up to 2 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="East Blue/Krieg Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-039 | One, Two, Jango
+  - Effect: current="missing" | should="[Main] Rest up to 1 of your opponent's Characters with a cost of 1 or less. Then, up to 1 of your Characters gains +1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-040 | Nami
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="When your deck is reduced to 0, you win the game instead of losing, according to the rules. [DON!! x1] When this Leader's attack deals damage to your opponent's Life, you may trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-041 | Usopp
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [DON!! x1] When this Character's attack deals damage to your opponent's Life, you may trash 7 cards from the top of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-042 | Usopp's Pirate Crew
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 blue [Usopp] from your trash to your hand."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-043 | Gaimon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="When you deal damage to your opponent's Life, you may trash 3 cards from the top of your deck. If you do, trash this Character."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-044 | Kaya
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-045 | Carne
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Opponent's Turn] If you have 20 or less cards in your deck, this Character gains +3000 power."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-046 | Genzo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-047 | Zeff
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] When this Character's attack deals damage to your opponent's Life, you may trash 7 cards from the top of your deck. [On Play] Return up to 1 Character with a cost of 3 or less to the owner's hand, and you may trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-048 | Nojiko
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader is [Nami], return up to 1 of your opponent's Characters with a cost of 5 or less to the owner's hand."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-049 | Patty
+  - Effect: current="missing" | should="[On Play] If you have 20 or less cards in your deck, return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-050 | Boodle
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] You may trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-051 | Bell-mère
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] When this Character's attack deals damage to your opponent's Life, you may trash 7 cards from the top of your deck. [On K.O.] You may trash 3 cards from the top of your deck."
+  - Type line: current="missing" | should="East Blue/Former Navy"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-052 | Merry
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-053 | Yosaku &amp; Johnny
+  - Card name: current="Yosaku &amp; Johnny" | should="Yosaku & Johnny"
+  - Effect: current="missing" | should="[DON!! x1] If you have 20 or less cards in your deck, this Character gains +2000 power."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-054 | Usopp's Rubber Band of Doom!!!
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, you may trash 1 card from the top of your deck."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card and you may trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-055 | Gum-Gum Giant Gavel
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader gains +4000 power during this battle. Then, you may trash 2 cards from the top of your deck."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-056 | Sanji's Pilaf
+  - Effect: current="missing" | should="[Main] Draw 2 cards."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-057 | Three Thousand Worlds
+  - Effect: current="missing" | should="[Main] Place up to 1 Character with a cost of 5 or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Place up to 1 Character with a cost of 3 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-058 | Iceburg
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="This Leader cannot attack. [Activate: Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may rest this Leader: Play up to 1 {Galley-La Company} type Character card with a cost of 5 or less from your hand."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-059 | Kaku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character gains [Banish] during this battle. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-060 | Kalifa
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-061 | Kiwi &amp; Mozu
+  - Card name: current="Kiwi &amp; Mozu" | should="Kiwi & Mozu"
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Water Seven/The Franky Family"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-062 | Kokoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Water Seven} type card other than [Kokoro] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Merfolk/Water Seven"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-063 | Zambai
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Water Seven} type, draw 1 card."
+  - Type line: current="missing" | should="Water Seven/The Franky Family"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-064 | Tilestone
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] If your Leader has the {Galley-La Company} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-065 | Chimney &amp; Gonbe
+  - Card name: current="Chimney &amp; Gonbe" | should="Chimney & Gonbe"
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Animal/Water Seven"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-066 | Paulie
+  - Effect: current="missing" | should="[On Play] ➁ (You may rest the specified number of DON!! cards in your cost area.): Add up to 1 DON!! card from your DON!! deck and set it as active. Then, if you have 8 or more DON!! cards on your field, K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-067 | Peepley Lulu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If your Leader has the {Galley-La Company} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-068 | Minozebra
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Banish] (When this card deals damage, the target card is trashed without activating its Trigger.) [On K.O.] If your Leader has the {Impel Down} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Impel Down/Jailer Beast"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-069 | Minorhinoceros
+  - Effect: current="missing" | should="[On K.O.] If your Leader has the {Impel Down} type, draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Impel Down/Jailer Beast"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-070 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may trash 1 Character card with a cost of 5 from your hand: This Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Water Seven/Straw Hat Crew"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-071 | Rob Lucci
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-072 | Gum-Gum Jet Gatling
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Water Seven/Straw Hat Crew"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-073 | Hull Dismantler Slash
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Water Seven} type, K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Water Seven/The Franky Family"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-074 | Top Knot
+  - Effect: current="missing" | should="[Main] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Place up to 1 of your opponent's Characters with a cost of 4 or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-075 | Galley-La Company
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader is [Iceburg], add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-076 | Rob Lucci
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] You may trash 2 cards from your hand: When your opponent's Character is K.O.'d, set this Leader as active."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-077 | Charlotte Linlin
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] ② (You may rest the specified number of DON!! cards in your cost area.) You may trash 1 card from your hand: If you have 1 or less Life cards, add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-078 | Issho
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] Give all of your opponent's Characters −3 cost. [On Play] If your opponent has 6 or more cards in their hand, trash 2 cards from your opponent's hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-079 | Vergo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] This Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-080 | Kaku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may place 2 cards with a type including "CP" from your trash at the bottom of your deck in any order: K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-081 | Kalifa
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Draw 2 cards and trash 2 cards from your hand. Then, give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-082 | Kumadori
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-083 | Corgy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck and trash up to 2 cards. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="World Government"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-084 | Jerry
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="CP6"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-085 | Jabra
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-086 | Spandam
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "CP", look at 3 cards from the top of your deck; reveal up to 1 card with a type including "CP" other than [Spandam] and add it to your hand. Then, trash the rest."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-087 | Nero
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-088 | Fukurou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="This Character cannot be K.O.'d by effects. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-089 | Brannew
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck; reveal up to 1 {Navy} type card other than [Brannew] and add it to your hand. Then, trash the rest."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-090 | Blueno
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] This Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Play up to 1 Character card with a type including "CP" and a cost of 4 or less from your trash rested."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-091 | Helmeppo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Set the cost of up to 1 of your opponent's Characters with no base effect to 0 during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-092 | Rob Lucci
+  - Effect: current="missing" | should="[On Play] You may place 2 cards with a type including "CP" from your trash at the bottom of your deck in any order: This Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-093 | Wanze
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: If your Leader's type includes "CP", K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="CP7"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-094 | Air Door
+  - Effect: current="missing" | should="[Main] If your Leader's type includes "CP", look at 5 cards from the top of your deck; play up to 1 Character card with a type including "CP" and a cost of 5 or less. Then, trash the rest."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 black Character card with a cost of 3 or less from your trash."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-095 | Soap Sheep
+  - Effect: current="missing" | should="[Main] Give up to 2 of your opponent's Characters −2 cost during this turn."
+  - Trigger: current="missing" | should="[Trigger] Your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-096 | Tempest Kick Sky Slicer
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost of 0 or your opponent's Stages with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-097 | Six King Pistol
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card. Then, K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-098 | Enies Lobby
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader's type includes "CP", give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="World Government"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-099 | Charlotte Katakuri
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards. Then, this Leader gains +1000 power during this battle."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-100 | Kingbaum
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from the top or bottom of your Life cards: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-101 | Camie
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-102 | Sanji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="The Vinsmoke Family"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-103 | Bobbin the Disposer
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-104 | Shirley
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards."
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-105 | Charlotte Oven
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may trash 1 card with a [Trigger] from your hand: This Character gains +3000 power during this battle."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-106 | Charlotte Opera
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-107 | Charlotte Galette
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-108 | Charlotte Cracker
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If you have less Life cards than your opponent, this Character gains [Double Attack] and +1000 power. (This card deals 2 damage.)"
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-109 | Charlotte Chiffon
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from the top or bottom of your Life cards: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-110 | Charlotte Smoothie
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: This Character gains +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-111 | Charlotte Praline
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Merfolk/The Sun Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-112 | Charlotte Pudding
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 4 cards from the top of your deck; reveal up to 1 [Sanji] or {Big Mom Pirates} type card other than [Charlotte Pudding] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-113 | Charlotte Perospero
+  - Effect: current="missing" | should="[On K.O.] Look at 3 cards from the top of your deck; reveal up to 1 {Big Mom Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-114 | Charlotte Linlin
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Big Mom Pirates} type, add up to 1 card from the top of your deck to the top of your Life cards. Then, trash up to 1 card from the top of your opponent's Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SuperRare" | should="SR"
+- OP03-115 | Streusen
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card with a [Trigger] from your hand: K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-116 | Shirahoshi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Draw 3 cards and trash 2 cards from your hand."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-117 | Napoleon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your [Charlotte Linlin] cards gains +1000 power until the start of your next turn."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-118 | Ikoku Sovereignty
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +5000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] You may trash 2 cards from your hand: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-119 | Buzz Cut Mochi
+  - Effect: current="missing" | should="[Main] If you have less Life cards than your opponent, K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 Character card with a cost of 4 or less and a [Trigger] from your hand."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-120 | Tropical Torment
+  - Effect: current="missing" | should="[Main] If your opponent has 4 or more Life cards, trash up to 1 card from the top of your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-121 | Thunder Bolt
+  - Effect: current="missing" | should="[Main] You may trash 1 card from the top of your Life cards: K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+- OP03-122 | Sogeking
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Also treat this card's name as [Usopp] according to the rules. [On Play] Return up to 1 Character with a cost of 6 or less to the owner's hand. Then, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Sniper Island"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP03-123 | Charlotte Katakuri
+  - Effect: current="missing" | should="[On Play] Add up to 1 Character with a cost of 8 or less to the top or bottom of the owner's Life cards face-up."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Pillars of Strength" | should="PILLARS OF STRENGTH [OP03]"
+  - Release date: current="missing" | should="2023-06-30"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### Monkey D. Luffy [ST-08]
+- ST08-001 | Monkey.D.Luffy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Your Turn] When a Character is K.O.'d, give up to 1 rested DON!! card to this Leader."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-002 | Uta
+  - Effect: current="missing" | should="This Character cannot be K.O.'d in battle by Leaders. [Activate: Main] You may rest this Character: Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+  - Rarity: current="SuperRare" | should="SR"
+- ST08-003 | Gaimon
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-004 | Koby
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-005 | Shanks
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. all Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+  - Rarity: current="SuperRare" | should="SR"
+- ST08-006 | Shirahoshi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-007 | Nefeltari Vivi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-008 | Higuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-009 | Makino
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If there is a Character with a cost of 0, draw 1 card."
+  - Type line: current="missing" | should="Windmill Village"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-010 | Monkey.D.Garp
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-011 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-012 | Laboon
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-013 | Mr.2.Bon.Kurei(Bentham)
+  - Effect: current="missing" | should="[DON!! x1] At the end of a battle in which this Character battles your opponent's Character, you may K.O. the opponent’s Character you battled with. If you do, K.O. this Character."
+  - Type line: current="missing" | should="Former Baroque Works"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-014 | Gum-Gum Bell
+  - Effect: current="missing" | should="[Main] You may add 1 card from the top of your Life cards to your hand: Give up to 1 of your opponent's Characters −7 cost during this turn."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 black Character card with a cost of 2 or less from your trash to your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST08-015 | Gum-Gum Pistol
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Monkey D. Luffy" | should="Monkey D. Luffy [ST-08]"
+  - Release date: current="missing" | should="2023-08-11"
+
+### Yamato [ST-09]
+- ST09-001 | Yamato
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [Opponent's Turn] If you have 2 or less Life cards, this Leader gains +1000 power."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-002 | Uzuki Tempura
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 2 or less and add this card to your hand."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-003 | Ulti
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-004 | Kaido
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If you have 2 or less Life cards, this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-005 | Kouzuki Oden
+  - Effect: current="missing" | should="[DON!! x1] This Character gains [Double Attack]. (This card deals 2 damage.) [On K.O.] You may trash 2 cards from your hand: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+  - Rarity: current="SuperRare" | should="SR"
+- ST09-006 | Kouzuki Momonosuke
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-007 | Shinobu
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] You may add 1 card from the top or bottom of your Life cards to your hand: This Character gains +4000 power during this battle."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-008 | Shimotsuki Ushimaru
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: Play up to 1 yellow {Land of Wano} type Character card with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-009 | Fugetsu Omusubi
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 1 or less and add this card to your hand."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-010 | Portgas.D.Ace
+  - Effect: current="missing" | should="[Once Per Turn] If this Character would be K.O.'d, you may trash 1 card from the top or bottom of your Life cards instead."
+  - Type line: current="missing" | should="Land of Wano/Whitebeard Pirates"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+  - Rarity: current="SuperRare" | should="SR"
+- ST09-011 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano/Straw Hat Crew"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-012 | Yamato
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: This Character gains +2000 power until the start of your next turn."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-013 | Yamato
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-014 | Narikabura Arrow
+  - Effect: current="missing" | should="[Counter] If you have 2 or less Life cards, give up to 1 of your opponent's Leader or Character cards −3000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] You may trash 2 cards from your hand: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+- ST09-015 | Thunder Bagua
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, if you have 2 or less Life cards, add up to 1 of your opponent's Characters with a cost of 3 or less to the top or bottom of the owner's Life cards face-up."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Yamato" | should="Yamato [ST-09]"
+  - Release date: current="missing" | should="2023-08-11"
+
+### KINGDOMS OF INTRIGUE [OP04]
+- OP04-001 | Nefeltari Vivi
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="This Leader cannot attack. [Activate: Main] [Once Per Turn] ➁ (You may rest the specified number of DON!! cards in your cost area.): Draw 1 card and up to 1 of your Characters gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-002 | Igaram
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and give your 1 active Leader −5000 power during this turn: Look at 5 cards from the top of your deck; reveal up to 1 {Alabasta} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-003 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] K.O. up to 1 of your opponent's Characters with 5000 base power or less."
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-004 | Karoo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Give up to 1 rested DON!! card to each of your {Alabasta} type Characters."
+  - Type line: current="missing" | should="Animal/Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-005 | Kung Fu Jugon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a [Kung Fu Jugon] other than this Character, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Animal/Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-006 | Koza
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[When Attacking] You may give your 1 active Leader −5000 power during this turn: This Character gains +2000 power until the start of your next turn."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-007 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-008 | Chaka
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If your Leader is [Nefeltari Vivi], give up to 1 of your opponent's Characters −3000 power during this turn. Then, K.O. up to 1 of your opponent's Characters with 0 power or less."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-009 | Super Spot-Billed Duck Troops
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[When Attacking] You may give your 1 active Leader −5000 power during this turn: Return this Character to the owner's hand at the end of this turn."
+  - Type line: current="missing" | should="Animal/Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-010 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Animal} type Character card with 3000 power or less from your hand."
+  - Type line: current="missing" | should="Animal/Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-011 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Reveal 1 card from the top of your deck. If the revealed card is a Character card with 6000 power or more, this Character gains +3000 power during this turn. Then, place the revealed card at the bottom of your deck."
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-012 | Nefeltari Cobra
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] All of your {Alabasta} type Characters other than this Character gain +1000 power."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-013 | Pell
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-014 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[Banish] (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-015 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-016 | Bad Manners Kick Course
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Give up to 1 of your opponent's Leader or Character cards −3000 power during this turn."
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-017 | Happiness Punch
+  - Effect: current="missing" | should="[Counter] Give up to 1 of your opponent's Leader or Character cards −2000 power during this turn. Then, if your Leader is active, give up to 1 of your opponent's Leader or Character cards −1000 power during this turn."
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-018 | Enchanting Vertigo Dance
+  - Effect: current="missing" | should="[Main] If your Leader has the {Alabasta} type, give up to 2 of your opponent's Characters −2000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-019 | Donquixote Doflamingo
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[End of Your Turn] Set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-020 | Issho
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] Give all of your opponent's Characters −1 cost. [End of Your Turn] ➀ (You may rest the specified number of DON!! cards in your cost area.): Set up to 1 of your Characters with a cost of 5 or less as active."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-021 | Viola
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] ➁ (You may rest the specified number of DON!! cards in your cost area.): Rest up to 1 of your opponent's DON!! cards."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-022 | Eric
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Rest up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-023 | Kuro
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="East Blue/Black Cat Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-024 | Sugar
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Opponent's Turn] [Once Per Turn] When your opponent plays a Character, if your Leader has the {Donquixote Pirates} type, rest up to 1 of your opponent's Characters. Then, rest this Character. [On Play] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-025 | Giolla
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] ➁ (You may rest the specified number of DON!! cards in your cost area.): Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-026 | Senor Pink
+  - Effect: current="missing" | should="[When Attacking] ➀ (You may rest the specified number of DON!! cards in your cost area.): If your Leader has the {Donquixote Pirates} type, rest up to 1 of your opponent's Characters with a cost of 4 or less. Then, set up to 1 of your DON!! cards as active at the end of this turn."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-027 | Daddy Masterson
+  - Effect: current="missing" | should="[DON!! x1] [End of Your Turn] Set this Character as active."
+  - Type line: current="missing" | should="East Blue/Former Navy"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-028 | Diamante
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [DON!! x1] [End of Your Turn] If you have 2 or more active DON!! cards, set this Character as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-029 | Dellinger
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[End of Your Turn] Set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-030 | Trebol
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's rested Characters with a cost of 5 or less. [On Your Opponent's Attack] ➁ (You may rest the specified number of DON!! cards in your cost area.): Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-031 | Donquixote Doflamingo
+  - Effect: current="missing" | should="[On Play] Up to a total of 3 of your opponent's rested Leader and Character cards will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-032 | Baby 5
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[End of Your Turn] You may trash this Character: Set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-033 | Machvise
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Donquixote Pirates} type, rest up to 1 of your opponent's Characters with a cost of 5 or less. Then, set up to 1 of your DON!! cards as active at the end of this turn."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-034 | Lao.G
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[End of Your Turn] If you have 3 or more active DON!! cards, K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-035 | Spiderweb
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, set up to 1 of your Characters as active."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader gains +2000 power during this turn."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-036 | Donquixote Family
+  - Effect: current="missing" | should="[Counter] Look at 5 cards from the top of your deck; reveal up to 1 {Donquixote Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Counter] effect."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-037 | Flapping Thread
+  - Effect: current="missing" | should="[Counter] If your Leader has the {Donquixote Pirates} type, up to 1 of your Leader or Character cards gains +2000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-038 | The Weak Do Not Have the Right to Choose How They Die!!!
+  - Effect: current="missing" | should="[Main]/[Counter] Rest up to 1 of your opponent's Leader or Character cards. Then, K.O. up to 1 of your opponent's rested Characters with a cost of 6 or less."
+  - Trigger: current="missing" | should="[Trigger] Set up to 5 of your DON!! cards as active."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-039 | Rebecca
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="This Leader cannot attack. [Activate: Main] [Once Per Turn] ➀ (You may rest the specified number of DON!! cards in your cost area.): If you have 6 or less cards in your hand, look at 2 cards from the top of your deck; reveal up to 1 {Dressrosa} type card and add it to your hand. Then, trash the rest."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-040 | Queen
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have a total of 4 or less cards in your Life area and hand, draw 1 card. If you have a Character with a cost of 8 or more, you may add up to 1 card from the top of your deck to the top of your Life cards instead of drawing 1 card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-041 | Apis
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 2 cards from your hand: Look at 5 cards from the top of your deck; reveal up to 1 {East Blue} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-042 | Ipponmatsu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your attribute Characters gains +3000 power during this turn. Then, trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-043 | Ulti
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Return up to 1 Character with a cost of 2 or less to the owner's hand or the bottom of their deck."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-044 | Kaido
+  - Effect: current="missing" | should="[On Play] Return up to 1 Character with a cost of 8 or less and up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-045 | King
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Draw 1 card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-046 | Queen
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Animal Kingdom Pirates} type, look at 7 cards from the top of your deck; reveal a total of up to 2 [Plague Rounds] or [Ice Oni] cards and add them to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-047 | Ice Oni
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] At the end of a battle in which this Character battles your opponent's Character with a cost of 5 or less, place the opponent's Character you battled with at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Plague/Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-048 | Sasaki
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Return all cards in your hand to your deck and shuffle your deck. Then, draw cards equal to the number you returned to your deck."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-049 | Jack
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Draw 1 card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-050 | Hanger
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Character: Draw 1 card."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-051 | Who's.Who
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Animal Kingdom Pirates} type card other than [Who's.Who] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-052 | Black Maria
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➁ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Character: Draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-053 | Page One
+  - Effect: current="missing" | should="[DON!! x1] [Once Per Turn] When you activate an Event, draw 1 card. Then, place 1 card from your hand at the bottom of your deck."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-054 | Rokki
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-055 | Plague Rounds
+  - Effect: current="missing" | should="[Main] You may trash 1 [Ice Oni] from your hand and place 1 Character with a cost of 4 or less at the bottom of the owner's deck: Play 1 [Ice Oni] from your trash."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-056 | Gum-Gum Red Roc
+  - Effect: current="missing" | should="[Main] Place up to 1 Character at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Place up to 1 Character with a cost of 4 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-057 | Dragon Twister Demolition Breath
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, place up to 1 Character with a cost of 1 or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 6 or less to the owner's hand."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-058 | Crocodile
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Opponent's Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck by your effect, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-059 | Iceburg
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Water Seven} type, this Character gains [Blocker] during this turn. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-060 | Crocodile
+  - Effect: current="missing" | should="[On Play] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader's type includes "Baroque Works", add up to 1 card from the top of your deck to the top of your Life cards. [On Your Opponent's Attack] [Once Per Turn] DON!! −1: Draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-061 | Tom
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: If your Leader has the {Water Seven} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Fish-Man/Water Seven"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-062 | Bananagator
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-063 | Franky
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Water Seven} type, up to 1 of your Leader or Character cards gains +1000 power during this battle."
+  - Type line: current="missing" | should="Water Seven/The Franky Family"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-064 | Ms. All Sunday
+  - Effect: current="missing" | should="[On Play] Add up to 1 DON!! card from your DON!! deck and rest it. Then, if you have 6 or more DON!! cards on your field, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-065 | Miss.Goldenweek(Marianne)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "Baroque Works", up to 1 of your opponent's Characters with a cost of 5 or less cannot attack until the start of your next turn."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-066 | Miss.Valentine(Mikita)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 card with a type including "Baroque Works" and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-067 | Miss.MerryChristmas(Drophy)
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-068 | Yokozuna
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Your Opponent's Attack] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Return up to 1 of your opponent's Characters with a cost of 2 or less to the owner's hand."
+  - Type line: current="missing" | should="Animal/Water Seven"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-069 | Mr.2.Bon.Kurei(Bentham)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character's base power becomes the same as the power of your opponent's attacking Leader or Character during this turn."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1: Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-070 | Mr.3(Galdino)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-071 | Mr.4(Babe)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Character gains [Blocker] and +1000 power during this battle. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-072 | Mr.5(Gem)
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may rest this Character: K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-073 | Mr.13 &amp; Ms.Friday
+  - Card name: current="Mr.13 &amp; Ms.Friday" | should="Mr.13 & Ms.Friday"
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character and 1 of your Characters with a type including "Baroque Works": Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Animal/Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-074 | Colors Trap
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your Leader or Character cards gains +1000 power during this battle. Then, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-075 | Nez-Palm Cannon
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +6000 power during this battle. Then, if you have 2 or less Life cards, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-076 | Weakness...Is an Unforgivable Sin.
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-077 | Ideo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-078 | Oimo &amp; Kashii
+  - Card name: current="Oimo &amp; Kashii" | should="Oimo & Kashii"
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/World Government"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-079 | Orlumbus
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 1 of your opponent's Characters −4 cost during this turn and trash 2 cards from the top of your deck. Then, K.O. 1 of your {Dressrosa} type Characters."
+  - Type line: current="missing" | should="Dressrosa/Yonta Maria Fleet"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-080 | Gyats
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your {Dressrosa} type Characters can also attack active Characters during this turn."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-081 | Cavendish
+  - Effect: current="missing" | should="[DON!! x1] This Character can also attack active Characters. [When Attacking] You may rest your Leader: K.O. up to 1 of your opponent's Characters with a cost of 1 or less. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa/Beautiful Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-082 | Kyros
+  - Effect: current="missing" | should="If this Character would be K.O.'d, you may rest your Leader or 1 [Corrida Coliseum] instead. [On Play] If your Leader is [Rebecca], K.O. up to 1 of your opponent's Characters with a cost of 1 or less. Then, trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-083 | Sabo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] None of your Characters can be K.O.'d by effects until the start of your next turn. Then, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-084 | Stussy
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck and play up to 1 Character card with a type including "CP" other than [Stussy] and a cost of 2 or less. Then, trash the rest."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-085 | Suleiman
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] If your Leader has the {Dressrosa} type, give up to 1 of your opponent's Characters −2 cost during this turn. Then, trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-086 | Chinjao
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] When this Character battles and K.O.'s your opponent's Character, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Dressrosa/Happosui Army"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-087 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Dressrosa/Heart Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-088 | Hajrudin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest your 1 Leader: Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Giant/Dressrosa/New Giant Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-089 | Bartolomeo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Dressrosa/Barto Club"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-090 | Monkey.D.Luffy
+  - Effect: current="missing" | should="This Character can also attack active Characters. [Activate: Main] [Once Per Turn] You may return 7 cards from your trash to the bottom of your deck in any order: Set this Character as active. Then, this Character will not become active in your next Refresh Phase."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-091 | Leo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may rest your 1 Leader: If your Leader has the {Dressrosa} type, K.O. up to 1 of your opponent's Characters with a cost of 1 or less. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-092 | Rebecca
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck; reveal up to 1 {Dressrosa} type card other than [Rebecca] and add it to your hand. Then, trash the rest."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-093 | Gum-Gum King Kong Gun
+  - Effect: current="missing" | should="[Main] Up to 1 of your {Dressrosa} type Characters gains +6000 power during this turn. Then, if you have 15 or more cards in your trash, that card gains [Double Attack] during this turn. (This card deals 2 damage.)"
+  - Trigger: current="missing" | should="[Trigger] Draw 3 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-094 | Trueno Bastardo
+  - Effect: current="missing" | should="[Main] Choose up to 1 of your opponent's Characters with a cost of 4 or less and K.O. it. If you have 15 or more cards in your trash, choose up to 1 of your opponent's Characters with a cost of 6 or less instead of a Character with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] You may rest your Leader: K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-095 | Barrier!!
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 15 or more cards in your trash, that card gains an additional +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Dressrosa/Barto Club"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-096 | Corrida Coliseum
+  - Effect: current="missing" | should="If your Leader has the {Dressrosa} type, your {Dressrosa} type Characters can attack Characters on the turn in which they are played."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-097 | Otama
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 of your opponent's {Animal} or {SMILE} type Characters with a cost of 3 or less to the top of your opponent's Life cards face-up."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-098 | Toko
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 2 {Land of Wano} type cards from your hand: If you have 1 or less Life cards, add 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-099 | Olin
+  - Effect: current="missing" | should="Also treat this card's name as [Charlotte Linlin] according to the rules."
+  - Trigger: current="missing" | should="[Trigger] If you have 1 or less Life cards, play this card."
+  - Type line: current="missing" | should="Land of Wano/The Four Emperors/Big Mom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-100 | Capone"Gang"Bege
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your opponent's Leader or Character cards cannot attack during this turn."
+  - Type line: current="missing" | should="Firetank Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-101 | Carmel
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [On Play] Draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Play this card. Then, K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="The House of Lambs"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-102 | Kin'emon
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may add 1 card from the top or bottom of your Life cards to your hand: Set this Character as active."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-103 | Kouzuki Hiyori
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your {Land of Wano} type Leader or Character cards gains +1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-104 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="The Vinsmoke Family"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-105 | Charlotte Amande
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may trash 1 card with a [Trigger] from your hand: Rest up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-106 | Charlotte Bavarois
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If you have less Life cards than your opponent, this Character gains +1000 power."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-107 | Charlotte Perospero
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-108 | Charlotte Moscato
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] This Character gains [Banish]. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-109 | Tonoyasu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Up to 1 of your {Land of Wano} type Leader or Character cards gains +3000 power during this turn."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-110 | Pound
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Add up to 1 of your opponent's Characters with a cost of 3 or less to the top or bottom of your opponent's Life cards face-up."
+  - Type line: current="missing" | should="Whole Cake Island"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-111 | Hera
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 of your {Homies} type Characters other than this Character and rest this Character: Set up to 1 of your [Charlotte Linlin] Characters as active."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-112 | Yamato
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with a cost equal to or less than the total of your and your opponent's Life cards. Then, if you have 1 or less Life cards, add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SuperRare" | should="SR"
+- OP04-113 | Rabiyan
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-114 | Randolph
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-115 | Gun Modoki
+  - Effect: current="missing" | should="[Main] You may add 1 card from the top or bottom of your Life cards to your hand: Up to 1 of your {Land of Wano} type Characters gains [Double Attack] during this turn. (This card deals 2 damage.)"
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-116 | Diable Jambe Joue Shot
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +6000 power during this battle. Then, if you and your opponent have a total of 4 or less Life cards, K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="The Vinsmoke Family"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-117 | Heavenly Fire
+  - Effect: current="missing" | should="[Main] Add up to 1 of your opponent's Characters with a cost of 3 or less to the top or bottom of your opponent's Life cards face-up."
+  - Trigger: current="missing" | should="[Trigger] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 card from your hand to the top of your Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+- OP04-118 | Nefeltari Vivi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="All of your red Characters with a cost of 3 or more other than this Character gain [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP04-119 | Donquixote Rosinante
+  - Effect: current="missing" | should="[Opponent's Turn] If this Character is rested, your active Characters with a base cost of 5 cannot be K.O.'d by effects. [On Play] You may rest this Character: Play up to 1 green Character card with a cost of 5 from your hand."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Kingdoms of Intrigue" | should="KINGDOMS OF INTRIGUE [OP04]"
+  - Release date: current="missing" | should="2023-09-22"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### The Three Captains [ST-10]
+- ST10-001 | Trafalgar Law
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −3 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Place up to 1 of your opponent's Characters with 3000 power or less at the bottom of the owner's deck, and play up to 1 Character card with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-002 | Monkey.D.Luffy
+  - Cost: current="3" | should="missing"
+  - Life: current="missing" | should="3"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If you have 0 DON!! cards on your field or 8 or more DON!! cards on your field, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-003 | Eustass"Captain"Kid
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Your Turn] If you have 4 or more Life cards, give this Leader −1000 power. [When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): This Leader gains +2000 power during this turn."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-004 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your opponent has a Character with 5000 or more power, this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-005 | Jinbe
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-006 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [Once Per Turn] When your opponent activates a [Blocker], K.O. up to 1 of your opponent's Characters with 8000 power or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+  - Rarity: current="SuperRare" | should="SR"
+- ST10-007 | Killer
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-008 | Shachi &amp; Penguin
+  - Card name: current="Shachi &amp; Penguin" | should="Shachi & Penguin"
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 3 or less DON!! cards on your field, add up to 2 DON!! cards from your DON!! deck and rest them."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-009 | Jean Bart
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] ➀ (You may rest the specified number of DON!! cards in your cost area.): Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-010 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your opponent has 7 or more cards in their hand, trash 2 cards from your opponent's hand."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+  - Rarity: current="SuperRare" | should="SR"
+- ST10-011 | Heat
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, this Character gains +2000 power until the start of your next turn."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-012 | Bepo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] If your opponent has more DON!! cards on their field than you, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Minks/Heart Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-013 | Eustass"Captain"Kid
+  - Effect: current="missing" | should="[On Play]/[When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your Leader gains +1000 power until the start of your next turn."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+  - Rarity: current="SuperRare" | should="SR"
+- ST10-014 | Wire
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-015 | Gum-Gum Giant Sumo Slap
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle, and K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-016 | Gum-Gum Kong Gatling
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with 7000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader gains +1000 power until the end of your next turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+- ST10-017 | Punk Vise
+  - Effect: current="missing" | should="[Main] Rest up to 1 of your opponent's Characters with a cost of 2 or less, and add up to 1 DON!! card from your DON!! deck and rest it."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="The Three Captains" | should="The Three Captains [ST-10]"
+  - Release date: current="missing" | should="2023-11-10"
+
+### Uta [ST-11]
+- ST11-001 | Uta
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] [Once Per Turn] Reveal 1 card from the top of your deck and add up to 1 {FILM} type card to your hand. Then, place the rest at the bottom of your deck."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Uta" | should="Uta [ST-11]"
+  - Release date: current="missing" | should="2024-02-02"
+- ST11-002 | Uta
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [End of Your Turn] You may trash 1 Event from your hand: Set up to 1 of your {FILM} type Characters as active."
+  - Type line: current="missing" | should="Music/FILM"
+  - Set name: current="Uta" | should="Uta [ST-11]"
+  - Release date: current="missing" | should="2024-02-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST11-003 | Backlight
+  - Effect: current="missing" | should="[Main] If your Leader is [Uta], choose one: • Rest up to 1 of your opponent's Characters with a cost of 5 or less. • K.O. up to 1 of your opponent's rested Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Music/FILM"
+  - Set name: current="Uta" | should="Uta [ST-11]"
+  - Release date: current="missing" | should="2024-02-02"
+- ST11-004 | New Genesis
+  - Effect: current="missing" | should="[Main] If your Leader is [Uta], look at 3 cards from the top of your deck; reveal up to 1 {FILM} type card other than [New Genesis] and add it to your hand. Then, place the rest at the bottom of your deck in any order and set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Music/FILM"
+  - Set name: current="Uta" | should="Uta [ST-11]"
+  - Release date: current="missing" | should="2024-02-02"
+  - Rarity: current="SuperRare" | should="SR"
+- ST11-005 | I'm invincible
+  - Effect: current="missing" | should="[Main] Set up to 1 of your [Uta] Leader as active."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="音楽/FILM"
+  - Set name: current="Uta" | should="Uta [ST-11]"
+  - Release date: current="missing" | should="2024-02-02"
+
+### WINGS OF THE CAPTAIN [OP06]
+- OP06-001 | Uta
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[When Attacking] You may trash 1 {FILM} type card from your hand: Give up to 1 of your opponent's Characters −2000 power during this turn. Then, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-002 | Inazuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If this Character has 7000 power or more, this Character gains [Banish]. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-003 | Emporio.Ivankov
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck and play up to 1 {Revolutionary Army} type Character card with 5000 power or less. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-004 | Baron Omatsuri
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 [Lily Carnation] from your hand."
+  - Type line: current="missing" | should="FILM/Omatsuri Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-005 | Gasparde
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Former Navy/Gasparde Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-006 | Saga
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] This Character gains +1000 power until the start of your next turn. Then, trash 1 of your {FILM} type Characters at the end of this turn."
+  - Type line: current="missing" | should="FILM/Asuka Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-007 | Shanks
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with 10000 power or less."
+  - Type line: current="missing" | should="FILM/The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-008 | Schneider
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Mugiwara Chase"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-009 | Shuraiya
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [When Attacking]/[On Block] [Once Per Turn] This Character's base power becomes the same as your opponent's Leader until the start of your next turn."
+  - Type line: current="missing" | should="FILM/Shipbuilding Town"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-010 | Douglas Bullet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader has the {FILM} type, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="FILM/The Pirates Fest"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-011 | Tot Musica
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may rest 1 of your [Uta] cards: This Character gains +5000 power during this turn."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-012 | Bear.King
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your opponent has a Leader or Character with a base power of 6000 or more, this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="FILM/Trump Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-013 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck; reveal up to 1 {FILM} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [On Play] effect."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-014 | Ratchet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] You may trash any number of {FILM} type cards from your hand. Your Leader or 1 of your Characters gains +1000 power during this battle for every card trashed."
+  - Type line: current="missing" | should="FILM/Mecha Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-015 | Lily Carnation
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may trash 1 of your Characters with 6000 power or more: Play up to 1 {FILM} type Character card with 2000 to 5000 power from your trash rested."
+  - Type line: current="missing" | should="FILM/Omatsuri Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-016 | Raise Max
+  - Effect: current="missing" | should="[Activate: Main] You may place this Character at the bottom of the owner's deck: Give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Type line: current="missing" | should="FILM/Revolutionary Army"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-017 | Meteor-Strike of Love
+  - Effect: current="missing" | should="[Main]/[Counter] You may add 1 card from the top of your Life cards to your hand: Up to 1 of your Leader or Character cards gains +3000 power during this turn."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-018 | Gum-Gum King Kong Gatling
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +3000 power during this turn. Then, if your opponent has a Character with 7000 power or more, up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 5000 power or less."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-019 | Blue Dragon Seal Water Stream
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with 5000 power or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-020 | Hody Jones
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Leader: Rest up to 1 of your opponent's DON!! cards or Characters with a cost of 3 or less. Then, you cannot add Life cards to your hand using your own effects during this turn."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-021 | Perona
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Choose one: • Rest up to 1 of your opponent's Characters with a cost of 4 or less. • Give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-022 | Yamato
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Double Attack] (This card deals 2 damage.) [Activate: Main] [Once Per Turn] If your opponent has 3 or less Life cards, give up to 2 rested DON!! cards to 1 of your Characters."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-023 | Arlong
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: Up to 1 of your opponent's rested Leader cannot attack until the end of your opponent's next turn."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-024 | Ikaros Much
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {New Fish-Man Pirates} type, play up to 1 {Fish-Man} type Character card with a cost of 4 or less from your hand. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-025 | Camie
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 4 cards from the top of your deck; reveal up to 1 {Fish-Man} or {Merfolk} type card other than [Camie] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-026 | Koushirou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Set up to 1 of your attribute Characters with a cost of 4 or less as active. Then, you cannot attack a Leader during this turn."
+  - Type line: current="missing" | should="Frost Moon Village"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-027 | Gyro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Rest up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Gyro Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-028 | Zeo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If your Leader has the {New Fish-Man Pirates} type, set up to 1 of your DON!! cards as active and this Character gains +1000 power during this turn. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-029 | Daruma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] [Once Per Turn] If your Leader has the {New Fish-Man Pirates} type, set this Character as active and this Character gains +1000 power during this turn. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-030 | Dosun
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If your Leader has the {New Fish-Man Pirates} type, this Character cannot be K.O.'d in battle and gains +2000 power until the start of your next turn. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-031 | Hatchan
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 {Fish-Man} or {Merfolk} type Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Fish-Man/Former Arlong Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-032 | Hammond
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-033 | Vander Decken IX
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 {Fish-Man} type card from your hand or 1 [The Ark Noah] from your hand or field: K.O. up to 1 of your opponent's rested Characters."
+  - Type line: current="missing" | should="Fish-Man/Flying Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-034 | Hyouzou
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Rest up to 1 of your opponent's Characters with a cost of 4 or less and this Character gains +1000 power during this turn. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Fish-Man"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-035 | Hody Jones
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [On Play] Rest up to a total of 2 of your opponent's Characters or DON!! cards. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-036 | Ryuma
+  - Effect: current="missing" | should="[On Play]/[On K.O.] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Land of Wano/Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-037 | Wadatsumi
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/Flying Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-038 | The Billion-fold World Trichiliocosm
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 8 or more rested cards, that card gains an additional +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-039 | You Ain't Even Worth Killing Time!!
+  - Effect: current="missing" | should="[Main] Choose one: • Rest up to 1 of your opponent's Characters with a cost of 6 or less. • K.O. up to 1 of your opponent's rested Characters with a cost of 6 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-040 | Shark Arrows
+  - Effect: current="missing" | should="[Main] K.O. up to 2 of your opponent's rested Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Fish-Man/New Fish-Man Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-041 | The Ark Noah
+  - Effect: current="missing" | should="[On Play] Rest all of your opponent's Characters."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Fish-Man Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-042 | Vinsmoke Reiju
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, draw 1 card."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-043 | Aramaki
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Activate: Main] [Once Per Turn] You may trash 1 card from your hand and place 1 Character with a cost of 2 or less at the bottom of the owner's deck: This Character gains +3000 power during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-044 | Gion
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When your opponent activates an Event, your opponent must place 1 card from their hand at the bottom of their deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-045 | Kuzan
+  - Effect: current="missing" | should="[On Play] Draw 2 cards and place 2 cards from your hand at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-046 | Sakazuki
+  - Effect: current="missing" | should="[On Play] Place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-047 | Charlotte Pudding
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Your opponent returns all cards in their hand to their deck and shuffles their deck. Then, your opponent draws 5 cards."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-048 | Zeff
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] When your opponent activates [Blocker] or an Event, if your Leader has the {East Blue} type, you may trash 4 cards from the top of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-049 | Sengoku
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-050 | Tashigi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Navy} type card other than [Tashigi] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-051 | Tsuru
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 2 cards from your hand: Your opponent returns 1 of their Characters to the owner's hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-052 | Tokikake
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If you have 4 or less cards in your hand, this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-053 | Jaguar.D.Saul
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Giant/Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-054 | Borsalino
+  - Effect: current="missing" | should="If you have 5 or less cards in your hand, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-055 | Monkey.D.Garp
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] If you have 4 or less cards in your hand, your opponent cannot activate [Blocker] during this battle."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-056 | Ama no Murakumo Sword
+  - Effect: current="missing" | should="[Main] Place up to 1 of your opponent's Characters with a cost of 2 or less and up to 1 of your opponent's Characters with a cost of 1 or less at the bottom of the owner's deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-057 | But I Will Never Doubt a Woman's Tears!!!!
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +1000 power during this turn. Then, reveal 1 card from the top of your deck, play up to 1 Character card with a cost of 2, and place the rest at the top or bottom of your deck."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 Character card with a cost of 2 from your hand."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-058 | Gravity Blade Raging Tiger
+  - Effect: current="missing" | should="[Main] Place up to 2 Characters with a cost of 6 or less at the bottom of the owner's deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Place up to 1 Character with a cost of 5 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-059 | White Snake
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +1000 power during this turn, and draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Look at 5 cards from the top of your deck and place them at the top or bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-060 | Vinsmoke Ichiji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may trash this Character: If your Leader has the {GERMA 66} type, play up to 1 [Vinsmoke Ichiji] with a cost of 7 from your hand or trash."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-061 | Vinsmoke Ichiji
+  - Effect: current="missing" | should="[On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, give up to 1 of your opponent's Characters −2000 power during this turn and this Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-062 | Vinsmoke Judge
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may trash 2 cards from your hand: Play up to 4 {GERMA 66} type Character cards with different card names and 4000 power or less from your trash. [Activate: Main] [Once Per Turn] DON!! −1: Rest up to 1 of your opponent's DON!! cards."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-063 | Vinsmoke Sora
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, add up to 1 {The Vinsmoke Family} type Character card with 4000 power or less from your trash to your hand."
+  - Type line: current="missing" | should="The Vinsmoke Family/Kingdom of GERMA"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-064 | Vinsmoke Niji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may trash this Character: If your Leader has the {GERMA 66} type, play up to 1 [Vinsmoke Niji] with a cost of 5 from your hand or trash."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-065 | Vinsmoke Niji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, choose one: • K.O. up to 1 of your opponent's Characters with a cost of 2 or less. • Return up to 1 of your opponent's Characters with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-066 | Vinsmoke Yonji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may trash this Character: If your Leader has the {GERMA 66} type, play up to 1 [Vinsmoke Yonji] with a cost of 4 from your hand or trash."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-067 | Vinsmoke Yonji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, this Character gains +1000 power. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-068 | Vinsmoke Reiju
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.) You may trash this Character: If your Leader has the {GERMA 66} type, play up to 1 [Vinsmoke Reiju] with a cost of 4 from your hand or trash."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-069 | Vinsmoke Reiju
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field and you have 5 or less cards in your hand, draw 2 cards."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-070 | Eldoraggo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Eldoraggo Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-071 | Gild Tesoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {FILM} type, add up to 2 {FILM} type Character cards with a cost of 4 or less from your trash to your hand."
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-072 | Cosette
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader has the {GERMA 66} type and the number of DON!! cards on your field is at least 2 less than the number on your opponent's field, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Kingdom of GERMA"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-073 | Shiki
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you have 8 or more DON!! cards on your field, draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="FILM/Golden Lion Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-074 | Zephyr (Navy)
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Negate the effect of up to 1 of your opponent's Characters during this turn. Then, if that Character has 5000 power or less, K.O. it."
+  - Type line: current="missing" | should="FILM/Navy"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-075 | Count Battler
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 2 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="FILM/Crown Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-076 | Hitokiri Kamazo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates/SMILE"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-077 | Black Bug
+  - Effect: current="missing" | should="[Main] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, place up to 1 of your opponent's Characters with a cost of 5 or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Place up to 1 of your opponent's Characters with a cost of 4 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-078 | GERMA 66
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 card with a type including "GERMA" other than [GERMA 66] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-079 | Kingdom of GERMA
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Stage: Look at 3 cards from the top of your deck; reveal up to 1 card with a type including "GERMA" and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Kingdom of GERMA"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-080 | Gecko Moria
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] ➁ (You may rest the specified number of DON!! cards in your cost area.) You may trash 1 card from your hand: Trash 2 cards from the top of your deck and play up to 1 {Thriller Bark Pirates} type Character card with a cost of 4 or less from your trash."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-081 | Absalom
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may return 2 cards from your trash to the bottom of your deck in any order: K.O. up to 1 Character with a cost of 2 or less."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-082 | Inuppe
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[On K.O.] If your Leader has the {Thriller Bark Pirates} type, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-083 | Oars
+  - Effect: current="missing" | should="This Character cannot attack. [Activate: Main] You may K.O. 1 of your {Thriller Bark Pirates} type Characters: This Character's effect is negated during this turn."
+  - Type line: current="missing" | should="Giant/Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-084 | Jigoro of the Wind
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-085 | Kumacy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [Your Turn] This Character gains +1000 power for every 5 cards in your trash."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-086 | Gecko Moria
+  - Effect: current="missing" | should="[On Play] Choose up to 1 Character card with a cost of 4 or less and up to 1 Character card with a cost of 2 or less from your trash. Play 1 card and play the other card rested."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-087 | Cerberus
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-088 | Sai
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader has the {Dressrosa} type and is active, this Character gains +2000 power."
+  - Type line: current="missing" | should="Dressrosa/Happosui Army"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-089 | Taralan
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[On K.O.] Trash 3 cards from the top of your deck."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-090 | Dr. Hogback
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may return 2 cards from your trash to the bottom of your deck in any order: Add up to 1 {Thriller Bark Pirates} type card other than [Dr. Hogback] from your trash to your hand."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-091 | Victoria Cindry
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Thriller Bark Pirates} type, trash 5 cards from the top of your deck."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-092 | Brook
+  - Effect: current="missing" | should="[On Play] Choose one: • Trash up to 1 of your opponent's Characters with a cost of 4 or less. • Your opponent places 3 cards from their trash at the bottom of their deck in any order."
+  - Type line: current="missing" | should="Former Rumbar Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-093 | Perona
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If your opponent has 5 or more cards in their hand, choose one: • Your opponent trashes 1 card from their hand. • Give up to 1 of your opponent's Characters −3 cost during this turn."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-094 | Lola
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-095 | Shadows Asgard
+  - Effect: current="missing" | should="[Main]/[Counter] Your Leader gains +1000 power during this turn. Then, you may K.O. any number of your {Thriller Bark Pirates} type Characters with a cost of 2 or less. Your Leader gains an additional +1000 power during this turn for every Character K.O.'d."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-096 | ...Nothing...at All!!!
+  - Effect: current="missing" | should="[Counter] You may add 1 card from the top of your Life cards to your hand: Your Characters with a cost of 7 or less cannot be K.O.'d in battle during this turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Counter] effect."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-097 | Negative Hollow
+  - Effect: current="missing" | should="[Main] Trash 1 card from your opponent's hand."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-098 | Thriller Bark
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Stage: If your Leader has the {Thriller Bark Pirates} type, play up to 1 {Thriller Bark Pirates} type Character card with a cost of 2 or less from your trash rested."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-099 | Aisa
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at up to 1 card from the top of your or your opponent's Life cards and place it at the top or bottom of the Life cards."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-100 | Inuarashi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 3 or less Life cards, play this card."
+  - Type line: current="missing" | should="Minks/Land of Wano/The Akazaya Nine"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-101 | O-Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your Leader or Character cards gains [Banish] during this turn. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-102 | Kamakiri
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may place 1 Stage with a cost of 1 at the bottom of the owner's deck: K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] If you have 2 or less Life cards, play this card."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-103 | Kawamatsu
+  - Effect: current="missing" | should="[When Attacking] You may trash 2 cards from your hand: Add up to 1 of your Characters with 0 power to the top or bottom of the owner's Life cards face-up."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 3 or less Life cards, play this card."
+  - Type line: current="missing" | should="Fish-Man/Land of Wano/The Akazaya Nine"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-104 | Kikunojo
+  - Effect: current="missing" | should="[On K.O.] If your opponent has 3 or less Life cards, add up to 1 card from the top of your deck to the top of your Life cards."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 3 or less Life cards, play this card."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-105 | Genbo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-106 | Kouzuki Hiyori
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 card from your hand to the top of your Life cards."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-107 | Kouzuki Momonosuke
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Add up to 1 of your {Land of Wano} type Characters other than [Kouzuki Momonosuke] to the top or bottom of the owner's Life cards face-up."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- OP06-108 | Tenguyama Hitetsu
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your {Land of Wano} type Leader or Character cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-109 | Denjiro
+  - Effect: current="missing" | should="[DON!! x2] If your opponent has 3 or less Life cards, this Character cannot be K.O.'d by effects."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 3 or less Life cards, play this card."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-110 | Nekomamushi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] This Character can also attack your opponent's active Characters."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 3 or less Life cards, play this card."
+  - Type line: current="missing" | should="Minks/Land of Wano/The Akazaya Nine"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-111 | Braham
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may place 1 Stage with a cost of 1 at the bottom of the owner's deck: Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] If you have 2 or less Life cards, play this card."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-112 | Raizo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may trash 1 card from your hand: Rest up to 1 of your opponent's DON!! cards."
+  - Trigger: current="missing" | should="[Trigger] If your opponent has 3 or less Life cards, play this card."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-113 | Raki
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a {Shandian Warrior} type Character other than [Raki], this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-114 | Wyper
+  - Effect: current="missing" | should="[On Play] You may place 1 Stage with a cost of 1 at the bottom of the owner's deck: Look at 5 cards from the top of your deck; reveal up to 1 [Upper Yard] or {Shandian Warrior} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-115 | You're the One Who Should Disappear.
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] If you have 0 Life cards, you may add up to 1 card from the top of your deck to the top of your Life cards. Then, trash 1 card from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-116 | Reject
+  - Effect: current="missing" | should="[Main] Choose one: • K.O. up to 1 of your opponent's Characters with a cost of 5 or less. • If your opponent has 1 Life card, deal 1 damage to your opponent. Then, add 1 card from the top of your Life cards to your hand."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-117 | The Ark Maxim
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may rest this card and 1 of your [Enel] cards: K.O. all of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+- OP06-118 | Roronoa Zoro
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] ➀ (You may rest the specified number of DON!! cards in your cost area.): Set this Character as active. [Activate: Main] [Once Per Turn] ➁ (You may rest the specified number of DON!! cards in your cost area.): Set this Character as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP06-119 | Sanji
+  - Effect: current="missing" | should="[On Play] Reveal 1 card from the top of your deck and play up to 1 Character with a cost of 9 or less other than [Sanji]. Then, place the rest at the bottom of your deck."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Wings of the Captain" | should="WINGS OF THE CAPTAIN [OP06]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### Zoro & Sanji [ST-12]
+- ST12-001 | Roronoa Zoro &amp; Sanji
+  - Card name: current="Roronoa Zoro &amp; Sanji" | should="Roronoa Zoro & Sanji"
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] [Once Per Turn] You may return 1 of your Characters with a cost of 2 or more to the owner's hand: Set up to 1 of your Characters with 7000 power or less as active."
+  - Attribute: current="Slash" | should="Slash/Strike"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-002 | Kuina
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Frost Moon Village"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-003 | Dracule Mihawk
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or less Characters, play up to 1 {Muggy Kingdom} type or <Slash> attribute Character card with a cost of 4 or less other than [Dracule Mihawk] from your hand rested."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Muggy Kingdom"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- ST12-004 | Humandrill
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Muggy Kingdom"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-005 | Perona
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Muggy Kingdom/Thriller Bark Pirates"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-006 | Yosaku &amp; Johnny
+  - Card name: current="Yosaku &amp; Johnny" | should="Yosaku & Johnny"
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Choose one: • Rest up to 1 of your opponent's Characters with a cost of 2 or less. • K.O. up to 1 of your opponent's rested Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-007 | Rika
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] ➁ (You may rest the specified number of DON!! cards in your cost area.): If your opponent has 3 or more Life cards, set up to 1 of your <Slash> attribute Characters with a cost of 4 or less as active."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-008 | Roronoa Zoro
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Rest up to 1 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-009 | Elephant True Bluefin
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-010 | Emporio.Ivankov
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Reveal 1 card from the top of your deck and play up to 1 Character card with a cost of 2. Then, place the rest at the top or bottom of your deck. [When Attacking] [Once Per Turn] Draw 1 card if you have 6 or less cards in your hand."
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+  - Rarity: current="SuperRare" | should="SR"
+- ST12-011 | Sanji
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have 5 or less cards in your hand, this Character gains +2000 power until the start of your next turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-012 | Charlotte Pudding
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] Return this Character to the owner's hand."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-013 | Zeff
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck and place them at the top or bottom of the deck in any order. [When Attacking] Reveal 1 card from the top of your deck and play up to 1 Character card with a cost of 2 rested. Then, place the rest at the top or bottom of your deck."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-014 | Duval
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Look at 3 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="The Flying Fish Riders"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-015 | Patty &amp; Carne
+  - Card name: current="Patty &amp; Carne" | should="Patty & Carne"
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-016 | Lion Strike
+  - Effect: current="missing" | should="[Main]/[Counter] Rest up to 1 of your opponent's Leader or Character cards with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+- ST12-017 | Plastic Surgery Shot
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, reveal 1 card from the top of your deck, play up to 1 Character card with a cost of 2, and place the rest at the top or bottom of your deck."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Zoro and Sanji" | should="Zoro & Sanji [ST-12]"
+  - Release date: current="missing" | should="2024-03-15"
+
+### The Three Brothers [ST13]
+- ST13-001 | Sabo
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] You may add 1 of your Characters with a cost of 3 or more and 7000 power or more to the top of your Life cards face-up: Up to 1 of your Characters gains +2000 power until the start of your next turn."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-002 | Portgas.D.Ace
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x2] [Activate: Main] [Once Per Turn] Look at 5 cards from the top of your deck and add up to 1 Character card with a cost of 5 to the top of your Life cards face-up. Then, place the rest at the bottom of your deck in any order. [End of Your Turn] Trash all your face-up Life cards."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-003 | Monkey.D.Luffy
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="Your face-up Life cards are placed at the bottom of your deck instead of being added to your hand, according to the rules. [DON!! x2] [Activate: Main] [Once Per Turn] You may trash 1 card from your hand: If you have 0 Life cards, add up to 2 Character cards with a cost of 5 from your hand or trash to the top of your Life cards face-up."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-004 | Edward.Newgate
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add 1 card from the top of your deck to the top of your Life cards. Then, look at all your Life cards; place 1 card at the top of your deck and place the rest back in your Life area in any order."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-005 | Emporio.Ivankov
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] You may trash 1 card from the top or bottom of your Life cards: Reveal up to 1 Character card with a cost of 5 from your hand and add it to the top of your Life cards face-down."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-006 | Curly.Dadan
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Play up to 1 each of [Sabo], [Portgas.D.Ace], and [Monkey.D.Luffy] with a cost of 2 from your hand."
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-007 | Sabo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Reveal 1 card from the top of your Life cards. If that card is a [Sabo] with a cost of 5, you may play that card. If you do, up to 1 of your Leader gains +2000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-008 | Sabo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from the top or bottom of your Life cards: K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+  - Rarity: current="SuperRare" | should="SR"
+- ST13-009 | Shanks
+  - Effect: current="missing" | should="[On Play] You may turn 1 of your face-up Life cards face-down: If your opponent has 7 or more cards in their hand, trash up to 1 card from the top of your opponent's Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Red-Haired Pirates"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-010 | Portgas.D.Ace
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Reveal 1 card from the top of your Life cards. If that card is a [Portgas.D.Ace] with a cost of 5, you may play that card. If you do, up to 1 of your Leader gains +2000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-011 | Portgas.D.Ace
+  - Effect: current="missing" | should="[On Play] If you have 2 or less Life cards, this Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+  - Rarity: current="SuperRare" | should="SR"
+- ST13-012 | Makino
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Look at all of your Life cards and place them back in your Life area in any order."
+  - Type line: current="missing" | should="Windmill Village"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-013 | Monkey.D.Garp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Sabo], [Portgas.D.Ace], or [Monkey.D.Luffy] with a cost of 5 or less and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+  - Rarity: current="SuperRare" | should="SR"
+- ST13-014 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Reveal 1 card from the top of your Life cards. If that card is a [Monkey.D.Luffy] with a cost of 5, you may play that card. If you do, up to 1 of your Leader gains +2000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-015 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] This Character gains +2000 power until the start of your next turn. Then, if you have 1 or more Life cards, draw 1 card and trash 1 card from the top of your Life cards."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+  - Rarity: current="SuperRare" | should="SR"
+- ST13-016 | Yamato
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [On Play] Look at all your Life cards; place 1 at the top of your deck and place the rest back in your Life area in any order."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-017 | Flame Dragon King
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, look at all your Life cards and place them back in your Life area in any order."
+  - Trigger: current="missing" | should="[Trigger] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 card from your hand to the top of your Life cards."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-018 | Gum-Gum Jet Spear
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 0 Life cards, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 card from your hand to the top of your Life cards."
+  - Type line: current="missing" | should="Punk Hazard/Straw Hat Crew"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+- ST13-019 | The Three Brothers' Bond
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 [Sabo], [Portgas.D.Ace], or [Monkey.D.Luffy] with a cost of 5 or less and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="The Three Brothers" | should="The Three Brothers [ST13]"
+  - Release date: current="missing" | should="2024-04-19"
+
+### Memorial Collection [EB-01]
+- EB01-001 | Kouzuki Oden
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="All of your {Land of Wano} type Character cards without a Counter have a +1000 Counter, according to the rules. [DON!! x1] [When Attacking] If you have a {Land of Wano} type Character with a cost of 5 or more, this Leader gains +1000 power until the start of your next turn."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-002 | Izo
+  - Effect: current="missing" | should="[On Play] Give up to 1 rested DON!! card to your Leader or 1 of your Characters.[On Your Opponent's Attack] [Once Per Turn] You may trash 1 card from your hand: If your Leader has the {Land of Wano} or {Whitebeard Pirates} type, give up to 1 of your opponent's Leader or Character cards −2000 power during this turn."
+  - Type line: current="missing" | should="Land of Wano/Whitebeard Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-003 | Kid &amp; Killer
+  - Card name: current="Kid &amp; Killer" | should="Kid & Killer"
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.)[When Attacking] If your opponent has 2 or less Life cards, this Character gains +2000 power during this turn."
+  - Attribute: current="Slash" | should="Slash/Special"
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-004 | Koza
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may give your 1 active Leader −5000 power during this turn: Give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-005 | Doma
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Whitebeard Pirates Allies"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-006 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)[DON!! x2] [When Attacking] Give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-007 | Yamato
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-008 | LittleOars Jr.
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Once Per Turn] If this Character would be K.O.'d by an effect, you may trash 1 Event or Stage card from your hand instead."
+  - Type line: current="missing" | should="Giant/Whitebeard Pirates Allies"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-009 | Just Shut Up and Come with Us!!!!
+  - Effect: current="missing" | should="[Counter] Look at 5 cards from the top of your deck and play up to 1 {Animal} type Character card with a cost of 3 or less. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Drum Kingdom/Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-010 | There's No Way You Could Defeat Me!!
+  - Effect: current="missing" | should="[Counter] K.O. up to 1 of your opponent's Characters with 6000 base power or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 5000 base power or less."
+  - Type line: current="missing" | should="Water Seven/Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-011 | Mini-Merry
+  - Effect: current="missing" | should="[Activate: Main] You may rest this card and place 1 of your Characters with 1000 base power at the bottom of your deck: Draw 1 card."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-012 | Cavendish
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] If your Leader has the {Supernovas} type and you have no other [Cavendish] Characters, set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Supernovas/Beautiful Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-013 | Kouzuki Hiyori
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Play up to 1 {Land of Wano} type Character card with a cost of 5 or less other than [Kouzuki Hiyori] from your hand. Then, draw 1 card."
+  - Type line: current="missing" | should="Land of Wano/Kouzuki Clan"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-014 | Sanji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] This Character gains +1000 power for every 3 of your rested DON!! cards."
+  - Type line: current="missing" | should="FILM/Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-015 | Scratchmen Apoo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Rest up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Supernovas/On-Air Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-016 | Bingoh
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: K.O. up to 1 of your opponent's rested Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-017 | Blueno
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="FILM/CP0"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-018 | Mountain God
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Land of Wano"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-019 | Off-White
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, look at 3 cards from the top of your deck; reveal up to 1 {Donquixote Pirates} type Character card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-020 | Chambres
+  - Effect: current="missing" | should="[Main] If your Leader has the {Supernovas} type, return 1 of your Characters to the owner's hand, and play up to 1 Character card with a cost of 2 or less from your hand that is a different color than the returned Character."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Supernovas/Heart Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-021 | Hannyabal
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[End of Your Turn] You may return 1 of your {Impel Down} type Characters with a cost of 2 or more to the owner's hand: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-022 | Inazuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[End of Your Turn] If you have 2 or less cards in your hand, draw 2 cards."
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-023 | Edward Weevil
+  - Effect: current="missing" | should="[On Play] Draw 1 card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-024 | Hamlet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 4 or less cards in your hand, all of your {SMILE} type Characters gain +1000 power."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-025 | Fourtricks
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-026 | Prince Bellett
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have 1 or less cards in your hand, return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-027 | Mr.1(Daz.Bonez)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader's type includes "Baroque Works", this Character gains +1000 power for every 2 Events in your trash. [On Play] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-028 | Gum-Gum Champion Rifle
+  - Effect: current="missing" | should="[Counter] If your Leader has the {Impel Down} type, up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, your opponent returns 1 of their active Characters to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 3 or less to the bottom of the owner's deck."
+  - Type line: current="missing" | should="Impel Down/Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-029 | Sorry. I'm a Goner.
+  - Effect: current="missing" | should="[Counter] Reveal 1 card from the top of your deck. If the revealed card has a cost of 4 or more, return up to 1 of your Characters to the owner's hand. Then, place the revealed card at the bottom of your deck."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 8 or less to the owner's hand."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-030 | Loguetown
+  - Effect: current="missing" | should="[Activate: Main] You may place this card and 1 card from your hand at the bottom of your deck in any order: Draw 2 cards."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-031 | Kalifa
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Water Seven} type, add up to 2 Character cards with a cost of 4 or less from your trash to your hand."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-032 | Army Wolves
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Impel Down"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-033 | Blueno
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Water Seven} type, play up to 1 {Water Seven} type Character card with a cost of 5 other than [Blueno] from your hand or trash."
+  - Type line: current="missing" | should="Water Seven"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-034 | Ms. Wednesday
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Your Opponent's Attack] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader's type includes "Baroque Works", add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-035 | Ms. Monday
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "Baroque Works", up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-036 | Minochihuahua
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [On K.O.] If your Leader has the {Impel Down} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Impel Down/Jailer Beast"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-037 | Mr. 9
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-038 | Oh Come My Way
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader's type includes "Baroque Works", select 1 of your Characters. Change the attack target to the selected Character."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1: Draw 2 cards."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-039 | Conquerer of Three Worlds Ragnaraku
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 8 or less."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-040 | Kyros
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may turn 1 card from the top of your Life cards face-up: K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-041 | Crocus
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Former Roger Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-042 | Scarlet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Play up to 1 {Dressrosa} type Character card with a cost of 3 or less other than [Scarlet] from your hand rested. Then, give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-043 | Spandine
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may place 3 cards with a type including "CP" from your trash at the bottom of your deck in any order: Play up to 1 Character card with a type including "CP" and a cost of 4 or less other than [Spandine] from your trash rested."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-044 | Funkfreed
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your [Spandam] Characters gains +3000 power during this turn."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-045 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your opponent has a Character with a cost of 0, this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Rumbar Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-046 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] Give up to 1 of your opponent's Characters −1 cost during this turn. Then, K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-047 | Laboon
+  - Effect: current="missing" | should="[Once Per Turn] When a Character is K.O.'d, draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-048 | Laboon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-049 | T-Bone
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Water Seven/Navy"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-050 | ...I Want to Live!!
+  - Effect: current="missing" | should="[Counter] If you have 30 or more cards in your trash, add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-051 | Finger Pistol
+  - Effect: current="missing" | should="[Main] You may trash 2 cards from the top of your deck: K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-052 | Viola
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Choose one: • Look at all of your opponent's Life cards and place them back in their Life area in any order. • Turn all of your Life cards face-down."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-053 | Gastino
+  - Effect: current="missing" | should="[On Play] Place up to 1 of your opponent's Characters with a cost of 3 or less at the top or bottom of your opponent's Life cards face-up."
+  - Trigger: current="missing" | should="[Trigger] Give up to a total of 2 of your opponent's Leader or Character cards −3000 power during this turn."
+  - Type line: current="missing" | should="Scientist"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-054 | Gan.Fall
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If your opponent has 1 or less Life cards, K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-055 | Charlotte Compote
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-056 | Charlotte Flampe
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Draw 1 card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-057 | Shirahoshi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="When this Character is K.O.'d by your opponent's effect, add up to 1 card from the top of your deck to the top of your Life cards. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SuperRare" | should="SR"
+- EB01-058 | Mont Blanc Cricket
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] If you have 2 or less Life cards, this Character gains +2000 power."
+  - Type line: current="missing" | should="Monkey Mountain Alliance"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-059 | Kingdom Come
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters. Then, trash cards from the top of your Life cards until you have 1 Life card."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost equal to or less than the total of your and your opponent's Life cards."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-060 | Did Someone Say...Kami?
+  - Effect: current="missing" | should="[Main] Play up to 1 [Enel] with a cost of 7 or less from your hand or trash. Then, trash cards from the top of your Life cards until you have 1 Life card."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+- EB01-061 | Mr.2.Bon.Kurei(Bentham)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 DON!! card from your DON!! deck and set it as active. [When Attacking] Select up to 1 of your opponent's Characters. This Character's base power becomes the same as the selected Character's power during this turn."
+  - Type line: current="missing" | should="Former Baroque Works"
+  - Set name: current="Memorial Collection" | should="Memorial Collection [EB-01]"
+  - Release date: current="missing" | should="2024-05-03"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### 500 YEARS IN THE FUTURE [OP-07]
+- OP07-001 | Monkey.D.Dragon
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 2 total of your currently given DON!! cards to 1 of your Characters."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-002 | Ain
+  - Effect: current="missing" | should="[On Play] Set the power of up to 1 of your opponent's Characters to 0 during this turn."
+  - Type line: current="missing" | should="FILM/Neo Navy"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-003 | Outlook III
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Give up to 2 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-004 | Curly.Dadan
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: Look at 5 cards from the top of your deck; reveal up to 1 Character card with 2000 power or less and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-005 | Carina
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-006 | Sterry
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may give your 1 active Leader −5000 power during this turn: Draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-007 | Dice
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-008 | Mr. Tanaka
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-009 | Dogura &amp; Magura
+  - Card name: current="Dogura &amp; Magura" | should="Dogura & Magura"
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your red Characters with a cost of 1 gains [Double Attack] during this turn. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="Mountain Bandits"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-010 | Baccarat
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Your Opponent's Attack] [Once Per Turn] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +2000 power during this battle."
+  - Type line: current="missing" | should="FILM/Grantesoro"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-011 | Bluejam
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Type line: current="missing" | should="Goa Kingdom/Bluejam Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-012 | Porchemy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Type line: current="missing" | should="Goa Kingdom/Bluejam Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-013 | Masked Deuce
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader is [Portgas.D.Ace], look at 5 cards from the top of your deck; reveal up to 1 [Portgas.D.Ace] or red Event and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Spade Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-014 | Moda
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Your Turn] [On Play] Up to 1 of your [Portgas.D.Ace] cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Lulucia Kingdom"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-015 | Monkey.D.Dragon
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [On Play] Give up to 2 rested DON!! cards to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-016 | Galaxy Wink
+  - Effect: current="missing" | should="[Main] Up to 1 of your {Revolutionary Army} type Characters gains +2000 power during this turn. Then, give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-017 | Dragon Breath
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with 3000 power or less and up to 1 of your opponent's Stages with a cost of 1 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-018 | KEEP OUT
+  - Effect: current="missing" | should="[Counter] Up to 1 of your {Revolutionary Army} type Characters gains +2000 power until the end of your next turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Counter] effect."
+  - Type line: current="missing" | should="Impel Down/Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-019 | Jewelry Bonney
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] ➀ (You may rest the specified number of DON!! cards in your cost area.): Rest up to 1 of your opponent's Leader or Character cards."
+  - Type line: current="missing" | should="Supernovas/Bonney Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-020 | Aladine
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] If your Leader has the {Fish-Man} type, play up to 1 {Fish-Man} or {Merfolk} type Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Merfolk/The Sun Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-021 | Urouge
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [End of Your Turn] Set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Supernovas/Fallen Monk Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-022 | Otama
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 green {Land of Wano} type card other than [Otama] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-023 | Caribou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 6 or more rested DON!! cards, this Character gains +1000 power. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Supernovas/Caribou Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-024 | Koala
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] You may rest this Character: Up to 1 of your {Fish-Man} type Characters with a cost of 5 or less gains [Blocker] during this turn. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Foolshout Island"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-025 | Coribou
+  - Effect: current="missing" | should="[On Play] Play up to 1 [Caribou] with a cost of 4 or less from your hand rested."
+  - Type line: current="missing" | should="Supernovas/Caribou Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-026 | Jewelry Bonney
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your opponent's rested Character or DON!! cards will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Supernovas/Bonney Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-027 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/The Sun Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-028 | Scratchmen Apoo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Supernovas/On-Air Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-029 | Basil Hawkins
+  - Effect: current="missing" | should="If your Leader has the {Supernovas} type, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Once Per Turn] If this Character would be removed from the field by your opponent's effect, you may rest 1 of your opponent's Characters instead."
+  - Type line: current="missing" | should="Supernovas/Hawkins Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-030 | Pappag
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="If you have a [Camie] Character, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-031 | Bartolomeo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Your Turn] [Once Per Turn] If a Character is rested by your effect, draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Supernovas/Barto Club"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-032 | Fisher Tiger
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="This Character can attack Characters on the turn in which it is played. [On Play] If your Leader has the {Fish-Man} or {Merfolk} type, rest up to 1 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Fish-Man/The Sun Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-033 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 3 or more Characters, your Characters with a cost of 3 or less other than [Monkey.D.Luffy] cannot be K.O.'d by your opponent's effects."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-034 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If you have 3 or more Characters, this Character gains +2000 power during this turn."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-035 | Karmic Punishment
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 3 or more Characters, that card gains an additional +1000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Supernovas/Fallen Monk Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-036 | Demonic Aura Nine-Sword Style Asura Demon Nine Flash
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +3000 power during this turn. Then, you may rest 1 of your Characters with a cost of 3 or more. If you do, rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-037 | More Pizza!!
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 {Supernovas} type card other than [More Pizza!!] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Supernovas/Bonney Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-038 | Boa Hancock
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] This effect can be activated when a Character is removed from the field by your effect. If you have 5 or less cards in your hand, draw 1 card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-039 | Edward Weevil
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Look at 3 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-040 | Crocodile
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] ① (You may rest the specified number of DON!! cards in your cost area.): Return up to 1 Character with a cost of 2 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-041 | Gloriosa (Grandma Nyon)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Amazon Lily} or {Kuja Pirates} type card other than [Gloriosa (Grandma Nyon)] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Amazon Lily"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-042 | Gecko Moria
+  - Effect: current="missing" | should="[Once Per Turn] If your Leader has the {The Seven Warlords of the Sea} type and this Character would be removed from the field by your opponent's effect, you may place 1 of your Characters other than [Gecko Moria] at the bottom of the owner's deck instead."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-043 | Salome
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [On Play] Up to 1 of your [Boa Hancock] cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Animal/Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-044 | Dracule Mihawk
+  - Effect: current="missing" | should="[On Play] Draw 1 card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-045 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {The Seven Warlords of the Sea} type Character card with a cost of 4 or less other than [Jinbe] from your hand."
+  - Type line: current="missing" | should="Fish-Man/The Seven Warlords of the Sea/The Sun Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-046 | Sengoku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {The Seven Warlords of the Sea} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-047 | Trafalgar Law
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may return this Character to the owner's hand: If your opponent has 6 or more cards in their hand, your opponent places 1 card from their hand at the bottom of their deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Heart Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-048 | Donquixote Doflamingo
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] ➁ (You may rest the specified number of DON!! cards in your cost area.): Reveal 1 card from the top of your deck. If that card is a {The Seven Warlords of the Sea} type Character card with a cost of 4 or less, you may play that card rested. Then, place the rest at the bottom of your deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-049 | Buckin
+  - Effect: current="missing" | should="[On Play] Play up to 1 [Edward Weevil] with a cost of 4 or less from your hand rested."
+  - Type line: current="missing" | should="Weevil's Mother"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-050 | Boa Sandersonia
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more {Amazon Lily} or {Kuja Pirates} type Characters on your field, return up to 1 of your opponent's Characters with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-051 | Boa Hancock
+  - Effect: current="missing" | should="[On Play] Up to 1 of your opponent's Characters other than [Monkey.D.Luffy] cannot attack until the end of your opponent's next turn. Then, place up to 1 Character with a cost of 1 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-052 | Boa Marigold
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more {Amazon Lily} or {Kuja Pirates} type Characters on your field, place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-053 | Portgas.D.Ace
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Draw 2 cards and place 2 cards from your hand at the top or bottom of your deck in any order."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-054 | Marguerite
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Draw 1 card."
+  - Type line: current="missing" | should="Amazon Lily"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-055 | Snake Dance
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, return up to 1 of your Characters to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] You may return 1 of your Characters to the owner's hand: Return up to 1 of your opponent's Characters with a cost of 5 or less to the owner's hand."
+  - Type line: current="missing" | should="Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-056 | Slave Arrow
+  - Effect: current="missing" | should="[Counter] You may return 1 of your Characters with a cost of 2 or more to the owner's hand: Up to 1 of your Leader or Character cards gains +4000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and place 2 cards from your hand at the bottom of your deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-057 | Perfume Femur
+  - Effect: current="missing" | should="[Main] Select up to 1 of your {The Seven Warlords of the Sea} type Leader or Character cards and that card gains +2000 power during this turn. Then, if the selected card attacks during this turn, your opponent cannot activate [Blocker]."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-058 | Island of Women
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Stage: If your Leader has the {Kuja Pirates} type, return up to 1 of your {Amazon Lily} or {Kuja Pirates} type Characters to the owner's hand."
+  - Type line: current="missing" | should="Amazon Lily"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-059 | Foxy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[When Attacking] DON!! −3 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If you have 3 or more {Foxy Pirates} type Characters, select your opponent's rested Leader and up to 1 Character card. The selected cards will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-060 | Itomimizu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If your Leader has the {Foxy Pirates} type and you have no other [Itomimizu], add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-061 | Vinsmoke Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {The Vinsmoke Family} type, draw 1 card."
+  - Type line: current="missing" | should="Kingdom of GERMA/The Vinsmoke Family"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-062 | Vinsmoke Reiju
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, return up to 1 of your {The Vinsmoke Family} type Characters with a cost of 1 to the owner's hand."
+  - Type line: current="missing" | should="Kingdom of GERMA/The Vinsmoke Family"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-063 | Capote
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Foxy Pirates} type, up to 1 of your opponent's Characters with a cost of 6 or less cannot attack until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Fish-Man/Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-064 | Sanji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="If the number of DON!! cards on your field is at least 2 less than the number on your opponent's field, give this card in your hand −3 cost. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-065 | Gina
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Foxy Pirates} type and the number of DON!! cards on your field is equal to or less than the number on your opponent's field, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-066 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Animal/Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-067 | Tonjit
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Long Ring Long Land"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-068 | Hamburg
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-069 | Pickles
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, your {Foxy Pirates} type Characters other than [Pickles] cannot be K.O.'d by your opponent's effects."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-070 | Big Bun
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, play up to 1 {Foxy Pirates} type card with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Giant/Fish-Man/Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-071 | Foxy
+  - Effect: current="missing" | should="[Opponent's Turn] If your Leader has the {Foxy Pirates} type, give all of your opponent's Characters −1000 power. [Activate: Main] [Once Per Turn] Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-072 | Porche
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Look at 5 cards from the top of your deck; reveal up to 1 {Foxy Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 purple Character card with 4000 power or less from your hand."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-073 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −3 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your opponent has 3 or more Characters, set this Character as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-074 | Monda
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: If your Leader has the {Foxy Pirates} type, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Animal/Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-075 | Slow-Slow Beam
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Give up to 1 each of your opponent's Leader and Character cards −2000 power during this turn."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-076 | Slow-Slow Beam Sword
+  - Effect: current="missing" | should="[Counter] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, rest up to 1 of your opponent's Characters."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-077 | We're Going to Claim the One Piece!!!
+  - Effect: current="missing" | should="[Main] If your Leader has the {Animal Kingdom Pirates} or {Big Mom Pirates} type, look at 5 cards from the top of your deck; reveal up to 1 {Animal Kingdom Pirates} or {Big Mom Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="The Four Emperors/Land of Wano"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-078 | Megaton Nine-Tails Rush
+  - Effect: current="missing" | should="[Main] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, set up to 1 of your [Foxy] cards as active."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-079 | Rob Lucci
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[When Attacking] You may trash 2 cards from the top of your deck: Give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-080 | Kaku
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may place 2 cards with a type including "CP" from your trash at the bottom of your deck in any order: Give up to 1 of your opponent's Characters −3 cost during this turn."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-081 | Kalifa
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] Give all of your opponent's Characters −1 cost."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-082 | Captain John
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Trash 2 cards from the top of your deck and give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Thriller Bark Pirates/Former Rocks Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-083 | Gecko Moria
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may place 4 {Thriller Bark Pirates} type cards from your trash at the bottom of your deck in any order: This Character gains [Banish] and +1000 power during this turn. (When this card deals damage, the target card is trashed without activating its Trigger.)"
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Thriller Bark Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-084 | Gismonda
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-085 | Stussy
+  - Effect: current="missing" | should="[On Play] You may trash 1 of your Characters: K.O. up to 1 of your opponent's Characters."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-086 | Spandam
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Trash 2 cards from the top of your deck and give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-087 | Baskerville
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Your Turn] If your opponent has a Character with a cost of 0, this Character gains +3000 power."
+  - Type line: current="missing" | should="World Government"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-088 | Hattori
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Your Turn] [On Play] Up to 1 of your [Rob Lucci] cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Animal/CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-089 | Maha
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-090 | Morgans
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Your opponent trashes 1 card from their hand and reveals their hand. Then, your opponent draws 1 card."
+  - Type line: current="missing" | should="Journalist"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-091 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Trash up to 1 of your opponent's Characters with a cost of 2 or less. Then, place any number of Character cards with a cost of 4 or more from your trash at the bottom of your deck in any order. This Character gains +1000 power during this turn for every 3 cards placed at the bottom of your deck."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-092 | Joseph
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may place 2 cards with a type including "CP" from your trash at the bottom of your deck in any order: K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-093 | Rob Lucci
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may place 3 cards from your trash at the bottom of your deck in any order: Your opponent trashes 1 card from their hand. Then, you may place up to 1 card from your opponent's trash at the bottom of their deck."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-094 | Shave
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if you have 10 or more cards in your trash, return up to 1 of your Characters with a type including "CP" to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 of your Characters to the owner's hand."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-095 | Iron Body
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, if you have 10 or more cards in your trash, that card gains an additional +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-096 | Tempest Kick
+  - Effect: current="missing" | should="[Main] Draw 1 card. Then, if you have 10 or more cards in your trash, give up to 1 of your opponent's Characters −3 cost during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-097 | Vegapunk
+  - Cost: current="2" | should="missing"
+  - Life: current="missing" | should="2"
+  - Effect: current="missing" | should="This Leader cannot attack. [Activate: Main] [Once Per Turn] ① (You may rest the specified number of DON!! cards in your cost area.): Select up to 1 {Egghead} type card with a cost of 5 or less from your hand and play it or add it to the top of your Life cards face-up."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-098 | Atlas
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have less Life cards than your opponent, this Character cannot be K.O.'d in battle."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Vegapunk], play this card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-099 | Usopp
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your {Egghead} type Leader or Character cards gains +2000 power until the end of your next turn."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-100 | Edison
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or less Life cards, draw 2 cards and trash 2 card from your hand."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Vegapunk], play this card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-101 | Shaka
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Vegapunk], play this card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-102 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 of your opponent's Characters with a cost of 4 or less to the owner's hand and add this card to your hand."
+  - Type line: current="missing" | should="Fish-Man/Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-103 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your {Egghead} type Characters gains [Blocker] during this turn. Then, add this card to your hand."
+  - Type line: current="missing" | should="Animal/Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-104 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Egghead} type, draw 2 cards."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-105 | Pythagoras
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] If you have 2 or less Life cards, play up to 1 {Egghead} type Character card with a cost of 4 or less from your trash rested."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Vegapunk], play this card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-106 | Fuza
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have 1 or less Life cards, K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Animal/Sky Island"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-107 | Franky
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card. Then, if you have 1 or less Life cards, play this card."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-108 | Vega Force 01
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-109 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: If you have 2 or less Life cards, K.O. up to 1 of your opponent's Characters with a cost of 4 or less. Then, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="The Four Emperors/Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-110 | York
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top or bottom of your Life cards to your hand: K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Vegapunk], play this card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-111 | Lilith
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Egghead} type card other than [Lilith] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Vegapunk], play this card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SuperRare" | should="SR"
+- OP07-112 | Lucy
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] You may add 1 card from the top or bottom of your Life cards to your hand: You may rest up to 1 of your opponent's Characters with a cost of 4 or less. Then, if you have 1 or less Life cards, add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-113 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Egghead} type, rest up to 1 of your opponent's Leader or Character cards."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-114 | He Possesses the World's Most Brilliant Mind
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 {Egghead} type card other than [He Possesses the World's Most Brilliant Mind] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-115 | I Re-Quasar Helllp!!
+  - Effect: current="missing" | should="[Counter] If you have 2 or less Life cards, up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 of your {Egghead} type Character cards with a cost of 5 or less from your trash."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-116 | Blaze Slice
+  - Effect: current="missing" | should="[Main]/[Counter] Up to 1 of your Leader or Character cards gains +1000 power during this turn. Then, if your opponent has 2 or less Life cards, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Land of Wano/The Akazaya Nine"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-117 | Egghead
+  - Effect: current="missing" | should="[End of Your Turn] If you have 3 or less Life cards, set up to 1 {Egghead} type Character with a cost of 5 or less as active."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Egghead"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+- OP07-118 | Sabo
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost of 5 or less and up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP07-119 | Portgas.D.Ace
+  - Effect: current="missing" | should="[On Play] Add up to 1 card from the top of your deck to the top of your Life cards. Then, if you have 2 or less Life cards, this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="500 Years in the Future" | should="500 YEARS IN THE FUTURE [OP-07]"
+  - Release date: current="missing" | should="2024-06-28"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### 3D2Y [ST-14]
+- ST14-001 | Monkey.D.Luffy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] All of your Characters gain +1 cost. If you have a Character with a cost of 8 or more, this Leader gains +1000 power."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-002 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have a Character with a cost of 8 or more, K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-003 | Sanji
+  - Effect: current="missing" | should="[On Play] If you have a Character with a cost of 6 or more, K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+  - Rarity: current="SuperRare" | should="SR"
+- ST14-004 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Up to 1 of your black {Straw Hat Crew} type Characters gains +2 cost until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Fish-Man/The Sun Pirates"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-005 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-006 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you have 6 or less cards in your hand and a Character with a cost of 8 or more, draw 1 card."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+  - Rarity: current="SuperRare" | should="SR"
+- ST14-007 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] If you have a Character with a cost of 8 or more, give up to 1 of your opponent's Characters −5 cost during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-008 | Haredas
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your black {Straw Hat Crew} type Characters gains +2 cost until the end of your opponent's next turn. Then, if you have a Character with a cost of 8 or more, draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-009 | Franky
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Opponent's Turn] If you have a Character with a cost of 6 or more, this Character cannot be K.O.'d by your opponent's effects and gains +2000 power."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-010 | Brook
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-011 | Heracles
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your black {Straw Hat Crew} type Characters gains +2 cost until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Bowin Island"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-012 | Monkey.D.Luffy
+  - Effect: current="missing" | should="If you have a Character with a cost of 10 or more, this Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-013 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-014 | Gum-Gum Giant Rifle
+  - Effect: current="missing" | should="[Counter] If you have a Character with a cost of 8 or more, up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 of your Character cards with a cost of 2 or less from your trash to your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-015 | Gum-Gum Diable Three-Swords Style Mouten Jet Six Hundred Pound Phoenix Cannon
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +3000 power during this turn. Then, if you have a Character with a cost of 8 or more, K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] If you have a Character with a cost of 8 or more, K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-016 | I Have My Crew!!
+  - Effect: current="missing" | should="[Main] Draw 1 card. Then, up to 1 of your Characters gains +3 cost until the end of your opponent's next turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+- ST14-017 | Thousand Sunny
+  - Effect: current="missing" | should="All of your black {Straw Hat Crew} type Characters gain +1 cost. [On Play] If your Leader has the {Straw Hat Crew} type, draw 1 card."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="3D2Y" | should="3D2Y [ST-14]"
+  - Release date: current="missing" | should="2024-08-16"
+
+### TWO LEGENDS [OP-08]
+- OP08-001 | Tony Tony.Chopper
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 3 of your {Animal} or {Drum Kingdom} type Characters up to 1 rested DON!! card each."
+  - Type line: current="missing" | should="Animal/Drum Kingdom/Straw Hat Crew"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-002 | Marco
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] Draw 1 card and place 1 card from your hand at the top or bottom of your deck. Then, give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-003 | Twenty Doctors
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-004 | Kuromarimo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have [Chess], K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-005 | Chess
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −2000 power during this turn. Then, if you don't have [Kuromarimo], play up to 1 [Kuromarimo] from your hand."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-006 | Chessmarimo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] If you have [Kuromarimo] and [Chess] in your trash, this Character gains +2000 power."
+  - Attribute: current="Strike" | should="Strike/Ranged"
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-007 | Tony Tony.Chopper
+  - Effect: current="missing" | should="[Your Turn] [On Play]/[When Attacking] Look at 5 cards from the top of your deck and play up to 1 {Animal} type Character card with 4000 power or less rested. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Animal/Drum Kingdom/Straw Hat Crew"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-008 | Dalton
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −1000 power during this turn. [DON!! x1] [Activate: Main] [Once Per Turn] You may add 1 card from the top of your Life cards to your hand: This Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-009 | Maria Onion Bear
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-010 | Hiking Bear
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] Up to 1 of your {Animal} type Characters other than this Character gains +1000 power during this turn."
+  - Type line: current="missing" | should="Animal/Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-011 | Musshuru
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="FILM/Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-012 | Lapins
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] If your Leader has the {Drum Kingdom} type, K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="Animal/Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-013 | Robson
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] This Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Animal/Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-014 | Wapol
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −2000 power during this turn. Then, this Character gains +2000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-015 | Dr.Kureha
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 4 cards from the top of your deck; reveal up to 1 [Tony Tony.Chopper] or {Drum Kingdom} type card other than [Dr.Kureha] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-016 | Dr.Hiriluk
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If your Leader is [Tony Tony.Chopper], all of your [Tony Tony.Chopper] Characters gain +2000 power during this turn."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-017 | I'd Never Shoot You!!!!
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, give up to 1 of your opponent's Leader or Character cards −1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-018 | Cloven Rose
+  - Effect: current="missing" | should="[Main] Up to 3 of your Characters gain +1000 power during this turn. Then, give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Give up to 1 of your opponent's Leader or Character cards −3000 power during this turn."
+  - Type line: current="missing" | should="Animal/Drum Kingdom/Straw Hat Crew"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-019 | Munch-Munch Mutation
+  - Effect: current="missing" | should="[Main]/[Counter] Give up to 1 of your opponent's Characters −3000 power during this turn. Then, up to 1 of your Characters gains +3000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 5000 power or less."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-020 | Drum Kingdom
+  - Effect: current="missing" | should="[Opponent's Turn] All of your {Drum Kingdom} type Characters gain +1000 power."
+  - Type line: current="missing" | should="Drum Kingdom"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-021 | Carrot
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If you have a {Minks} type Character, rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-022 | Inuarashi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Minks} type, up to 2 of your opponent's rested Characters with a cost of 5 or less will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Minks/The Akazaya Nine"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-023 | Carrot
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] Up to 1 of your opponent's rested Characters with a cost of 7 or less will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-024 | Concelot
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Up to 1 of your opponent's rested Characters with a cost of 4 or less will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-025 | Shishilian
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your opponent's rested Characters with a cost of 3 or less will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-026 | Giovanni
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Up to 1 of your opponent's rested Characters with a cost of 1 or less will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-027 | Tristan
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-028 | Nekomamushi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your opponent has 7 or more rested cards, this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Minks/The Akazaya Nine"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-029 | Pekoms
+  - Effect: current="missing" | should="If this Character is active, your {Minks} type Characters with a cost of 3 or less other than [Pekoms] cannot be K.O.'d by effects."
+  - Type line: current="missing" | should="Minks/Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-030 | Pedro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Choose one: • Rest up to 1 of your opponent's DON!! cards. • K.O. up to 1 of your opponent's rested Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-031 | Miyagi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Set up to 1 of your {Minks} type Characters with a cost of 2 or less as active."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-032 | Milky
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If your Leader has the {Minks} type, set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-033 | Roddy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Minks} type and your opponent has 7 or more rested cards, K.O. up to 1 of your opponent's rested Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-034 | Wanda
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Minks} type card other than [Wanda] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-035 | BB
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-036 | Electrical Luna
+  - Effect: current="missing" | should="[Main] All of your opponent's rested Characters with a cost of 7 or less will not become active in your opponent's next Refresh Phase."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-037 | Garchu
+  - Effect: current="missing" | should="[Main] You may rest 1 of your {Minks} type Characters: Rest up to 1 of your opponent's Characters."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-038 | We Would Never Sell a Comrade to an Enemy!!!
+  - Effect: current="missing" | should="[Main] You may rest 2 of your Characters: None of your Characters can be K.O.'d by your opponent's effects until the end of your opponent's next turn."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Minks/The Akazaya Nine"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-039 | Zou
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader has the {Minks} type, set up to 1 of your DON!! cards as active. [End of Your Turn] Set up to 1 of your {Minks} type Characters as active."
+  - Type line: current="missing" | should="Animal"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-040 | Atmos
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may reveal 2 cards with a type including "Whitebeard Pirates" from your hand: If your Leader's type includes "Whitebeard Pirates", return up to 1 of your opponent's Characters with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-041 | Aphelandra
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may return this Character to the owner's hand: If your Leader has the {Kuja Pirates} type, place up to 1 of your opponent's Characters with a cost of 1 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Amazon Lily"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-042 | Edward Weevil
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-043 | Edward.Newgate
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "Whitebeard Pirates" and you have 2 or less Life cards, select all of your opponent's Characters on their field. Until the end of your opponent's next turn, none of the selected Characters can attack unless your opponent trashes 2 cards from their hand whenever they attack."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-044 | Kingdew
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may reveal 2 cards with a type including "Whitebeard Pirates" from your hand: This Character gains +2000 power during this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-045 | Thatch
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If this Character would be removed from the field by your opponent's effect or K.O.'d, trash this Character and draw 1 card instead."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-046 | Shakuyaku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a Character is removed from the field by your effect, if your opponent has 5 or more cards in their hand, your opponent places 1 card from their hand at the bottom of their deck. Then, rest this Character."
+  - Type line: current="missing" | should="Amazon Lily"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-047 | Jozu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may return 1 of your Characters other than this Character to the owner's hand: Return up to 1 Character with a cost of 6 or less to the owner's hand."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-048 | Sweetpea
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Amazon Lily"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-049 | Speed Jil
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Reveal 1 card from the top of your deck and place it at the top or bottom of your deck. If the revealed card's type includes "Whitebeard Pirates", this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-050 | Namule
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Draw 2 cards and place 2 cards from your hand at the top or bottom of your deck in any order."
+  - Type line: current="missing" | should="Fish-Man/Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-051 | Buckin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [On Play] Up to 1 of your [Edward Weevil] cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Former Rocks Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-052 | Portgas.D.Ace
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Reveal 1 card from the top of your deck and play up to 1 Character card with a type including "Whitebeard Pirates" and a cost of 4 or less. Then, place the rest at the top or bottom of your deck."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-053 | Thank You...for Loving Me!!
+  - Effect: current="missing" | should="[Main] If your Leader's type includes "Whitebeard Pirates", look at 3 cards from the top of your deck; reveal up to 1 card with a type including "Whitebeard Pirates" or [Monkey.D.Luffy] and add it to your hand. Then, place the rest at the top or bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-054 | You Can't Take Our King This Early in the Game.
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +3000 power during this battle. Then, reveal 1 card from the top of your deck and play up to 1 Character card with a type including "Whitebeard Pirates" and a cost of 3 or less. Then, place the rest at the top or bottom of your deck."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-055 | Phoenix Brand
+  - Effect: current="missing" | should="[Main] You may reveal 2 cards with a type including "Whitebeard Pirates" from your hand: Place up to 1 Character with a cost of 6 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Former Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-056 | Moby Dick
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When your Character with a type including "Whitebeard Pirates" is removed from the field by an effect, draw 1 card. Then, place 1 card from your hand at the top or bottom of your deck."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-057 | King
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Choose one: • If you have 5 or less cards in your hand, draw 1 card. • Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-058 | Charlotte Pudding
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[When Attacking] You may turn 2 cards from the top of your Life cards face-up: Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-059 | Alber
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: If your Leader has the {Animal Kingdom Pirates} type and you have 10 DON!! cards on your field, play up to 1 [King] with a cost of 7 or less from your hand."
+  - Type line: current="missing" | should="Lunarian/Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-060 | King
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your opponent has 5 or more DON!! cards on their field, this Character gains [Rush] during this turn. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-061 | Charlotte Oven
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-062 | Charlotte Katakuri
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: If your Leader has the {Big Mom Pirates} type, play up to 1 [Charlotte Katakuri] from your hand with a cost of 3 or more that is equal to or less than the number of DON!! cards on your opponent's field."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-063 | Charlotte Katakuri
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may turn 1 card from the top of your Life cards face-down: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-064 | Charlotte Cracker
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 [Biscuit Warrior] from your hand."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-065 | Charlotte Smoothie
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-066 | Charlotte Brulee
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-067 | Charlotte Pudding
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-068 | Charlotte Perospero
+  - Effect: current="missing" | should="[On K.O.] Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-069 | Charlotte Linlin
+  - Effect: current="missing" | should="[On Play] DON!! −1, You may trash 1 card from your hand: Add up to 1 card from the top of your deck to the top of your Life cards. Then, add up to 1 of your opponent's Characters with a cost of 6 or less to the top or bottom of your opponent's Life cards face-up."
+  - Type line: current="missing" | should="Former Rocks Pirates/Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-070 | Baron Tamago
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 [Viscount Hiyoko] with a cost of 5 or less from your hand."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-071 | Count Niwatori
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Opponent's Turn] [On K.O.] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 [Baron Tamago] with a cost of 4 or less from your deck. Then, shuffle your deck."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-072 | Biscuit Warrior
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Under the rules of this game, you may have any number of this card in your deck. [Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-073 | Viscount Hiyoko
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Opponent's Turn] [On K.O.] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 [Count Niwatori] with a cost of 6 or less from your deck. Then, shuffle your deck."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-074 | Black Maria
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If you have no other [Black Maria] Characters, add up to 5 DON!! cards from your DON!! deck and rest them. Then, at the end of this turn, return DON!! cards from your field to your DON!! deck until you have the same number of DON!! cards on your field as your opponent."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-075 | Candy Maiden
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 1 of your opponent's Characters with a cost of 2 or less. Then, turn all of your Life cards face-down."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-076 | It's to Die For...
+  - Effect: current="missing" | should="[Main] Add up to 1 DON!! card from your DON!! deck and set it as active. Then, if your opponent has a Character with 6000 power or more, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-077 | Conquest of the Sea
+  - Effect: current="missing" | should="[Main] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): If your Leader has the {Animal Kingdom Pirates} or {Big Mom Pirates} type, K.O. up to 2 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates/Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-078 | Ulti
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-079 | Kaido
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may trash 1 card from your hand: If this Character was played on this turn, trash up to 1 of your opponent's Characters with a cost of 7 or less. Then, your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Former Rocks Pirates/Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-080 | Queen
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Animal Kingdom Pirates} type card other than [Queen] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-081 | Guernica
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may place 3 cards with a type including "CP" from your trash at the bottom of your deck in any order: K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-082 | Sasaki
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] Rest 1 of your DON!! cards and you may rest this Character: Give up to 1 of your opponent's Characters −2 cost during this turn."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-083 | Sheepshead
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] Give all of your opponent's Characters −1 cost."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-084 | Jack
+  - Effect: current="missing" | should="This Character gains +4 cost. [Activate: Main] You may rest this Character: Draw 1 card and trash 1 card from your hand. Then, K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-085 | Jinbe
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have a Character with a cost of 8 or more, K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-086 | Ginrummy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your opponent has a Character with a cost of 0, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-087 | Scratchmen Apoo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Activate: Main] [Once Per Turn] Give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/On-Air Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-088 | Duval
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your Characters gains +1 cost until the end of your opponent's next turn."
+  - Type line: current="missing" | should="The Flying Fish Riders"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-089 | Basil Hawkins
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Hawkins Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-090 | Hamlet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {SMILE} type Character card with a cost of 2 or less from your trash."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/SMILE"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-091 | Who's.Who
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Former CP9"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-092 | Page One
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 [Ulti] with a cost of 4 or less from your trash."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-093 | X.Drake
+  - Effect: current="missing" | should="[DON!! x1] This Character gains +2 cost."
+  - Type line: current="missing" | should="Navy/Drake Pirates/Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-094 | Imperial Flame
+  - Effect: current="missing" | should="[Main]/[Counter] You may place 3 cards from your trash at the bottom of your deck in any order: K.O. up to 1 of your opponent's Characters with a cost of 2 or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-095 | Iron Body Fang Flash
+  - Effect: current="missing" | should="[Main] If you have 10 or more cards in your trash, up to 1 of your Characters gains +2000 power until the end of your opponent's next turn."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Former CP9"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-096 | People's Dreams Don't Ever End!!
+  - Effect: current="missing" | should="[Counter] Trash 1 card from the top of your deck. If the trashed card has a cost of 6 or more, up to 1 of your Leader or Character cards gains +5000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 black Character card with a cost of 3 or less from your trash."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-097 | Heliceratops
+  - Effect: current="missing" | should="[Main] If your Leader has the {Animal Kingdom Pirates} type, give up to 1 of your opponent's Characters −2 cost during this turn. Then, K.O. up to 1 of your opponent's Characters with a cost of 0."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-098 | Kalgara
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Play up to 1 {Shandian Warrior} type Character card from your hand with a cost equal to or less than the number of DON!! cards on your field. If you do, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Jaya/Sky Island/Shandian Warrior"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-099 | Kalgara
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Jaya/Sky Island/Shandian Warrior"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-100 | South Bird
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 7 cards from the top of your deck and play up to 1 [Upper Yard]. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Animal/Jaya/Sky Island"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-101 | Charlotte Angel
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may trash 1 card from the top of your Life cards: If your Leader has the {Big Mom Pirates} type, add 1 card from the top of your deck to the top of your Life cards at the end of this turn."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-102 | Charlotte Opera
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: K.O. up to 1 of your opponent's Characters with a cost equal to or less than your number of Life cards."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-103 | Charlotte Custard
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may add 1 card from the top of your Life cards to your hand: Up to 1 of your Characters gains +1000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-104 | Charlotte Poire
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card. Then, draw 1 card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-105 | Jewelry Bonney
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Your Turn] [Once Per Turn] When a card is removed from your opponent's Life cards, draw 2 cards and trash 1 card from your hand."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Egghead/Bonney Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-106 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card with a [Trigger] from your hand: K.O. up to 1 of your opponent's Characters with a cost of 5 or less. Then, if you have 3 or less cards in your hand, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [On Play] effect."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-107 | Nitro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your [Charlotte Pudding] cards gains +2000 power during this turn."
+  - Type line: current="missing" | should="Big Mom Pirates/Homies"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-108 | Mont Blanc Cricket
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Jaya/Monkey Mountain Alliance"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-109 | Mont Blanc Noland
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Shandian Warrior} type and you have a [Kalgara] Character, add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Jaya/Botanist"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-110 | Wyper
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Upper Yard] and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 [Upper Yard] from your hand."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-111 | S-Shark
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Your opponent cannot activate [Blocker] during this battle."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: If you have 2 or less Life cards, play this card."
+  - Type line: current="missing" | should="Egghead/Seraphim"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-112 | S-Snake
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your opponent's Characters with a cost of 6 or less other than [Monkey.D.Luffy] cannot attack until the end of your opponent's next turn."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [On Play] effect."
+  - Type line: current="missing" | should="Egghead/Seraphim"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP08-113 | S-Bear
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: If you have 2 or less Life cards, play this card and K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Egghead/Seraphim"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-114 | S-Hawk
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If you have less Life cards than your opponent, this Character cannot be K.O.'d in battle by <Slash> attribute cards and gains +2000 power."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: If you have 2 or less Life cards, play this card."
+  - Type line: current="missing" | should="Egghead/Seraphim"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-115 | The Earth Will Not Lose!
+  - Effect: current="missing" | should="[Counter] If your Leader has the {Shandian Warrior} type, up to 1 of your Leader or Character cards gains +3000 power during this battle. Then, play up to 1 [Upper Yard] from your hand."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-116 | Burn Bazooka
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, you may add 1 card from the top or bottom of your Life cards to your hand. If you do, add up to 1 {Shandian Warrior} type card from your hand to the top of your Life cards face-up."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-117 | Burn Blade
+  - Effect: current="missing" | should="[Main] You may trash 1 card from the top of your Life cards: K.O. up to 1 of your opponent's Characters with a cost of 7 or less."
+  - Trigger: current="missing" | should="[Trigger] You may add 1 card from the top of your Life cards to your hand: Add up to 1 card from your hand to the top of your Life cards."
+  - Type line: current="missing" | should="Sky Island/Shandian Warrior"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+- OP08-118 | Silvers Rayleigh
+  - Effect: current="missing" | should="[On Play] Select up to 2 of your opponent's Characters, and give 1 Character −3000 power and the other −2000 power until the end of your opponent's next turn. Then, K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Type line: current="missing" | should="Former Roger Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP08-119 | Kaido &amp; Linlin
+  - Card name: current="Kaido &amp; Linlin" | should="Kaido & Linlin"
+  - Effect: current="missing" | should="[When Attacking] DON!! −10: K.O. all Characters other than this Character. Then, add up to 1 card from the top of your deck to the top of your Life cards and trash up to 1 card from the top of your opponent's Life cards."
+  - Attribute: current="Strike" | should="Strike/Special"
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates/Big Mom Pirates"
+  - Set name: current="Two Legends" | should="TWO LEGENDS [OP-08]"
+  - Release date: current="missing" | should="2024-09-13"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### Black Smoker [ST-19]
+- ST19-001 | Smoker
+  - Effect: current="missing" | should="[On Play] You may trash 1 black {Navy} type card from your hand: Up to 2 of your opponent's Characters with a cost of 4 or less cannot attack until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Black Smoker" | should="Black Smoker [ST-19]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST19-002 | Sengoku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 2 black {Navy} type cards from your hand: If your Leader has the {Navy} type, draw 3 cards."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Black Smoker" | should="Black Smoker [ST-19]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST19-003 | Tashigi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader is [Smoker], give up to 1 of your opponent's Characters −4 cost during this turn. [Activate: Main] [Once Per Turn] If this Character was played on this turn, trash up to 1 of your opponent's Characters with a cost of 0."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Black Smoker" | should="Black Smoker [ST-19]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST19-004 | Hina
+  - Effect: current="missing" | should="[DON!! x1] [Opponent's Turn] This Character gains +4 cost. [Activate: Main] [Once Per Turn] You may place 1 card from your trash at the bottom of your deck: Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Black Smoker" | should="Black Smoker [ST-19]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST19-005 | Monkey.D.Garp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Activate: Main] [Once Per Turn] You may place 1 card from your trash at the bottom of your deck: Give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Black Smoker" | should="Black Smoker [ST-19]"
+  - Release date: current="missing" | should="2024-10-25"
+
+### Blue Donquixote Doflamingo [ST-17]
+- ST17-001 | Crocodile
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Reveal 1 card from the top of your deck. If that card is a {The Seven Warlords of the Sea} type card, draw 2 cards and place 1 card from your hand at the top of your deck."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Blue Donquixote Doflamingo" | should="Blue Donquixote Doflamingo [ST-17]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST17-002 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may return 1 of your Characters to the owner's hand: If your Leader has the {The Seven Warlords of the Sea} type, return up to 1 Character with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Heart Pirates"
+  - Set name: current="Blue Donquixote Doflamingo" | should="Blue Donquixote Doflamingo [ST-17]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST17-003 | Buggy
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at 3 cards from the top of your deck and place them at the top of your deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Buggy's Delivery"
+  - Set name: current="Blue Donquixote Doflamingo" | should="Blue Donquixote Doflamingo [ST-17]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST17-004 | Boa Hancock
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Look at 3 cards from the top of your deck and place them at the top or bottom of your deck in any order. Then, give up to 1 rested DON!! card to 1 of your {The Seven Warlords of the Sea} type Leader or Character cards."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Kuja Pirates"
+  - Set name: current="Blue Donquixote Doflamingo" | should="Blue Donquixote Doflamingo [ST-17]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST17-005 | Marshall.D.Teach
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may place 1 card from your hand at the top of your deck: Give up to 2 rested DON!! cards to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Blackbeard Pirates"
+  - Set name: current="Blue Donquixote Doflamingo" | should="Blue Donquixote Doflamingo [ST-17]"
+  - Release date: current="missing" | should="2024-10-25"
+
+### Green Uta [ST-16]
+- ST16-001 | Uta
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Activate: Main] [Once Per Turn] You may trash 1 {FILM} type card from your hand: Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Green Uta" | should="Green Uta [ST-16]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST16-002 | Gordon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Your Opponent's Attack] You may trash any number of {Music} type cards from your hand. Your Leader or 1 of your Characters gains +1000 power during this battle for every card trashed."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Green Uta" | should="Green Uta [ST-16]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST16-003 | Charlotte Katakuri
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader has the {FILM} type and you have 6 or more rested cards, this Character gains +2000 power."
+  - Type line: current="missing" | should="FILM/Big Mom Pirates"
+  - Set name: current="Green Uta" | should="Green Uta [ST-16]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST16-004 | Shanks
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's rested Characters."
+  - Type line: current="missing" | should="FILM/The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Green Uta" | should="Green Uta [ST-16]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST16-005 | Monkey.D.Luffy
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="If you have a rested [Uta], this Character gains +1000 power."
+  - Type line: current="missing" | should="FILM/Supernovas/Straw Hat Crew"
+  - Set name: current="Green Uta" | should="Green Uta [ST-16]"
+  - Release date: current="missing" | should="2024-10-25"
+
+### Purple Monkey.D.Luffy [ST-18]
+- ST18-001 | Uso-Hachi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 8 or more DON!! cards on your field, rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Purple Monkey D. Luffy" | should="Purple Monkey.D.Luffy [ST-18]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST18-002 | O-Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you have 8 or more DON!! cards on your field, trash 1 card from your hand and draw 2 cards."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Purple Monkey D. Luffy" | should="Purple Monkey.D.Luffy [ST-18]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST18-003 | San-Gorou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] If you have 8 or more DON!! cards on your field, draw 1 card."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Purple Monkey D. Luffy" | should="Purple Monkey.D.Luffy [ST-18]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST18-004 | Zoro-Juurou
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 purple {Straw Hat Crew} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Purple Monkey D. Luffy" | should="Purple Monkey.D.Luffy [ST-18]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST18-005 | Luffy-Tarou
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 purple {Straw Hat Crew} type Character card with a cost of 5 or less from your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Purple Monkey D. Luffy" | should="Purple Monkey.D.Luffy [ST-18]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+
+### Red Edward.Newgate [ST-15]
+- ST15-001 | Atmos
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If your Leader is [Edward.Newgate], you cannot add Life cards to your hand using your own effects during this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Red Edward Newgate" | should="Red Edward.Newgate [ST-15]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST15-002 | Edward.Newgate
+  - Effect: current="missing" | should="[On Play] Give up to 1 rested DON!! card to your Leader or 1 of your Characters. [Activate: Main] You may rest this Character: K.O. up to 1 of your opponent's Characters with 5000 power or less."
+  - Type line: current="missing" | should="The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Red Edward Newgate" | should="Red Edward.Newgate [ST-15]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST15-003 | Kingdew
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Opponent's Turn] When this Character is K.O.'d by an effect, up to 1 of your Leader gains +2000 power during this turn."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Red Edward Newgate" | should="Red Edward.Newgate [ST-15]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST15-004 | Thatch
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "Whitebeard Pirates", give up to 1 of your opponent's Characters −2000 power during this turn. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Red Edward Newgate" | should="Red Edward.Newgate [ST-15]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST15-005 | Portgas.D.Ace
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader's type includes "Whitebeard Pirates", this Character gains [Rush]. (This card can attack on the turn in which it is played.) [Once Per Turn] If this Character would be removed from the field by your opponent's effect, you may give this Character −2000 power during this turn instead."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Red Edward Newgate" | should="Red Edward.Newgate [ST-15]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+
+### Yellow Charlotte Katakuri [ST-20]
+- ST20-001 | Charlotte Katakuri
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Activate: Main] [Once Per Turn] You may turn 1 card from the top of your Life cards face-up: Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Yellow Charlotte Katakuri" | should="Yellow Charlotte Katakuri [ST-20]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+- ST20-002 | Charlotte Cracker
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Once Per Turn] If this Character would be K.O.'d by an effect, you may trash 1 card from the top of your Life cards instead."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Yellow Charlotte Katakuri" | should="Yellow Charlotte Katakuri [ST-20]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST20-003 | Charlotte Brulee
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] Look at up to 1 card from the top of your or your opponent's Life cards, and place it at the top or bottom of the Life cards. Then, add this card to your hand."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Yellow Charlotte Katakuri" | should="Yellow Charlotte Katakuri [ST-20]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST20-004 | Charlotte Pudding
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top of your Life cards to your hand: Set up to 1 of your {Big Mom Pirates} type Characters with a cost of 3 or less as active."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Yellow Charlotte Katakuri" | should="Yellow Charlotte Katakuri [ST-20]"
+  - Release date: current="missing" | should="2024-10-25"
+- ST20-005 | Charlotte Linlin
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: Your opponent chooses one: • Your opponent trashes 2 cards from their hand. • Trash 1 card from the top of your opponent's Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Big Mom Pirates"
+  - Set name: current="Yellow Charlotte Katakuri" | should="Yellow Charlotte Katakuri [ST-20]"
+  - Release date: current="missing" | should="2024-10-25"
+  - Rarity: current="SuperRare" | should="SR"
+
+### EMPERORS IN THE NEW WORLD [OP-09]
+- OP09-001 | Shanks
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Once Per Turn] This effect can be activated when your opponent attacks. Give up to 1 of your opponent's Leader or Character cards −1000 power during this turn."
+  - Type line: current="missing" | should="The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-002 | Uta
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Red-Haired Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="FILM"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-003 | Shachi &amp; Penguin
+  - Card name: current="Shachi &amp; Penguin" | should="Shachi & Penguin"
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-004 | Shanks
+  - Effect: current="missing" | should="Give all of your opponent's Characters −1000 power. [Rush] (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-005 | Silvers Rayleigh
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If your opponent has 2 or more Characters with a base power of 5000 or more, draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Roger Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-006 | Howling Gab
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-007 | Heat
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Up to 1 of your Leader with 4000 power or less gains +1000 power during this turn."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-008 | Building Snake
+  - Effect: current="missing" | should="[Activate: Main] You may place this Character at the bottom of the owner's deck: Give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-009 | Benn.Beckman
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Trash up to 1 of your opponent's Characters with 6000 power or less."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-010 | Bonk Punch
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 [Monster] from your hand. [DON!! x1] [When Attacking] This Character gains +2000 power during this turn."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-011 | Hongo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If your Leader has the {Red-Haired Pirates} type, give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-012 | Monster
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Character [Bonk Punch] would be K.O.'d by an effect, you may trash this Character instead."
+  - Type line: current="missing" | should="Animal/Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-013 | Yasopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your Leader gains +1000 power until the end of your opponent's next turn. [DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-014 | Limejuice
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Your opponent cannot activate up to 1 [Blocker] Character that has 4000 power or less during this turn."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-015 | Lucky.Roux
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] If your Leader has the {Red-Haired Pirates} type, K.O. up to 1 of your opponent's Characters with a base power of 6000 or less."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-016 | Rockstar
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-017 | Wire
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] If your Leader has 7000 power or more and the {Kid Pirates} type, this Character gains [Rush]."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-018 | Get Out of Here!
+  - Effect: current="missing" | should="[Main] K.O. up to 2 of your opponent's Characters with a total power of 4000 or less."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-019 | Nobody Hurts a Friend of Mine!!!!
+  - Effect: current="missing" | should="[Main] If your Leader has the {Red-Haired Pirates} type, give up to 1 of your opponent's Characters −3000 power during this turn. Then, if your opponent has a Character with 5000 or more power, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-020 | Come On!! We'll Fight You!!
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 {Red-Haired Pirates} type card other than [Come On!! We'll Fight You!!] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-021 | Red Force
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader has the {Red-Haired Pirates} type, give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Type line: current="missing" | should="Red-Haired Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-022 | Lim
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="Your Character cards are played rested. [Activate: Main] [Once Per Turn] You may rest 3 of your DON!! cards: Add up to 1 DON!! card from your DON!! deck and rest it, and play up to 1 {ODYSSEY} type Character card with a cost of 5 or less from your hand."
+  - Type line: current="missing" | should="ODYSSEY"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-023 | Adio
+  - Effect: current="missing" | should="[On Play] If your Leader has the {ODYSSEY} type, set up to 3 of your DON!! cards as active. [On Your Opponent's Attack] [Once Per Turn] You may rest 1 of your DON!! cards: Up to 1 of your Leader or Character cards gains +2000 power during this battle."
+  - Type line: current="missing" | should="ODYSSEY"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-024 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-025 | Crocodile
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your Leader has the {ODYSSEY} type, this Character cannot be K.O.'d in battle by Leaders."
+  - Type line: current="missing" | should="ODYSSEY/The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-026 | Sakazuki
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="ODYSSEY/Navy"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-027 | Sabo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] If you have 3 or more rested Characters, draw 1 card."
+  - Type line: current="missing" | should="ODYSSEY/Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-028 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] You may add 1 card from the top or bottom of your Life cards to your hand: Play up to 1 {ODYSSEY} or {Straw Hat Crew} type Character card with a cost of 4 or less from your trash rested."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-029 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[End of Your Turn] Set up to 1 of your {ODYSSEY} type Characters with a cost of 4 or less as active."
+  - Type line: current="missing" | should="ODYSSEY/Animal/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-030 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may return 1 of your Characters to the owner's hand: Play up to 1 {ODYSSEY} type Character card with a cost of 3 or less other than [Trafalgar Law] from your hand."
+  - Type line: current="missing" | should="ODYSSEY/Supernovas/Heart Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-031 | Donquixote Doflamingo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [End of Your Turn] If you have 2 or more rested Characters, set this Character as active."
+  - Type line: current="missing" | should="ODYSSEY/The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-032 | Donquixote Rosinante
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Your Opponent's Attack] [Once Per Turn] Set this Character as active."
+  - Type line: current="missing" | should="ODYSSEY/Navy/Donquixote Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-033 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, none of your {ODYSSEY} or {Straw Hat Crew} type Characters can be K.O.'d by effects until the end of your opponent's next turn."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-034 | Perona
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Dracule Mihawk] or {Thriller Bark Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order and trash 1 card from your hand."
+  - Type line: current="missing" | should="Muggy Kingdom/Thriller Bark Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-035 | Portgas.D.Ace
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="ODYSSEY/Whitebeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-036 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, rest up to 1 of your opponent's DON!! cards or Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="ODYSSEY/Supernovas/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-037 | Lim
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {ODYSSEY} type card other than [Lim] and add it to your hand. Then, place the rest at the bottom of your deck in any order. [End of Your Turn] If you have 3 or more rested Characters, set this Character as active."
+  - Type line: current="missing" | should="ODYSSEY"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-038 | Rob Lucci
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="ODYSSEY/CP9"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-039 | Gum-Gum Cuatro Jet Cross Shock Bazooka
+  - Effect: current="missing" | should="[Counter] If your Leader has the {ODYSSEY} type and you have 2 or more rested Characters, up to 1 of your Leader or Character cards gains +2000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="ODYSSEY/Supernovas/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-040 | Thunder Lance Flip Caliber Phoenix Shot
+  - Effect: current="missing" | should="[Main] If you have 2 or more rested Characters, K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="ODYSSEY/Supernovas/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-041 | Soul Franky Swing Arm Boxing Solid
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if your Leader has the {ODYSSEY} type and you have 2 or more rested Characters, set up to 2 of your Characters as active."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-042 | Buggy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] You may rest 5 of your DON!! cards and trash 1 card from your hand: Play up to 1 {Cross Guild} type Character card from your hand."
+  - Type line: current="missing" | should="The Four Emperors/Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-043 | Alvida
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] If your Leader has the {Cross Guild} type, play up to 1 Character card with a cost of 5 or less other than [Alvida] from your hand."
+  - Type line: current="missing" | should="Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-044 | Izo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Look at 5 cards from the top of your deck; reveal up to 1 {Land of Wano} type card or card with a type including "Whitebeard Pirates" and add it to your hand. Then, place the rest at the bottom of your deck in any order and trash 1 card from your hand."
+  - Type line: current="missing" | should="Land of Wano/Whitebeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-045 | Cabaji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="If you have a [Buggy] or [Mohji] Character, this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-046 | Crocodile
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Cross Guild} type Character card or Character card with a type including "Baroque Works" with a cost of 5 or less from your hand."
+  - Type line: current="missing" | should="Cross Guild/Former Baroque Works"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-047 | Kouzuki Oden
+  - Effect: current="missing" | should="[Double Attack] (This card deals 2 damage.) [On K.O.] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Land of Wano/Whitebeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-048 | Dracule Mihawk
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-049 | Jozu
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-050 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Look at 5 cards from the top of your deck; reveal up to 1 blue Event and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-051 | Buggy
+  - Effect: current="missing" | should="[On Play] Place up to 1 of your opponent's Characters at the bottom of the owner's deck. Then, if you do not have 5 Characters with a cost of 5 or more, place this Character at the bottom of the owner's deck."
+  - Type line: current="missing" | should="The Four Emperors/Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-052 | Marco
+  - Effect: current="missing" | should="[Opponent's Turn] You may trash 1 card from your hand: When this Character is K.O.'d by your opponent's effect, play this Character card from your trash rested."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-053 | Mohji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Richie] and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 [Richie] from your hand."
+  - Type line: current="missing" | should="Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-054 | Richie
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Animal/Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-055 | Mr.1(Daz.Bonez)
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Cross Guild/Former Baroque Works"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-056 | Mr.3(Galdino)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 4 cards from the top of your deck; reveal up to 1 {Cross Guild} type card or card with a type including "Baroque Works" other than [Mr.3(Galdino)] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Cross Guild/Former Baroque Works"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-057 | Cross Guild
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 {Cross Guild} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-058 | Special Muggy Ball
+  - Effect: current="missing" | should="[Main] Return up to 1 of your opponent's Characters with a cost of 6 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="Buggy Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-059 | Murder at the Steam Bath
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +3000 power during this battle. Then, trash up to 2 cards from your hand. Trash the same number of cards from the top of your deck as you did from your hand."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Buggy Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-060 | Emptee Bluffs Island
+  - Effect: current="missing" | should="[Activate: Main] You may place 2 cards from your hand at the bottom of your deck in any order and rest this Stage: If your Leader has the {Cross Guild} type, draw 2 cards."
+  - Type line: current="missing" | should="Cross Guild"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-061 | Monkey.D.Luffy
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] All of your Characters gain +1 cost. [Your Turn] [Once Per Turn] When 2 or more DON!! cards on your field are returned to your DON!! deck, add up to 1 DON!! card from your DON!! deck and set it as active, and add up to 1 additional DON!! card and rest it."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-062 | Nico Robin
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Banish] (When this card deals damage, the target card is trashed without activating its Trigger.) [When Attacking] You may trash 1 card with a [Trigger] from your hand: Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-063 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-064 | Killer
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Set up to 1 of your {Kid Pirates} type Leader as active."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-065 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may return 1 or more DON!! cards from your field to your DON!! deck: This Character gains [Rush] during this turn. Then, rest up to 1 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-066 | Jean Bart
+  - Effect: current="missing" | should="[On Play] If your opponent has more DON!! cards on their field than you, K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-067 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-068 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[End of Your Turn] You may return 1 or more DON!! cards from your field to your DON!! deck: Set this Character as active. Then, this Character gains [Blocker] until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-069 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 4 cards from the top of your deck; reveal up to 1 {Straw Hat Crew} or {Heart Pirates} type card with a cost of 2 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-070 | Nami
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may return 1 or more DON!! cards from your field to your DON!! deck: Give up to 2 rested DON!! cards to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-071 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-072 | Franky
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] DON!! −2, You may trash 1 card from your hand: Draw 2 cards."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-073 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may return 1 or more DON!! cards from your field to your DON!! deck: Give up to 2 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-074 | Bepo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Minks/Heart Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-075 | Eustass"Captain"Kid
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top of your Life cards to your hand: If your Leader has the {Kid Pirates} type, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-076 | Roronoa Zoro
+  - Effect: current="missing" | should="[On Play] You may return 1 or more DON!! cards from your field to your DON!! deck: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-077 | Gum-Gum Lightning
+  - Effect: current="missing" | should="[Main] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with 6000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-078 | Gum-Gum Giant
+  - Effect: current="missing" | should="[Counter] DON!! −2, You may trash 1 card from your hand: If your Leader has the {Straw Hat Crew} type, up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, draw 2 cards."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-079 | Gum-Gum Jump Rope
+  - Effect: current="missing" | should="[Main] DON!! −2 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Rest up to 1 of your opponent's Characters with a cost of 5 or less. Then, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-080 | Thousand Sunny
+  - Effect: current="missing" | should="[Opponent's Turn] You may rest this Stage: When your {Straw Hat Crew} type Character is removed from the field by your opponent's effect, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-081 | Marshall.D.Teach
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="Your [On Play] effects are negated. [Activate: Main] You may trash 1 card from your hand: Your opponent's [On Play] effects are negated until the end of your opponent's next turn."
+  - Type line: current="missing" | should="The Four Emperors/Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-082 | Avalo Pizarro
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-083 | Van Augur
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If your Leader has the {Blackbeard Pirates} type, give up to 1 of your opponent's Characters −3 cost during this turn. [On K.O.] Draw 1 card."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-084 | Catarina Devon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If your Leader has the {Blackbeard Pirates} type, this Character gains [Double Attack], [Banish] or [Blocker] until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-085 | Gecko Moria
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Thriller Bark Pirates} type Character card with a cost of 2 or less from your trash rested."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-086 | Jesus Burgess
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="This Character cannot be K.O.'d by your opponent's effects. If your Leader has the {Blackbeard Pirates} type, this Character gains +1000 power for every 4 cards in your trash."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-087 | Charlotte Pudding
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your opponent has 5 or more cards in their hand, your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Big Mom Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-088 | Shiryu
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may trash 2 cards from your hand: Draw 2 cards."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-089 | Stronger
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and trash this Character: If your Leader has the {Blackbeard Pirates} type, draw 1 card. Then, give up to 1 of your opponent's Characters –2 cost during this turn."
+  - Type line: current="missing" | should="Animal/Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-090 | Doc Q
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If your Leader has the {Blackbeard Pirates} type, K.O. up to 1 of your opponent's Characters with a cost of 1 or less. [On K.O.] Draw 1 card."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-091 | Vasco Shot
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-092 | Marshall.D.Teach
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If the number of cards in your hand is at least 3 less than the number in your opponent's hand, draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-093 | Marshall.D.Teach
+  - Effect: current="missing" | should="[Blocker] [Activate: Main] [Once Per Turn] If your Leader has the {Blackbeard Pirates} type and this Character was played on this turn, negate the effect of up to 1 of your opponent's Leader during this turn. Then, negate the effect of up to 1 of your opponent's Characters and that Character cannot attack until the end of your opponent's next turn."
+  - Type line: current="missing" | should="The Four Emperors/Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-094 | Peachbeard
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Peachbeard Pirates/Blackbeard Pirates Allies"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-095 | Laffitte
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest 1 of your DON!! cards and this Character: Look at 5 cards from the top of your deck; reveal up to 1 {Blackbeard Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-096 | My Era...Begins!!
+  - Effect: current="missing" | should="[Main] Look at 3 cards from the top of your deck; reveal up to 1 {Blackbeard Pirates} type card other than [My Era...Begins!!] and add it to your hand. Then, trash the rest."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-097 | Black Vortex
+  - Effect: current="missing" | should="[Counter] Negate the effect of up to 1 of your opponent's Leader or Character cards and give that card −4000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Negate the effect of up to 1 of your opponent's Leader or Character cards during this turn."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-098 | Black Hole
+  - Effect: current="missing" | should="[Main] If your Leader has the {Blackbeard Pirates} type, negate the effect of up to 1 of your opponent's Characters during this turn. Then, if that Character has a cost of 4 or less, K.O. it."
+  - Trigger: current="missing" | should="[Trigger] Negate the effect of up to 1 of your opponent's Leader or Character cards during this turn."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-099 | Fullalead
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Stage: Look at 3 cards from the top of your deck; reveal up to 1 {Blackbeard Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-100 | Karasu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Revolutionary Army} type and you and your opponent have a total of 5 or less Life cards, play this card."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-101 | Kuzan
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Place 1 of your opponent's Characters with a cost of 3 or less at the top or bottom of your opponent's Life cards face-up: Your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-102 | Professor Clover
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If your Leader is [Nico Robin], look at 3 cards from the top of your deck; reveal up to 1 card with a [Trigger] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [On Play] effect."
+  - Type line: current="missing" | should="Ohara"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-103 | Koala
+  - Effect: current="missing" | should="[Blocker] [On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Play up to 1 {Revolutionary Army} type Character card with a cost of 4 or less from your hand. If you do, draw 1 card."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SuperRare" | should="SR"
+- OP09-104 | Sabo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 {Revolutionary Army} type Character card from your hand to the top of your Life cards face-up. Then, if you have 2 or more Life cards, add 1 card from the top or bottom of your Life cards to your hand."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is multicolored, draw 2 cards."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-105 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Egghead} type, add up to 1 card from the top of your deck to the top of your Life cards. Then, trash 2 cards from your hand."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-106 | Nico Olvia
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your [Nico Robin] Leader gains +3000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Nico Robin], draw 3 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Ohara"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-107 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your opponent has 3 or more Life cards, trash up to 1 card from the top of your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 yellow Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-108 | Bartholomew Kuma
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Revolutionary Army} type and you and your opponent have a total of 5 or less Life cards, play this card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-109 | Jaguar.D.Saul
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Trigger: current="missing" | should="[Trigger] If your Leader is [Nico Robin], play this card."
+  - Type line: current="missing" | should="Ohara/Giant/Navy"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-110 | Pierre
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Draw 2 cards and trash 2 cards from your hand."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Animal/Sky Island"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-111 | Brook
+  - Counter: current="missing" | should="1000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Egghead} type and your opponent has 6 or more cards in their hand, your opponent trashes 2 cards from their hand."
+  - Type line: current="missing" | should="Egghead/Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-112 | Belo Betty
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or less Life cards, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Revolutionary Army} type and you and your opponent have a total of 5 or less Life cards, play this card."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-113 | Morley
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-114 | Lindbergh
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you and your opponent have a total of 5 or less Life cards, K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Trigger: current="missing" | should="[Trigger] If you and your opponent have a total of 5 or less Life cards, play this card."
+  - Type line: current="missing" | should="Minks/Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-115 | Ice Block Partisan
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost of 3 or less and a [Trigger]."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-116 | Never Underestimate the Power of Miracles!!
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 {Revolutionary Army} type Character card with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-117 | Dereshi!
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 2 cards with a [Trigger] other than [Dereshi!] and add them to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Ohara"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+- OP09-118 | Gol.D.Roger
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) When your opponent activates [Blocker], if either you or your opponent has 0 Life cards, you win the game."
+  - Type line: current="missing" | should="King of the Pirates/Roger Pirates"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP09-119 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[On Play] You may return 1 or more DON!! cards from your field to your DON!! deck: Draw 1 card and this Character gains [Rush] during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Emperors in the New World" | should="EMPERORS IN THE NEW WORLD [OP-09]"
+  - Release date: current="missing" | should="2024-12-13"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### GEAR5 [ST-21]
+- ST21-001 | Monkey.D.Luffy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] Give up to 2 rested DON!! cards to 1 of your Characters."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-002 | Usopp
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x2] [Opponent's Turn] This Character gains +2000 power."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-003 | Sanji
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Select up to 1 of your {Straw Hat Crew} type Characters with 6000 power or more. If the selected Character attacks during this turn, your opponent cannot activate [Blocker]."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-004 | Jewelry Bonney
+  - Effect: current="missing" | should="[DON!! x2] [On K.O.] Draw 1 card."
+  - Type line: current="missing" | should="Egghead/Bonney Pirates"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-005 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-006 | Stussy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Egghead"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-007 | Sentomaru
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Egghead/Navy"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-008 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-009 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Give up to 2 rested DON!! cards to 1 of your {Straw Hat Crew} type Leader or Character cards."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-010 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-011 | Franky
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [Opponent's Turn] All of your {Straw Hat Crew} type Characters with 4000 base power or less gain +1000 power."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-012 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] Give up to 2 rested DON!! cards to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-013 | Vegapunk
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-014 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[Rush] (This card can attack on the turn in which it is played.) [When Attacking] Give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+  - Rarity: current="SuperRare" | should="SR"
+- ST21-015 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] This Character gains [Rush]. [On K.O.] Play up to 1 red Character card with 6000 power or less other than [Roronoa Zoro] from your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+  - Rarity: current="SuperRare" | should="SR"
+- ST21-016 | Gum-Gum Dawn Whip
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +1000 power during this turn. Then, up to 1 of your opponent's Characters with 4000 power or less cannot activate [Blocker] during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+- ST21-017 | Gum-Gum Mole Pistol
+  - Effect: current="missing" | should="[Main] Give up to 1 of your opponent's Characters −5000 power during this turn. Then, if you have a Character with 6000 power or more, K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="GEAR5" | should="GEAR5 [ST-21]"
+  - Release date: current="missing" | should="2025-03-14"
+
+### ROYAL BLOOD [OP-10]
+- OP10-001 | Smoker
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Opponent's Turn] All of your {Navy} or {Punk Hazard} type Characters gain +1000 power. [Activate: Main] [Once Per Turn] If you have a Character with 7000 power or more, set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Punk Hazard/Navy"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-002 | Caesar Clown
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x2] [When Attacking] You may return 1 of your {Punk Hazard} type Characters with a cost of 2 or more to the owner's hand: K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="Scientist/Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-003 | Sugar
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[End of Your Turn] If you have a {Donquixote Pirates} type Character with 6000 power or more, set up to 1 of your DON!! cards as active. [Opponent's Turn] [Once Per Turn] When you activate an Event, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-004 | Vergo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Punk Hazard} type card other than [Vergo] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Punk Hazard/Navy/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-005 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] This Character gains +3000 power. [On K.O.] Draw 1 card."
+  - Type line: current="missing" | should="Punk Hazard/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-006 | Caesar Clown
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Smiley] and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 [Smiley] from your hand."
+  - Type line: current="missing" | should="Scientist/Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-007 | Ceaser Soldier
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Punk Hazard} type Character card with a cost of 2 or less from your hand."
+  - Type line: current="missing" | should="Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-008 | Scotch
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you don't have [Rock], play up to 1 [Rock] from your hand."
+  - Type line: current="missing" | should="Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-009 | Smiley
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Punk Hazard} type, give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Type line: current="missing" | should="Biological Weapon/Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-010 | Chadros.Higelyges (Brownbeard)
+  - Effect: current="missing" | should="[When Attacking] If you have 1 or less Characters with 6000 power or more, this Character gains +1000 power during this turn."
+  - Type line: current="missing" | should="Punk Hazard/Brownbeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-011 | Tony Tony.Chopper
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Opponent's Turn] This Character gains +2000 power."
+  - Type line: current="missing" | should="Punk Hazard/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-012 | Dragon Number Thirteen
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Biological Weapon/Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-013 | Nami
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Punk Hazard/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-014 | Franky
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Punk Hazard/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-015 | Mocha
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Type line: current="missing" | should="Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-016 | Monet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Give up to 2 rested DON!! cards to your Leader or 1 of your Characters. Then, give up to 1 of your opponent's Characters −1000 power during this turn."
+  - Type line: current="missing" | should="Punk Hazard/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-017 | Rock
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you don't have [Scotch], play up to 1 [Scotch] from your hand."
+  - Type line: current="missing" | should="Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-018 | Ten-Layer Igloo
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +3000 power during this battle. Then, give up to 1 of your opponent's Leader or Character cards −2000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Punk Hazard/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-019 | Divine Departure
+  - Effect: current="missing" | should="[Main] You may rest 5 of your DON!! cards: K.O. up to 1 of your opponent's Characters with 8000 power or less. [Counter] Up to 1 of your Leader gains +3000 power during this battle."
+  - Type line: current="missing" | should="The Four Emperors/Red-Haired Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-020 | Gum-Gum UFO
+  - Effect: current="missing" | should="[Main] Give up to 1 of your opponent's Characters −4000 power during this turn. Then, if you have 2 or less Life cards, up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Type line: current="missing" | should="Punk Hazard/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-021 | Punk Hazard
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: If your Leader is [Caesar Clown], give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Punk Hazard"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-022 | Trafalgar Law
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] If the total cost of your Characters is 5 or more, you may return 1 of your Characters to the owner's hand: Reveal 1 card from the top of your Life cards. If that card is a {Supernovas} type Character card with a cost of 5 or less, you may play that card."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Heart Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-023 | Issho
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Navy} type, rest up to 2 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Dressrosa/Navy"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-024 | Edward.Newgate
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, rest up to 1 of your opponent's Characters with a cost of 5 or less. Then, K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="ODYSSEY/The Four Emperors/Whitebeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-025 | Enel
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, draw 3 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="ODYSSEY/Sky Island"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-026 | Kin'emon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may place this Character and 1 [Kin'emon] with 0 power from your trash at the bottom of your deck in any order: Play up to 1 [Kin'emon] with a cost of 6 from your hand."
+  - Type line: current="missing" | should="Punk Hazard/Land of Wano/The Akazaya Nine"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-027 | Kin'emon
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may place this Character and 1 [Kin'emon] with 1000 power from your trash at the bottom of your deck in any order: Play up to 1 [Kin'emon] with a cost of 6 from your hand."
+  - Type line: current="missing" | should="Punk Hazard/Land of Wano/The Akazaya Nine"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-028 | Kouzuki Momonosuke
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest 2 of your DON!! cards and trash this Character: Look at 5 cards from the top of your deck; reveal up to 2 {The Akazaya Nine} type cards and add them to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Punk Hazard/Land of Wano/Kouzuki Clan"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-029 | Dracule Mihawk
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested Characters, set up to 1 of your rested {ODYSSEY} type Characters with a cost of 5 or less as active."
+  - Type line: current="missing" | should="ODYSSEY/The Seven Warlords of the Sea"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-030 | Smoker
+  - Effect: current="missing" | should="[Banish] (When this card deals damage, the target card is trashed without activating its Trigger.) [Activate: Main] Set up to 1 of your DON!! cards as active. Then, you cannot set DON!! cards as active using Character effects during this turn."
+  - Type line: current="missing" | should="Punk Hazard/Navy"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-031 | Sengoku
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Dressrosa/Navy"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-032 | Tashigi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="If you have a green Character other than [Tashigi] that would be removed from the field by your opponent's effect, you may rest this Character instead."
+  - Type line: current="missing" | should="Punk Hazard/Navy"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-033 | Nami
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or more rested {ODYSSEY} type Characters, up to 1 of your opponent's rested DON!! cards will not become active in your opponent's next Refresh Phase."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-034 | Franky
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Once Per Turn] If this Character would be K.O.'d in battle, you may add 1 card from the top of your Life cards to your hand instead."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-035 | Brook
+  - Effect: current="missing" | should="[On K.O.] Rest up to 1 of your opponent's Leader or Character cards with a cost of 5 or less."
+  - Type line: current="missing" | should="ODYSSEY/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-036 | Perona
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] If a Character is rested by your effect, set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="ODYSSEY/Muggy Kingdom/Thriller Bark Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-037 | Lim
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Once Per Turn] If this Character would be removed from the field by your opponent's effect, you may rest 1 of your {ODYSSEY} type Characters instead. [End of Your Turn] Set up to 1 of your {ODYSSEY} type Characters as active."
+  - Type line: current="missing" | should="ODYSSEY"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-038 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Opponent's Turn] If you have 2 or more rested Characters, this Character gains +2000 power."
+  - Type line: current="missing" | should="ODYSSEY/Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-039 | Gum-Gum Dragon Fire Pistol Twister Star
+  - Effect: current="missing" | should="[Main] If your Leader has the {ODYSSEY} type, look at 5 cards from the top of your deck; reveal up to 2 {ODYSSEY} type Character cards and add them to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="ODYSSEY/Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-040 | The Weak Do Not Have the Right to Choose How They Die
+  - Effect: current="missing" | should="[Main]/[Counter] K.O. up to 1 of your opponent's rested Characters with a cost of 7 or less."
+  - Type line: current="missing" | should="Punk Hazard/The Seven Warlords of the Sea/Heart Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-041 | Radio Knife
+  - Effect: current="missing" | should="[Main] Rest up to 1 of your opponent's Characters with a cost of 6 or less. Then, K.O. up to 1 of your opponent's rested Characters with a cost of 5 or less."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Heart Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-042 | Usopp
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="All of your {Dressrosa} type Characters with a cost of 2 or more gain +1 cost. [Opponent's Turn] [Once Per Turn] This effect can be activated when your {Dressrosa} type Character is removed from the field by your opponent's effect or K.O.'d. If you have 5 or less cards in your hand, draw 1 card."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-043 | Moocy
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may rest 1 of your {Dressrosa} type Leader or Stage cards: Up to 1 of your [Monkey.D.Luffy] Characters gains [Banish] during this turn."
+  - Type line: current="missing" | should="Animal/Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-044 | Cub
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may rest 1 of your {Dressrosa} type Leader or Stage cards: Return up to 1 of your opponent's Characters with a cost of 1 or less to the owner's hand."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-045 | Cavendish
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Dressrosa/Beautiful Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-046 | Kyros
+  - Effect: current="missing" | should="[On Play] Return up to 1 Character with a cost of 5 or less to the owner's hand."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-047 | Koala
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may return 1 of your {Revolutionary Army} type Characters with a cost of 3 or more to the owner's hand: This Character gains +3000 power during this turn."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-048 | Sai
+  - Effect: current="missing" | should="[On Play] You may rest 1 of your {Dressrosa} type Leader or Stage cards: Return up to 1 of your opponent's Characters with a cost of 1 or less to the owner's hand."
+  - Type line: current="missing" | should="Dressrosa/Happosui Army"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-049 | Sabo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="If your Character with a base cost of 7 or less other than [Sabo] would be removed from the field by your opponent's effect, you may return this Character to the owner's hand instead."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-050 | Hajrudin
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Dressrosa/New Giant Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-051 | Hack
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Look at 3 cards from the top of your deck; reveal up to 1 {Revolutionary Army} type Character card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Fish-Man/Dressrosa/Revolutionary Army"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-052 | Bartolomeo
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Place up to 1 Character with a cost of 1 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Dressrosa/Barto Club"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-053 | Bian
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a {The Tontattas} type Character other than [Bian], this Character gains [Blocker]."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-054 | Blue Gilly
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-055 | Marco
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Return up to 1 of your opponent's Characters with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-056 | Mansherry
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may rest 1 of your {Dressrosa} type Leader or Stage cards, and return 1 of your {Dressrosa} type Characters with a cost of 4 or more to the owner's hand: Return up to 1 of your opponent's Characters with a cost of 4 or less to the owner's hand."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-057 | Leo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may rest your Leader or 1 of your Stage cards: If your Leader is [Usopp], look at 5 cards from the top of your deck; reveal up to 2 {Dressrosa} type cards other than [Leo] and add them to your hand. Then, place the rest at the bottom of your deck in any order, and trash 1 card from your hand."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-058 | Rebecca
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If there is a Character with a cost of 8 or more, draw 1 card. Then, reveal up to 2 {Dressrosa} type Character cards with a cost of 7 or less other than [Rebecca] from your hand. Play 1 of the revealed cards and play the other card rested if it has a cost of 4 or less."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-059 | Fo...llow...Me...and...I...Will...Gui...de...You
+  - Effect: current="missing" | should="[Main] Look at 5 cards from the top of your deck; reveal up to 1 {Dressrosa} type Character card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-060 | Barrier-Barrier Pistol
+  - Effect: current="missing" | should="[Main] Place up to 1 of your opponent's Characters with 6000 power or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Dressrosa/Barto Club"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-061 | Special Long-Range Attack!! Bagworm
+  - Effect: current="missing" | should="[Main] Draw 1 card. Then, return up to 1 of your opponent's Characters with a cost of 2 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 2 or less to the owner's hand."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-062 | Violet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On K.O.] DON!! −1: If your Leader has the {Donquixote Pirates} type, add up to 1 purple Event from your trash to your hand."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-063 | Vinsmoke Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "GERMA", look at 5 cards from the top of your deck; reveal up to 1 card with a type including "GERMA" and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Kingdom of GERMA/The Vinsmoke Family"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-064 | Clone Soldier
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Kingdom of GERMA"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-065 | Sugar
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest 1 of your DON!! cards and this Character: Look at 5 cards from the top of your deck; reveal up to 1 {Donquixote Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-066 | Giolla
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] You may rest 2 of your DON!! cards: Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-067 | Senor Pink
+  - Effect: current="missing" | should="[On Play] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Add up to 1 purple Event with a cost of 5 or less from your trash to your hand. Then, set up to 1 of your DON!! cards as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-068 | Diamante
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-069 | Fighting Fish
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="Animal/Dressrosa"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-070 | Trebol
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] All of your Characters with 1000 base power or less cannot be K.O.'d by your opponent's effects until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-071 | Donquixote Doflamingo
+  - Effect: current="missing" | should="[On Play] DON!! −1: Play up to 1 {Donquixote Pirates} type Character card with a cost of 5 or less from your hand. [On Your Opponent's Attack] [Once Per Turn] You may rest 1 of your DON!! cards: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-072 | Donquixote Rosinante
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 Event from your hand: Draw 2 cards. [End of Your Turn] If you have 7 or more DON!! cards on your field, set up to 2 of your DON!! cards as active."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-073 | Buffalo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-074 | Pica
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Once Per Turn] If this Character would be K.O.'d by your opponent's effect, you may rest 2 of your active DON!! cards instead."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-075 | Foxy
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, draw 1 card."
+  - Type line: current="missing" | should="Foxy Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-076 | Baby 5
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: If your Leader has the {Donquixote Pirates} type, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-077 | Bellamy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] You may rest 2 of your DON!! cards: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-078 | I Do Not Forgive Those Who Laugh at My Family!!!
+  - Effect: current="missing" | should="[Main]/[Counter] Look at 3 cards from the top of your deck; reveal up to 1 {Donquixote Pirates} type card other than [I Do Not Forgive Those Who Laugh at My Family!!!] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-079 | God Thread
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost 5 or less. Then, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-080 | Little Black Bears
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, if you have 7 or more DON!! cards on your field and 5 or less cards in your hand, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-081 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may rest 1 of your {Dressrosa} type Leader or Stage cards: K.O. up to 1 of your opponent's Characters with a cost of 2 or less. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-082 | Kuzan
+  - Effect: current="missing" | should="This Character cannot be removed from the field by your opponent's effects. [Activate: Main] You may trash this Character: Draw 1 card. Then, play up to 1 {Blackbeard Pirates} type Character card with a cost of 5 or less other than [Kuzan] from your trash."
+  - Type line: current="missing" | should="Former Navy/Blackbeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-083 | Kouzuki Momonosuke
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and 1 of your {Dressrosa} type Leader or Stage cards: Give up to 1 of your opponent's Characters -2 cost during this turn."
+  - Type line: current="missing" | should="Dressrosa/Land of Wano/Kouzuki Clan"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-084 | Sanjuan.Wolf
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Blackbeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-085 | Jesus Burgess
+  - Effect: current="missing" | should="[DON!! x1] If you have 8 or more cards in your trash, this Character gains [Rush]."
+  - Type line: current="missing" | should="Dressrosa/Blackbeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-086 | Shiryu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Opponent's Turn] This Character gains +2000 power. [Activate: Main] [Once Per Turn] If your Leader has the {Blackbeard Pirates} type, and this Character was played on this turn, K.O. up to 1 of your opponent's Characters with a base cost of 3 or less."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-087 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and 1 of your {Dressrosa} type Leader or Stage cards: If your opponent has 5 or more cards in their hand, your opponent trashes 1 card from their hand. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="Animal/Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-088 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and 1 of your {Dressrosa} type Leader or Stage cards: Draw 1 card. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-089 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-090 | Franky
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On K.O.] Play up to 1 {Dressrosa} type Character card with a cost of 3 or less from your trash rested."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-091 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and 1 of your {Dressrosa} type Leader or Stage cards: K.O. up to 1 of your opponent's Characters with a cost of 1 or less. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-092 | Perona
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may place 2 {Thriller Bark Pirates} type cards from your trash at the bottom of your deck in any order: Up to 1 of your Characters other than [Perona] gains +2000 power during this turn."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-093 | Saint Homing
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Up to 1 of your black Characters gains +3 cost until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Celestial Dragons"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-094 | Ryuma
+  - Effect: current="missing" | should="[DON!! x1] This Character gains [Double Attack]."
+  - Type line: current="missing" | should="Land of Wano/Thriller Bark Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-095 | Roronoa Zoro
+  - Effect: current="missing" | should="[On Play] You may rest 1 of your {Dressrosa} type Leader or Stage cards: K.O. up to 1 of your opponent's Characters with a cost of 4 or less. Then, trash 2 cards from the top of your deck."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-096 | There’s No Longer Any Need for the Seven Warlords of the Sea!!!
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's {The Seven Warlords of the Sea} type Characters with a cost of 8 or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's {The Seven Warlords of the Sea} type Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-097 | Gum-Gum Rhino Schneider
+  - Effect: current="missing" | should="[Main] Up to 1 of your {Dressrosa} type Characters gains +2000 power during this turn. Then, if you have 10 or more cards in your trash, that card gains [Banish] during this turn."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-098 | Liberation
+  - Effect: current="missing" | should="[Main] If the number of your Characters is at least 2 less than the number of your opponent's Characters, K.O. up to 1 of your opponent's Characters with a base cost of 6 or less and up to 1 of your opponent's Characters with a base cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] Negate the effect of up to 1 of each of your opponent's Leader and Character cards during this turn."
+  - Type line: current="missing" | should="Blackbeard Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-099 | Eustass"Captain"Kid
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[End of Your Turn] You may turn 1 card from the top of your Life cards face-up: Set up to 1 of your {Supernovas} type Characters with a cost of 3 to 8 as active. That Character gains [Blocker] until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-100 | Inazuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Rest up to 1 of your opponent's Characters with a cost equal to or less than the total of your and your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Revolutionary Army} type and you and your opponent have a total of 5 or less Life cards, play this card."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-101 | Urouge
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Supernovas/Fallen Monk Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-102 | Emporio.Ivankov
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] Up to 3 of your {Revolutionary Army} type Characters gain +1000 power during this turn. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-103 | Capone"Gang"Bege
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 {Supernovas} type Character card from your hand to the top of your Life cards face-up."
+  - Type line: current="missing" | should="Supernovas/Firetank Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-104 | Caribou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] If your Leader has the {Supernovas} type and your opponent has 3 or more Life cards, this Character cannot be K.O.'d in battle."
+  - Type line: current="missing" | should="Supernovas/Caribou Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-105 | Cavendish
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Beautiful Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-106 | Killer
+  - Effect: current="missing" | should="[On K.O.] If your Leader has the {Supernovas} type, look at 3 cards from the top of your deck; reveal up to 1 {Supernovas} or {Kid Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-107 | Jewelry Bonney
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On Play] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 {Supernovas} type Character card with a cost of 5 from your hand to the top of your Life cards face-up."
+  - Type line: current="missing" | should="Supernovas/Bonney Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-108 | Scratchmen Apoo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a yellow {Supernovas} type Character other than [Scratchmen Apoo], this Character gains [Blocker]."
+  - Type line: current="missing" | should="Supernovas/On-Air Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-109 | Basil Hawkins
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Trash up to 1 card from the top of your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Supernovas/Hawkins Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-110 | Heat &amp; Wire
+  - Card name: current="Heat &amp; Wire" | should="Heat & Wire"
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Rest up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] If you have 2 or less Life cards, play this card."
+  - Attribute: current="Slash" | should="Slash/Special"
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-111 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Supernovas} type card other than [Monkey.D.Luffy] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-112 | Eustass"Captain"Kid
+  - Effect: current="missing" | should="[On Play] You may rest this Character: Trash up to 1 card from the top of your opponent's Life cards. [End of Your Turn] If your opponent has 2 or less Life cards, draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SuperRare" | should="SR"
+- OP10-113 | Roronoa Zoro
+  - Effect: current="missing" | should="If you have less Life cards than your opponent, this Character gains [Rush]."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: If your Leader has the {Supernovas} type, play this card."
+  - Type line: current="missing" | should="Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-114 | X.Drake
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: If the number of your Life cards is equal to or less than the number of your opponent's Life cards, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Supernovas/Navy/Drake Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-115 | Let's Meet Again in the New World
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, if you have 0 Life cards, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-116 | Damned Punk
+  - Effect: current="missing" | should="[Main] Look at up to 1 card from the top of your or your opponent's Life cards and place it at the top or bottom of the Life cards. Then, K.O. up to 1 of your opponent's Characters with a cost of 5 or less."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="Supernovas/Kid Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-117 | ROOM
+  - Effect: current="missing" | should="[Counter] If you have 1 or less Life cards, up to 1 of your Leader or Character cards gains +3000 power during this battle. Then, set up to 1 of your Characters with a cost of 5 or less as active."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Supernovas/Heart Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+- OP10-118 | Monkey.D.Luffy
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Once per turn, this Character cannot be K.O.'d by your opponent's effects. [When Attacking] You may place 3 cards from your trash at the bottom of your deck in any order: If your opponent has 5 or more cards in their hand, your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Straw Hat Crew"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP10-119 | Trafalgar Law
+  - Effect: current="missing" | should="[On Play] Reveal up to 1 {Supernovas} type Character card from your hand and add it to the top of your Life cards face-down. Then, give up to 1 rested DON!! card to 1 of your {Supernovas} type Leader."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Heart Pirates"
+  - Set name: current="Royal Blood" | should="ROYAL BLOOD [OP-10]"
+  - Release date: current="missing" | should="2025-03-21"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### Anime 25th Collection [EB-02]
+- EB02-001 | Karoo
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Alabasta"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-002 | Sabo
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Up to 1 of your {Revolutionary Army} type Characters other than [Sabo] gains +2000 power during this turn."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-003 | Tony Tony.Chopper
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x2] [Opponent's Turn] This Character gains +2000 power. [On Play] If your Leader has the {Straw Hat Crew} type, give up to 1 rested DON!! card to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Animal/Drum Kingdom/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-004 | Don Accino
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Accino Family"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-005 | Fake Straw Hat Crew
+  - Effect: current="missing" | should="[Your Turn] This Character gains +2000 power. [Opponent's Turn] Give this Character −2000 power."
+  - Type line: current="missing" | should="Fake Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-006 | Yamato
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If your Leader has the {Land of Wano} type or is [Portgas.D.Ace], give up to 1 rested DON!! card to 1 of your Leader. Then, this Character gains [Rush] during this turn."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-007 | Cloven Rose Blizzard
+  - Effect: current="missing" | should="[Main] Up to a total of 3 of your Leader and Character cards gain +1000 power during this turn. Then, K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with 4000 power or less."
+  - Type line: current="missing" | should="Animal/Water Seven/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-008 | The Peak
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 card with a cost of 4 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Music"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-009 | Thousand Sunny
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage: Give up to 1 of your currently given DON!! cards to 1 of your {Straw Hat Crew} type Characters."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-010 | Monkey.D.Luffy
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] DON!! −2: If the only Characters on your field are {Straw Hat Crew} type Characters, set up to 2 of your DON!! cards as active. Then, this Leader gains +1000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-011 | Arlong
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Fish-Man} or {East Blue} type, give up to 1 rested DON!! card to 1 of your Leader. Then, up to 1 of your opponent's Characters with a cost of 5 or less cannot be rested until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Fish-Man/East Blue/Arlong Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-012 | Gaimon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a [Sarfunkel], this Character gains [Blocker]."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-013 | Carrot
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 3 or more DON!! cards on your field, look at 7 cards from the top of your deck; reveal up to 1 [Zou] and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 [Zou] from your hand."
+  - Type line: current="missing" | should="Minks"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-014 | Sarfunkel
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 [Gaimon] from your hand."
+  - Type line: current="missing" | should="East Blue"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-015 | Jewelry Bonney
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your opponent's rested Characters will not become active in your opponent's next Refresh Phase. Then, set up to 1 of your DON!! cards as active at the end of this turn."
+  - Type line: current="missing" | should="Supernovas/Bonney Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-016 | Chopperman
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Also treat this card's name as [Tony Tony.Chopper] according to the rules. [On Play] Play up to 1 {Animal} type Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-017 | Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Straw Hat Crew} type card other than [Nami] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-018 | Buggy
+  - Effect: current="missing" | should="[On Play] If you have no other [Buggy] Characters, up to 1 of your Leader gains [Double Attack] during this turn."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="East Blue/Buggy Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-019 | Roronoa Zoro
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If your opponent has 2 or more Characters, this Character can attack Characters on the turn in which it is played. [On Play] If your Leader has the {Straw Hat Crew} type, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-020 | We Are!
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 card with a cost of 4 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Music"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-021 | Gum-Gum Giant Pistol
+  - Effect: current="missing" | should="[Main] Up to 1 of your {Straw Hat Crew} type Characters gains +6000 power during this turn. Then, the selected Character will not become active in your next Refresh Phase."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Water Seven/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-022 | Usopp
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 2 or less Characters with 5000 power or more, play up to 1 Character card with 6000 power or less and no base effect from your hand."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-023 | Crocodile
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When your opponent's Character is returned to the owner's hand by your effect, look at 3 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Baroque Works"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-024 | Sogeking
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="Also treat this card's name as [Usopp] according to the rules. [On Play] Draw 2 cards and place 2 cards from your hand at the bottom of your deck in any order. Then, return up to 1 Character with a cost of 1 or less to the owner's hand."
+  - Type line: current="missing" | should="Sniper Island"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-025 | Donquixote Rosinante
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest 1 of your DON!! cards and this Character: If your Leader is [Donquixote Rosinante], look at 5 cards from the top of your deck; play up to 1 Character card with a cost of 2 or less rested. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-026 | Nefeltari Vivi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader is multicolored and you have 5 or less cards in your hand, draw 2 cards."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-027 | Vista
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Place up to 1 of your opponent's Characters with 1000 power or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Whitebeard Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-028 | Portgas.D.Ace
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader's type includes "Whitebeard Pirates", look at 5 cards from the top of your deck; reveal up to 1 Character card with a cost of 2 and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 Character card with a cost of 2 from your hand rested."
+  - Type line: current="missing" | should="Alabasta/Whitebeard Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-029 | Grandpa Ryu
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/East Blue"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-030 | And That's When Somebody Makes Fun of Their Friend's Dream!!!!
+  - Effect: current="missing" | should="[Counter] If any of your Characters would be K.O.'d in battle during this turn, you may trash 1 card from your hand instead."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Alabasta/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-031 | Hope
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 card with a cost of 4 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Music"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-032 | Iceburg
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If you have 3 or more DON!! cards on your field, look at 7 cards from the top of your deck; reveal up to 1 [Galley-La Company] and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 [Galley-La Company] from your hand."
+  - Type line: current="missing" | should="Water Seven/Galley-La Company"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-033 | Klabautermann
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have [Merry Go] on your field, this Character gains [Blocker]."
+  - Type line: current="missing" | should="Sprite"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-034 | Komei
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy/Foxy Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-035 | Sanji &amp; Pudding
+  - Card name: current="Sanji &amp; Pudding" | should="Sanji & Pudding"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When 2 or more DON!! cards on your field are returned to your DON!! deck, add up to 1 DON!! card from your DON!! deck and set it as active. [On Play] If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, draw 1 card."
+  - Attribute: current="Strike" | should="Strike/Wisdom"
+  - Type line: current="missing" | should="Big Mom Pirates/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-036 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On K.O.] DON!! −1: Look at 3 cards from the top of your deck; reveal up to 1 {Straw Hat Crew} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-037 | Franky
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[When Attacking] If your Leader has the {Straw Hat Crew} type and the number of DON!! cards on your field is equal to or less than the number on your opponent's field, add up to 1 DON!! card from your DON!! deck and rest it."
+  - Type line: current="missing" | should="Water Seven/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-038 | Magellan
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Play up to 1 {Impel Down} type Character card with a cost of 2 or less from your hand."
+  - Type line: current="missing" | should="Impel Down"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-039 | GERMA 66
+  - Effect: current="missing" | should="[Main] You may trash 1 {GERMA 66} type Character card with 4000 power or less from your hand: If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, play up to 1 Character card with 5000 to 7000 power and the same card name as the trashed card from your trash."
+  - Type line: current="missing" | should="The Vinsmoke Family/GERMA 66"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-040 | BRAND NEW WORLD
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 card with a cost of 4 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Music"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-041 | Merry Go
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Straw Hat Crew} type, draw 1 card. [Activate: Main] You may rest this Stage: If the number of DON!! cards on your field is equal to or less than the number on your opponent's field, up to 1 of your {Straw Hat Crew} type Characters gains +2 cost until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-042 | All-Hunt Grount
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-043 | Jonathan
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-044 | Sengoku
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On Play] Play up to 1 black {Navy} type Character card with a cost of 4 or less from your trash rested."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-045 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On Play] You may place 2 cards from your trash at the bottom of your deck in any order: Choose one: • Draw 1 card. • If your opponent has 5 or more cards in their hand, your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Dressrosa/Supernovas/Heart Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-046 | Hildon
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Trash 2 cards from the top of your deck and give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Thriller Bark Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-047 | Blueno
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and trash this Character: Play up to 1 Character card with a type including "CP" and a cost of 5 or less other than [Blueno] from your trash."
+  - Type line: current="missing" | should="CP9"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-048 | Brook
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Add up to 1 [Laboon] from your trash to your hand. [On K.O.] Play up to 1 [Laboon] with a cost of 4 or less from your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-049 | Monkey.D.Garp
+  - Effect: current="missing" | should="[On Play] Give up to 2 rested DON!! cards to 1 of your Leader. [Activate: Main] You may rest this Character: If your Leader is [Monkey.D.Garp], K.O. up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-050 | Kokoro no Chizu
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 card with a cost of 4 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Music"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-051 | Three-Pace Hum Soul Notch Slash
+  - Effect: current="missing" | should="[Main] Choose one: • K.O. up to 1 of your opponent's Characters with a cost of 2 or less. • Give up to 1 of your opponent's Characters −4 cost during this turn."
+  - Type line: current="missing" | should="Former Rumbar Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-052 | Enel
+  - Effect: current="missing" | should="If your Leader has the {Sky Island} type, this Character gains [Rush]. [When Attacking] You may trash 1 card from your hand: If you have 1 or less Life cards, add up to 1 card from the top of your deck to the top of your Life cards. Then, this Character gains +1000 power during this turn."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-053 | Myskina Olga
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play]/[On K.O.] Look at up to 1 card from the top of your or your opponent's Life cards and place it at the top or bottom of the Life cards."
+  - Type line: current="missing" | should="Alchemi"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-054 | Sanji
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] If you have 2 or less Life cards, draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="East Blue/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-055 | Jinbe
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] If your Leader has the {Fish-Man} or {Merfolk} type and you have 2 or less Life cards, play this card."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-056 | Vegapunk
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On Play] Look at 5 cards from the top of your deck; play up to 1 {Scientist} type Character card with a cost of 5 or less other than [Vegapunk]. Then, place the rest at the bottom of your deck in any order and if your opponent has 2 or less Characters, trash 1 card from your hand."
+  - Trigger: current="missing" | should="[Trigger] Draw 1 card."
+  - Type line: current="missing" | should="Scientist/Egghead"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SuperRare" | should="SR"
+- EB02-057 | Mad Treasure
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] You may add 1 card from the top or bottom of your Life cards to your hand: Add up to 1 of your opponent's Characters with a cost of 3 or less to the top or bottom of your opponent's Life cards face-up."
+  - Type line: current="missing" | should="Treasure Pirates"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-058 | UUUUUS!
+  - Effect: current="missing" | should="[Main] Look at 4 cards from the top of your deck; reveal up to 1 card with a cost of 4 or more and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Music"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-059 | Without Your Help I Can't Become the King of the Pirates!!!!
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +1000 power during this battle. Then, if you have 1 or less Life cards, play up to 1 of your yellow {Straw Hat Crew} type Character cards or [Sanji] with a cost of 5 or less from your hand."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-060 | Merry Go
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Stage and turn 1 card from the top of your Life cards face-up: Up to 1 of your {Straw Hat Crew} type Characters gains +1000 power until the end of your opponent's next turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+- EB02-061 | Monkey.D.Luffy
+  - Effect: current="missing" | should="If your Leader is multicolored and your opponent has 5 or more DON!! cards on their field, this Character gains [Rush]. [When Attacking] [Once Per Turn] You may return 2 of your active DON!! cards to your DON!! deck: Set this Character as active. Then, add 1 card from the top of your Life cards to your hand."
+  - Type line: current="missing" | should="Water Seven/Straw Hat Crew"
+  - Set name: current="Anime 25th Collection" | should="Anime 25th Collection [EB-02]"
+  - Release date: current="missing" | should="2025-05-09"
+  - Rarity: current="SecretRare" | should="SEC"
+
+### AWAKENING OF THE NEW ERA [OP05]
+- OP05-001 | Sabo
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[DON!! x1] [Opponent's Turn] [Once Per Turn] If your Character with 5000 power or more would be K.O.'d, you may give that Character −1000 power during this turn instead of that Character being K.O.'d."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-002 | Belo Betty
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may trash 1 {Revolutionary Army} type card from your hand: Up to 3 of your {Revolutionary Army} type Characters or Characters with a [Trigger] gain +3000 power during this turn."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-003 | Inazuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have a Character with 7000 power or more other than this Character, this Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-004 | Emporio.Ivankov
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] If this Character has 7000 power or more, play up to 1 {Revolutionary Army} type Character card with 5000 power or less other than [Emporio.Ivankov] from your hand."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-005 | Karasu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Revolutionary Army} type, give up to 1 of your opponent's Leader or Character cards −1000 power during this turn. [When Attacking] If this Character has 7000 power or more, give up to 1 of your opponent's Leader or Character cards −1000 power during this turn."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-006 | Koala
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] If your Leader has the {Revolutionary Army} type, give up to 1 of your opponent's Characters −3000 power during this turn."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-007 | Sabo
+  - Effect: current="missing" | should="[On Play] K.O. up to 2 of your opponent's Characters with a total power of 4000 or less."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-008 | Chaka
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [Activate: Main] [Once Per Turn] Give up to 2 rested DON!! cards to your Leader or 1 of your Characters."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-009 | Toh-Toh
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Draw 1 card if your Leader has 0 power or less."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-010 | Nico Robin
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with 1000 power or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-011 | Bartholomew Kuma
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is multicolored, play this card."
+  - Type line: current="missing" | should="The Seven Warlords of the Sea/Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-012 | Hack
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Fish-Man/Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-013 | Bunny Joe
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-014 | Pell
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-015 | Belo Betty
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Revolutionary Army} type card other than [Belo Betty] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-016 | Morley
+  - Effect: current="missing" | should="[When Attacking] If this Character has 7000 power or more, your opponent cannot activate [Blocker] during this battle."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: If your Leader is multicolored, play this card."
+  - Type line: current="missing" | should="Giant/Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-017 | Lindbergh
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If this Character has 7000 power or more, K.O. up to 1 of your opponent's Characters with 3000 power or less."
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: If your Leader is multicolored, play this card."
+  - Type line: current="missing" | should="Minks/Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-018 | Emporio Energy Hormone
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +3000 power during this battle. Then, play up to 1 {Revolutionary Army} type Character card with 5000 power or less from your hand."
+  - Trigger: current="missing" | should="[Trigger] Play up to 1 {Revolutionary Army} type Character card with 5000 power or less from your hand."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-019 | Fire Fist
+  - Effect: current="missing" | should="[Main] Give up to 1 of your opponent's Characters −4000 power during this turn. Then, if you have 2 or less Life cards, K.O. up to 1 of your opponent's Characters with 0 power or less."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-020 | Four Thousand-Brick Fist
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +2000 power during this turn. Then, K.O. up to 1 of your opponent's Characters with 2000 power or less."
+  - Trigger: current="missing" | should="[Trigger] Up to 1 of your Leader or Character cards gains +1000 power during this turn."
+  - Type line: current="missing" | should="Fish-Man/Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-021 | Revolutionary Army HQ
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Stage: Look at 3 cards from the top of your deck; reveal up to 1 {Revolutionary Army} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-022 | Donquixote Rosinante
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [End of Your Turn] If you have 6 or less cards in your hand, set this Leader as active."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-023 | Vergo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-024 | Kuween
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-025 | Gladius
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character: Rest up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-026 | Sarquiss
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] [Once Per Turn] You may rest 1 of your Characters with a cost of 3 or more: Set this Character as active."
+  - Type line: current="missing" | should="Bellamy Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-027 | Trafalgar Law
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Rest up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-028 | Donquixote Doflamingo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: K.O. up to 1 of your opponent's rested Characters with a cost of 2 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-029 | Donquixote Doflamingo
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] ➀ (You may rest the specified number of DON!! cards in your cost area.): Rest up to 1 of your opponent's Characters with a cost of 6 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-030 | Donquixote Rosinante
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Opponent's Turn] If your rested Character would be K.O.'d, you may trash this Character instead."
+  - Type line: current="missing" | should="Navy/Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-031 | Buffalo
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] If you have 2 or more rested Characters, set up to 1 of your rested Characters with a cost of 1 as active."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-032 | Pica
+  - Effect: current="missing" | should="[End of Your Turn] ①: Set this Character as active. [Once Per Turn] If this Character would be K.O.'d, you may rest up to 1 of your Characters with a cost of 3 or more other than [Pica] instead."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-033 | Baby 5
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Character: Play up to 1 {Donquixote Pirates} type Character card with a cost of 2 or less from your hand."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-034 | Baby 5
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Character: Look at 5 cards from the top of your deck; reveal up to 1 {Donquixote Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-035 | Bellamy
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-036 | Monet
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-037 | Because the Side of Justice Will Be Whichever Side Wins!!
+  - Effect: current="missing" | should="[Counter] You may trash 1 card from your hand: Up to 1 of your Leader or Character cards gains +3000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-038 | Charlestone
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, you may trash 1 card from your hand. If you do, set up to 3 of your DON!! cards as active."
+  - Trigger: current="missing" | should="[Trigger] Rest up to 1 of your opponent's Leader or Character cards with a cost of 3 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-039 | Stick-Stickem Meteora
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, K.O. up to 1 of your opponent's rested Characters with a cost of 3 or less."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's rested Characters with a cost of 5 or less."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-040 | Birdcage
+  - Effect: current="missing" | should="If your Leader is [Donquixote Doflamingo], all Characters with a cost of 5 or less do not become active in your and your opponent's Refresh Phases. [End of Your Turn] If you have 10 DON!! cards on your field, K.O. all rested Characters with a cost of 5 or less. Then, trash this Stage."
+  - Type line: current="missing" | should="Donquixote Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-041 | Sakazuki
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may trash 1 card from your hand: Draw 1 card. [When Attacking] Give up to 1 of your opponent's Characters −1 cost during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-042 | Issho
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Up to 1 of your opponent's Characters with a cost of 7 or less cannot attack until the start of your next turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-043 | Ulti
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If your Leader is multicolored, look at 3 cards from the top of your deck and add up to 1 card to your hand. Then, place the rest at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="Animal Kingdom Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-044 | John Giant
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Giant/Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-045 | Stainless
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash 1 card from your hand and rest this Character: Place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-046 | Dalmatian
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On K.O.] Draw 1 card and place 1 card from your hand at the bottom of your deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-047 | Basil Hawkins
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Block] Draw 1 card if you have 3 or less cards in your hand. Then, this Character gains +1000 power during this battle."
+  - Type line: current="missing" | should="Animal Kingdom Pirates/Hawkins Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-048 | Bastille
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-049 | Haccha
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] Return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="Giant/Animal Kingdom Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-050 | Hina
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Draw 1 card if you have 5 or less cards in your hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-051 | Borsalino
+  - Effect: current="missing" | should="[On Play] Place up to 1 Character with a cost of 4 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-052 | Maynard
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-053 | Mozambia
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When you draw a card outside of your Draw Phase, this Character gains +2000 power during this turn."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-054 | Monkey.D.Garp
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] Draw 2 cards and place 2 cards from your hand at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-055 | X.Drake
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Look at 5 cards from the top of your deck and place them at the top or bottom of the deck in any order."
+  - Type line: current="missing" | should="Navy/Drake Pirates/Animal Kingdom Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-056 | X.Barrels
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may place 1 of your Characters other than this Character at the bottom of your deck: Draw 1 card."
+  - Type line: current="missing" | should="Former Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-057 | Hound Blaze
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +3000 power during this turn. Then, place up to 1 Character with a cost of 2 or less at the bottom of the owner's deck."
+  - Trigger: current="missing" | should="[Trigger] Return up to 1 Character with a cost of 3 or less to the owner's hand."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-058 | It's a Waste of Human Life!!
+  - Effect: current="missing" | should="[Main] Place all Characters with a cost of 3 or less at the bottom of the owner's deck. Then, you and your opponent trash cards from your hands until you each have 5 cards in your hands."
+  - Trigger: current="missing" | should="[Trigger] Place all Characters with a cost of 2 or less at the bottom of the owner's deck."
+  - Type line: current="missing" | should="Navy"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-059 | Let Us Begin the World of Violence!!!
+  - Effect: current="missing" | should="[Main] If your Leader is multicolored, draw 1 card. Then, return up to 1 Character with a cost of 5 or less to the owner's hand."
+  - Trigger: current="missing" | should="[Trigger] If your Leader is multicolored, draw 2 cards."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-060 | Monkey.D.Luffy
+  - Cost: current="5" | should="missing"
+  - Life: current="missing" | should="5"
+  - Effect: current="missing" | should="[Activate: Main] [Once Per Turn] You may add 1 card from the top of your Life cards to your hand: If you have 0 or 3 or more DON!! cards on your field, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-061 | Uso-Hachi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] If you have 8 or more DON!! cards on your field, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-062 | O-Nami
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 10 DON!! cards on your field, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-063 | O-Robi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 8 or more DON!! cards on your field, K.O. up to 1 of your opponent's Characters with a cost of 3 or less."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-064 | Killer
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Kid Pirates} type card other than [Killer] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-065 | San-Gorou
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-066 | Jinbe
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [Opponent's Turn] If you have 10 DON!! cards on your field, this Character gains +1000 power."
+  - Type line: current="missing" | should="Fish-Man/Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-067 | Zoro-Juurou
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] If you have 3 or less Life cards, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-068 | Chopa-Emon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have 8 or more DON!! cards on your field, set up to 1 of your purple {Straw Hat Crew} type Characters with 6000 power or less as active."
+  - Type line: current="missing" | should="Animal/Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-069 | Trafalgar Law
+  - Effect: current="missing" | should="[When Attacking] If your opponent has more DON!! cards on their field than you, look at 5 cards from the top of your deck; reveal up to 1 {Heart Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-070 | Fra-Nosuke
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[DON!! x1] If you have 8 or more DON!! cards on your field, this Character gains [Rush]. (This card can attack on the turn in which it is played.)"
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-071 | Bepo
+  - Effect: current="missing" | should="[When Attacking] If your opponent has more DON!! cards on their field than you, give up to 1 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Minks/Heart Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-072 | Hone-Kichi
+  - Effect: current="missing" | should="[On Play] If you have 8 or more DON!! cards on your field, give up to 2 of your opponent's Characters −2000 power during this turn."
+  - Type line: current="missing" | should="Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-073 | Miss Doublefinger(Zala)
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may trash 1 card from your hand: Add up to 1 DON!! card from your DON!! deck and rest it."
+  - Trigger: current="missing" | should="[Trigger] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play this card."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-074 | Eustass"Captain"Kid
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [Your Turn] [Once Per Turn] When a DON!! card on your field is returned to your DON!! deck, add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-075 | Mr.1(Daz.Bonez)
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] [Once Per Turn] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Play up to 1 {Baroque Works} type Character card with a cost of 3 or less from your hand."
+  - Type line: current="missing" | should="Baroque Works"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-076 | When You're at Sea You Fight against Pirates!!
+  - Effect: current="missing" | should="[Main] Look at 3 cards from the top of your deck; reveal up to 1 {Straw Hat Crew}, {Kid Pirates}, or {Heart Pirates} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Land of Wano"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-077 | Gamma Knife
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Give up to 1 of your opponent's Characters −5000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Heart Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-078 | Punk Rotten
+  - Effect: current="missing" | should="[Main] DON!! −1 (You may return the specified number of DON!! cards from your field to your DON!! deck.): Up to 1 of your {Kid Pirates} type Leader or Character cards gains +5000 power during this turn."
+  - Trigger: current="missing" | should="[Trigger] Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="Kid Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-079 | Viola
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Your opponent places 3 cards from their trash at the bottom of their deck in any order."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-080 | Elizabello II
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[When Attacking] [Once Per Turn] You may return 20 cards from your trash to your deck and shuffle it: This Character gains [Double Attack] and +10000 power during this battle. (This card deals 2 damage.)"
+  - Type line: current="missing" | should="Kingdom of Prodence/Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-081 | One-Legged Toy Soldier
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may trash this Character: Give up to 1 of your opponent's Characters −3 cost during this turn."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-082 | Shirahoshi
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[Activate: Main] You may rest this Character and place 2 cards from your trash at the bottom of your deck in any order: If your opponent has 6 or more cards in their hand, your opponent trashes 1 card from their hand."
+  - Type line: current="missing" | should="Merfolk"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-083 | Sterry
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Goa Kingdom"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-084 | Saint Charlos
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] If the only Characters on your field are {Celestial Dragons} type Characters, give all of your opponent's Characters −4 cost."
+  - Type line: current="missing" | should="Celestial Dragons"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-085 | Nefeltari Cobra
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play] Trash 1 card from the top of your deck."
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-086 | Nefeltari Vivi
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 10 or more cards in your trash, this Character gains [Blocker]. (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Alabasta"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-087 | Hakuba
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[DON!! x1] [When Attacking] You may K.O. 1 of your Characters other than this Character: Give up to 1 of your opponent's Characters −5 cost during this turn."
+  - Type line: current="missing" | should="Dressrosa/Beautiful Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-088 | Mansherry
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Character and place 2 cards from your trash at the bottom of your deck in any order: Add up to 1 black Character card with a cost of 3 to 5 from your trash to your hand."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-089 | Saint Mjosgard
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Activate: Main] ➀ (You may rest the specified number of DON!! cards in your cost area.) You may rest this Character and 1 of your Characters: Add up to 1 black Character card with a cost of 1 from your trash to your hand."
+  - Type line: current="missing" | should="Celestial Dragons"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-090 | Riku Doldo III
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On Play]/[On K.O.] Up to 1 of your {Dressrosa} type Characters gains +2000 power during this turn."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-091 | Rebecca
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] [On Play] Add up to 1 black Character card with a cost of 3 to 7 other than [Rebecca] from your trash to your hand. Then, play up to 1 black Character card with a cost of 3 or less from your hand rested."
+  - Type line: current="missing" | should="Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-092 | Saint Rosward
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] If the only Characters on your field are {Celestial Dragons} type Characters, give all of your opponent's Characters −6 cost."
+  - Type line: current="missing" | should="Celestial Dragons"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-093 | Rob Lucci
+  - Effect: current="missing" | should="[On Play] You may place 3 cards from your trash at the bottom of your deck in any order: K.O. up to 1 of your opponent's Characters with a cost of 2 or less and up to 1 of your opponent's Characters with a cost of 1 or less."
+  - Type line: current="missing" | should="CP0"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-094 | Haute Couture Patch★Work
+  - Effect: current="missing" | should="[Main] Give up to 1 of your opponent's Characters −3 cost during this turn. Then, up to 1 of your opponent's Characters with a cost of 0 will not become active in the next Refresh Phase."
+  - Trigger: current="missing" | should="[Trigger] Draw 2 cards and trash 1 card from your hand."
+  - Type line: current="missing" | should="The Tontattas/Dressrosa"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-095 | Dragon Claw
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +4000 power during this battle. Then, if you have 15 or more cards in your trash, K.O. up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Type line: current="missing" | should="Dressrosa/Revolutionary Army"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-096 | I Bid 500 Million!!
+  - Effect: current="missing" | should="[Main] Choose one: • K.O. up to 1 of your opponent's Characters with a cost of 1 or less. • Return up to 1 of your opponent's Characters with a cost of 1 or less to the owner's hand. • Place up to 1 of your opponent's Characters with a cost of 1 or less at the top or bottom of their Life cards face-up. Then, if you have a {Celestial Dragons} type Character, draw 1 card."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost of 6 or less, or return it to the owner's hand."
+  - Type line: current="missing" | should="Celestial Dragons"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-097 | Mary Geoise
+  - Effect: current="missing" | should="[Your Turn] The cost of playing {Celestial Dragons} type Character cards with a cost of 2 or more from your hand will be reduced by 1."
+  - Type line: current="missing" | should="Mary Geoise"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-098 | Enel
+  - Cost: current="4" | should="missing"
+  - Life: current="missing" | should="4"
+  - Effect: current="missing" | should="[Opponent's Turn] [Once Per Turn] When your number of Life cards becomes 0, add 1 card from the top of your deck to the top of your Life cards. Then, trash 1 card from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-099 | Amazon
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Your Opponent's Attack] You may rest this Character: Your opponent may trash 1 card from the top of their Life cards. If they do not, give up to 1 of your opponent's Leader or Character cards −2000 power during this turn."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-100 | Enel
+  - Effect: current="missing" | should="[Rush] [Once Per Turn] If this Character would leave the field, you may trash 1 card from the top of your Life cards instead. If there is a [Monkey.D.Luffy] Character, this effect is negated."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SuperRare" | should="SR"
+- OP05-101 | Ohm
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="If you have 2 or less Life cards, this Character gains +1000 power. [On Play] Look at 5 cards from the top of your deck; reveal up to 1 [Holly] and add it to your hand. Then, place the rest at the bottom of your deck in any order and play up to 1 [Holly] from your hand."
+  - Type line: current="missing" | should="Sky Island/Vassals"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-102 | Gedatsu
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] K.O. up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Type line: current="missing" | should="Sky Island/Vassals"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-103 | Kotori
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] If you have [Hotori], K.O. up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-104 | Conis
+  - Counter: current="missing" | should="2000"
+  - Effect: current="missing" | should="[On Play] You may place 1 of your Stages at the bottom of your deck: Draw 1 card and trash 1 card from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-105 | Satori
+  - Counter: current="missing" | should="2000"
+  - Trigger: current="missing" | should="[Trigger] You may trash 1 card from your hand: Play this card."
+  - Type line: current="missing" | should="Sky Island/Vassals"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-106 | Shura
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Sky Island} type card other than [Shura] and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Trigger: current="missing" | should="[Trigger] Play this card."
+  - Type line: current="missing" | should="Sky Island/Vassals"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-107 | Lieutenant Spacey
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Your Turn] [Once Per Turn] When a card is added to your hand from your Life, this Character gains +2000 power during this turn."
+  - Type line: current="missing" | should="The Moon"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-108 | Nola
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-109 | Pagaya
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Once Per Turn] When a [Trigger] activates, draw 2 cards and trash 2 cards from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-110 | Holly
+  - Counter: current="missing" | should="1000"
+  - Type line: current="missing" | should="Animal/Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-111 | Hotori
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[On Play] You may play 1 [Kotori] from your hand: Add up to 1 of your opponent's Characters with a cost of 3 or less to the top or bottom of your opponent's Life cards face-up."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-112 | Captain McKinley
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.) [On K.O.] Play up to 1 {Sky Island} type Character card with a cost of 1 from your hand."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-113 | Yama
+  - Counter: current="missing" | should="1000"
+  - Effect: current="missing" | should="[Blocker] (After your opponent declares an attack, you may rest this card to make it the new target of the attack.)"
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-114 | El Thor
+  - Effect: current="missing" | should="[Counter] Up to 1 of your Leader or Character cards gains +2000 power during this battle. Then, if your opponent has 2 or less Life cards, that card gains an additional +2000 power during this battle."
+  - Trigger: current="missing" | should="[Trigger] K.O. up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-115 | Two-Hundred Million Volts Amaru
+  - Effect: current="missing" | should="[Main] Up to 1 of your Leader or Character cards gains +3000 power during this turn. Then, if you have 1 or less Life cards, rest up to 1 of your opponent's Characters with a cost of 4 or less."
+  - Trigger: current="missing" | should="[Trigger] You may trash 2 cards from your hand: Add up to 1 card from the top of your deck to the top of your Life cards."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-116 | Hino Bird Zap
+  - Effect: current="missing" | should="[Main] K.O. up to 1 of your opponent's Characters with a cost equal to or less than the number of your opponent's Life cards."
+  - Trigger: current="missing" | should="[Trigger] Activate this card's [Main] effect."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-117 | Upper Yard
+  - Effect: current="missing" | should="[On Play] Look at 5 cards from the top of your deck; reveal up to 1 {Sky Island} type card and add it to your hand. Then, place the rest at the bottom of your deck in any order."
+  - Type line: current="missing" | should="Sky Island"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+- OP05-118 | Kaido
+  - Effect: current="missing" | should="[On Play] Draw 4 cards if your opponent has 3 or less Life cards."
+  - Type line: current="missing" | should="The Four Emperors/Animal Kingdom Pirates"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SecretRare" | should="SEC"
+- OP05-119 | Monkey.D.Luffy
+  - Effect: current="missing" | should="[On Play] DON!! −10: Place all of your Characters except this Character at the bottom of your deck in any order. Then, take an extra turn after this one. [Activate: Main] [Once Per Turn] ➀: Add up to 1 DON!! card from your DON!! deck and set it as active."
+  - Type line: current="missing" | should="The Four Emperors/Straw Hat Crew"
+  - Set name: current="Awakening of the New Era" | should="AWAKENING OF THE NEW ERA [OP05]"
+  - Rarity: current="SecretRare" | should="SEC"
+
+## Image Issues
+
+## Extra/Unknown Cards
+
+- none
+
+## Manual Review Releases
+
+- 2025 NEW YEAR EVENT: No direct Bandai product page match on /products/; release date needs manual review.
+- 3rd Anniversary Event: No direct Bandai product page match on /products/; release date needs manual review.
+- Anime Expo 2023: No direct Bandai product page match on /products/; release date needs manual review.
+- BANDAI CARD GAMES Fest 25-26: No direct Bandai product page match on /products/; release date needs manual review.
+- Championship 25-26 Finals Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Championship 25-26 Offline Regionals Season 2: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Celebration Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Event Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Event Pack Finalist Ver.: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Finalist Card Set 1: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Finalist Card Set 2: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Top Player Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Top Player Pack 2: No direct Bandai product page match on /products/; release date needs manual review.
+- CS 25-26 Winner Card Set 2: No direct Bandai product page match on /products/; release date needs manual review.
+- DODGERS ONE PIECE NIGHT: No direct Bandai product page match on /products/; release date needs manual review.
+- Dreamhack Dallas 2024: No direct Bandai product page match on /products/; release date needs manual review.
+- Event Pack Vol. 8: No direct Bandai product page match on /products/; release date needs manual review.
+- Event Pack Vol.3: No direct Bandai product page match on /products/; release date needs manual review.
+- Event Pack Vol.5: No direct Bandai product page match on /products/; release date needs manual review.
+- Event Pack Vol.6: No direct Bandai product page match on /products/; release date needs manual review.
+- Event Pack vol.7: No direct Bandai product page match on /products/; release date needs manual review.
+- Heroines Battle Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- Heroines Battle Winner Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in Event Pack Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in Event Pack Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in FILM RED Promotion Card Set: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in Online Regional Participation Pack Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in Pirates Party Card Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in Pirates Party Card Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Included in Promotion Pack 2022: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Champion Card Set 2025 Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Champion Card Set 25-26 Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Finalist Card Set 2025 Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Finalist Card Set 25-26 Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Participation Pack 2024 Vol. 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Participation Pack 2024 Vol. 2: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Participation Pack 2024 Vol. 3: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Participation Pack 2025 Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- Offline Regional Participation Pack 2025 Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- ONE PIECE CARD GAME and Football Team DORTMUND collaboration event: No direct Bandai product page match on /products/; release date needs manual review.
+- One Piece Card Game x PSA Exclusive Promo Card: No direct Bandai product page match on /products/; release date needs manual review.
+- ONE PIECE DAY Dallas -Card Game Celebration-: No direct Bandai product page match on /products/; release date needs manual review.
+- ONE PIECE HEROINES CAMPAIGN Dash Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- Online Regional Champion Card Set 25-26 Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Online Regional Finalist Card Set 25-26 Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Online Regional Participation Pack 25-26 Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- OP-11 Release Event: No direct Bandai product page match on /products/; release date needs manual review.
+- OP-12 Release Event: No direct Bandai product page match on /products/; release date needs manual review.
+- OP14-EB04 Release Event: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates League Store Qualifier: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates League Three Captains Battle & Support Crew Battle: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates Party Vol.3: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates Party Vol.4: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates Party Vol.5: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates Party Vol.6: No direct Bandai product page match on /products/; release date needs manual review.
+- Pirates Party Vol.7: No direct Bandai product page match on /products/; release date needs manual review.
+- Pre-Release OP02: No direct Bandai product page match on /products/; release date needs manual review.
+- Pre-Release OP03: No direct Bandai product page match on /products/; release date needs manual review.
+- Pre-Release OP04: No direct Bandai product page match on /products/; release date needs manual review.
+- Pre-Release OP06: No direct Bandai product page match on /products/; release date needs manual review.
+- Pre-Release OP08: No direct Bandai product page match on /products/; release date needs manual review.
+- Regional 2024 wave1: No direct Bandai product page match on /products/; release date needs manual review.
+- Regional 2024 wave2: No direct Bandai product page match on /products/; release date needs manual review.
+- Regional 25-26 Season1: No direct Bandai product page match on /products/; release date needs manual review.
+- Regionals Season 1: No direct Bandai product page match on /products/; release date needs manual review.
+- Regionals Wave 3: No direct Bandai product page match on /products/; release date needs manual review.
+- Sealed Battle 2023 Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- Sealed Battle Kit Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- ST-11 Uta Deck Battle Participation Pack: No direct Bandai product page match on /products/; release date needs manual review.
+- ST15-20 Release Event: No direct Bandai product page match on /products/; release date needs manual review.
+- Store 2-on-2 Battle: No direct Bandai product page match on /products/; release date needs manual review.
+- Store Tournament 2025 Vol. 4: No direct Bandai product page match on /products/; release date needs manual review.
+- Store Treasure Cup August – September 2024: No direct Bandai product page match on /products/; release date needs manual review.
+- Super Pre-Release: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Kit 2025 Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack 2024 Oct.-Dec.: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack 2025 Vol. 3: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack 2025 Vol. 4: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.3: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.4: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.5: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.6: No direct Bandai product page match on /products/; release date needs manual review.
+- Tournament Pack Vol.7: No direct Bandai product page match on /products/; release date needs manual review.
+- Treasure Cup August – September: No direct Bandai product page match on /products/; release date needs manual review.
+- Treasure Cup August 2025~: No direct Bandai product page match on /products/; release date needs manual review.
+- Treasure Cup February 2025: No direct Bandai product page match on /products/; release date needs manual review.
+- Treasure Cup May 2025~: No direct Bandai product page match on /products/; release date needs manual review.
+- Treasure Cup November 2025~: No direct Bandai product page match on /products/; release date needs manual review.
+- Treasure Cup November-December: No direct Bandai product page match on /products/; release date needs manual review.
+- Winner Pack 2025 Vol. 3: No direct Bandai product page match on /products/; release date needs manual review.
+- Winner Pack 2025 Vol. 4: No direct Bandai product page match on /products/; release date needs manual review.
+- Winner Pack 2025 Vol.2: No direct Bandai product page match on /products/; release date needs manual review.
+- Winner prize for Sealed Battle 2023 Vol.1: No direct Bandai product page match on /products/; release date needs manual review.
+

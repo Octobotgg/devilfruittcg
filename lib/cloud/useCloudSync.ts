@@ -1,7 +1,18 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { getCloudAdapter } from "./index";
-import type { CloudUser, Deck, Collection } from "./types";
+import type {
+  CloudUser,
+  Deck,
+  Collection,
+  CloudSignInOptions,
+  CloudSignUpOptions,
+  CloudSignUpResult,
+  CloudPasswordResetOptions,
+  CloudPasswordUpdateOptions,
+} from "./types";
+import { normalizeCollection, normalizeDecks } from "./normalize";
+import { clearUserScopedClientData } from "@/lib/client-user-data";
 
 const LS_DECKS = "devilfruit_decks";
 const LS_COLLECTION = "devilfruit_collection";
@@ -11,58 +22,92 @@ function lsGet<T>(key: string, fallback: T): T {
 }
 
 export function useCloudSync() {
-  const [user, setUser] = useState<CloudUser | null>(null);
-  const [syncing, setSyncing] = useState(false);
-  const [ready, setReady] = useState(false);
-
   const adapter = getCloudAdapter();
+  const [user, setUser] = useState<CloudUser | null>(null);
+  const syncing = false;
+  const [ready, setReady] = useState(() => !adapter);
+  const lastUserIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!adapter) { setReady(true); return; }
+    if (!adapter) return;
+    let cancelled = false;
     adapter.getSessionUser().then(u => {
+      if (cancelled) return;
+      lastUserIdRef.current = u?.id ?? null;
       setUser(u);
       setReady(true);
-    }).catch(() => setReady(true));
-  }, []);
+    }).catch(() => {
+      if (cancelled) return;
+      setReady(true);
+    });
 
-  const signIn = useCallback(async () => {
+    const unsubscribe = adapter.subscribeToAuthState?.((nextUser) => {
+      if (cancelled) return;
+      const nextUserId = nextUser?.id ?? null;
+      if (lastUserIdRef.current && lastUserIdRef.current !== nextUserId) {
+        clearUserScopedClientData();
+      }
+      lastUserIdRef.current = nextUserId;
+      setUser(nextUser);
+      setReady(true);
+    });
+
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
+  }, [adapter]);
+
+  const signIn = useCallback(async (options?: CloudSignInOptions) => {
     if (!adapter) return;
-    await adapter.signIn();
+    await adapter.signIn(options);
     const u = await adapter.getSessionUser();
+    lastUserIdRef.current = u?.id ?? null;
     setUser(u);
-    if (u) {
-      // migrate localStorage to cloud if cloud is empty
-      setSyncing(true);
-      try {
-        const cloudDecks = await adapter.loadDecks(u.id);
-        if (cloudDecks.length === 0) {
-          const localDecks = lsGet<Deck[]>(LS_DECKS, []);
-          if (localDecks.length > 0) await adapter.saveDecks(u.id, localDecks);
-        }
-        const cloudCollection = await adapter.loadCollection(u.id);
-        if (Object.keys(cloudCollection).length === 0) {
-          const localCollection = lsGet<Collection>(LS_COLLECTION, {});
-          if (Object.keys(localCollection).length > 0) await adapter.saveCollection(u.id, localCollection);
-        }
-      } finally { setSyncing(false); }
-    }
+  }, [adapter]);
+
+  const signUp = useCallback(async (options: CloudSignUpOptions): Promise<CloudSignUpResult | undefined> => {
+    if (!adapter) return undefined;
+    const result = await adapter.signUp(options);
+    const u = await adapter.getSessionUser();
+    lastUserIdRef.current = u?.id ?? null;
+    setUser(u);
+    return result;
+  }, [adapter]);
+
+  const sendPasswordReset = useCallback(async (options: CloudPasswordResetOptions) => {
+    if (!adapter) return;
+    await adapter.sendPasswordReset(options);
+  }, [adapter]);
+
+  const updatePassword = useCallback(async (options: CloudPasswordUpdateOptions) => {
+    if (!adapter) return;
+    await adapter.updatePassword(options);
+    const u = await adapter.getSessionUser();
+    lastUserIdRef.current = u?.id ?? null;
+    setUser(u);
   }, [adapter]);
 
   const signOut = useCallback(async () => {
     if (!adapter) return;
     await adapter.signOut();
+    clearUserScopedClientData();
+    lastUserIdRef.current = null;
     setUser(null);
   }, [adapter]);
 
   const loadDecks = useCallback(async (): Promise<Deck[]> => {
     if (adapter && user) {
-      try { return await adapter.loadDecks(user.id); } catch {}
+      try { return normalizeDecks(await adapter.loadDecks(user.id)); } catch {}
     }
-    return lsGet<Deck[]>(LS_DECKS, []);
+    if (adapter) return [];
+    return normalizeDecks(lsGet<unknown>(LS_DECKS, []));
   }, [adapter, user]);
 
   const saveDecks = useCallback(async (decks: Deck[]): Promise<void> => {
-    localStorage.setItem(LS_DECKS, JSON.stringify(decks));
+    if (!adapter || user) {
+      localStorage.setItem(LS_DECKS, JSON.stringify(decks));
+    }
     if (adapter && user) {
       try { await adapter.saveDecks(user.id, decks); } catch {}
     }
@@ -70,17 +115,34 @@ export function useCloudSync() {
 
   const loadCollection = useCallback(async (): Promise<Collection> => {
     if (adapter && user) {
-      try { return await adapter.loadCollection(user.id); } catch {}
+      try { return normalizeCollection(await adapter.loadCollection(user.id)); } catch {}
     }
-    return lsGet<Collection>(LS_COLLECTION, {});
+    if (adapter) return {};
+    return normalizeCollection(lsGet<unknown>(LS_COLLECTION, {}));
   }, [adapter, user]);
 
   const saveCollection = useCallback(async (collection: Collection): Promise<void> => {
-    localStorage.setItem(LS_COLLECTION, JSON.stringify(collection));
+    if (!adapter || user) {
+      localStorage.setItem(LS_COLLECTION, JSON.stringify(collection));
+    }
     if (adapter && user) {
       try { await adapter.saveCollection(user.id, collection); } catch {}
     }
   }, [adapter, user]);
 
-  return { user, syncing, ready, signIn, signOut, loadDecks, saveDecks, loadCollection, saveCollection, hasCloud: !!adapter };
+  return {
+    user,
+    syncing,
+    ready,
+    signIn,
+    signUp,
+    sendPasswordReset,
+    updatePassword,
+    signOut,
+    loadDecks,
+    saveDecks,
+    loadCollection,
+    saveCollection,
+    hasCloud: !!adapter,
+  };
 }

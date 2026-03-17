@@ -1,0 +1,243 @@
+name: Match Intel Sync
+
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      SNAPSHOT_BASE_URL: https://cdn.cardkaizoku.com/stats
+      DEVILFRUIT_SUPABASE_URL: ${{ secrets.DEVILFRUIT_SUPABASE_URL }}
+      DEVILFRUIT_SUPABASE_ANON_KEY: ${{ secrets.DEVILFRUIT_SUPABASE_ANON_KEY }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Sync snapshot data directly to Supabase
+        run: |
+          if [ -z "$DEVILFRUIT_SUPABASE_URL" ] || [ -z "$DEVILFRUIT_SUPABASE_ANON_KEY" ]; then
+            echo "Missing DEVILFRUIT_SUPABASE_URL or DEVILFRUIT_SUPABASE_ANON_KEY, skipping scheduled sync."
+            exit 0
+          fi
+
+          python3 - <<'PY'
+          import datetime
+          import json
+          import os
+          import time
+          import urllib.error
+          import urllib.request
+
+          periods = ["west", "lw", "east", "east_lw", "west_p", "lw_p", "east_p", "east_lw_p"]
+          snapshot_base = os.environ["SNAPSHOT_BASE_URL"].rstrip("/")
+          supabase_url = os.environ["DEVILFRUIT_SUPABASE_URL"].rstrip("/")
+          supabase_key = os.environ["DEVILFRUIT_SUPABASE_ANON_KEY"]
+
+          headers = {
+              "apikey": supabase_key,
+              "Authorization": f"Bearer {supabase_key}",
+              "Content-Type": "application/json",
+              "User-Agent": "GitHubActions/MatchIntelSync",
+          }
+
+          def get_json(url):
+              req = urllib.request.Request(url, headers={"User-Agent": "GitHubActions/MatchIntelSync"})
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  return json.load(resp)
+
+          def load_official_leader_ids():
+              with open("data/bandai-en-official-cards.json", "r", encoding="utf-8") as handle:
+                  cards = json.load(handle)
+              return {
+                  str(card.get("id", "")).strip().upper()
+                  for card in cards
+                  if str(card.get("type", "")).strip().lower() == "leader"
+                  and str(card.get("id", "")).strip()
+                  and str(card.get("id", "")).strip().upper()
+                  == str(card.get("baseId") or card.get("id") or "").strip().upper()
+              }
+
+          def rest_get(path):
+              req = urllib.request.Request(f"{supabase_url}{path}", headers=headers)
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  return json.load(resp)
+
+          def classify_http_error(error):
+              body = ""
+              try:
+                  body = error.read().decode("utf-8", errors="replace")
+              except Exception:
+                  body = ""
+              retry_after = None
+              if getattr(error, "headers", None):
+                  retry_after = error.headers.get("Retry-After")
+              return {
+                  "status": getattr(error, "code", None),
+                  "reason": getattr(error, "reason", None),
+                  "retryAfter": retry_after,
+                  "body": body[:1000],
+              }
+
+          def rest_post(path, payload, context):
+              payload_bytes = len(json.dumps(payload).encode())
+              req = urllib.request.Request(
+                  f"{supabase_url}{path}",
+                  data=json.dumps(payload).encode(),
+                  headers={**headers, "Prefer": "resolution=merge-duplicates,return=minimal"},
+                  method="POST",
+              )
+              started = time.time()
+              try:
+                  with urllib.request.urlopen(req, timeout=120) as resp:
+                      status = resp.status
+              except urllib.error.HTTPError as error:
+                  print(json.dumps({
+                      "event": "supabase_upsert_failed",
+                      **context,
+                      "payloadRows": len(payload),
+                      "payloadBytes": payload_bytes,
+                      "requestDurationMs": int((time.time() - started) * 1000),
+                      **classify_http_error(error),
+                  }))
+                  raise
+              print(json.dumps({
+                  "event": "supabase_upsert_succeeded",
+                  **context,
+                  "payloadRows": len(payload),
+                  "payloadBytes": payload_bytes,
+                  "requestDurationMs": int((time.time() - started) * 1000),
+                  "status": status,
+              }))
+              return status
+
+          def daterange(start_date, end_date):
+              current = start_date
+              while current <= end_date:
+                  yield current
+                  current += datetime.timedelta(days=1)
+
+          today = datetime.date.today()
+          official_leader_ids = load_official_leader_ids()
+          total_snapshots = 0
+          total_leader_rows = 0
+          total_matchup_rows = 0
+
+          for period in periods:
+              start = today - datetime.timedelta(days=13)
+
+              for current in daterange(start, today):
+                  stamp = current.strftime("%Y%m%d")
+                  url = f"{snapshot_base}/stats_{period}_{stamp}.json?v=3"
+                  try:
+                      rows = get_json(url)
+                  except urllib.error.HTTPError as error:
+                      if error.code == 404:
+                          continue
+                      raise
+
+                  if not isinstance(rows, list) or not rows:
+                      continue
+
+                  snapshot_date = current.isoformat()
+                  leader_rows = []
+                  matchup_rows = []
+                  leader_ids_seen = set()
+                  unmatched_leader_ids = set()
+                  matchup_pairs = set()
+
+                  for row in rows:
+                      leader_id = str(row.get("leader", "")).strip().upper()
+                      if not leader_id:
+                          continue
+                      leader_ids_seen.add(leader_id)
+                      if leader_id not in official_leader_ids:
+                          unmatched_leader_ids.add(leader_id)
+
+                      leader_rows.append({
+                          "snapshot_date": snapshot_date,
+                          "period": period,
+                          "leader_id": leader_id,
+                          "leader_name": str(row.get("leaderName") or leader_id),
+                          "wins": int(row.get("wins") or 0),
+                          "number_of_matches": int(row.get("number_of_matches") or 0),
+                          "total_matches": int(row.get("total_matches") or 0),
+                          "raw_win_rate": row.get("raw_win_rate"),
+                          "play_rate": row.get("play_rate"),
+                          "weighted_win_rate": row.get("weighted_win_rate"),
+                          "first_win_rate": row.get("first_win_rate"),
+                          "second_win_rate": row.get("second_win_rate"),
+                      })
+
+                      for matchup in row.get("matchups") or []:
+                          opponent_id = str(matchup.get("opponent", "")).strip().upper()
+                          if not opponent_id:
+                              continue
+                          leader_ids_seen.add(opponent_id)
+                          matchup_pairs.add((leader_id, opponent_id))
+                          if opponent_id not in official_leader_ids:
+                              unmatched_leader_ids.add(opponent_id)
+                          matchup_rows.append({
+                              "snapshot_date": snapshot_date,
+                              "period": period,
+                              "leader_id": leader_id,
+                              "opponent_id": opponent_id,
+                              "wins": int(matchup.get("wins") or 0),
+                              "total_games": int(matchup.get("total_games") or 0),
+                              "matchup_win_rate": matchup.get("matchup_win_rate"),
+                              "first_wins": int(matchup.get("first_wins") or 0),
+                              "first_games": int(matchup.get("first_games") or 0),
+                              "first_win_rate": matchup.get("first_win_rate"),
+                              "second_wins": int(matchup.get("second_wins") or 0),
+                              "second_games": int(matchup.get("second_games") or 0),
+                              "second_win_rate": matchup.get("second_win_rate"),
+                          })
+
+                  print(json.dumps({
+                      "event": "snapshot_parsed",
+                      "period": period,
+                      "snapshotDate": snapshot_date,
+                      "rawLeaderRows": len(leader_rows),
+                      "rawMatchupRows": len(matchup_rows),
+                      "uniqueLeadersSeen": len(leader_ids_seen),
+                      "uniqueLeadersMatched": len(leader_ids_seen - unmatched_leader_ids),
+                      "uniqueMatchupPairs": len(matchup_pairs),
+                      "unmatchedLeaderCount": len(unmatched_leader_ids),
+                      "unmatchedLeaderIds": sorted(unmatched_leader_ids)[:20],
+                  }))
+
+                  if leader_rows:
+                      rest_post(
+                          "/rest/v1/leader_daily_stats?on_conflict=snapshot_date,period,leader_id",
+                          leader_rows,
+                          {
+                              "period": period,
+                              "snapshotDate": snapshot_date,
+                              "table": "leader_daily_stats",
+                          },
+                      )
+                  if matchup_rows:
+                      rest_post(
+                          "/rest/v1/leader_matchup_daily_stats?on_conflict=snapshot_date,period,leader_id,opponent_id",
+                          matchup_rows,
+                          {
+                              "period": period,
+                              "snapshotDate": snapshot_date,
+                              "table": "leader_matchup_daily_stats",
+                          },
+                      )
+
+                  total_snapshots += 1
+                  total_leader_rows += len(leader_rows)
+                  total_matchup_rows += len(matchup_rows)
+                  print(f"{period} {snapshot_date}: leaders={len(leader_rows)} matchups={len(matchup_rows)}")
+                  time.sleep(1)
+
+          print(json.dumps({
+              "snapshotsUpserted": total_snapshots,
+              "leaderRowsUpserted": total_leader_rows,
+              "matchupRowsUpserted": total_matchup_rows,
+          }))
+          PY

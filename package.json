@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "fetch:bandai": "node scripts/fetch-bandai-official-en.mjs",
+    "audit:bandai": "node scripts/audit-bandai-en.mjs",
+    "backfill:match-intel": "node scripts/backfill-match-intel.mjs",
     "validate:cards": "node scripts/validate-cards.cjs",
     "validate:featured": "node scripts/validate-featured-cards.cjs",
     "smoke:market": "node scripts/smoke-market.cjs",

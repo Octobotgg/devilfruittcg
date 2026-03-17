@@ -23,6 +23,11 @@
 # misc
 .DS_Store
 *.pem
+.cache/
+.tmp/
+/test-results/
+.octo-project-root
+DevilFruitTCG_Project_Map.xlsx
 
 # debug
 npm-debug.log*
