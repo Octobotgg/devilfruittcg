@@ -16,6 +16,38 @@ type MarketResponse = MarketData & {
   };
 };
 
+type HistoryRange = (typeof HISTORY_RANGES)[number]["id"];
+
+type CacheHistoryPoint = {
+  date: string;
+  ebayAvg: number | null;
+  tcgMarket: number | null;
+};
+
+type JustTcgPriceResponse = {
+  marketPrice: number | null;
+  averagePrice: number | null;
+  lowestPrice: number | null;
+  highestPrice: number | null;
+  updatedAt: string | null;
+  fetchedAt?: string | null;
+  priceChange7d?: number | null;
+  stale: boolean;
+  cached: boolean;
+};
+
+type JustTcgDetailResponse = {
+  price: JustTcgPriceResponse | null;
+  points: Array<{ date: string; tcgMarket: number | null }>;
+  freshness?: {
+    updatedAt?: string | null;
+    stale?: boolean;
+  };
+  source?: {
+    provider?: string;
+  };
+};
+
 const HISTORY_RANGES = [
   { id: "7d", label: "1W" },
   { id: "30d", label: "1M" },
@@ -30,6 +62,15 @@ function TrendIcon({ direction }: { direction: MarketData["trend"]["direction"] 
   return <Minus className="h-4 w-4" />;
 }
 
+function trendDirectionFromValue(value: number | null | undefined): MarketData["trend"]["direction"] {
+  if (typeof value !== "number" || value === 0) return "flat";
+  return value > 0 ? "up" : "down";
+}
+
+function formatTrendValue(value: number) {
+  return Math.abs(value).toFixed(1).replace(/\.0$/u, "");
+}
+
 export default function CardDetailMarketPanel({
   cardId,
   cardName,
@@ -39,14 +80,22 @@ export default function CardDetailMarketPanel({
 }) {
   const [marketCache, setMarketCache] = useState<Record<string, MarketResponse>>({});
   const [marketErrors, setMarketErrors] = useState<Record<string, string>>({});
-  const [range, setRange] = useState<(typeof HISTORY_RANGES)[number]["id"]>("30d");
-  const [historyCache, setHistoryCache] = useState<Record<string, Record<string, Array<{ date: string; ebayAvg: number | null; tcgMarket: number | null }>>>>({});
+  const [range, setRange] = useState<HistoryRange>("30d");
+  const [historyCache, setHistoryCache] = useState<Record<string, Record<string, CacheHistoryPoint[]>>>({});
+  const [tcgDetailCache, setTcgDetailCache] = useState<Record<string, Partial<Record<HistoryRange, JustTcgDetailResponse>>>>({});
   const marketPendingRef = useRef<Set<string>>(new Set());
   const historyPendingRef = useRef<Set<string>>(new Set());
+  const tcgPendingRef = useRef<Set<string>>(new Set());
   const market = marketCache[cardId] || null;
   const error = marketErrors[cardId] || "";
   const loading = !market && !error;
   const history = historyCache[cardId]?.[range] || [];
+  const tcgDetail = tcgDetailCache[cardId]?.[range] || null;
+  const tcgPrice =
+    tcgDetail?.price ||
+    Object.values(tcgDetailCache[cardId] || {}).find((entry) => entry?.price)?.price ||
+    null;
+  const justTcgAvailable = typeof tcgPrice?.marketPrice === "number";
 
   useEffect(() => {
     if (marketCache[cardId] || marketPendingRef.current.has(cardId)) return;
@@ -133,6 +182,59 @@ export default function CardDetailMarketPanel({
     };
   }, [cardId, range, historyCache]);
 
+  useEffect(() => {
+    const requestKey = `${cardId}:${range}`;
+    if (tcgDetailCache[cardId]?.[range] || tcgPendingRef.current.has(requestKey)) return;
+
+    const controller = new AbortController();
+    const pendingTcgRequests = tcgPendingRef.current;
+    pendingTcgRequests.add(requestKey);
+
+    void fetch(`/api/market/tcg-price?id=${encodeURIComponent(cardId)}&range=${range}`, {
+      cache: "no-store",
+      signal: controller.signal,
+    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error("Unable to load cached TCG pricing");
+        return (await res.json()) as JustTcgDetailResponse;
+      })
+      .then((json) => {
+        setTcgDetailCache((current) => ({
+          ...current,
+          [cardId]: {
+            ...(current[cardId] || {}),
+            [range]: {
+              price: json.price || null,
+              points: Array.isArray(json.points) ? json.points : [],
+              freshness: json.freshness,
+              source: json.source,
+            },
+          },
+        }));
+      })
+      .catch(() => {
+        if (controller.signal.aborted) return;
+        setTcgDetailCache((current) => ({
+          ...current,
+          [cardId]: {
+            ...(current[cardId] || {}),
+            [range]: {
+              price: null,
+              points: [],
+            },
+          },
+        }));
+      })
+      .finally(() => {
+        pendingTcgRequests.delete(requestKey);
+      });
+
+    return () => {
+      controller.abort();
+      pendingTcgRequests.delete(requestKey);
+    };
+  }, [cardId, range, tcgDetailCache]);
+
   if (loading) {
     return (
       <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-5">
@@ -155,10 +257,19 @@ export default function CardDetailMarketPanel({
 
   if (!market) return null;
 
-  const updatedAt = market.freshness?.updatedAt || market.lastUpdated || null;
+  const updatedAt = justTcgAvailable
+    ? tcgPrice.updatedAt || tcgPrice.fetchedAt || null
+    : market.freshness?.updatedAt || market.lastUpdated || null;
   const updatedLabel = updatedAt ? new Date(updatedAt).toLocaleString() : "Unknown";
-  const stale = Boolean(market.freshness?.stale);
-  const trendTone = market.trend.direction === "up" ? "text-emerald-300" : market.trend.direction === "down" ? "text-red-300" : "text-white/55";
+  const stale = justTcgAvailable ? Boolean(tcgDetail?.freshness?.stale ?? tcgPrice.stale) : Boolean(market.freshness?.stale);
+  const weeklyTrendValue = justTcgAvailable && typeof tcgPrice.priceChange7d === "number" ? tcgPrice.priceChange7d : null;
+  const trendDirection = weeklyTrendValue !== null ? trendDirectionFromValue(weeklyTrendValue) : market.trend.direction;
+  const trendValueLabel = weeklyTrendValue !== null ? formatTrendValue(weeklyTrendValue) : String(market.trend.percent);
+  const trendTone = trendDirection === "up" ? "text-emerald-300" : trendDirection === "down" ? "text-red-300" : "text-white/55";
+  const headlinePrice = justTcgAvailable ? (tcgPrice.marketPrice ?? market.ebay.averagePrice) : market.ebay.averagePrice;
+  const priceHistory = justTcgAvailable ? tcgDetail?.points || [] : history;
+  const historyHasEnoughPoints = priceHistory.length > 1;
+  const footerProvider = justTcgAvailable ? tcgDetail?.source?.provider || "JustTCG cache" : market.source?.provider;
 
   return (
     <div className="space-y-5">
@@ -166,13 +277,17 @@ export default function CardDetailMarketPanel({
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-[11px] uppercase tracking-[0.18em] text-[#F0C040]">Market Snapshot</p>
-            <p className="mt-2 text-4xl font-black text-[#F0C040]">${market.ebay.averagePrice.toFixed(2)}</p>
-            <p className="mt-1 text-sm text-white/45">Average of the last {market.ebay.saleCount} eBay comps</p>
+            <p className="mt-2 text-4xl font-black text-[#F0C040]">${headlinePrice.toFixed(2)}</p>
+            <p className="mt-1 text-sm text-white/45">
+              {justTcgAvailable
+                ? `TCG Market · Updated ${updatedLabel}`
+                : `Average of the last ${market.ebay.saleCount} eBay comps`}
+            </p>
           </div>
 
           <div className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-2 text-sm font-bold ${trendTone}`}>
-            <TrendIcon direction={market.trend.direction} />
-            {market.trend.percent}% this week
+            <TrendIcon direction={trendDirection} />
+            {trendValueLabel}% this week
           </div>
         </div>
 
@@ -181,7 +296,7 @@ export default function CardDetailMarketPanel({
             { label: "eBay Low", value: market.ebay.lowestPrice },
             { label: "eBay Avg", value: market.ebay.averagePrice },
             { label: "eBay High", value: market.ebay.highestPrice },
-            { label: "TCG Market", value: market.tcgplayer.market },
+            { label: "TCG Market", value: justTcgAvailable ? tcgPrice.marketPrice : market.tcgplayer.market },
           ].map((item) => (
             <div key={item.label} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
               <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">{item.label}</p>
@@ -193,10 +308,9 @@ export default function CardDetailMarketPanel({
         </div>
 
         <p className={`mt-4 text-xs ${stale ? "text-amber-300/90" : "text-white/40"}`}>
-          Updated {updatedLabel}
-          {market.cached ? " · cached" : ""}
+          {footerProvider || "Cache"}
+          {(justTcgAvailable ? tcgPrice.cached : market.cached) ? " · cached" : ""}
           {stale ? " · stale" : ""}
-          {market.source?.provider ? ` · ${market.source.provider}` : ""}
         </p>
       </div>
 
@@ -204,7 +318,11 @@ export default function CardDetailMarketPanel({
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
           <div>
             <p className="text-lg font-black text-white">Price History</p>
-            <p className="text-sm text-white/45">Tracks cached eBay average and TCG market snapshots.</p>
+            <p className="text-sm text-white/45">
+              {justTcgAvailable
+                ? "Tracks cached JustTCG market pricing for the selected print."
+                : "Tracks cached eBay average and TCG market snapshots."}
+            </p>
           </div>
 
           <div className="flex gap-2">
@@ -226,23 +344,34 @@ export default function CardDetailMarketPanel({
         </div>
 
         <div className="h-[280px] p-5">
-          {history.length > 1 ? (
+          {historyHasEnoughPoints ? (
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={history}>
+              <LineChart data={priceHistory}>
                 <CartesianGrid stroke="rgba(255,255,255,0.08)" strokeDasharray="3 3" />
                 <XAxis dataKey="date" tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 11 }} />
                 <YAxis tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 11 }} />
                 <Tooltip
                   contentStyle={{ background: "#0c1324", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12 }}
-                  formatter={(value: unknown, name?: string) => [`$${Number(value || 0).toFixed(2)}`, name === "ebayAvg" ? "eBay Avg" : "TCG Market"]}
+                  formatter={(value: unknown, name?: string) => [
+                    `$${Number(value || 0).toFixed(2)}`,
+                    name === "ebayAvg" ? "eBay Avg" : "TCG Market",
+                  ]}
                 />
-                <Line type="monotone" dataKey="ebayAvg" stroke="#F0C040" strokeWidth={2.5} dot={false} />
-                <Line type="monotone" dataKey="tcgMarket" stroke="#60A5FA" strokeWidth={2} dot={false} />
+                {justTcgAvailable ? (
+                  <Line type="monotone" dataKey="tcgMarket" stroke="#60A5FA" strokeWidth={2.5} dot={false} />
+                ) : (
+                  <>
+                    <Line type="monotone" dataKey="ebayAvg" stroke="#F0C040" strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="tcgMarket" stroke="#60A5FA" strokeWidth={2} dot={false} />
+                  </>
+                )}
               </LineChart>
             </ResponsiveContainer>
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-white/45">
-              Not enough history yet. Open the card again later as the cache fills in.
+              {justTcgAvailable
+                ? "Price tracking started — history building."
+                : "Not enough history yet. Open the card again later as the cache fills in."}
             </div>
           )}
         </div>

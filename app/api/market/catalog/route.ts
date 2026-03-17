@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
   const params = req.nextUrl.searchParams;
   const q = params.get("q") || params.get("card") || "";
 
-  const result = searchMarketCatalog({
+  const result = await searchMarketCatalog({
     q,
     sets: parseListParam(params, "set"),
     types: parseListParam(params, "type"),

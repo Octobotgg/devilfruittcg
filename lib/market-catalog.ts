@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { Card } from "@/lib/cards";
-import { getCachedMarketSummaries } from "@/lib/db";
+import { getJustTcgPriceSummaries } from "@/lib/justtcg-store";
 import { OFFICIAL_CARDS } from "@/lib/official-cards";
 import type {
   MarketCardResult,
@@ -131,19 +131,10 @@ function createFacets(cards: Card[]): MarketFacets {
 const MARKET_RANGES = createRanges(OFFICIAL_CARDS);
 const MARKET_FACETS = createFacets(OFFICIAL_CARDS);
 
-function priceSummaryFromMap(cardId: string, priceMap: Record<string, ReturnType<typeof getCachedMarketSummaries>[string]>): MarketPriceSummary | null {
+function priceSummaryFromMap(cardId: string, priceMap: Record<string, MarketPriceSummary>): MarketPriceSummary | null {
   const summary = priceMap[cardId.toUpperCase()];
   if (!summary) return null;
-
-  return {
-    marketPrice: summary.marketPrice,
-    averagePrice: summary.averagePrice,
-    lowestPrice: summary.lowestPrice,
-    highestPrice: summary.highestPrice,
-    updatedAt: new Date(summary.updatedAt).toISOString(),
-    stale: summary.stale,
-    cached: true,
-  };
+  return summary;
 }
 
 function cardNumberValue(card: Card) {
@@ -249,7 +240,7 @@ function filterByQuery(cards: Card[], query: string) {
     .filter((item) => item.score > 0);
 }
 
-function filterCards(items: ScoredCard[], query: MarketCatalogQuery, priceMap: Record<string, ReturnType<typeof getCachedMarketSummaries>[string]>) {
+function filterCards(items: ScoredCard[], query: MarketCatalogQuery, priceMap: Record<string, MarketPriceSummary>) {
   return items.filter(({ card }) => {
     if (query.sets?.length && !query.sets.includes(card.setCode)) return false;
     if (query.types?.length && !query.types.includes(card.type)) return false;
@@ -279,7 +270,7 @@ function filterCards(items: ScoredCard[], query: MarketCatalogQuery, priceMap: R
   });
 }
 
-function sortCards(items: ScoredCard[], sort: MarketSort, hasQuery: boolean, priceMap: Record<string, ReturnType<typeof getCachedMarketSummaries>[string]>) {
+function sortCards(items: ScoredCard[], sort: MarketSort, hasQuery: boolean, priceMap: Record<string, MarketPriceSummary>) {
   const effectiveSort = sort === "relevance" && !hasQuery ? "newest" : sort;
 
   return [...items].sort((a, b) => {
@@ -331,7 +322,7 @@ export function getMarketCatalogMetadata() {
   };
 }
 
-export function searchMarketCatalog(query: MarketCatalogQuery): MarketCatalogResponse {
+export async function searchMarketCatalog(query: MarketCatalogQuery): Promise<MarketCatalogResponse> {
   const pageSize = clampPageSize(query.pageSize);
   const page = Math.max(1, Math.trunc(query.page || 1));
   const trimmedQuery = query.q?.trim() || "";
@@ -346,7 +337,7 @@ export function searchMarketCatalog(query: MarketCatalogQuery): MarketCatalogRes
     typeof query.priceMax === "number";
 
   const allPriceMap = needsAllPrices
-    ? getCachedMarketSummaries(scored.map((item) => item.card.id))
+    ? await getJustTcgPriceSummaries(scored.map((item) => item.card.id))
     : {};
 
   const filtered = filterCards(scored, query, allPriceMap);
@@ -359,7 +350,7 @@ export function searchMarketCatalog(query: MarketCatalogQuery): MarketCatalogRes
 
   const pagePriceMap = needsAllPrices
     ? allPriceMap
-    : getCachedMarketSummaries(pageItems.map((item) => item.card.id));
+    : await getJustTcgPriceSummaries(pageItems.map((item) => item.card.id));
 
   const results: MarketCardResult[] = pageItems.map(({ card }) => ({
     ...card,

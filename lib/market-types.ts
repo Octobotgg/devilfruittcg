@@ -15,8 +15,11 @@ export type MarketPriceSummary = {
   lowestPrice: number | null;
   highestPrice: number | null;
   updatedAt: string | null;
+  fetchedAt?: string | null;
+  priceChange7d?: number | null;
   stale: boolean;
   cached: boolean;
+  source?: "justtcg" | "market_cache";
 };
 
 export type MarketCardResult = Card & {

@@ -188,7 +188,14 @@ function toggleListValue(values: string[], value: string) {
 }
 
 function formatCurrency(value: number | null | undefined) {
-  return typeof value === "number" ? `$${value.toFixed(2)}` : "Market syncing";
+  return typeof value === "number" ? `$${value.toFixed(2)}` : null;
+}
+
+function formatUpdatedDate(value: string | null | undefined) {
+  if (!value) return null;
+  const timestamp = Date.parse(value);
+  if (!Number.isFinite(timestamp)) return null;
+  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(new Date(timestamp));
 }
 
 function pageWindow(page: number, totalPages: number) {
@@ -228,13 +235,16 @@ function countActiveFilters(state: MarketUrlState) {
 }
 
 function CardPriceBlock({ card }: { card: MarketCardResult }) {
+  const marketPrice = formatCurrency(card.market?.marketPrice);
+  if (!marketPrice) return null;
+
+  const updatedLabel = formatUpdatedDate(card.market?.updatedAt);
+
   return (
     <div className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2.5">
-      <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">Market</p>
-      <p className="mt-1 text-sm font-black text-[#F0C040]">{formatCurrency(card.market?.marketPrice)}</p>
-      <p className="mt-1 text-[11px] text-white/45">
-        {typeof card.market?.lowestPrice === "number" ? `Lowest ${formatCurrency(card.market.lowestPrice)}` : "Lowest price unavailable"}
-      </p>
+      <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">TCG Market</p>
+      <p className="mt-1 text-sm font-black text-[#F0C040]">{marketPrice}</p>
+      {updatedLabel ? <p className="mt-1 text-[11px] text-white/45">Updated {updatedLabel}</p> : null}
     </div>
   );
 }
@@ -1076,7 +1086,11 @@ export default function MarketCatalogView() {
                             </p>
                           ) : null}
                         </div>
-                        <span className="text-[11px] font-semibold text-[#F0C040]">{formatCurrency(card.market?.marketPrice)}</span>
+                        {formatCurrency(card.market?.marketPrice) ? (
+                          <span className="text-[11px] font-semibold text-[#F0C040]">
+                            {formatCurrency(card.market?.marketPrice)}
+                          </span>
+                        ) : null}
                       </button>
                     ))}
                   </div>
