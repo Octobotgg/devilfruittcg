@@ -141,13 +141,23 @@ export function detectVariantLane(card) {
 }
 
 export function detectVariantHints(card) {
+  const explicitType = String(card.variantType || "").toLowerCase();
+  const explicitLabel = normalizeText(String(card.variantLabel || ""));
   const raw = normalizeText([
     card.id,
     card.rarity,
+    explicitType,
+    explicitLabel,
     card.notes?.join?.(" "),
     card.name,
   ].join(" "));
   const hints = [];
+  if (explicitType === "sp" || explicitLabel === "sp") hints.push("sp");
+  if (explicitType === "manga" || explicitLabel.includes("manga")) hints.push("manga");
+  if (explicitType === "alt_art" || explicitLabel.includes("alternate art")) hints.push("alt");
+  if (explicitType === "parallel" || explicitLabel.includes("parallel")) hints.push("parallel");
+  if (explicitType === "anniversary" || explicitLabel.includes("anniversary")) hints.push("anniversary");
+  if (explicitType === "reprint") hints.push("reprint");
   if (String(card.rarity || "").toUpperCase() === "SP CARD" || raw.includes(" sp ")) hints.push("sp");
   if (raw.includes("manga")) hints.push("manga");
   if (raw.includes("alternate art") || raw.includes("alt art")) hints.push("alt");
@@ -192,7 +202,18 @@ export function candidatePremiumHints(candidate) {
 
 export function classifyCatalogCard(candidate) {
   const composite = normalizeText([candidate.name, candidate.set_name, candidate.set, candidate.id].join(" "));
-  const excluded = EXCLUSION_TERMS.find((term) => composite.includes(normalizeText(term)));
+  const candidateSet = normalizeText(candidate.set_name || candidate.set || "");
+  const knownReleaseSet = Object.values(SET_CODE_ALIASES)
+    .flat()
+    .some((alias) => candidateSet.includes(alias) || alias.includes(candidateSet));
+  const excluded = EXCLUSION_TERMS.find((term) => {
+    const normalizedTerm = normalizeText(term);
+    if (!composite.includes(normalizedTerm)) return false;
+    if (knownReleaseSet && ["deck", "starter deck", "premium"].includes(normalizedTerm)) {
+      return false;
+    }
+    return true;
+  });
   if (excluded) {
     return { bucket: "excluded_product", reason: `excluded_term:${excluded}` };
   }
