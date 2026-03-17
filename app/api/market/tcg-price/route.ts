@@ -21,7 +21,7 @@ function parseIds(value: string) {
 }
 
 export async function GET(req: NextRequest) {
-  const id = (req.nextUrl.searchParams.get("id") || "").trim().toUpperCase();
+  const id = (req.nextUrl.searchParams.get("id") || "").trim();
   const ids = (req.nextUrl.searchParams.get("ids") || "").trim();
   const range = (req.nextUrl.searchParams.get("range") || "30d").trim();
   const rangeDays = RANGE_DAYS[range] ?? 30;
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
     const detail = await getJustTcgPriceDetail(id, rangeDays);
     return NextResponse.json(
       {
-        cardId: id,
+        cardId: detail.price?.cardId || id,
         range,
         price: detail.price,
         points: detail.points,

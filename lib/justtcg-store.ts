@@ -92,7 +92,7 @@ function summaryFromRow(row: JustTcgPriceRow): JustTcgPriceSummary {
   const stale = Number.isFinite(updatedAtMs) ? Date.now() - updatedAtMs > JUSTTCG_STALE_THRESHOLD_MS : true;
 
   return {
-    cardId: row.devilfruit_id.toUpperCase(),
+    cardId: row.devilfruit_id,
     justtcgId: row.justtcg_id,
     marketPrice: row.price_nm,
     averagePrice: row.price_nm,
@@ -161,7 +161,7 @@ async function getSinglePriceRow(cardId: string): Promise<JustTcgPriceRow | null
   const { data, error } = await supabase
     .from("justtcg_prices")
     .select("devilfruit_id,justtcg_id,price_nm,price_lp,price_change_24h,price_change_7d,price_change_30d,last_updated_justtcg,fetched_at,raw_response")
-    .eq("devilfruit_id", cardId.trim().toUpperCase())
+    .ilike("devilfruit_id", cardId.trim())
     .maybeSingle();
 
   if (error) throw error;
@@ -220,7 +220,7 @@ async function fetchHistoryRows(cardId: string, rangeDays: number): Promise<Just
   const { data, error } = await supabase
     .from("justtcg_price_history")
     .select("recorded_at,price_nm")
-    .eq("devilfruit_id", cardId.trim().toUpperCase())
+    .ilike("devilfruit_id", cardId.trim())
     .gte("recorded_at", fromIso)
     .order("recorded_at", { ascending: true });
 
