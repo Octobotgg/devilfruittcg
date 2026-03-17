@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import MetaPageClient from "@/components/meta/MetaPageClient";
 import { unstable_cache } from "next/cache";
 import { getHybridMetaPayload } from "@/lib/competitive-insights";
@@ -27,5 +28,9 @@ export default async function MetaPage() {
   const initialIsLive = Boolean(payload && !String(payload.source || "").toLowerCase().includes("seeded"));
   const initialMeta = payload ?? getSeededMeta();
 
-  return <MetaPageClient initialMeta={initialMeta} initialIsLive={initialIsLive} />;
+  return (
+    <Suspense fallback={null}>
+      <MetaPageClient initialMeta={initialMeta} initialIsLive={initialIsLive} />
+    </Suspense>
+  );
 }
