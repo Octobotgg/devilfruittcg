@@ -605,7 +605,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-009",
@@ -2209,7 +2211,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-035",
@@ -3068,7 +3072,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-049",
@@ -4133,7 +4139,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-065",
@@ -4982,7 +4990,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-078",
@@ -6992,7 +7002,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-110",
@@ -12627,7 +12639,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-010",
@@ -14113,7 +14127,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-032",
@@ -15791,7 +15807,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-060",
@@ -17422,7 +17440,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-087",
@@ -18555,7 +18575,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-106",
@@ -18751,7 +18773,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-109",
@@ -37752,7 +37776,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-013_p3",
@@ -37903,7 +37929,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-059_p2",
@@ -37952,7 +37980,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-001_p4",
@@ -38001,7 +38031,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-028_p1",
@@ -38050,7 +38082,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-005_p2",
@@ -38099,7 +38133,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-006_p3",
@@ -38148,7 +38184,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-008_p2",
@@ -38197,7 +38235,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-013_p2",
@@ -38246,7 +38286,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-008_p1",
@@ -38295,7 +38337,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST09-012_p1",
@@ -38344,7 +38388,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-016_p3",
@@ -39328,7 +39374,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-033_p1",
@@ -39377,7 +39425,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-034_p1",
@@ -39426,7 +39476,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-035_p2",
@@ -39475,7 +39527,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-037_p1",
@@ -39524,7 +39578,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-039_p1",
@@ -39573,7 +39629,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-040_p1",
@@ -39622,7 +39680,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-041_p2",
@@ -39722,7 +39782,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-045_p1",
@@ -39771,7 +39833,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-001",
@@ -47477,7 +47541,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST12-001",
@@ -48408,7 +48474,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-002",
@@ -48506,7 +48574,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-003",
@@ -48604,7 +48674,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-004",
@@ -48702,7 +48774,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-005",
@@ -48800,7 +48874,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-006",
@@ -48898,7 +48974,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-007",
@@ -48996,7 +49074,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-008",
@@ -49094,7 +49174,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-009",
@@ -49192,7 +49274,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-010",
@@ -49290,7 +49374,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-011",
@@ -49488,7 +49574,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-013",
@@ -49586,7 +49674,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-014",
@@ -49684,7 +49774,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-015",
@@ -49782,7 +49874,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-016",
@@ -49880,7 +49974,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-017",
@@ -50472,7 +50568,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-006_p2",
@@ -50521,7 +50619,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "manga",
+    "variantLabel": "Manga"
   },
   {
     "id": "EB01-007",
@@ -50864,7 +50964,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-013",
@@ -50962,7 +51064,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-014",
@@ -51503,7 +51607,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-023",
@@ -51797,7 +51903,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-028",
@@ -52042,7 +52150,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-032",
@@ -52238,7 +52348,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-035",
@@ -52926,7 +53038,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-047",
@@ -53073,7 +53187,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-049",
@@ -53171,7 +53287,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-050",
@@ -53367,7 +53485,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-053",
@@ -53959,7 +54079,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-035_p2",
@@ -61420,7 +61542,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST14-001",
@@ -71784,7 +71908,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-029_r1",
@@ -71980,7 +72106,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-058_p1",
@@ -72029,7 +72157,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-059_p1",
@@ -72078,7 +72208,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-060_p1",
@@ -72127,7 +72259,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-061_r1",
@@ -72519,7 +72653,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-003_p2",
@@ -72568,7 +72704,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-004_p2",
@@ -72617,7 +72755,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-005_p2",
@@ -72666,7 +72806,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST15-001",
@@ -74234,7 +74376,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-006_p4",
@@ -74283,7 +74427,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-006_p5",
@@ -74332,7 +74478,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-006_r1",
@@ -74581,7 +74729,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-029_p3",
@@ -74630,7 +74780,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-029_r1",
@@ -74728,7 +74880,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-033_p4",
@@ -74777,7 +74931,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-033_p5",
@@ -74826,7 +74982,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-033_r1",
@@ -74924,7 +75082,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-041_p4",
@@ -74973,7 +75133,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-041_p5",
@@ -75022,7 +75184,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-041_r1",
@@ -75320,7 +75484,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-052_p4",
@@ -75369,7 +75535,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-052_r1",
@@ -76065,7 +76233,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-015_p4",
@@ -76114,7 +76284,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-015_r1",
@@ -76414,7 +76586,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-089_p3",
@@ -76463,7 +76637,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-089_p4",
@@ -76512,7 +76688,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-089_r1",
@@ -76810,7 +76988,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-106_p5",
@@ -76859,7 +77039,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-106_r2",
@@ -77057,7 +77239,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-117_p6",
@@ -77106,7 +77290,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-117_r2",
@@ -77506,7 +77692,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-055_p3",
@@ -77555,7 +77743,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-055_r1",
@@ -77653,7 +77843,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-056_p3",
@@ -77702,7 +77894,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-056_p4",
@@ -77751,7 +77945,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-056_r1",
@@ -77849,7 +78045,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-057_p3",
@@ -77898,7 +78096,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-057_p4",
@@ -77947,7 +78147,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-057_r1",
@@ -78045,7 +78247,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-060_p3",
@@ -78094,7 +78298,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-060_r1",
@@ -78192,7 +78398,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-079_p4",
@@ -78241,7 +78449,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-079_r2",
@@ -78339,7 +78549,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-089_p5",
@@ -78388,7 +78600,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-089_p6",
@@ -78437,7 +78651,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-089_r2",
@@ -78535,7 +78751,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-094_p3",
@@ -78584,7 +78802,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-094_r1",
@@ -78782,7 +79002,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-110_p4",
@@ -78831,7 +79053,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-110_p5",
@@ -78880,7 +79104,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-110_r2",
@@ -79078,7 +79304,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-116_p6",
@@ -79127,7 +79355,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-116_r1",
@@ -79225,7 +79455,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-121_p4",
@@ -79274,7 +79506,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-121_r2",
@@ -79521,7 +79755,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-029_p3",
@@ -79570,7 +79806,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-029_r1",
@@ -79768,7 +80006,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-032_p3",
@@ -79817,7 +80057,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-032_r1",
@@ -79915,7 +80157,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-036_p3",
@@ -79964,7 +80208,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-036_r1",
@@ -80162,7 +80408,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-056_p3",
@@ -80211,7 +80459,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-056_p4",
@@ -80260,7 +80510,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-056_r1",
@@ -80407,7 +80659,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-089_p3",
@@ -80456,7 +80710,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-089_p4",
@@ -80505,7 +80761,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-089_r1",
@@ -80603,7 +80861,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-095_p3",
@@ -80652,7 +80912,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-095_r1",
@@ -81352,7 +81614,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-010_p3",
@@ -81401,7 +81665,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-010_r1",
@@ -81701,7 +81967,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-034_p4",
@@ -81750,7 +82018,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-034_p5",
@@ -81799,7 +82069,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-034_r1",
@@ -81997,7 +82269,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-057_p3",
@@ -82046,7 +82320,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-057_p4",
@@ -82095,7 +82371,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-057_r1",
@@ -82242,7 +82520,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-073_p3",
@@ -82291,7 +82571,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-073_r1",
@@ -82538,7 +82820,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-081_p3",
@@ -82587,7 +82871,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-081_p4",
@@ -82636,7 +82922,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-081_r1",
@@ -82734,7 +83022,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-082_p3",
@@ -82783,7 +83073,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-082_p4",
@@ -82832,7 +83124,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-082_r1",
@@ -82930,7 +83224,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-105_p3",
@@ -82979,7 +83275,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-105_p4",
@@ -83028,7 +83326,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-105_r1",
@@ -83126,7 +83426,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-114_p3",
@@ -83175,7 +83477,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-114_r1",
@@ -83273,7 +83577,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-115_p3",
@@ -83322,7 +83628,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-115_p4",
@@ -83371,7 +83679,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-115_r1",
@@ -83469,7 +83779,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-117_p3",
@@ -83518,7 +83830,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-117_p4",
@@ -83567,7 +83881,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-117_r1",
@@ -83914,7 +84230,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-003_p3",
@@ -83963,7 +84281,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-003_r1",
@@ -84061,7 +84381,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-023_p3",
@@ -84110,7 +84432,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-023_p4",
@@ -84159,7 +84483,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-023_r1",
@@ -84357,7 +84683,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-036_p3",
@@ -84406,7 +84734,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-036_p4",
@@ -84455,7 +84785,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-036_r1",
@@ -84553,7 +84885,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-038_p3",
@@ -84602,7 +84936,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-038_r1",
@@ -84700,7 +85036,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-056_p3",
@@ -84749,7 +85087,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-056_r1",
@@ -84847,7 +85187,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-060_p3",
@@ -84896,7 +85238,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-060_r1",
@@ -84994,7 +85338,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-064_p3",
@@ -85043,7 +85389,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-064_r1",
@@ -85141,7 +85489,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-065_p3",
@@ -85190,7 +85540,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-065_p4",
@@ -85239,7 +85591,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-065_r1",
@@ -85337,7 +85691,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-066_p3",
@@ -85386,7 +85742,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-066_r1",
@@ -85484,7 +85842,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-067_p3",
@@ -85533,7 +85893,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-067_p4",
@@ -85582,7 +85944,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-067_r1",
@@ -85680,7 +86044,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-068_p3",
@@ -85729,7 +86095,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-068_r1",
@@ -85927,7 +86295,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-079_p3",
@@ -85976,7 +86346,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-079_p4",
@@ -86025,7 +86397,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-079_r1",
@@ -86223,7 +86597,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-091_p3",
@@ -86272,7 +86648,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-091_r1",
@@ -86370,7 +86748,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-100_p3",
@@ -86419,7 +86799,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-100_r1",
@@ -86617,7 +86999,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-110_p4",
@@ -86666,7 +87050,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-110_r1",
@@ -86764,7 +87150,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-114_p3",
@@ -86813,7 +87201,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-114_r1",
@@ -86960,7 +87350,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-014_p3",
@@ -87009,7 +87401,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-014_r1",
@@ -87107,7 +87501,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-029_p4",
@@ -87156,7 +87552,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-029_r2",
@@ -87254,7 +87652,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-053_p3",
@@ -87303,7 +87703,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-053_r1",
@@ -87401,7 +87803,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-055_p3",
@@ -87450,7 +87854,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-055_r1",
@@ -87597,7 +88003,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-006_p6",
@@ -87646,7 +88054,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-006_p7",
@@ -87695,7 +88105,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-006_p8",
@@ -87744,7 +88156,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-006_r1",
@@ -87842,7 +88256,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-014_p3",
@@ -87891,7 +88307,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-014_r1",
@@ -87989,7 +88407,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST02-004_p3",
@@ -88038,7 +88458,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST02-004_p4",
@@ -88087,7 +88509,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST02-004_r1",
@@ -88185,7 +88609,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-005_p5",
@@ -88234,7 +88660,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-005_r2",
@@ -88332,7 +88760,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-008_p7",
@@ -88381,7 +88811,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-008_r2",
@@ -88479,7 +88911,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-013_p3",
@@ -88528,7 +88962,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-013_p4",
@@ -88577,7 +89013,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-013_r1",
@@ -88675,7 +89113,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST04-003_r1",
@@ -88924,7 +89364,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST04-016_p3",
@@ -88973,7 +89415,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST04-016_r1",
@@ -89071,7 +89515,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST06-010_p3",
@@ -89120,7 +89566,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST06-010_r1",
@@ -89218,7 +89666,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST06-014_p3",
@@ -89267,7 +89717,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST06-014_r1",
@@ -89365,7 +89817,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST07-007_p3",
@@ -89414,7 +89868,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST07-007_r1",
@@ -89512,7 +89968,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST09-014_p3",
@@ -89561,7 +90019,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST09-014_r1",
@@ -89659,7 +90119,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST10-010_r1",
@@ -89757,7 +90219,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST12-014_p3",
@@ -89806,7 +90270,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST12-014_r1",
@@ -97824,7 +98290,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-002",
@@ -97922,7 +98390,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-003",
@@ -98020,7 +98490,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-004",
@@ -98118,7 +98590,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-005",
@@ -98216,7 +98690,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-006",
@@ -98314,7 +98790,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-007",
@@ -98412,7 +98890,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-008",
@@ -98510,7 +98990,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-009",
@@ -98608,7 +99090,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-010",
@@ -98706,7 +99190,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-011",
@@ -98804,7 +99290,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-012",
@@ -98902,7 +99390,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-013",
@@ -99000,7 +99490,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-014",
@@ -99098,7 +99590,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-015",
@@ -99196,7 +99690,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-016",
@@ -112041,7 +112537,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-057_p2",
@@ -113131,7 +113629,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-037_r1",
@@ -113280,7 +113780,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-001_p2",
@@ -113725,7 +114227,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-015_r1",
@@ -114660,7 +115164,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-081_p2",
@@ -124385,7 +124891,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-082_p2",
@@ -126706,7 +127214,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-038",
@@ -131842,7 +132352,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-002",
@@ -131940,7 +132452,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-003",
@@ -132038,7 +132552,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-004",
@@ -132136,7 +132652,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-005",
@@ -132234,7 +132752,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-006",
@@ -132332,7 +132852,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-007",
@@ -132430,7 +132952,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-008",
@@ -132528,7 +133052,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-009",
@@ -132626,7 +133152,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-010",
@@ -132724,7 +133252,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-011",
@@ -132822,7 +133352,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-012",
@@ -132920,7 +133452,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-013",
@@ -133018,7 +133552,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-014",
@@ -133116,7 +133652,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST22-015",
@@ -133312,7 +133850,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-009_r1",
@@ -133459,7 +133999,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-015_r1",
@@ -133557,7 +134099,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-018_r1",
@@ -133655,7 +134199,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-038_r1",
@@ -133851,7 +134397,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-051_r1",
@@ -133998,7 +134546,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-060_r1",
@@ -134245,7 +134795,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-039_r1",
@@ -134343,7 +134895,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-055_r1",
@@ -134441,7 +134995,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-005_r1",
@@ -134539,7 +135095,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-068_r1",
@@ -134786,7 +135344,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-048_r1",
@@ -134884,7 +135444,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-072_r1",
@@ -135031,7 +135593,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-016_r1",
@@ -135129,7 +135693,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-077_r1",
@@ -135276,7 +135842,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-096_r1",
@@ -135374,7 +135942,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-004_r1",
@@ -135472,7 +136042,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-021_r1",
@@ -135570,7 +136142,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-030_r1",
@@ -135668,7 +136242,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-036_r1",
@@ -135815,7 +136391,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-052_r1",
@@ -135913,7 +136491,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-077_r1",
@@ -136111,7 +136691,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-097_p2",
@@ -136160,7 +136742,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-097_r1",
@@ -136407,7 +136991,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-044_r1",
@@ -136605,7 +137191,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-049_r1",
@@ -136703,7 +137291,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-056_r2",
@@ -136801,7 +137391,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-058_r1",
@@ -136899,7 +137491,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-059_r1",
@@ -136997,7 +137591,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-063_r1",
@@ -137095,7 +137691,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-073_r1",
@@ -137193,7 +137791,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-076_r1",
@@ -137291,7 +137891,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-078_r1",
@@ -137438,7 +138040,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-115_r1",
@@ -137685,7 +138289,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-014_r1",
@@ -137832,7 +138438,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-017_r1",
@@ -138128,7 +138736,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-031_r2",
@@ -138226,7 +138836,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-040_p3",
@@ -138275,7 +138887,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-040_r1",
@@ -138373,7 +138987,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-056_r1",
@@ -138520,7 +139136,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-076_r1",
@@ -138716,7 +139334,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-114_r1",
@@ -139110,7 +139730,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP08-076_r1",
@@ -139208,7 +139830,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP08-087_r1",
@@ -139306,7 +139930,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP08-099_r1",
@@ -139649,7 +140275,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-014_p2",
@@ -139698,7 +140326,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-014_r2",
@@ -139896,7 +140526,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP09-027_r1",
@@ -139994,7 +140626,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-033_r1",
@@ -140190,7 +140824,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-056_r2",
@@ -140535,7 +141171,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-076_r2",
@@ -140633,7 +141271,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-077_r2",
@@ -140831,7 +141471,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-079_r1",
@@ -140929,7 +141571,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-084_r1",
@@ -141027,7 +141671,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-086_r2",
@@ -141274,7 +141920,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-097_r1",
@@ -141372,7 +142020,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-098_r1",
@@ -141470,7 +142120,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-011_r1",
@@ -141568,7 +142220,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-018_r1",
@@ -141764,7 +142418,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-079_r1",
@@ -141862,7 +142518,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-095_r1",
@@ -141960,7 +142618,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-105_r1",
@@ -142058,7 +142718,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-108_r1",
@@ -142156,7 +142818,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-109_r1",
@@ -142303,7 +142967,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-114_p2",
@@ -142352,7 +143018,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-114_r1",
@@ -142799,7 +143467,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-063_r1",
@@ -142897,7 +143567,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-068_r1",
@@ -142995,7 +143667,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-069_r1",
@@ -143093,7 +143767,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-070_r1",
@@ -143485,7 +144161,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-078_r1",
@@ -143583,7 +144261,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-079_r1",
@@ -143681,7 +144361,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-081_r1",
@@ -143779,7 +144461,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-082_r1",
@@ -143877,7 +144561,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-083_r1",
@@ -143975,7 +144661,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-085_r1",
@@ -144073,7 +144761,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-088_r1",
@@ -144220,7 +144910,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-002",
@@ -144318,7 +145010,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-003",
@@ -144416,7 +145110,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-004",
@@ -144514,7 +145210,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-005",
@@ -144612,7 +145310,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-006",
@@ -144810,7 +145510,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-008",
@@ -144908,7 +145610,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-009",
@@ -145006,7 +145710,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-010",
@@ -145104,7 +145810,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-011",
@@ -145202,7 +145910,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-012",
@@ -145300,7 +146010,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-013",
@@ -145398,7 +146110,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-014",
@@ -145496,7 +146210,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-015",
@@ -145594,7 +146310,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-016",
@@ -145692,7 +146410,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-017",
@@ -145790,7 +146510,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "PRB02-018",
@@ -145888,7 +146610,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-011_p4",
@@ -145937,7 +146661,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-011_r1",
@@ -146135,7 +146861,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST06-008_r1",
@@ -146233,7 +146961,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST10-005_r1",
@@ -146331,7 +147061,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST10-008_r1",
@@ -146429,7 +147161,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST12-005_r1",
@@ -146527,7 +147261,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST12-017_r1",
@@ -146625,7 +147361,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-004_r1",
@@ -146723,7 +147461,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-007_r1",
@@ -146821,7 +147561,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-010_r1",
@@ -146919,7 +147661,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-014_r1",
@@ -147017,7 +147761,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-019_r1",
@@ -147115,7 +147861,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST14-007_r1",
@@ -147213,7 +147961,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST14-010_r2",
@@ -147311,7 +148061,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST14-013_r1",
@@ -147409,7 +148161,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST14-016_r1",
@@ -147507,7 +148261,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST14-017_r1",
@@ -147705,7 +148461,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST16-003_r1",
@@ -147903,7 +148661,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST16-005_r1",
@@ -148001,7 +148761,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST17-002_r1",
@@ -148099,7 +148861,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST17-003_r1",
@@ -148197,7 +148961,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST17-005_r1",
@@ -148446,7 +149212,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST18-002_r1",
@@ -148544,7 +149312,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST18-003_r1",
@@ -148642,7 +149412,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST19-002_r1",
@@ -148740,7 +149512,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST20-003_r1",
@@ -148838,7 +149612,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-003_p2",
@@ -148887,7 +149663,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-003_r1",
@@ -158987,7 +159765,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST29-001",
@@ -159085,7 +159865,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST29-002",
@@ -159183,7 +159965,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-003",
@@ -159281,7 +160065,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-004",
@@ -159379,7 +160165,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-005",
@@ -159477,7 +160265,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-006",
@@ -159575,7 +160365,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-007",
@@ -159673,7 +160465,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-008",
@@ -159771,7 +160565,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-009",
@@ -159869,7 +160665,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-010",
@@ -159967,7 +160765,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-011",
@@ -160065,7 +160865,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-012",
@@ -160163,7 +160965,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-013",
@@ -160261,7 +161065,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-014",
@@ -160359,7 +161165,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST29-015",
@@ -165121,7 +165929,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-002",
@@ -165219,7 +166029,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-003",
@@ -165564,7 +166376,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-008",
@@ -165858,7 +166672,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-044",
@@ -165956,7 +166772,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-044_p2",
@@ -166005,7 +166823,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB04-045",
@@ -166250,7 +167070,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-049",
@@ -166495,7 +167317,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-053",
@@ -166838,7 +167662,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-059",
@@ -167034,7 +167860,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP11-106_p2",
@@ -167236,7 +168064,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP13-042_p2",
@@ -167385,7 +168215,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-002",
@@ -167483,7 +168315,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-003",
@@ -167581,7 +168415,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-004",
@@ -167826,7 +168662,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-008",
@@ -167924,7 +168762,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-009",
@@ -168659,7 +169499,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-023",
@@ -168857,7 +169699,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-026",
@@ -169249,7 +170093,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-033",
@@ -169641,7 +170487,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-040",
@@ -170033,7 +170881,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-047",
@@ -170131,7 +170981,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-048",
@@ -170474,7 +171326,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-054",
@@ -170768,7 +171622,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-059",
@@ -170915,7 +171771,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-061",
@@ -171013,7 +171871,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-062",
@@ -171846,7 +172706,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-078",
@@ -171944,7 +172806,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-079",
@@ -172385,7 +173249,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-087",
@@ -172728,7 +173594,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-093",
@@ -173071,7 +173939,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-099",
@@ -173659,7 +174529,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-110",
@@ -173904,7 +174776,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-114",
@@ -174002,7 +174876,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-115",
@@ -174149,7 +175025,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-117",
@@ -174296,7 +175174,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-118_p2",
@@ -174345,7 +175225,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP15-119",
@@ -174443,7 +175325,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-105_p1",
@@ -174798,7 +175682,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-007_p1",
@@ -174847,7 +175733,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB01-012_p3",
@@ -174896,7 +175784,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-014_p1",
@@ -174945,7 +175835,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-015_p1",
@@ -174994,7 +175886,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-015_p2",
@@ -175043,7 +175937,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-015_p4",
@@ -175092,7 +175988,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-023_p2",
@@ -175192,7 +176090,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-043_p2",
@@ -175241,7 +176141,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-043_p3",
@@ -175290,7 +176192,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-043_p4",
@@ -175339,7 +176243,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-043_p5",
@@ -175388,7 +176294,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-043_p6",
@@ -175437,7 +176345,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB01-048_p2",
@@ -175486,7 +176396,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB02-006_p2",
@@ -175637,7 +176549,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB02-019_p2",
@@ -175686,7 +176600,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB02-026_p2",
@@ -175837,7 +176753,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB02-055_p1",
@@ -175886,7 +176804,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "EB02-055_p2",
@@ -175935,7 +176855,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-001_p2",
@@ -176086,7 +177008,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-006_p1",
@@ -176290,7 +177214,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-015_p1",
@@ -176339,7 +177265,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-016_p2",
@@ -176541,7 +177469,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-017_p2",
@@ -176641,7 +177571,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-021_p2",
@@ -176690,7 +177622,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-022_p1",
@@ -176841,7 +177775,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-030_p1",
@@ -176943,7 +177879,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-033_p6",
@@ -176992,7 +177930,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-035_p1",
@@ -177143,7 +178083,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-052_p1",
@@ -177192,7 +178134,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-057_p1",
@@ -177241,7 +178185,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP01-070_p2",
@@ -177341,7 +178287,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-121_p2",
@@ -177441,7 +178389,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-013_p5",
@@ -177596,7 +178546,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-034_p2",
@@ -177645,7 +178597,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-035_p1",
@@ -177694,7 +178648,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-036_p2",
@@ -177794,7 +178750,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-098_p1",
@@ -177843,7 +178801,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-106_p1",
@@ -177892,7 +178852,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP02-106_p6",
@@ -177941,7 +178903,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-117_p7",
@@ -177990,7 +178954,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-120_p2",
@@ -178194,7 +179160,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-044_p1",
@@ -178243,7 +179211,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-044_p2",
@@ -178345,7 +179315,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-088_p2",
@@ -178394,7 +179366,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-089_p1",
@@ -178443,7 +179417,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-092_p2",
@@ -178543,7 +179519,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-102_p2",
@@ -178592,7 +179570,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-112_p2",
@@ -178845,7 +179825,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-116_p2",
@@ -178894,7 +179876,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-116_p3",
@@ -178943,7 +179927,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP03-116_p7",
@@ -178992,7 +179978,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-121_p5",
@@ -179041,7 +180029,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-123_p2",
@@ -179141,7 +180131,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-010_p2",
@@ -179190,7 +180182,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-032_p4",
@@ -179239,7 +180233,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-044_p2",
@@ -179443,7 +180439,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-092_p2",
@@ -179492,7 +180490,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-092_p3",
@@ -179541,7 +180541,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP04-105_p1",
@@ -179590,7 +180592,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-001",
@@ -179937,7 +180941,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-005",
@@ -180482,7 +181488,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-012",
@@ -181868,7 +182876,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-035",
@@ -182015,7 +183025,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-037",
@@ -182113,7 +183125,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-037_p2",
@@ -182162,7 +183176,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-038",
@@ -184836,7 +185852,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-076_p3",
@@ -184885,7 +185903,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-076_p4",
@@ -184934,7 +185954,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-077",
@@ -185473,7 +186495,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-087",
@@ -186910,7 +187934,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP05-107",
@@ -187749,7 +188775,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-047_p1",
@@ -187798,7 +188826,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-051_p1",
@@ -187847,7 +188877,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-051_p2",
@@ -187896,7 +188928,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-063_p2",
@@ -187945,7 +188979,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-063_p3",
@@ -187994,7 +189030,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-063_p4",
@@ -188043,7 +189081,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-069_p2",
@@ -188143,7 +189183,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-090_p1",
@@ -188192,7 +189234,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-093_p3",
@@ -188496,7 +189540,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP06-118_p4",
@@ -188904,7 +189950,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-040_p1",
@@ -188953,7 +190001,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-040_p4",
@@ -189002,7 +190052,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-044_p1",
@@ -189051,7 +190103,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-047_p2",
@@ -189304,7 +190358,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-051_p4",
@@ -189455,7 +190511,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-053_p2",
@@ -189504,7 +190562,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-053_p3",
@@ -189655,7 +190715,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-064_p2",
@@ -189757,7 +190819,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-066_p2",
@@ -189806,7 +190870,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-073_p1",
@@ -189855,7 +190921,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-080_p1",
@@ -189904,7 +190972,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-091_p1",
@@ -189957,7 +191027,9 @@
     "seriesCategories": [
       "PROMOTION",
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-100_p1",
@@ -190006,7 +191078,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-100_p2",
@@ -190055,7 +191129,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-109_p3",
@@ -190257,7 +191333,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-116_p2",
@@ -190306,7 +191384,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP07-118_p2",
@@ -190510,7 +191590,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP08-040_p1",
@@ -190559,7 +191641,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP08-062_p1",
@@ -190608,7 +191692,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP08-062_p2",
@@ -190657,7 +191743,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP08-067_p2",
@@ -190861,7 +191949,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP08-110_p2",
@@ -191267,7 +192357,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-009_p2",
@@ -191418,7 +192510,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-011_p2",
@@ -191467,7 +192561,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-011_p3",
@@ -191516,7 +192612,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-013_p1",
@@ -191769,7 +192867,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-043_p2",
@@ -191818,7 +192918,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-043_p3",
@@ -191867,7 +192969,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-050_p2",
@@ -192069,7 +193173,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-076_p1",
@@ -192118,7 +193224,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-077_p2",
@@ -192167,7 +193275,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-089_p1",
@@ -192216,7 +193326,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-089_p2",
@@ -192265,7 +193377,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-089_p3",
@@ -192314,7 +193428,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-095_p1",
@@ -192363,7 +193479,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-106_p1",
@@ -192412,7 +193530,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-106_p2",
@@ -192461,7 +193581,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-106_p3",
@@ -192510,7 +193632,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-106_p4",
@@ -192559,7 +193683,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-106_p5",
@@ -192608,7 +193734,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-106_p6",
@@ -192657,7 +193785,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-108_p1",
@@ -192706,7 +193836,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-108_p2",
@@ -192755,7 +193887,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-117_p1",
@@ -192804,7 +193938,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP09-118_p3",
@@ -193059,7 +194195,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-030_p2",
@@ -193159,7 +194297,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-033_p2",
@@ -193208,7 +194348,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-042_p2",
@@ -193308,7 +194450,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-092_p1",
@@ -193357,7 +194501,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-092_p2",
@@ -193406,7 +194552,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-092_p3",
@@ -193455,7 +194603,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP10-107_p1",
@@ -193504,7 +194654,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-107_p2",
@@ -193553,7 +194705,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-107_p3",
@@ -193602,7 +194756,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP11-004_p2",
@@ -193806,7 +194962,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP11-060_p1",
@@ -193855,7 +195013,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP11-067_p2",
@@ -194008,7 +195168,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-015_p2",
@@ -194210,7 +195372,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-031_p2",
@@ -194416,7 +195580,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-079_p1",
@@ -194571,7 +195737,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-112_p1",
@@ -194620,7 +195788,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-119_p2",
@@ -198421,7 +199591,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP13-064",
@@ -200211,7 +201383,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP13-087",
@@ -203099,7 +204273,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-001_p2",
@@ -203148,7 +204324,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-001_p3",
@@ -203248,7 +204426,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-001_p6",
@@ -203297,7 +204477,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-002",
@@ -203444,7 +204626,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-004",
@@ -204130,7 +205314,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-017",
@@ -204228,7 +205414,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-018",
@@ -204375,7 +205563,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-020",
@@ -204571,7 +205761,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-023",
@@ -205012,7 +206204,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-030_p3",
@@ -205061,7 +206255,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-031",
@@ -205551,7 +206747,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-042",
@@ -205747,7 +206945,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-046",
@@ -205894,7 +207094,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-048",
@@ -205992,7 +207194,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-049",
@@ -206090,7 +207294,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-050",
@@ -206188,7 +207394,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-051",
@@ -206286,7 +207494,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-052",
@@ -206384,7 +207594,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-053",
@@ -206482,7 +207694,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-054",
@@ -206629,7 +207843,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-056",
@@ -206727,7 +207943,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-057",
@@ -207119,7 +208337,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-065_p2",
@@ -207168,7 +208388,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-068",
@@ -207315,7 +208537,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-069_p2",
@@ -207364,7 +208588,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-069_p4",
@@ -207413,7 +208639,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-069_p5",
@@ -207462,7 +208690,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-069_p6",
@@ -207511,7 +208741,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-070",
@@ -207609,7 +208841,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-070_p2",
@@ -207658,7 +208892,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-071",
@@ -207805,7 +209041,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-074_p1",
@@ -207854,7 +209092,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-075_p1",
@@ -207903,7 +209143,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "P-076",
@@ -208050,7 +209292,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-077_p2",
@@ -208099,7 +209343,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-078",
@@ -208197,7 +209443,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-078_p2",
@@ -208246,7 +209494,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-078_p3",
@@ -208295,7 +209545,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-078_p4",
@@ -208344,7 +209596,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-078_p5",
@@ -208393,7 +209647,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-079",
@@ -208491,7 +209747,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-079_p2",
@@ -208540,7 +209798,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-081",
@@ -208638,7 +209898,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-082",
@@ -208736,7 +209998,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-083",
@@ -208834,7 +210098,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-083_p2",
@@ -208883,7 +210149,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-085",
@@ -208981,7 +210249,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-085_p2",
@@ -209030,7 +210300,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-088",
@@ -209177,7 +210449,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-089_p2",
@@ -209226,7 +210500,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-090",
@@ -209422,7 +210698,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-092_p2",
@@ -209471,7 +210749,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-096",
@@ -209569,7 +210849,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-097",
@@ -210206,7 +211488,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-112",
@@ -210304,7 +211588,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-113",
@@ -210402,7 +211688,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-115",
@@ -210500,7 +211788,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "P-117",
@@ -210647,7 +211937,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-002_p2",
@@ -210747,7 +212039,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-004_p2",
@@ -210796,7 +212090,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-005_p1",
@@ -210896,7 +212192,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-006_p2",
@@ -211047,7 +212345,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-007_p2",
@@ -211096,7 +212396,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-007_p4",
@@ -211145,7 +212447,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-007_p5",
@@ -211194,7 +212498,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-008_p1",
@@ -211294,7 +212600,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-010_p1",
@@ -211445,7 +212753,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-011_p2",
@@ -211494,7 +212804,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-011_p3",
@@ -211594,7 +212906,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-012_p2",
@@ -211898,7 +213212,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST01-015_p1",
@@ -211947,7 +213263,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST02-007_p1",
@@ -212047,7 +213365,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST02-013_p1",
@@ -212096,7 +213416,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-003_p1",
@@ -212145,7 +213467,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-004_p3",
@@ -212245,7 +213569,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-007_p1",
@@ -212294,7 +213620,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-007_p2",
@@ -212343,7 +213671,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-008_p2",
@@ -212392,7 +213722,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-008_p3",
@@ -212441,7 +213773,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-012_p1",
@@ -212490,7 +213824,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST03-014_p1",
@@ -212539,7 +213875,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST03-017_p1",
@@ -212588,7 +213926,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST04-002_p1",
@@ -212637,7 +213977,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST04-003_p2",
@@ -212686,7 +214028,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST04-008_p1",
@@ -212735,7 +214079,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST04-008_p2",
@@ -212784,7 +214130,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST04-010_p1",
@@ -212833,7 +214181,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST04-011_p1",
@@ -212882,7 +214232,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST04-011_p2",
@@ -212931,7 +214283,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST04-016_p4",
@@ -212980,7 +214334,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST05-002_p1",
@@ -213029,7 +214385,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST05-014_p1",
@@ -213078,7 +214436,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST06-006_p1",
@@ -213280,7 +214640,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST10-005_p1",
@@ -213380,7 +214742,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST10-006_p2",
@@ -213480,7 +214844,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST10-008_p1",
@@ -213529,7 +214895,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST10-008_p2",
@@ -213578,7 +214946,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST10-010_p1",
@@ -213627,7 +214997,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST10-013_p1",
@@ -213676,7 +215048,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-003_p1",
@@ -213725,7 +215099,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-004_p1",
@@ -213774,7 +215150,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST11-005_p1",
@@ -213823,7 +215201,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST12-008_p1",
@@ -213872,7 +215252,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-003_p2",
@@ -213921,7 +215303,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST13-012_p2",
@@ -213970,7 +215354,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST13-015_p2",
@@ -214119,7 +215505,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST15-005_p2",
@@ -214168,7 +215556,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST15-005_p4",
@@ -214270,7 +215660,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST17-003_p2",
@@ -214319,7 +215711,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST17-003_p4",
@@ -214368,7 +215762,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST17-005_p2",
@@ -214417,7 +215813,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST18-002_p2",
@@ -214466,7 +215864,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST18-003_p1",
@@ -214515,7 +215915,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST19-002_p1",
@@ -214564,7 +215966,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST19-002_p2",
@@ -214613,7 +216017,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-015_p2",
@@ -214662,7 +216068,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-015_p3",
@@ -214711,7 +216119,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-015_p4",
@@ -214760,7 +216170,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST21-017_p1",
@@ -214809,6 +216221,8 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   }
 ]
