@@ -199,7 +199,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-003",
@@ -1103,7 +1105,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-017",
@@ -1648,7 +1652,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-026",
@@ -3768,7 +3774,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-061",
@@ -3870,7 +3878,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-062",
@@ -3968,7 +3978,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-063",
@@ -5772,7 +5784,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-092",
@@ -7731,7 +7745,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST01-001",
@@ -12166,7 +12182,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-003",
@@ -12313,7 +12331,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-005",
@@ -13150,7 +13170,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-018",
@@ -13248,7 +13270,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-019",
@@ -13742,7 +13766,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-027",
@@ -17986,7 +18012,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-097",
@@ -25039,7 +25067,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-079",
@@ -26321,7 +26351,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-100",
@@ -27954,7 +27986,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST04-003_p1",
@@ -28003,7 +28037,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST07-001",
@@ -30659,7 +30695,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-002",
@@ -31296,7 +31334,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-014",
@@ -33272,7 +33312,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-045",
@@ -35438,7 +35480,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-083",
@@ -37808,7 +37852,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-021_p3",
@@ -38347,7 +38393,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-025_p2",
@@ -38396,7 +38444,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "ST10-001",
@@ -40370,7 +40420,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-002",
@@ -42442,7 +42494,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-036",
@@ -44018,7 +44072,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-063",
@@ -49332,7 +49388,9 @@
     ],
     "seriesCategories": [
       "ULTRA_DECK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST13-012",
@@ -50067,7 +50125,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-002",
@@ -51343,7 +51403,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-022",
@@ -52519,7 +52581,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-041",
@@ -53648,7 +53712,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-058",
@@ -55332,7 +55398,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-020",
@@ -56465,7 +56533,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-039",
@@ -57355,7 +57425,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "manga",
+    "variantLabel": "Manga"
   },
   {
     "id": "OP07-052",
@@ -69693,7 +69765,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-073_r1",
@@ -70185,7 +70259,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-098_r1",
@@ -70920,7 +70996,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP03-106_r1",
@@ -74352,7 +74430,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-024_p3",
@@ -75736,7 +75816,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP01-121_r1",
@@ -75834,7 +75916,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-004_r1",
@@ -76128,7 +76212,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-018_p5",
@@ -76177,7 +76263,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-018_p6",
@@ -76226,7 +76314,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-018_r2",
@@ -76520,7 +76610,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP02-096_r1",
@@ -77212,7 +77304,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP03-003_p5",
@@ -79968,7 +80062,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP04-044_r1",
@@ -81156,7 +81252,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-007_r1",
@@ -84159,7 +84257,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-035_r1",
@@ -91645,7 +91745,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-024",
@@ -94015,7 +94117,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP09-062",
@@ -97367,7 +97471,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "manga",
+    "variantLabel": "Manga"
   },
   {
     "id": "OP09-118_p2",
@@ -97618,7 +97724,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST21-001",
@@ -101956,7 +102064,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-043",
@@ -106696,7 +106806,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-021_p2",
@@ -106745,7 +106857,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-040_p2",
@@ -106794,7 +106908,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB02-001",
@@ -107435,7 +107551,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB02-011",
@@ -107929,7 +108047,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB02-018",
@@ -110695,7 +110815,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "manga",
+    "variantLabel": "Manga"
   },
   {
     "id": "OP05-001_p2",
@@ -110744,7 +110866,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP05-002_p2",
@@ -110793,7 +110917,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP05-022_p2",
@@ -110893,7 +111019,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP05-098_p2",
@@ -110942,7 +111070,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP06-001_p2",
@@ -111042,7 +111172,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP06-021_p2",
@@ -111091,7 +111223,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP06-022_p2",
@@ -111140,7 +111274,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP06-042_p2",
@@ -111291,7 +111427,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP07-019_p2",
@@ -111340,7 +111478,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP07-038_p2",
@@ -111440,7 +111580,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP07-079_p2",
@@ -111644,7 +111786,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP08-021_p2",
@@ -111693,7 +111837,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP08-057_p2",
@@ -111742,7 +111888,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP08-058_p2",
@@ -111791,7 +111939,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP08-098_p2",
@@ -112636,7 +112786,9 @@
     ],
     "seriesCategories": [
       "STARTER_DECK"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP07-021_r1",
@@ -116533,7 +116685,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP11-024",
@@ -117566,7 +117720,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP11-042",
@@ -119883,7 +120039,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP11-081",
@@ -120128,7 +120286,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP11-085",
@@ -130788,7 +130948,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-109",
@@ -131478,7 +131640,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "ST13-011_p2",
@@ -134473,7 +134637,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP03-008_r1",
@@ -136141,7 +136307,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP06-007_r1",
@@ -136337,7 +136505,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP06-047_r1",
@@ -137415,7 +137585,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-119_r1",
@@ -138740,7 +138912,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP08-023_r1",
@@ -139622,7 +139796,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP09-020_r2",
@@ -140112,7 +140288,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP09-057_r2",
@@ -140553,7 +140731,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP09-078_r1",
@@ -140994,7 +141174,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP09-096_r1",
@@ -142368,7 +142550,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-020_p3",
@@ -144526,7 +144710,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "PRB02-007",
@@ -145849,7 +146035,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST02-007_r1",
@@ -147615,7 +147803,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST16-004_r1",
@@ -148105,7 +148295,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST18-001_p3",
@@ -148154,7 +148346,9 @@
     ],
     "seriesCategories": [
       "PREMIUM_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST18-001_r1",
@@ -150177,7 +150371,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB04-032",
@@ -150869,7 +151065,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP06-093_p5",
@@ -151224,7 +151422,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP12-108_p3",
@@ -151273,7 +151473,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP14-001",
@@ -153151,7 +153353,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP14-032",
@@ -157048,7 +157252,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP14-097",
@@ -158379,7 +158585,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP14-119",
@@ -158728,7 +158936,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST15-005_p3",
@@ -163962,7 +164172,9 @@
     ],
     "seriesCategories": [
       "EXTRA_BOOSTER"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB03-053_p2",
@@ -164809,7 +165021,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB04-001",
@@ -165103,7 +165317,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB04-004",
@@ -166867,7 +167083,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP12-014_p2",
@@ -166916,7 +167134,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP13-031_p1",
@@ -166965,7 +167185,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP13-037_p1",
@@ -167063,7 +167285,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP15-001",
@@ -174268,7 +174492,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "PRB02-014_p2",
@@ -174317,7 +174543,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST26-005_p1",
@@ -174366,7 +174594,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "EB01-003_p2",
@@ -175356,7 +175586,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB02-019_p1",
@@ -175503,7 +175735,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "EB02-028_p1",
@@ -175801,7 +176035,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP01-005_p1",
@@ -175901,7 +176137,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP01-013_p2",
@@ -176352,7 +176590,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP01-021_p1",
@@ -176499,7 +176739,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP01-025_p3",
@@ -176650,7 +176892,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP01-033_p1",
@@ -176848,7 +177092,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP01-041_p1",
@@ -177299,7 +177545,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP02-022_p1",
@@ -177895,7 +178143,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP03-033_p1",
@@ -178044,7 +178294,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP03-088_p1",
@@ -179983,7 +180235,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-008",
@@ -181312,7 +181566,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP05-031",
@@ -182743,7 +182999,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-052",
@@ -185560,7 +185818,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-091_p3",
@@ -185609,7 +185869,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP05-092",
@@ -189291,7 +189553,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP07-053_p4",
@@ -189340,7 +189604,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP07-057_p1",
@@ -191350,7 +191616,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP09-027_p3",
@@ -191399,7 +191667,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP09-034_p2",
@@ -192687,7 +192957,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP10-005_p2",
@@ -192985,7 +193257,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "parallel",
+    "variantLabel": "Parallel"
   },
   {
     "id": "OP10-049_p1",
@@ -194091,7 +194365,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP12-051_p1",
@@ -194191,7 +194467,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "OP12-094_p2",
@@ -194493,7 +194771,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP13-002",
@@ -194591,7 +194871,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP13-003",
@@ -198978,7 +199260,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art"
   },
   {
     "id": "OP13-077",
@@ -202411,7 +202695,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP13-120",
@@ -202662,7 +202948,9 @@
     ],
     "seriesCategories": [
       "BOOSTER_PACK"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "OP14-033_p2",
@@ -202909,7 +203197,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "P-001_p5",
@@ -210406,7 +210696,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-004_p1",
@@ -210553,7 +210845,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-006_p1",
@@ -210651,7 +210945,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-006_p4",
@@ -210700,7 +210996,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-007_p1",
@@ -210945,7 +211243,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-009_p1",
@@ -211043,7 +211343,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-010_p2",
@@ -211092,7 +211394,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-011_p1",
@@ -211239,7 +211543,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST01-011_p5",
@@ -211690,7 +211996,9 @@
     ],
     "seriesCategories": [
       "PROMOTION"
-    ]
+    ],
+    "variantType": "sp",
+    "variantLabel": "SP"
   },
   {
     "id": "ST02-008_p1",
@@ -213021,7 +213329,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST10-006_p1",
@@ -213119,7 +213429,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST10-006_p4",
@@ -213709,7 +214021,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST14-010_r1",
@@ -213905,7 +214219,9 @@
     ],
     "seriesCategories": [
       "OTHER_PRODUCT"
-    ]
+    ],
+    "variantType": "anniversary",
+    "variantLabel": "Anniversary"
   },
   {
     "id": "ST17-003_p1",
