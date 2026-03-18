@@ -178860,9 +178860,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "EB01-043_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "offline_regional_participation_pack_2025_vol_1",
+    "canonicalId": "EB01-043_offline_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "EB01-043_p2",
@@ -179390,9 +179390,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "EB02-019_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 3",
+    "variantSlug": "winner_pack_2025_vol_3",
+    "canonicalId": "EB02-019_winner_pack_2025_vol_3"
   },
   {
     "id": "EB02-026_p2",
@@ -179655,9 +179655,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "EB02-055_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 3",
+    "variantSlug": "winner_pack_2025_vol_3",
+    "canonicalId": "EB02-055_winner_pack_2025_vol_3"
   },
   {
     "id": "OP01-001_p2",
@@ -182050,9 +182050,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_6",
-    "canonicalId": "OP03-033_parallel_tournament_pack_vol_6"
+    "variantLabel": "Tournament Pack Vol. 6",
+    "variantSlug": "tournament_pack_vol_6",
+    "canonicalId": "OP03-033_tournament_pack_vol_6"
   },
   {
     "id": "OP03-044_p1",
@@ -182103,9 +182103,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_6",
-    "canonicalId": "OP03-044_parallel_tournament_pack_vol_6"
+    "variantLabel": "Tournament Pack Vol. 6",
+    "variantSlug": "tournament_pack_vol_6",
+    "canonicalId": "OP03-044_tournament_pack_vol_6"
   },
   {
     "id": "OP03-044_p2",
@@ -182211,9 +182211,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_6",
-    "canonicalId": "OP03-088_parallel_tournament_pack_vol_6"
+    "variantLabel": "Tournament Pack Vol. 6",
+    "variantSlug": "tournament_pack_vol_6",
+    "canonicalId": "OP03-088_tournament_pack_vol_6"
   },
   {
     "id": "OP03-088_p2",
@@ -182317,9 +182317,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "OP03-089_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 1",
+    "variantSlug": "offline_regional_2024_vol_1",
+    "canonicalId": "OP03-089_offline_regional_2024_vol_1"
   },
   {
     "id": "OP03-092_p2",
@@ -182423,9 +182423,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "OP03-102_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 1",
+    "variantSlug": "offline_regional_2024_vol_1",
+    "canonicalId": "OP03-102_offline_regional_2024_vol_1"
   },
   {
     "id": "OP03-102_p2",
@@ -182741,9 +182741,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_6",
-    "canonicalId": "OP03-116_parallel_tournament_pack_vol_6"
+    "variantLabel": "Tournament Pack Vol. 6",
+    "variantSlug": "tournament_pack_vol_6",
+    "canonicalId": "OP03-116_tournament_pack_vol_6"
   },
   {
     "id": "OP03-116_p2",
@@ -185997,9 +185997,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack",
-    "canonicalId": "OP05-036_parallel_event_pack"
+    "variantLabel": "Event Pack Vol. 3",
+    "variantSlug": "event_pack_vol_3",
+    "canonicalId": "OP05-036_event_pack_vol_3"
   },
   {
     "id": "OP05-037",
@@ -192716,9 +192716,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Offline Regional Participation",
-    "variantSlug": "offline_regional_participation",
-    "canonicalId": "OP07-021_offline_regional_participation"
+    "variantLabel": "Offline Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "offline_regional_participation_pack_2025_vol_1",
+    "canonicalId": "OP07-021_offline_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "OP07-021_p3",
@@ -194897,9 +194897,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP08-062_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 3",
+    "variantSlug": "winner_pack_2025_vol_3",
+    "canonicalId": "OP08-062_winner_pack_2025_vol_3"
   },
   {
     "id": "OP08-067_p2",
@@ -196754,9 +196754,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "OP09-106_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "offline_regional_participation_pack_2025_vol_1",
+    "canonicalId": "OP09-106_offline_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "OP09-106_p2",
@@ -207844,9 +207844,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "P-001_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 2",
+    "variantSlug": "offline_regional_2024_vol_2",
+    "canonicalId": "P-001_offline_regional_2024_vol_2"
   },
   {
     "id": "P-001_p6",
@@ -208048,9 +208048,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "P-003_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 2",
+    "variantSlug": "offline_regional_2024_vol_2",
+    "canonicalId": "P-003_offline_regional_2024_vol_2"
   },
   {
     "id": "P-004",
@@ -210183,9 +210183,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "P-041_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 2",
+    "variantSlug": "offline_regional_2024_vol_2",
+    "canonicalId": "P-041_offline_regional_2024_vol_2"
   },
   {
     "id": "P-042",
@@ -216845,9 +216845,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "ST01-015_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 1",
+    "variantSlug": "offline_regional_2024_vol_1",
+    "canonicalId": "ST01-015_offline_regional_2024_vol_1"
   },
   {
     "id": "ST02-007_p1",
@@ -216951,9 +216951,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "ST02-008_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 1",
+    "variantSlug": "offline_regional_2024_vol_1",
+    "canonicalId": "ST02-008_offline_regional_2024_vol_1"
   },
   {
     "id": "ST02-013_p1",
@@ -217322,9 +217322,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack",
-    "canonicalId": "ST03-008_parallel_event_pack"
+    "variantLabel": "Event Pack Vol. 3",
+    "variantSlug": "event_pack_vol_3",
+    "canonicalId": "ST03-008_event_pack_vol_3"
   },
   {
     "id": "ST03-008_p3",
@@ -217375,9 +217375,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "ST03-008_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 2",
+    "variantSlug": "offline_regional_2024_vol_2",
+    "canonicalId": "ST03-008_offline_regional_2024_vol_2"
   },
   {
     "id": "ST03-012_p1",
@@ -219707,9 +219707,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "ST19-002_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 3",
+    "variantSlug": "winner_pack_2025_vol_3",
+    "canonicalId": "ST19-002_winner_pack_2025_vol_3"
   },
   {
     "id": "ST21-015_p2",
