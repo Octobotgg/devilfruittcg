@@ -178436,9 +178436,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_treasure_cup",
-    "canonicalId": "EB01-006_parallel_treasure_cup"
+    "variantLabel": "Treasure Cup 2024",
+    "variantSlug": "treasure_cup_2024",
+    "canonicalId": "EB01-006_treasure_cup_2024"
   },
   {
     "id": "EB01-007_p1",
@@ -178542,9 +178542,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_treasure_cup",
-    "canonicalId": "EB01-012_parallel_treasure_cup"
+    "variantLabel": "Treasure Cup 2024",
+    "variantSlug": "treasure_cup_2024",
+    "canonicalId": "EB01-012_treasure_cup_2024"
   },
   {
     "id": "EB01-014_p1",
@@ -207685,9 +207685,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_super_pre_release_print_1",
-    "canonicalId": "P-001_parallel_super_pre_release_print_1"
+    "variantLabel": "Super Pre-Release Participant",
+    "variantSlug": "super_pre_release_participant",
+    "canonicalId": "P-001_super_pre_release_participant"
   },
   {
     "id": "P-001_p2",
@@ -207738,9 +207738,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_super_pre_release_print_2",
-    "canonicalId": "P-001_parallel_super_pre_release_print_2"
+    "variantLabel": "Super Pre-Release Winner",
+    "variantSlug": "super_pre_release_winner",
+    "canonicalId": "P-001_super_pre_release_winner"
   },
   {
     "id": "P-001_p3",
@@ -213500,9 +213500,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_store_2_on_2_battle",
-    "canonicalId": "P-082_parallel_store_2_on_2_battle"
+    "variantLabel": "Store 2-on-2 Battle Winner",
+    "variantSlug": "store_2_on_2_battle_winner",
+    "canonicalId": "P-082_store_2_on_2_battle_winner"
   },
   {
     "id": "P-083",
@@ -216368,9 +216368,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_4",
-    "canonicalId": "ST01-011_parallel_tournament_pack_vol_4"
+    "variantLabel": "Tournament Pack Vol. 4",
+    "variantSlug": "tournament_pack_vol_4",
+    "canonicalId": "ST01-011_tournament_pack_vol_4"
   },
   {
     "id": "ST01-011_p3",
@@ -217163,9 +217163,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_4",
-    "canonicalId": "ST03-005_parallel_tournament_pack_vol_4"
+    "variantLabel": "Tournament Pack Vol. 4",
+    "variantSlug": "tournament_pack_vol_4",
+    "canonicalId": "ST03-005_tournament_pack_vol_4"
   },
   {
     "id": "ST03-007_p1",
