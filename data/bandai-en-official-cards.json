@@ -179443,9 +179443,9 @@
       "PROMOTION"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_heroines_campaign_dash_pack",
-    "canonicalId": "EB02-026_alternate_art_heroines_campaign_dash_pack"
+    "variantLabel": "One Piece Heroines Campaign Dash Pack",
+    "variantSlug": "heroines_campaign_dash_pack",
+    "canonicalId": "EB02-026_heroines_campaign_dash_pack"
   },
   {
     "id": "EB02-028_p1",
@@ -188858,9 +188858,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_pirates_league_store_qualifier_print_2",
-    "canonicalId": "OP05-076_parallel_pirates_league_store_qualifier_print_2"
+    "variantLabel": "Pirates League Store Qualifier",
+    "variantSlug": "pirates_league_store_qualifier",
+    "canonicalId": "OP05-076_pirates_league_store_qualifier"
   },
   {
     "id": "OP05-076_p3",
@@ -188911,9 +188911,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_pirates_league_store_qualifier_print_3",
-    "canonicalId": "OP05-076_parallel_pirates_league_store_qualifier_print_3"
+    "variantLabel": "Pirates League Store Qualifier Winner",
+    "variantSlug": "pirates_league_store_qualifier_winner",
+    "canonicalId": "OP05-076_pirates_league_store_qualifier_winner"
   },
   {
     "id": "OP05-076_p4",
@@ -194471,9 +194471,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_one_piece_day_dallas",
-    "canonicalId": "OP07-113_parallel_one_piece_day_dallas"
+    "variantLabel": "One Piece Day Dallas 2025",
+    "variantSlug": "one_piece_day_dallas_2025",
+    "canonicalId": "OP07-113_one_piece_day_dallas_2025"
   },
   {
     "id": "OP07-116_p2",
@@ -213398,9 +213398,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op11_release_event",
-    "canonicalId": "P-081_parallel_op11_release_event"
+    "variantLabel": "OP-11 Release Event Winner",
+    "variantSlug": "op11_release_event_winner",
+    "canonicalId": "P-081_op11_release_event_winner"
   },
   {
     "id": "P-082",
@@ -214214,9 +214214,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op12_release_event_print_1",
-    "canonicalId": "P-092_parallel_op12_release_event_print_1"
+    "variantLabel": "OP-12 Release Event",
+    "variantSlug": "op12_release_event",
+    "canonicalId": "P-092_op12_release_event"
   },
   {
     "id": "P-092_p2",
@@ -214267,9 +214267,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op12_release_event_print_2",
-    "canonicalId": "P-092_parallel_op12_release_event_print_2"
+    "variantLabel": "OP-12 Release Event Winner",
+    "variantSlug": "op12_release_event_winner",
+    "canonicalId": "P-092_op12_release_event_winner"
   },
   {
     "id": "P-096",
@@ -214369,9 +214369,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op14",
-    "canonicalId": "P-096_parallel_op14"
+    "variantLabel": "OP14-EB04 Release Event Winner",
+    "variantSlug": "op14_eb04_release_event_winner",
+    "canonicalId": "P-096_op14_eb04_release_event_winner"
   },
   {
     "id": "P-097",
@@ -218488,9 +218488,9 @@
       "PROMOTION"
     ],
     "variantType": "anniversary",
-    "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_one_piece_day_dallas",
-    "canonicalId": "ST10-006_anniversary_one_piece_day_dallas"
+    "variantLabel": "One Piece Day Dallas 2025",
+    "variantSlug": "one_piece_day_dallas_2025",
+    "canonicalId": "ST10-006_one_piece_day_dallas_2025"
   },
   {
     "id": "ST10-008_p1",
@@ -219548,9 +219548,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_heroines_campaign_dash_pack",
-    "canonicalId": "ST18-002_parallel_heroines_campaign_dash_pack"
+    "variantLabel": "One Piece Heroines Campaign Dash Pack",
+    "variantSlug": "heroines_campaign_dash_pack",
+    "canonicalId": "ST18-002_heroines_campaign_dash_pack"
   },
   {
     "id": "ST18-003_p1",
