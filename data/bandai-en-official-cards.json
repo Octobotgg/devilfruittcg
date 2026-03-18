@@ -188964,9 +188964,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_pirates_league_three_captains_battle",
-    "canonicalId": "OP05-076_parallel_pirates_league_three_captains_battle"
+    "variantLabel": "Pirates League Finals Textured Foil",
+    "variantSlug": "pirates_league_finals_textured_foil",
+    "canonicalId": "OP05-076_pirates_league_finals_textured_foil"
   },
   {
     "id": "OP05-077",
@@ -216156,9 +216156,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op03",
-    "canonicalId": "ST01-009_parallel_op03"
+    "variantLabel": "Pre-Release Participant",
+    "variantSlug": "pre_release_op03_participant",
+    "canonicalId": "ST01-009_pre_release_op03_participant"
   },
   {
     "id": "ST01-010_p1",
