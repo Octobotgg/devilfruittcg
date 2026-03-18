@@ -179602,9 +179602,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_eb02",
-    "canonicalId": "EB02-055_parallel_eb02"
+    "variantLabel": "Tournament Pack 2025 Vol. 3",
+    "variantSlug": "tournament_pack_2025_vol_3",
+    "canonicalId": "EB02-055_tournament_pack_2025_vol_3"
   },
   {
     "id": "EB02-055_p2",
@@ -180931,9 +180931,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_7",
-    "canonicalId": "OP01-041_parallel_tournament_pack_vol_7"
+    "variantLabel": "Tournament Pack Vol. 7",
+    "variantSlug": "tournament_pack_vol_7",
+    "canonicalId": "OP01-041_tournament_pack_vol_7"
   },
   {
     "id": "OP01-052_p1",
@@ -186099,9 +186099,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op05",
-    "canonicalId": "OP05-037_parallel_op05"
+    "variantLabel": "Tournament Pack 2025 Vol. 4",
+    "variantSlug": "tournament_pack_2025_vol_4",
+    "canonicalId": "OP05-037_tournament_pack_2025_vol_4"
   },
   {
     "id": "OP05-037_p2",
@@ -186152,9 +186152,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP05-037_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 4",
+    "variantSlug": "winner_pack_2025_vol_4",
+    "canonicalId": "OP05-037_winner_pack_2025_vol_4"
   },
   {
     "id": "OP05-038",
@@ -190964,9 +190964,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_7",
-    "canonicalId": "OP05-106_parallel_tournament_pack_vol_7"
+    "variantLabel": "Tournament Pack Vol. 7",
+    "variantSlug": "tournament_pack_vol_7",
+    "canonicalId": "OP05-106_tournament_pack_vol_7"
   },
   {
     "id": "OP05-107",
@@ -191972,9 +191972,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP06-051_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 4",
+    "variantSlug": "winner_pack_2025_vol_4",
+    "canonicalId": "OP06-051_winner_pack_2025_vol_4"
   },
   {
     "id": "OP06-063_p2",
@@ -194844,9 +194844,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op08",
-    "canonicalId": "OP08-062_parallel_op08"
+    "variantLabel": "Tournament Pack 2025 Vol. 3",
+    "variantSlug": "tournament_pack_2025_vol_3",
+    "canonicalId": "OP08-062_tournament_pack_2025_vol_3"
   },
   {
     "id": "OP08-062_p2",
@@ -197072,9 +197072,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09",
-    "canonicalId": "OP09-108_parallel_op09"
+    "variantLabel": "Tournament Pack 2025 Vol. 4",
+    "variantSlug": "tournament_pack_2025_vol_4",
+    "canonicalId": "OP09-108_tournament_pack_2025_vol_4"
   },
   {
     "id": "OP09-108_p2",
@@ -197125,9 +197125,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP09-108_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 4",
+    "variantSlug": "winner_pack_2025_vol_4",
+    "canonicalId": "OP09-108_winner_pack_2025_vol_4"
   },
   {
     "id": "OP09-117_p1",
@@ -208840,9 +208840,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_7",
-    "canonicalId": "P-017_parallel_tournament_pack_vol_7"
+    "variantLabel": "Tournament Pack Vol. 7",
+    "variantSlug": "tournament_pack_vol_7",
+    "canonicalId": "P-017_tournament_pack_vol_7"
   },
   {
     "id": "P-018",
@@ -208991,9 +208991,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_7",
-    "canonicalId": "P-019_parallel_tournament_pack_vol_7"
+    "variantLabel": "Tournament Pack Vol. 7",
+    "variantSlug": "tournament_pack_vol_7",
+    "canonicalId": "P-019_tournament_pack_vol_7"
   },
   {
     "id": "P-020",
@@ -215944,9 +215944,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_3",
-    "canonicalId": "ST01-007_parallel_tournament_pack_vol_3"
+    "variantLabel": "Tournament Pack Vol. 3 Participant",
+    "variantSlug": "tournament_pack_vol_3_participant",
+    "canonicalId": "ST01-007_tournament_pack_vol_3_participant"
   },
   {
     "id": "ST01-007_p4",
@@ -216898,9 +216898,9 @@
       "PROMOTION"
     ],
     "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_tournament_pack_vol_3",
-    "canonicalId": "ST02-007_sp_tournament_pack_vol_3"
+    "variantLabel": "Tournament Pack Vol. 3 Participant",
+    "variantSlug": "tournament_pack_vol_3_participant",
+    "canonicalId": "ST02-007_tournament_pack_vol_3_participant"
   },
   {
     "id": "ST02-008_p1",
@@ -217216,9 +217216,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_3",
-    "canonicalId": "ST03-007_parallel_tournament_pack_vol_3"
+    "variantLabel": "Tournament Pack Vol. 3 Participant",
+    "variantSlug": "tournament_pack_vol_3_participant",
+    "canonicalId": "ST03-007_tournament_pack_vol_3_participant"
   },
   {
     "id": "ST03-007_p2",
@@ -217799,9 +217799,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_3",
-    "canonicalId": "ST04-010_parallel_tournament_pack_vol_3"
+    "variantLabel": "Tournament Pack Vol. 3 Participant",
+    "variantSlug": "tournament_pack_vol_3_participant",
+    "canonicalId": "ST04-010_tournament_pack_vol_3_participant"
   },
   {
     "id": "ST04-011_p1",
@@ -218541,9 +218541,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st10",
-    "canonicalId": "ST10-008_parallel_st10"
+    "variantLabel": "Tournament Pack 2025 Vol. 4",
+    "variantSlug": "tournament_pack_2025_vol_4",
+    "canonicalId": "ST10-008_tournament_pack_2025_vol_4"
   },
   {
     "id": "ST10-008_p2",
@@ -218594,9 +218594,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "ST10-008_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 4",
+    "variantSlug": "winner_pack_2025_vol_4",
+    "canonicalId": "ST10-008_winner_pack_2025_vol_4"
   },
   {
     "id": "ST10-010_p1",
@@ -219654,9 +219654,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st19",
-    "canonicalId": "ST19-002_parallel_st19"
+    "variantLabel": "Tournament Pack 2025 Vol. 3",
+    "variantSlug": "tournament_pack_2025_vol_3",
+    "canonicalId": "ST19-002_tournament_pack_2025_vol_3"
   },
   {
     "id": "ST19-002_p2",
