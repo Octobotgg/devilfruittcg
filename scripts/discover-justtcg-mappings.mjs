@@ -199,6 +199,8 @@ async function main() {
       .filter(({ result }) => result.status === "auto_approved")
       .map(({ card, result }) => ({
         cardId: card.id,
+        canonicalId: card.canonicalId || null,
+        variantSlug: card.variantSlug || null,
         setCode: card.setCode,
         variantType: detectVariantHints(card),
         lane: result.lane,
@@ -218,6 +220,8 @@ async function main() {
       .filter(({ result }) => result.status === "needs_review")
       .map(({ card, result }) => ({
         cardId: card.id,
+        canonicalId: card.canonicalId || null,
+        variantSlug: card.variantSlug || null,
         setCode: card.setCode,
         variantType: detectVariantHints(card),
         lane: result.lane,
@@ -237,6 +241,8 @@ async function main() {
       .filter(({ result }) => result.status === "rejected")
       .map(({ card, result }) => ({
         cardId: card.id,
+        canonicalId: card.canonicalId || null,
+        variantSlug: card.variantSlug || null,
         setCode: card.setCode,
         variantType: detectVariantHints(card),
         lane: result.lane,
@@ -246,6 +252,8 @@ async function main() {
       })),
     results: results.map(({ card, result }) => ({
       cardId: card.id,
+      canonicalId: card.canonicalId || null,
+      variantSlug: card.variantSlug || null,
       lane: result.lane,
       isVariant: isVariantCard(card),
       confidence: result.confidence,

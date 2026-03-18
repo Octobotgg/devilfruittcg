@@ -143,15 +143,29 @@ export function detectVariantLane(card) {
 export function detectVariantHints(card) {
   const explicitType = String(card.variantType || "").toLowerCase();
   const explicitLabel = normalizeText(String(card.variantLabel || ""));
+  const explicitSlug = normalizeText(String(card.variantSlug || "").replace(/_/g, " "));
   const raw = normalizeText([
     card.id,
     card.rarity,
     explicitType,
     explicitLabel,
+    explicitSlug,
     card.notes?.join?.(" "),
     card.name,
   ].join(" "));
   const hints = [];
+  if (explicitLabel.includes("pirate foil") || explicitSlug.includes("pirate foil")) hints.push("pirate_foil");
+  if (explicitLabel.includes("participation") || explicitSlug.includes("participation")) hints.push("participation");
+  if (explicitLabel.includes("finalist") || explicitSlug.includes("finalist")) hints.push("finalist");
+  if (explicitLabel.includes("champion") || explicitSlug.includes("champion")) hints.push("champion");
+  if (explicitLabel.includes("gold") || explicitSlug.includes("gold")) hints.push("gold");
+  if (explicitLabel.includes("silver") || explicitSlug.includes("silver")) hints.push("silver");
+  if (explicitLabel.includes("binder") || explicitSlug.includes("binder")) hints.push("binder");
+  if (explicitLabel.includes("gift collection") || explicitSlug.includes("gift collection")) hints.push("gift_collection");
+  if (explicitLabel.includes("event pack") || explicitSlug.includes("event pack")) hints.push("event_pack");
+  if (explicitLabel.includes("winner pack") || explicitSlug.includes("winner pack")) hints.push("winner_pack");
+  if (explicitLabel.includes("winner card set") || explicitSlug.includes("winner card set")) hints.push("winner_card_set");
+  if (explicitLabel.includes("tournament pack") || explicitSlug.includes("tournament pack")) hints.push("tournament_pack");
   if (explicitType === "sp" || explicitLabel === "sp") hints.push("sp");
   if (explicitType === "manga" || explicitLabel.includes("manga")) hints.push("manga");
   if (explicitType === "alt_art" || explicitLabel.includes("alternate art")) hints.push("alt");
@@ -192,6 +206,18 @@ export function candidatePremiumHints(candidate) {
     candidate.id,
   ].join(" "));
   const hints = [];
+  if (text.includes("pirate foil")) hints.push("pirate_foil");
+  if (text.includes("participation")) hints.push("participation");
+  if (text.includes("finalist")) hints.push("finalist");
+  if (text.includes("champion")) hints.push("champion");
+  if (text.includes("gold")) hints.push("gold");
+  if (text.includes("silver")) hints.push("silver");
+  if (text.includes("binder")) hints.push("binder");
+  if (text.includes("gift collection")) hints.push("gift_collection");
+  if (text.includes("event pack")) hints.push("event_pack");
+  if (text.includes("winner pack")) hints.push("winner_pack");
+  if (text.includes("winner card set")) hints.push("winner_card_set");
+  if (text.includes("tournament pack")) hints.push("tournament_pack");
   if (text.includes("sp") || text.includes("special")) hints.push("sp");
   if (text.includes("manga")) hints.push("manga");
   if (text.includes("alternate art") || text.includes("alt art")) hints.push("alt");

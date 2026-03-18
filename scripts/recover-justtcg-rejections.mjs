@@ -69,7 +69,14 @@ function sameNumber(card, candidate) {
 function labelHintsFromCard(card) {
   const type = String(card.variantType || "").toLowerCase();
   const label = normalizeText(card.variantLabel || "");
+  const slug = normalizeText(String(card.variantSlug || "").replace(/_/g, " "));
   const hints = [];
+  if (label.includes("pirate foil") || slug.includes("pirate foil")) hints.push("pirate_foil");
+  if (label.includes("participation") || slug.includes("participation")) hints.push("participation");
+  if (label.includes("finalist") || slug.includes("finalist")) hints.push("finalist");
+  if (label.includes("champion") || slug.includes("champion")) hints.push("champion");
+  if (label.includes("gold") || slug.includes("gold")) hints.push("gold");
+  if (label.includes("silver") || slug.includes("silver")) hints.push("silver");
   if (type === "sp" || label === "sp") hints.push("sp");
   if (type === "manga" || label.includes("manga")) hints.push("manga");
   if (type === "parallel" || label.includes("parallel")) hints.push("parallel");

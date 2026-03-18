@@ -2,6 +2,7 @@ import "server-only";
 
 import { unstable_cache } from "next/cache";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { getOfficialCardById } from "@/lib/official-cards";
 
 const JUSTTCG_SUMMARY_REVALIDATE_SECONDS = 60 * 60;
 const JUSTTCG_STALE_THRESHOLD_MS = 8 * 24 * 60 * 60 * 1000;
@@ -110,6 +111,12 @@ function summaryFromRow(row: JustTcgPriceRow): JustTcgPriceSummary {
   };
 }
 
+function resolveStoredCardId(cardId: string) {
+  const normalized = cardId.trim().toUpperCase();
+  if (!normalized) return normalized;
+  return getOfficialCardById(normalized)?.id || normalized;
+}
+
 async function fetchAllPriceRows(): Promise<JustTcgPriceRow[]> {
   const supabase = getAdminClient();
   const rows: JustTcgPriceRow[] = [];
@@ -148,20 +155,24 @@ export async function getJustTcgPriceSummaries(cardIds: string[]) {
   const all = await getAllCachedSummaries();
   const selected: Record<string, JustTcgPriceSummary> = {};
   for (const cardId of cardIds) {
-    const normalized = cardId.trim().toUpperCase();
-    if (!normalized) continue;
-    const summary = all[normalized];
-    if (summary) selected[normalized] = summary;
+    const requestedId = cardId.trim().toUpperCase();
+    if (!requestedId) continue;
+    const storedId = resolveStoredCardId(requestedId);
+    const summary = all[storedId];
+    if (!summary) continue;
+    selected[requestedId] = summary;
+    if (storedId !== requestedId) selected[storedId] = summary;
   }
   return selected;
 }
 
 async function getSinglePriceRow(cardId: string): Promise<JustTcgPriceRow | null> {
   const supabase = getAdminClient();
+  const storedId = resolveStoredCardId(cardId);
   const { data, error } = await supabase
     .from("justtcg_prices")
     .select("devilfruit_id,justtcg_id,price_nm,price_lp,price_change_24h,price_change_7d,price_change_30d,last_updated_justtcg,fetched_at,raw_response")
-    .ilike("devilfruit_id", cardId.trim())
+    .ilike("devilfruit_id", storedId)
     .maybeSingle();
 
   if (error) throw error;
@@ -216,11 +227,12 @@ function supplementalHistoryFromRaw(rawResponse: Record<string, unknown> | null 
 
 async function fetchHistoryRows(cardId: string, rangeDays: number): Promise<JustTcgHistoryPoint[]> {
   const supabase = getAdminClient();
+  const storedId = resolveStoredCardId(cardId);
   const fromIso = new Date(Date.now() - Math.max(1, rangeDays) * 24 * 60 * 60 * 1000).toISOString();
   const { data, error } = await supabase
     .from("justtcg_price_history")
     .select("recorded_at,price_nm")
-    .ilike("devilfruit_id", cardId.trim())
+    .ilike("devilfruit_id", storedId)
     .gte("recorded_at", fromIso)
     .order("recorded_at", { ascending: true });
 

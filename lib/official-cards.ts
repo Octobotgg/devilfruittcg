@@ -35,6 +35,11 @@ export const OFFICIAL_CARDS: Card[] = (OFFICIAL_CARDS_JSON as Card[]).map(attach
 export const OFFICIAL_BASE_CARDS: Card[] = OFFICIAL_CARDS.filter((card) => card.id === card.baseId);
 
 const OFFICIAL_BY_ID = new Map(OFFICIAL_CARDS.map((card) => [card.id.toUpperCase(), card]));
+const OFFICIAL_BY_CANONICAL_ID = new Map(
+  OFFICIAL_CARDS
+    .filter((card) => String(card.canonicalId || "").trim())
+    .map((card) => [String(card.canonicalId).toUpperCase(), card]),
+);
 const OFFICIAL_BY_BASE_ID = new Map<string, Card[]>();
 
 for (const card of OFFICIAL_CARDS) {
@@ -77,7 +82,8 @@ function scoreCard(card: Card, query: string): number {
 }
 
 export function getOfficialCardById(id: string): Card | undefined {
-  return OFFICIAL_BY_ID.get(id.trim().toUpperCase());
+  const normalized = id.trim().toUpperCase();
+  return OFFICIAL_BY_ID.get(normalized) || OFFICIAL_BY_CANONICAL_ID.get(normalized);
 }
 
 export function getOfficialCardsByIds(ids: string[]): Card[] {
@@ -96,7 +102,8 @@ export function getOfficialCardsByIds(ids: string[]): Card[] {
 }
 
 export function getOfficialVariantsByBaseId(id: string): Card[] {
-  const baseId = getBaseId(id.trim().toUpperCase());
+  const exact = getOfficialCardById(id);
+  const baseId = getBaseId((exact?.baseId || id).trim().toUpperCase());
   return OFFICIAL_BY_BASE_ID.get(baseId) || [];
 }
 

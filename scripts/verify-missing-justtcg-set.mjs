@@ -62,13 +62,19 @@ function setAliasesForCard(card) {
 function labelTokens(card) {
   const variantLabel = normalizeText(card.variantLabel || "");
   const variantType = String(card.variantType || "").toLowerCase();
-  if (variantLabel.includes("pirate foil")) return ["pirate foil"];
-  if (variantType === "alt_art" || variantLabel.includes("alternate art")) return ["alternate art"];
-  if (variantType === "sp" || variantLabel === "sp") return ["sp"];
-  if (variantType === "parallel" || variantLabel.includes("parallel")) return ["parallel"];
-  if (variantType === "anniversary" || variantLabel.includes("anniversary")) return ["anniversary"];
-  if (variantType === "manga" || variantLabel.includes("manga")) return ["manga"];
-  if (variantLabel.includes("reprint")) return ["reprint"];
+  const variantSlug = normalizeText(String(card.variantSlug || "").replace(/_/g, " "));
+  if (variantLabel.includes("pirate foil") || variantSlug.includes("pirate foil")) return ["pirate foil"];
+  if (variantLabel.includes("participation") || variantSlug.includes("participation")) return ["participation"];
+  if (variantLabel.includes("finalist") || variantSlug.includes("finalist")) return ["finalist"];
+  if (variantLabel.includes("champion") || variantSlug.includes("champion")) return ["champion"];
+  if (variantLabel.includes("gold") || variantSlug.includes("gold")) return ["gold"];
+  if (variantLabel.includes("silver") || variantSlug.includes("silver")) return ["silver"];
+  if (variantType === "alt_art" || variantLabel.includes("alternate art") || variantSlug.includes("alternate art")) return ["alternate art"];
+  if (variantType === "sp" || variantLabel === "sp" || variantSlug === "sp") return ["sp"];
+  if (variantType === "parallel" || variantLabel.includes("parallel") || variantSlug.includes("parallel")) return ["parallel"];
+  if (variantType === "anniversary" || variantLabel.includes("anniversary") || variantSlug.includes("anniversary")) return ["anniversary"];
+  if (variantType === "manga" || variantLabel.includes("manga") || variantSlug.includes("manga")) return ["manga"];
+  if (variantLabel.includes("reprint") || variantSlug.includes("reprint")) return ["reprint"];
   return [];
 }
 
@@ -83,6 +89,21 @@ function labelFromCandidateAndDetail(candidate, detail) {
   ].join(" "));
   if (haystack.includes("pirate foil")) {
     return { variantType: "parallel", variantLabel: "Pirate Foil" };
+  }
+  if (haystack.includes("sp gold")) {
+    return { variantType: "sp", variantLabel: "SP (Gold)" };
+  }
+  if (haystack.includes("sp silver")) {
+    return { variantType: "sp", variantLabel: "SP (Silver)" };
+  }
+  if (haystack.includes("participation")) {
+    return { variantType: "sp", variantLabel: "Participation Pack" };
+  }
+  if (haystack.includes("finalist")) {
+    return { variantType: "sp", variantLabel: "Finalist" };
+  }
+  if (haystack.includes("champion")) {
+    return { variantType: "sp", variantLabel: "Champion" };
   }
   if (haystack.includes("alternate art")) {
     return { variantType: "alt_art", variantLabel: "Alternate Art" };
