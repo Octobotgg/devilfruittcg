@@ -178966,9 +178966,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_champion",
-    "canonicalId": "EB01-043_parallel_offline_regional_champion"
+    "variantLabel": "Offline Regional Champion Card Set 2025 Vol.1",
+    "variantSlug": "offline_regional_champion_card_set_2025_vol_1",
+    "canonicalId": "EB01-043_offline_regional_champion_card_set_2025_vol_1"
   },
   {
     "id": "EB01-043_p4",
@@ -179072,9 +179072,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_finalist",
-    "canonicalId": "EB01-043_parallel_online_regional_finalist"
+    "variantLabel": "Online Regional Finalist Card Set 2025 Vol.1",
+    "variantSlug": "online_regional_finalist_card_set_2025_vol_1",
+    "canonicalId": "EB01-043_online_regional_finalist_card_set_2025_vol_1"
   },
   {
     "id": "EB01-043_p6",
@@ -192822,9 +192822,9 @@
       "PROMOTION"
     ],
     "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_offline_regional_champion",
-    "canonicalId": "OP07-021_sp_offline_regional_champion"
+    "variantLabel": "Offline Regional Champion Card Set 2025 Vol.1",
+    "variantSlug": "offline_regional_champion_card_set_2025_vol_1",
+    "canonicalId": "OP07-021_offline_regional_champion_card_set_2025_vol_1"
   },
   {
     "id": "OP07-021_p5",
@@ -213088,9 +213088,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_finalist",
-    "canonicalId": "P-078_parallel_online_regional_finalist"
+    "variantLabel": "Online Regional Finalist Card Set 2025 Vol.1",
+    "variantSlug": "online_regional_finalist_card_set_2025_vol_1",
+    "canonicalId": "P-078_online_regional_finalist_card_set_2025_vol_1"
   },
   {
     "id": "P-078_p5",
