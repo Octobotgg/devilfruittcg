@@ -178648,9 +178648,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_kit_2025_vol_2",
-    "canonicalId": "EB01-015_parallel_tournament_kit_2025_vol_2"
+    "variantLabel": "Tournament Pack 2025 Vol. 2",
+    "variantSlug": "tournament_pack_2025_vol_2",
+    "canonicalId": "EB01-015_tournament_pack_2025_vol_2"
   },
   {
     "id": "EB01-015_p2",
@@ -178701,9 +178701,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "EB01-015_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 2",
+    "variantSlug": "winner_pack_2025_vol_2",
+    "canonicalId": "EB01-015_winner_pack_2025_vol_2"
   },
   {
     "id": "EB01-015_p4",
@@ -178913,9 +178913,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_finalist",
-    "canonicalId": "EB01-043_parallel_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist Card Set 2025 Vol.1",
+    "variantSlug": "offline_regional_finalist_card_set_2025_vol_1",
+    "canonicalId": "EB01-043_offline_regional_finalist_card_set_2025_vol_1"
   },
   {
     "id": "EB01-043_p3",
@@ -179019,9 +179019,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "EB01-043_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "online_regional_participation_pack_2025_vol_1",
+    "canonicalId": "EB01-043_online_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "EB01-043_p5",
@@ -179869,9 +179869,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "anniversary",
-    "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op01",
-    "canonicalId": "OP01-006_anniversary_op01"
+    "variantLabel": "Japanese 1st Anniversary Set",
+    "variantSlug": "japanese_1st_anniversary_set",
+    "canonicalId": "OP01-006_japanese_1st_anniversary_set"
   },
   {
     "id": "OP01-013_p2",
@@ -180081,9 +180081,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "OP01-015_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 3",
+    "variantSlug": "offline_regional_2024_vol_3",
+    "canonicalId": "OP01-015_offline_regional_2024_vol_3"
   },
   {
     "id": "OP01-016_p2",
@@ -180452,9 +180452,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_2",
-    "canonicalId": "OP01-021_parallel_tournament_pack_vol_2"
+    "variantLabel": "Tournament Pack Vol. 2",
+    "variantSlug": "tournament_pack_vol_2",
+    "canonicalId": "OP01-021_tournament_pack_vol_2"
   },
   {
     "id": "OP01-022_p1",
@@ -180719,9 +180719,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_2",
-    "canonicalId": "OP01-033_parallel_tournament_pack_vol_2"
+    "variantLabel": "Tournament Pack Vol. 2",
+    "variantSlug": "tournament_pack_vol_2",
+    "canonicalId": "OP01-033_tournament_pack_vol_2"
   },
   {
     "id": "OP01-033_p6",
@@ -181359,9 +181359,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "anniversary",
-    "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op02",
-    "canonicalId": "OP02-015_anniversary_op02"
+    "variantLabel": "Japanese 1st Anniversary Set",
+    "variantSlug": "japanese_1st_anniversary_set",
+    "canonicalId": "OP02-015_japanese_1st_anniversary_set"
   },
   {
     "id": "OP02-022_p1",
@@ -181624,9 +181624,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "OP02-063_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 3",
+    "variantSlug": "offline_regional_2024_vol_3",
+    "canonicalId": "OP02-063_offline_regional_2024_vol_3"
   },
   {
     "id": "OP02-098_p1",
@@ -181997,9 +181997,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "anniversary",
-    "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op03",
-    "canonicalId": "OP03-013_anniversary_op03"
+    "variantLabel": "Japanese 1st Anniversary Set",
+    "variantSlug": "japanese_1st_anniversary_set",
+    "canonicalId": "OP03-013_japanese_1st_anniversary_set"
   },
   {
     "id": "OP03-033_p1",
@@ -182794,9 +182794,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_regionals_wave_3",
-    "canonicalId": "OP03-116_parallel_regionals_wave_3"
+    "variantLabel": "October Championship 2024 Online Regional",
+    "variantSlug": "october_championship_2024_online_regional",
+    "canonicalId": "OP03-116_october_championship_2024_online_regional"
   },
   {
     "id": "OP03-116_p3",
@@ -183059,9 +183059,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_2024_oct_dec",
-    "canonicalId": "OP04-010_parallel_tournament_pack_2024_oct_dec"
+    "variantLabel": "Tournament Pack 2024 Oct.-Dec.",
+    "variantSlug": "tournament_pack_2024_oct_dec",
+    "canonicalId": "OP04-010_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP04-010_p2",
@@ -183379,9 +183379,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_kit_2025_vol_2",
-    "canonicalId": "OP04-092_parallel_tournament_kit_2025_vol_2"
+    "variantLabel": "Tournament Pack 2025 Vol. 2",
+    "variantSlug": "tournament_pack_2025_vol_2",
+    "canonicalId": "OP04-092_tournament_pack_2025_vol_2"
   },
   {
     "id": "OP04-092_p2",
@@ -183432,9 +183432,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP04-092_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 2",
+    "variantSlug": "winner_pack_2025_vol_2",
+    "canonicalId": "OP04-092_winner_pack_2025_vol_2"
   },
   {
     "id": "OP04-092_p3",
@@ -189507,9 +189507,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_regionals_wave_3",
-    "canonicalId": "OP05-086_parallel_regionals_wave_3"
+    "variantLabel": "October Championship 2024 Store Regionals",
+    "variantSlug": "october_championship_2024_store_regionals",
+    "canonicalId": "OP05-086_october_championship_2024_store_regionals"
   },
   {
     "id": "OP05-087",
@@ -189911,9 +189911,9 @@
       "PROMOTION"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_regionals_wave_3",
-    "canonicalId": "OP05-091_alternate_art_regionals_wave_3"
+    "variantLabel": "October Championship 2024 Online Regional",
+    "variantSlug": "october_championship_2024_online_regional",
+    "canonicalId": "OP05-091_october_championship_2024_online_regional"
   },
   {
     "id": "OP05-092",
@@ -192608,9 +192608,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_participation",
-    "canonicalId": "OP06-110_parallel_offline_regional_participation"
+    "variantLabel": "Offline Regional 2024 Vol. 3",
+    "variantSlug": "offline_regional_2024_vol_3",
+    "canonicalId": "OP06-110_offline_regional_2024_vol_3"
   },
   {
     "id": "OP06-118_p4",
@@ -192769,9 +192769,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Offline Regional Finalist",
-    "variantSlug": "offline_regional_finalist",
-    "canonicalId": "OP07-021_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist Card Set 2025 Vol.1",
+    "variantSlug": "offline_regional_finalist_card_set_2025_vol_1",
+    "canonicalId": "OP07-021_offline_regional_finalist_card_set_2025_vol_1"
   },
   {
     "id": "OP07-021_p4",
@@ -192875,9 +192875,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Online Regional Participation",
-    "variantSlug": "online_regional_participation",
-    "canonicalId": "OP07-021_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "online_regional_participation_pack_2025_vol_1",
+    "canonicalId": "OP07-021_online_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "OP07-021_p6",
@@ -193617,9 +193617,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_2024_oct_dec",
-    "canonicalId": "OP07-053_parallel_tournament_pack_2024_oct_dec"
+    "variantLabel": "Tournament Pack 2024 Oct.-Dec.",
+    "variantSlug": "tournament_pack_2024_oct_dec",
+    "canonicalId": "OP07-053_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP07-053_p2",
@@ -194206,9 +194206,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_2024_oct_dec",
-    "canonicalId": "OP07-100_parallel_tournament_pack_2024_oct_dec"
+    "variantLabel": "Tournament Pack 2024 Oct.-Dec.",
+    "variantSlug": "tournament_pack_2024_oct_dec",
+    "canonicalId": "OP07-100_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP07-100_p2",
@@ -195217,9 +195217,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP08-110_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 2",
+    "variantSlug": "winner_pack_2025_vol_2",
+    "canonicalId": "OP08-110_winner_pack_2025_vol_2"
   },
   {
     "id": "OP08-110_p4",
@@ -195694,9 +195694,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_kit_2025_vol_2",
-    "canonicalId": "OP09-011_parallel_tournament_kit_2025_vol_2"
+    "variantLabel": "Tournament Pack 2025 Vol. 2",
+    "variantSlug": "tournament_pack_2025_vol_2",
+    "canonicalId": "OP09-011_tournament_pack_2025_vol_2"
   },
   {
     "id": "OP09-011_p2",
@@ -195747,9 +195747,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "OP09-011_parallel_winner_pack"
+    "variantLabel": "Winner Pack 2025 Vol. 2",
+    "variantSlug": "winner_pack_2025_vol_2",
+    "canonicalId": "OP09-011_winner_pack_2025_vol_2"
   },
   {
     "id": "OP09-011_p3",
@@ -196807,9 +196807,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_finalist",
-    "canonicalId": "OP09-106_parallel_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist Card Set 2025 Vol.1",
+    "variantSlug": "offline_regional_finalist_card_set_2025_vol_1",
+    "canonicalId": "OP09-106_offline_regional_finalist_card_set_2025_vol_1"
   },
   {
     "id": "OP09-106_p3",
@@ -196913,9 +196913,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "OP09-106_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "online_regional_participation_pack_2025_vol_1",
+    "canonicalId": "OP09-106_online_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "OP09-106_p5",
@@ -212929,9 +212929,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_finalist",
-    "canonicalId": "P-078_parallel_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist Card Set 2025 Vol.1",
+    "variantSlug": "offline_regional_finalist_card_set_2025_vol_1",
+    "canonicalId": "P-078_offline_regional_finalist_card_set_2025_vol_1"
   },
   {
     "id": "P-078_p2",
@@ -213035,9 +213035,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "P-078_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack 2025 Vol.1",
+    "variantSlug": "online_regional_participation_pack_2025_vol_1",
+    "canonicalId": "P-078_online_regional_participation_pack_2025_vol_1"
   },
   {
     "id": "P-078_p4",
@@ -215010,9 +215010,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "P-111_parallel_winner_pack"
+    "variantLabel": "Heroines Battle Winner Pack",
+    "variantSlug": "heroines_battle_winner_pack",
+    "canonicalId": "P-111_heroines_battle_winner_pack"
   },
   {
     "id": "P-112",
@@ -215112,9 +215112,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "P-112_parallel_winner_pack"
+    "variantLabel": "Heroines Battle Winner Pack",
+    "variantSlug": "heroines_battle_winner_pack",
+    "canonicalId": "P-112_heroines_battle_winner_pack"
   },
   {
     "id": "P-113",
@@ -215214,9 +215214,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_pack",
-    "canonicalId": "P-113_parallel_winner_pack"
+    "variantLabel": "Heroines Battle Winner Pack",
+    "variantSlug": "heroines_battle_winner_pack",
+    "canonicalId": "P-113_heroines_battle_winner_pack"
   },
   {
     "id": "P-115",
@@ -216633,9 +216633,9 @@
       "PROMOTION"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_tournament_pack_vol_5",
-    "canonicalId": "ST01-012_alternate_art_tournament_pack_vol_5"
+    "variantLabel": "Tournament Pack Vol. 5",
+    "variantSlug": "tournament_pack_vol_5",
+    "canonicalId": "ST01-012_tournament_pack_vol_5"
   },
   {
     "id": "ST01-012_p5",
@@ -217004,9 +217004,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_5",
-    "canonicalId": "ST02-013_parallel_tournament_pack_vol_5"
+    "variantLabel": "Tournament Pack Vol. 5",
+    "variantSlug": "tournament_pack_vol_5",
+    "canonicalId": "ST02-013_tournament_pack_vol_5"
   },
   {
     "id": "ST03-003_p1",
@@ -217057,9 +217057,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_5",
-    "canonicalId": "ST03-003_parallel_tournament_pack_vol_5"
+    "variantLabel": "Tournament Pack Vol. 5",
+    "variantSlug": "tournament_pack_vol_5",
+    "canonicalId": "ST03-003_tournament_pack_vol_5"
   },
   {
     "id": "ST03-004_p3",
@@ -217640,9 +217640,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_5",
-    "canonicalId": "ST04-003_parallel_tournament_pack_vol_5"
+    "variantLabel": "Tournament Pack Vol. 5",
+    "variantSlug": "tournament_pack_vol_5",
+    "canonicalId": "ST04-003_tournament_pack_vol_5"
   },
   {
     "id": "ST04-008_p1",
