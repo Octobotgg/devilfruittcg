@@ -145470,9 +145470,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_learn_together_deck_set",
-    "canonicalId": "OP11-041_alternate_art_learn_together_deck_set"
+    "variantLabel": "Nami Deck",
+    "variantSlug": "nami_deck",
+    "canonicalId": "OP11-041_nami_deck"
   },
   {
     "id": "OP12-020_p3",
@@ -179178,9 +179178,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_treasure_cup",
-    "canonicalId": "EB01-048_parallel_treasure_cup"
+    "variantLabel": "Treasure Cup 2025",
+    "variantSlug": "treasure_cup_2025",
+    "canonicalId": "EB01-048_treasure_cup_2025"
   },
   {
     "id": "EB02-006_p2",
@@ -179284,9 +179284,9 @@
       "PROMOTION"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_dodgers_one_piece_night",
-    "canonicalId": "EB02-010_alternate_art_dodgers_one_piece_night"
+    "variantLabel": "Dodgers x ONE PIECE",
+    "variantSlug": "dodgers_x_one_piece",
+    "canonicalId": "EB02-010_dodgers_x_one_piece"
   },
   {
     "id": "EB02-019_p1",
@@ -194043,9 +194043,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_bandai_card_games_fest",
-    "canonicalId": "OP07-073_parallel_bandai_card_games_fest"
+    "variantLabel": "BANDAI Card Games Fest 25-26",
+    "variantSlug": "bandai_card_games_fest_25_26",
+    "canonicalId": "OP07-073_bandai_card_games_fest_25_26"
   },
   {
     "id": "OP07-080_p1",
@@ -194153,9 +194153,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_finalist",
-    "canonicalId": "OP07-091_parallel_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist 2024 Vol. 3",
+    "variantSlug": "offline_regional_finalist_2024_vol_3",
+    "canonicalId": "OP07-091_offline_regional_finalist_2024_vol_3"
   },
   {
     "id": "OP07-100_p1",
@@ -196436,9 +196436,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_regional_25_26_season_1",
-    "canonicalId": "OP09-076_parallel_regional_25_26_season_1"
+    "variantLabel": "Championship 25-26 Regionals Season 1",
+    "variantSlug": "championship_25_26_regionals_season_1",
+    "canonicalId": "OP09-076_championship_25_26_regionals_season_1"
   },
   {
     "id": "OP09-077_p2",
@@ -197657,9 +197657,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op10_print_2",
-    "canonicalId": "OP10-042_parallel_op10_print_2"
+    "variantLabel": "Official Playmat Limited Edition Vol. 3",
+    "variantSlug": "official_playmat_limited_edition_vol_3",
+    "canonicalId": "OP10-042_official_playmat_limited_edition_vol_3"
   },
   {
     "id": "OP10-049_p1",
@@ -218912,9 +218912,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_treasure_cup",
-    "canonicalId": "ST12-008_parallel_treasure_cup"
+    "variantLabel": "Treasure Cup 2024",
+    "variantSlug": "treasure_cup_2024",
+    "canonicalId": "ST12-008_treasure_cup_2024"
   },
   {
     "id": "ST13-003_p2",
@@ -219601,9 +219601,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_treasure_cup",
-    "canonicalId": "ST18-003_parallel_treasure_cup"
+    "variantLabel": "Treasure Cup 2025",
+    "variantSlug": "treasure_cup_2025",
+    "canonicalId": "ST18-003_treasure_cup_2025"
   },
   {
     "id": "ST19-002_p1",
