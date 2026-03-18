@@ -3,6 +3,7 @@ import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, TrendingUp, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { displayCardId, routeCardId } from "@/lib/cards";
 
 export interface CardModalData {
   id: string;
@@ -21,6 +22,7 @@ export interface CardModalData {
   baseCardId?: string;
   variantType?: "base" | "parallel" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
   variantLabel?: string;
+  canonicalId?: string;
   canonicalVariantId?: string;
   variantOrder?: number;
 }
@@ -142,7 +144,7 @@ export default function CardModal({ card, onClose }: Props) {
                 <h2 className="text-2xl md:text-3xl font-black text-white leading-tight">{card.name}</h2>
               </div>
               <div className="flex items-center gap-2 mb-5">
-                <span className="font-mono text-white/30 text-sm">{card.id}</span>
+                <span className="font-mono text-white/30 text-sm">{displayCardId(card)}</span>
                 {card.rarity && (
                   <span className={`text-xs px-2 py-0.5 rounded-lg border font-black ${rarityBadge[card.rarity] ?? rarityBadge.C}`}>
                     {card.rarity}
@@ -206,7 +208,7 @@ export default function CardModal({ card, onClose }: Props) {
 
               {/* Actions */}
               <div className="flex gap-3">
-                <Link href={`/cards/${encodeURIComponent(card.id)}`} className="flex-1">
+                <Link href={`/cards/${routeCardId(card)}`} className="flex-1">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}

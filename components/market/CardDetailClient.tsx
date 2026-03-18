@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
 import BackToMarketButton from "@/components/market/BackToMarketButton";
 import CardDetailMarketPanel from "@/components/market/CardDetailMarketPanel";
-import type { Card } from "@/lib/cards";
+import { displayCardId, routeCardId, type Card } from "@/lib/cards";
 
 function statValue(value: string | number | null | undefined) {
   if (value === null || value === undefined || value === "") return "—";
@@ -44,7 +44,7 @@ export default function CardDetailClient({
     setActiveCardId(normalizedId);
 
     if (typeof window !== "undefined") {
-      const nextUrl = `/cards/${encodeURIComponent(nextCard.id)}${window.location.search}${window.location.hash}`;
+      const nextUrl = `/cards/${routeCardId(nextCard)}${window.location.search}${window.location.hash}`;
       window.history.replaceState(window.history.state, "", nextUrl);
     }
   }
@@ -127,7 +127,7 @@ export default function CardDetailClient({
 
             <h1 className="mt-4 text-4xl font-black text-white md:text-5xl">{activeCard.name}</h1>
             <p className="mt-3 text-base text-white/55">
-              {activeCard.id} · {activeCard.set}
+              {displayCardId(activeCard)} · {activeCard.set}
               {activeCard.releaseDate ? ` · Released ${new Date(activeCard.releaseDate).toLocaleDateString()}` : ""}
             </p>
           </div>

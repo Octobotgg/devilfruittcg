@@ -187,9 +187,11 @@ function scoreCard(card: Card, query: string) {
 
   const raw = trimmed.toLowerCase();
   const normalized = normalizeText(trimmed);
+  const canonicalId = String(card.canonicalId || "");
   const searchable = normalizeText([
     card.name,
     card.id,
+    canonicalId,
     `${card.setCode}-${card.number}`,
     card.number,
     card.setCode,
@@ -206,9 +208,12 @@ function scoreCard(card: Card, query: string) {
   let score = 0;
 
   if (card.id.toLowerCase() === raw) score += 1800;
+  else if (canonicalId.toLowerCase() === raw) score += 1790;
   else if (`${card.setCode}-${card.number}`.toLowerCase() === raw) score += 1700;
   else if (card.id.toLowerCase().startsWith(raw)) score += 950;
+  else if (canonicalId.toLowerCase().startsWith(raw)) score += 940;
   else if (card.id.toLowerCase().includes(raw)) score += 780;
+  else if (canonicalId.toLowerCase().includes(raw)) score += 770;
 
   if (card.name.toLowerCase() === raw) score += 1500;
   else if (card.name.toLowerCase().startsWith(raw)) score += 920;

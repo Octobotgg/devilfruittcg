@@ -16,7 +16,7 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react";
-import type { Card } from "@/lib/cards";
+import { displayCardId, routeCardId, type Card } from "@/lib/cards";
 import {
   clearPendingMarketRestore,
   readPendingMarketRestore,
@@ -210,8 +210,8 @@ function cardSetLabel(card: Card) {
   return card.set.replace(/\s*\[[A-Z0-9-]+\]\s*$/u, "").trim() || card.set;
 }
 
-function buildCardHref(cardId: string, marketPath: string) {
-  return `/cards/${encodeURIComponent(cardId)}?market=${encodeURIComponent(marketPath)}`;
+function buildCardHref(cardRouteId: string, marketPath: string) {
+  return `/cards/${cardRouteId}?market=${encodeURIComponent(marketPath)}`;
 }
 
 function marketVariantLabel(card: Card) {
@@ -254,7 +254,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
 
   return (
     <Link
-      href={buildCardHref(card.id, marketPath)}
+      href={buildCardHref(routeCardId(card), marketPath)}
       className="group rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(240,192,64,0.10),transparent_42%),rgba(255,255,255,0.03)] p-3 transition-all hover:-translate-y-1 hover:border-[#F0C040]/35 hover:bg-white/[0.05]"
     >
       <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#08111f]">
@@ -268,7 +268,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="line-clamp-2 text-sm font-black text-white">{card.name}</p>
-            <p className="mt-1 text-[11px] text-white/45">{card.id}</p>
+            <p className="mt-1 text-[11px] text-white/45">{displayCardId(card)}</p>
             {variantLabel ? (
               <p className="mt-1 inline-flex rounded-full border border-[#F0C040]/20 bg-[#F0C040]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">
                 {variantLabel}
@@ -296,7 +296,7 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
 
   return (
     <Link
-      href={buildCardHref(card.id, marketPath)}
+      href={buildCardHref(routeCardId(card), marketPath)}
       className="grid gap-4 rounded-[28px] border border-white/10 bg-white/[0.03] p-4 transition-all hover:border-[#F0C040]/35 hover:bg-white/[0.05] md:grid-cols-[96px_minmax(0,1fr)_220px]"
     >
       <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#08111f]">
@@ -320,7 +320,7 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
           ) : null}
         </div>
         <p className="mt-1 text-sm text-white/45">
-          {card.id} · {cardSetLabel(card)} · {card.type} · {card.color}
+          {displayCardId(card)} · {cardSetLabel(card)} · {card.type} · {card.color}
         </p>
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/70">{card.effect || "No effect text listed."}</p>
       </div>
@@ -1065,8 +1065,9 @@ export default function MarketCatalogView() {
                         key={card.id}
                         type="button"
                         onClick={() => {
-                          setDraftQuery({ value: card.id, committed: card.id });
-                          submitSearch(card.id);
+                          const displayId = displayCardId(card);
+                          setDraftQuery({ value: displayId, committed: displayId });
+                          submitSearch(displayId);
                         }}
                         className="flex w-full items-center gap-3 px-4 py-3 text-left transition-all hover:bg-white/5"
                       >
@@ -1078,7 +1079,7 @@ export default function MarketCatalogView() {
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-bold text-white">{card.name}</p>
                           <p className="mt-1 truncate text-[11px] text-white/45">
-                            {card.id} · {cardSetLabel(card)} · {card.type}
+                            {displayCardId(card)} · {cardSetLabel(card)} · {card.type}
                           </p>
                           {marketVariantLabel(card) ? (
                             <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">

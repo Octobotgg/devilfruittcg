@@ -55,6 +55,7 @@ for (const [baseId, cards] of OFFICIAL_BY_BASE_ID.entries()) {
 function scoreCard(card: Card, query: string): number {
   const q = query.toLowerCase();
   const idLower = card.id.toLowerCase();
+  const canonicalIdLower = String(card.canonicalId || "").toLowerCase();
   const baseIdLower = (card.baseId || card.id).toLowerCase();
   const nameLower = card.name.toLowerCase();
   const setCodeLower = card.setCode.toLowerCase();
@@ -63,10 +64,12 @@ function scoreCard(card: Card, query: string): number {
   let score = 0;
 
   if (idLower === q) score += 1500;
+  else if (canonicalIdLower && canonicalIdLower === q) score += 1490;
   else if (baseIdLower === q) score += 1400;
   else if (idLower.startsWith(q)) score += 900;
+  else if (canonicalIdLower && canonicalIdLower.startsWith(q)) score += 890;
   else if (baseIdLower.startsWith(q)) score += 850;
-  else if (idLower.includes(q) || baseIdLower.includes(q)) score += 600;
+  else if (idLower.includes(q) || canonicalIdLower.includes(q) || baseIdLower.includes(q)) score += 600;
 
   if (nameLower === q) score += 1200;
   else if (nameLower.startsWith(q)) score += 700;

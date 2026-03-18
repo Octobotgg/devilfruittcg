@@ -126,6 +126,17 @@ export function getCardsBySet(setCode: string): Card[] {
   return SEED_CARDS.filter((card) => card.setCode === setCode);
 }
 
+export function displayCardId(card: Pick<Card, "id" | "canonicalId" | "baseId">) {
+  if (card.baseId && card.id !== card.baseId && String(card.canonicalId || "").trim()) {
+    return String(card.canonicalId).trim();
+  }
+  return card.id;
+}
+
+export function routeCardId(card: Pick<Card, "id" | "canonicalId" | "baseId">) {
+  return encodeURIComponent(displayCardId(card));
+}
+
 const SET_NAME_OVERRIDES: Record<string, string> = {
   P: "Promotion Card [P]",
 };
