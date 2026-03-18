@@ -154333,9 +154333,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op05_print_4",
-    "canonicalId": "OP05-007_alternate_art_op05_print_4"
+    "variantLabel": "Illustration Box Vol.5",
+    "variantSlug": "illustration_box_vol_5",
+    "canonicalId": "OP05-007_illustration_box_vol_5"
   },
   {
     "id": "OP06-093_p5",
@@ -154757,9 +154757,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_3",
-    "canonicalId": "OP12-108_alternate_art_op12_print_3"
+    "variantLabel": "Illustration Box Vol.6",
+    "variantSlug": "illustration_box_vol_6",
+    "canonicalId": "OP12-108_illustration_box_vol_6"
   },
   {
     "id": "OP14-001",
@@ -162333,9 +162333,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15",
-    "canonicalId": "ST15-005_parallel_st15"
+    "variantLabel": "Illustration Box Vol.5",
+    "variantSlug": "illustration_box_vol_5",
+    "canonicalId": "ST15-005_illustration_box_vol_5"
   },
   {
     "id": "ST29-001",
@@ -213757,9 +213757,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_finalist",
-    "canonicalId": "P-085_parallel_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist",
+    "variantSlug": "offline_regional_finalist",
+    "canonicalId": "P-085_offline_regional_finalist"
   },
   {
     "id": "P-085_p2",
@@ -213810,9 +213810,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_champion",
-    "canonicalId": "P-085_parallel_offline_regional_champion"
+    "variantLabel": "Offline Regional Champion",
+    "variantSlug": "offline_regional_champion",
+    "canonicalId": "P-085_offline_regional_champion"
   },
   {
     "id": "P-088",
@@ -213961,9 +213961,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_finalist",
-    "canonicalId": "P-089_parallel_offline_regional_finalist"
+    "variantLabel": "Offline Regional Finalist",
+    "variantSlug": "offline_regional_finalist",
+    "canonicalId": "P-089_offline_regional_finalist"
   },
   {
     "id": "P-089_p2",
@@ -214014,9 +214014,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_offline_regional_champion",
-    "canonicalId": "P-089_parallel_offline_regional_champion"
+    "variantLabel": "Offline Regional Champion",
+    "variantSlug": "offline_regional_champion",
+    "canonicalId": "P-089_offline_regional_champion"
   },
   {
     "id": "P-090",
