@@ -14516,8 +14516,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op02_print_1",
-    "canonicalId": "OP02-036_alternate_art_op02_print_1"
+    "variantSlug": "alternate_art_op02",
+    "canonicalId": "OP02-036_alternate_art_op02"
   },
   {
     "id": "OP02-037",
@@ -27293,8 +27293,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_1",
-    "canonicalId": "OP03-112_alternate_art_op03_print_1"
+    "variantSlug": "alternate_art_op03",
+    "canonicalId": "OP03-112_alternate_art_op03"
   },
   {
     "id": "OP03-113",
@@ -27497,8 +27497,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_1",
-    "canonicalId": "OP03-114_alternate_art_op03_print_1"
+    "variantSlug": "alternate_art_op03",
+    "canonicalId": "OP03-114_alternate_art_op03"
   },
   {
     "id": "OP03-115",
@@ -28097,8 +28097,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_1",
-    "canonicalId": "OP03-123_alternate_art_op03_print_1"
+    "variantSlug": "alternate_art_op03",
+    "canonicalId": "OP03-123_alternate_art_op03"
   },
   {
     "id": "ST01-012_p1",
@@ -47702,8 +47702,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op06_print_1",
-    "canonicalId": "OP06-118_alternate_art_op06_print_1"
+    "variantSlug": "alternate_art_op06",
+    "canonicalId": "OP06-118_alternate_art_op06"
   },
   {
     "id": "OP06-118_p2",
@@ -49049,8 +49049,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_st13_print_1",
-    "canonicalId": "ST13-003_parallel_st13_print_1"
+    "variantSlug": "parallel_st13",
+    "canonicalId": "ST13-003_parallel_st13"
   },
   {
     "id": "ST13-004",
@@ -58767,8 +58767,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_1",
-    "canonicalId": "OP07-064_parallel_op07_print_1"
+    "variantSlug": "parallel_op07",
+    "canonicalId": "OP07-064_parallel_op07"
   },
   {
     "id": "OP07-065",
@@ -61343,8 +61343,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_1",
-    "canonicalId": "OP07-109_parallel_op07_print_1"
+    "variantSlug": "parallel_op07",
+    "canonicalId": "OP07-109_parallel_op07"
   },
   {
     "id": "OP07-110",
@@ -61890,8 +61890,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_1",
-    "canonicalId": "OP07-118_parallel_op07_print_1"
+    "variantSlug": "parallel_op07",
+    "canonicalId": "OP07-118_parallel_op07"
   },
   {
     "id": "OP07-119",
@@ -61992,8 +61992,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_1",
-    "canonicalId": "OP07-119_parallel_op07_print_1"
+    "variantSlug": "parallel_op07",
+    "canonicalId": "OP07-119_parallel_op07"
   },
   {
     "id": "ST10-010_p2",
@@ -67107,8 +67107,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op08_print_1",
-    "canonicalId": "OP08-069_parallel_op08_print_1"
+    "variantSlug": "parallel_op08",
+    "canonicalId": "OP08-069_parallel_op08"
   },
   {
     "id": "OP08-070",
@@ -92772,8 +92772,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09_print_1",
-    "canonicalId": "OP09-009_parallel_op09_print_1"
+    "variantSlug": "parallel_op09",
+    "canonicalId": "OP09-009_parallel_op09"
   },
   {
     "id": "OP09-010",
@@ -95205,8 +95205,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09_print_1",
-    "canonicalId": "OP09-050_parallel_op09_print_1"
+    "variantSlug": "parallel_op09",
+    "canonicalId": "OP09-050_parallel_op09"
   },
   {
     "id": "OP09-051",
@@ -96258,8 +96258,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09_print_1",
-    "canonicalId": "OP09-065_parallel_op09_print_1"
+    "variantSlug": "parallel_op09",
+    "canonicalId": "OP09-065_parallel_op09"
   },
   {
     "id": "OP09-066",
@@ -109307,8 +109307,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_eb02_print_1",
-    "canonicalId": "EB02-006_alternate_art_eb02_print_1"
+    "variantSlug": "alternate_art_eb02",
+    "canonicalId": "EB02-006_alternate_art_eb02"
   },
   {
     "id": "EB02-007",
@@ -109556,8 +109556,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_eb02_print_1",
-    "canonicalId": "EB02-010_alternate_art_eb02_print_1"
+    "variantSlug": "alternate_art_eb02",
+    "canonicalId": "EB02-010_alternate_art_eb02"
   },
   {
     "id": "EB02-011",
@@ -120757,8 +120757,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op11_print_1",
-    "canonicalId": "OP11-054_alternate_art_op11_print_1"
+    "variantSlug": "alternate_art_op11",
+    "canonicalId": "OP11-054_alternate_art_op11"
   },
   {
     "id": "OP11-055",
@@ -121500,8 +121500,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op11_print_1",
-    "canonicalId": "OP11-067_alternate_art_op11_print_1"
+    "variantSlug": "alternate_art_op11",
+    "canonicalId": "OP11-067_alternate_art_op11"
   },
   {
     "id": "OP11-068",
@@ -128821,8 +128821,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_1",
-    "canonicalId": "OP12-034_alternate_art_op12_print_1"
+    "variantSlug": "alternate_art_op12",
+    "canonicalId": "OP12-034_alternate_art_op12"
   },
   {
     "id": "OP12-035",
@@ -132503,8 +132503,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_1",
-    "canonicalId": "OP12-094_alternate_art_op12_print_1"
+    "variantSlug": "alternate_art_op12",
+    "canonicalId": "OP12-094_alternate_art_op12"
   },
   {
     "id": "OP12-095",
@@ -133993,8 +133993,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_1",
-    "canonicalId": "OP12-119_alternate_art_op12_print_1"
+    "variantSlug": "alternate_art_op12",
+    "canonicalId": "OP12-119_alternate_art_op12"
   },
   {
     "id": "ST13-011_p2",
@@ -156803,8 +156803,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op14_print_1",
-    "canonicalId": "OP14-033_alternate_art_op14_print_1"
+    "variantSlug": "alternate_art_op14",
+    "canonicalId": "OP14-033_alternate_art_op14"
   },
   {
     "id": "OP14-034",
@@ -162334,8 +162334,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15_print_3",
-    "canonicalId": "ST15-005_parallel_st15_print_3"
+    "variantSlug": "parallel_st15",
+    "canonicalId": "ST15-005_parallel_st15"
   },
   {
     "id": "ST29-001",
@@ -178490,8 +178490,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_eb01",
-    "canonicalId": "EB01-007_alternate_art_eb01"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "EB01-007_alternate_art_best_selection"
   },
   {
     "id": "EB01-012_p3",
@@ -178596,8 +178596,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "EB01-014_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "EB01-014_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "EB01-015_p1",
@@ -178755,8 +178755,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "EB01-015_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "EB01-015_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "EB01-023_p2",
@@ -179232,8 +179232,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_eb02_print_2",
-    "canonicalId": "EB02-006_alternate_art_eb02_print_2"
+    "variantSlug": "alternate_art_extra_grand_battle_for_stores_2026_may",
+    "canonicalId": "EB02-006_alternate_art_extra_grand_battle_for_stores_2026_may"
   },
   {
     "id": "EB02-010_p2",
@@ -179285,8 +179285,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_eb02_print_2",
-    "canonicalId": "EB02-010_alternate_art_eb02_print_2"
+    "variantSlug": "alternate_art_dodgers_one_piece_night",
+    "canonicalId": "EB02-010_alternate_art_dodgers_one_piece_night"
   },
   {
     "id": "EB02-019_p1",
@@ -179550,8 +179550,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_eb02",
-    "canonicalId": "EB02-041_alternate_art_eb02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "EB02-041_alternate_art_best_selection"
   },
   {
     "id": "EB02-055_p1",
@@ -180612,8 +180612,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op01",
-    "canonicalId": "OP01-029_alternate_art_op01"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP01-029_alternate_art_best_selection"
   },
   {
     "id": "OP01-030_p1",
@@ -180667,8 +180667,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op01",
-    "canonicalId": "OP01-030_anniversary_op01"
+    "variantSlug": "anniversary_japanese_2nd_anniversary_set",
+    "canonicalId": "OP01-030_anniversary_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP01-033_p1",
@@ -181038,8 +181038,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op01",
-    "canonicalId": "OP01-057_alternate_art_op01"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP01-057_alternate_art_best_selection"
   },
   {
     "id": "OP01-070_p2",
@@ -181250,8 +181250,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op02",
-    "canonicalId": "OP02-005_alternate_art_op02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP02-005_alternate_art_best_selection"
   },
   {
     "id": "OP02-013_p5",
@@ -181305,8 +181305,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op02",
-    "canonicalId": "OP02-013_parallel_op02"
+    "variantSlug": "parallel_japanese_2nd_anniversary_set",
+    "canonicalId": "OP02-013_parallel_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP02-015_p1",
@@ -181572,8 +181572,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op02_print_2",
-    "canonicalId": "OP02-036_alternate_art_op02_print_2"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP02-036_alternate_art_best_selection"
   },
   {
     "id": "OP02-063_p1",
@@ -181784,8 +181784,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op02",
-    "canonicalId": "OP02-106_alternate_art_op02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP02-106_alternate_art_best_selection"
   },
   {
     "id": "OP02-117_p7",
@@ -181837,8 +181837,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op02",
-    "canonicalId": "OP02-117_alternate_art_op02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP02-117_alternate_art_best_selection"
   },
   {
     "id": "OP02-120_p2",
@@ -182159,8 +182159,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op03",
-    "canonicalId": "OP03-044_anniversary_op03"
+    "variantSlug": "anniversary_japanese_2nd_anniversary_set",
+    "canonicalId": "OP03-044_anniversary_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP03-088_p1",
@@ -182530,8 +182530,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_2",
-    "canonicalId": "OP03-112_alternate_art_op03_print_2"
+    "variantSlug": "alternate_art_regional_2024_wave_2",
+    "canonicalId": "OP03-112_alternate_art_regional_2024_wave_2"
   },
   {
     "id": "OP03-112_p3",
@@ -182583,8 +182583,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_3",
-    "canonicalId": "OP03-112_alternate_art_op03_print_3"
+    "variantSlug": "alternate_art_tournament_pack_2024_oct_dec",
+    "canonicalId": "OP03-112_alternate_art_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP03-112_p6",
@@ -182689,8 +182689,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_3",
-    "canonicalId": "OP03-114_alternate_art_op03_print_3"
+    "variantSlug": "alternate_art_regional_2024_wave_2",
+    "canonicalId": "OP03-114_alternate_art_regional_2024_wave_2"
   },
   {
     "id": "OP03-116_p1",
@@ -182795,8 +182795,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op03",
-    "canonicalId": "OP03-116_parallel_op03"
+    "variantSlug": "parallel_regionals_wave_3",
+    "canonicalId": "OP03-116_parallel_regionals_wave_3"
   },
   {
     "id": "OP03-116_p3",
@@ -182954,8 +182954,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03",
-    "canonicalId": "OP03-121_alternate_art_op03"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP03-121_alternate_art_best_selection"
   },
   {
     "id": "OP03-123_p2",
@@ -183007,8 +183007,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op03_print_2",
-    "canonicalId": "OP03-123_alternate_art_op03_print_2"
+    "variantSlug": "alternate_art_regional_2024_wave_2",
+    "canonicalId": "OP03-123_alternate_art_regional_2024_wave_2"
   },
   {
     "id": "OP04-010_p1",
@@ -183060,8 +183060,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op04",
-    "canonicalId": "OP04-010_parallel_op04"
+    "variantSlug": "parallel_tournament_pack_2024_oct_dec",
+    "canonicalId": "OP04-010_parallel_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP04-010_p2",
@@ -183113,8 +183113,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP04-010_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP04-010_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP04-032_p4",
@@ -183166,8 +183166,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op04",
-    "canonicalId": "OP04-032_alternate_art_op04"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP04-032_alternate_art_best_selection"
   },
   {
     "id": "OP04-044_p2",
@@ -183272,8 +183272,8 @@
     ],
     "variantType": "manga",
     "variantLabel": "Manga",
-    "variantSlug": "manga_op04_print_3",
-    "canonicalId": "OP04-083_manga_op04_print_3"
+    "variantSlug": "manga_sealed_battle_2023_vol_1_winner",
+    "canonicalId": "OP04-083_manga_sealed_battle_2023_vol_1_winner"
   },
   {
     "id": "OP04-083_p5",
@@ -183327,8 +183327,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op04",
-    "canonicalId": "OP04-083_alternate_art_op04"
+    "variantSlug": "alternate_art_japanese_2nd_anniversary_set",
+    "canonicalId": "OP04-083_alternate_art_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP04-092_p1",
@@ -183486,8 +183486,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP04-092_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP04-092_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP04-105_p1",
@@ -183539,8 +183539,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op04",
-    "canonicalId": "OP04-105_alternate_art_op04"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP04-105_alternate_art_best_selection"
   },
   {
     "id": "OP05-001",
@@ -183894,8 +183894,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op05",
-    "canonicalId": "OP05-004_alternate_art_op05"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP05-004_alternate_art_best_selection"
   },
   {
     "id": "OP05-005",
@@ -185541,8 +185541,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op05",
-    "canonicalId": "OP05-030_anniversary_op05"
+    "variantSlug": "anniversary_japanese_2nd_anniversary_set",
+    "canonicalId": "OP05-030_anniversary_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP05-031",
@@ -188100,8 +188100,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_event_pack_print_5",
-    "canonicalId": "OP05-067_alternate_art_event_pack_print_5"
+    "variantSlug": "alternate_art_cs_25_26_event_pack",
+    "canonicalId": "OP05-067_alternate_art_cs_25_26_event_pack"
   },
   {
     "id": "OP05-067_p6",
@@ -188153,8 +188153,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_event_pack_print_6",
-    "canonicalId": "OP05-067_alternate_art_event_pack_print_6"
+    "variantSlug": "alternate_art_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "OP05-067_alternate_art_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "OP05-068",
@@ -189508,8 +189508,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op05",
-    "canonicalId": "OP05-086_parallel_op05"
+    "variantSlug": "parallel_regionals_wave_3",
+    "canonicalId": "OP05-086_parallel_regionals_wave_3"
   },
   {
     "id": "OP05-087",
@@ -189859,8 +189859,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op05_print_1",
-    "canonicalId": "OP05-091_alternate_art_op05_print_1"
+    "variantSlug": "alternate_art_op05",
+    "canonicalId": "OP05-091_alternate_art_op05"
   },
   {
     "id": "OP05-091_p3",
@@ -189912,8 +189912,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op05_print_3",
-    "canonicalId": "OP05-091_alternate_art_op05_print_3"
+    "variantSlug": "alternate_art_regionals_wave_3",
+    "canonicalId": "OP05-091_alternate_art_regionals_wave_3"
   },
   {
     "id": "OP05-092",
@@ -191814,8 +191814,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op06",
-    "canonicalId": "OP06-016_alternate_art_op06"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP06-016_alternate_art_best_selection"
   },
   {
     "id": "OP06-047_p1",
@@ -191867,8 +191867,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP06-047_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP06-047_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP06-051_p1",
@@ -192026,8 +192026,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP06-063_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack_2",
+    "canonicalId": "OP06-063_parallel_cs_25_26_top_player_pack_2"
   },
   {
     "id": "OP06-063_p3",
@@ -192079,8 +192079,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op06",
-    "canonicalId": "OP06-063_parallel_op06"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_2",
+    "canonicalId": "OP06-063_parallel_cs_25_26_finalist_card_set_2"
   },
   {
     "id": "OP06-063_p4",
@@ -192132,8 +192132,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_card_set",
-    "canonicalId": "OP06-063_parallel_winner_card_set"
+    "variantSlug": "parallel_cs_25_26_winner_card_set_2",
+    "canonicalId": "OP06-063_parallel_cs_25_26_winner_card_set_2"
   },
   {
     "id": "OP06-069_p2",
@@ -192238,8 +192238,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP06-076_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP06-076_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP06-090_p1",
@@ -192291,8 +192291,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op06",
-    "canonicalId": "OP06-090_alternate_art_op06"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP06-090_alternate_art_best_selection"
   },
   {
     "id": "OP06-093_p3",
@@ -192503,8 +192503,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_event_pack_print_4",
-    "canonicalId": "OP06-101_alternate_art_event_pack_print_4"
+    "variantSlug": "alternate_art_cs_25_26_event_pack",
+    "canonicalId": "OP06-101_alternate_art_cs_25_26_event_pack"
   },
   {
     "id": "OP06-101_p5",
@@ -192556,8 +192556,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_event_pack_print_5",
-    "canonicalId": "OP06-101_alternate_art_event_pack_print_5"
+    "variantSlug": "alternate_art_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "OP06-101_alternate_art_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "OP06-110_p1",
@@ -192664,8 +192664,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op06_print_4",
-    "canonicalId": "OP06-118_alternate_art_op06_print_4"
+    "variantSlug": "alternate_art_japanese_2nd_anniversary_set",
+    "canonicalId": "OP06-118_alternate_art_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP07-021_p1",
@@ -193035,8 +193035,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op07",
-    "canonicalId": "OP07-037_alternate_art_op07"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP07-037_alternate_art_best_selection"
   },
   {
     "id": "OP07-040_p1",
@@ -193618,8 +193618,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07",
-    "canonicalId": "OP07-053_parallel_op07"
+    "variantSlug": "parallel_tournament_pack_2024_oct_dec",
+    "canonicalId": "OP07-053_parallel_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP07-053_p2",
@@ -193671,8 +193671,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP07-053_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP07-053_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP07-053_p3",
@@ -193830,8 +193830,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op07",
-    "canonicalId": "OP07-057_alternate_art_op07"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP07-057_alternate_art_best_selection"
   },
   {
     "id": "OP07-064_p2",
@@ -193885,8 +193885,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_2",
-    "canonicalId": "OP07-064_parallel_op07_print_2"
+    "variantSlug": "parallel_japanese_2nd_anniversary_set",
+    "canonicalId": "OP07-064_parallel_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP07-066_p1",
@@ -193938,8 +193938,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP07-066_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack",
+    "canonicalId": "OP07-066_parallel_cs_25_26_top_player_pack"
   },
   {
     "id": "OP07-066_p2",
@@ -193991,8 +193991,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07",
-    "canonicalId": "OP07-066_parallel_op07"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_1",
+    "canonicalId": "OP07-066_parallel_cs_25_26_finalist_card_set_1"
   },
   {
     "id": "OP07-073_p1",
@@ -194097,8 +194097,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP07-080_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP07-080_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP07-091_p1",
@@ -194207,8 +194207,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07",
-    "canonicalId": "OP07-100_parallel_op07"
+    "variantSlug": "parallel_tournament_pack_2024_oct_dec",
+    "canonicalId": "OP07-100_parallel_tournament_pack_2024_oct_dec"
   },
   {
     "id": "OP07-100_p2",
@@ -194260,8 +194260,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP07-100_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP07-100_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP07-109_p3",
@@ -194313,8 +194313,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP07-109_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack",
+    "canonicalId": "OP07-109_parallel_cs_25_26_top_player_pack"
   },
   {
     "id": "OP07-109_p4",
@@ -194366,8 +194366,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_4",
-    "canonicalId": "OP07-109_parallel_op07_print_4"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_1",
+    "canonicalId": "OP07-109_parallel_cs_25_26_finalist_card_set_1"
   },
   {
     "id": "OP07-111_p2",
@@ -194472,8 +194472,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07",
-    "canonicalId": "OP07-113_parallel_op07"
+    "variantSlug": "parallel_one_piece_day_dallas",
+    "canonicalId": "OP07-113_parallel_one_piece_day_dallas"
   },
   {
     "id": "OP07-116_p2",
@@ -194525,8 +194525,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op07",
-    "canonicalId": "OP07-116_alternate_art_op07"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP07-116_alternate_art_best_selection"
   },
   {
     "id": "OP07-118_p2",
@@ -194633,8 +194633,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_3",
-    "canonicalId": "OP07-118_parallel_op07_print_3"
+    "variantSlug": "parallel_japanese_3rd_anniversary_set",
+    "canonicalId": "OP07-118_parallel_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP07-119_p2",
@@ -194686,8 +194686,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op07_print_2",
-    "canonicalId": "OP07-119_parallel_op07_print_2"
+    "variantSlug": "parallel_regionals_season_1",
+    "canonicalId": "OP07-119_parallel_regionals_season_1"
   },
   {
     "id": "OP08-036_p1",
@@ -194739,8 +194739,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op08",
-    "canonicalId": "OP08-036_alternate_art_op08"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP08-036_alternate_art_best_selection"
   },
   {
     "id": "OP08-040_p1",
@@ -194792,8 +194792,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op08",
-    "canonicalId": "OP08-040_alternate_art_op08"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP08-040_alternate_art_best_selection"
   },
   {
     "id": "OP08-062_p1",
@@ -195006,8 +195006,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op08_print_2",
-    "canonicalId": "OP08-069_parallel_op08_print_2"
+    "variantSlug": "parallel_japanese_2nd_anniversary_set",
+    "canonicalId": "OP08-069_parallel_japanese_2nd_anniversary_set"
   },
   {
     "id": "OP08-084_p2",
@@ -195112,8 +195112,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op08",
-    "canonicalId": "OP08-099_alternate_art_op08"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP08-099_alternate_art_best_selection"
   },
   {
     "id": "OP08-110_p2",
@@ -195377,8 +195377,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09_print_4",
-    "canonicalId": "OP09-004_alternate_art_op09_print_4"
+    "variantSlug": "alternate_art_regionals_season_2",
+    "canonicalId": "OP09-004_alternate_art_regionals_season_2"
   },
   {
     "id": "OP09-004_p5",
@@ -195536,8 +195536,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09",
-    "canonicalId": "OP09-008_alternate_art_op09"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP09-008_alternate_art_best_selection"
   },
   {
     "id": "OP09-009_p2",
@@ -195589,8 +195589,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09_print_2",
-    "canonicalId": "OP09-009_parallel_op09_print_2"
+    "variantSlug": "parallel_regionals_season_2",
+    "canonicalId": "OP09-009_parallel_regionals_season_2"
   },
   {
     "id": "OP09-009_p3",
@@ -195801,8 +195801,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_celebration_pack",
-    "canonicalId": "OP09-011_parallel_celebration_pack"
+    "variantSlug": "parallel_cs_25_26_celebration_pack",
+    "canonicalId": "OP09-011_parallel_cs_25_26_celebration_pack"
   },
   {
     "id": "OP09-013_p1",
@@ -195854,8 +195854,8 @@
     ],
     "variantType": "sp",
     "variantLabel": "SP",
-    "variantSlug": "sp_op09",
-    "canonicalId": "OP09-013_sp_op09"
+    "variantSlug": "sp_regionals_season_2",
+    "canonicalId": "OP09-013_sp_regionals_season_2"
   },
   {
     "id": "OP09-027_p2",
@@ -196066,8 +196066,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP09-043_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack_2",
+    "canonicalId": "OP09-043_parallel_cs_25_26_top_player_pack_2"
   },
   {
     "id": "OP09-043_p2",
@@ -196119,8 +196119,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09",
-    "canonicalId": "OP09-043_parallel_op09"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_2",
+    "canonicalId": "OP09-043_parallel_cs_25_26_finalist_card_set_2"
   },
   {
     "id": "OP09-043_p3",
@@ -196172,8 +196172,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_card_set",
-    "canonicalId": "OP09-043_parallel_winner_card_set"
+    "variantSlug": "parallel_cs_25_26_winner_card_set_2",
+    "canonicalId": "OP09-043_parallel_cs_25_26_winner_card_set_2"
   },
   {
     "id": "OP09-050_p2",
@@ -196225,8 +196225,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09_print_2",
-    "canonicalId": "OP09-050_parallel_op09_print_2"
+    "variantSlug": "parallel_regional_25_26_season_1",
+    "canonicalId": "OP09-050_parallel_regional_25_26_season_1"
   },
   {
     "id": "OP09-065_p2",
@@ -196278,8 +196278,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09_print_2",
-    "canonicalId": "OP09-065_parallel_op09_print_2"
+    "variantSlug": "parallel_regional_25_26_season_1",
+    "canonicalId": "OP09-065_parallel_regional_25_26_season_1"
   },
   {
     "id": "OP09-069_p2",
@@ -196384,8 +196384,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09",
-    "canonicalId": "OP09-070_alternate_art_op09"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP09-070_alternate_art_best_selection"
   },
   {
     "id": "OP09-076_p1",
@@ -196437,8 +196437,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09",
-    "canonicalId": "OP09-076_parallel_op09"
+    "variantSlug": "parallel_regional_25_26_season_1",
+    "canonicalId": "OP09-076_parallel_regional_25_26_season_1"
   },
   {
     "id": "OP09-077_p2",
@@ -196490,8 +196490,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09",
-    "canonicalId": "OP09-077_alternate_art_op09"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP09-077_alternate_art_best_selection"
   },
   {
     "id": "OP09-089_p1",
@@ -196543,8 +196543,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP09-089_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack_2",
+    "canonicalId": "OP09-089_parallel_cs_25_26_top_player_pack_2"
   },
   {
     "id": "OP09-089_p2",
@@ -196596,8 +196596,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op09",
-    "canonicalId": "OP09-089_parallel_op09"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_2",
+    "canonicalId": "OP09-089_parallel_cs_25_26_finalist_card_set_2"
   },
   {
     "id": "OP09-089_p3",
@@ -196649,8 +196649,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_card_set",
-    "canonicalId": "OP09-089_parallel_winner_card_set"
+    "variantSlug": "parallel_cs_25_26_winner_card_set_2",
+    "canonicalId": "OP09-089_parallel_cs_25_26_winner_card_set_2"
   },
   {
     "id": "OP09-095_p1",
@@ -196702,8 +196702,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09",
-    "canonicalId": "OP09-095_alternate_art_op09"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP09-095_alternate_art_best_selection"
   },
   {
     "id": "OP09-106_p1",
@@ -197179,8 +197179,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09",
-    "canonicalId": "OP09-117_alternate_art_op09"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP09-117_alternate_art_best_selection"
   },
   {
     "id": "OP09-118_p3",
@@ -197340,8 +197340,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op09",
-    "canonicalId": "OP09-119_anniversary_op09"
+    "variantSlug": "anniversary_japanese_3rd_anniversary_set",
+    "canonicalId": "OP09-119_anniversary_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP10-005_p2",
@@ -197446,8 +197446,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op10",
-    "canonicalId": "OP10-028_alternate_art_op10"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP10-028_alternate_art_best_selection"
   },
   {
     "id": "OP10-030_p2",
@@ -197552,8 +197552,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP10-033_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack",
+    "canonicalId": "OP10-033_parallel_cs_25_26_top_player_pack"
   },
   {
     "id": "OP10-033_p2",
@@ -197605,8 +197605,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op10",
-    "canonicalId": "OP10-033_parallel_op10"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_1",
+    "canonicalId": "OP10-033_parallel_cs_25_26_finalist_card_set_1"
   },
   {
     "id": "OP10-042_p2",
@@ -197711,8 +197711,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op10",
-    "canonicalId": "OP10-049_alternate_art_op10"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP10-049_alternate_art_best_selection"
   },
   {
     "id": "OP10-092_p1",
@@ -197764,8 +197764,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP10-092_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack",
+    "canonicalId": "OP10-092_parallel_cs_25_26_top_player_pack"
   },
   {
     "id": "OP10-092_p2",
@@ -197817,8 +197817,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op10",
-    "canonicalId": "OP10-092_parallel_op10"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_1",
+    "canonicalId": "OP10-092_parallel_cs_25_26_finalist_card_set_1"
   },
   {
     "id": "OP10-092_p3",
@@ -197870,8 +197870,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op10",
-    "canonicalId": "OP10-092_alternate_art_op10"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP10-092_alternate_art_best_selection"
   },
   {
     "id": "OP10-107_p1",
@@ -197923,8 +197923,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "OP10-107_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack_2",
+    "canonicalId": "OP10-107_parallel_cs_25_26_top_player_pack_2"
   },
   {
     "id": "OP10-107_p2",
@@ -197976,8 +197976,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op10",
-    "canonicalId": "OP10-107_parallel_op10"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_2",
+    "canonicalId": "OP10-107_parallel_cs_25_26_finalist_card_set_2"
   },
   {
     "id": "OP10-107_p3",
@@ -198029,8 +198029,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_card_set",
-    "canonicalId": "OP10-107_parallel_winner_card_set"
+    "variantSlug": "parallel_cs_25_26_winner_card_set_2",
+    "canonicalId": "OP10-107_parallel_cs_25_26_winner_card_set_2"
   },
   {
     "id": "OP11-004_p2",
@@ -198190,8 +198190,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op11_print_2",
-    "canonicalId": "OP11-054_alternate_art_op11_print_2"
+    "variantSlug": "alternate_art_japanese_3rd_anniversary_set",
+    "canonicalId": "OP11-054_alternate_art_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP11-058_p1",
@@ -198296,8 +198296,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op11",
-    "canonicalId": "OP11-060_alternate_art_op11"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP11-060_alternate_art_best_selection"
   },
   {
     "id": "OP11-067_p2",
@@ -198351,8 +198351,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op11_print_2",
-    "canonicalId": "OP11-067_alternate_art_op11_print_2"
+    "variantSlug": "alternate_art_japanese_3rd_anniversary_set",
+    "canonicalId": "OP11-067_alternate_art_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP11-119_p2",
@@ -198457,8 +198457,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12",
-    "canonicalId": "OP12-006_alternate_art_op12"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP12-006_alternate_art_best_selection"
   },
   {
     "id": "OP12-015_p2",
@@ -198669,8 +198669,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12",
-    "canonicalId": "OP12-026_alternate_art_op12"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP12-026_alternate_art_best_selection"
   },
   {
     "id": "OP12-031_p2",
@@ -198777,8 +198777,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_2",
-    "canonicalId": "OP12-034_alternate_art_op12_print_2"
+    "variantSlug": "alternate_art_japanese_3rd_anniversary_set",
+    "canonicalId": "OP12-034_alternate_art_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP12-039_p1",
@@ -198832,8 +198832,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op12",
-    "canonicalId": "OP12-039_anniversary_op12"
+    "variantSlug": "anniversary_japanese_3rd_anniversary_set",
+    "canonicalId": "OP12-039_anniversary_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP12-051_p1",
@@ -198885,8 +198885,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12",
-    "canonicalId": "OP12-051_alternate_art_op12"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP12-051_alternate_art_best_selection"
   },
   {
     "id": "OP12-079_p1",
@@ -198940,8 +198940,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_op12",
-    "canonicalId": "OP12-079_anniversary_op12"
+    "variantSlug": "anniversary_japanese_3rd_anniversary_set",
+    "canonicalId": "OP12-079_anniversary_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP12-094_p2",
@@ -198995,8 +198995,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_2",
-    "canonicalId": "OP12-094_alternate_art_op12_print_2"
+    "variantSlug": "alternate_art_japanese_3rd_anniversary_set",
+    "canonicalId": "OP12-094_alternate_art_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP12-098_p1",
@@ -199048,8 +199048,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12",
-    "canonicalId": "OP12-098_alternate_art_op12"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP12-098_alternate_art_best_selection"
   },
   {
     "id": "OP12-112_p1",
@@ -199101,8 +199101,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12",
-    "canonicalId": "OP12-112_alternate_art_op12"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP12-112_alternate_art_best_selection"
   },
   {
     "id": "OP12-119_p2",
@@ -199156,8 +199156,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_2",
-    "canonicalId": "OP12-119_alternate_art_op12_print_2"
+    "variantSlug": "alternate_art_japanese_3rd_anniversary_set",
+    "canonicalId": "OP12-119_alternate_art_japanese_3rd_anniversary_set"
   },
   {
     "id": "OP13-001",
@@ -202932,8 +202932,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op13",
-    "canonicalId": "OP13-063_alternate_art_op13"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP13-063_alternate_art_best_selection"
   },
   {
     "id": "OP13-064",
@@ -204750,8 +204750,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op13",
-    "canonicalId": "OP13-086_alternate_art_op13"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "OP13-086_alternate_art_best_selection"
   },
   {
     "id": "OP13-087",
@@ -207584,8 +207584,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op14_print_2",
-    "canonicalId": "OP14-033_alternate_art_op14_print_2"
+    "variantSlug": "alternate_art_extra_grand_battle_for_stores_2026_may",
+    "canonicalId": "OP14-033_alternate_art_extra_grand_battle_for_stores_2026_may"
   },
   {
     "id": "P-001",
@@ -207686,8 +207686,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_print_1",
-    "canonicalId": "P-001_parallel_print_1"
+    "variantSlug": "parallel_super_pre_release_print_1",
+    "canonicalId": "P-001_parallel_super_pre_release_print_1"
   },
   {
     "id": "P-001_p2",
@@ -207739,8 +207739,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_print_2",
-    "canonicalId": "P-001_parallel_print_2"
+    "variantSlug": "parallel_super_pre_release_print_2",
+    "canonicalId": "P-001_parallel_super_pre_release_print_2"
   },
   {
     "id": "P-001_p3",
@@ -211796,8 +211796,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_1",
-    "canonicalId": "P-065_parallel_event_pack_print_1"
+    "variantSlug": "parallel_cs_25_26_event_pack",
+    "canonicalId": "P-065_parallel_cs_25_26_event_pack"
   },
   {
     "id": "P-065_p2",
@@ -211849,8 +211849,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_2",
-    "canonicalId": "P-065_parallel_event_pack_print_2"
+    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-065_parallel_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-068",
@@ -212000,8 +212000,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_1",
-    "canonicalId": "P-069_parallel_event_pack_print_1"
+    "variantSlug": "parallel_cs_25_26_event_pack",
+    "canonicalId": "P-069_parallel_cs_25_26_event_pack"
   },
   {
     "id": "P-069_p2",
@@ -212053,8 +212053,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_2",
-    "canonicalId": "P-069_parallel_event_pack_print_2"
+    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-069_parallel_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-069_p4",
@@ -212106,8 +212106,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "P-069_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack_2",
+    "canonicalId": "P-069_parallel_cs_25_26_top_player_pack_2"
   },
   {
     "id": "P-069_p5",
@@ -212159,8 +212159,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_5",
-    "canonicalId": "P-069_parallel_event_pack_print_5"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_2",
+    "canonicalId": "P-069_parallel_cs_25_26_finalist_card_set_2"
   },
   {
     "id": "P-069_p6",
@@ -212212,8 +212212,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_winner_card_set",
-    "canonicalId": "P-069_parallel_winner_card_set"
+    "variantSlug": "parallel_cs_25_26_winner_card_set_2",
+    "canonicalId": "P-069_parallel_cs_25_26_winner_card_set_2"
   },
   {
     "id": "P-070",
@@ -212314,8 +212314,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_1",
-    "canonicalId": "P-070_parallel_event_pack_print_1"
+    "variantSlug": "parallel_cs_25_26_event_pack",
+    "canonicalId": "P-070_parallel_cs_25_26_event_pack"
   },
   {
     "id": "P-070_p2",
@@ -212367,8 +212367,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_2",
-    "canonicalId": "P-070_parallel_event_pack_print_2"
+    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-070_parallel_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-071",
@@ -212518,8 +212518,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb02",
-    "canonicalId": "P-073_alternate_art_prb02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "P-073_alternate_art_best_selection"
   },
   {
     "id": "P-074_p1",
@@ -212571,8 +212571,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb02",
-    "canonicalId": "P-074_alternate_art_prb02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "P-074_alternate_art_best_selection"
   },
   {
     "id": "P-075_p1",
@@ -212624,8 +212624,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb02",
-    "canonicalId": "P-075_alternate_art_prb02"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "P-075_alternate_art_best_selection"
   },
   {
     "id": "P-076",
@@ -212775,8 +212775,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_1",
-    "canonicalId": "P-077_parallel_event_pack_print_1"
+    "variantSlug": "parallel_cs_25_26_event_pack",
+    "canonicalId": "P-077_parallel_cs_25_26_event_pack"
   },
   {
     "id": "P-077_p2",
@@ -212828,8 +212828,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_2",
-    "canonicalId": "P-077_parallel_event_pack_print_2"
+    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-077_parallel_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-078",
@@ -213244,8 +213244,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_1",
-    "canonicalId": "P-079_parallel_event_pack_print_1"
+    "variantSlug": "parallel_cs_25_26_event_pack",
+    "canonicalId": "P-079_parallel_cs_25_26_event_pack"
   },
   {
     "id": "P-079_p2",
@@ -213297,8 +213297,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_2",
-    "canonicalId": "P-079_parallel_event_pack_print_2"
+    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-079_parallel_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-081",
@@ -213399,8 +213399,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op11",
-    "canonicalId": "P-081_parallel_op11"
+    "variantSlug": "parallel_op11_release_event",
+    "canonicalId": "P-081_parallel_op11_release_event"
   },
   {
     "id": "P-082",
@@ -213603,8 +213603,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_1",
-    "canonicalId": "P-083_parallel_event_pack_print_1"
+    "variantSlug": "parallel_cs_25_26_event_pack",
+    "canonicalId": "P-083_parallel_cs_25_26_event_pack"
   },
   {
     "id": "P-083_p2",
@@ -213656,8 +213656,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack_print_2",
-    "canonicalId": "P-083_parallel_event_pack_print_2"
+    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-083_parallel_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-085",
@@ -214215,8 +214215,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op12_print_1",
-    "canonicalId": "P-092_parallel_op12_print_1"
+    "variantSlug": "parallel_op12_release_event_print_1",
+    "canonicalId": "P-092_parallel_op12_release_event_print_1"
   },
   {
     "id": "P-092_p2",
@@ -214268,8 +214268,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_op12_print_2",
-    "canonicalId": "P-092_parallel_op12_print_2"
+    "variantSlug": "parallel_op12_release_event_print_2",
+    "canonicalId": "P-092_parallel_op12_release_event_print_2"
   },
   {
     "id": "P-096",
@@ -217429,8 +217429,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st03",
-    "canonicalId": "ST03-012_alternate_art_st03"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST03-012_alternate_art_best_selection"
   },
   {
     "id": "ST03-014_p1",
@@ -217535,8 +217535,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st03",
-    "canonicalId": "ST03-017_alternate_art_st03"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST03-017_alternate_art_best_selection"
   },
   {
     "id": "ST04-002_p1",
@@ -217588,8 +217588,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st04",
-    "canonicalId": "ST04-002_alternate_art_st04"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST04-002_alternate_art_best_selection"
   },
   {
     "id": "ST04-003_p2",
@@ -217959,8 +217959,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st04",
-    "canonicalId": "ST04-016_alternate_art_st04"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST04-016_alternate_art_best_selection"
   },
   {
     "id": "ST05-002_p1",
@@ -218012,8 +218012,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st05",
-    "canonicalId": "ST05-002_alternate_art_st05"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST05-002_alternate_art_best_selection"
   },
   {
     "id": "ST05-014_p1",
@@ -218065,8 +218065,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st05",
-    "canonicalId": "ST05-014_alternate_art_st05"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST05-014_alternate_art_best_selection"
   },
   {
     "id": "ST06-006_p1",
@@ -218383,8 +218383,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_st10_print_1",
-    "canonicalId": "ST10-006_anniversary_st10_print_1"
+    "variantSlug": "anniversary_regional_2024_wave_1",
+    "canonicalId": "ST10-006_anniversary_regional_2024_wave_1"
   },
   {
     "id": "ST10-006_p2",
@@ -218489,8 +218489,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_st10_print_4",
-    "canonicalId": "ST10-006_anniversary_st10_print_4"
+    "variantSlug": "anniversary_one_piece_day_dallas",
+    "canonicalId": "ST10-006_anniversary_one_piece_day_dallas"
   },
   {
     "id": "ST10-008_p1",
@@ -218648,8 +218648,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st10",
-    "canonicalId": "ST10-010_alternate_art_st10"
+    "variantSlug": "alternate_art_regional_2024_wave_1",
+    "canonicalId": "ST10-010_alternate_art_regional_2024_wave_1"
   },
   {
     "id": "ST10-013_p1",
@@ -218701,8 +218701,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_st10",
-    "canonicalId": "ST10-013_parallel_st10"
+    "variantSlug": "parallel_regional_2024_wave_1",
+    "canonicalId": "ST10-013_parallel_regional_2024_wave_1"
   },
   {
     "id": "ST11-003_p1",
@@ -218966,8 +218966,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_st13_print_2",
-    "canonicalId": "ST13-003_parallel_st13_print_2"
+    "variantSlug": "parallel_dortmund_collaboration_event",
+    "canonicalId": "ST13-003_parallel_dortmund_collaboration_event"
   },
   {
     "id": "ST13-012_p2",
@@ -219019,8 +219019,8 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st13",
-    "canonicalId": "ST13-012_alternate_art_st13"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST13-012_alternate_art_best_selection"
   },
   {
     "id": "ST13-015_p2",
@@ -219074,8 +219074,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_st13",
-    "canonicalId": "ST13-015_anniversary_st13"
+    "variantSlug": "anniversary_japanese_2nd_anniversary_set",
+    "canonicalId": "ST13-015_anniversary_japanese_2nd_anniversary_set"
   },
   {
     "id": "ST14-010_r1",
@@ -219176,8 +219176,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "ST15-005_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack",
+    "canonicalId": "ST15-005_parallel_cs_25_26_top_player_pack"
   },
   {
     "id": "ST15-005_p2",
@@ -219229,8 +219229,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15_print_2",
-    "canonicalId": "ST15-005_parallel_st15_print_2"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_1",
+    "canonicalId": "ST15-005_parallel_cs_25_26_finalist_card_set_1"
   },
   {
     "id": "ST15-005_p4",
@@ -219284,8 +219284,8 @@
     ],
     "variantType": "anniversary",
     "variantLabel": "Anniversary",
-    "variantSlug": "anniversary_st15",
-    "canonicalId": "ST15-005_anniversary_st15"
+    "variantSlug": "anniversary_japanese_3rd_anniversary_set",
+    "canonicalId": "ST15-005_anniversary_japanese_3rd_anniversary_set"
   },
   {
     "id": "ST17-003_p1",
@@ -219337,8 +219337,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_top_player_pack",
-    "canonicalId": "ST17-003_parallel_top_player_pack"
+    "variantSlug": "parallel_cs_25_26_top_player_pack",
+    "canonicalId": "ST17-003_parallel_cs_25_26_top_player_pack"
   },
   {
     "id": "ST17-003_p2",
@@ -219390,8 +219390,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_st17",
-    "canonicalId": "ST17-003_parallel_st17"
+    "variantSlug": "parallel_cs_25_26_finalist_card_set_1",
+    "canonicalId": "ST17-003_parallel_cs_25_26_finalist_card_set_1"
   },
   {
     "id": "ST17-003_p4",
@@ -219761,8 +219761,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_championship_finals_print_2",
-    "canonicalId": "ST21-015_parallel_championship_finals_print_2"
+    "variantSlug": "parallel_championship_25_26_finals_season_1_print_2",
+    "canonicalId": "ST21-015_parallel_championship_25_26_finals_season_1_print_2"
   },
   {
     "id": "ST21-015_p3",
@@ -219814,8 +219814,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_championship_finals_print_3",
-    "canonicalId": "ST21-015_parallel_championship_finals_print_3"
+    "variantSlug": "parallel_championship_25_26_finals_season_1_print_3",
+    "canonicalId": "ST21-015_parallel_championship_25_26_finals_season_1_print_3"
   },
   {
     "id": "ST21-015_p4",
@@ -219867,8 +219867,8 @@
     ],
     "variantType": "parallel",
     "variantLabel": "Parallel",
-    "variantSlug": "parallel_championship_finals_print_4",
-    "canonicalId": "ST21-015_parallel_championship_finals_print_4"
+    "variantSlug": "parallel_championship_25_26_finals_season_1_print_4",
+    "canonicalId": "ST21-015_parallel_championship_25_26_finals_season_1_print_4"
   },
   {
     "id": "ST21-017_p1",
@@ -219920,7 +219920,7 @@
     ],
     "variantType": "alt_art",
     "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_st21",
-    "canonicalId": "ST21-017_alternate_art_st21"
+    "variantSlug": "alternate_art_best_selection",
+    "canonicalId": "ST21-017_alternate_art_best_selection"
   }
 ]
