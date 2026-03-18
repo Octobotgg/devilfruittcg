@@ -1,0 +1,498 @@
+import fs from "fs";
+import path from "path";
+import https from "https";
+import Database from "better-sqlite3";
+import {
+  chunk,
+  DEFAULT_CATALOG_PATH,
+  inferTcgplayerId,
+  loadJson,
+  parseArgs,
+  postgrestInsert,
+  postgrestUpsert,
+  readOfficialCards,
+  supabaseConfigFromEnv,
+  writeJson,
+} from "./lib/justtcg-utils.mjs";
+import {
+  cleanedCardName,
+  normalizeBandaiNumber,
+  normalizeText,
+} from "./lib/justtcg-matcher.mjs";
+
+const REPO_ROOT = "/Users/javierbarro/Desktop/devilfruittcg";
+const DEFAULT_DB_PATH = path.join(REPO_ROOT, ".cache", "devilfruit.db");
+const DEFAULT_TCGPLAYER_CACHE_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "tcgplayer-details-cache.json");
+const DEFAULT_REPORT_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "set-verification-report.json");
+
+function normalizeSimple(value) {
+  return String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function baseId(cardId) {
+  return String(cardId || "").replace(/_[A-Za-z0-9]+$/u, "");
+}
+
+function normalizeSetLabel(value) {
+  return normalizeText(String(value || "").replace(/\s*\[[^\]]+\]\s*$/u, ""));
+}
+
+function aliasesFromText(value) {
+  const normalized = normalizeSetLabel(value);
+  return normalized ? [normalized] : [];
+}
+
+function setAliasesForCard(card) {
+  const aliases = new Set();
+  for (const value of [card.set, card.originSet]) {
+    for (const alias of aliasesFromText(value)) aliases.add(alias);
+  }
+  return [...aliases];
+}
+
+function labelTokens(card) {
+  const variantLabel = normalizeText(card.variantLabel || "");
+  const variantType = String(card.variantType || "").toLowerCase();
+  if (variantLabel.includes("pirate foil")) return ["pirate foil"];
+  if (variantType === "alt_art" || variantLabel.includes("alternate art")) return ["alternate art"];
+  if (variantType === "sp" || variantLabel === "sp") return ["sp"];
+  if (variantType === "parallel" || variantLabel.includes("parallel")) return ["parallel"];
+  if (variantType === "anniversary" || variantLabel.includes("anniversary")) return ["anniversary"];
+  if (variantType === "manga" || variantLabel.includes("manga")) return ["manga"];
+  if (variantLabel.includes("reprint")) return ["reprint"];
+  return [];
+}
+
+function labelFromCandidateAndDetail(candidate, detail) {
+  const haystack = normalizeText([
+    candidate?.name,
+    detail?.productName,
+    detail?.productUrlName,
+    candidate?.set_name,
+    candidate?.set,
+    detail?.setName,
+  ].join(" "));
+  if (haystack.includes("pirate foil")) {
+    return { variantType: "parallel", variantLabel: "Pirate Foil" };
+  }
+  if (haystack.includes("alternate art")) {
+    return { variantType: "alt_art", variantLabel: "Alternate Art" };
+  }
+  if (haystack.includes("anniversary")) {
+    return { variantType: "anniversary", variantLabel: "Anniversary" };
+  }
+  if (haystack.includes("manga")) {
+    return { variantType: "manga", variantLabel: "Manga" };
+  }
+  if (/\bsp\b/.test(haystack)) {
+    return { variantType: "sp", variantLabel: "SP" };
+  }
+  if (haystack.includes("parallel")) {
+    return { variantType: "parallel", variantLabel: "Parallel" };
+  }
+  if (haystack.includes("reprint")) {
+    return { variantType: "parallel", variantLabel: "Reprint" };
+  }
+  return null;
+}
+
+function getExpectedNumber(card) {
+  if (String(card.printedCardId || "").trim()) return String(card.printedCardId).trim().toUpperCase();
+  if (String(card.baseId || "").trim()) return String(card.baseId).trim().toUpperCase();
+  return normalizeBandaiNumber(card);
+}
+
+function numberMatches(card, detail, candidate) {
+  const expected = getExpectedNumber(card);
+  const detailNumber = String(detail?.customAttributes?.number || detail?.formattedAttributes?.Number || "").toUpperCase().trim();
+  const candidateNumber = String(candidate?.number || "").toUpperCase().trim();
+  return detailNumber === expected || candidateNumber === expected;
+}
+
+function coreNameMatches(card, detail, candidate) {
+  const expected = normalizeSimple(cleanedCardName(card.name));
+  if (!expected) return false;
+  const haystacks = [
+    detail?.productName,
+    detail?.productUrlName,
+    candidate?.name,
+  ].map((value) => normalizeSimple(value));
+  return haystacks.some((value) => value.includes(expected));
+}
+
+function labelMatches(card, detail, candidate) {
+  const tokens = labelTokens(card);
+  if (!tokens.length) return false;
+  const haystacks = [
+    detail?.productName,
+    detail?.productUrlName,
+    candidate?.name,
+  ].map((value) => normalizeText(value));
+  return tokens.every((token) => haystacks.some((value) => value.includes(token)));
+}
+
+function setFamilyMatches(card, detail, candidate, releaseCode) {
+  const candidateSet = normalizeText(candidate?.set_name || candidate?.set || "");
+  const detailSet = normalizeText(detail?.setName || "");
+  const release = normalizeText(releaseCode);
+  const aliases = setAliasesForCard(card);
+  const haystacks = [candidateSet, detailSet];
+  if (release && haystacks.some((value) => value.includes(release))) return true;
+  return aliases.some((alias) => haystacks.some((value) => value.includes(alias) || alias.includes(value)));
+}
+
+function isOnePieceProduct(detail) {
+  return normalizeText(detail?.productLineName || "") === "one piece card game";
+}
+
+function variantSortScore(variant, preferredCondition) {
+  const condition = String(variant.condition || "").toLowerCase();
+  const printing = String(variant.printing || "").toLowerCase();
+  const language = String(variant.language || "").toLowerCase();
+  let score = 0;
+  if (language === "english") score += 100;
+  if (condition === preferredCondition) score += 60;
+  if (printing === "normal") score += 20;
+  if (printing === "foil") score += 10;
+  return score;
+}
+
+function pickVariant(card, preferredCondition) {
+  const variants = Array.isArray(card?.variants) ? card.variants : [];
+  if (!variants.length) return null;
+  return [...variants].sort((left, right) => variantSortScore(right, preferredCondition) - variantSortScore(left, preferredCondition))[0] || null;
+}
+
+function toIsoFromUnix(value) {
+  return typeof value === "number" ? new Date(value * 1000).toISOString() : null;
+}
+
+function readEbayPriceMap(dbPath) {
+  const db = new Database(dbPath, { readonly: true, fileMustExist: true });
+  const rows = db.prepare("select card_id, data from price_cache").all();
+  const map = new Map();
+  for (const row of rows) {
+    try {
+      const payload = JSON.parse(row.data);
+      const average = Number(payload?.ebay?.averagePrice);
+      map.set(row.card_id, Number.isFinite(average) ? average : null);
+    } catch {
+      map.set(row.card_id, null);
+    }
+  }
+  db.close();
+  return map;
+}
+
+function priceGuard(justtcgPrice, ebayPrice) {
+  if (!(justtcgPrice > 0) || !(ebayPrice > 0)) return { suspicious: false, ratio: null };
+  const ratio = justtcgPrice / ebayPrice;
+  return { suspicious: ratio > 5 || ratio < 0.2, ratio };
+}
+
+function loadTcgCache(cachePath) {
+  return loadJson(cachePath, {});
+}
+
+function saveTcgCache(cachePath, cache) {
+  writeJson(cachePath, cache);
+}
+
+async function fetchTcgplayerDetail(productId) {
+  const url = `https://mp-search-api.tcgplayer.com/v1/product/${productId}/details`;
+  return new Promise((resolve, reject) => {
+    https.get(url, { headers: { "User-Agent": "Mozilla/5.0" } }, (response) => {
+      let body = "";
+      response.on("data", (chunk) => {
+        body += chunk;
+      });
+      response.on("end", () => {
+        if (response.statusCode !== 200) {
+          reject(new Error(`TCGplayer details failed for ${productId}: ${response.statusCode} ${body.slice(0, 200)}`));
+          return;
+        }
+        try {
+          resolve(JSON.parse(body));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }).on("error", reject);
+  });
+}
+
+async function getTcgplayerDetail(productId, cache, cachePath) {
+  const key = String(productId);
+  if (cache[key]) return cache[key];
+  const detail = await fetchTcgplayerDetail(key);
+  cache[key] = detail;
+  saveTcgCache(cachePath, cache);
+  return detail;
+}
+
+async function fetchPricedIds(config) {
+  const rows = [];
+  let offset = 0;
+  const limit = 1000;
+  while (true) {
+    const url = new URL(`${config.url}/rest/v1/justtcg_prices`);
+    url.searchParams.set("select", "devilfruit_id,price_nm");
+    url.searchParams.set("order", "devilfruit_id.asc");
+    url.searchParams.set("limit", String(limit));
+    url.searchParams.set("offset", String(offset));
+    const response = await fetch(url, {
+      headers: {
+        apikey: config.key,
+        Authorization: `Bearer ${config.key}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to load justtcg_prices: ${response.status} ${await response.text()}`);
+    }
+    const batch = await response.json();
+    rows.push(...batch);
+    if (batch.length < limit) break;
+    offset += limit;
+  }
+  return new Set(rows.filter((row) => row.price_nm !== null).map((row) => row.devilfruit_id));
+}
+
+function buildMappingRow(card, candidate, fetchedAt) {
+  return {
+    devilfruit_id: card.id,
+    bandai_number: getExpectedNumber(card),
+    justtcg_id: candidate.id,
+    justtcg_tcgplayer_id: String(inferTcgplayerId(candidate) || ""),
+    justtcg_name: candidate.name,
+    justtcg_set: candidate.set_name || candidate.set || null,
+    search_method: "set_verifier",
+    search_query: getExpectedNumber(card),
+    candidate_count: 1,
+    confidence: "high",
+    confidence_reasons: ["exact_number_match", "exact_label_match", "tcgplayer_verified_candidate"],
+    status: "auto_approved",
+    mapped_at: fetchedAt,
+    reviewed_at: null,
+    notes: "Approved by TCGplayer-verified set verifier",
+  };
+}
+
+function buildPriceRow(cardId, candidate, fetchedAt) {
+  const nm = pickVariant(candidate, "near mint");
+  const lp = pickVariant(candidate, "lightly played");
+  return {
+    devilfruit_id: cardId,
+    justtcg_id: candidate.id,
+    price_nm: typeof nm?.price === "number" ? nm.price : null,
+    price_lp: typeof lp?.price === "number" ? lp.price : null,
+    price_change_24h: typeof nm?.priceChange24hr === "number" ? nm.priceChange24hr : null,
+    price_change_7d: typeof nm?.priceChange7d === "number" ? nm.priceChange7d : null,
+    price_change_30d: typeof nm?.priceChange30d === "number" ? nm.priceChange30d : null,
+    last_updated_justtcg: toIsoFromUnix(nm?.lastUpdated),
+    fetched_at: fetchedAt,
+    raw_response: candidate,
+  };
+}
+
+async function persistRows(config, mappingRows, priceRows, historyRows) {
+  for (const group of chunk(mappingRows, 100)) {
+    await postgrestUpsert(config, "justtcg_card_map", group, "devilfruit_id");
+  }
+  for (const group of chunk(priceRows, 100)) {
+    await postgrestUpsert(config, "justtcg_prices", group, "devilfruit_id");
+  }
+  for (const group of chunk(historyRows, 200)) {
+    await postgrestInsert(config, "justtcg_price_history", group);
+  }
+}
+
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+  const releaseCode = String(args.release || args["set-code"] || "").toUpperCase().trim();
+  const writeEnabled = Boolean(args.write);
+  const dbPath = path.resolve(String(args.db || DEFAULT_DB_PATH));
+  const snapshotPath = path.resolve(String(args.snapshot || DEFAULT_CATALOG_PATH));
+  const cachePath = path.resolve(String(args["tcg-cache"] || DEFAULT_TCGPLAYER_CACHE_PATH));
+  const reportPath = path.resolve(String(args.out || DEFAULT_REPORT_PATH));
+  const allowLabelCorrections = Boolean(args["allow-label-corrections"]);
+  const config = supabaseConfigFromEnv();
+
+  if (!releaseCode) {
+    throw new Error("Missing --release, for example --release PRB02");
+  }
+  if (!config) {
+    throw new Error("Missing Supabase service-role configuration");
+  }
+
+  const allCards = readOfficialCards();
+  const snapshotRaw = loadJson(snapshotPath, null);
+  if (!snapshotRaw) {
+    throw new Error(`Catalog snapshot missing at ${snapshotPath}`);
+  }
+  const snapshot = Array.isArray(snapshotRaw) ? snapshotRaw : (snapshotRaw.data || snapshotRaw.cards || []);
+  const pricedIds = await fetchPricedIds(config);
+  const tcgCache = loadTcgCache(cachePath);
+  const ebayPrices = readEbayPriceMap(dbPath);
+
+  const targetCards = allCards.filter((card) => {
+    const releaseMatch = card.releaseCode === releaseCode || String(card.set || "").includes(`[${releaseCode}]`);
+    return releaseMatch && !pricedIds.has(card.id);
+  });
+
+  const approved = [];
+  const rejected = [];
+  const unresolved = [];
+  const labelCorrections = [];
+
+  for (const card of targetCards) {
+    const expectedNumber = getExpectedNumber(card);
+    const candidates = snapshot.filter((candidate) => String(candidate.number || "").toUpperCase().trim() === expectedNumber);
+    if (!candidates.length) {
+      unresolved.push({ cardId: card.id, reason: "no_snapshot_candidate", expectedNumber });
+      continue;
+    }
+
+    const verified = [];
+    const validByIdentity = [];
+    for (const candidate of candidates) {
+      const tcgplayerId = inferTcgplayerId(candidate);
+      if (!tcgplayerId) continue;
+      const detail = await getTcgplayerDetail(tcgplayerId, tcgCache, cachePath);
+      if (!isOnePieceProduct(detail)) continue;
+      if (!numberMatches(card, detail, candidate)) continue;
+      if (!coreNameMatches(card, detail, candidate)) continue;
+      if (!setFamilyMatches(card, detail, candidate, releaseCode)) continue;
+      validByIdentity.push({ candidate, detail });
+      if (!labelMatches(card, detail, candidate)) continue;
+      verified.push({ candidate, detail });
+    }
+
+    if (verified.length === 1) {
+      const candidate = verified[0].candidate;
+      const justtcgPrice = Number(pickVariant(candidate, "near mint")?.price ?? null);
+      const ebayPrice = ebayPrices.get(card.id) ?? null;
+      const guard = priceGuard(justtcgPrice, ebayPrice);
+      if (guard.suspicious) {
+        rejected.push({
+          cardId: card.id,
+          reason: "price_guard_rejected",
+          justtcgPrice,
+          ebayPrice,
+          ratio: guard.ratio,
+          candidate: {
+            id: candidate.id,
+            name: candidate.name,
+            tcgplayerId: inferTcgplayerId(candidate),
+          },
+        });
+        continue;
+      }
+
+      approved.push({ card, candidate });
+      continue;
+    }
+
+    if (allowLabelCorrections && !verified.length && validByIdentity.length) {
+      const deduped = new Map();
+      for (const item of validByIdentity) {
+        deduped.set(item.candidate.id, item);
+      }
+      const normalized = [...deduped.values()].map((item) => ({
+        ...item,
+        derivedLabel: labelFromCandidateAndDetail(item.candidate, item.detail),
+      })).filter((item) => item.derivedLabel);
+      const labels = [...new Set(normalized.map((item) => item.derivedLabel.variantLabel))];
+      if (normalized.length === 1 && labels.length === 1) {
+        const { candidate, derivedLabel } = normalized[0];
+        const justtcgPrice = Number(pickVariant(candidate, "near mint")?.price ?? null);
+        const ebayPrice = ebayPrices.get(card.id) ?? null;
+        const guard = priceGuard(justtcgPrice, ebayPrice);
+        if (guard.suspicious) {
+          rejected.push({
+            cardId: card.id,
+            reason: "price_guard_rejected_after_label_correction",
+            justtcgPrice,
+            ebayPrice,
+            ratio: guard.ratio,
+            candidate: {
+              id: candidate.id,
+              name: candidate.name,
+              tcgplayerId: inferTcgplayerId(candidate),
+            },
+          });
+          continue;
+        }
+        approved.push({ card, candidate });
+        labelCorrections.push({
+          cardId: card.id,
+          currentVariantType: card.variantType || null,
+          currentVariantLabel: card.variantLabel || null,
+          suggestedVariantType: derivedLabel.variantType,
+          suggestedVariantLabel: derivedLabel.variantLabel,
+          justtcgId: candidate.id,
+          justtcgName: candidate.name,
+          justtcgTcgplayerId: inferTcgplayerId(candidate),
+        });
+        continue;
+      }
+    }
+
+    if (verified.length !== 1) {
+      unresolved.push({
+        cardId: card.id,
+        reason: verified.length ? "multiple_verified_candidates" : "no_verified_candidate",
+        expectedNumber,
+        candidates: candidates.map((candidate) => ({
+          id: candidate.id,
+          name: candidate.name,
+          tcgplayerId: inferTcgplayerId(candidate),
+          set: candidate.set_name || candidate.set || null,
+        })),
+      });
+      continue;
+    }
+  }
+
+  const fetchedAt = new Date().toISOString();
+  const mappingRows = approved.map(({ card, candidate }) => buildMappingRow(card, candidate, fetchedAt));
+  const priceRows = approved.map(({ card, candidate }) => buildPriceRow(card.id, candidate, fetchedAt));
+  const historyRows = priceRows.map((row) => ({
+    devilfruit_id: row.devilfruit_id,
+    price_nm: row.price_nm,
+    recorded_at: fetchedAt,
+  }));
+
+  if (writeEnabled && mappingRows.length) {
+    await persistRows(config, mappingRows, priceRows, historyRows);
+  }
+
+  const report = {
+    generatedAt: new Date().toISOString(),
+    releaseCode,
+    totalMissing: targetCards.length,
+    approved: mappingRows.length,
+    rejected: rejected.length,
+    unresolved: unresolved.length,
+    labelCorrections,
+    approvedRows: mappingRows.map((row, index) => ({
+      devilfruit_id: row.devilfruit_id,
+      justtcg_name: row.justtcg_name,
+      justtcg_tcgplayer_id: row.justtcg_tcgplayer_id,
+      price_nm: priceRows[index]?.price_nm ?? null,
+    })),
+    rejectedRows: rejected,
+    unresolvedRows: unresolved,
+  };
+
+  writeJson(reportPath, report);
+  console.log(JSON.stringify({
+    releaseCode,
+    totalMissing: report.totalMissing,
+    approved: report.approved,
+    rejected: report.rejected,
+    unresolved: report.unresolved,
+    reportPath,
+  }, null, 2));
+}
+
+await main();
