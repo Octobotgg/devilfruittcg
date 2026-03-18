@@ -24,6 +24,12 @@ const REPO_ROOT = "/Users/javierbarro/Desktop/devilfruittcg";
 const DEFAULT_DB_PATH = path.join(REPO_ROOT, ".cache", "devilfruit.db");
 const DEFAULT_TCGPLAYER_CACHE_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "tcgplayer-details-cache.json");
 const DEFAULT_REPORT_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "set-verification-report.json");
+const RELEASE_ALIASES = {
+  PRB01: ["premium booster the best", "one piece card the best"],
+  PRB02: ["premium booster the best vol 2", "one piece card the best vol 2"],
+  EB03: ["extra booster one piece heroines edition", "one piece heroines edition", "extra booster 03"],
+  EB04: ["the azure sea's seven", "the azure sea s seven", "extra booster 04"],
+};
 
 function normalizeSimple(value) {
   return String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -46,6 +52,9 @@ function setAliasesForCard(card) {
   const aliases = new Set();
   for (const value of [card.set, card.originSet]) {
     for (const alias of aliasesFromText(value)) aliases.add(alias);
+  }
+  for (const alias of RELEASE_ALIASES[String(card.releaseCode || "").toUpperCase()] || []) {
+    aliases.add(normalizeText(alias));
   }
   return [...aliases];
 }
