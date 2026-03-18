@@ -179337,9 +179337,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_eb02",
-    "canonicalId": "EB02-019_parallel_eb02"
+    "variantLabel": "Tournament Pack 2025 Vol. 3",
+    "variantSlug": "tournament_pack_2025_vol_3",
+    "canonicalId": "EB02-019_tournament_pack_2025_vol_3"
   },
   {
     "id": "EB02-019_p2",
@@ -191919,9 +191919,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op06",
-    "canonicalId": "OP06-051_parallel_op06"
+    "variantLabel": "Tournament Pack 2025 Vol. 4",
+    "variantSlug": "tournament_pack_2025_vol_4",
+    "canonicalId": "OP06-051_tournament_pack_2025_vol_4"
   },
   {
     "id": "OP06-051_p2",
@@ -195164,9 +195164,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_kit_2025_vol_2",
-    "canonicalId": "OP08-110_parallel_tournament_kit_2025_vol_2"
+    "variantLabel": "Tournament Pack 2025 Vol. 2",
+    "variantSlug": "tournament_pack_2025_vol_2",
+    "canonicalId": "OP08-110_tournament_pack_2025_vol_2"
   },
   {
     "id": "OP08-110_p3",
@@ -217852,9 +217852,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_tournament_pack_vol_2",
-    "canonicalId": "ST04-011_parallel_tournament_pack_vol_2"
+    "variantLabel": "Tournament Pack Vol. 2",
+    "variantSlug": "tournament_pack_vol_2",
+    "canonicalId": "ST04-011_tournament_pack_vol_2"
   },
   {
     "id": "ST04-011_p2",
