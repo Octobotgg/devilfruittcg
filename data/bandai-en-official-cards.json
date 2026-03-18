@@ -215997,9 +215997,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_new_year_event_print_4",
-    "canonicalId": "ST01-007_parallel_new_year_event_print_4"
+    "variantLabel": "2025 New Year Event Participant",
+    "variantSlug": "new_year_event_2025_participant",
+    "canonicalId": "ST01-007_new_year_event_2025_participant"
   },
   {
     "id": "ST01-007_p5",
@@ -216050,9 +216050,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_new_year_event_print_5",
-    "canonicalId": "ST01-007_parallel_new_year_event_print_5"
+    "variantLabel": "2025 New Year Event Winner",
+    "variantSlug": "new_year_event_2025_winner",
+    "canonicalId": "ST01-007_new_year_event_2025_winner"
   },
   {
     "id": "ST01-008_p1",
