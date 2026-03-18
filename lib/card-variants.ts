@@ -21,14 +21,16 @@ export type CardVariantInfo = {
   baseRarity: string;
   variantType: EnVariantType;
   variantLabel: string;
+  variantSlug: string;
   variantOrder: number;
+  canonicalId: string;
   canonicalVariantKey: string;
   canonicalVariantId: string;
   language: "EN";
 };
 
 type VariantSource = Pick<Card, "id" | "name" | "rarity"> &
-  Partial<Pick<Card, "set" | "notes" | "seriesCategory" | "isVariant" | "variantType" | "variantLabel">>;
+  Partial<Pick<Card, "set" | "notes" | "seriesCategory" | "isVariant" | "variantType" | "variantLabel" | "variantSlug" | "canonicalId">>;
 
 function normalize(text: string): string {
   return text
@@ -111,30 +113,31 @@ export function toBaseRarity(rarity?: string): string {
 }
 
 function normalizeExplicitVariantLabel(label: string | null | undefined, type: EnVariantType): string | null {
-  const text = normalize(String(label || ""));
+  const raw = String(label || "").trim();
+  const text = normalize(raw);
   if (!text) return null;
 
   switch (type) {
     case "parallel":
-      return "Parallel";
+      return text === "parallel" ? "Parallel" : raw;
     case "alt_art":
       if (text.includes("red super alternate art")) return "Red Super Alternate Art";
       if (text.includes("super alternate art")) return "Super Alternate Art";
       if (text.includes("alternate art") || text.includes("alt art")) return "Alternate Art";
-      return "Alternate Art";
+      return raw;
     case "sp":
-      return "SP";
+      return text === "sp" ? "SP" : raw;
     case "manga":
-      return "Manga";
+      return text === "manga" ? "Manga" : raw;
     case "manga_red":
       return "Red Manga";
     case "manga_gold":
       return "Gold Manga";
     case "anniversary":
-      return "Anniversary";
+      return text === "anniversary" ? "Anniversary" : raw;
     case "base":
     default:
-      return String(label || "").trim() || null;
+      return raw || null;
   }
 }
 
@@ -202,10 +205,12 @@ export function deriveCardVariantInfo(card: VariantSource): CardVariantInfo {
   const legacyVariantCode = getLegacyVariantCode(card.id);
   const baseRarity = toBaseRarity(card.rarity);
   const type = inferVariantType(card);
-  const key = canonicalVariantKey(type, baseRarity);
+  const explicitSlug = String(card.variantSlug || "").trim();
+  const key = explicitSlug || canonicalVariantKey(type, baseRarity);
 
   const variantOrder = VARIANT_ORDER[type] + (RARITY_ORDER[baseRarity] ?? 99);
-  const id = `${baseCardId}::${key}${printableLegacy(legacyVariantCode)}`;
+  const explicitCanonicalId = String(card.canonicalId || "").trim();
+  const id = explicitCanonicalId || `${baseCardId}::${key}${printableLegacy(legacyVariantCode)}`;
 
   return {
     baseCardId,
@@ -213,7 +218,9 @@ export function deriveCardVariantInfo(card: VariantSource): CardVariantInfo {
     baseRarity,
     variantType: type,
     variantLabel: variantLabel(type, baseRarity, card.variantLabel),
+    variantSlug: key,
     variantOrder,
+    canonicalId: id,
     canonicalVariantKey: key,
     canonicalVariantId: id,
     language: "EN",

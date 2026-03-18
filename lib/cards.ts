@@ -30,7 +30,9 @@ export interface Card {
   baseRarity?: string;
   variantType?: "base" | "parallel" | "alt_art" | "sp" | "manga" | "manga_red" | "manga_gold" | "anniversary";
   variantLabel?: string;
+  variantSlug?: string;
   variantOrder?: number;
+  canonicalId?: string;
   canonicalVariantKey?: string;
   canonicalVariantId?: string;
   isReprint?: boolean;
