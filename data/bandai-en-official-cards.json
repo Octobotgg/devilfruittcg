@@ -135880,10 +135880,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_prb02",
-    "canonicalId": "EB01-015_parallel_prb02"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_prb02",
+    "canonicalId": "EB01-015_alternate_art_prb02"
   },
   {
     "id": "EB01-015_r1",
