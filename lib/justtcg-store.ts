@@ -1,6 +1,5 @@
 import "server-only";
 
-import { unstable_cache } from "next/cache";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { getOfficialCardById } from "@/lib/official-cards";
 
@@ -117,6 +116,14 @@ function resolveStoredCardId(cardId: string) {
   return getOfficialCardById(normalized)?.id || normalized;
 }
 
+function chunkValues<T>(values: T[], size: number) {
+  const chunks: T[][] = [];
+  for (let index = 0; index < values.length; index += size) {
+    chunks.push(values.slice(index, index + size));
+  }
+  return chunks;
+}
+
 async function fetchAllPriceRows(): Promise<JustTcgPriceRow[]> {
   const supabase = getAdminClient();
   const rows: JustTcgPriceRow[] = [];
@@ -139,20 +146,40 @@ async function fetchAllPriceRows(): Promise<JustTcgPriceRow[]> {
   return rows;
 }
 
-const getAllCachedSummaries = unstable_cache(
-  async () => {
-    const rows = await fetchAllPriceRows();
-    return rows.reduce<Record<string, JustTcgPriceSummary>>((acc, row) => {
-      acc[row.devilfruit_id.toUpperCase()] = summaryFromRow(row);
-      return acc;
-    }, {});
-  },
-  ["justtcg-price-summaries"],
-  { revalidate: JUSTTCG_SUMMARY_REVALIDATE_SECONDS },
-);
+async function fetchPriceRowsByCardIds(cardIds: string[]) {
+  const supabase = getAdminClient();
+  const normalizedIds = Array.from(
+    new Set(
+      cardIds
+        .map((cardId) => resolveStoredCardId(cardId))
+        .map((cardId) => cardId.trim().toUpperCase())
+        .filter(Boolean),
+    ),
+  );
+
+  if (!normalizedIds.length) return [] as JustTcgPriceRow[];
+
+  const rows: JustTcgPriceRow[] = [];
+
+  for (const group of chunkValues(normalizedIds, 500)) {
+    const { data, error } = await supabase
+      .from("justtcg_prices")
+      .select("devilfruit_id,justtcg_id,price_nm,price_lp,price_change_24h,price_change_7d,price_change_30d,last_updated_justtcg,fetched_at")
+      .in("devilfruit_id", group);
+
+    if (error) throw error;
+    rows.push(...((data || []) as JustTcgPriceRow[]));
+  }
+
+  return rows;
+}
 
 export async function getJustTcgPriceSummaries(cardIds: string[]) {
-  const all = await getAllCachedSummaries();
+  const rows = cardIds.length > 1000 ? await fetchAllPriceRows() : await fetchPriceRowsByCardIds(cardIds);
+  const all = rows.reduce<Record<string, JustTcgPriceSummary>>((acc, row) => {
+    acc[row.devilfruit_id.toUpperCase()] = summaryFromRow(row);
+    return acc;
+  }, {});
   const selected: Record<string, JustTcgPriceSummary> = {};
   for (const cardId of cardIds) {
     const requestedId = cardId.trim().toUpperCase();
