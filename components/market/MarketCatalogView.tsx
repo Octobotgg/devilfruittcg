@@ -216,7 +216,8 @@ function buildCardHref(cardRouteId: string, marketPath: string) {
 
 function marketVariantLabel(card: Card) {
   if (!card.baseId || card.id === card.baseId) return null;
-  return card.variantLabel || "Special Print";
+  const label = card.variantLabel || "Special Print";
+  return label.toUpperCase() === displayRarity(card.rarity).toUpperCase() ? null : label;
 }
 
 function countActiveFilters(state: MarketUrlState) {

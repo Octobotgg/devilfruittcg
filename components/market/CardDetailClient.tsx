@@ -33,6 +33,12 @@ export default function CardDetailClient({
 
   const activeCard = variantMap.get(activeCardId) || initialCard;
   const inactiveVariants = variants.filter((variant) => variant.id.toUpperCase() !== activeCard.id.toUpperCase());
+  const activeVariantLabel =
+    activeCard.baseId && activeCard.id !== activeCard.baseId && activeCard.variantLabel
+      ? activeCard.variantLabel.toUpperCase() === displayRarity(activeCard.rarity).toUpperCase()
+        ? null
+        : activeCard.variantLabel
+      : null;
 
   function swapToVariant(variantId: string) {
     const normalizedId = variantId.trim().toUpperCase();
@@ -112,9 +118,9 @@ export default function CardDetailClient({
               <span className="rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F0C040]">
                 {displayRarity(activeCard.rarity)}
               </span>
-              {activeCard.baseId && activeCard.id !== activeCard.baseId && activeCard.variantLabel ? (
+              {activeVariantLabel ? (
                 <span className="rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F0C040]">
-                  {activeCard.variantLabel}
+                  {activeVariantLabel}
                 </span>
               ) : null}
               <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-white/60">
