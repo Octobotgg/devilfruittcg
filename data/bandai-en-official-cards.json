@@ -136088,10 +136088,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb02",
-    "canonicalId": "EB01-038_alternate_art_prb02"
+    "variantType": "parallel",
+    "variantLabel": "Pirate Foil",
+    "variantSlug": "pirate_foil_prb02",
+    "canonicalId": "EB01-038_pirate_foil_prb02"
   },
   {
     "id": "EB01-038_r1",
