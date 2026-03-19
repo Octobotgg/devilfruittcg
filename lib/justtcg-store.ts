@@ -152,7 +152,7 @@ async function fetchPriceRowsByCardIds(cardIds: string[]) {
     new Set(
       cardIds
         .map((cardId) => resolveStoredCardId(cardId))
-        .map((cardId) => cardId.trim().toUpperCase())
+        .map((cardId) => cardId.trim())
         .filter(Boolean),
     ),
   );
@@ -184,7 +184,7 @@ export async function getJustTcgPriceSummaries(cardIds: string[]) {
   for (const cardId of cardIds) {
     const requestedId = cardId.trim().toUpperCase();
     if (!requestedId) continue;
-    const storedId = resolveStoredCardId(requestedId);
+    const storedId = resolveStoredCardId(requestedId).toUpperCase();
     const summary = all[storedId];
     if (!summary) continue;
     selected[requestedId] = summary;
