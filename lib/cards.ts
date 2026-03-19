@@ -126,15 +126,52 @@ export function getCardsBySet(setCode: string): Card[] {
   return SEED_CARDS.filter((card) => card.setCode === setCode);
 }
 
+function humanizeVariantToken(token: string) {
+  if (!token) return token;
+  if (/^[a-z]+\d+$/iu.test(token) || /^[a-z]\d+$/iu.test(token)) return token.toUpperCase();
+  if (/^\d+$/u.test(token)) return token;
+
+  const upperAcronyms = new Set([
+    "aa",
+    "cs",
+    "eb",
+    "gc",
+    "op",
+    "p",
+    "prb",
+    "sp",
+    "st",
+    "tr",
+    "vol",
+  ]);
+
+  if (upperAcronyms.has(token.toLowerCase())) return token.toUpperCase();
+
+  return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+}
+
+function humanizeCardIdentifier(rawId: string) {
+  if (!rawId.includes("_")) return rawId;
+
+  const [baseId, ...variantParts] = rawId.split("_").filter(Boolean);
+  if (!baseId || variantParts.length === 0) return rawId;
+
+  const prettyVariant = variantParts.map(humanizeVariantToken).join(" ");
+  return `${baseId} ${prettyVariant}`;
+}
+
 export function displayCardId(card: Pick<Card, "id" | "canonicalId" | "baseId">) {
   if (card.baseId && card.id !== card.baseId && String(card.canonicalId || "").trim()) {
-    return String(card.canonicalId).trim();
+    return humanizeCardIdentifier(String(card.canonicalId).trim());
   }
-  return card.id;
+  return humanizeCardIdentifier(card.id);
 }
 
 export function routeCardId(card: Pick<Card, "id" | "canonicalId" | "baseId">) {
-  return encodeURIComponent(displayCardId(card));
+  if (card.baseId && card.id !== card.baseId && String(card.canonicalId || "").trim()) {
+    return encodeURIComponent(String(card.canonicalId).trim());
+  }
+  return encodeURIComponent(card.id);
 }
 
 const SET_NAME_OVERRIDES: Record<string, string> = {
