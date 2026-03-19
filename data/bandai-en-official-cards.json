@@ -114122,10 +114122,9 @@
     "seriesCategories": [
       "STARTER_DECK"
     ],
-    "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st24",
-    "canonicalId": "EB01-015_parallel_st24"
+    "variantLabel": "Reprint ST24",
+    "variantSlug": "reprint_st24",
+    "canonicalId": "EB01-015_reprint_st24"
   },
   {
     "id": "EB01-057_p2",
