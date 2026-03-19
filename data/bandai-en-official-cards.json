@@ -181412,9 +181412,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15",
-    "canonicalId": "OP02-022_parallel_st15"
+    "variantLabel": "ST15-20 Release Event Pack",
+    "variantSlug": "st15_20_release_event_pack",
+    "canonicalId": "OP02-022_st15_20_release_event_pack"
   },
   {
     "id": "OP02-034_p2",
@@ -181465,9 +181465,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15",
-    "canonicalId": "OP02-034_parallel_st15"
+    "variantLabel": "ST15-20 Release Event Pack",
+    "variantSlug": "st15_20_release_event_pack",
+    "canonicalId": "OP02-034_st15_20_release_event_pack"
   },
   {
     "id": "OP02-035_p1",
@@ -182847,9 +182847,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15",
-    "canonicalId": "OP03-116_parallel_st15"
+    "variantLabel": "ST15-20 Release Event Pack",
+    "variantSlug": "st15_20_release_event_pack",
+    "canonicalId": "OP03-116_st15_20_release_event_pack"
   },
   {
     "id": "OP03-116_p7",
@@ -193087,9 +193087,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15",
-    "canonicalId": "OP07-040_parallel_st15"
+    "variantLabel": "ST15-20 Release Event Pack",
+    "variantSlug": "st15_20_release_event_pack",
+    "canonicalId": "OP07-040_st15_20_release_event_pack"
   },
   {
     "id": "OP07-040_p4",
@@ -210383,9 +210383,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_st15",
-    "canonicalId": "P-045_parallel_st15"
+    "variantLabel": "ST15-20 Release Event Pack",
+    "variantSlug": "st15_20_release_event_pack",
+    "canonicalId": "P-045_st15_20_release_event_pack"
   },
   {
     "id": "P-046",
