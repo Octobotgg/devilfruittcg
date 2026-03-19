@@ -180984,9 +180984,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack",
-    "canonicalId": "OP01-052_parallel_event_pack"
+    "variantLabel": "Event Pack Vol. 2",
+    "variantSlug": "event_pack_vol_2",
+    "canonicalId": "OP01-052_event_pack_vol_2"
   },
   {
     "id": "OP01-057_p1",
@@ -181143,9 +181143,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack",
-    "canonicalId": "OP01-101_parallel_event_pack"
+    "variantLabel": "Event Pack Vol. 2",
+    "variantSlug": "event_pack_vol_2",
+    "canonicalId": "OP01-101_event_pack_vol_2"
   },
   {
     "id": "OP01-121_p2",
@@ -181518,9 +181518,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "OP02-035_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack Vol.1",
+    "variantSlug": "online_regional_participation_pack_vol_1",
+    "canonicalId": "OP02-035_online_regional_participation_pack_vol_1"
   },
   {
     "id": "OP02-036_p2",
@@ -181677,9 +181677,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "OP02-098_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack Vol.1",
+    "variantSlug": "online_regional_participation_pack_vol_1",
+    "canonicalId": "OP02-098_online_regional_participation_pack_vol_1"
   },
   {
     "id": "OP02-106_p1",
@@ -181730,9 +181730,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_event_pack",
-    "canonicalId": "OP02-106_parallel_event_pack"
+    "variantLabel": "Event Pack Vol. 2",
+    "variantSlug": "event_pack_vol_2",
+    "canonicalId": "OP02-106_event_pack_vol_2"
   },
   {
     "id": "OP02-106_p6",
@@ -211795,9 +211795,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack",
-    "canonicalId": "P-065_parallel_cs_25_26_event_pack"
+    "variantLabel": "CS 25-26 Event Pack",
+    "variantSlug": "cs_25_26_event_pack",
+    "canonicalId": "P-065_cs_25_26_event_pack"
   },
   {
     "id": "P-065_p2",
@@ -211848,9 +211848,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
-    "canonicalId": "P-065_parallel_cs_25_26_event_pack_finalist_ver"
+    "variantLabel": "CS 25-26 Event Pack Finalist Ver.",
+    "variantSlug": "cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-065_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-068",
@@ -211999,9 +211999,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack",
-    "canonicalId": "P-069_parallel_cs_25_26_event_pack"
+    "variantLabel": "CS 25-26 Event Pack",
+    "variantSlug": "cs_25_26_event_pack",
+    "canonicalId": "P-069_cs_25_26_event_pack"
   },
   {
     "id": "P-069_p2",
@@ -212052,9 +212052,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
-    "canonicalId": "P-069_parallel_cs_25_26_event_pack_finalist_ver"
+    "variantLabel": "CS 25-26 Event Pack Finalist Ver.",
+    "variantSlug": "cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-069_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-069_p4",
@@ -212313,9 +212313,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack",
-    "canonicalId": "P-070_parallel_cs_25_26_event_pack"
+    "variantLabel": "CS 25-26 Event Pack",
+    "variantSlug": "cs_25_26_event_pack",
+    "canonicalId": "P-070_cs_25_26_event_pack"
   },
   {
     "id": "P-070_p2",
@@ -212366,9 +212366,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
-    "canonicalId": "P-070_parallel_cs_25_26_event_pack_finalist_ver"
+    "variantLabel": "CS 25-26 Event Pack Finalist Ver.",
+    "variantSlug": "cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-070_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-071",
@@ -212774,9 +212774,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack",
-    "canonicalId": "P-077_parallel_cs_25_26_event_pack"
+    "variantLabel": "CS 25-26 Event Pack",
+    "variantSlug": "cs_25_26_event_pack",
+    "canonicalId": "P-077_cs_25_26_event_pack"
   },
   {
     "id": "P-077_p2",
@@ -213243,9 +213243,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack",
-    "canonicalId": "P-079_parallel_cs_25_26_event_pack"
+    "variantLabel": "CS 25-26 Event Pack",
+    "variantSlug": "cs_25_26_event_pack",
+    "canonicalId": "P-079_cs_25_26_event_pack"
   },
   {
     "id": "P-079_p2",
@@ -213296,9 +213296,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
-    "canonicalId": "P-079_parallel_cs_25_26_event_pack_finalist_ver"
+    "variantLabel": "CS 25-26 Event Pack Finalist Ver.",
+    "variantSlug": "cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-079_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-081",
@@ -213602,9 +213602,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack",
-    "canonicalId": "P-083_parallel_cs_25_26_event_pack"
+    "variantLabel": "CS 25-26 Event Pack",
+    "variantSlug": "cs_25_26_event_pack",
+    "canonicalId": "P-083_cs_25_26_event_pack"
   },
   {
     "id": "P-083_p2",
@@ -213655,9 +213655,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_cs_25_26_event_pack_finalist_ver",
-    "canonicalId": "P-083_parallel_cs_25_26_event_pack_finalist_ver"
+    "variantLabel": "CS 25-26 Event Pack Finalist Ver.",
+    "variantSlug": "cs_25_26_event_pack_finalist_ver",
+    "canonicalId": "P-083_cs_25_26_event_pack_finalist_ver"
   },
   {
     "id": "P-085",
@@ -215573,9 +215573,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "ST01-004_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack Vol.1",
+    "variantSlug": "online_regional_participation_pack_vol_1",
+    "canonicalId": "ST01-004_online_regional_participation_pack_vol_1"
   },
   {
     "id": "ST01-004_p2",
@@ -217481,9 +217481,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "ST03-014_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack Vol.1",
+    "variantSlug": "online_regional_participation_pack_vol_1",
+    "canonicalId": "ST03-014_online_regional_participation_pack_vol_1"
   },
   {
     "id": "ST03-017_p1",
@@ -217693,9 +217693,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "ST04-008_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack Vol.1",
+    "variantSlug": "online_regional_participation_pack_vol_1",
+    "canonicalId": "ST04-008_online_regional_participation_pack_vol_1"
   },
   {
     "id": "ST04-008_p2",
@@ -218276,9 +218276,9 @@
       "PROMOTION"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_online_regional_participation",
-    "canonicalId": "ST07-008_parallel_online_regional_participation"
+    "variantLabel": "Online Regional Participation Pack Vol.1",
+    "variantSlug": "online_regional_participation_pack_vol_1",
+    "canonicalId": "ST07-008_online_regional_participation_pack_vol_1"
   },
   {
     "id": "ST10-005_p1",
