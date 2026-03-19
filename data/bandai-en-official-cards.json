@@ -145522,9 +145522,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_learn_together_deck_set",
-    "canonicalId": "OP12-020_alternate_art_learn_together_deck_set"
+    "variantLabel": "Learn Together Deck Set",
+    "variantSlug": "learn_together_deck_set",
+    "canonicalId": "OP12-020_learn_together_deck_set"
   },
   {
     "id": "P-044",
@@ -198561,9 +198561,9 @@
       "PROMOTION"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_treasure_cup",
-    "canonicalId": "OP12-020_alternate_art_treasure_cup"
+    "variantLabel": "Serial Number Card",
+    "variantSlug": "serial_number_card_treasure_cup",
+    "canonicalId": "OP12-020_serial_number_card_treasure_cup"
   },
   {
     "id": "OP12-020_p4",
@@ -198614,9 +198614,9 @@
       "OTHER_PRODUCT"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op12_print_4",
-    "canonicalId": "OP12-020_alternate_art_op12_print_4"
+    "variantLabel": "Official Playmat Limited Edition Vol.4",
+    "variantSlug": "official_playmat_limited_edition_vol_4",
+    "canonicalId": "OP12-020_official_playmat_limited_edition_vol_4"
   },
   {
     "id": "OP12-026_p1",
