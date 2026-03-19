@@ -136449,10 +136449,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb02",
-    "canonicalId": "EB01-060_alternate_art_prb02"
+    "variantType": "parallel",
+    "variantLabel": "Pirate Foil",
+    "variantSlug": "pirate_foil_prb02",
+    "canonicalId": "EB01-060_pirate_foil_prb02"
   },
   {
     "id": "EB01-060_r1",
