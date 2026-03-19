@@ -50,7 +50,7 @@ const RARITY_LABELS: Record<string, string> = {
   L: "Leader (L)",
   P: "Promo (P)",
   TR: "Treasure Rare (TR)",
-  "SP CARD": "SP Card",
+  "SP CARD": "SP",
 };
 
 function normalizeText(value: string) {

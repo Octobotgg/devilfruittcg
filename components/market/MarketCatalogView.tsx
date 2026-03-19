@@ -16,7 +16,7 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react";
-import { displayCardId, routeCardId, type Card } from "@/lib/cards";
+import { displayCardId, displayRarity, routeCardId, type Card } from "@/lib/cards";
 import {
   clearPendingMarketRestore,
   readPendingMarketRestore,
@@ -99,7 +99,7 @@ const RARITY_LABELS: Record<string, string> = {
   L: "Leader (L)",
   P: "Promo (P)",
   TR: "Treasure Rare (TR)",
-  "SP CARD": "SP Card",
+  "SP CARD": "SP",
 };
 
 function parseListParams(searchParams: URLSearchParams | ReadonlyURLSearchParams, key: string) {
@@ -276,7 +276,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
             ) : null}
           </div>
           <span className="rounded-full border border-[#F0C040]/20 bg-[#F0C040]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">
-            {card.rarity}
+            {displayRarity(card.rarity)}
           </span>
         </div>
 
@@ -311,7 +311,7 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-lg font-black text-white">{card.name}</h3>
           <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white/60">
-            {card.rarity}
+            {displayRarity(card.rarity)}
           </span>
           {variantLabel ? (
             <span className="rounded-full border border-[#F0C040]/20 bg-[#F0C040]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">

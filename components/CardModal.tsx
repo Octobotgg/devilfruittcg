@@ -3,7 +3,7 @@ import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, TrendingUp, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import { displayCardId, routeCardId } from "@/lib/cards";
+import { displayCardId, displayRarity, routeCardId } from "@/lib/cards";
 
 export interface CardModalData {
   id: string;
@@ -147,7 +147,7 @@ export default function CardModal({ card, onClose }: Props) {
                 <span className="font-mono text-white/30 text-sm">{displayCardId(card)}</span>
                 {card.rarity && (
                   <span className={`text-xs px-2 py-0.5 rounded-lg border font-black ${rarityBadge[card.rarity] ?? rarityBadge.C}`}>
-                    {card.rarity}
+                    {displayRarity(card.rarity)}
                   </span>
                 )}
               </div>

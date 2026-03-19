@@ -174,6 +174,13 @@ export function routeCardId(card: Pick<Card, "id" | "canonicalId" | "baseId">) {
   return encodeURIComponent(card.id);
 }
 
+export function displayRarity(rarity: string | null | undefined) {
+  const normalized = String(rarity || "").trim().toUpperCase();
+  if (!normalized) return "";
+  if (normalized === "SP CARD") return "SP";
+  return String(rarity || "").trim();
+}
+
 const SET_NAME_OVERRIDES: Record<string, string> = {
   P: "Promotion Card [P]",
 };

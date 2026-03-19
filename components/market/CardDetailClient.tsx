@@ -4,7 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
 import BackToMarketButton from "@/components/market/BackToMarketButton";
 import CardDetailMarketPanel from "@/components/market/CardDetailMarketPanel";
-import { displayCardId, routeCardId, type Card } from "@/lib/cards";
+import { displayCardId, displayRarity, routeCardId, type Card } from "@/lib/cards";
 
 function statValue(value: string | number | null | undefined) {
   if (value === null || value === undefined || value === "") return "—";
@@ -110,7 +110,7 @@ export default function CardDetailClient({
           <div className="rounded-[32px] border border-[#F0C040]/20 bg-[radial-gradient(circle_at_top_left,rgba(240,192,64,0.18),transparent_34%),linear-gradient(135deg,rgba(12,19,36,0.96),rgba(8,13,23,0.92))] p-6">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F0C040]">
-                {activeCard.rarity}
+                {displayRarity(activeCard.rarity)}
               </span>
               {activeCard.baseId && activeCard.id !== activeCard.baseId && activeCard.variantLabel ? (
                 <span className="rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#F0C040]">
