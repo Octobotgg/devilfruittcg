@@ -80658,10 +80658,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb01",
-    "canonicalId": "OP04-029_alternate_art_prb01"
+    "variantType": "parallel",
+    "variantLabel": "Jolly Roger Foil",
+    "variantSlug": "jolly_roger_foil_prb01",
+    "canonicalId": "OP04-029_jolly_roger_foil_prb01"
   },
   {
     "id": "OP04-029_p3",
@@ -80711,10 +80711,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_prb01",
-    "canonicalId": "OP04-029_parallel_prb01"
+    "variantType": "alt_art",
+    "variantLabel": "Full Art",
+    "variantSlug": "full_art_prb01",
+    "canonicalId": "OP04-029_full_art_prb01"
   },
   {
     "id": "OP04-029_r1",
