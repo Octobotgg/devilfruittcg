@@ -76896,6 +76896,7 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
+    "variantLabel": "Reprint",
     "variantSlug": "reprint_prb01",
     "canonicalId": "OP02-004_reprint_prb01"
   },
@@ -76998,10 +76999,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Full Art",
-    "variantSlug": "full_art_prb01",
-    "canonicalId": "OP02-015_full_art_prb01"
+    "variantType": "parallel",
+    "variantLabel": "Jolly Roger Foil",
+    "variantSlug": "jolly_roger_foil_prb01",
+    "canonicalId": "OP02-015_jolly_roger_foil_prb01"
   },
   {
     "id": "OP02-015_p4",
@@ -77051,10 +77052,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "parallel",
-    "variantLabel": "Jolly Roger Foil",
-    "variantSlug": "jolly_roger_foil_prb01",
-    "canonicalId": "OP02-015_jolly_roger_foil_prb01"
+    "variantType": "alt_art",
+    "variantLabel": "Full Art",
+    "variantSlug": "full_art_prb01",
+    "canonicalId": "OP02-015_full_art_prb01"
   },
   {
     "id": "OP02-015_r1",
@@ -77155,10 +77156,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Full Art",
-    "variantSlug": "full_art_prb01",
-    "canonicalId": "OP02-018_full_art_prb01"
+    "variantType": "parallel",
+    "variantLabel": "Jolly Roger Foil",
+    "variantSlug": "jolly_roger_foil_prb01",
+    "canonicalId": "OP02-018_jolly_roger_foil_prb01"
   },
   {
     "id": "OP02-018_p5",
@@ -77209,9 +77210,9 @@
       "PREMIUM_BOOSTER"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb01",
-    "canonicalId": "OP02-018_alternate_art_prb01"
+    "variantLabel": "Full Art",
+    "variantSlug": "full_art_prb01",
+    "canonicalId": "OP02-018_full_art_prb01"
   },
   {
     "id": "OP02-018_p6",
@@ -77262,9 +77263,9 @@
       "PREMIUM_BOOSTER"
     ],
     "variantType": "alt_art",
-    "variantLabel": "Treasure Cup",
-    "variantSlug": "treasure_cup",
-    "canonicalId": "OP02-018_treasure_cup"
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_prb01",
+    "canonicalId": "OP02-018_alternate_art_prb01"
   },
   {
     "id": "OP02-018_r2",
@@ -77314,6 +77315,7 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
+    "variantLabel": "Reprint",
     "variantSlug": "reprint_prb01",
     "canonicalId": "OP02-018_reprint_prb01"
   },
@@ -77365,10 +77367,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_prb01",
-    "canonicalId": "OP02-089_alternate_art_prb01"
+    "variantType": "parallel",
+    "variantLabel": "Textured Foil",
+    "variantSlug": "textured_foil_prb01",
+    "canonicalId": "OP02-089_textured_foil_prb01"
   },
   {
     "id": "OP02-089_p3",
@@ -77419,9 +77421,9 @@
       "PREMIUM_BOOSTER"
     ],
     "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_prb01_print_3",
-    "canonicalId": "OP02-089_parallel_prb01_print_3"
+    "variantLabel": "Jolly Roger Foil",
+    "variantSlug": "jolly_roger_foil_prb01",
+    "canonicalId": "OP02-089_jolly_roger_foil_prb01"
   },
   {
     "id": "OP02-089_p4",
@@ -77628,6 +77630,7 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
+    "variantLabel": "Reprint",
     "variantSlug": "reprint_prb01",
     "canonicalId": "OP02-096_reprint_prb01"
   },
@@ -137074,6 +137077,7 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
+    "variantLabel": "Reprint",
     "variantSlug": "reprint_prb02",
     "canonicalId": "OP02-068_reprint_prb02"
   },
