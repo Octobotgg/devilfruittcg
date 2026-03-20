@@ -53116,10 +53116,10 @@
     "seriesCategories": [
       "EXTRA_BOOSTER"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_eb01",
-    "canonicalId": "EB01-040_sp_eb01"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_eb01",
+    "canonicalId": "EB01-040_alternate_art_eb01"
   },
   {
     "id": "EB01-041",
