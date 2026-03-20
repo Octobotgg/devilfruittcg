@@ -77064,9 +77064,9 @@
     "variantCode": "r1",
     "isVariant": true,
     "name": "Makino",
-    "set": "ONE PIECE CARD THE BEST [PRB-01]",
+    "set": "Pre-Release OP02",
     "cardSetNames": [
-      "ONE PIECE CARD THE BEST [PRB-01]"
+      "Pre-Release OP02"
     ],
     "setCode": "OP02",
     "number": "015",
@@ -77084,29 +77084,31 @@
     "trigger": null,
     "imageUrl": "https://en.onepiece-cardgame.com/images/cardlist/card/OP02-015_r1.png?260305",
     "notes": [],
-    "seriesId": "569301",
-    "seriesLabel": "PREMIUM BOOSTER <br class=\"spInline\">-ONE PIECE CARD THE BEST- [PRB-01]",
-    "seriesCategory": "PREMIUM_BOOSTER",
-    "releaseCode": "PRB01",
-    "releaseDate": "2024-11-08",
+    "seriesId": "569901",
+    "seriesLabel": "Promotion card",
+    "seriesCategory": "PROMOTION",
+    "releaseCode": null,
+    "releaseDate": "2023-03-03",
     "releaseDatePrecision": "day",
-    "releaseDateRaw": "November 8, 2024",
-    "releaseUrl": "https://en.onepiece-cardgame.com/products/boosters/prb01.php",
-    "isReprint": true,
+    "releaseDateRaw": "March 3, 2023",
+    "releaseUrl": null,
+    "isReprint": false,
     "originCardId": "OP02-015",
     "originSet": "PARAMOUNT WAR [OP02]",
     "manualReview": [],
     "seriesIds": [
-      "569301"
+      "569901"
     ],
     "seriesLabels": [
-      "PREMIUM BOOSTER <br class=\"spInline\">-ONE PIECE CARD THE BEST- [PRB-01]"
+      "Promotion card"
     ],
     "seriesCategories": [
-      "PREMIUM_BOOSTER"
+      "PROMOTION"
     ],
-    "variantSlug": "reprint_prb01",
-    "canonicalId": "OP02-015_reprint_prb01"
+    "variantType": "parallel",
+    "variantLabel": "Pre-Release",
+    "variantSlug": "pre_release_op02",
+    "canonicalId": "OP02-015_pre_release_op02"
   },
   {
     "id": "OP02-018_p4",
