@@ -75014,8 +75014,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantSlug": "reprint_prb01",
-    "canonicalId": "EB01-006_reprint_prb01"
+    "variantType": "manga",
+    "variantLabel": "Manga",
+    "variantSlug": "manga_prb01",
+    "canonicalId": "EB01-006_manga_prb01"
   },
   {
     "id": "OP01-006_p3",
