@@ -77370,9 +77370,9 @@
       "PREMIUM_BOOSTER"
     ],
     "variantType": "parallel",
-    "variantLabel": "Textured Foil",
-    "variantSlug": "textured_foil_prb01",
-    "canonicalId": "OP02-089_textured_foil_prb01"
+    "variantLabel": "Jolly Roger Foil",
+    "variantSlug": "jolly_roger_foil_prb01",
+    "canonicalId": "OP02-089_jolly_roger_foil_prb01"
   },
   {
     "id": "OP02-089_p3",
@@ -77423,9 +77423,9 @@
       "PREMIUM_BOOSTER"
     ],
     "variantType": "parallel",
-    "variantLabel": "Jolly Roger Foil",
-    "variantSlug": "jolly_roger_foil_prb01",
-    "canonicalId": "OP02-089_jolly_roger_foil_prb01"
+    "variantLabel": "Textured Foil",
+    "variantSlug": "textured_foil_prb01",
+    "canonicalId": "OP02-089_textured_foil_prb01"
   },
   {
     "id": "OP02-089_p4",
