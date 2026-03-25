@@ -1,14 +1,14 @@
 import postgres from "postgres";
 
-const databaseUrl =
-  process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
+export function createPostgresClient(connectionString?: string) {
+  const databaseUrl =
+    connectionString ?? process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
 
-export function createPostgresClient(connectionString = databaseUrl) {
-  if (!connectionString) {
+  if (!databaseUrl) {
     throw new Error(
       "Set DATABASE_URL or SUPABASE_DB_URL before creating a Postgres client.",
     );
   }
 
-  return postgres(connectionString);
+  return postgres(databaseUrl);
 }
