@@ -2,7 +2,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import postgres from "postgres";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -261,7 +261,8 @@ function buildExternalProductRow(raw, overrides = {}) {
   const justtcgId = cleanText(overrides.justtcgId || raw?.id);
   if (!justtcgId) return null;
 
-  const productKind = overrides.productKind || inferProductKind(raw);
+  const productKind =
+    Object.prototype.hasOwnProperty.call(overrides, "productKind") ? overrides.productKind : inferProductKind(raw);
   const tcgplayerId = cleanText(overrides.tcgplayerId || inferTcgplayerId(raw)) || null;
   const name = cleanText(overrides.name || raw?.name);
   if (!name) return null;
@@ -291,21 +292,27 @@ function preferNonEmpty(currentValue, nextValue) {
   return nextValue;
 }
 
-function mergeRawPayload(currentValue, nextValue) {
+function mergeStructuredValue(currentValue, nextValue) {
   if (nextValue == null) return currentValue;
   if (currentValue == null) return nextValue;
-  if (
-    typeof currentValue === "object" &&
-    typeof nextValue === "object" &&
-    !Array.isArray(currentValue) &&
-    !Array.isArray(nextValue)
-  ) {
-    return {
-      ...currentValue,
-      ...nextValue,
-    };
+
+  if (Array.isArray(currentValue) || Array.isArray(nextValue)) {
+    return nextValue;
   }
+
+  if (typeof currentValue === "object" && typeof nextValue === "object") {
+    const merged = { ...currentValue };
+    for (const [key, value] of Object.entries(nextValue)) {
+      merged[key] = mergeStructuredValue(currentValue[key], value);
+    }
+    return merged;
+  }
+
   return nextValue;
+}
+
+function mergeRawPayload(currentValue, nextValue) {
+  return mergeStructuredValue(currentValue, nextValue);
 }
 
 function mergeExternalProductRows(existing, nextRow) {
@@ -396,6 +403,7 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
     addProduct(raw || { id: justtcgId, name: row?.name || justtcgId }, {
       justtcgId,
       rawPayload: raw || row,
+      productKind: raw ? undefined : null,
       lastSeenAt: row?.last_updated_justtcg || row?.fetched_at || priceData?.generatedAt || null,
     });
   }
@@ -518,12 +526,22 @@ function buildPriceSnapshotRow(externalProductId, priceRow) {
   };
 }
 
+function extractJusttcgId(externalProductId) {
+  return cleanText(String(externalProductId || "").split(":").slice(1).join(":"));
+}
+
+function resolveApprovedRawPriceRow(assignment, priceIndex) {
+  const approvedJusttcgId = extractJusttcgId(assignment.external_product_id);
+  if (!approvedJusttcgId) return null;
+  return priceIndex.byJusttcgId.get(approvedJusttcgId) || null;
+}
+
 function buildRawCardPrices(approvedRawAssignments, priceIndex) {
   const rows = [];
   const snapshots = [];
 
   for (const assignment of approvedRawAssignments) {
-    const priceRow = priceIndex.byCardPrintId.get(assignment.card_print_id) || priceIndex.byJusttcgId.get(cleanText(assignment.external_product_id.split(":")[1]));
+    const priceRow = resolveApprovedRawPriceRow(assignment, priceIndex);
     if (!priceRow) continue;
 
     const updatedAt =
@@ -638,6 +656,45 @@ function summarizeFiles(inputs) {
   };
 }
 
+function buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssignments) {
+  const assignments = new Map(
+    cardPrintMarketLinks.map((link) => [
+      link.card_print_id,
+      {
+        card_print_id: link.card_print_id,
+        active_external_product_id: null,
+      },
+    ]),
+  );
+
+  for (const assignment of approvedRawAssignments) {
+    assignments.set(assignment.card_print_id, {
+      card_print_id: assignment.card_print_id,
+      active_external_product_id: assignment.external_product_id,
+    });
+  }
+
+  return [...assignments.values()];
+}
+
+function buildAuthoritativeActiveCardPrintAssignments(currentAssignments, existingActiveCardPrintIds) {
+  const assignments = new Map(
+    [...existingActiveCardPrintIds].map((cardPrintId) => [
+      cardPrintId,
+      {
+        card_print_id: cardPrintId,
+        active_external_product_id: null,
+      },
+    ]),
+  );
+
+  for (const assignment of currentAssignments) {
+    assignments.set(assignment.card_print_id, assignment);
+  }
+
+  return [...assignments.values()];
+}
+
 function buildSeed(inputs, options) {
   const releaseLookup = buildReleaseLookup(inputs.officialReleases);
   const { externalProducts, productMap } = buildExternalProducts(inputs.catalog, inputs.mappingReport, inputs.priceData, options);
@@ -645,25 +702,7 @@ function buildSeed(inputs, options) {
   const priceIndex = indexPriceRows(inputs.priceData);
   const rawCardPrices = buildRawCardPrices(approvedRawAssignments, priceIndex);
   const sealed = buildSealedProducts(productMap, priceIndex, releaseLookup);
-
-  const activeCardPrintAssignments = Array.from(
-    new Map(
-      cardPrintMarketLinks.map((link) => [
-        link.card_print_id,
-        {
-          card_print_id: link.card_print_id,
-          active_external_product_id: null,
-        },
-      ]),
-    ).values(),
-  );
-
-  for (const assignment of approvedRawAssignments) {
-    const current = activeCardPrintAssignments.find((row) => row.card_print_id === assignment.card_print_id);
-    if (current) {
-      current.active_external_product_id = assignment.external_product_id;
-    }
-  }
+  const activeCardPrintAssignments = buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssignments);
 
   return {
     externalSources: options.includeTcgplayerSource ? [JUSTTCG_SOURCE, TCGPLAYER_SOURCE] : [JUSTTCG_SOURCE],
@@ -834,6 +873,20 @@ async function fetchExistingSnapshotKeys(sql, snapshotRows, chunkSize) {
   return keys;
 }
 
+async function fetchExistingActiveJusttcgCardPrintIds(sql) {
+  const rows = await sql.unsafe(
+    `
+      select card_prints.id
+      from card_prints
+      join external_products on external_products.id = card_prints.active_external_product_id
+      where external_products.source_id = $1
+    `,
+    [JUSTTCG_SOURCE.id],
+  );
+
+  return rows.map((row) => row.id);
+}
+
 async function applySeed(seed, options) {
   const sql = postgres(getConnectionString(), {
     prepare: false,
@@ -842,6 +895,12 @@ async function applySeed(seed, options) {
 
   try {
     await sql.begin(async (tx) => {
+      const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(tx);
+      const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
+        seed.activeCardPrintAssignments,
+        existingActiveCardPrintIds,
+      );
+
       await upsertRows(tx, "external_sources", seed.externalSources, ["id"], options.chunkSize);
       await upsertRows(tx, "external_products", seed.externalProducts, ["id"], options.chunkSize);
       await upsertRows(tx, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
@@ -850,14 +909,14 @@ async function applySeed(seed, options) {
 
       await upsertRows(tx, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
-      await applyActiveAssignments(tx, "card_prints", "id", seed.activeCardPrintAssignments, options.chunkSize);
+      await applyActiveAssignments(tx, "card_prints", "id", authoritativeActiveCardPrintAssignments, options.chunkSize);
 
       await deleteCurrentByCollectibleIds(
         tx,
         "card_print_price_current",
         "card_print_id",
         JUSTTCG_SOURCE.id,
-        seed.activeCardPrintAssignments.map((row) => row.card_print_id),
+        authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
         options.chunkSize,
       );
       await upsertRows(
@@ -926,7 +985,21 @@ async function main() {
   console.log("Applied JustTCG seed to Postgres");
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.stack || error.message : error);
-  process.exitCode = 1;
-});
+const isDirectRun = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.stack || error.message : error);
+    process.exitCode = 1;
+  });
+}
+
+export {
+  buildActiveCardPrintAssignments,
+  buildAuthoritativeActiveCardPrintAssignments,
+  buildExternalProducts,
+  buildRawCardPrices,
+  buildSeed,
+  extractJusttcgId,
+  resolveApprovedRawPriceRow,
+};
