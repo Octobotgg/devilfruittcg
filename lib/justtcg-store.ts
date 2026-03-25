@@ -14,6 +14,7 @@ type ReadModelPriceRow = {
   printedCardCode: string | null;
   cardId: string | null;
   externalProductId: string | null;
+  externalRawPayload?: Record<string, unknown> | null;
   productKind: string | null;
   mappingApproved: boolean;
   priceMarket: string | number | null;
@@ -33,6 +34,15 @@ type ReadModelHistoryRow = {
   externalProductId: string | null;
   recordedAt: string;
   priceNm: string | number | null;
+};
+
+type JustTcgVariant = {
+  condition?: string | null;
+  printing?: string | null;
+  language?: string | null;
+  priceHistory?: Array<{ p?: number; t?: number }>;
+  priceHistory30d?: Array<{ p?: number; t?: number }>;
+  priceHistory90d?: Array<{ p?: number; t?: number }>;
 };
 
 export type JustTcgPriceSummary = {
@@ -80,7 +90,10 @@ function normalizeRequestedId(cardId: string) {
 }
 
 function baseRequestedId(cardId: string) {
-  return normalizeRequestedId(cardId).replace(/_[A-Z0-9]+$/u, "");
+  const normalized = normalizeRequestedId(cardId);
+  const publicPrintMatch = normalized.match(/^([A-Z0-9]+-\d+[A-Z]?)(?:[_-][A-Z0-9]+)$/u);
+  if (publicPrintMatch?.[1]) return publicPrintMatch[1];
+  return normalized.replace(/_[A-Z0-9]+$/u, "");
 }
 
 function candidateLookupIds(cardIds: string[]) {
@@ -208,6 +221,57 @@ function historyPointFromRow(row: ReadModelHistoryRow): JustTcgHistoryPoint | nu
   };
 }
 
+function variantScore(variant: JustTcgVariant) {
+  const condition = String(variant.condition || "").toLowerCase();
+  const printing = String(variant.printing || "").toLowerCase();
+  const language = String(variant.language || "").toLowerCase();
+
+  let score = 0;
+  if (language === "english") score += 100;
+  if (condition === "near mint") score += 60;
+  if (printing === "normal") score += 20;
+  if (printing === "foil") score += 10;
+  return score;
+}
+
+function pickPreferredVariant(rawPayload: Record<string, unknown> | null | undefined) {
+  const variants = Array.isArray(rawPayload?.variants) ? (rawPayload.variants as JustTcgVariant[]) : [];
+  if (!variants.length) return null;
+  return [...variants].sort((left, right) => variantScore(right) - variantScore(left))[0] || null;
+}
+
+function historyPointFromRawEntry(entry: { p?: number; t?: number } | null | undefined) {
+  if (!entry || typeof entry.t !== "number") return null;
+
+  const ts = entry.t * 1000;
+  return {
+    ts,
+    date: new Date(ts).toISOString().slice(0, 10),
+    tcgMarket: typeof entry.p === "number" ? entry.p : null,
+  };
+}
+
+function supplementalHistoryFromRaw(
+  rawPayload: Record<string, unknown> | null | undefined,
+  rangeDays: number,
+  now: number,
+) {
+  const variant = pickPreferredVariant(rawPayload);
+  if (!variant) return [] as JustTcgHistoryPoint[];
+
+  const source =
+    rangeDays > 30
+      ? variant.priceHistory90d || variant.priceHistory30d || variant.priceHistory || []
+      : rangeDays > 7
+        ? variant.priceHistory30d || variant.priceHistory || []
+        : variant.priceHistory || [];
+  const fromTs = now - Math.max(1, rangeDays) * 24 * 60 * 60 * 1000;
+
+  return source
+    .map((entry) => historyPointFromRawEntry(entry))
+    .filter((point): point is JustTcgHistoryPoint => point !== null && point.ts >= fromTs);
+}
+
 function toPlainRows<T>(rows: Iterable<unknown>): T[] {
   return Array.from(rows, (row) => ({ ...(row as Record<string, unknown>) })) as T[];
 }
@@ -224,6 +288,7 @@ async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModel
         cp.printed_card_code as "printedCardCode",
         cards.id as "cardId",
         cp.active_external_product_id as "externalProductId",
+        ep.raw_payload as "externalRawPayload",
         ep.product_kind as "productKind",
         coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
         current_prices.price_market as "priceMarket",
@@ -270,28 +335,48 @@ async function defaultLoadHistoryRows(params: {
   const fromIso = new Date(Date.now() - Math.max(1, params.rangeDays) * 24 * 60 * 60 * 1000).toISOString();
   const rows = await sql.unsafe(
     `
-      select
-        history.card_print_id as "cardPrintId",
-        cp.printed_card_code as "printedCardCode",
-        cards.id as "cardId",
-        history.external_product_id as "externalProductId",
-        history.recorded_at::text as "recordedAt",
-        history.price_nm as "priceNm"
-      from card_print_price_history history
-      join card_prints cp
-        on cp.id = history.card_print_id
-      join cards
-        on cards.id = cp.card_id
-      join card_print_market_links link
-        on link.card_print_id = cp.id
-       and link.external_product_id = cp.active_external_product_id
-       and link.approved_at is not null
-       and link.mapping_status <> 'rejected'
-      where history.card_print_id = $1
-        and history.external_product_id = $2
-        and history.source_id = $3
-        and history.recorded_at >= $4::timestamptz
-      order by history.recorded_at asc
+      select *
+      from (
+        select
+          history.card_print_id as "cardPrintId",
+          cp.printed_card_code as "printedCardCode",
+          cards.id as "cardId",
+          history.external_product_id as "externalProductId",
+          history.recorded_at::text as "recordedAt",
+          history.price_nm as "priceNm"
+        from card_print_price_history history
+        join card_prints cp
+          on cp.id = history.card_print_id
+        join cards
+          on cards.id = cp.card_id
+        join card_print_market_links link
+          on link.card_print_id = cp.id
+         and link.external_product_id = cp.active_external_product_id
+         and link.approved_at is not null
+         and link.mapping_status <> 'rejected'
+        where history.card_print_id = $1
+          and history.external_product_id = $2
+          and history.source_id = $3
+          and history.recorded_at >= $4::timestamptz
+
+        union all
+
+        select
+          cp.id as "cardPrintId",
+          cp.printed_card_code as "printedCardCode",
+          cards.id as "cardId",
+          snapshots.external_product_id as "externalProductId",
+          snapshots.captured_at::text as "recordedAt",
+          snapshots.price_nm as "priceNm"
+        from price_snapshots snapshots
+        join card_prints cp
+          on cp.id = $1
+        join cards
+          on cards.id = cp.card_id
+        where snapshots.external_product_id = $2
+          and snapshots.captured_at >= $4::timestamptz
+      ) history_rows
+      order by "recordedAt" asc
     `,
     [
       params.priceRow.cardPrintId,
@@ -357,15 +442,24 @@ export async function getJustTcgPriceDetail(
     priceRow: row,
   });
 
-  const points = historyRows
+  const primaryPoints = historyRows
     .filter((historyRow) => rowMatchesRequestedId(requestedId, historyRow))
-    .filter((historyRow) => historyRow.externalProductId === row.externalProductId)
+    .filter((historyRow) => !historyRow.externalProductId || historyRow.externalProductId === row.externalProductId)
     .map((historyRow) => historyPointFromRow(historyRow))
     .filter((point): point is JustTcgHistoryPoint => Boolean(point))
     .sort((left, right) => left.ts - right.ts);
+  const supplementalPoints = supplementalHistoryFromRaw(row.externalRawPayload || null, rangeDays, now);
+  const pointsByTs = new Map<number, JustTcgHistoryPoint>();
+
+  for (const point of supplementalPoints) {
+    pointsByTs.set(point.ts, point);
+  }
+  for (const point of primaryPoints) {
+    pointsByTs.set(point.ts, point);
+  }
 
   return {
     price: summaryFromRow(row, now),
-    points,
+    points: [...pointsByTs.values()].sort((left, right) => left.ts - right.ts),
   };
 }

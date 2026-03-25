@@ -32,6 +32,18 @@ type MarketCatalogQuery = {
 type MarketCatalogMetadata = Pick<MarketCatalogResponse, "facets" | "ranges">;
 type SearchMarketCatalogReadModel = typeof marketSearch.searchMarketCatalogReadModel;
 
+const DEFAULT_PAGE_SIZE = 24;
+const MAX_PAGE_SIZE = 96;
+const VALID_SORTS = new Set<MarketSort>([
+  "relevance",
+  "price_asc",
+  "price_desc",
+  "name_asc",
+  "name_desc",
+  "number_asc",
+  "newest",
+]);
+
 const EMPTY_METADATA: MarketCatalogMetadata = {
   facets: {
     sets: [],
@@ -50,6 +62,21 @@ const EMPTY_METADATA: MarketCatalogMetadata = {
 
 let cachedMetadata: MarketCatalogMetadata = EMPTY_METADATA;
 
+function clampPage(value?: number) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return 1;
+  return Math.max(1, Math.trunc(value));
+}
+
+function clampPageSize(value?: number) {
+  if (typeof value !== "number" || !Number.isFinite(value)) return DEFAULT_PAGE_SIZE;
+  return Math.min(MAX_PAGE_SIZE, Math.max(12, Math.trunc(value)));
+}
+
+function normalizeSort(sort: MarketCatalogQuery["sort"], query: string | undefined): MarketSort {
+  if (sort && VALID_SORTS.has(sort)) return sort;
+  return String(query || "").trim() ? "relevance" : "newest";
+}
+
 export function getMarketCatalogMetadata() {
   return cachedMetadata;
 }
@@ -61,7 +88,12 @@ export async function searchMarketCatalog(
   },
 ): Promise<MarketCatalogResponse> {
   const searchReadModel = options?.searchReadModel ?? marketSearch.searchMarketCatalogReadModel;
-  const result = await searchReadModel(query);
+  const result = await searchReadModel({
+    ...query,
+    sort: normalizeSort(query.sort, query.q),
+    page: clampPage(query.page),
+    pageSize: clampPageSize(query.pageSize),
+  });
 
   cachedMetadata = {
     facets: result.facets,

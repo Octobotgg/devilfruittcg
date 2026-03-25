@@ -96,6 +96,51 @@ test("searchMarketCatalog delegates to the read model response", async () => {
   assert.deepEqual(result.facets.sets, [{ value: "OP01", label: "OP01 · Romance Dawn", count: 1 }]);
 });
 
+test("searchMarketCatalog preserves legacy sort and pagination normalization before delegating", async () => {
+  const { searchMarketCatalog } =
+    await importModule<typeof import("../lib/market-catalog")>("lib/market-catalog.ts");
+
+  await searchMarketCatalog(
+    {
+      q: "luffy",
+      sort: "totally_invalid" as never,
+      page: 0,
+      pageSize: 3,
+    },
+    {
+      searchReadModel: async (query = {}) => {
+        assert.equal(query.q, "luffy");
+        assert.equal(query.sort, "relevance");
+        assert.equal(query.page, 1);
+        assert.equal(query.pageSize, 12);
+
+        return {
+          total: 0,
+          page: 1,
+          pageSize: 12,
+          totalPages: 1,
+          sort: "relevance",
+          query: "luffy",
+          results: [],
+          facets: {
+            sets: [],
+            types: [],
+            colors: [],
+            rarities: [],
+            counters: [],
+            attributes: [],
+          },
+          ranges: {
+            cost: { min: 0, max: 0 },
+            life: { min: 0, max: 0 },
+            power: { min: 0, max: 0 },
+          },
+        };
+      },
+    },
+  );
+});
+
 test("getJustTcgPriceSummaries maps variant-like requests onto the active approved read-model price", async () => {
   const { getJustTcgPriceSummaries } =
     await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
@@ -132,6 +177,42 @@ test("getJustTcgPriceSummaries maps variant-like requests onto the active approv
   assert.equal(summaries["OP01-001"]?.marketPrice, 12.5);
   assert.equal(summaries["OP01-001_P1"]?.marketPrice, 12.5);
   assert.equal(summaries["OP01-001_P1"]?.priceChange30d, 3.75);
+});
+
+test("getJustTcgPriceSummaries resolves hyphenated public print ids onto the base JustTCG row", async () => {
+  const { getJustTcgPriceSummaries } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const summaries = await getJustTcgPriceSummaries(
+    ["OP01-001-P1"],
+    {
+      loadCurrentRows: async (requestedIds) => {
+        assert.deepEqual(requestedIds, ["OP01-001-P1"]);
+        return [
+          {
+            cardPrintId: "cp-1",
+            printedCardCode: "OP01-001",
+            cardId: "OP01-001",
+            externalProductId: "justtcg:123",
+            productKind: "raw_card",
+            mappingApproved: true,
+            priceMarket: "12.75",
+            priceNm: "12.50",
+            priceLp: "10.25",
+            priceChange24h: "0.5",
+            priceChange7d: "1.25",
+            priceChange30d: "3.75",
+            updatedAt: "2026-03-25T00:00:00.000Z",
+            fetchedAt: "2026-03-25T00:05:00.000Z",
+          },
+        ];
+      },
+    },
+  );
+
+  assert.equal(summaries["OP01-001-P1"]?.cardId, "OP01-001");
+  assert.equal(summaries["OP01-001-P1"]?.marketPrice, 12.5);
+  assert.equal(summaries["OP01-001-P1"]?.priceChange30d, 3.75);
 });
 
 test("getJustTcgPriceDetail keeps the legacy detail shape from the new price tables", async () => {
@@ -191,6 +272,73 @@ test("getJustTcgPriceDetail keeps the legacy detail shape from the new price tab
 
   assert.equal(detail.price?.cardId, "OP01-001");
   assert.equal(detail.price?.justtcgId, "123");
+  assert.equal(detail.price?.marketPrice, 12.5);
+  assert.deepEqual(detail.points, [
+    {
+      ts: Date.parse("2026-03-20T00:00:00.000Z"),
+      date: "2026-03-20",
+      tcgMarket: 11.25,
+    },
+    {
+      ts: Date.parse("2026-03-25T00:00:00.000Z"),
+      date: "2026-03-25",
+      tcgMarket: 12.5,
+    },
+  ]);
+});
+
+test("getJustTcgPriceDetail falls back to active-product raw history when structured history is sparse", async () => {
+  const { getJustTcgPriceDetail } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const detail = await getJustTcgPriceDetail(
+    "op01-001-p1",
+    30,
+    {
+      loadCurrentRows: async (requestedIds) => {
+        assert.deepEqual(requestedIds, ["OP01-001-P1"]);
+        return [
+          {
+            cardPrintId: "cp-1",
+            printedCardCode: "OP01-001",
+            cardId: "OP01-001",
+            externalProductId: "justtcg:123",
+            externalRawPayload: {
+              variants: [
+                {
+                  condition: "Near Mint",
+                  language: "English",
+                  printing: "Normal",
+                  priceHistory30d: [
+                    { t: Math.floor(Date.parse("2026-03-20T00:00:00.000Z") / 1000), p: 11.25 },
+                    { t: Math.floor(Date.parse("2026-03-25T00:00:00.000Z") / 1000), p: 12.5 },
+                  ],
+                },
+              ],
+            },
+            productKind: "raw_card",
+            mappingApproved: true,
+            priceMarket: "12.75",
+            priceNm: "12.50",
+            priceLp: "10.25",
+            priceChange24h: "0.5",
+            priceChange7d: "1.25",
+            priceChange30d: "3.75",
+            updatedAt: "2026-03-25T00:00:00.000Z",
+            fetchedAt: "2026-03-25T00:05:00.000Z",
+          },
+        ];
+      },
+      loadHistoryRows: async ({ requestedIds, rangeDays }) => {
+        assert.deepEqual(requestedIds, ["OP01-001-P1"]);
+        assert.equal(rangeDays, 30);
+        return [];
+      },
+      now: () => Date.parse("2026-03-25T12:00:00.000Z"),
+    },
+  );
+
+  assert.equal(detail.price?.cardId, "OP01-001");
   assert.equal(detail.price?.marketPrice, 12.5);
   assert.deepEqual(detail.points, [
     {
