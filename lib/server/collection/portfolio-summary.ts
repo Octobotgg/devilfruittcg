@@ -24,6 +24,8 @@ export type PortfolioPriceHistoryPoint = {
   cardPrintId: string;
   recordedAt: string;
   price: number | null;
+  externalProductId?: string | null;
+  approvedActive?: boolean;
 };
 
 export type PortfolioSummaryLineItem = {
@@ -119,23 +121,68 @@ async function defaultLoadHistory(
   const now = new Date();
   const start = rangeStart(range, now);
   const params: Array<string | string[]> = [ids];
-  let whereClause = "where history.card_print_id = any($1::text[]) and history.source_id = 'justtcg'";
+  let query = `
+    with eligible_history as (
+      select
+        history.card_print_id as card_print_id,
+        history.external_product_id as external_product_id,
+        history.recorded_at as recorded_at,
+        history.price_nm as price_nm
+      from card_print_price_history history
+      join card_prints cp
+        on cp.id = history.card_print_id
+      join card_print_market_links link
+        on link.card_print_id = cp.id
+       and link.external_product_id = cp.active_external_product_id
+       and link.approved_at is not null
+       and link.mapping_status <> 'rejected'
+      where history.card_print_id = any($1::text[])
+        and history.source_id = 'justtcg'
+        and history.external_product_id = cp.active_external_product_id
+    )
+  `;
 
   if (start) {
     params.push(start.toISOString());
-    whereClause += " and history.recorded_at >= $2::timestamptz";
+    query += `
+      , boundary_seed as (
+        select distinct on (card_print_id)
+          card_print_id,
+          external_product_id,
+          recorded_at,
+          price_nm
+        from eligible_history
+        where recorded_at < $2::timestamptz
+        order by card_print_id, recorded_at desc
+      )
+      select
+        combined.card_print_id as "cardPrintId",
+        combined.external_product_id as "externalProductId",
+        combined.recorded_at::text as "recordedAt",
+        combined.price_nm as "price",
+        true as "approvedActive"
+      from (
+        select * from eligible_history where recorded_at >= $2::timestamptz
+        union all
+        select * from boundary_seed
+      ) combined
+      order by combined.card_print_id asc, combined.recorded_at asc
+    `;
+  } else {
+    query += `
+      select
+        eligible_history.card_print_id as "cardPrintId",
+        eligible_history.external_product_id as "externalProductId",
+        eligible_history.recorded_at::text as "recordedAt",
+        eligible_history.price_nm as "price",
+        true as "approvedActive"
+      from eligible_history
+      order by eligible_history.card_print_id asc, eligible_history.recorded_at asc
+    `;
   }
 
   const rows = await sql.unsafe(
-    `
-      select
-        history.card_print_id as "cardPrintId",
-        history.recorded_at::text as "recordedAt",
-        history.price_nm as "price"
-      from card_print_price_history history
-      ${whereClause}
-      order by history.recorded_at asc
-    `,
+    query,
     params,
   );
 
@@ -145,6 +192,8 @@ async function defaultLoadHistory(
       cardPrintId: row.cardPrintId,
       recordedAt: row.recordedAt,
       price: pricingShared.parseNullableNumber(row.price),
+      externalProductId: row.externalProductId ?? null,
+      approvedActive: row.approvedActive,
     });
     history.set(row.cardPrintId, bucket);
   }
@@ -152,21 +201,50 @@ async function defaultLoadHistory(
   return history;
 }
 
+function historyMatchesActivePrice(
+  point: PortfolioPriceHistoryPoint,
+  currentPrice: CardPrintRuntimePrice | undefined,
+) {
+  if (point.approvedActive === false) return false;
+  if (
+    point.externalProductId &&
+    currentPrice?.status === "priced" &&
+    point.externalProductId !== currentPrice.externalProductId
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 function chartPointsForItems(
   items: Array<{ cardPrintId: string; quantity: number }>,
   priceLookup: Map<string, CardPrintRuntimePrice> | Record<string, CardPrintRuntimePrice>,
   historyLookup: Map<string, PortfolioPriceHistoryPoint[]> | Record<string, PortfolioPriceHistoryPoint[]>,
+  boundaryDate?: string | null,
 ) {
   const dates = new Set<string>();
   const today = new Date().toISOString().slice(0, 10);
+  const effectiveHistoryLookup = new Map<string, PortfolioPriceHistoryPoint[]>();
 
   for (const item of items) {
-    const history = getFromLookup(historyLookup, item.cardPrintId) || [];
+    const currentPrice = getFromLookup(priceLookup, item.cardPrintId);
+    const history = (getFromLookup(historyLookup, item.cardPrintId) || []).filter((point) =>
+      historyMatchesActivePrice(point, currentPrice),
+    );
+    effectiveHistoryLookup.set(item.cardPrintId, history);
+
     for (const point of history) {
-      dates.add(point.recordedAt.slice(0, 10));
+      const pointDate = point.recordedAt.slice(0, 10);
+      if (!boundaryDate || pointDate >= boundaryDate) {
+        dates.add(pointDate);
+      }
     }
   }
 
+  if (boundaryDate) {
+    dates.add(boundaryDate);
+  }
   dates.add(today);
 
   const orderedDates = Array.from(dates).sort((left, right) => left.localeCompare(right));
@@ -177,7 +255,7 @@ function chartPointsForItems(
 
     for (const item of items) {
       const currentPrice = getFromLookup(priceLookup, item.cardPrintId);
-      const history = (getFromLookup(historyLookup, item.cardPrintId) || []).filter(
+      const history = (effectiveHistoryLookup.get(item.cardPrintId) || []).filter(
         (point) => point.recordedAt.slice(0, 10) <= date,
       );
       const latestHistoryPrice = history.length ? history[history.length - 1]?.price ?? null : null;
@@ -240,6 +318,8 @@ export async function buildPortfolioSummary(
     };
   });
 
+  const boundaryDate = rangeStart(range, new Date())?.toISOString().slice(0, 10) ?? null;
+
   const totalCollectionValue = Number(
     lineItems.reduce((sum, item) => sum + item.currentValue, 0).toFixed(2),
   );
@@ -254,7 +334,7 @@ export async function buildPortfolioSummary(
     pricedCount,
     unpricedCount,
     mostValuableItems,
-    chartHistory: chartPointsForItems(normalizedItems, priceLookup, historyLookup),
+    chartHistory: chartPointsForItems(normalizedItems, priceLookup, historyLookup, boundaryDate),
     lineItems,
   };
 }

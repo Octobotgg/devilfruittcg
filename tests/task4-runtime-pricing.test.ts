@@ -483,6 +483,195 @@ test("portfolio summary chart ends at the current total collection value", async
   });
 });
 
+test("portfolio summary ignores history rows from stale or non-approved product links", async () => {
+  const { buildPortfolioSummary } =
+    await importModule<typeof import("../lib/server/collection/portfolio-summary")>(
+      "lib/server/collection/portfolio-summary.ts",
+    );
+
+  const now = new Date();
+  const activeRecordedAt = new Date(now);
+  activeRecordedAt.setUTCDate(activeRecordedAt.getUTCDate() - 3);
+  activeRecordedAt.setUTCHours(12, 0, 0, 0);
+
+  const staleRecordedAt = new Date(now);
+  staleRecordedAt.setUTCDate(staleRecordedAt.getUTCDate() - 2);
+  staleRecordedAt.setUTCHours(12, 0, 0, 0);
+
+  const today = now.toISOString().slice(0, 10);
+  const activeDay = activeRecordedAt.toISOString().slice(0, 10);
+  const staleDay = staleRecordedAt.toISOString().slice(0, 10);
+
+  const summary = await buildPortfolioSummary(
+    [{ cardPrintId: "cp-remapped-history", quantity: 1 }],
+    {
+      range: "ALL",
+      loadPrices: async () =>
+        new Map([
+          [
+            "cp-remapped-history",
+            {
+              status: "priced",
+              kind: "raw_card",
+              cardPrintId: "cp-remapped-history",
+              cardId: "OP01-099",
+              printedCardCode: "OP01-099",
+              currency: "USD",
+              currentPrice: 12,
+              currentPriceType: "near_mint",
+              priceMarket: 12.5,
+              priceLp: 11,
+              priceChange24h: 1,
+              updatedAt: now.toISOString(),
+              fetchedAt: now.toISOString(),
+              externalProductId: "justtcg:active",
+              justtcg: {
+                title: "Approved active listing",
+                imageUrl: "https://img.example/active.jpg",
+              },
+              official: {
+                name: "Approved Card",
+                setCode: "OP01",
+                setName: "Romance Dawn",
+              },
+            },
+          ],
+        ]),
+      loadHistory: async () =>
+        new Map([
+          [
+            "cp-remapped-history",
+            [
+              {
+                cardPrintId: "cp-remapped-history",
+                recordedAt: activeRecordedAt.toISOString(),
+                price: 10,
+                externalProductId: "justtcg:active",
+                approvedActive: true,
+              },
+              {
+                cardPrintId: "cp-remapped-history",
+                recordedAt: staleRecordedAt.toISOString(),
+                price: 50,
+                externalProductId: "justtcg:stale",
+                approvedActive: false,
+              },
+            ],
+          ],
+        ]),
+    },
+  );
+
+  assert.deepEqual(summary.chartHistory, [
+    {
+      date: activeDay,
+      value: 10,
+    },
+    {
+      date: today,
+      value: 12,
+    },
+  ]);
+  assert.equal(summary.chartHistory.some((point) => point.date === staleDay), false);
+});
+
+test("portfolio summary carries forward the last approved active price at the selected range boundary", async () => {
+  const { buildPortfolioSummary } =
+    await importModule<typeof import("../lib/server/collection/portfolio-summary")>(
+      "lib/server/collection/portfolio-summary.ts",
+    );
+
+  const now = new Date();
+  const rangeStart = new Date(now);
+  rangeStart.setDate(rangeStart.getDate() - 7);
+
+  const carriedForwardRecordedAt = new Date(rangeStart);
+  carriedForwardRecordedAt.setDate(carriedForwardRecordedAt.getDate() - 1);
+  carriedForwardRecordedAt.setUTCHours(12, 0, 0, 0);
+  const inRangeRecordedAt = new Date(rangeStart);
+  inRangeRecordedAt.setDate(inRangeRecordedAt.getDate() + 2);
+  inRangeRecordedAt.setUTCHours(12, 0, 0, 0);
+
+  const rangeStartDay = rangeStart.toISOString().slice(0, 10);
+  const inRangeDay = inRangeRecordedAt.toISOString().slice(0, 10);
+  const today = now.toISOString().slice(0, 10);
+
+  const summary = await buildPortfolioSummary(
+    [{ cardPrintId: "cp-carry-forward", quantity: 1 }],
+    {
+      range: "7D",
+      loadPrices: async () =>
+        new Map([
+          [
+            "cp-carry-forward",
+            {
+              status: "priced",
+              kind: "raw_card",
+              cardPrintId: "cp-carry-forward",
+              cardId: "OP01-100",
+              printedCardCode: "OP01-100",
+              currency: "USD",
+              currentPrice: 8,
+              currentPriceType: "near_mint",
+              priceMarket: 8.5,
+              priceLp: 7.5,
+              priceChange24h: 1,
+              updatedAt: now.toISOString(),
+              fetchedAt: now.toISOString(),
+              externalProductId: "justtcg:active",
+              justtcg: {
+                title: "Boundary card",
+                imageUrl: "https://img.example/boundary.jpg",
+              },
+              official: {
+                name: "Boundary Card",
+                setCode: "OP01",
+                setName: "Romance Dawn",
+              },
+            },
+          ],
+        ]),
+      loadHistory: async () =>
+        new Map([
+          [
+            "cp-carry-forward",
+            [
+              {
+                cardPrintId: "cp-carry-forward",
+                recordedAt: carriedForwardRecordedAt.toISOString(),
+                price: 4,
+                externalProductId: "justtcg:active",
+                approvedActive: true,
+              },
+              {
+                cardPrintId: "cp-carry-forward",
+                recordedAt: inRangeRecordedAt.toISOString(),
+                price: 6,
+                externalProductId: "justtcg:active",
+                approvedActive: true,
+              },
+            ],
+          ],
+        ]),
+    },
+  );
+
+  assert.deepEqual(summary.chartHistory, [
+    {
+      date: rangeStartDay,
+      value: 4,
+    },
+    {
+      date: inRangeDay,
+      value: 6,
+    },
+    {
+      date: today,
+      value: 8,
+    },
+  ]);
+});
+
 test("market search price_desc sorts unpriced results after priced results", async () => {
   const { sortMarketCardsForTesting } =
     await importModule<typeof import("../lib/server/market/market-search")>(
