@@ -381,15 +381,15 @@ function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
 
 export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarketCardResult {
   const market = toMarketPriceSummary(row);
-  const publicCanonicalId = row.printedCardCode || row.cardId;
+  const publicPrintId = row.printedCardCode || row.cardId;
 
   const card: Card = {
-    id: row.cardId,
+    id: publicPrintId,
     baseId: row.cardId,
     baseCardId: row.cardId,
     printedCardId: row.printedCardCode,
-    canonicalId: publicCanonicalId,
-    canonicalVariantId: publicCanonicalId,
+    canonicalId: publicPrintId,
+    canonicalVariantId: publicPrintId,
     canonicalVariantKey: row.variantSlug,
     variantLabel: row.variantLabel,
     variantSlug: row.variantSlug,
