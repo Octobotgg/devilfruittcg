@@ -225,12 +225,58 @@ test("market search treats unapproved active links as unpriced", async () => {
     triggerText: null,
     imageUrl: "https://img.example/internal.jpg",
     releaseDate: "2025-01-01",
+    productKind: "raw_card",
     justtcgTitle: "Monkey D. Luffy Alt Art",
     justtcgImageUrl: "https://img.example/justtcg.jpg",
     mappingApproved: false,
     priceNm: "55.00",
     priceLp: "40.00",
     priceChange7d: "5.00",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    fetchedAt: "2026-03-25T00:05:00.000Z",
+  });
+
+  assert.equal(result.pricingStatus, "unpriced");
+  assert.equal(result.market, null);
+  assert.equal(result.currentPrice, null);
+});
+
+test("market search does not price raw card rows when the active product kind is sealed", async () => {
+  const { toMarketCardResultForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  const result = toMarketCardResultForTesting({
+    cardPrintId: "cp-kind-search",
+    cardId: "OP01-010",
+    printedCardCode: "OP01-010",
+    variantLabel: "Base",
+    variantSlug: "base",
+    cardName: "Nami",
+    setCode: "OP01",
+    setName: "Romance Dawn",
+    number: "010",
+    cardType: "Character",
+    color: "Red",
+    rarity: "UC",
+    cost: 1,
+    life: null,
+    power: 1000,
+    counter: 1000,
+    attribute: null,
+    traits: null,
+    effectText: null,
+    triggerText: null,
+    imageUrl: "https://img.example/internal.jpg",
+    releaseDate: "2025-01-01",
+    productKind: "sealed",
+    justtcgTitle: "Romance Dawn Booster Box",
+    justtcgImageUrl: "https://img.example/box.jpg",
+    mappingApproved: true,
+    priceNm: "120.00",
+    priceLp: "115.00",
+    priceChange7d: "6.00",
     updatedAt: "2026-03-25T00:00:00.000Z",
     fetchedAt: "2026-03-25T00:05:00.000Z",
   });
@@ -283,6 +329,7 @@ test("market search preserves public print identity for variant-aware routing an
     triggerText: null,
     imageUrl: "https://img.example/internal.jpg",
     releaseDate: "2025-01-01",
+    productKind: "raw_card",
     justtcgTitle: "Monkey D. Luffy Alt Art",
     justtcgImageUrl: "https://img.example/justtcg.jpg",
     mappingApproved: true,
@@ -300,6 +347,106 @@ test("market search preserves public print identity for variant-aware routing an
   assert.equal(result.canonicalId, "OP01-001-P1");
   assert.equal(displayCardIdLikeUi(result), "OP01-001-P1");
   assert.equal(routeCardIdLikeUi(result), encodeURIComponent("OP01-001-P1"));
+});
+
+test("market home rejects remapped raw card rows that do not match the active external product", async () => {
+  const { passesMarketMoverTrustFilters } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  assert.equal(
+    passesMarketMoverTrustFilters(
+      {
+        collectibleId: "cp-remapped",
+        collectibleKind: "raw_card",
+        cardId: "OP01-001",
+        officialName: "Monkey D. Luffy",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:old",
+        activeExternalProductId: "justtcg:new",
+        justtcgTitle: "Old listing",
+        justtcgImageUrl: "https://img.example/old.jpg",
+        currentPrice: "12.00",
+        priceChange24h: "2.00",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        mappingApproved: true,
+      },
+      {
+        minimumPriceFloor: 0,
+        maximumAbsoluteDelta: 500,
+        maximumPercentSwing: 500,
+      },
+    ),
+    false,
+  );
+});
+
+test("portfolio summary chart ends at the current total collection value", async () => {
+  const { buildPortfolioSummary } =
+    await importModule<typeof import("../lib/server/collection/portfolio-summary")>(
+      "lib/server/collection/portfolio-summary.ts",
+    );
+
+  const today = new Date().toISOString().slice(0, 10);
+
+  const summary = await buildPortfolioSummary(
+    [{ cardPrintId: "cp-priced", quantity: 2 }],
+    {
+      range: "7D",
+      loadPrices: async () =>
+        new Map([
+          [
+            "cp-priced",
+            {
+              status: "priced",
+              kind: "raw_card",
+              cardPrintId: "cp-priced",
+              cardId: "OP01-001",
+              printedCardCode: "OP01-001",
+              currency: "USD",
+              currentPrice: 3,
+              currentPriceType: "near_mint",
+              priceMarket: 3.25,
+              priceLp: 2.5,
+              priceChange24h: 0.5,
+              updatedAt: "2026-03-25T00:00:00.000Z",
+              fetchedAt: "2026-03-25T00:05:00.000Z",
+              externalProductId: "justtcg:123",
+              justtcg: {
+                title: "Monkey D. Luffy OP01-001",
+                imageUrl: "https://img.example/luffy.jpg",
+              },
+              official: {
+                name: "Monkey D. Luffy",
+                setCode: "OP01",
+                setName: "Romance Dawn",
+              },
+            },
+          ],
+        ]),
+      loadHistory: async () =>
+        new Map([
+          [
+            "cp-priced",
+            [
+              {
+                cardPrintId: "cp-priced",
+                recordedAt: "2026-03-24T12:00:00.000Z",
+                price: 2,
+              },
+            ],
+          ],
+        ]),
+    },
+  );
+
+  assert.equal(summary.totalCollectionValue, 6);
+  assert.deepEqual(summary.chartHistory.at(-1), {
+    date: today,
+    value: 6,
+  });
 });
 
 test("market search price_desc sorts unpriced results after priced results", async () => {

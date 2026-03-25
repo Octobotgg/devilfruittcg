@@ -60,6 +60,7 @@ type MarketSearchRow = {
   triggerText: string | null;
   imageUrl: string | null;
   releaseDate: string | null;
+  productKind: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   mappingApproved: boolean;
@@ -113,6 +114,17 @@ function parseNullableNumber(value: string | number | null | undefined) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function normalizeProductKind(value: string | null | undefined) {
+  switch (value) {
+    case "raw_card":
+    case "sealed":
+    case "graded":
+      return value;
+    default:
+      return "other";
+  }
+}
+
 function toPlainRows<T>(rows: Iterable<unknown>): T[] {
   return Array.from(rows, (row) => ({ ...(row as Record<string, unknown>) })) as T[];
 }
@@ -142,10 +154,11 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
         cards.traits as "traits",
         cards.effect_text as "effectText",
         cards.trigger_text as "triggerText",
-        coalesce(ep.image_url, cp.image_url) as "imageUrl",
+        coalesce(case when ep.product_kind = 'raw_card' then ep.image_url end, cp.image_url) as "imageUrl",
         coalesce(cp.release_date_override::text, releases.release_date::text) as "releaseDate",
-        ep.name as "justtcgTitle",
-        ep.image_url as "justtcgImageUrl",
+        ep.product_kind as "productKind",
+        case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
+        case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
         coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
         current_prices.price_nm as "priceNm",
         current_prices.price_lp as "priceLp",
@@ -155,7 +168,7 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
       from card_prints cp
       join cards on cards.id = cp.card_id
       join releases on releases.id = cp.release_id
-      left join external_products ep on ep.id = cp.active_external_product_id and ep.product_kind = 'raw_card'
+      left join external_products ep on ep.id = cp.active_external_product_id
       left join card_print_market_links link
         on link.card_print_id = cp.id
        and link.external_product_id = cp.active_external_product_id
@@ -355,6 +368,7 @@ function attributeMatch(card: RuntimeMarketCardResult, filters: string[]) {
 
 function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
   if (!row.mappingApproved) return null;
+  if (normalizeProductKind(row.productKind) !== "raw_card") return null;
 
   const marketPrice = parseNullableNumber(row.priceNm);
   if (marketPrice == null) return null;

@@ -158,6 +158,7 @@ function chartPointsForItems(
   historyLookup: Map<string, PortfolioPriceHistoryPoint[]> | Record<string, PortfolioPriceHistoryPoint[]>,
 ) {
   const dates = new Set<string>();
+  const today = new Date().toISOString().slice(0, 10);
 
   for (const item of items) {
     const history = getFromLookup(historyLookup, item.cardPrintId) || [];
@@ -166,7 +167,7 @@ function chartPointsForItems(
     }
   }
 
-  dates.add(new Date().toISOString().slice(0, 10));
+  dates.add(today);
 
   const orderedDates = Array.from(dates).sort((left, right) => left.localeCompare(right));
   const series: Array<{ date: string; value: number }> = [];
@@ -182,7 +183,7 @@ function chartPointsForItems(
       const latestHistoryPrice = history.length ? history[history.length - 1]?.price ?? null : null;
 
       let unitPrice = latestHistoryPrice;
-      if (unitPrice == null && currentPrice?.status === "priced" && date === orderedDates[orderedDates.length - 1]) {
+      if (currentPrice?.status === "priced" && date === today) {
         unitPrice = currentPrice.currentPrice;
       }
 

@@ -13,6 +13,8 @@ type MarketMoverRow = {
   officialName: string;
   officialSetCode: string | null;
   officialSetName: string | null;
+  externalProductId: string | null;
+  activeExternalProductId: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   currentPrice: string | number | null;
@@ -84,6 +86,8 @@ async function loadMoverRows(): Promise<MarketMoverRow[]> {
         cards.name as "officialName",
         releases.code as "officialSetCode",
         releases.name as "officialSetName",
+        current_prices.external_product_id as "externalProductId",
+        cp.active_external_product_id as "activeExternalProductId",
         ep.name as "justtcgTitle",
         ep.image_url as "justtcgImageUrl",
         current_prices.price_nm as "currentPrice",
@@ -91,7 +95,9 @@ async function loadMoverRows(): Promise<MarketMoverRow[]> {
         current_prices.updated_at::text as "updatedAt",
         true as "mappingApproved"
       from card_print_price_current current_prices
-      join card_prints cp on cp.id = current_prices.card_print_id
+      join card_prints cp
+        on cp.id = current_prices.card_print_id
+       and cp.active_external_product_id = current_prices.external_product_id
       join cards on cards.id = cp.card_id
       join releases on releases.id = cp.release_id
       join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'raw_card'
@@ -113,6 +119,8 @@ async function loadMoverRows(): Promise<MarketMoverRow[]> {
         sealed.name as "officialName",
         releases.code as "officialSetCode",
         releases.name as "officialSetName",
+        current_prices.external_product_id as "externalProductId",
+        sealed.active_external_product_id as "activeExternalProductId",
         ep.name as "justtcgTitle",
         ep.image_url as "justtcgImageUrl",
         current_prices.price_market as "currentPrice",
@@ -143,6 +151,10 @@ export function passesMarketMoverTrustFilters(
   filters: MarketMoverTrustFilters = DEFAULT_MARKET_MOVER_TRUST_FILTERS,
 ) {
   if (!row.mappingApproved) return false;
+  if (row.collectibleKind === "raw_card") {
+    if (!row.externalProductId || !row.activeExternalProductId) return false;
+    if (row.externalProductId !== row.activeExternalProductId) return false;
+  }
 
   const currentPrice = parseNullableNumber(row.currentPrice);
   const priceChange24h = parseNullableNumber(row.priceChange24h);
