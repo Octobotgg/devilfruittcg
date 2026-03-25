@@ -240,7 +240,7 @@ test("market search treats unapproved active links as unpriced", async () => {
   assert.equal(result.currentPrice, null);
 });
 
-test("market search preserves unique print identity in results", async () => {
+test("market search preserves public card ids while keeping print identity separate", async () => {
   const { toMarketCardResultForTesting } =
     await importModule<typeof import("../lib/server/market/market-search")>(
       "lib/server/market/market-search.ts",
@@ -279,10 +279,11 @@ test("market search preserves unique print identity in results", async () => {
     fetchedAt: "2026-03-25T00:05:00.000Z",
   });
 
-  assert.equal(result.id, "cp-alt-2");
+  assert.equal(result.id, "OP01-001");
   assert.equal(result.baseId, "OP01-001");
+  assert.equal(result.cardPrintId, "cp-alt-2");
   assert.equal(result.printedCardId, "OP01-001-P1");
-  assert.equal(result.canonicalId, "cp-alt-2");
+  assert.equal(result.canonicalId, "OP01-001-P1");
 });
 
 test("market search price_desc sorts unpriced results after priced results", async () => {
