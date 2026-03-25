@@ -695,6 +695,25 @@ function buildAuthoritativeActiveCardPrintAssignments(currentAssignments, existi
   return [...assignments.values()];
 }
 
+function splitActiveAssignmentStages(assignments) {
+  const clearStage = [];
+  const assignStage = [];
+
+  for (const assignment of assignments) {
+    const { active_external_product_id: _ignoredActiveExternalProductId, ...identity } = assignment;
+    clearStage.push({
+      ...identity,
+      active_external_product_id: null,
+    });
+
+    if (assignment.active_external_product_id != null) {
+      assignStage.push(assignment);
+    }
+  }
+
+  return { clearStage, assignStage };
+}
+
 function buildSeed(inputs, options) {
   const releaseLookup = buildReleaseLookup(inputs.officialReleases);
   const { externalProducts, productMap } = buildExternalProducts(inputs.catalog, inputs.mappingReport, inputs.priceData, options);
@@ -734,6 +753,16 @@ function summarizeSeed(seed) {
     sealedProductPriceCurrent: seed.sealedProductPriceCurrent.length,
     priceSnapshots: seed.priceSnapshots.length,
   };
+}
+
+function assertApplyPreconditions(inputs, options) {
+  if (!options.apply) return;
+
+  if (!inputs.mappingReport || !Array.isArray(inputs.mappingReport.results)) {
+    throw new Error(
+      `Refusing --apply without a valid mapping report at ${options.mappingReport}. Raw-card active/current state requires authoritative mapping input.`,
+    );
+  }
 }
 
 function normalizeParamValue(column, value) {
@@ -900,6 +929,7 @@ async function applySeed(seed, options) {
         seed.activeCardPrintAssignments,
         existingActiveCardPrintIds,
       );
+      const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
 
       await upsertRows(tx, "external_sources", seed.externalSources, ["id"], options.chunkSize);
       await upsertRows(tx, "external_products", seed.externalProducts, ["id"], options.chunkSize);
@@ -909,7 +939,8 @@ async function applySeed(seed, options) {
 
       await upsertRows(tx, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
-      await applyActiveAssignments(tx, "card_prints", "id", authoritativeActiveCardPrintAssignments, options.chunkSize);
+      await applyActiveAssignments(tx, "card_prints", "id", clearStage, options.chunkSize);
+      await applyActiveAssignments(tx, "card_prints", "id", assignStage, options.chunkSize);
 
       await deleteCurrentByCollectibleIds(
         tx,
@@ -967,6 +998,8 @@ async function main() {
     readJsonIfExists(OFFICIAL_RELEASES_PATH),
   ]);
 
+  assertApplyPreconditions({ catalog, mappingReport, priceData, officialReleases }, args);
+
   const seed = buildSeed({ catalog, mappingReport, priceData, officialReleases }, args);
   const summary = summarizeSeed(seed);
 
@@ -995,6 +1028,7 @@ if (isDirectRun) {
 }
 
 export {
+  assertApplyPreconditions,
   buildActiveCardPrintAssignments,
   buildAuthoritativeActiveCardPrintAssignments,
   buildExternalProducts,
@@ -1002,4 +1036,5 @@ export {
   buildSeed,
   extractJusttcgId,
   resolveApprovedRawPriceRow,
+  splitActiveAssignmentStages,
 };
