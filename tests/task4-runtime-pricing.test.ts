@@ -383,6 +383,40 @@ test("market home rejects remapped raw card rows that do not match the active ex
   );
 });
 
+test("market home rejects remapped sealed rows that do not match the active external product", async () => {
+  const { passesMarketMoverTrustFilters } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  assert.equal(
+    passesMarketMoverTrustFilters(
+      {
+        collectibleId: "sealed-remapped",
+        collectibleKind: "sealed",
+        cardId: null,
+        officialName: "Romance Dawn Booster Box",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:sealed-old",
+        activeExternalProductId: "justtcg:sealed-new",
+        justtcgTitle: "Old sealed listing",
+        justtcgImageUrl: "https://img.example/old-sealed.jpg",
+        currentPrice: "110.00",
+        priceChange24h: "10.00",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        mappingApproved: true,
+      },
+      {
+        minimumPriceFloor: 0,
+        maximumAbsoluteDelta: 500,
+        maximumPercentSwing: 500,
+      },
+    ),
+    false,
+  );
+});
+
 test("portfolio summary chart ends at the current total collection value", async () => {
   const { buildPortfolioSummary } =
     await importModule<typeof import("../lib/server/collection/portfolio-summary")>(

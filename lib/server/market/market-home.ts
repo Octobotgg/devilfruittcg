@@ -128,7 +128,9 @@ async function loadMoverRows(): Promise<MarketMoverRow[]> {
         current_prices.updated_at::text as "updatedAt",
         true as "mappingApproved"
       from sealed_product_price_current current_prices
-      join sealed_products sealed on sealed.id = current_prices.sealed_product_id
+      join sealed_products sealed
+        on sealed.id = current_prices.sealed_product_id
+       and sealed.active_external_product_id = current_prices.external_product_id
       left join releases on releases.id = sealed.release_id
       join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'sealed'
       join sealed_product_market_links link
@@ -151,10 +153,8 @@ export function passesMarketMoverTrustFilters(
   filters: MarketMoverTrustFilters = DEFAULT_MARKET_MOVER_TRUST_FILTERS,
 ) {
   if (!row.mappingApproved) return false;
-  if (row.collectibleKind === "raw_card") {
-    if (!row.externalProductId || !row.activeExternalProductId) return false;
-    if (row.externalProductId !== row.activeExternalProductId) return false;
-  }
+  if (!row.externalProductId || !row.activeExternalProductId) return false;
+  if (row.externalProductId !== row.activeExternalProductId) return false;
 
   const currentPrice = parseNullableNumber(row.currentPrice);
   const priceChange24h = parseNullableNumber(row.priceChange24h);
