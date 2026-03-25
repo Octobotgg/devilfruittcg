@@ -1,4 +1,4 @@
-import "next/dist/compiled/server-only/empty.js";
+import "server-only";
 
 import postgres from "postgres";
 
