@@ -27,6 +27,7 @@
 .tmp/
 /test-results/
 .octo-project-root
+.worktrees/
 DevilFruitTCG_Project_Map.xlsx
 
 # debug
