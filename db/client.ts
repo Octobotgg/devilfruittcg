@@ -1,3 +1,5 @@
+import "next/dist/compiled/server-only/empty.js";
+
 import postgres from "postgres";
 
 const databaseUrl =
