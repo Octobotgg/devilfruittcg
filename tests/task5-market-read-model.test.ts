@@ -215,6 +215,66 @@ test("getJustTcgPriceSummaries resolves hyphenated public print ids onto the bas
   assert.equal(summaries["OP01-001-P1"]?.priceChange30d, 3.75);
 });
 
+test("getJustTcgPriceSummaries resolves canonical variant ids onto the base JustTCG row", async () => {
+  const { getJustTcgPriceSummaries, getJustTcgPriceDetail } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const baseRow = {
+    cardPrintId: "cp-1",
+    printedCardCode: "OP01-001",
+    cardId: "OP01-001",
+    externalProductId: "justtcg:123",
+    productKind: "raw_card",
+    mappingApproved: true,
+    priceMarket: "12.75",
+    priceNm: "12.50",
+    priceLp: "10.25",
+    priceChange24h: "0.5",
+    priceChange7d: "1.25",
+    priceChange30d: "3.75",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    fetchedAt: "2026-03-25T00:05:00.000Z",
+  };
+
+  const summaries = await getJustTcgPriceSummaries(
+    ["OP01-001_parallel_op01"],
+    {
+      loadCurrentRows: async (requestedIds) => {
+        assert.deepEqual(requestedIds, ["OP01-001_PARALLEL_OP01"]);
+        return [baseRow];
+      },
+    },
+  );
+
+  assert.equal(summaries["OP01-001_PARALLEL_OP01"]?.cardId, "OP01-001");
+  assert.equal(summaries["OP01-001_PARALLEL_OP01"]?.marketPrice, 12.5);
+
+  const detail = await getJustTcgPriceDetail(
+    "OP01-001_parallel_op01",
+    30,
+    {
+      loadCurrentRows: async () => [baseRow],
+      loadHistoryRows: async ({ requestedIds }) => {
+        assert.deepEqual(requestedIds, ["OP01-001_PARALLEL_OP01"]);
+        return [
+          {
+            cardPrintId: "cp-1",
+            printedCardCode: "OP01-001",
+            cardId: "OP01-001",
+            externalProductId: "justtcg:123",
+            recordedAt: "2026-03-20T00:00:00.000Z",
+            priceNm: "11.25",
+          },
+        ];
+      },
+    },
+  );
+
+  assert.equal(detail.price?.marketPrice, 12.5);
+  assert.equal(detail.points.length, 1);
+  assert.equal(detail.points[0]?.tcgMarket, 11.25);
+});
+
 test("getJustTcgPriceDetail keeps the legacy detail shape from the new price tables", async () => {
   const { getJustTcgPriceDetail } =
     await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");

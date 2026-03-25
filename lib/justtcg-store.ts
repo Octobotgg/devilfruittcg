@@ -91,7 +91,7 @@ function normalizeRequestedId(cardId: string) {
 
 function baseRequestedId(cardId: string) {
   const normalized = normalizeRequestedId(cardId);
-  const publicPrintMatch = normalized.match(/^([A-Z0-9]+-\d+[A-Z]?)(?:[_-][A-Z0-9]+)$/u);
+  const publicPrintMatch = normalized.match(/^([A-Z0-9]+-\d+[A-Z]?)(?:[_-].+)?$/u);
   if (publicPrintMatch?.[1]) return publicPrintMatch[1];
   return normalized.replace(/_[A-Z0-9]+$/u, "");
 }
