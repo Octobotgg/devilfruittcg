@@ -13,6 +13,7 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 const timestamps = {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
@@ -244,7 +245,9 @@ export const cardPrints = pgTable(
     cardVariantSlugUnique: uniqueIndex("card_prints_card_variant_slug_unique").on(table.cardId, table.variantSlug),
     releaseIdx: index("card_prints_release_idx").on(table.releaseId),
     cardIdx: index("card_prints_card_idx").on(table.cardId),
-    activeExternalProductIdx: index("card_prints_active_external_product_idx").on(table.activeExternalProductId),
+    activeExternalProductUnique: uniqueIndex("card_prints_active_external_product_unique")
+      .on(table.activeExternalProductId)
+      .where(sql`${table.activeExternalProductId} is not null`),
     variantTypeIdx: index("card_prints_variant_type_idx").on(table.variantType),
   }),
 );
@@ -274,7 +277,9 @@ export const sealedProducts = pgTable(
     gameSlugUnique: uniqueIndex("sealed_products_game_slug_unique").on(table.gameId, table.slug),
     skuUnique: uniqueIndex("sealed_products_sku_unique").on(table.sku),
     releaseIdx: index("sealed_products_release_idx").on(table.releaseId),
-    activeExternalProductIdx: index("sealed_products_active_external_product_idx").on(table.activeExternalProductId),
+    activeExternalProductUnique: uniqueIndex("sealed_products_active_external_product_unique")
+      .on(table.activeExternalProductId)
+      .where(sql`${table.activeExternalProductId} is not null`),
     productTypeIdx: index("sealed_products_product_type_idx").on(table.productType),
     nameIdx: index("sealed_products_name_idx").on(table.name),
   }),

@@ -1,5 +1,5 @@
 {
-  "id": "12ac85e4-c73c-4004-90aa-b4749cf10e42",
+  "id": "66a7fec6-7388-4b03-8687-6df364516789",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -673,8 +673,8 @@
           "method": "btree",
           "with": {}
         },
-        "card_prints_active_external_product_idx": {
-          "name": "card_prints_active_external_product_idx",
+        "card_prints_active_external_product_unique": {
+          "name": "card_prints_active_external_product_unique",
           "columns": [
             {
               "expression": "active_external_product_id",
@@ -683,7 +683,8 @@
               "nulls": "last"
             }
           ],
-          "isUnique": false,
+          "isUnique": true,
+          "where": "\"card_prints\".\"active_external_product_id\" is not null",
           "concurrently": false,
           "method": "btree",
           "with": {}
@@ -2736,8 +2737,8 @@
           "method": "btree",
           "with": {}
         },
-        "sealed_products_active_external_product_idx": {
-          "name": "sealed_products_active_external_product_idx",
+        "sealed_products_active_external_product_unique": {
+          "name": "sealed_products_active_external_product_unique",
           "columns": [
             {
               "expression": "active_external_product_id",
@@ -2746,7 +2747,8 @@
               "nulls": "last"
             }
           ],
-          "isUnique": false,
+          "isUnique": true,
+          "where": "\"sealed_products\".\"active_external_product_id\" is not null",
           "concurrently": false,
           "method": "btree",
           "with": {}

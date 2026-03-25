@@ -313,7 +313,7 @@ CREATE UNIQUE INDEX "card_prints_printed_card_code_unique" ON "card_prints" USIN
 CREATE UNIQUE INDEX "card_prints_card_variant_slug_unique" ON "card_prints" USING btree ("card_id","variant_slug");--> statement-breakpoint
 CREATE INDEX "card_prints_release_idx" ON "card_prints" USING btree ("release_id");--> statement-breakpoint
 CREATE INDEX "card_prints_card_idx" ON "card_prints" USING btree ("card_id");--> statement-breakpoint
-CREATE INDEX "card_prints_active_external_product_idx" ON "card_prints" USING btree ("active_external_product_id");--> statement-breakpoint
+CREATE UNIQUE INDEX "card_prints_active_external_product_unique" ON "card_prints" USING btree ("active_external_product_id") WHERE "card_prints"."active_external_product_id" is not null;--> statement-breakpoint
 CREATE INDEX "card_prints_variant_type_idx" ON "card_prints" USING btree ("variant_type");--> statement-breakpoint
 CREATE UNIQUE INDEX "cards_game_base_card_code_unique" ON "cards" USING btree ("game_id","base_card_code");--> statement-breakpoint
 CREATE UNIQUE INDEX "cards_game_set_code_number_name_unique" ON "cards" USING btree ("game_id","set_code","number","name");--> statement-breakpoint
@@ -347,6 +347,6 @@ CREATE INDEX "sealed_product_price_history_sealed_product_recorded_at_idx" ON "s
 CREATE UNIQUE INDEX "sealed_products_game_slug_unique" ON "sealed_products" USING btree ("game_id","slug");--> statement-breakpoint
 CREATE UNIQUE INDEX "sealed_products_sku_unique" ON "sealed_products" USING btree ("sku");--> statement-breakpoint
 CREATE INDEX "sealed_products_release_idx" ON "sealed_products" USING btree ("release_id");--> statement-breakpoint
-CREATE INDEX "sealed_products_active_external_product_idx" ON "sealed_products" USING btree ("active_external_product_id");--> statement-breakpoint
+CREATE UNIQUE INDEX "sealed_products_active_external_product_unique" ON "sealed_products" USING btree ("active_external_product_id") WHERE "sealed_products"."active_external_product_id" is not null;--> statement-breakpoint
 CREATE INDEX "sealed_products_product_type_idx" ON "sealed_products" USING btree ("product_type");--> statement-breakpoint
 CREATE INDEX "sealed_products_name_idx" ON "sealed_products" USING btree ("name");
