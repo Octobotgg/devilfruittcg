@@ -236,9 +236,23 @@ export async function getMarketHomeReadModel(options?: {
 }
 
 export function toLegacyMarketWatchShape(home: MarketHomeReadModel) {
-  const topDaily = home.cards.topGainers24h;
-  const topWeekly = home.cards.topLosers24h;
-  const bountyBoard = [...topDaily, ...topWeekly].slice(0, Math.max(topDaily.length, topWeekly.length));
+  const combinedGainers = [...home.cards.topGainers24h, ...home.sealed.topGainers24h].sort(
+    (left, right) => right.dailyChangePct - left.dailyChangePct,
+  );
+  const combinedMovers = [
+    ...home.cards.topGainers24h,
+    ...home.cards.topLosers24h,
+    ...home.sealed.topGainers24h,
+    ...home.sealed.topLosers24h,
+  ].sort((left, right) => Math.abs(right.dailyChangePct) - Math.abs(left.dailyChangePct));
+
+  const topDaily = combinedGainers.slice(0, 12);
+  const topWeekly = combinedMovers.slice(0, 12);
+  const bountyBoard = Array.from(
+    new Map(
+      [...topDaily, ...topWeekly].map((row) => [row.collectibleId, row]),
+    ).values(),
+  ).slice(0, 12);
 
   return {
     source: home.source,

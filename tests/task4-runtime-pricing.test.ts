@@ -195,3 +195,228 @@ test("deck valuation ignores unmapped cards while surfacing them as unpriced", a
     },
   ]);
 });
+
+test("market search treats unapproved active links as unpriced", async () => {
+  const { toMarketCardResultForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  const result = toMarketCardResultForTesting({
+    cardPrintId: "cp-alt-1",
+    cardId: "OP01-001",
+    printedCardCode: "OP01-001",
+    variantLabel: "Alt Art",
+    variantSlug: "alt-art",
+    cardName: "Monkey D. Luffy",
+    setCode: "OP01",
+    setName: "Romance Dawn",
+    number: "001",
+    cardType: "Leader",
+    color: "Red",
+    rarity: "L",
+    cost: 5,
+    life: 5,
+    power: 5000,
+    counter: 0,
+    attribute: "Strike",
+    traits: null,
+    effectText: null,
+    triggerText: null,
+    imageUrl: "https://img.example/internal.jpg",
+    releaseDate: "2025-01-01",
+    justtcgTitle: "Monkey D. Luffy Alt Art",
+    justtcgImageUrl: "https://img.example/justtcg.jpg",
+    mappingApproved: false,
+    priceNm: "55.00",
+    priceLp: "40.00",
+    priceChange7d: "5.00",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    fetchedAt: "2026-03-25T00:05:00.000Z",
+  });
+
+  assert.equal(result.pricingStatus, "unpriced");
+  assert.equal(result.market, null);
+  assert.equal(result.currentPrice, null);
+});
+
+test("market search preserves unique print identity in results", async () => {
+  const { toMarketCardResultForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  const result = toMarketCardResultForTesting({
+    cardPrintId: "cp-alt-2",
+    cardId: "OP01-001",
+    printedCardCode: "OP01-001-P1",
+    variantLabel: "Alt Art",
+    variantSlug: "alt-art",
+    cardName: "Monkey D. Luffy",
+    setCode: "OP01",
+    setName: "Romance Dawn",
+    number: "001",
+    cardType: "Leader",
+    color: "Red",
+    rarity: "L",
+    cost: 5,
+    life: 5,
+    power: 5000,
+    counter: 0,
+    attribute: "Strike",
+    traits: null,
+    effectText: null,
+    triggerText: null,
+    imageUrl: "https://img.example/internal.jpg",
+    releaseDate: "2025-01-01",
+    justtcgTitle: "Monkey D. Luffy Alt Art",
+    justtcgImageUrl: "https://img.example/justtcg.jpg",
+    mappingApproved: true,
+    priceNm: "55.00",
+    priceLp: "40.00",
+    priceChange7d: "5.00",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    fetchedAt: "2026-03-25T00:05:00.000Z",
+  });
+
+  assert.equal(result.id, "cp-alt-2");
+  assert.equal(result.baseId, "OP01-001");
+  assert.equal(result.printedCardId, "OP01-001-P1");
+  assert.equal(result.canonicalId, "cp-alt-2");
+});
+
+test("market search price_desc sorts unpriced results after priced results", async () => {
+  const { sortMarketCardsForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  const sorted = sortMarketCardsForTesting(
+    [
+      {
+        id: "cp-unpriced",
+        name: "Beta",
+        set: "Set",
+        setCode: "OP01",
+        number: "002",
+        type: "Character",
+        color: "Blue",
+        rarity: "R",
+        market: null,
+      },
+      {
+        id: "cp-priced",
+        name: "Alpha",
+        set: "Set",
+        setCode: "OP01",
+        number: "001",
+        type: "Character",
+        color: "Red",
+        rarity: "R",
+        market: {
+          marketPrice: 12,
+          averagePrice: 12,
+          lowestPrice: null,
+          highestPrice: null,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          stale: false,
+          cached: true,
+          source: "justtcg",
+        },
+      },
+    ],
+    "price_desc",
+    "alpha",
+  );
+
+  assert.equal(sorted[0]?.id, "cp-priced");
+  assert.equal(sorted[1]?.id, "cp-unpriced");
+});
+
+test("blank market browse defaults to newest sorting", async () => {
+  const { resolveMarketSortForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  assert.equal(resolveMarketSortForTesting("", undefined), "newest");
+  assert.equal(resolveMarketSortForTesting("luffy", undefined), "relevance");
+  assert.equal(resolveMarketSortForTesting("", "price_desc"), "price_desc");
+});
+
+test("legacy market watch shape keeps weekly movers separate from losers and preserves bounty union", async () => {
+  const { toLegacyMarketWatchShape } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  const watch = toLegacyMarketWatchShape({
+    source: "justtcg-runtime-pricing",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    cards: {
+      topGainers24h: [
+        {
+          collectibleId: "card-gain",
+          collectibleKind: "raw_card",
+          cardId: "OP01-001",
+          name: "Card Gain",
+          justtcgTitle: "Card Gain",
+          imageUrl: null,
+          currentPrice: 15,
+          priceChange24h: 3,
+          previousPrice: 12,
+          dailyChangePct: 25,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+      topLosers24h: [
+        {
+          collectibleId: "card-loss",
+          collectibleKind: "raw_card",
+          cardId: "OP01-002",
+          name: "Card Loss",
+          justtcgTitle: "Card Loss",
+          imageUrl: null,
+          currentPrice: 8,
+          priceChange24h: -2,
+          previousPrice: 10,
+          dailyChangePct: -20,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+    },
+    sealed: {
+      topGainers24h: [
+        {
+          collectibleId: "sealed-gain",
+          collectibleKind: "sealed",
+          cardId: null,
+          name: "Sealed Gain",
+          justtcgTitle: "Sealed Gain",
+          imageUrl: null,
+          currentPrice: 120,
+          priceChange24h: 20,
+          previousPrice: 100,
+          dailyChangePct: 20,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+      topLosers24h: [],
+    },
+  });
+
+  assert.equal(watch.topDaily[0]?.collectibleId, "card-gain");
+  assert.equal(watch.topWeekly.some((row) => row.collectibleId === "card-loss"), true);
+  assert.equal(watch.topWeekly.some((row) => row.collectibleId === "sealed-gain"), true);
+  assert.equal(watch.bountyBoard.some((row) => row.collectibleId === "card-gain"), true);
+  assert.equal(watch.bountyBoard.some((row) => row.collectibleId === "card-loss"), true);
+});

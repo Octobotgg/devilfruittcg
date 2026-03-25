@@ -62,6 +62,7 @@ type MarketSearchRow = {
   releaseDate: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
+  mappingApproved: boolean;
   priceNm: string | number | null;
   priceLp: string | number | null;
   priceChange7d: string | number | null;
@@ -80,6 +81,26 @@ type RuntimeMarketCardResult = MarketCardResult & {
   };
   pricingStatus: "priced" | "unpriced";
   currentPrice: number | null;
+};
+
+type SortableMarketCard = {
+  id?: string;
+  cardPrintId?: string;
+  printedCardId?: string | null;
+  justtcgTitle?: string | null;
+  name: string;
+  set?: string;
+  setCode: string;
+  number: string;
+  type?: string;
+  color?: string;
+  rarity?: string;
+  attribute?: string | null;
+  traits?: string | null;
+  effect?: string | null;
+  trigger?: string | null;
+  releaseDate?: string | null;
+  market: MarketPriceSummary | null;
 };
 
 const DEFAULT_PAGE_SIZE = 24;
@@ -125,6 +146,7 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
         coalesce(cp.release_date_override::text, releases.release_date::text) as "releaseDate",
         ep.name as "justtcgTitle",
         ep.image_url as "justtcgImageUrl",
+        coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
         current_prices.price_nm as "priceNm",
         current_prices.price_lp as "priceLp",
         current_prices.price_change_7d as "priceChange7d",
@@ -162,11 +184,14 @@ function tokenize(value: string) {
   return normalizeText(value).split(" ").filter(Boolean);
 }
 
-function cardNumberValue(card: Card) {
+function cardNumberValue(card: Pick<SortableMarketCard, "number">) {
   return Number(card.number.replace(/\D/g, "")) || 0;
 }
 
-function compareCardNumber(a: Card, b: Card) {
+function compareCardNumber(
+  a: Pick<SortableMarketCard, "setCode" | "number" | "name">,
+  b: Pick<SortableMarketCard, "setCode" | "number" | "name">,
+) {
   const setCompare = a.setCode.localeCompare(b.setCode, undefined, { numeric: true });
   if (setCompare !== 0) return setCompare;
 
@@ -176,7 +201,10 @@ function compareCardNumber(a: Card, b: Card) {
   return a.name.localeCompare(b.name);
 }
 
-function compareNewest(a: Card, b: Card) {
+function compareNewest(
+  a: Pick<SortableMarketCard, "releaseDate" | "setCode" | "number" | "name">,
+  b: Pick<SortableMarketCard, "releaseDate" | "setCode" | "number" | "name">,
+) {
   const dateA = a.releaseDate || "0000-00-00";
   const dateB = b.releaseDate || "0000-00-00";
 
@@ -251,18 +279,22 @@ function createFacets(cards: RuntimeMarketCardResult[]): MarketFacets {
   };
 }
 
-function scoreCard(card: RuntimeMarketCardResult, query: string) {
+function scoreCard(card: SortableMarketCard, query: string) {
   const trimmed = query.trim();
   if (!trimmed) return 0;
 
   const raw = trimmed.toLowerCase();
   const normalized = normalizeText(trimmed);
+  const cardName = String(card.name || "");
+  const cardId = String(card.id || "");
+  const cardPrintId = String(card.cardPrintId || card.id || "");
+  const justtcgTitle = String(card.justtcgTitle || "");
   const searchable = normalizeText([
-    card.name,
-    card.id,
-    card.cardPrintId,
+    cardName,
+    cardId,
+    cardPrintId,
     card.printedCardId || "",
-    card.justtcgTitle || "",
+    justtcgTitle,
     `${card.setCode}-${card.number}`,
     card.number,
     card.setCode,
@@ -278,16 +310,16 @@ function scoreCard(card: RuntimeMarketCardResult, query: string) {
 
   let score = 0;
 
-  if (card.cardPrintId.toLowerCase() === raw) score += 1800;
-  else if (card.id.toLowerCase() === raw) score += 1700;
+  if (cardPrintId.toLowerCase() === raw) score += 1800;
+  else if (cardId.toLowerCase() === raw) score += 1700;
   else if (`${card.setCode}-${card.number}`.toLowerCase() === raw) score += 1600;
 
-  if (card.name.toLowerCase() === raw) score += 1500;
-  else if (card.name.toLowerCase().startsWith(raw)) score += 900;
-  else if (card.name.toLowerCase().includes(raw)) score += 700;
+  if (cardName.toLowerCase() === raw) score += 1500;
+  else if (cardName.toLowerCase().startsWith(raw)) score += 900;
+  else if (cardName.toLowerCase().includes(raw)) score += 700;
 
-  if ((card.justtcgTitle || "").toLowerCase() === raw) score += 1450;
-  else if ((card.justtcgTitle || "").toLowerCase().includes(raw)) score += 650;
+  if (justtcgTitle.toLowerCase() === raw) score += 1450;
+  else if (justtcgTitle.toLowerCase().includes(raw)) score += 650;
 
   const tokens = tokenize(normalized);
   if (tokens.length) {
@@ -322,6 +354,8 @@ function attributeMatch(card: RuntimeMarketCardResult, filters: string[]) {
 }
 
 function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
+  if (!row.mappingApproved) return null;
+
   const marketPrice = parseNullableNumber(row.priceNm);
   if (marketPrice == null) return null;
 
@@ -345,13 +379,14 @@ function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
   };
 }
 
-function toMarketCardResult(row: MarketSearchRow): RuntimeMarketCardResult {
+export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarketCardResult {
   const market = toMarketPriceSummary(row);
 
   const card: Card = {
-    id: row.cardId,
+    id: row.cardPrintId,
     baseId: row.cardId,
-    printedCardId: row.cardPrintId,
+    baseCardId: row.cardId,
+    printedCardId: row.printedCardCode,
     canonicalId: row.cardPrintId,
     canonicalVariantId: row.cardPrintId,
     canonicalVariantKey: row.variantSlug,
@@ -426,21 +461,27 @@ function applyFilters(cards: RuntimeMarketCardResult[], query: MarketSearchQuery
   });
 }
 
-function sortCards(cards: RuntimeMarketCardResult[], sort: MarketSort, query: string) {
+export function sortMarketCardsForTesting<T extends Pick<RuntimeMarketCardResult, "market" | "name" | "setCode" | "number">>(
+  cards: Array<T & SortableMarketCard>,
+  sort: MarketSort,
+  query: string,
+) {
   const scored = cards.map((card) => ({
     card,
     score: scoreCard(card, query),
   }));
 
   scored.sort((left, right) => {
-    const leftPrice = left.card.market?.marketPrice ?? Number.POSITIVE_INFINITY;
-    const rightPrice = right.card.market?.marketPrice ?? Number.POSITIVE_INFINITY;
+    const leftPriceAsc = left.card.market?.marketPrice ?? Number.POSITIVE_INFINITY;
+    const rightPriceAsc = right.card.market?.marketPrice ?? Number.POSITIVE_INFINITY;
+    const leftPriceDesc = left.card.market?.marketPrice ?? Number.NEGATIVE_INFINITY;
+    const rightPriceDesc = right.card.market?.marketPrice ?? Number.NEGATIVE_INFINITY;
 
     switch (sort) {
       case "price_asc":
-        return leftPrice - rightPrice || compareCardNumber(left.card, right.card);
+        return leftPriceAsc - rightPriceAsc || compareCardNumber(left.card, right.card);
       case "price_desc":
-        return rightPrice - leftPrice || compareCardNumber(left.card, right.card);
+        return rightPriceDesc - leftPriceDesc || compareCardNumber(left.card, right.card);
       case "name_asc":
         return left.card.name.localeCompare(right.card.name) || compareCardNumber(left.card, right.card);
       case "name_desc":
@@ -458,15 +499,20 @@ function sortCards(cards: RuntimeMarketCardResult[], sort: MarketSort, query: st
   return scored.map((item) => item.card);
 }
 
+export function resolveMarketSortForTesting(query: string, sort?: MarketSort) {
+  if (sort) return sort;
+  return query.trim() ? "relevance" : "newest";
+}
+
 export async function searchMarketCatalogReadModel(
   query: MarketSearchQuery = {},
 ): Promise<MarketCatalogResponse & { results: RuntimeMarketCardResult[] }> {
-  const allCards = (await loadMarketRows()).map((row) => toMarketCardResult(row));
+  const allCards = (await loadMarketRows()).map((row) => toMarketCardResultForTesting(row));
   const filtered = applyFilters(allCards, query);
-  const sort = query.sort || "relevance";
+  const sort = resolveMarketSortForTesting(String(query.q || ""), query.sort);
   const pageSize = Math.min(MAX_PAGE_SIZE, Math.max(1, query.pageSize || DEFAULT_PAGE_SIZE));
   const page = Math.max(1, query.page || 1);
-  const sorted = sortCards(filtered, sort, String(query.q || ""));
+  const sorted = sortMarketCardsForTesting(filtered, sort, String(query.q || ""));
   const total = sorted.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const start = (page - 1) * pageSize;
