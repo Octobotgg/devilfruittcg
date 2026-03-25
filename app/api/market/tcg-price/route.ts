@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
           ids: requestedIds,
           results,
           source: {
-            provider: "JustTCG cache",
+            provider: "JustTCG read model",
           },
         },
         {
@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
         price: detail.price,
         points: detail.points,
         source: {
-          provider: "JustTCG cache",
+          provider: "JustTCG read model",
         },
         freshness: {
           updatedAt: detail.price?.updatedAt || detail.price?.fetchedAt || null,
@@ -76,7 +76,10 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        error: "Failed to load cached TCG price",
+        error: "Failed to load JustTCG price",
+        source: {
+          provider: "JustTCG read model",
+        },
         detail: error instanceof Error ? error.message : String(error),
       },
       { status: 500 },
