@@ -75,77 +75,86 @@ function toPlainRows<T>(rows: Iterable<unknown>): T[] {
   return Array.from(rows, (row) => ({ ...(row as Record<string, unknown>) })) as T[];
 }
 
+const RAW_CARD_MOVER_QUERY = `
+  select
+    cp.id as "collectibleId",
+    'raw_card' as "collectibleKind",
+    cards.id as "cardId",
+    cards.name as "officialName",
+    releases.code as "officialSetCode",
+    releases.name as "officialSetName",
+    current_prices.external_product_id as "externalProductId",
+    cp.active_external_product_id as "activeExternalProductId",
+    ep.name as "justtcgTitle",
+    ep.image_url as "justtcgImageUrl",
+    current_prices.price_nm as "currentPrice",
+    current_prices.price_change_24h as "priceChange24h",
+    current_prices.updated_at::text as "updatedAt",
+    true as "mappingApproved"
+  from card_print_price_current current_prices
+  join card_prints cp
+    on cp.id = current_prices.card_print_id
+   and cp.active_external_product_id = current_prices.external_product_id
+  join cards on cards.id = cp.card_id
+  join releases on releases.id = cp.release_id
+  join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'raw_card'
+  join card_print_market_links link
+    on link.card_print_id = cp.id
+   and link.external_product_id = current_prices.external_product_id
+   and link.approved_at is not null
+   and link.mapping_status <> 'rejected'
+  where current_prices.source_id = 'justtcg'
+    and cp.is_active = true
+`;
+
+const SEALED_MOVER_QUERY = `
+  select
+    sealed.id as "collectibleId",
+    'sealed' as "collectibleKind",
+    null as "cardId",
+    sealed.name as "officialName",
+    releases.code as "officialSetCode",
+    releases.name as "officialSetName",
+    current_prices.external_product_id as "externalProductId",
+    sealed.active_external_product_id as "activeExternalProductId",
+    ep.name as "justtcgTitle",
+    ep.image_url as "justtcgImageUrl",
+    current_prices.price_market as "currentPrice",
+    current_prices.price_change_24h as "priceChange24h",
+    current_prices.updated_at::text as "updatedAt",
+    true as "mappingApproved"
+  from sealed_product_price_current current_prices
+  join sealed_products sealed
+    on sealed.id = current_prices.sealed_product_id
+   and sealed.active_external_product_id = current_prices.external_product_id
+  left join releases on releases.id = sealed.release_id
+  join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'sealed'
+  join sealed_product_market_links link
+    on link.sealed_product_id = sealed.id
+   and link.external_product_id = current_prices.external_product_id
+   and link.approved_at is not null
+   and link.mapping_status <> 'rejected'
+  where current_prices.source_id = 'justtcg'
+    and sealed.is_active = true
+`;
+
 async function loadMoverRows(): Promise<MarketMoverRow[]> {
   const sql = createPostgresClient();
-  const rawCardRows = await sql.unsafe(
-    `
-      select
-        cp.id as "collectibleId",
-        'raw_card' as "collectibleKind",
-        cards.id as "cardId",
-        cards.name as "officialName",
-        releases.code as "officialSetCode",
-        releases.name as "officialSetName",
-        current_prices.external_product_id as "externalProductId",
-        cp.active_external_product_id as "activeExternalProductId",
-        ep.name as "justtcgTitle",
-        ep.image_url as "justtcgImageUrl",
-        current_prices.price_nm as "currentPrice",
-        current_prices.price_change_24h as "priceChange24h",
-        current_prices.updated_at::text as "updatedAt",
-        true as "mappingApproved"
-      from card_print_price_current current_prices
-      join card_prints cp
-        on cp.id = current_prices.card_print_id
-       and cp.active_external_product_id = current_prices.external_product_id
-      join cards on cards.id = cp.card_id
-      join releases on releases.id = cp.release_id
-      join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'raw_card'
-      join card_print_market_links link
-        on link.card_print_id = cp.id
-       and link.external_product_id = current_prices.external_product_id
-       and link.approved_at is not null
-       and link.mapping_status <> 'rejected'
-      where current_prices.source_id = 'justtcg'
-    `,
-  );
+  const rawCardRows = await sql.unsafe(RAW_CARD_MOVER_QUERY);
 
-  const sealedRows = await sql.unsafe(
-    `
-      select
-        sealed.id as "collectibleId",
-        'sealed' as "collectibleKind",
-        null as "cardId",
-        sealed.name as "officialName",
-        releases.code as "officialSetCode",
-        releases.name as "officialSetName",
-        current_prices.external_product_id as "externalProductId",
-        sealed.active_external_product_id as "activeExternalProductId",
-        ep.name as "justtcgTitle",
-        ep.image_url as "justtcgImageUrl",
-        current_prices.price_market as "currentPrice",
-        current_prices.price_change_24h as "priceChange24h",
-        current_prices.updated_at::text as "updatedAt",
-        true as "mappingApproved"
-      from sealed_product_price_current current_prices
-      join sealed_products sealed
-        on sealed.id = current_prices.sealed_product_id
-       and sealed.active_external_product_id = current_prices.external_product_id
-      left join releases on releases.id = sealed.release_id
-      join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'sealed'
-      join sealed_product_market_links link
-        on link.sealed_product_id = sealed.id
-       and link.external_product_id = current_prices.external_product_id
-       and link.approved_at is not null
-       and link.mapping_status <> 'rejected'
-      where current_prices.source_id = 'justtcg'
-    `,
-  );
+  const sealedRows = await sql.unsafe(SEALED_MOVER_QUERY);
 
   return [
     ...toPlainRows<MarketMoverRow>(rawCardRows),
     ...toPlainRows<MarketMoverRow>(sealedRows),
   ];
+}
+
+export function getMarketHomeMoverQueriesForTesting() {
+  return {
+    rawCardQuery: RAW_CARD_MOVER_QUERY,
+    sealedQuery: SEALED_MOVER_QUERY,
+  };
 }
 
 export function passesMarketMoverTrustFilters(

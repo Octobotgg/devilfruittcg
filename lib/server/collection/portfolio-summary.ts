@@ -261,8 +261,8 @@ function chartPointsForItems(
       const latestHistoryPrice = history.length ? history[history.length - 1]?.price ?? null : null;
 
       let unitPrice = latestHistoryPrice;
-      if (currentPrice?.status === "priced" && date === today) {
-        unitPrice = currentPrice.currentPrice;
+      if (date === today) {
+        unitPrice = currentPrice?.status === "priced" ? currentPrice.currentPrice : null;
       }
 
       if (unitPrice != null) {

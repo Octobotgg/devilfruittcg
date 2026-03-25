@@ -483,6 +483,91 @@ test("portfolio summary chart ends at the current total collection value", async
   });
 });
 
+test("portfolio summary chart does not carry forward stale history into today when runtime price is unpriced", async () => {
+  const { buildPortfolioSummary } =
+    await importModule<typeof import("../lib/server/collection/portfolio-summary")>(
+      "lib/server/collection/portfolio-summary.ts",
+    );
+
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10);
+  const yesterday = new Date(now);
+  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+  yesterday.setUTCHours(12, 0, 0, 0);
+
+  const summary = await buildPortfolioSummary(
+    [
+      { cardPrintId: "cp-priced-current", quantity: 1 },
+      { cardPrintId: "cp-missing-current-price", quantity: 1 },
+    ],
+    {
+      range: "7D",
+      loadPrices: async () =>
+        new Map([
+          [
+            "cp-priced-current",
+            {
+              status: "priced",
+              kind: "raw_card",
+              cardPrintId: "cp-priced-current",
+              cardId: "OP01-001",
+              printedCardCode: "OP01-001",
+              currency: "USD",
+              currentPrice: 10,
+              currentPriceType: "near_mint",
+              priceMarket: 10.5,
+              priceLp: 9,
+              priceChange24h: 1,
+              updatedAt: now.toISOString(),
+              fetchedAt: now.toISOString(),
+              externalProductId: "justtcg:current",
+              justtcg: {
+                title: "Current card",
+                imageUrl: "https://img.example/current.jpg",
+              },
+              official: {
+                name: "Current Card",
+                setCode: "OP01",
+                setName: "Romance Dawn",
+              },
+            },
+          ],
+          [
+            "cp-missing-current-price",
+            {
+              status: "unpriced",
+              kind: "raw_card",
+              cardPrintId: "cp-missing-current-price",
+              reason: "missing_current_price",
+              currency: "USD",
+            },
+          ],
+        ]),
+      loadHistory: async () =>
+        new Map([
+          [
+            "cp-missing-current-price",
+            [
+              {
+                cardPrintId: "cp-missing-current-price",
+                recordedAt: yesterday.toISOString(),
+                price: 99,
+                externalProductId: "justtcg:old",
+                approvedActive: true,
+              },
+            ],
+          ],
+        ]),
+    },
+  );
+
+  assert.equal(summary.totalCollectionValue, 10);
+  assert.deepEqual(summary.chartHistory.at(-1), {
+    date: today,
+    value: 10,
+  });
+});
+
 test("portfolio summary ignores history rows from stale or non-approved product links", async () => {
   const { buildPortfolioSummary } =
     await importModule<typeof import("../lib/server/collection/portfolio-summary")>(
@@ -806,4 +891,16 @@ test("legacy market watch shape keeps weekly movers separate from losers and pre
   assert.equal(watch.topWeekly.some((row) => row.collectibleId === "sealed-gain"), true);
   assert.equal(watch.bountyBoard.some((row) => row.collectibleId === "card-gain"), true);
   assert.equal(watch.bountyBoard.some((row) => row.collectibleId === "card-loss"), true);
+});
+
+test("market home mover queries exclude inactive raw and sealed collectibles", async () => {
+  const { getMarketHomeMoverQueriesForTesting } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  const queries = getMarketHomeMoverQueriesForTesting();
+
+  assert.match(queries.rawCardQuery, /where current_prices\.source_id = 'justtcg'\s+and cp\.is_active = true/i);
+  assert.match(queries.sealedQuery, /where current_prices\.source_id = 'justtcg'\s+and sealed\.is_active = true/i);
 });
