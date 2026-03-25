@@ -285,6 +285,50 @@ function buildExternalProductRow(raw, overrides = {}) {
   };
 }
 
+function preferNonEmpty(currentValue, nextValue) {
+  if (nextValue == null) return currentValue;
+  if (typeof nextValue === "string" && nextValue.trim() === "") return currentValue;
+  return nextValue;
+}
+
+function mergeRawPayload(currentValue, nextValue) {
+  if (nextValue == null) return currentValue;
+  if (currentValue == null) return nextValue;
+  if (
+    typeof currentValue === "object" &&
+    typeof nextValue === "object" &&
+    !Array.isArray(currentValue) &&
+    !Array.isArray(nextValue)
+  ) {
+    return {
+      ...currentValue,
+      ...nextValue,
+    };
+  }
+  return nextValue;
+}
+
+function mergeExternalProductRows(existing, nextRow) {
+  if (!existing) return nextRow;
+
+  return {
+    ...existing,
+    ...nextRow,
+    product_kind: preferNonEmpty(existing.product_kind, nextRow.product_kind),
+    name: preferNonEmpty(existing.name, nextRow.name),
+    set_name: preferNonEmpty(existing.set_name, nextRow.set_name),
+    number: preferNonEmpty(existing.number, nextRow.number),
+    rarity: preferNonEmpty(existing.rarity, nextRow.rarity),
+    language: preferNonEmpty(existing.language, nextRow.language),
+    condition_model: preferNonEmpty(existing.condition_model, nextRow.condition_model),
+    printing: preferNonEmpty(existing.printing, nextRow.printing),
+    image_url: preferNonEmpty(existing.image_url, nextRow.image_url),
+    product_url: preferNonEmpty(existing.product_url, nextRow.product_url),
+    raw_payload: mergeRawPayload(existing.raw_payload, nextRow.raw_payload),
+    last_seen_at: preferNonEmpty(existing.last_seen_at, nextRow.last_seen_at),
+  };
+}
+
 function buildTcgplayerProductRow(product) {
   const tcgplayerId = cleanText(inferTcgplayerId(product));
   if (!tcgplayerId) return null;
@@ -317,7 +361,7 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
     if (!row) return null;
 
     const existing = products.get(row.id);
-    products.set(row.id, existing ? { ...existing, ...row, raw_payload: row.raw_payload || existing.raw_payload } : row);
+    products.set(row.id, mergeExternalProductRows(existing, row));
 
     if (options.includeTcgplayerSource) {
       const tcgRow = buildTcgplayerProductRow(products.get(row.id));
@@ -381,6 +425,8 @@ function mappingStatusFromEntry(entry) {
 function collectRawCardMappings(mappingReport, externalProducts) {
   const cardPrintMarketLinks = [];
   const approvedRawAssignments = [];
+  const approvedByCardPrintId = new Map();
+  const activeByExternalProductId = new Map();
 
   for (const entry of Array.isArray(mappingReport?.results) ? mappingReport.results : []) {
     const cardPrintId = cleanText(entry?.cardId);
@@ -408,6 +454,22 @@ function collectRawCardMappings(mappingReport, externalProducts) {
     });
 
     if (approved) {
+      const existingApproved = approvedByCardPrintId.get(cardPrintId);
+      if (existingApproved && existingApproved !== externalProductId) {
+        throw new Error(
+          `Conflicting approved raw-card mappings for ${cardPrintId}: ${existingApproved} vs ${externalProductId}`,
+        );
+      }
+      approvedByCardPrintId.set(cardPrintId, externalProductId);
+
+      const existingActiveCollectible = activeByExternalProductId.get(externalProductId);
+      if (existingActiveCollectible && existingActiveCollectible !== cardPrintId) {
+        throw new Error(
+          `External product ${externalProductId} cannot be active for multiple card prints: ${existingActiveCollectible} and ${cardPrintId}`,
+        );
+      }
+      activeByExternalProductId.set(externalProductId, cardPrintId);
+
       approvedRawAssignments.push({
         card_print_id: cardPrintId,
         external_product_id: externalProductId,
@@ -495,11 +557,22 @@ function buildSealedProducts(externalProducts, priceIndex, releaseLookup) {
   const sealedProductMarketLinks = [];
   const sealedProductPriceCurrent = [];
   const sealedSnapshots = [];
+  const sealedById = new Map();
+  const activeByExternalProductId = new Map();
 
   for (const product of externalProducts.values()) {
     if (product.product_kind !== "sealed") continue;
 
     const sealedProductId = `sealed:${product.external_product_id}`;
+    if (sealedById.has(sealedProductId)) {
+      throw new Error(`Conflicting sealed product identities for ${sealedProductId}`);
+    }
+    if (activeByExternalProductId.has(product.id)) {
+      throw new Error(`External product ${product.id} cannot be active for multiple sealed products`);
+    }
+    sealedById.set(sealedProductId, product.id);
+    activeByExternalProductId.set(product.id, sealedProductId);
+
     const sku = cleanText(product.number || product.external_product_id) || null;
 
     sealedProducts.push({
@@ -697,22 +770,17 @@ async function deleteByTextValues(sql, tableName, columnName, values, chunkSize)
   }
 }
 
-async function deletePriceCurrent(sql, tableName, keyColumns, rows, chunkSize) {
-  if (!rows.length) return;
+async function deleteCurrentByCollectibleIds(sql, tableName, collectibleColumn, sourceId, collectibleIds, chunkSize) {
+  if (!collectibleIds.length) return;
 
-  for (const group of chunk(rows, chunkSize)) {
-    const params = [];
-    const placeholders = group
-      .map((row) => {
-        const tuple = keyColumns.map((column) => {
-          params.push(row[column]);
-          return `$${params.length}`;
-        });
-        return `(${tuple.join(", ")})`;
-      })
-      .join(", ");
-
-    const sqlText = `delete from ${quoteIdentifier(tableName)} where (${keyColumns.map(quoteIdentifier).join(", ")}) in (${placeholders})`;
+  for (const group of chunk([...new Set(collectibleIds)], chunkSize)) {
+    const params = [sourceId, ...group];
+    const placeholders = group.map((_, index) => `$${index + 2}`).join(", ");
+    const sqlText = `
+      delete from ${quoteIdentifier(tableName)}
+      where ${quoteIdentifier("source_id")} = $1
+        and ${quoteIdentifier(collectibleColumn)} in (${placeholders})
+    `;
     await sql.unsafe(sqlText, params);
   }
 }
@@ -739,6 +807,33 @@ async function applyActiveAssignments(sql, tableName, idColumn, assignments, chu
   }
 }
 
+async function fetchExistingSnapshotKeys(sql, snapshotRows, chunkSize) {
+  const keys = new Set();
+  if (!snapshotRows.length) return keys;
+
+  for (const group of chunk(snapshotRows, chunkSize)) {
+    const params = [];
+    const tuples = group
+      .map((row) => {
+        params.push(row.external_product_id, row.captured_at);
+        return `($${params.length - 1}, $${params.length})`;
+      })
+      .join(", ");
+
+    const sqlText = `
+      select external_product_id, captured_at
+      from price_snapshots
+      where (external_product_id, captured_at) in (${tuples})
+    `;
+    const rows = await sql.unsafe(sqlText, params);
+    for (const row of rows) {
+      keys.add(`${row.external_product_id}::${new Date(row.captured_at).toISOString()}`);
+    }
+  }
+
+  return keys;
+}
+
 async function applySeed(seed, options) {
   const sql = postgres(getConnectionString(), {
     prepare: false,
@@ -751,21 +846,20 @@ async function applySeed(seed, options) {
       await upsertRows(tx, "external_products", seed.externalProducts, ["id"], options.chunkSize);
       await upsertRows(tx, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
 
-      await deleteByTextValues(tx, "card_print_market_links", "card_print_id", seed.cardPrintMarketLinks.map((row) => row.card_print_id), options.chunkSize);
       await upsertRows(tx, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
 
-      await deleteByTextValues(
-        tx,
-        "sealed_product_market_links",
-        "sealed_product_id",
-        seed.sealedProductMarketLinks.map((row) => row.sealed_product_id),
-        options.chunkSize,
-      );
       await upsertRows(tx, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
       await applyActiveAssignments(tx, "card_prints", "id", seed.activeCardPrintAssignments, options.chunkSize);
 
-      await deletePriceCurrent(tx, "card_print_price_current", ["card_print_id", "source_id"], seed.cardPrintPriceCurrent, options.chunkSize);
+      await deleteCurrentByCollectibleIds(
+        tx,
+        "card_print_price_current",
+        "card_print_id",
+        JUSTTCG_SOURCE.id,
+        seed.activeCardPrintAssignments.map((row) => row.card_print_id),
+        options.chunkSize,
+      );
       await upsertRows(
         tx,
         "card_print_price_current",
@@ -774,11 +868,12 @@ async function applySeed(seed, options) {
         options.chunkSize,
       );
 
-      await deletePriceCurrent(
+      await deleteCurrentByCollectibleIds(
         tx,
         "sealed_product_price_current",
-        ["sealed_product_id", "source_id"],
-        seed.sealedProductPriceCurrent,
+        "sealed_product_id",
+        JUSTTCG_SOURCE.id,
+        seed.sealedProducts.map((row) => row.id),
         options.chunkSize,
       );
       await upsertRows(
@@ -789,14 +884,15 @@ async function applySeed(seed, options) {
         options.chunkSize,
       );
 
-      await deleteByTextValues(
-        tx,
-        "price_snapshots",
-        "external_product_id",
-        seed.priceSnapshots.map((row) => row.external_product_id),
-        options.chunkSize,
-      );
-      await insertRows(tx, "price_snapshots", seed.priceSnapshots, options.chunkSize);
+      const existingSnapshotKeys = await fetchExistingSnapshotKeys(tx, seed.priceSnapshots, options.chunkSize);
+      const seenSnapshotKeys = new Set(existingSnapshotKeys);
+      const newSnapshots = seed.priceSnapshots.filter((row) => {
+        const key = `${row.external_product_id}::${new Date(row.captured_at).toISOString()}`;
+        if (seenSnapshotKeys.has(key)) return false;
+        seenSnapshotKeys.add(key);
+        return true;
+      });
+      await insertRows(tx, "price_snapshots", newSnapshots, options.chunkSize);
     });
   } finally {
     await sql.end({ timeout: 5 });
