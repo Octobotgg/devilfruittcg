@@ -44,6 +44,28 @@ test("formatMarketSetFacetLabel keeps compact real codes and hides sluggy intern
   );
 });
 
+test("formatMarketSetLabel supports compact market card labels for long event names", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  assert.equal(
+    marketDisplay.formatMarketSetLabel("Championship 25-26 Finals Season 1", { compact: true }),
+    "Championship 25-26 Finals S1",
+  );
+  assert.equal(
+    marketDisplay.formatMarketSetLabel("Championship 25-26 Offline Regionals Season 2", { compact: true }),
+    "Championship 25-26 Regionals S2",
+  );
+  assert.equal(
+    marketDisplay.formatMarketSetLabel("BANDAI CARD GAMES Fest 25-26", { compact: true }),
+    "BANDAI Fest 25-26",
+  );
+  assert.equal(
+    marketDisplay.formatMarketSetLabel("2025 NEW YEAR EVENT", { compact: true }),
+    "2025 New Year Event",
+  );
+});
+
 test("marketVariantDisplayLabel shows exact premium treatments and hides vague generic labels", async () => {
   const marketDisplay =
     await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");

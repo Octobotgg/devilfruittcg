@@ -216,6 +216,10 @@ function cardSetLabel(card: Card) {
   return formatMarketSetLabel(card.set);
 }
 
+function compactCardSetLabel(card: Card) {
+  return formatMarketSetLabel(card.set, { compact: true });
+}
+
 function buildCardHref(cardRouteId: string, marketPath: string) {
   return `/cards/${cardRouteId}?market=${encodeURIComponent(marketPath)}`;
 }
@@ -285,7 +289,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
         </div>
 
         <div className="text-[11px] text-white/50">
-          <p className="line-clamp-2">{cardSetLabel(card)}</p>
+          <p className="line-clamp-2">{compactCardSetLabel(card)}</p>
         </div>
 
         <div className="mt-auto pt-1">
@@ -325,7 +329,7 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
           ) : null}
         </div>
         <p className="mt-1 text-sm text-white/45">
-          {displayCardId(card)} · {cardSetLabel(card)} · {card.type} · {card.color}
+          {displayCardId(card)} · {compactCardSetLabel(card)} · {card.type} · {card.color}
         </p>
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/70">{card.effect || "No effect text listed."}</p>
       </div>
@@ -341,6 +345,51 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
         </div>
       </div>
     </Link>
+  );
+}
+
+function SuggestionRow({
+  card,
+  onSelect,
+}: {
+  card: MarketCardResult;
+  onSelect: () => void;
+}) {
+  const variantLabel = marketVariantLabel(card);
+  const priceState = marketPriceDisplay(card.market);
+  const isMuted = priceState.tone === "muted";
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className="flex w-full items-center gap-3 px-4 py-3 text-left transition-all hover:bg-white/5"
+    >
+      <img
+        src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
+        alt={card.name}
+        className="h-14 w-10 rounded-lg border border-white/10 bg-[#08111f] object-contain p-1"
+      />
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <p className="truncate pr-2 text-sm font-bold text-white">{card.name}</p>
+          <span className={`shrink-0 text-[11px] font-semibold ${isMuted ? "text-white/45" : "text-[#F0C040]"}`}>
+            {priceState.label}
+          </span>
+        </div>
+        <p className="mt-1 truncate text-[11px] text-white/45">
+          {displayCardId(card)} · {compactCardSetLabel(card)}
+        </p>
+        <div className="mt-1 flex items-center gap-2">
+          <span className="text-[10px] uppercase tracking-[0.12em] text-white/35">{card.type}</span>
+          {variantLabel ? (
+            <span className="rounded-full border border-[#F0C040]/20 bg-[#F0C040]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">
+              {variantLabel}
+            </span>
+          ) : null}
+        </div>
+      </div>
+    </button>
   );
 }
 
@@ -731,7 +780,7 @@ export default function MarketCatalogView() {
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F0C040]">Filters</p>
             <p className="mt-1 text-sm text-white/55">
-              {activeFilterCount ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "Browse One Piece cards, promos, and special prints"}
+              {activeFilterCount ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "Narrow by set, gameplay stats, rarity, and price"}
             </p>
           </div>
           <button
@@ -764,14 +813,14 @@ export default function MarketCatalogView() {
               onClick={() => updateState((current) => ({ ...current, sets: Array.from(new Set([...current.sets, ...setList.map((option) => option.value)])), page: 1 }))}
               className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white"
             >
-              Select All
+              Select Visible
             </button>
             <button
               type="button"
               onClick={() => updateState((current) => ({ ...current, sets: current.sets.filter((value) => !setList.some((option) => option.value === value)), page: 1 }))}
               className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white"
             >
-              Deselect All
+              Clear Visible
             </button>
           </div>
           <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
@@ -1067,38 +1116,11 @@ export default function MarketCatalogView() {
                 ) : suggestions.length ? (
                   <div className="max-h-[420px] overflow-y-auto py-2">
                     {suggestions.map((card) => (
-                      <button
-                        key={card.id}
-                        type="button"
-                        onClick={() => {
-                          const displayId = displayCardId(card);
-                          setDraftQuery({ value: displayId, committed: displayId });
-                          submitSearch(displayId);
-                        }}
-                        className="flex w-full items-center gap-3 px-4 py-3 text-left transition-all hover:bg-white/5"
-                      >
-                        <img
-                          src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
-                          alt={card.name}
-                          className="h-14 w-10 rounded-lg border border-white/10 bg-[#08111f] object-contain p-1"
-                        />
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-bold text-white">{card.name}</p>
-                          <p className="mt-1 truncate text-[11px] text-white/45">
-                            {displayCardId(card)} · {cardSetLabel(card)} · {card.type}
-                          </p>
-                          {marketVariantLabel(card) ? (
-                            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">
-                              {marketVariantLabel(card)}
-                            </p>
-                          ) : null}
-                        </div>
-                        {formatCurrency(card.market?.marketPrice) ? (
-                          <span className="text-[11px] font-semibold text-[#F0C040]">
-                            {formatCurrency(card.market?.marketPrice)}
-                          </span>
-                        ) : null}
-                      </button>
+                      <SuggestionRow key={card.id} card={card} onSelect={() => {
+                        const displayId = displayCardId(card);
+                        setDraftQuery({ value: displayId, committed: displayId });
+                        submitSearch(displayId);
+                      }} />
                     ))}
                   </div>
                 ) : (

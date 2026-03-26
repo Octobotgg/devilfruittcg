@@ -102,7 +102,19 @@ function normalizeKnownTreatmentLabel(value: string | null | undefined) {
   return null;
 }
 
-export function formatMarketSetLabel(value: string | null | undefined) {
+function compactEventSetLabel(value: string) {
+  return value
+    .replace(/^Championship (\d{2}-\d{2}) Finals Season (\d+)$/u, "Championship $1 Finals S$2")
+    .replace(/^Championship (\d{2}-\d{2}) Offline Regionals Season (\d+)$/u, "Championship $1 Regionals S$2")
+    .replace(/^BANDAI CARD GAMES Fest (\d{2}-\d{2})$/u, "BANDAI Fest $1");
+}
+
+export function formatMarketSetLabel(
+  value: string | null | undefined,
+  options?: {
+    compact?: boolean;
+  },
+) {
   const stripped = String(value || "")
     .replace(/\s*\[[A-Z0-9-]+\]\s*$/u, "")
     .trim();
@@ -110,11 +122,12 @@ export function formatMarketSetLabel(value: string | null | undefined) {
   if (!stripped) return "";
 
   const looksLikeSlug = stripped.includes("_") || /^[A-Z0-9\s-]+$/u.test(stripped);
-  if (!looksLikeSlug) {
-    return stripped;
+  const pretty = !looksLikeSlug ? stripped : humanizeSlugSetName(stripped);
+  if (options?.compact) {
+    return compactEventSetLabel(pretty);
   }
 
-  return humanizeSlugSetName(stripped);
+  return pretty;
 }
 
 export function formatMarketSetFacetLabel(code: string | null | undefined, setName: string | null | undefined) {
