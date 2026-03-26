@@ -28,6 +28,12 @@ import {
   readPendingMarketRestore,
   writeLastMarketState,
 } from "@/lib/market-navigation";
+import {
+  getDesktopMarketOpenSections,
+  getInitialMarketOpenSections,
+  type MarketFilterSectionState,
+  type MarketSectionKey,
+} from "@/lib/market-filters";
 import type { MarketCardResult, MarketCatalogResponse, MarketFacetOption, MarketSort } from "@/lib/market-types";
 
 type ViewMode = "grid" | "list";
@@ -54,8 +60,6 @@ type MarketUrlState = {
   view: ViewMode;
 };
 
-type SectionKey = "sets" | "types" | "colors" | "rarities" | "costLife" | "power" | "counter" | "attribute" | "price";
-
 const PAGE_SIZE_OPTIONS = [12, 24, 48, 96];
 const SORT_OPTIONS: Array<{ value: MarketSort; label: string }> = [
   { value: "relevance", label: "Relevance" },
@@ -66,35 +70,6 @@ const SORT_OPTIONS: Array<{ value: MarketSort; label: string }> = [
   { value: "number_asc", label: "Card Number" },
   { value: "newest", label: "Newest / Set Release Date" },
 ];
-
-const INITIAL_SECTIONS: Record<SectionKey, boolean> = {
-  sets: true,
-  types: true,
-  colors: true,
-  rarities: true,
-  costLife: true,
-  power: true,
-  counter: true,
-  attribute: true,
-  price: true,
-};
-
-function initialOpenSections(state: MarketUrlState): Record<SectionKey, boolean> {
-  const isDesktop = typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
-  if (!isDesktop) return INITIAL_SECTIONS;
-
-  return {
-    sets: state.sets.length > 0,
-    types: state.types.length > 0,
-    colors: state.colors.length > 0,
-    rarities: state.rarities.length > 0,
-    costLife: Boolean(state.costMin || state.costMax || state.lifeMin || state.lifeMax),
-    power: Boolean(state.powerMin || state.powerMax),
-    counter: state.counters.length > 0,
-    attribute: state.attributes.length > 0,
-    price: Boolean(state.priceMin || state.priceMax),
-  };
-}
 
 const RARITY_LABELS: Record<string, string> = {
   C: "Common (C)",
@@ -552,7 +527,7 @@ export default function MarketCatalogView() {
   const [draftQuery, setDraftQuery] = useState({ value: state.q, committed: state.q });
   const [setSearch, setSetSearch] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>(() => initialOpenSections(state));
+  const [openSections, setOpenSections] = useState<MarketFilterSectionState>(() => getInitialMarketOpenSections());
   const [catalogState, setCatalogState] = useState<{ key: string; data: MarketCatalogResponse | null; error: string }>({
     key: "",
     data: null,
@@ -592,6 +567,16 @@ export default function MarketCatalogView() {
     document.addEventListener("mousedown", onPointerDown);
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+      setOpenSections(getInitialMarketOpenSections());
+      return;
+    }
+
+    setOpenSections(getDesktopMarketOpenSections(state));
+  }, [state]);
 
   useEffect(() => {
     const persist = () => {
