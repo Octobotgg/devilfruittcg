@@ -15,6 +15,7 @@ if (process.env.NODE_ENV !== "test") {
   require("server-only");
 }
 const { createPostgresClient }: typeof import("../../../db/postgres") = require("../../../db/postgres.ts");
+const { formatMarketSetFacetLabel }: typeof import("../../market-display") = require("../../market-display.ts");
 
 type MarketSearchQuery = {
   q?: string;
@@ -306,7 +307,7 @@ function createFacets(cards: RuntimeMarketCardResult[]): MarketFacets {
   return {
     sets: buildFacetOptions(sets, (value) => {
       const card = cards.find((candidate) => candidate.setCode === value);
-      return card ? `${value} · ${card.set}` : value;
+      return card ? formatMarketSetFacetLabel(value, card.set) : formatMarketSetFacetLabel(value, value);
     }),
     types: buildFacetOptions(types),
     colors: buildFacetOptions(colors),

@@ -17,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { displayCardId, displayRarity, routeCardId, type Card } from "@/lib/cards";
+import { formatMarketSetLabel, marketVariantDisplayLabel } from "@/lib/market-display";
 import {
   clearPendingMarketRestore,
   readPendingMarketRestore,
@@ -207,7 +208,7 @@ function pageWindow(page: number, totalPages: number) {
 }
 
 function cardSetLabel(card: Card) {
-  return card.set.replace(/\s*\[[A-Z0-9-]+\]\s*$/u, "").trim() || card.set;
+  return formatMarketSetLabel(card.set);
 }
 
 function buildCardHref(cardRouteId: string, marketPath: string) {
@@ -215,9 +216,7 @@ function buildCardHref(cardRouteId: string, marketPath: string) {
 }
 
 function marketVariantLabel(card: Card) {
-  if (!card.baseId || card.id === card.baseId) return null;
-  const label = card.variantLabel || "Special Print";
-  return label.toUpperCase() === displayRarity(card.rarity).toUpperCase() ? null : label;
+  return marketVariantDisplayLabel(card);
 }
 
 function countActiveFilters(state: MarketUrlState) {
@@ -281,9 +280,8 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
           </span>
         </div>
 
-        <div className="flex items-center justify-between gap-3 text-[11px] text-white/50">
-          <span>{card.setCode}</span>
-          <span>{cardSetLabel(card)}</span>
+        <div className="text-[11px] text-white/50">
+          <p className="line-clamp-2">{cardSetLabel(card)}</p>
         </div>
 
         <CardPriceBlock card={card} />
@@ -726,7 +724,7 @@ export default function MarketCatalogView() {
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F0C040]">Filters</p>
             <p className="mt-1 text-sm text-white/55">
-              {activeFilterCount ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "Browse every official English print"}
+              {activeFilterCount ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "Browse One Piece cards, promos, and special prints"}
             </p>
           </div>
           <button
@@ -989,15 +987,15 @@ export default function MarketCatalogView() {
               Browse the <span className="bg-gradient-to-r from-[#F0C040] to-[#ffd870] bg-clip-text text-transparent">Devil Fruit Marketplace</span>
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-7 text-white/60">
-              Search official English OPTCG prints, narrow by set and gameplay stats, then sort through market pricing with a faster TCGPlayer-style flow.
+              Search One Piece cards by name, card number, set, and play stats, then browse clean market pricing without the messy internal labels.
             </p>
           </div>
 
           <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
             <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">Current view</p>
-            <p className="mt-1 text-2xl font-black text-white">{catalog?.total.toLocaleString() ?? "—"}</p>
+            <p className="mt-1 text-2xl font-black text-white">{catalog ? catalog.total.toLocaleString() : loading ? "Loading..." : "0"}</p>
             <p className="mt-1 text-sm text-white/50">
-              {state.q ? `Prints matching "${state.q}"` : "Official prints available to browse"}
+              {state.q ? `Cards matching "${state.q}"` : "Cards available in this view"}
             </p>
           </div>
         </div>
@@ -1119,7 +1117,7 @@ export default function MarketCatalogView() {
                 {catalog?.total ? `Showing ${showingFrom}-${showingTo} of ${catalog.total.toLocaleString()} results` : "No results yet"}
               </p>
               <p className="mt-1 text-sm text-white/50">
-                {state.q ? `Search: "${state.q}"` : "Search the full market catalog"}
+                {state.q ? `Search: "${state.q}"` : "Browse the full One Piece market catalog"}
               </p>
             </div>
 
