@@ -199,6 +199,105 @@ test("buildSeed keeps probable raw-card mappings out of active runtime pricing",
   assert.equal(probableLink?.approved_at, null);
 });
 
+test("buildSeed promotes clean single-candidate base mappings into active runtime pricing", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        results: [
+          {
+            cardId: "EB02-001",
+            confidence: "0.9000",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            confidenceReasons: ["single_plain_base_candidate"],
+            notes: null,
+            bestCandidate: {
+              id: "karoo-eb02-base",
+              name: "Karoo",
+              set: "Extra Booster: Anime 25th Collection",
+              lastUpdated: "2026-03-26T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Anime 25th Collection [EB-02]",
+              releaseCode: "EB02",
+              canonicalId: null,
+              variantSlug: "base",
+              variantLabel: "Base",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        fetchedAt: "2026-03-26T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "EB02-001",
+            justtcg_id: "karoo-eb02-base",
+            price_nm: 0.12,
+            price_lp: 0.08,
+            price_change_24h: 0,
+            last_updated_justtcg: "2026-03-26T00:00:00.000Z",
+            fetched_at: "2026-03-26T00:05:00.000Z",
+            raw_response: {
+              id: "karoo-eb02-base",
+              name: "Karoo",
+              set: "Extra Booster: Anime 25th Collection",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "EB02-001",
+      active_external_product_id: "justtcg:karoo-eb02-base",
+    },
+  ]);
+
+  assert.deepEqual(seed.cardPrintPriceCurrent, [
+    {
+      card_print_id: "EB02-001",
+      source_id: "justtcg",
+      external_product_id: "justtcg:karoo-eb02-base",
+      price_market: 0.12,
+      price_nm: 0.12,
+      price_lp: 0.08,
+      price_change_24h: 0,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: "2026-03-26T00:00:00.000Z",
+      fetched_at: "2026-03-26T00:05:00.000Z",
+    },
+  ]);
+
+  const exactLink = seed.cardPrintMarketLinks.find((link) => link.card_print_id === "EB02-001");
+  assert.equal(exactLink?.mapping_status, "exact");
+  assert.equal(exactLink?.approved_by, "auto_approval");
+  assert.equal(exactLink?.approved_at, "2026-03-26T00:00:00.000Z");
+});
+
 test("buildSeed preserves inferred product kind for price-data rows with raw responses", async () => {
   const { buildSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(

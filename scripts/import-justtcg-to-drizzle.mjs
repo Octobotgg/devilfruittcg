@@ -141,6 +141,28 @@ function hasAllReasons(entry, expected) {
   return expected.every((value) => reasons.has(normalizeLookupKey(value)));
 }
 
+function isBasePrintContext(entry) {
+  const context = getCardPrintContext(entry);
+  const variantSlug = normalizeLookupKey(context?.variantSlug);
+  const variantLabel = normalizeLookupKey(context?.variantLabel);
+  return variantSlug === "base" || variantLabel === "base";
+}
+
+function isTrustedBaseApproval(entry) {
+  if (normalizeLookupKey(entry?.status) !== "auto_approved") return false;
+  if (!isBasePrintContext(entry)) return false;
+
+  const searchMethod = normalizeLookupKey(entry?.searchMethod);
+  if (!["number_exact", "number_exact_live", "live_number_lookup"].includes(searchMethod)) {
+    return false;
+  }
+
+  return (
+    hasAllReasons(entry, ["single_plain_base_candidate"]) ||
+    hasAllReasons(entry, ["single_clean_base_match"])
+  );
+}
+
 function isTrustedEventApproval(entry) {
   if (normalizeLookupKey(entry?.status) !== "auto_approved") return false;
 
@@ -469,6 +491,7 @@ function mappingStatusFromEntry(entry) {
   switch (entry?.status) {
     case "auto_approved":
     case "manually_approved":
+      if (isTrustedBaseApproval(entry)) return "exact";
       if (isTrustedEventApproval(entry)) return "exact";
       if (Number.isFinite(confidenceValue) && confidenceValue < 0.95) return "probable";
       return "exact";
