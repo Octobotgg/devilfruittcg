@@ -210,6 +210,36 @@ export const externalProducts = pgTable(
   }),
 );
 
+export const externalProductVariants = pgTable(
+  "external_product_variants",
+  {
+    id: text("id").primaryKey(),
+    externalProductId: text("external_product_id")
+      .notNull()
+      .references(() => externalProducts.id, { onDelete: "cascade" }),
+    sourceId: text("source_id")
+      .notNull()
+      .references(() => externalSources.id, { onDelete: "cascade" }),
+    providerVariantId: text("provider_variant_id").notNull(),
+    condition: text("condition").notNull(),
+    printing: text("printing").notNull(),
+    language: text("language").notNull(),
+    price: numeric("price", { precision: 12, scale: 2 }),
+    lastUpdatedAt: timestamp("last_updated_at", { withTimezone: true }).notNull(),
+    priceHistoryPayload: jsonb("price_history_payload").$type<Record<string, unknown>>(),
+    rawPayload: jsonb("raw_payload").$type<Record<string, unknown>>(),
+    ...timestamps,
+  },
+  (table) => ({
+    providerVariantIdUnique: uniqueIndex("external_product_variants_provider_variant_id_unique").on(
+      table.providerVariantId,
+    ),
+    externalProductIdx: index("external_product_variants_external_product_id_idx").on(table.externalProductId),
+    conditionPrintingIdx: index("external_product_variants_condition_printing_idx").on(table.condition, table.printing),
+    lastUpdatedAtIdx: index("external_product_variants_last_updated_at_idx").on(table.lastUpdatedAt),
+  }),
+);
+
 export const cardPrints = pgTable(
   "card_prints",
   {
@@ -221,6 +251,9 @@ export const cardPrints = pgTable(
       .notNull()
       .references(() => releases.id, { onDelete: "restrict" }),
     activeExternalProductId: text("active_external_product_id").references(() => externalProducts.id, {
+      onDelete: "set null",
+    }),
+    activeExternalVariantId: text("active_external_variant_id").references(() => externalProductVariants.id, {
       onDelete: "set null",
     }),
     printCode: text("print_code"),
@@ -349,6 +382,9 @@ export const priceSnapshots = pgTable(
     externalProductId: text("external_product_id")
       .notNull()
       .references(() => externalProducts.id, { onDelete: "cascade" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
     capturedAt: timestamp("captured_at", { withTimezone: true }).notNull(),
     priceMarket: numeric("price_market", { precision: 12, scale: 2 }),
     priceLow: numeric("price_low", { precision: 12, scale: 2 }),
@@ -381,6 +417,9 @@ export const cardPrintPriceCurrent = pgTable(
     externalProductId: text("external_product_id")
       .notNull()
       .references(() => externalProducts.id, { onDelete: "cascade" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
     priceMarket: numeric("price_market", { precision: 12, scale: 2 }),
     priceNm: numeric("price_nm", { precision: 12, scale: 2 }),
     priceLp: numeric("price_lp", { precision: 12, scale: 2 }),
@@ -409,6 +448,9 @@ export const cardPrintPriceHistory = pgTable(
       .references(() => externalSources.id, { onDelete: "cascade" }),
     externalProductId: text("external_product_id")
       .references(() => externalProducts.id, { onDelete: "set null" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
     recordedAt: timestamp("recorded_at", { withTimezone: true }).notNull(),
     priceNm: numeric("price_nm", { precision: 12, scale: 2 }),
     priceLp: numeric("price_lp", { precision: 12, scale: 2 }),
