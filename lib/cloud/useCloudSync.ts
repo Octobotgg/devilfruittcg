@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { getCloudAdapter } from "./index";
+import { getInitialCloudReady } from "./hydration";
 import type {
   CloudUser,
   Deck,
@@ -25,11 +26,14 @@ export function useCloudSync() {
   const adapter = getCloudAdapter();
   const [user, setUser] = useState<CloudUser | null>(null);
   const syncing = false;
-  const [ready, setReady] = useState(() => !adapter);
+  const [ready, setReady] = useState(() => getInitialCloudReady(Boolean(adapter)));
   const lastUserIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    if (!adapter) return;
+    if (!adapter) {
+      setReady(true);
+      return;
+    }
     let cancelled = false;
     adapter.getSessionUser().then(u => {
       if (cancelled) return;
