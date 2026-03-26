@@ -112,3 +112,55 @@ test("marketVariantDisplayLabel cleans anniversary wording from JustTCG titles",
 
   assert.equal(marketDisplay.marketVariantDisplayLabel(japaneseAnniversaryCard), "Japanese 2nd Anniversary");
 });
+
+test("marketPriceDisplay uses an explicit unpriced state when no market price exists", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  assert.deepEqual(marketDisplay.marketPriceDisplay(null), {
+    label: "Unpriced",
+    sublabel: "No approved JustTCG price yet",
+    tone: "muted",
+  });
+
+  assert.deepEqual(
+    marketDisplay.marketPriceDisplay({
+      marketPrice: 123.45,
+      averagePrice: 123.45,
+      lowestPrice: null,
+      highestPrice: null,
+      updatedAt: "2026-03-25T00:00:00.000Z",
+      stale: false,
+      cached: true,
+      source: "justtcg",
+    }),
+    {
+      label: "$123.45",
+      sublabel: "TCG Market",
+      tone: "priced",
+    },
+  );
+});
+
+test("marketEmptyStateCopy adapts to search and active filters", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  assert.deepEqual(marketDisplay.marketEmptyStateCopy({ query: "", activeFilterCount: 0 }), {
+    title: "No cards found",
+    body: "Try adjusting your filters or clearing the search to widen the results.",
+    actionLabel: "Clear All Filters",
+  });
+
+  assert.deepEqual(marketDisplay.marketEmptyStateCopy({ query: "Shanks", activeFilterCount: 0 }), {
+    title: 'No cards found for "Shanks"',
+    body: "Try a different card name, set code, or number.",
+    actionLabel: "Clear Search",
+  });
+
+  assert.deepEqual(marketDisplay.marketEmptyStateCopy({ query: "Shanks", activeFilterCount: 3 }), {
+    title: "No cards match these filters",
+    body: 'Clear a few filters or widen the search for "Shanks".',
+    actionLabel: "Clear All Filters",
+  });
+});

@@ -1,4 +1,5 @@
 import type { Card } from "./cards";
+import type { MarketPriceSummary } from "./market-types";
 
 type MarketCardLabelSource = Pick<Card, "id" | "baseId" | "rarity" | "variantLabel"> & {
   justtcgTitle?: string | null;
@@ -151,4 +152,54 @@ export function marketVariantDisplayLabel(card: MarketCardLabelSource) {
   }
 
   return internalLabel;
+}
+
+export function marketPriceDisplay(market: MarketPriceSummary | null | undefined) {
+  const marketPrice = typeof market?.marketPrice === "number" ? market.marketPrice : null;
+  if (marketPrice == null) {
+    return {
+      label: "Unpriced",
+      sublabel: "No approved JustTCG price yet",
+      tone: "muted" as const,
+    };
+  }
+
+  return {
+    label: `$${marketPrice.toFixed(2)}`,
+    sublabel: "TCG Market",
+    tone: "priced" as const,
+  };
+}
+
+export function marketEmptyStateCopy({
+  query,
+  activeFilterCount,
+}: {
+  query: string;
+  activeFilterCount: number;
+}) {
+  const trimmedQuery = query.trim();
+  if (activeFilterCount > 0) {
+    return {
+      title: "No cards match these filters",
+      body: trimmedQuery
+        ? `Clear a few filters or widen the search for "${trimmedQuery}".`
+        : "Clear a few filters or widen the market view.",
+      actionLabel: "Clear All Filters",
+    };
+  }
+
+  if (trimmedQuery) {
+    return {
+      title: `No cards found for "${trimmedQuery}"`,
+      body: "Try a different card name, set code, or number.",
+      actionLabel: "Clear Search",
+    };
+  }
+
+  return {
+    title: "No cards found",
+    body: "Try adjusting your filters or clearing the search to widen the results.",
+    actionLabel: "Clear All Filters",
+  };
 }

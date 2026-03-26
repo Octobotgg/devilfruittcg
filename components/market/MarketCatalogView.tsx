@@ -17,7 +17,12 @@ import {
   X,
 } from "lucide-react";
 import { displayCardId, displayRarity, routeCardId, type Card } from "@/lib/cards";
-import { formatMarketSetLabel, marketVariantDisplayLabel } from "@/lib/market-display";
+import {
+  formatMarketSetLabel,
+  marketEmptyStateCopy,
+  marketPriceDisplay,
+  marketVariantDisplayLabel,
+} from "@/lib/market-display";
 import {
   clearPendingMarketRestore,
   readPendingMarketRestore,
@@ -235,16 +240,15 @@ function countActiveFilters(state: MarketUrlState) {
 }
 
 function CardPriceBlock({ card }: { card: MarketCardResult }) {
-  const marketPrice = formatCurrency(card.market?.marketPrice);
-  if (!marketPrice) return null;
-
+  const priceState = marketPriceDisplay(card.market);
   const updatedLabel = formatUpdatedDate(card.market?.updatedAt);
+  const isMuted = priceState.tone === "muted";
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2.5">
-      <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">TCG Market</p>
-      <p className="mt-1 text-sm font-black text-[#F0C040]">{marketPrice}</p>
-      {updatedLabel ? <p className="mt-1 text-[11px] text-white/45">Updated {updatedLabel}</p> : null}
+    <div className={`rounded-2xl border px-3 py-2.5 ${isMuted ? "border-white/8 bg-white/[0.03]" : "border-white/10 bg-black/20"}`}>
+      <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">{priceState.sublabel}</p>
+      <p className={`mt-1 text-sm font-black ${isMuted ? "text-white/55" : "text-[#F0C040]"}`}>{priceState.label}</p>
+      {updatedLabel && !isMuted ? <p className="mt-1 text-[11px] text-white/45">Updated {updatedLabel}</p> : null}
     </div>
   );
 }
@@ -255,7 +259,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
   return (
     <Link
       href={buildCardHref(routeCardId(card), marketPath)}
-      className="group rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(240,192,64,0.10),transparent_42%),rgba(255,255,255,0.03)] p-3 transition-all hover:-translate-y-1 hover:border-[#F0C040]/35 hover:bg-white/[0.05]"
+      className="group flex h-full flex-col rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(240,192,64,0.10),transparent_42%),rgba(255,255,255,0.03)] p-3 transition-all hover:-translate-y-1 hover:border-[#F0C040]/35 hover:bg-white/[0.05]"
     >
       <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#08111f]">
         <img
@@ -264,7 +268,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
           className="aspect-[5/7] w-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
         />
       </div>
-      <div className="mt-3 space-y-2">
+      <div className="mt-3 flex flex-1 flex-col space-y-2">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="line-clamp-2 text-sm font-black text-white">{card.name}</p>
@@ -284,7 +288,9 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
           <p className="line-clamp-2">{cardSetLabel(card)}</p>
         </div>
 
-        <CardPriceBlock card={card} />
+        <div className="mt-auto pt-1">
+          <CardPriceBlock card={card} />
+        </div>
       </div>
     </Link>
   );
@@ -716,6 +722,7 @@ export default function MarketCatalogView() {
   const currentPage = catalog?.page || state.page;
   const showingFrom = catalog?.total ? (currentPage - 1) * state.pageSize + 1 : 0;
   const showingTo = catalog?.total ? Math.min(catalog.total, currentPage * state.pageSize) : 0;
+  const emptyState = marketEmptyStateCopy({ query: state.q, activeFilterCount });
 
   const sidebarContent = (
     <div className="space-y-4">
@@ -1232,14 +1239,14 @@ export default function MarketCatalogView() {
             </>
           ) : (
             <div className="rounded-[32px] border border-white/10 bg-white/[0.03] px-6 py-14 text-center">
-              <p className="text-2xl font-black text-white">No cards found</p>
-              <p className="mt-3 text-sm text-white/50">Try adjusting your filters or clearing the search to widen the results.</p>
+              <p className="text-2xl font-black text-white">{emptyState.title}</p>
+              <p className="mt-3 text-sm text-white/50">{emptyState.body}</p>
               <button
                 type="button"
                 onClick={clearAll}
                 className="mt-5 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white/80 transition-all hover:bg-white/10 hover:text-white"
               >
-                Clear All Filters
+                {emptyState.actionLabel}
               </button>
             </div>
           )}
