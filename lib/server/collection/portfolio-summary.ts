@@ -135,7 +135,7 @@ async function defaultLoadHistory(
         on link.card_print_id = cp.id
        and link.external_product_id = cp.active_external_product_id
        and link.approved_at is not null
-       and link.mapping_status <> 'rejected'
+       and link.mapping_status = 'exact'
       where history.card_print_id = any($1::text[])
         and history.source_id = 'justtcg'
         and history.external_product_id = cp.active_external_product_id

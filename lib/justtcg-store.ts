@@ -290,7 +290,7 @@ async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModel
         cp.active_external_product_id as "externalProductId",
         ep.raw_payload as "externalRawPayload",
         ep.product_kind as "productKind",
-        coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
+        coalesce(link.approved_at is not null and link.mapping_status = 'exact', false) as "mappingApproved",
         current_prices.price_market as "priceMarket",
         current_prices.price_nm as "priceNm",
         current_prices.price_lp as "priceLp",
@@ -307,7 +307,7 @@ async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModel
         on link.card_print_id = cp.id
        and link.external_product_id = cp.active_external_product_id
        and link.approved_at is not null
-       and link.mapping_status <> 'rejected'
+       and link.mapping_status = 'exact'
       left join card_print_price_current current_prices
         on current_prices.card_print_id = cp.id
        and current_prices.external_product_id = cp.active_external_product_id
@@ -353,7 +353,7 @@ async function defaultLoadHistoryRows(params: {
           on link.card_print_id = cp.id
          and link.external_product_id = cp.active_external_product_id
          and link.approved_at is not null
-         and link.mapping_status <> 'rejected'
+         and link.mapping_status = 'exact'
         where history.card_print_id = $1
           and history.external_product_id = $2
           and history.source_id = $3

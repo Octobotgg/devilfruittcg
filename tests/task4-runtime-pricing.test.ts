@@ -904,3 +904,15 @@ test("market home mover queries exclude inactive raw and sealed collectibles", a
   assert.match(queries.rawCardQuery, /where current_prices\.source_id = 'justtcg'\s+and cp\.is_active = true/i);
   assert.match(queries.sealedQuery, /where current_prices\.source_id = 'justtcg'\s+and sealed\.is_active = true/i);
 });
+
+test("market home mover queries only admit exact approved mappings", async () => {
+  const { getMarketHomeMoverQueriesForTesting } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  const queries = getMarketHomeMoverQueriesForTesting();
+
+  assert.match(queries.rawCardQuery, /link\.mapping_status = 'exact'/i);
+  assert.match(queries.sealedQuery, /link\.mapping_status = 'exact'/i);
+});

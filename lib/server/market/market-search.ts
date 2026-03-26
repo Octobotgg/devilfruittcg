@@ -175,7 +175,7 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
           ep.product_kind as "productKind",
           case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
           case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
-          coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
+          coalesce(link.approved_at is not null and link.mapping_status = 'exact', false) as "mappingApproved",
           current_prices.price_nm as "priceNm",
           current_prices.price_lp as "priceLp",
           current_prices.price_change_7d as "priceChange7d",
@@ -189,7 +189,7 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
           on link.card_print_id = cp.id
          and link.external_product_id = cp.active_external_product_id
          and link.approved_at is not null
-         and link.mapping_status <> 'rejected'
+         and link.mapping_status = 'exact'
         left join card_print_price_current current_prices
           on current_prices.card_print_id = cp.id
          and current_prices.external_product_id = cp.active_external_product_id

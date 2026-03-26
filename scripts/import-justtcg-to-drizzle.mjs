@@ -532,13 +532,16 @@ function collectRawCardMappings(mappingReport, externalProducts) {
     const productKind = product?.product_kind || "raw_card";
     if (productKind !== "raw_card") continue;
 
-    const approved = entry.status === "auto_approved" || entry.status === "manually_approved";
+    const mappingStatus = mappingStatusFromEntry(entry);
+    const approved =
+      (entry.status === "auto_approved" || entry.status === "manually_approved") &&
+      mappingStatus === "exact";
     const approvedAt = normalizeTimestamp(mappingReport?.generatedAt || entry?.generatedAt || entry?.bestCandidate?.lastUpdated);
     const candidate = {
       id: `card_print_market_link:${cardPrintId}:${candidateId}`,
       card_print_id: cardPrintId,
       external_product_id: externalProductId,
-      mapping_status: mappingStatusFromEntry(entry),
+      mapping_status: mappingStatus,
       confidence: normalizeConfidence(entry?.confidence),
       match_method: cleanText(entry?.searchMethod) || null,
       review_notes: getEntryNotes(entry),
@@ -965,14 +968,14 @@ async function deleteCurrentByCollectibleIds(sql, tableName, collectibleColumn, 
   }
 }
 
-async function applyActiveAssignments(sql, tableName, idColumn, assignments, chunkSize) {
+async function applyActiveAssignments(sql, tableName, targetIdColumn, sourceIdKey, assignments, chunkSize) {
   if (!assignments.length) return;
 
   for (const group of chunk(assignments, chunkSize)) {
     const params = [];
     const valuesSql = group
       .map((row) => {
-        params.push(row[idColumn], row.active_external_product_id);
+        params.push(row[sourceIdKey], row.active_external_product_id);
         return `($${params.length - 1}, $${params.length})`;
       })
       .join(", ");
@@ -980,8 +983,8 @@ async function applyActiveAssignments(sql, tableName, idColumn, assignments, chu
     const sqlText = `
       update ${quoteIdentifier(tableName)} as target
       set active_external_product_id = source.active_external_product_id
-      from (values ${valuesSql}) as source(${quoteIdentifier(idColumn)}, "active_external_product_id")
-      where target.${quoteIdentifier(idColumn)} = source.${quoteIdentifier(idColumn)}
+      from (values ${valuesSql}) as source(${quoteIdentifier(sourceIdKey)}, "active_external_product_id")
+      where target.${quoteIdentifier(targetIdColumn)} = source.${quoteIdentifier(sourceIdKey)}
     `;
     await sql.unsafe(sqlText, params);
   }
@@ -1049,8 +1052,8 @@ async function applySeed(seed, options) {
     await upsertRows(sql, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
     await upsertRows(sql, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
-    await applyActiveAssignments(sql, "card_prints", "id", clearStage, options.chunkSize);
-    await applyActiveAssignments(sql, "card_prints", "id", assignStage, options.chunkSize);
+    await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", clearStage, options.chunkSize);
+    await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", assignStage, options.chunkSize);
 
     await deleteCurrentByCollectibleIds(
       sql,

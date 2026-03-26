@@ -102,7 +102,7 @@ const RAW_CARD_MOVER_QUERY = `
     on link.card_print_id = cp.id
    and link.external_product_id = current_prices.external_product_id
    and link.approved_at is not null
-   and link.mapping_status <> 'rejected'
+   and link.mapping_status = 'exact'
   where current_prices.source_id = 'justtcg'
     and cp.is_active = true
 `;
@@ -133,7 +133,7 @@ const SEALED_MOVER_QUERY = `
     on link.sealed_product_id = sealed.id
    and link.external_product_id = current_prices.external_product_id
    and link.approved_at is not null
-   and link.mapping_status <> 'rejected'
+   and link.mapping_status = 'exact'
   where current_prices.source_id = 'justtcg'
     and sealed.is_active = true
 `;

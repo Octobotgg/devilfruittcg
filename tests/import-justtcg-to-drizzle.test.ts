@@ -117,3 +117,84 @@ test("buildSeed keeps one active approved mapping when one JustTCG product is du
   assert.equal(demotedLink?.approved_by, null);
   assert.match(demotedLink?.review_notes || "", /Demoted during import/i);
 });
+
+test("buildSeed keeps probable raw-card mappings out of active runtime pricing", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP13-120_p2",
+            confidence: "0.8300",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            notes: null,
+            bestCandidate: {
+              id: "sabo-red-super-aa",
+              name: "Sabo (120) (Red Super Alternate Art)",
+              set: "Carrying On His Will",
+              lastUpdated: "2026-03-25T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Carrying On His Will [OP-13]",
+              releaseCode: "OP13",
+              canonicalId: "OP13-120_red_super_alt_art",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP13-120_p2",
+            justtcg_id: "sabo-red-super-aa",
+            price_nm: 4749.97,
+            price_lp: 3549.95,
+            price_change_24h: 0,
+            last_updated_justtcg: "2026-03-25T00:00:00.000Z",
+            fetched_at: "2026-03-25T00:05:00.000Z",
+            raw_response: {
+              id: "sabo-red-super-aa",
+              name: "Sabo (120) (Red Super Alternate Art)",
+              set: "Carrying On His Will",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "OP13-120_p2",
+      active_external_product_id: null,
+    },
+  ]);
+  assert.deepEqual(seed.cardPrintPriceCurrent, []);
+
+  const probableLink = seed.cardPrintMarketLinks.find((link) => link.card_print_id === "OP13-120_p2");
+  assert.equal(probableLink?.mapping_status, "probable");
+  assert.equal(probableLink?.approved_by, null);
+  assert.equal(probableLink?.approved_at, null);
+});
