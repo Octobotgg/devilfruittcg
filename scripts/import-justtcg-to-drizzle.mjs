@@ -159,7 +159,12 @@ function isTrustedBaseApproval(entry) {
 
   return (
     hasAllReasons(entry, ["single_plain_base_candidate"]) ||
-    hasAllReasons(entry, ["single_clean_base_match"])
+    hasAllReasons(entry, ["single_clean_base_match"]) ||
+    hasAllReasons(entry, [
+      "review_pass_auto_approved",
+      "clear_best_candidate",
+      "single_set_matched_base_after_review",
+    ])
   );
 }
 

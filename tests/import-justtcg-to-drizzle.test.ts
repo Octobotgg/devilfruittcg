@@ -298,6 +298,94 @@ test("buildSeed promotes clean single-candidate base mappings into active runtim
   assert.equal(exactLink?.approved_at, "2026-03-26T00:00:00.000Z");
 });
 
+test("buildSeed promotes reviewed clear base winners into active runtime pricing", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP10-006",
+            confidence: "0.9000",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            confidenceReasons: [
+              "review_pass_auto_approved",
+              "clear_best_candidate",
+              "single_set_matched_base_after_review",
+              "multiple_candidates",
+            ],
+            notes: "Review pass auto-approved: single_set_matched_base_after_review",
+            bestCandidate: {
+              id: "caesar-clown-op10-base",
+              name: "Caesar Clown (006)",
+              set: "Royal Blood",
+              lastUpdated: "2026-03-26T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Royal Blood [OP-10]",
+              releaseCode: "OP10",
+              canonicalId: null,
+              variantSlug: "base",
+              variantLabel: "Base",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        fetchedAt: "2026-03-26T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP10-006",
+            justtcg_id: "caesar-clown-op10-base",
+            price_nm: 0.05,
+            price_lp: 0.03,
+            price_change_24h: 0,
+            last_updated_justtcg: "2026-03-26T00:00:00.000Z",
+            fetched_at: "2026-03-26T00:05:00.000Z",
+            raw_response: {
+              id: "caesar-clown-op10-base",
+              name: "Caesar Clown (006)",
+              set: "Royal Blood",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "OP10-006",
+      active_external_product_id: "justtcg:caesar-clown-op10-base",
+    },
+  ]);
+
+  const exactLink = seed.cardPrintMarketLinks.find((link) => link.card_print_id === "OP10-006");
+  assert.equal(exactLink?.mapping_status, "exact");
+  assert.equal(exactLink?.approved_by, "auto_approval");
+  assert.equal(exactLink?.approved_at, "2026-03-26T00:00:00.000Z");
+});
+
 test("buildSeed preserves inferred product kind for price-data rows with raw responses", async () => {
   const { buildSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
