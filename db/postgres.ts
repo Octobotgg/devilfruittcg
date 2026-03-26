@@ -1,4 +1,23 @@
 import postgres from "postgres";
+import type { Sql } from "postgres";
+
+type PostgresCache = {
+  defaultClients: Map<string, Sql>;
+};
+
+declare global {
+  var __devilfruitPostgresCache__: PostgresCache | undefined;
+}
+
+function getPostgresCache(): PostgresCache {
+  if (!globalThis.__devilfruitPostgresCache__) {
+    globalThis.__devilfruitPostgresCache__ = {
+      defaultClients: new Map<string, Sql>(),
+    };
+  }
+
+  return globalThis.__devilfruitPostgresCache__;
+}
 
 export function createPostgresClient(connectionString?: string) {
   const databaseUrl =
@@ -10,5 +29,17 @@ export function createPostgresClient(connectionString?: string) {
     );
   }
 
-  return postgres(databaseUrl);
+  if (connectionString) {
+    return postgres(databaseUrl);
+  }
+
+  const cache = getPostgresCache();
+  const cachedClient = cache.defaultClients.get(databaseUrl);
+  if (cachedClient) {
+    return cachedClient;
+  }
+
+  const client = postgres(databaseUrl);
+  cache.defaultClients.set(databaseUrl, client);
+  return client;
 }

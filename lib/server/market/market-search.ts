@@ -107,6 +107,11 @@ type SortableMarketCard = {
 const DEFAULT_PAGE_SIZE = 24;
 const MAX_PAGE_SIZE = 96;
 const STALE_THRESHOLD_MS = 8 * 24 * 60 * 60 * 1000;
+const MARKET_ROWS_CACHE_TTL_MS = 60 * 1000;
+
+let cachedMarketRows: MarketSearchRow[] | null = null;
+let cachedMarketRowsAt = 0;
+let pendingMarketRows: Promise<MarketSearchRow[]> | null = null;
 
 function parseNullableNumber(value: string | number | null | undefined) {
   if (value == null || value === "") return null;
@@ -130,59 +135,78 @@ function toPlainRows<T>(rows: Iterable<unknown>): T[] {
 }
 
 async function loadMarketRows(): Promise<MarketSearchRow[]> {
-  const sql = createPostgresClient();
-  const rows = await sql.unsafe(
-    `
-      select
-        cp.id as "cardPrintId",
-        cards.id as "cardId",
-        cp.printed_card_code as "printedCardCode",
-        cp.variant_label as "variantLabel",
-        cp.variant_slug as "variantSlug",
-        cards.name as "cardName",
-        releases.code as "setCode",
-        releases.name as "setName",
-        cards.number as "number",
-        cards.card_type as "cardType",
-        cards.color as "color",
-        cards.rarity as "rarity",
-        cards.cost as "cost",
-        cards.life as "life",
-        cards.power as "power",
-        cards.counter as "counter",
-        cards.attribute as "attribute",
-        cards.traits as "traits",
-        cards.effect_text as "effectText",
-        cards.trigger_text as "triggerText",
-        coalesce(case when ep.product_kind = 'raw_card' then ep.image_url end, cp.image_url) as "imageUrl",
-        coalesce(cp.release_date_override::text, releases.release_date::text) as "releaseDate",
-        ep.product_kind as "productKind",
-        case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
-        case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
-        coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
-        current_prices.price_nm as "priceNm",
-        current_prices.price_lp as "priceLp",
-        current_prices.price_change_7d as "priceChange7d",
-        current_prices.updated_at::text as "updatedAt",
-        current_prices.fetched_at::text as "fetchedAt"
-      from card_prints cp
-      join cards on cards.id = cp.card_id
-      join releases on releases.id = cp.release_id
-      left join external_products ep on ep.id = cp.active_external_product_id
-      left join card_print_market_links link
-        on link.card_print_id = cp.id
-       and link.external_product_id = cp.active_external_product_id
-       and link.approved_at is not null
-       and link.mapping_status <> 'rejected'
-      left join card_print_price_current current_prices
-        on current_prices.card_print_id = cp.id
-       and current_prices.external_product_id = cp.active_external_product_id
-       and current_prices.source_id = 'justtcg'
-      where cp.is_active = true
-    `,
-  );
+  const now = Date.now();
+  if (cachedMarketRows && now - cachedMarketRowsAt < MARKET_ROWS_CACHE_TTL_MS) {
+    return cachedMarketRows;
+  }
 
-  return toPlainRows<MarketSearchRow>(rows);
+  if (pendingMarketRows) {
+    return pendingMarketRows;
+  }
+
+  const sql = createPostgresClient();
+  pendingMarketRows = (async () => {
+    const rows = await sql.unsafe(
+      `
+        select
+          cp.id as "cardPrintId",
+          cards.id as "cardId",
+          cp.printed_card_code as "printedCardCode",
+          cp.variant_label as "variantLabel",
+          cp.variant_slug as "variantSlug",
+          cards.name as "cardName",
+          releases.code as "setCode",
+          releases.name as "setName",
+          cards.number as "number",
+          cards.card_type as "cardType",
+          cards.color as "color",
+          cards.rarity as "rarity",
+          cards.cost as "cost",
+          cards.life as "life",
+          cards.power as "power",
+          cards.counter as "counter",
+          cards.attribute as "attribute",
+          cards.traits as "traits",
+          cards.effect_text as "effectText",
+          cards.trigger_text as "triggerText",
+          coalesce(case when ep.product_kind = 'raw_card' then ep.image_url end, cp.image_url) as "imageUrl",
+          coalesce(cp.release_date_override::text, releases.release_date::text) as "releaseDate",
+          ep.product_kind as "productKind",
+          case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
+          case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
+          coalesce(link.approved_at is not null and link.mapping_status <> 'rejected', false) as "mappingApproved",
+          current_prices.price_nm as "priceNm",
+          current_prices.price_lp as "priceLp",
+          current_prices.price_change_7d as "priceChange7d",
+          current_prices.updated_at::text as "updatedAt",
+          current_prices.fetched_at::text as "fetchedAt"
+        from card_prints cp
+        join cards on cards.id = cp.card_id
+        join releases on releases.id = cp.release_id
+        left join external_products ep on ep.id = cp.active_external_product_id
+        left join card_print_market_links link
+          on link.card_print_id = cp.id
+         and link.external_product_id = cp.active_external_product_id
+         and link.approved_at is not null
+         and link.mapping_status <> 'rejected'
+        left join card_print_price_current current_prices
+          on current_prices.card_print_id = cp.id
+         and current_prices.external_product_id = cp.active_external_product_id
+         and current_prices.source_id = 'justtcg'
+        where cp.is_active = true
+      `,
+    );
+
+    cachedMarketRows = toPlainRows<MarketSearchRow>(rows);
+    cachedMarketRowsAt = Date.now();
+    return cachedMarketRows;
+  })();
+
+  try {
+    return await pendingMarketRows;
+  } finally {
+    pendingMarketRows = null;
+  }
 }
 
 function normalizeText(value: string) {

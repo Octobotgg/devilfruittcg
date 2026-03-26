@@ -223,12 +223,16 @@ function createReleaseRows(releases) {
   const rows = [];
   const byName = new Map();
   const byCode = new Map();
+  const byGameCodeLanguage = new Map();
 
   for (const release of releases) {
-    const row = {
+    const code = release.codes?.[0] || String(release.key || release.name || "release").toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+    const compositeKey = [GAME.id, code, "EN"].join("::");
+    const existingRow = byGameCodeLanguage.get(compositeKey);
+    const row = existingRow || {
       id: buildReleaseId(release),
       game_id: GAME.id,
-      code: release.codes?.[0] || String(release.key || release.name || "release").toUpperCase().replace(/[^A-Z0-9]+/g, "_"),
+      code,
       name: cleanText(release.name),
       release_type: mapReleaseType(release),
       release_date: release.releaseDate || null,
@@ -237,7 +241,11 @@ function createReleaseRows(releases) {
       is_active: true,
     };
 
-    rows.push(row);
+    if (!existingRow) {
+      rows.push(row);
+      byGameCodeLanguage.set(compositeKey, row);
+    }
+
     byName.set(normalizeLookupKey(release.name), row);
     if (release.codes?.[0]) byCode.set(release.codes[0], row);
   }

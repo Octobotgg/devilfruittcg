@@ -430,11 +430,97 @@ function mappingStatusFromEntry(entry) {
   }
 }
 
+function normalizeSetFingerprint(value) {
+  return normalizeLookupKey(
+    String(value || "")
+      .replace(/\[[^\]]+\]/g, " ")
+      .replace(/\bvol\.?\s*\d+\b/gi, " ")
+      .replace(/[^a-z0-9]+/gi, " ")
+      .trim(),
+  );
+}
+
+function getCardPrintContext(entry) {
+  const context = entry?.cardPrintContext;
+  return context && typeof context === "object" ? context : {};
+}
+
+function getEntryNotes(entry) {
+  if (Array.isArray(entry?.notes)) {
+    return entry.notes.filter(Boolean).join(" | ");
+  }
+  return cleanText(entry?.notes) || null;
+}
+
+function setNamesMatch(left, right) {
+  const normalizedLeft = normalizeSetFingerprint(left);
+  const normalizedRight = normalizeSetFingerprint(right);
+  if (!normalizedLeft || !normalizedRight) return false;
+  return (
+    normalizedLeft === normalizedRight ||
+    normalizedLeft.includes(normalizedRight) ||
+    normalizedRight.includes(normalizedLeft)
+  );
+}
+
+function confidenceRank(value) {
+  switch (normalizeLookupKey(value)) {
+    case "high":
+      return 3;
+    case "medium":
+      return 2;
+    case "low":
+      return 1;
+    default:
+      return 0;
+  }
+}
+
+function approvedCandidatePriority(candidate) {
+  const entry = candidate.entry;
+  const context = getCardPrintContext(entry);
+  const notes = normalizeLookupKey(getEntryNotes(entry));
+  const candidateSet = entry?.bestCandidate?.set;
+  const printSetName = context?.setName;
+
+  return {
+    setMatch: setNamesMatch(candidateSet, printSetName) ? 1 : 0,
+    manualCorrection: normalizeLookupKey(entry?.searchMethod) === "tcgplayer_verified_manual_correction" ? 1 : 0,
+    reviewed: entry?.reviewedAt ? 1 : 0,
+    manualApproval: normalizeLookupKey(entry?.status) === "manually_approved" ? 1 : 0,
+    confidence: confidenceRank(entry?.confidence),
+    mismatchPenalty:
+      (notes.includes("set_mismatch") ? 1 : 0) + (notes.includes("premium_hint_mismatch") ? 1 : 0),
+    timestamp: Date.parse(String(entry?.reviewedAt || entry?.mappedAt || entry?.bestCandidate?.lastUpdated || "")) || 0,
+  };
+}
+
+function compareApprovedCandidates(left, right) {
+  const leftPriority = approvedCandidatePriority(left);
+  const rightPriority = approvedCandidatePriority(right);
+
+  return (
+    rightPriority.setMatch - leftPriority.setMatch ||
+    rightPriority.manualCorrection - leftPriority.manualCorrection ||
+    rightPriority.reviewed - leftPriority.reviewed ||
+    rightPriority.manualApproval - leftPriority.manualApproval ||
+    rightPriority.confidence - leftPriority.confidence ||
+    leftPriority.mismatchPenalty - rightPriority.mismatchPenalty ||
+    rightPriority.timestamp - leftPriority.timestamp ||
+    left.card_print_id.localeCompare(right.card_print_id)
+  );
+}
+
+function appendReviewNote(currentValue, nextValue) {
+  const parts = [cleanText(currentValue), cleanText(nextValue)].filter(Boolean);
+  return parts.length ? [...new Set(parts)].join(" | ") : null;
+}
+
 function collectRawCardMappings(mappingReport, externalProducts) {
-  const cardPrintMarketLinks = [];
   const approvedRawAssignments = [];
   const approvedByCardPrintId = new Map();
-  const activeByExternalProductId = new Map();
+  const approvedCandidatesByExternalProductId = new Map();
+  const candidates = [];
 
   for (const entry of Array.isArray(mappingReport?.results) ? mappingReport.results : []) {
     const cardPrintId = cleanText(entry?.cardId);
@@ -448,18 +534,23 @@ function collectRawCardMappings(mappingReport, externalProducts) {
 
     const approved = entry.status === "auto_approved" || entry.status === "manually_approved";
     const approvedAt = normalizeTimestamp(mappingReport?.generatedAt || entry?.generatedAt || entry?.bestCandidate?.lastUpdated);
-
-    cardPrintMarketLinks.push({
+    const candidate = {
       id: `card_print_market_link:${cardPrintId}:${candidateId}`,
       card_print_id: cardPrintId,
       external_product_id: externalProductId,
       mapping_status: mappingStatusFromEntry(entry),
       confidence: normalizeConfidence(entry?.confidence),
       match_method: cleanText(entry?.searchMethod) || null,
-      review_notes: Array.isArray(entry?.notes) ? entry.notes.join(" | ") : cleanText(entry?.notes) || null,
+      review_notes: getEntryNotes(entry),
       approved_by: approved ? (entry.status === "manually_approved" ? "manual_review" : "auto_approval") : null,
       approved_at: approved ? approvedAt : null,
-    });
+      entry: {
+        ...entry,
+        mappedAt: entry?.mappedAt || null,
+        reviewedAt: entry?.reviewedAt || null,
+      },
+    };
+    candidates.push(candidate);
 
     if (approved) {
       const existingApproved = approvedByCardPrintId.get(cardPrintId);
@@ -469,21 +560,42 @@ function collectRawCardMappings(mappingReport, externalProducts) {
         );
       }
       approvedByCardPrintId.set(cardPrintId, externalProductId);
-
-      const existingActiveCollectible = activeByExternalProductId.get(externalProductId);
-      if (existingActiveCollectible && existingActiveCollectible !== cardPrintId) {
-        throw new Error(
-          `External product ${externalProductId} cannot be active for multiple card prints: ${existingActiveCollectible} and ${cardPrintId}`,
-        );
-      }
-      activeByExternalProductId.set(externalProductId, cardPrintId);
-
-      approvedRawAssignments.push({
-        card_print_id: cardPrintId,
-        external_product_id: externalProductId,
-      });
+      const approvedCandidates = approvedCandidatesByExternalProductId.get(externalProductId) || [];
+      approvedCandidates.push(candidate);
+      approvedCandidatesByExternalProductId.set(externalProductId, approvedCandidates);
     }
   }
+
+  const winningCardPrintByExternalProductId = new Map();
+  for (const [externalProductId, approvedCandidates] of approvedCandidatesByExternalProductId.entries()) {
+    const [winner] = [...approvedCandidates].sort(compareApprovedCandidates);
+    winningCardPrintByExternalProductId.set(externalProductId, winner.card_print_id);
+    approvedRawAssignments.push({
+      card_print_id: winner.card_print_id,
+      external_product_id: externalProductId,
+    });
+  }
+
+  const cardPrintMarketLinks = candidates.map((candidate) => {
+    const isApprovedCandidate = candidate.approved_by != null;
+    const winningCardPrintId = winningCardPrintByExternalProductId.get(candidate.external_product_id) || null;
+    const demotedDuplicateApproval =
+      isApprovedCandidate && winningCardPrintId != null && winningCardPrintId !== candidate.card_print_id;
+
+    const { entry: _ignoredEntry, ...link } = candidate;
+    if (!demotedDuplicateApproval) return link;
+
+    return {
+      ...link,
+      mapping_status: "manual_review",
+      review_notes: appendReviewNote(
+        link.review_notes,
+        `Demoted during import because ${candidate.external_product_id} is shared across multiple approved prints; keeping ${winningCardPrintId} as the active mapping.`,
+      ),
+      approved_by: null,
+      approved_at: null,
+    };
+  });
 
   return { cardPrintMarketLinks, approvedRawAssignments };
 }
@@ -923,67 +1035,64 @@ async function applySeed(seed, options) {
   });
 
   try {
-    await sql.begin(async (tx) => {
-      const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(tx);
-      const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
-        seed.activeCardPrintAssignments,
-        existingActiveCardPrintIds,
-      );
-      const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
+    const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(sql);
+    const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
+      seed.activeCardPrintAssignments,
+      existingActiveCardPrintIds,
+    );
+    const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
 
-      await upsertRows(tx, "external_sources", seed.externalSources, ["id"], options.chunkSize);
-      await upsertRows(tx, "external_products", seed.externalProducts, ["id"], options.chunkSize);
-      await upsertRows(tx, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
+    await upsertRows(sql, "external_sources", seed.externalSources, ["id"], options.chunkSize);
+    await upsertRows(sql, "external_products", seed.externalProducts, ["id"], options.chunkSize);
+    await upsertRows(sql, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
 
-      await upsertRows(tx, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
+    await upsertRows(sql, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
+    await upsertRows(sql, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
-      await upsertRows(tx, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
+    await applyActiveAssignments(sql, "card_prints", "id", clearStage, options.chunkSize);
+    await applyActiveAssignments(sql, "card_prints", "id", assignStage, options.chunkSize);
 
-      await applyActiveAssignments(tx, "card_prints", "id", clearStage, options.chunkSize);
-      await applyActiveAssignments(tx, "card_prints", "id", assignStage, options.chunkSize);
+    await deleteCurrentByCollectibleIds(
+      sql,
+      "card_print_price_current",
+      "card_print_id",
+      JUSTTCG_SOURCE.id,
+      authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
+      options.chunkSize,
+    );
+    await upsertRows(
+      sql,
+      "card_print_price_current",
+      seed.cardPrintPriceCurrent,
+      ["card_print_id", "source_id"],
+      options.chunkSize,
+    );
 
-      await deleteCurrentByCollectibleIds(
-        tx,
-        "card_print_price_current",
-        "card_print_id",
-        JUSTTCG_SOURCE.id,
-        authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
-        options.chunkSize,
-      );
-      await upsertRows(
-        tx,
-        "card_print_price_current",
-        seed.cardPrintPriceCurrent,
-        ["card_print_id", "source_id"],
-        options.chunkSize,
-      );
+    await deleteCurrentByCollectibleIds(
+      sql,
+      "sealed_product_price_current",
+      "sealed_product_id",
+      JUSTTCG_SOURCE.id,
+      seed.sealedProducts.map((row) => row.id),
+      options.chunkSize,
+    );
+    await upsertRows(
+      sql,
+      "sealed_product_price_current",
+      seed.sealedProductPriceCurrent,
+      ["sealed_product_id", "source_id"],
+      options.chunkSize,
+    );
 
-      await deleteCurrentByCollectibleIds(
-        tx,
-        "sealed_product_price_current",
-        "sealed_product_id",
-        JUSTTCG_SOURCE.id,
-        seed.sealedProducts.map((row) => row.id),
-        options.chunkSize,
-      );
-      await upsertRows(
-        tx,
-        "sealed_product_price_current",
-        seed.sealedProductPriceCurrent,
-        ["sealed_product_id", "source_id"],
-        options.chunkSize,
-      );
-
-      const existingSnapshotKeys = await fetchExistingSnapshotKeys(tx, seed.priceSnapshots, options.chunkSize);
-      const seenSnapshotKeys = new Set(existingSnapshotKeys);
-      const newSnapshots = seed.priceSnapshots.filter((row) => {
-        const key = `${row.external_product_id}::${new Date(row.captured_at).toISOString()}`;
-        if (seenSnapshotKeys.has(key)) return false;
-        seenSnapshotKeys.add(key);
-        return true;
-      });
-      await insertRows(tx, "price_snapshots", newSnapshots, options.chunkSize);
+    const existingSnapshotKeys = await fetchExistingSnapshotKeys(sql, seed.priceSnapshots, options.chunkSize);
+    const seenSnapshotKeys = new Set(existingSnapshotKeys);
+    const newSnapshots = seed.priceSnapshots.filter((row) => {
+      const key = `${row.external_product_id}::${new Date(row.captured_at).toISOString()}`;
+      if (seenSnapshotKeys.has(key)) return false;
+      seenSnapshotKeys.add(key);
+      return true;
     });
+    await insertRows(sql, "price_snapshots", newSnapshots, options.chunkSize);
   } finally {
     await sql.end({ timeout: 5 });
   }
