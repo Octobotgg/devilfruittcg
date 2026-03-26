@@ -128,6 +128,52 @@ function normalizeConfidence(value) {
   return Number.isFinite(parsed) ? parsed.toFixed(4) : cleanText(value);
 }
 
+function normalizedReasonSet(entry) {
+  return new Set(
+    (Array.isArray(entry?.confidenceReasons) ? entry.confidenceReasons : []).map((value) =>
+      normalizeLookupKey(value),
+    ),
+  );
+}
+
+function hasAllReasons(entry, expected) {
+  const reasons = normalizedReasonSet(entry);
+  return expected.every((value) => reasons.has(normalizeLookupKey(value)));
+}
+
+function isTrustedEventApproval(entry) {
+  if (normalizeLookupKey(entry?.status) !== "auto_approved") return false;
+
+  if (hasAllReasons(entry, ["tcgplayer_verified", "exact_number_match", "exact_product_match"])) {
+    return true;
+  }
+
+  if (
+    hasAllReasons(entry, [
+      "official_event_verified",
+      "event_label_match",
+      "name_exact_match",
+      "number_exact_match",
+      "tcgplayer_verified",
+    ])
+  ) {
+    return true;
+  }
+
+  if (
+    hasAllReasons(entry, [
+      "manual_set_match",
+      "tcgplayer_verified",
+      "exact_number_match",
+      "explicit_variant_label",
+    ])
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 function normalizeTimestamp(value) {
   if (!value) return null;
   const parsed = Date.parse(String(value));
@@ -423,6 +469,7 @@ function mappingStatusFromEntry(entry) {
   switch (entry?.status) {
     case "auto_approved":
     case "manually_approved":
+      if (isTrustedEventApproval(entry)) return "exact";
       if (Number.isFinite(confidenceValue) && confidenceValue < 0.95) return "probable";
       return "exact";
     case "rejected":

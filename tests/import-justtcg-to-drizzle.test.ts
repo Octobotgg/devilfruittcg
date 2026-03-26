@@ -250,3 +250,173 @@ test("buildSeed preserves inferred product kind for price-data rows with raw res
   assert.ok(product);
   assert.equal(product?.product_kind, "raw_card");
 });
+
+test("buildSeed trusts tcgplayer-verified exact product event mappings even below 0.95 confidence", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP10-033_p2",
+            confidence: "0.9000",
+            status: "auto_approved",
+            searchMethod: "tcgplayer_verified",
+            notes: null,
+            confidenceReasons: ["tcgplayer_verified", "exact_number_match", "exact_product_match"],
+            bestCandidate: {
+              id: "nami-finalist-pack",
+              name: "Nami (CS 25-26 Finalist Card Set 1)",
+              set: "One Piece Promotion Cards",
+              lastUpdated: "2026-03-25T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "CS 25-26 Finalist Card Set 1",
+              releaseCode: "PRIZE",
+              canonicalId: "OP10-033_cs_25_26_finalist_card_set_1",
+              variantSlug: "cs_25_26_finalist_card_set_1",
+              variantLabel: "CS 25-26 Finalist Card Set 1",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP10-033_p2",
+            justtcg_id: "nami-finalist-pack",
+            price_nm: 850,
+            last_updated_justtcg: "2026-03-25T00:00:00.000Z",
+            fetched_at: "2026-03-25T00:05:00.000Z",
+            raw_response: {
+              id: "nami-finalist-pack",
+              name: "Nami (CS 25-26 Finalist Card Set 1)",
+              set: "One Piece Promotion Cards",
+              number: "OP10-033",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "OP10-033_p2",
+      active_external_product_id: "justtcg:nami-finalist-pack",
+    },
+  ]);
+  assert.equal(seed.cardPrintPriceCurrent.length, 1);
+
+  const link = seed.cardPrintMarketLinks.find((entry) => entry.card_print_id === "OP10-033_p2");
+  assert.equal(link?.mapping_status, "exact");
+  assert.equal(link?.approved_by, "auto_approval");
+});
+
+test("buildSeed trusts official event verified mappings even below 0.95 confidence", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP05-076_p4",
+            confidence: "0.9000",
+            status: "auto_approved",
+            searchMethod: "official_event_verified",
+            notes: null,
+            confidenceReasons: [
+              "number_exact_match",
+              "name_exact_match",
+              "event_label_match",
+              "official_event_verified",
+              "tcgplayer_verified",
+            ],
+            bestCandidate: {
+              id: "pirates-league-finals-textured-foil",
+              name: "When You're at Sea You Fight against Pirates!! (2025 Pirates League Finals Textured Foil)",
+              set: "One Piece Promotion Cards",
+              lastUpdated: "2026-03-25T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Pirates League Three Captains Battle & Support Crew Battle",
+              releaseCode: "PRIZE",
+              canonicalId: "OP05-076_pirates_league_finals_textured_foil",
+              variantSlug: "pirates_league_finals_textured_foil",
+              variantLabel: "Pirates League Finals Textured Foil",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP05-076_p4",
+            justtcg_id: "pirates-league-finals-textured-foil",
+            price_nm: 1392.24,
+            last_updated_justtcg: "2026-03-25T00:00:00.000Z",
+            fetched_at: "2026-03-25T00:05:00.000Z",
+            raw_response: {
+              id: "pirates-league-finals-textured-foil",
+              name: "When You're at Sea You Fight against Pirates!! (2025 Pirates League Finals Textured Foil)",
+              set: "One Piece Promotion Cards",
+              number: "OP05-076",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "OP05-076_p4",
+      active_external_product_id: "justtcg:pirates-league-finals-textured-foil",
+    },
+  ]);
+  assert.equal(seed.cardPrintPriceCurrent.length, 1);
+
+  const link = seed.cardPrintMarketLinks.find((entry) => entry.card_print_id === "OP05-076_p4");
+  assert.equal(link?.mapping_status, "exact");
+  assert.equal(link?.approved_by, "auto_approval");
+});
