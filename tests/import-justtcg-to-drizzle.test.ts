@@ -198,3 +198,55 @@ test("buildSeed keeps probable raw-card mappings out of active runtime pricing",
   assert.equal(probableLink?.approved_by, null);
   assert.equal(probableLink?.approved_at, null);
 });
+
+test("buildSeed preserves inferred product kind for price-data rows with raw responses", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        results: [],
+      },
+      priceData: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP13-120_p2",
+            justtcg_id: "sabo-red-super-aa",
+            price_nm: 4749.97,
+            last_updated_justtcg: "2026-03-25T00:00:00.000Z",
+            fetched_at: "2026-03-25T00:05:00.000Z",
+            raw_response: {
+              id: "sabo-red-super-aa",
+              name: "Sabo (120) (Red Super Alternate Art)",
+              set: "Carrying On His Will",
+              number: "OP13-120",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  const product = seed.externalProducts.find((entry) => entry.id === "justtcg:sabo-red-super-aa");
+  assert.ok(product);
+  assert.equal(product?.product_kind, "raw_card");
+});

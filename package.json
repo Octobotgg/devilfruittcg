@@ -12,6 +12,8 @@
     "backfill:match-intel": "node scripts/backfill-match-intel.mjs",
     "import:bandai:db": "node scripts/import-bandai-official-to-drizzle.mjs",
     "import:justtcg:db": "node scripts/import-justtcg-to-drizzle.mjs",
+    "report:justtcg:suspicious": "node scripts/report-suspicious-justtcg-mappings.mjs",
+    "review:justtcg:premium": "node scripts/review-suspicious-premium-mappings.mjs",
     "validate:cards": "node scripts/validate-cards.cjs",
     "validate:featured": "node scripts/validate-featured-cards.cjs",
     "smoke:market": "node scripts/smoke-market.cjs",

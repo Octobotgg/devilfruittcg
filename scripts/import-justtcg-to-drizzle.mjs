@@ -400,12 +400,14 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
     const justtcgId = cleanText(row?.justtcg_id || raw?.id);
     if (!justtcgId) continue;
 
-    addProduct(raw || { id: justtcgId, name: row?.name || justtcgId }, {
+    const overrides = {
       justtcgId,
       rawPayload: raw || row,
-      productKind: raw ? undefined : null,
       lastSeenAt: row?.last_updated_justtcg || row?.fetched_at || priceData?.generatedAt || null,
-    });
+      productKind: "raw_card",
+    };
+
+    addProduct(raw || { id: justtcgId, name: row?.name || justtcgId }, overrides);
   }
 
   return {

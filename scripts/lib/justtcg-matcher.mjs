@@ -85,6 +85,14 @@ export function normalizeText(value) {
     .trim();
 }
 
+function normalizeHintText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function cleanedCardName(value) {
   return normalizeText(value)
     .replace(/\b(alternate art|alt art|parallel|manga|anniversary|reprint|sp|special)\b/g, " ")
@@ -154,6 +162,15 @@ export function detectVariantHints(card) {
     card.name,
   ].join(" "));
   const hints = [];
+  if (explicitLabel.includes("red super alternate art") || explicitSlug.includes("red super alternate art")) {
+    hints.push("red_super_alt", "super_alt", "alt");
+  }
+  if (explicitLabel.includes("super alternate art") || explicitSlug.includes("super alternate art")) {
+    hints.push("super_alt", "alt");
+  }
+  if (explicitLabel.includes("jolly roger foil") || explicitSlug.includes("jolly roger foil")) hints.push("jolly_roger_foil");
+  if (explicitLabel.includes("full art") || explicitSlug.includes("full art")) hints.push("full_art");
+  if (explicitLabel.includes("treasure rare") || explicitSlug.includes("treasure rare")) hints.push("treasure_rare");
   if (explicitLabel.includes("pirate foil") || explicitSlug.includes("pirate foil")) hints.push("pirate_foil");
   if (explicitLabel.includes("participation") || explicitSlug.includes("participation")) hints.push("participation");
   if (explicitLabel.includes("finalist") || explicitSlug.includes("finalist")) hints.push("finalist");
@@ -174,6 +191,11 @@ export function detectVariantHints(card) {
   if (explicitType === "reprint") hints.push("reprint");
   if (String(card.rarity || "").toUpperCase() === "SP CARD" || raw.includes(" sp ")) hints.push("sp");
   if (raw.includes("manga")) hints.push("manga");
+  if (raw.includes("red super alternate art")) hints.push("red_super_alt", "super_alt", "alt");
+  else if (raw.includes("super alternate art")) hints.push("super_alt", "alt");
+  if (raw.includes("jolly roger foil")) hints.push("jolly_roger_foil");
+  if (raw.includes("full art")) hints.push("full_art");
+  if (raw.includes("treasure rare")) hints.push("treasure_rare");
   if (raw.includes("alternate art") || raw.includes("alt art")) hints.push("alt");
   if (raw.includes("parallel")) hints.push("parallel");
   if (raw.includes("reprint") || /_r\d+$/i.test(card.id)) hints.push("reprint");
@@ -199,13 +221,18 @@ export function priceSnapshot(candidate) {
 }
 
 export function candidatePremiumHints(candidate) {
-  const text = normalizeText([
+  const text = normalizeHintText([
     candidate.name,
     candidate.set_name,
     candidate.set,
     candidate.id,
   ].join(" "));
   const hints = [];
+  if (text.includes("red super alternate art")) hints.push("red_super_alt", "super_alt", "alt");
+  else if (text.includes("super alternate art")) hints.push("super_alt", "alt");
+  if (text.includes("jolly roger foil")) hints.push("jolly_roger_foil");
+  if (text.includes("full art")) hints.push("full_art");
+  if (text.includes("treasure rare")) hints.push("treasure_rare");
   if (text.includes("pirate foil")) hints.push("pirate_foil");
   if (text.includes("participation")) hints.push("participation");
   if (text.includes("finalist")) hints.push("finalist");
@@ -223,7 +250,7 @@ export function candidatePremiumHints(candidate) {
   if (text.includes("alternate art") || text.includes("alt art")) hints.push("alt");
   if (text.includes("parallel")) hints.push("parallel");
   if (text.includes("reprint")) hints.push("reprint");
-  return hints;
+  return Array.from(new Set(hints));
 }
 
 export function classifyCatalogCard(candidate) {
