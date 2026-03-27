@@ -73,6 +73,41 @@ test("getTcgplayerProductDetail fetches product details from the TCGplayer detai
   }
 });
 
+test("getTcgplayerProductDetail migrates legacy raw payload cache entries without refetching", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const cache: Record<string, TcgplayerCacheEntry> = {
+      "999": {
+        id: 999,
+        title: "Legacy Raw",
+      } as TcgplayerCacheEntry,
+    };
+    const { calls, fetchImpl } = createFetchStub([{ error: new Error("should not fetch") }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 999,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 0);
+    assert.deepEqual(detail, { id: 999, title: "Legacy Raw" });
+
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["999"];
+    assert.equal(persisted.id, 999);
+    assert.equal(persisted.title, "Legacy Raw");
+    assert.equal(typeof persisted.fetched_at, "string");
+    assert.equal("payload" in persisted, false);
+    assert.equal("fetchedAt" in persisted, false);
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("getTcgplayerProductDetail reuses a cached response on the second fetch", async () => {
   const tempDir = createTempDir();
   try {
@@ -177,6 +212,47 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh f
     assert.equal(typeof persisted.fetched_at, "string");
     assert.equal("payload" in persisted, false);
     assert.equal("fetchedAt" in persisted, false);
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("getTcgplayerProductDetail does not fall back to stale cache on permanent failures", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const cache: Record<string, TcgplayerCacheEntry> = {};
+    const { calls, fetchImpl } = createFetchStub([
+      { body: { id: 404, title: "Stale Card" } },
+      { ok: false, status: 404, body: { error: "not found" } },
+    ]);
+
+    await getTcgplayerProductDetail({
+      productId: 404,
+      cache,
+      cachePath,
+      ttlMs: 1,
+      fetchImpl,
+    });
+
+    cache["404"].fetched_at = new Date(Date.now() - 60_000).toISOString();
+
+    await assert.rejects(
+      getTcgplayerProductDetail({
+        productId: 404,
+        cache,
+        cachePath,
+        ttlMs: 1,
+        fetchImpl,
+      }),
+      /404/,
+    );
+
+    assert.equal(calls.length, 2);
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["404"];
+    assert.equal(persisted.id, 404);
+    assert.equal(persisted.title, "Stale Card");
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
