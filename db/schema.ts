@@ -637,9 +637,9 @@ export const cardPrintPricePublished = pgTable(
     externalProductId: text("external_product_id")
       .notNull()
       .references(() => externalProducts.id, { onDelete: "cascade" }),
-    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
-      onDelete: "set null",
-    }),
+    externalVariantId: text("external_variant_id")
+      .notNull()
+      .references(() => externalProductVariants.id, { onDelete: "no action" }),
     priceMarket: numeric("price_market", { precision: 12, scale: 2 }),
     priceNm: numeric("price_nm", { precision: 12, scale: 2 }),
     priceLp: numeric("price_lp", { precision: 12, scale: 2 }),
@@ -675,9 +675,9 @@ export const cardPrintDisplayPublished = pgTable(
     externalProductId: text("external_product_id")
       .notNull()
       .references(() => externalProducts.id, { onDelete: "cascade" }),
-    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
-      onDelete: "set null",
-    }),
+    externalVariantId: text("external_variant_id")
+      .notNull()
+      .references(() => externalProductVariants.id, { onDelete: "no action" }),
     displaySetName: text("display_set_name").notNull(),
     displaySetCode: text("display_set_code").notNull(),
     displayRarity: text("display_rarity"),

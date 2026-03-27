@@ -20,6 +20,12 @@ function indexNames(table: Parameters<typeof getTableConfig>[0]) {
   return getTableConfig(table).indexes.map((index) => index.config.name);
 }
 
+function columnByName(table: Parameters<typeof getTableConfig>[0], name: string) {
+  const column = getTableConfig(table).columns.find((entry) => entry.name === name);
+  assert.ok(column, `expected column ${name}`);
+  return column;
+}
+
 function assertColumns(table: Parameters<typeof getTableConfig>[0], expected: string[]) {
   const names = columnNames(table);
   for (const column of expected) {
@@ -105,6 +111,8 @@ test("pricing verifier schema includes published and verification tables", async
     "verification_run_id",
     "published_at",
   ]);
+  assert.equal(columnByName(schema.cardPrintPricePublished, "external_variant_id").notNull, true);
+  assert.equal(columnByName(schema.cardPrintDisplayPublished, "external_variant_id").notNull, true);
 
   assertIndexes(schema.pricingVerificationResults, [
     "pricing_verification_results_card_print_idx",

@@ -1,0 +1,4296 @@
+{
+  "id": "ff21251f-62fa-47ee-899b-fe86fe7119f2",
+  "prevId": "a8bdfa99-fe44-4549-afe5-4c294267d922",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.card_print_display_published": {
+      "name": "card_print_display_published",
+      "schema": "",
+      "columns": {
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_set_name": {
+          "name": "display_set_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_set_code": {
+          "name": "display_set_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_rarity": {
+          "name": "display_rarity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "display_title": {
+          "name": "display_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_treatment_label": {
+          "name": "display_treatment_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "display_image_url": {
+          "name": "display_image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "label_status": {
+          "name": "label_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "verification_run_id": {
+          "name": "verification_run_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "card_print_display_published_card_print_idx": {
+          "name": "card_print_display_published_card_print_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_print_display_published_verification_run_idx": {
+          "name": "card_print_display_published_verification_run_idx",
+          "columns": [
+            {
+              "expression": "verification_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "card_print_display_published_card_print_id_card_prints_id_fk": {
+          "name": "card_print_display_published_card_print_id_card_prints_id_fk",
+          "tableFrom": "card_print_display_published",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_display_published_external_product_id_external_products_id_fk": {
+          "name": "card_print_display_published_external_product_id_external_products_id_fk",
+          "tableFrom": "card_print_display_published",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_display_published_external_variant_id_external_product_variants_id_fk": {
+          "name": "card_print_display_published_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "card_print_display_published",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "card_print_display_published_verification_run_id_pricing_verification_runs_id_fk": {
+          "name": "card_print_display_published_verification_run_id_pricing_verification_runs_id_fk",
+          "tableFrom": "card_print_display_published",
+          "tableTo": "pricing_verification_runs",
+          "columnsFrom": [
+            "verification_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "card_print_display_published_product_variant_fk": {
+          "name": "card_print_display_published_product_variant_fk",
+          "tableFrom": "card_print_display_published",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "card_print_display_published_card_print_id_pk": {
+          "name": "card_print_display_published_card_print_id_pk",
+          "columns": [
+            "card_print_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.card_print_market_links": {
+      "name": "card_print_market_links",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mapping_status": {
+          "name": "mapping_status",
+          "type": "mapping_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "confidence": {
+          "name": "confidence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "match_method": {
+          "name": "match_method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "review_notes": {
+          "name": "review_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_by": {
+          "name": "approved_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_at": {
+          "name": "approved_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "card_print_market_links_card_print_external_product_unique": {
+          "name": "card_print_market_links_card_print_external_product_unique",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_print_market_links_card_print_idx": {
+          "name": "card_print_market_links_card_print_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_print_market_links_external_product_idx": {
+          "name": "card_print_market_links_external_product_idx",
+          "columns": [
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_print_market_links_status_idx": {
+          "name": "card_print_market_links_status_idx",
+          "columns": [
+            {
+              "expression": "mapping_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "card_print_market_links_card_print_id_card_prints_id_fk": {
+          "name": "card_print_market_links_card_print_id_card_prints_id_fk",
+          "tableFrom": "card_print_market_links",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_market_links_external_product_id_external_products_id_fk": {
+          "name": "card_print_market_links_external_product_id_external_products_id_fk",
+          "tableFrom": "card_print_market_links",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.card_print_price_current": {
+      "name": "card_print_price_current",
+      "schema": "",
+      "columns": {
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_market": {
+          "name": "price_market",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_nm": {
+          "name": "price_nm",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_lp": {
+          "name": "price_lp",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_change_24h": {
+          "name": "price_change_24h",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_change_7d": {
+          "name": "price_change_7d",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_change_30d": {
+          "name": "price_change_30d",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fetched_at": {
+          "name": "fetched_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "card_print_price_current_card_print_idx": {
+          "name": "card_print_price_current_card_print_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_print_price_current_source_updated_idx": {
+          "name": "card_print_price_current_source_updated_idx",
+          "columns": [
+            {
+              "expression": "source_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "card_print_price_current_card_print_id_card_prints_id_fk": {
+          "name": "card_print_price_current_card_print_id_card_prints_id_fk",
+          "tableFrom": "card_print_price_current",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_current_source_id_external_sources_id_fk": {
+          "name": "card_print_price_current_source_id_external_sources_id_fk",
+          "tableFrom": "card_print_price_current",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_current_external_product_id_external_products_id_fk": {
+          "name": "card_print_price_current_external_product_id_external_products_id_fk",
+          "tableFrom": "card_print_price_current",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_current_external_variant_id_external_product_variants_id_fk": {
+          "name": "card_print_price_current_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "card_print_price_current",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "card_print_price_current_product_source_variant_fk": {
+          "name": "card_print_price_current_product_source_variant_fk",
+          "tableFrom": "card_print_price_current",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "source_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "source_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "card_print_price_current_card_print_id_source_id_pk": {
+          "name": "card_print_price_current_card_print_id_source_id_pk",
+          "columns": [
+            "card_print_id",
+            "source_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.card_print_price_history": {
+      "name": "card_print_price_history",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recorded_at": {
+          "name": "recorded_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_nm": {
+          "name": "price_nm",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_lp": {
+          "name": "price_lp",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_market": {
+          "name": "price_market",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "card_print_price_history_print_recorded_at_idx": {
+          "name": "card_print_price_history_print_recorded_at_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "recorded_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "card_print_price_history_card_print_id_card_prints_id_fk": {
+          "name": "card_print_price_history_card_print_id_card_prints_id_fk",
+          "tableFrom": "card_print_price_history",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_history_source_id_external_sources_id_fk": {
+          "name": "card_print_price_history_source_id_external_sources_id_fk",
+          "tableFrom": "card_print_price_history",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_history_external_product_id_external_products_id_fk": {
+          "name": "card_print_price_history_external_product_id_external_products_id_fk",
+          "tableFrom": "card_print_price_history",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "card_print_price_history_external_variant_id_external_product_variants_id_fk": {
+          "name": "card_print_price_history_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "card_print_price_history",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "card_print_price_history_product_source_variant_fk": {
+          "name": "card_print_price_history_product_source_variant_fk",
+          "tableFrom": "card_print_price_history",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "source_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "source_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.card_print_price_published": {
+      "name": "card_print_price_published",
+      "schema": "",
+      "columns": {
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_market": {
+          "name": "price_market",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_nm": {
+          "name": "price_nm",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_lp": {
+          "name": "price_lp",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "verification_status": {
+          "name": "verification_status",
+          "type": "pricing_verification_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "verification_run_id": {
+          "name": "verification_run_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "card_print_price_published_card_print_idx": {
+          "name": "card_print_price_published_card_print_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_print_price_published_verification_run_idx": {
+          "name": "card_print_price_published_verification_run_idx",
+          "columns": [
+            {
+              "expression": "verification_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "card_print_price_published_card_print_id_card_prints_id_fk": {
+          "name": "card_print_price_published_card_print_id_card_prints_id_fk",
+          "tableFrom": "card_print_price_published",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_published_source_id_external_sources_id_fk": {
+          "name": "card_print_price_published_source_id_external_sources_id_fk",
+          "tableFrom": "card_print_price_published",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_published_external_product_id_external_products_id_fk": {
+          "name": "card_print_price_published_external_product_id_external_products_id_fk",
+          "tableFrom": "card_print_price_published",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_print_price_published_external_variant_id_external_product_variants_id_fk": {
+          "name": "card_print_price_published_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "card_print_price_published",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "card_print_price_published_verification_run_id_pricing_verification_runs_id_fk": {
+          "name": "card_print_price_published_verification_run_id_pricing_verification_runs_id_fk",
+          "tableFrom": "card_print_price_published",
+          "tableTo": "pricing_verification_runs",
+          "columnsFrom": [
+            "verification_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "card_print_price_published_product_source_variant_fk": {
+          "name": "card_print_price_published_product_source_variant_fk",
+          "tableFrom": "card_print_price_published",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "source_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "source_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "card_print_price_published_card_print_id_source_id_pk": {
+          "name": "card_print_price_published_card_print_id_source_id_pk",
+          "columns": [
+            "card_print_id",
+            "source_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.card_prints": {
+      "name": "card_prints",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "card_id": {
+          "name": "card_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "release_id": {
+          "name": "release_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active_external_product_id": {
+          "name": "active_external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "active_external_variant_id": {
+          "name": "active_external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "print_code": {
+          "name": "print_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "printed_card_code": {
+          "name": "printed_card_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variant_family": {
+          "name": "variant_family",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variant_type": {
+          "name": "variant_type",
+          "type": "variant_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variant_label": {
+          "name": "variant_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variant_slug": {
+          "name": "variant_slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_reprint": {
+          "name": "is_reprint",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_pre_release": {
+          "name": "is_pre_release",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_alt_art": {
+          "name": "is_alt_art",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_special_print": {
+          "name": "is_special_print",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "release_date_override": {
+          "name": "release_date_override",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "official_source_id": {
+          "name": "official_source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "card_prints_printed_card_code_unique": {
+          "name": "card_prints_printed_card_code_unique",
+          "columns": [
+            {
+              "expression": "printed_card_code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_prints_card_variant_slug_unique": {
+          "name": "card_prints_card_variant_slug_unique",
+          "columns": [
+            {
+              "expression": "card_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "variant_slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_prints_release_idx": {
+          "name": "card_prints_release_idx",
+          "columns": [
+            {
+              "expression": "release_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_prints_card_idx": {
+          "name": "card_prints_card_idx",
+          "columns": [
+            {
+              "expression": "card_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_prints_active_external_product_unique": {
+          "name": "card_prints_active_external_product_unique",
+          "columns": [
+            {
+              "expression": "active_external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"card_prints\".\"active_external_product_id\" is not null",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_prints_active_external_variant_unique": {
+          "name": "card_prints_active_external_variant_unique",
+          "columns": [
+            {
+              "expression": "active_external_variant_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"card_prints\".\"active_external_variant_id\" is not null",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "card_prints_variant_type_idx": {
+          "name": "card_prints_variant_type_idx",
+          "columns": [
+            {
+              "expression": "variant_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "card_prints_card_id_cards_id_fk": {
+          "name": "card_prints_card_id_cards_id_fk",
+          "tableFrom": "card_prints",
+          "tableTo": "cards",
+          "columnsFrom": [
+            "card_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "card_prints_release_id_releases_id_fk": {
+          "name": "card_prints_release_id_releases_id_fk",
+          "tableFrom": "card_prints",
+          "tableTo": "releases",
+          "columnsFrom": [
+            "release_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "card_prints_active_external_product_id_external_products_id_fk": {
+          "name": "card_prints_active_external_product_id_external_products_id_fk",
+          "tableFrom": "card_prints",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "active_external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "card_prints_active_external_variant_id_external_product_variants_id_fk": {
+          "name": "card_prints_active_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "card_prints",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "active_external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "card_prints_active_external_product_variant_fk": {
+          "name": "card_prints_active_external_product_variant_fk",
+          "tableFrom": "card_prints",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "active_external_product_id",
+            "active_external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.cards": {
+      "name": "cards",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "base_card_code": {
+          "name": "base_card_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "set_code": {
+          "name": "set_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "number": {
+          "name": "number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "card_type": {
+          "name": "card_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color": {
+          "name": "color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rarity": {
+          "name": "rarity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "life": {
+          "name": "life",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "power": {
+          "name": "power",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "counter": {
+          "name": "counter",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attribute": {
+          "name": "attribute",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "traits": {
+          "name": "traits",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "effect_text": {
+          "name": "effect_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "trigger_text": {
+          "name": "trigger_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "block_icon": {
+          "name": "block_icon",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "search_text": {
+          "name": "search_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "cards_game_base_card_code_unique": {
+          "name": "cards_game_base_card_code_unique",
+          "columns": [
+            {
+              "expression": "game_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "base_card_code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "cards_game_set_code_number_name_unique": {
+          "name": "cards_game_set_code_number_name_unique",
+          "columns": [
+            {
+              "expression": "game_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "set_code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "cards_set_code_number_idx": {
+          "name": "cards_set_code_number_idx",
+          "columns": [
+            {
+              "expression": "set_code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "cards_name_idx": {
+          "name": "cards_name_idx",
+          "columns": [
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "cards_game_id_games_id_fk": {
+          "name": "cards_game_id_games_id_fk",
+          "tableFrom": "cards",
+          "tableTo": "games",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.external_product_variants": {
+      "name": "external_product_variants",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider_variant_id": {
+          "name": "provider_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "condition": {
+          "name": "condition",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "printing": {
+          "name": "printing",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "language": {
+          "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price": {
+          "name": "price",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_updated_at": {
+          "name": "last_updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_history_payload": {
+          "name": "price_history_payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "raw_payload": {
+          "name": "raw_payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "external_product_variants_provider_variant_id_unique": {
+          "name": "external_product_variants_provider_variant_id_unique",
+          "columns": [
+            {
+              "expression": "provider_variant_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_product_variants_external_product_id_id_unique": {
+          "name": "external_product_variants_external_product_id_id_unique",
+          "columns": [
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_product_variants_product_source_id_unique": {
+          "name": "external_product_variants_product_source_id_unique",
+          "columns": [
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "source_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_product_variants_external_product_id_idx": {
+          "name": "external_product_variants_external_product_id_idx",
+          "columns": [
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_product_variants_condition_printing_idx": {
+          "name": "external_product_variants_condition_printing_idx",
+          "columns": [
+            {
+              "expression": "condition",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "printing",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_product_variants_last_updated_at_idx": {
+          "name": "external_product_variants_last_updated_at_idx",
+          "columns": [
+            {
+              "expression": "last_updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "external_product_variants_external_product_id_external_products_id_fk": {
+          "name": "external_product_variants_external_product_id_external_products_id_fk",
+          "tableFrom": "external_product_variants",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "external_product_variants_source_id_external_sources_id_fk": {
+          "name": "external_product_variants_source_id_external_sources_id_fk",
+          "tableFrom": "external_product_variants",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "external_product_variants_product_source_fk": {
+          "name": "external_product_variants_product_source_fk",
+          "tableFrom": "external_product_variants",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id",
+            "source_id"
+          ],
+          "columnsTo": [
+            "id",
+            "source_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.external_products": {
+      "name": "external_products",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "product_kind": {
+          "name": "product_kind",
+          "type": "external_product_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "set_name": {
+          "name": "set_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "number": {
+          "name": "number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rarity": {
+          "name": "rarity",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "language": {
+          "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "condition_model": {
+          "name": "condition_model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "printing": {
+          "name": "printing",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "product_url": {
+          "name": "product_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "raw_payload": {
+          "name": "raw_payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_seen_at": {
+          "name": "last_seen_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "external_products_source_external_product_unique": {
+          "name": "external_products_source_external_product_unique",
+          "columns": [
+            {
+              "expression": "source_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_products_id_source_id_unique": {
+          "name": "external_products_id_source_id_unique",
+          "columns": [
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "source_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_products_product_kind_idx": {
+          "name": "external_products_product_kind_idx",
+          "columns": [
+            {
+              "expression": "product_kind",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_products_number_idx": {
+          "name": "external_products_number_idx",
+          "columns": [
+            {
+              "expression": "number",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "external_products_name_idx": {
+          "name": "external_products_name_idx",
+          "columns": [
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "external_products_source_id_external_sources_id_fk": {
+          "name": "external_products_source_id_external_sources_id_fk",
+          "tableFrom": "external_products",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.external_sources": {
+      "name": "external_sources",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "base_url": {
+          "name": "base_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "external_sources_code_unique": {
+          "name": "external_sources_code_unique",
+          "columns": [
+            {
+              "expression": "code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.games": {
+      "name": "games",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "games_slug_unique": {
+          "name": "games_slug_unique",
+          "columns": [
+            {
+              "expression": "slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.import_issues": {
+      "name": "import_issues",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "import_run_id": {
+          "name": "import_run_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_type": {
+          "name": "entity_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_key": {
+          "name": "entity_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "severity": {
+          "name": "severity",
+          "type": "issue_severity",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "issue_code": {
+          "name": "issue_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payload": {
+          "name": "payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "import_issues_run_severity_idx": {
+          "name": "import_issues_run_severity_idx",
+          "columns": [
+            {
+              "expression": "import_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "severity",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "import_issues_entity_idx": {
+          "name": "import_issues_entity_idx",
+          "columns": [
+            {
+              "expression": "entity_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "entity_key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "import_issues_import_run_id_import_runs_id_fk": {
+          "name": "import_issues_import_run_id_import_runs_id_fk",
+          "tableFrom": "import_issues",
+          "tableTo": "import_runs",
+          "columnsFrom": [
+            "import_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.import_runs": {
+      "name": "import_runs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "run_type": {
+          "name": "run_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "import_run_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "summary_json": {
+          "name": "summary_json",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "import_runs_source_run_type_idx": {
+          "name": "import_runs_source_run_type_idx",
+          "columns": [
+            {
+              "expression": "source",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "run_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "import_runs_status_idx": {
+          "name": "import_runs_status_idx",
+          "columns": [
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.import_staging_card_prints": {
+      "name": "import_staging_card_prints",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "import_run_id": {
+          "name": "import_run_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_key": {
+          "name": "source_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payload": {
+          "name": "payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "normalized_printed_card_code": {
+          "name": "normalized_printed_card_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "normalized_variant_slug": {
+          "name": "normalized_variant_slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "import_run_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'queued'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "import_staging_card_prints_run_idx": {
+          "name": "import_staging_card_prints_run_idx",
+          "columns": [
+            {
+              "expression": "import_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "import_staging_card_prints_import_run_id_import_runs_id_fk": {
+          "name": "import_staging_card_prints_import_run_id_import_runs_id_fk",
+          "tableFrom": "import_staging_card_prints",
+          "tableTo": "import_runs",
+          "columnsFrom": [
+            "import_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.import_staging_external_products": {
+      "name": "import_staging_external_products",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "import_run_id": {
+          "name": "import_run_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_key": {
+          "name": "source_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payload": {
+          "name": "payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "normalized_external_product_id": {
+          "name": "normalized_external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "normalized_product_kind": {
+          "name": "normalized_product_kind",
+          "type": "external_product_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "import_run_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'queued'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "import_staging_external_products_run_idx": {
+          "name": "import_staging_external_products_run_idx",
+          "columns": [
+            {
+              "expression": "import_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "import_staging_external_products_import_run_id_import_runs_id_fk": {
+          "name": "import_staging_external_products_import_run_id_import_runs_id_fk",
+          "tableFrom": "import_staging_external_products",
+          "tableTo": "import_runs",
+          "columnsFrom": [
+            "import_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.price_snapshots": {
+      "name": "price_snapshots",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "captured_at": {
+          "name": "captured_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_market": {
+          "name": "price_market",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_low": {
+          "name": "price_low",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_mid": {
+          "name": "price_mid",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_high": {
+          "name": "price_high",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_nm": {
+          "name": "price_nm",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_lp": {
+          "name": "price_lp",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'USD'"
+        },
+        "availability": {
+          "name": "availability",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "raw_payload": {
+          "name": "raw_payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "price_snapshots_external_product_captured_at_idx": {
+          "name": "price_snapshots_external_product_captured_at_idx",
+          "columns": [
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "captured_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "price_snapshots_external_product_id_external_products_id_fk": {
+          "name": "price_snapshots_external_product_id_external_products_id_fk",
+          "tableFrom": "price_snapshots",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "price_snapshots_external_variant_id_external_product_variants_id_fk": {
+          "name": "price_snapshots_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "price_snapshots",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "price_snapshots_product_variant_fk": {
+          "name": "price_snapshots_product_variant_fk",
+          "tableFrom": "price_snapshots",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pricing_mapping_conflicts": {
+      "name": "pricing_mapping_conflicts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "verification_run_id": {
+          "name": "verification_run_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tcgplayer_product_id": {
+          "name": "tcgplayer_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "conflict_type": {
+          "name": "conflict_type",
+          "type": "pricing_mapping_conflict_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expected_number": {
+          "name": "expected_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expected_set_code": {
+          "name": "expected_set_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expected_name": {
+          "name": "expected_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_number": {
+          "name": "provider_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_set_name": {
+          "name": "provider_set_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provider_product_name": {
+          "name": "provider_product_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "details": {
+          "name": "details",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "pricing_mapping_conflicts_card_print_idx": {
+          "name": "pricing_mapping_conflicts_card_print_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pricing_mapping_conflicts_verification_run_idx": {
+          "name": "pricing_mapping_conflicts_verification_run_idx",
+          "columns": [
+            {
+              "expression": "verification_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pricing_mapping_conflicts_verification_run_id_pricing_verification_runs_id_fk": {
+          "name": "pricing_mapping_conflicts_verification_run_id_pricing_verification_runs_id_fk",
+          "tableFrom": "pricing_mapping_conflicts",
+          "tableTo": "pricing_verification_runs",
+          "columnsFrom": [
+            "verification_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pricing_mapping_conflicts_card_print_id_card_prints_id_fk": {
+          "name": "pricing_mapping_conflicts_card_print_id_card_prints_id_fk",
+          "tableFrom": "pricing_mapping_conflicts",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pricing_mapping_conflicts_external_product_id_external_products_id_fk": {
+          "name": "pricing_mapping_conflicts_external_product_id_external_products_id_fk",
+          "tableFrom": "pricing_mapping_conflicts",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pricing_mapping_conflicts_external_variant_id_external_product_variants_id_fk": {
+          "name": "pricing_mapping_conflicts_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "pricing_mapping_conflicts",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pricing_mapping_conflicts_product_variant_fk": {
+          "name": "pricing_mapping_conflicts_product_variant_fk",
+          "tableFrom": "pricing_mapping_conflicts",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pricing_verification_results": {
+      "name": "pricing_verification_results",
+      "schema": "",
+      "columns": {
+        "verification_run_id": {
+          "name": "verification_run_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "card_print_id": {
+          "name": "card_print_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "external_variant_id": {
+          "name": "external_variant_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tcgplayer_product_id": {
+          "name": "tcgplayer_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "justtcg_price_nm": {
+          "name": "justtcg_price_nm",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tcgplayer_market_price": {
+          "name": "tcgplayer_market_price",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published_price_nm_before": {
+          "name": "published_price_nm_before",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_delta_abs": {
+          "name": "price_delta_abs",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_delta_ratio": {
+          "name": "price_delta_ratio",
+          "type": "numeric(10, 6)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mapping_integrity_status": {
+          "name": "mapping_integrity_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label_integrity_status": {
+          "name": "label_integrity_status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "verification_status": {
+          "name": "verification_status",
+          "type": "pricing_verification_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "checked_at": {
+          "name": "checked_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "raw_tcgplayer_payload": {
+          "name": "raw_tcgplayer_payload",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "pricing_verification_results_card_print_idx": {
+          "name": "pricing_verification_results_card_print_idx",
+          "columns": [
+            {
+              "expression": "card_print_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pricing_verification_results_verification_run_idx": {
+          "name": "pricing_verification_results_verification_run_idx",
+          "columns": [
+            {
+              "expression": "verification_run_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "pricing_verification_results_verification_run_id_pricing_verification_runs_id_fk": {
+          "name": "pricing_verification_results_verification_run_id_pricing_verification_runs_id_fk",
+          "tableFrom": "pricing_verification_results",
+          "tableTo": "pricing_verification_runs",
+          "columnsFrom": [
+            "verification_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pricing_verification_results_card_print_id_card_prints_id_fk": {
+          "name": "pricing_verification_results_card_print_id_card_prints_id_fk",
+          "tableFrom": "pricing_verification_results",
+          "tableTo": "card_prints",
+          "columnsFrom": [
+            "card_print_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "pricing_verification_results_external_product_id_external_products_id_fk": {
+          "name": "pricing_verification_results_external_product_id_external_products_id_fk",
+          "tableFrom": "pricing_verification_results",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pricing_verification_results_external_variant_id_external_product_variants_id_fk": {
+          "name": "pricing_verification_results_external_variant_id_external_product_variants_id_fk",
+          "tableFrom": "pricing_verification_results",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "pricing_verification_results_product_variant_fk": {
+          "name": "pricing_verification_results_product_variant_fk",
+          "tableFrom": "pricing_verification_results",
+          "tableTo": "external_product_variants",
+          "columnsFrom": [
+            "external_product_id",
+            "external_variant_id"
+          ],
+          "columnsTo": [
+            "external_product_id",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "pricing_verification_results_verification_run_id_card_print_id_pk": {
+          "name": "pricing_verification_results_verification_run_id_card_print_id_pk",
+          "columns": [
+            "verification_run_id",
+            "card_print_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.pricing_verification_runs": {
+      "name": "pricing_verification_runs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "pricing_verification_run_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'running'"
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "finished_at": {
+          "name": "finished_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "pricing_verification_runs_source_idx": {
+          "name": "pricing_verification_runs_source_idx",
+          "columns": [
+            {
+              "expression": "source",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "pricing_verification_runs_started_at_idx": {
+          "name": "pricing_verification_runs_started_at_idx",
+          "columns": [
+            {
+              "expression": "started_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.releases": {
+      "name": "releases",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "release_type": {
+          "name": "release_type",
+          "type": "release_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "release_date": {
+          "name": "release_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "language": {
+          "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'EN'"
+        },
+        "official_url": {
+          "name": "official_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "releases_game_code_language_unique": {
+          "name": "releases_game_code_language_unique",
+          "columns": [
+            {
+              "expression": "game_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "language",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "releases_release_type_idx": {
+          "name": "releases_release_type_idx",
+          "columns": [
+            {
+              "expression": "release_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "releases_release_date_idx": {
+          "name": "releases_release_date_idx",
+          "columns": [
+            {
+              "expression": "release_date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "releases_game_id_games_id_fk": {
+          "name": "releases_game_id_games_id_fk",
+          "tableFrom": "releases",
+          "tableTo": "games",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.review_queue": {
+      "name": "review_queue",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "entity_type": {
+          "name": "entity_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_id": {
+          "name": "entity_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason_code": {
+          "name": "reason_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "review_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'open'"
+        },
+        "assigned_to": {
+          "name": "assigned_to",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "resolved_at": {
+          "name": "resolved_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "review_queue_entity_idx": {
+          "name": "review_queue_entity_idx",
+          "columns": [
+            {
+              "expression": "entity_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "entity_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "review_queue_status_idx": {
+          "name": "review_queue_status_idx",
+          "columns": [
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sealed_product_market_links": {
+      "name": "sealed_product_market_links",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sealed_product_id": {
+          "name": "sealed_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mapping_status": {
+          "name": "mapping_status",
+          "type": "mapping_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "confidence": {
+          "name": "confidence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "match_method": {
+          "name": "match_method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "review_notes": {
+          "name": "review_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_by": {
+          "name": "approved_by",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_at": {
+          "name": "approved_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "sealed_product_market_links_sealed_product_external_product_unique": {
+          "name": "sealed_product_market_links_sealed_product_external_product_unique",
+          "columns": [
+            {
+              "expression": "sealed_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_product_market_links_sealed_product_idx": {
+          "name": "sealed_product_market_links_sealed_product_idx",
+          "columns": [
+            {
+              "expression": "sealed_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_product_market_links_external_product_idx": {
+          "name": "sealed_product_market_links_external_product_idx",
+          "columns": [
+            {
+              "expression": "external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_product_market_links_status_idx": {
+          "name": "sealed_product_market_links_status_idx",
+          "columns": [
+            {
+              "expression": "mapping_status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "sealed_product_market_links_sealed_product_id_sealed_products_id_fk": {
+          "name": "sealed_product_market_links_sealed_product_id_sealed_products_id_fk",
+          "tableFrom": "sealed_product_market_links",
+          "tableTo": "sealed_products",
+          "columnsFrom": [
+            "sealed_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sealed_product_market_links_external_product_id_external_products_id_fk": {
+          "name": "sealed_product_market_links_external_product_id_external_products_id_fk",
+          "tableFrom": "sealed_product_market_links",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sealed_product_price_current": {
+      "name": "sealed_product_price_current",
+      "schema": "",
+      "columns": {
+        "sealed_product_id": {
+          "name": "sealed_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_market": {
+          "name": "price_market",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_change_24h": {
+          "name": "price_change_24h",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_change_7d": {
+          "name": "price_change_7d",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_change_30d": {
+          "name": "price_change_30d",
+          "type": "numeric(8, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fetched_at": {
+          "name": "fetched_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "sealed_product_price_current_sealed_product_idx": {
+          "name": "sealed_product_price_current_sealed_product_idx",
+          "columns": [
+            {
+              "expression": "sealed_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_product_price_current_source_updated_idx": {
+          "name": "sealed_product_price_current_source_updated_idx",
+          "columns": [
+            {
+              "expression": "source_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "sealed_product_price_current_sealed_product_id_sealed_products_id_fk": {
+          "name": "sealed_product_price_current_sealed_product_id_sealed_products_id_fk",
+          "tableFrom": "sealed_product_price_current",
+          "tableTo": "sealed_products",
+          "columnsFrom": [
+            "sealed_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sealed_product_price_current_source_id_external_sources_id_fk": {
+          "name": "sealed_product_price_current_source_id_external_sources_id_fk",
+          "tableFrom": "sealed_product_price_current",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sealed_product_price_current_external_product_id_external_products_id_fk": {
+          "name": "sealed_product_price_current_external_product_id_external_products_id_fk",
+          "tableFrom": "sealed_product_price_current",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "sealed_product_price_current_sealed_product_id_source_id_pk": {
+          "name": "sealed_product_price_current_sealed_product_id_source_id_pk",
+          "columns": [
+            "sealed_product_id",
+            "source_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sealed_product_price_history": {
+      "name": "sealed_product_price_history",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sealed_product_id": {
+          "name": "sealed_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "external_product_id": {
+          "name": "external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recorded_at": {
+          "name": "recorded_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_market": {
+          "name": "price_market",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "sealed_product_price_history_sealed_product_recorded_at_idx": {
+          "name": "sealed_product_price_history_sealed_product_recorded_at_idx",
+          "columns": [
+            {
+              "expression": "sealed_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "recorded_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "sealed_product_price_history_sealed_product_id_sealed_products_id_fk": {
+          "name": "sealed_product_price_history_sealed_product_id_sealed_products_id_fk",
+          "tableFrom": "sealed_product_price_history",
+          "tableTo": "sealed_products",
+          "columnsFrom": [
+            "sealed_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sealed_product_price_history_source_id_external_sources_id_fk": {
+          "name": "sealed_product_price_history_source_id_external_sources_id_fk",
+          "tableFrom": "sealed_product_price_history",
+          "tableTo": "external_sources",
+          "columnsFrom": [
+            "source_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sealed_product_price_history_external_product_id_external_products_id_fk": {
+          "name": "sealed_product_price_history_external_product_id_external_products_id_fk",
+          "tableFrom": "sealed_product_price_history",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sealed_products": {
+      "name": "sealed_products",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "game_id": {
+          "name": "game_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "release_id": {
+          "name": "release_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "active_external_product_id": {
+          "name": "active_external_product_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "product_type": {
+          "name": "product_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sku": {
+          "name": "sku",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "language": {
+          "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'EN'"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "sealed_products_game_slug_unique": {
+          "name": "sealed_products_game_slug_unique",
+          "columns": [
+            {
+              "expression": "game_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "slug",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_products_sku_unique": {
+          "name": "sealed_products_sku_unique",
+          "columns": [
+            {
+              "expression": "sku",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_products_release_idx": {
+          "name": "sealed_products_release_idx",
+          "columns": [
+            {
+              "expression": "release_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_products_active_external_product_unique": {
+          "name": "sealed_products_active_external_product_unique",
+          "columns": [
+            {
+              "expression": "active_external_product_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"sealed_products\".\"active_external_product_id\" is not null",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_products_product_type_idx": {
+          "name": "sealed_products_product_type_idx",
+          "columns": [
+            {
+              "expression": "product_type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "sealed_products_name_idx": {
+          "name": "sealed_products_name_idx",
+          "columns": [
+            {
+              "expression": "name",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "sealed_products_game_id_games_id_fk": {
+          "name": "sealed_products_game_id_games_id_fk",
+          "tableFrom": "sealed_products",
+          "tableTo": "games",
+          "columnsFrom": [
+            "game_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sealed_products_release_id_releases_id_fk": {
+          "name": "sealed_products_release_id_releases_id_fk",
+          "tableFrom": "sealed_products",
+          "tableTo": "releases",
+          "columnsFrom": [
+            "release_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "sealed_products_active_external_product_id_external_products_id_fk": {
+          "name": "sealed_products_active_external_product_id_external_products_id_fk",
+          "tableFrom": "sealed_products",
+          "tableTo": "external_products",
+          "columnsFrom": [
+            "active_external_product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.external_product_kind": {
+      "name": "external_product_kind",
+      "schema": "public",
+      "values": [
+        "raw_card",
+        "sealed",
+        "graded",
+        "other"
+      ]
+    },
+    "public.import_run_status": {
+      "name": "import_run_status",
+      "schema": "public",
+      "values": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "public.issue_severity": {
+      "name": "issue_severity",
+      "schema": "public",
+      "values": [
+        "info",
+        "warning",
+        "error",
+        "critical"
+      ]
+    },
+    "public.mapping_status": {
+      "name": "mapping_status",
+      "schema": "public",
+      "values": [
+        "exact",
+        "probable",
+        "manual_review",
+        "rejected"
+      ]
+    },
+    "public.pricing_mapping_conflict_type": {
+      "name": "pricing_mapping_conflict_type",
+      "schema": "public",
+      "values": [
+        "number_mismatch",
+        "set_mismatch",
+        "name_mismatch",
+        "treatment_mismatch",
+        "duplicate_variant_assignment",
+        "duplicate_product_assignment",
+        "ui_label_mismatch"
+      ]
+    },
+    "public.pricing_verification_run_status": {
+      "name": "pricing_verification_run_status",
+      "schema": "public",
+      "values": [
+        "running",
+        "completed",
+        "failed"
+      ]
+    },
+    "public.pricing_verification_status": {
+      "name": "pricing_verification_status",
+      "schema": "public",
+      "values": [
+        "verified",
+        "drift_warning",
+        "mismatch",
+        "stale_provider",
+        "missing_tcgplayer_id",
+        "unpriced_no_variant",
+        "mapping_conflict"
+      ]
+    },
+    "public.release_type": {
+      "name": "release_type",
+      "schema": "public",
+      "values": [
+        "booster",
+        "starter_deck",
+        "premium_booster",
+        "promo",
+        "event",
+        "pre_release",
+        "demo_deck",
+        "anniversary",
+        "other"
+      ]
+    },
+    "public.review_status": {
+      "name": "review_status",
+      "schema": "public",
+      "values": [
+        "open",
+        "in_progress",
+        "resolved",
+        "rejected"
+      ]
+    },
+    "public.variant_type": {
+      "name": "variant_type",
+      "schema": "public",
+      "values": [
+        "base",
+        "parallel",
+        "alternate_art",
+        "full_art",
+        "jolly_roger_foil",
+        "textured_foil",
+        "reprint",
+        "pre_release",
+        "treasure_cup",
+        "box_topper",
+        "promo",
+        "sp",
+        "manga",
+        "anniversary",
+        "other"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
