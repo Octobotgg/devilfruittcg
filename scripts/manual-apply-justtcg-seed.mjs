@@ -123,16 +123,6 @@ async function upsertRows(sql, tableName, rows, conflictColumns, chunkSize, labe
   }
 }
 
-async function insertSnapshot(sql, row) {
-  const columns = Object.keys(row);
-  const params = columns.map((column) => normalizeParamValue(column, row[column]));
-  const valuesSql = columns
-    .map((column, index) => `$${index + 1}${column === "raw_payload" ? "::jsonb" : ""}`)
-    .join(", ");
-  const sqlText = `insert into "price_snapshots" (${columns.map(quoteIdentifier).join(", ")}) values (${valuesSql})`;
-  await sql.unsafe(sqlText, params);
-}
-
 async function insertRows(sql, tableName, rows, chunkSize, label) {
   if (!rows.length) return;
   const columns = Object.keys(rows[0]);
@@ -162,6 +152,20 @@ async function insertRows(sql, tableName, rows, chunkSize, label) {
 async function insertHistoryRows(sql, rows, chunkSize, label) {
   if (!rows.length) return;
   await insertRows(sql, "card_print_price_history", rows, chunkSize, label);
+}
+
+function buildHistoryRowKey(row) {
+  return [
+    row.card_print_id,
+    row.source_id,
+    row.external_product_id ?? "",
+    row.external_variant_id ?? "",
+    new Date(row.recorded_at).toISOString(),
+  ].join("::");
+}
+
+function filterPendingHistoryRows(rows, existingHistoryKeys) {
+  return rows.filter((row) => !existingHistoryKeys.has(buildHistoryRowKey(row)));
 }
 
 async function applyCardPrintAssignments(sql, assignments, chunkSize, label) {
@@ -200,17 +204,21 @@ async function fetchExistingIds(sql, tableName) {
   return new Set(rows.map((row) => row.id));
 }
 
-async function fetchExistingCurrentKeys(sql) {
-  const rows = await sql.unsafe(
-    `select "card_print_id", "source_id" from "card_print_price_current" where "source_id" = $1`,
-    ["justtcg"],
-  );
-  return new Set(rows.map((row) => `${row.card_print_id}::${row.source_id}`));
-}
-
 function snapshotRowKey(row) {
   const externalVariantId = row.external_variant_id || "";
   return `${row.external_product_id}::${externalVariantId}::${new Date(row.captured_at).toISOString()}`;
+}
+
+async function fetchExistingHistoryKeys(sql) {
+  const rows = await sql.unsafe(
+    `
+      select "card_print_id", "source_id", "external_product_id", "external_variant_id", "recorded_at"
+      from "card_print_price_history"
+      where "source_id" = $1
+    `,
+    ["justtcg"],
+  );
+  return new Set(rows.map((row) => buildHistoryRowKey(row)));
 }
 
 async function fetchExistingSnapshotKeys(sql) {
@@ -279,23 +287,23 @@ async function main() {
   try {
     const [
       existingExternalSourceIds,
-      existingExternalProductIds,
       existingLinkIds,
+      existingHistoryKeys,
       existingSnapshotKeys,
     ] =
       await Promise.all([
         fetchExistingIds(sql, "external_sources"),
-        fetchExistingIds(sql, "external_products"),
         fetchExistingIds(sql, "card_print_market_links"),
+        fetchExistingHistoryKeys(sql),
         fetchExistingSnapshotKeys(sql),
       ]);
 
     const pendingExternalSources = seed.externalSources.filter((row) => !existingExternalSourceIds.has(row.id));
-    const pendingExternalProducts = seed.externalProducts.filter((row) => !existingExternalProductIds.has(row.id));
+    const pendingExternalProducts = seed.externalProducts;
     const pendingExternalProductVariants = seed.externalProductVariants || [];
     const pendingLinks = seed.cardPrintMarketLinks.filter((row) => !existingLinkIds.has(row.id));
     const pendingCurrentPrices = seed.cardPrintPriceCurrent;
-    const pendingCurrentHistory = seed.cardPrintPriceHistory || [];
+    const pendingCurrentHistory = filterPendingHistoryRows(seed.cardPrintPriceHistory || [], existingHistoryKeys);
     const pendingSnapshots = seed.priceSnapshots.filter(
       (row) => !existingSnapshotKeys.has(snapshotRowKey(row)),
     );
@@ -376,7 +384,19 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.stack || error.message : error);
-  process.exitCode = 1;
-});
+const isDirectRun =
+  process.env.NODE_ENV !== "test" &&
+  process.argv[1] &&
+  pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.stack || error.message : error);
+    process.exitCode = 1;
+  });
+}
+
+export {
+  buildHistoryRowKey,
+  filterPendingHistoryRows,
+};

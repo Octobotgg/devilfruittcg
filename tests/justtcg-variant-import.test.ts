@@ -283,3 +283,147 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
     },
   ]);
 });
+
+test("buildSeed deterministically picks the lexicographically smallest English NM variant", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "ace-nm-order",
+            name: "Portgas.D.Ace",
+            set: "One Piece Promotion Cards",
+            number: "OP10-033",
+            tcgplayerId: "999999",
+            variants: [
+              {
+                variantId: "z-ace-nm",
+                condition: "Near Mint",
+                printing: "Normal",
+                language: "English",
+                price: 810,
+                lastUpdated: "2026-03-25T00:00:00.000Z",
+              },
+              {
+                variantId: "a-ace-nm",
+                condition: "Near Mint",
+                printing: "Normal",
+                language: "English",
+                price: 850,
+                lastUpdated: "2026-03-25T00:00:00.000Z",
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP10-033_p2",
+            confidence: "0.9800",
+            status: "auto_approved",
+            searchMethod: "tcgplayer_verified",
+            notes: null,
+            confidenceReasons: ["tcgplayer_verified", "exact_number_match", "exact_product_match"],
+            bestCandidate: {
+              id: "ace-nm-order",
+              name: "Portgas.D.Ace",
+              set: "One Piece Promotion Cards",
+              lastUpdated: "2026-03-25T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "CS 25-26 Finalist Card Set 1",
+              releaseCode: "PRIZE",
+              canonicalId: "OP10-033_cs_25_26_finalist_card_set_1",
+              variantSlug: "cs_25_26_finalist_card_set_1",
+              variantLabel: "CS 25-26 Finalist Card Set 1",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:05:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP10-033_p2",
+            justtcg_id: "ace-nm-order",
+            price_nm: 850,
+            price_lp: 590,
+            last_updated_justtcg: "2026-03-25T00:00:00.000Z",
+            fetched_at: "2026-03-25T00:05:00.000Z",
+            raw_response: {
+              id: "ace-nm-order",
+              name: "Portgas.D.Ace",
+              set: "One Piece Promotion Cards",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, [
+    {
+      card_print_id: "OP10-033_p2",
+      active_external_variant_id: "justtcg:a-ace-nm",
+    },
+  ]);
+  assert.deepEqual(seed.cardPrintPriceCurrent, [
+    {
+      card_print_id: "OP10-033_p2",
+      source_id: "justtcg",
+      external_product_id: "justtcg:ace-nm-order",
+      external_variant_id: "justtcg:a-ace-nm",
+      price_market: 850,
+      price_nm: 850,
+      price_lp: 590,
+      price_change_24h: null,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: "2026-03-25T00:00:00.000Z",
+      fetched_at: "2026-03-25T00:05:00.000Z",
+    },
+  ]);
+});
+
+test("manual history apply skips rows that already exist by natural key", async () => {
+  const { buildHistoryRowKey, filterPendingHistoryRows } =
+    await importModule<typeof import("../scripts/manual-apply-justtcg-seed.mjs")>(
+      "scripts/manual-apply-justtcg-seed.mjs",
+    );
+
+  const historyRow = {
+    card_print_id: "OP10-033_p2",
+    source_id: "justtcg",
+    external_product_id: "justtcg:ace-nm-order",
+    external_variant_id: "justtcg:a-ace-nm",
+    recorded_at: "2026-03-25T00:05:00.000Z",
+    price_nm: 850,
+    price_lp: 590,
+    price_market: 850,
+  };
+
+  const existingKeys = new Set([buildHistoryRowKey(historyRow)]);
+  const pending = filterPendingHistoryRows([historyRow], existingKeys);
+
+  assert.equal(pending.length, 0);
+});

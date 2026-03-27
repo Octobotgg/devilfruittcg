@@ -224,6 +224,24 @@ test("buildSeed promotes clean single-candidate base mappings into active runtim
               name: "Karoo",
               set: "Extra Booster: Anime 25th Collection",
               lastUpdated: "2026-03-26T00:00:00.000Z",
+              variants: [
+                {
+                  variantId: "karoo-eb02-base-nm",
+                  condition: "Near Mint",
+                  printing: "Normal",
+                  language: "English",
+                  price: 0.12,
+                  lastUpdated: "2026-03-26T00:00:00.000Z",
+                },
+                {
+                  variantId: "karoo-eb02-base-lp",
+                  condition: "Lightly Played",
+                  printing: "Normal",
+                  language: "English",
+                  price: 0.08,
+                  lastUpdated: "2026-03-26T00:00:00.000Z",
+                },
+              ],
             },
             cardPrintContext: {
               setName: "Anime 25th Collection [EB-02]",
@@ -281,7 +299,7 @@ test("buildSeed promotes clean single-candidate base mappings into active runtim
       card_print_id: "EB02-001",
       source_id: "justtcg",
       external_product_id: "justtcg:karoo-eb02-base",
-      external_variant_id: null,
+      external_variant_id: "justtcg:karoo-eb02-base-nm",
       price_market: 0.12,
       price_nm: 0.12,
       price_lp: 0.08,
@@ -439,6 +457,101 @@ test("buildSeed preserves inferred product kind for price-data rows with raw res
   assert.equal(product?.product_kind, "raw_card");
 });
 
+test("buildSeed leaves a mapped raw card unpriced when no Near Mint variant exists", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "oden-no-nm",
+            name: "Kouzuki Oden",
+            set: "Extra Booster: Memorial Collection",
+            tcgplayerId: "544523",
+            variants: [
+              {
+                variantId: "oden-no-nm-lp",
+                condition: "Lightly Played",
+                printing: "Normal",
+                language: "English",
+                price: 0.18,
+                lastUpdated: "2026-03-19T12:50:00.000Z",
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-19T13:00:00.000Z",
+        results: [
+          {
+            cardId: "EB01-001",
+            confidence: "0.9800",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            notes: null,
+            bestCandidate: {
+              id: "oden-no-nm",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+              lastUpdated: "2026-03-19T12:50:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Extra Booster: Memorial Collection [EB-01]",
+              releaseCode: "EB01",
+              canonicalId: "EB01-001",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-19T13:00:00.000Z",
+        fetchedAt: "2026-03-19T13:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "EB01-001",
+            justtcg_id: "oden-no-nm",
+            price_nm: 0.45,
+            price_lp: 0.18,
+            last_updated_justtcg: "2026-03-19T12:54:12.000Z",
+            fetched_at: "2026-03-19T13:00:00.000Z",
+            raw_response: {
+              id: "oden-no-nm",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "EB01-001",
+      active_external_product_id: "justtcg:oden-no-nm",
+    },
+  ]);
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, []);
+  assert.deepEqual(seed.cardPrintPriceCurrent, []);
+});
+
 test("buildSeed trusts tcgplayer-verified exact product event mappings even below 0.95 confidence", async () => {
   const { buildSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
@@ -464,6 +577,16 @@ test("buildSeed trusts tcgplayer-verified exact product event mappings even belo
               name: "Nami (CS 25-26 Finalist Card Set 1)",
               set: "One Piece Promotion Cards",
               lastUpdated: "2026-03-25T00:00:00.000Z",
+              variants: [
+                {
+                  variantId: "nami-finalist-pack-nm",
+                  condition: "Near Mint",
+                  printing: "Normal",
+                  language: "English",
+                  price: 850,
+                  lastUpdated: "2026-03-25T00:00:00.000Z",
+                },
+              ],
             },
             cardPrintContext: {
               setName: "CS 25-26 Finalist Card Set 1",
@@ -552,6 +675,16 @@ test("buildSeed trusts official event verified mappings even below 0.95 confiden
               name: "When You're at Sea You Fight against Pirates!! (2025 Pirates League Finals Textured Foil)",
               set: "One Piece Promotion Cards",
               lastUpdated: "2026-03-25T00:00:00.000Z",
+              variants: [
+                {
+                  variantId: "pirates-league-finals-textured-foil-nm",
+                  condition: "Near Mint",
+                  printing: "Foil",
+                  language: "English",
+                  price: 1392.24,
+                  lastUpdated: "2026-03-25T00:00:00.000Z",
+                },
+              ],
             },
             cardPrintContext: {
               setName: "Pirates League Three Captains Battle & Support Crew Battle",
