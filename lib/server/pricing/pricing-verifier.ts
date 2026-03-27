@@ -503,6 +503,16 @@ export function verifyPriceDrift(input: PriceDriftInput) {
 
   const checkedAt = input.checkedAt ? Date.parse(input.checkedAt) : Date.now();
   const providerUpdatedAt = input.providerUpdatedAt ? Date.parse(input.providerUpdatedAt) : NaN;
+  if (!Number.isFinite(checkedAt)) {
+    return {
+      verificationStatus: "stale_provider" as const,
+      publishable: false,
+      priceDeltaAbs: null,
+      priceDeltaRatio: null,
+      reason: "invalid_checked_at",
+    };
+  }
+
   if (!Number.isFinite(providerUpdatedAt)) {
     return {
       verificationStatus: "stale_provider" as const,

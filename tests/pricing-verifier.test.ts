@@ -932,3 +932,24 @@ test("verifyPriceDrift blocks malformed providerUpdatedAt values as unknown prov
   assert.equal(result.priceDeltaRatio, null);
   assert.equal(result.reason, "invalid_provider_updated_at");
 });
+
+test("verifyPriceDrift blocks malformed checkedAt values as unknown provider freshness", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-20T12:00:00.000Z",
+    checkedAt: "not-a-timestamp",
+  });
+
+  assert.equal(result.verificationStatus, "stale_provider");
+  assert.equal(result.publishable, false);
+  assert.equal(result.priceDeltaAbs, null);
+  assert.equal(result.priceDeltaRatio, null);
+  assert.equal(result.reason, "invalid_checked_at");
+});
