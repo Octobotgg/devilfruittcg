@@ -1,6 +1,4 @@
-import fs from "fs";
 import path from "path";
-import https from "https";
 import Database from "better-sqlite3";
 import {
   chunk,
@@ -14,6 +12,7 @@ import {
   supabaseConfigFromEnv,
   writeJson,
 } from "./lib/justtcg-utils.mjs";
+import { getTcgplayerProductDetail } from "./lib/tcgplayer-detail-cache.mjs";
 import {
   cleanedCardName,
   normalizeBandaiNumber,
@@ -220,46 +219,6 @@ function priceGuard(justtcgPrice, ebayPrice) {
   return { suspicious: ratio > 5 || ratio < 0.2, ratio };
 }
 
-function loadTcgCache(cachePath) {
-  return loadJson(cachePath, {});
-}
-
-function saveTcgCache(cachePath, cache) {
-  writeJson(cachePath, cache);
-}
-
-async function fetchTcgplayerDetail(productId) {
-  const url = `https://mp-search-api.tcgplayer.com/v1/product/${productId}/details`;
-  return new Promise((resolve, reject) => {
-    https.get(url, { headers: { "User-Agent": "Mozilla/5.0" } }, (response) => {
-      let body = "";
-      response.on("data", (chunk) => {
-        body += chunk;
-      });
-      response.on("end", () => {
-        if (response.statusCode !== 200) {
-          reject(new Error(`TCGplayer details failed for ${productId}: ${response.statusCode} ${body.slice(0, 200)}`));
-          return;
-        }
-        try {
-          resolve(JSON.parse(body));
-        } catch (error) {
-          reject(error);
-        }
-      });
-    }).on("error", reject);
-  });
-}
-
-async function getTcgplayerDetail(productId, cache, cachePath) {
-  const key = String(productId);
-  if (cache[key]) return cache[key];
-  const detail = await fetchTcgplayerDetail(key);
-  cache[key] = detail;
-  saveTcgCache(cachePath, cache);
-  return detail;
-}
-
 async function fetchPricedIds(config) {
   const rows = [];
   let offset = 0;
@@ -361,7 +320,7 @@ async function main() {
   }
   const snapshot = Array.isArray(snapshotRaw) ? snapshotRaw : (snapshotRaw.data || snapshotRaw.cards || []);
   const pricedIds = await fetchPricedIds(config);
-  const tcgCache = loadTcgCache(cachePath);
+  const tcgCache = loadJson(cachePath, {});
   const ebayPrices = readEbayPriceMap(dbPath);
 
   const targetCards = allCards.filter((card) => {
@@ -387,7 +346,13 @@ async function main() {
     for (const candidate of candidates) {
       const tcgplayerId = inferTcgplayerId(candidate);
       if (!tcgplayerId) continue;
-      const detail = await getTcgplayerDetail(tcgplayerId, tcgCache, cachePath);
+      const detail = await getTcgplayerProductDetail({
+        productId: tcgplayerId,
+        cache: tcgCache,
+        cachePath,
+        ttlMs: 24 * 60 * 60 * 1000,
+        fetchImpl: fetch,
+      });
       if (!isOnePieceProduct(detail)) continue;
       if (!numberMatches(card, detail, candidate)) continue;
       if (!coreNameMatches(card, detail, candidate)) continue;
