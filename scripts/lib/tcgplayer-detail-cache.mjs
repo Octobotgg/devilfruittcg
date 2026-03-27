@@ -18,6 +18,26 @@ class PermanentTcgplayerDetailError extends Error {
   }
 }
 
+function normalizeFetchedAt(value) {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (/^\d+$/.test(trimmed)) {
+      const numeric = Number(trimmed);
+      if (Number.isFinite(numeric)) {
+        return new Date(numeric < 1e12 ? numeric * 1000 : numeric).toISOString();
+      }
+    }
+    const parsed = Date.parse(trimmed);
+    if (Number.isFinite(parsed)) {
+      return trimmed;
+    }
+  }
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return new Date(value < 1e12 ? value * 1000 : value).toISOString();
+  }
+  return new Date().toISOString();
+}
+
 function normalizeEntry(entry) {
   if (!entry || typeof entry !== "object") return { entry: null, migrated: false };
   if ("fetched_at" in entry) return { entry, migrated: false };
@@ -25,7 +45,7 @@ function normalizeEntry(entry) {
     return {
       entry: {
         ...entry.payload,
-        fetched_at: new Date(Number(entry.fetchedAt) || Date.now()).toISOString(),
+        fetched_at: normalizeFetchedAt(entry.fetchedAt),
       },
       migrated: true,
     };

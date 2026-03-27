@@ -1,5 +1,6 @@
 import path from "path";
 import Database from "better-sqlite3";
+import { pathToFileURL } from "url";
 import {
   chunk,
   DEFAULT_CATALOG_PATH,
@@ -219,6 +220,141 @@ function priceGuard(justtcgPrice, ebayPrice) {
   return { suspicious: ratio > 5 || ratio < 0.2, ratio };
 }
 
+function summarizeCandidateFailure(card, candidate, tcgplayerId, error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return {
+    cardId: card.id,
+    candidate: {
+      id: candidate.id,
+      name: candidate.name,
+      tcgplayerId,
+    },
+    error: message,
+  };
+}
+
+export function evaluateVerificationCard({
+  card,
+  expectedNumber,
+  releaseCode,
+  candidateResults,
+  ebayPrice,
+  allowLabelCorrections,
+}) {
+  const approved = [];
+  const rejected = [];
+  const unresolved = [];
+  const labelCorrections = [];
+  const verified = [];
+  const validByIdentity = [];
+  const candidateFailures = [];
+
+  for (const result of candidateResults) {
+    if (result.error) {
+      candidateFailures.push(summarizeCandidateFailure(card, result.candidate, result.tcgplayerId, result.error));
+      continue;
+    }
+
+    const { candidate, detail } = result;
+    if (!isOnePieceProduct(detail)) continue;
+    if (!numberMatches(card, detail, candidate)) continue;
+    if (!coreNameMatches(card, detail, candidate)) continue;
+    if (!setFamilyMatches(card, detail, candidate, releaseCode)) continue;
+    validByIdentity.push({ candidate, detail });
+    if (!labelMatches(card, detail, candidate)) continue;
+    verified.push({ candidate, detail });
+  }
+
+  if (verified.length === 1) {
+    const candidate = verified[0].candidate;
+    const justtcgPrice = Number(pickVariant(candidate, "near mint")?.price ?? null);
+    const guard = priceGuard(justtcgPrice, ebayPrice);
+    if (guard.suspicious) {
+      rejected.push({
+        cardId: card.id,
+        reason: "price_guard_rejected",
+        justtcgPrice,
+        ebayPrice,
+        ratio: guard.ratio,
+        candidate: {
+          id: candidate.id,
+          name: candidate.name,
+          tcgplayerId: inferTcgplayerId(candidate),
+        },
+      });
+      return { approved, rejected, unresolved, labelCorrections };
+    }
+
+    approved.push({ card, candidate });
+    return { approved, rejected, unresolved, labelCorrections };
+  }
+
+  if (allowLabelCorrections && !verified.length && validByIdentity.length) {
+    const deduped = new Map();
+    for (const item of validByIdentity) {
+      deduped.set(item.candidate.id, item);
+    }
+    const normalized = [...deduped.values()].map((item) => ({
+      ...item,
+      derivedLabel: labelFromCandidateAndDetail(item.candidate, item.detail),
+    })).filter((item) => item.derivedLabel);
+    const labels = [...new Set(normalized.map((item) => item.derivedLabel.variantLabel))];
+    if (normalized.length === 1 && labels.length === 1) {
+      const { candidate, derivedLabel } = normalized[0];
+      const justtcgPrice = Number(pickVariant(candidate, "near mint")?.price ?? null);
+      const guard = priceGuard(justtcgPrice, ebayPrice);
+      if (guard.suspicious) {
+        rejected.push({
+          cardId: card.id,
+          reason: "price_guard_rejected_after_label_correction",
+          justtcgPrice,
+          ebayPrice,
+          ratio: guard.ratio,
+          candidate: {
+            id: candidate.id,
+            name: candidate.name,
+            tcgplayerId: inferTcgplayerId(candidate),
+          },
+        });
+        return { approved, rejected, unresolved, labelCorrections };
+      }
+      approved.push({ card, candidate });
+      labelCorrections.push({
+        cardId: card.id,
+        currentVariantType: card.variantType || null,
+        currentVariantLabel: card.variantLabel || null,
+        suggestedVariantType: derivedLabel.variantType,
+        suggestedVariantLabel: derivedLabel.variantLabel,
+        justtcgId: candidate.id,
+        justtcgName: candidate.name,
+        justtcgTcgplayerId: inferTcgplayerId(candidate),
+      });
+      return { approved, rejected, unresolved, labelCorrections };
+    }
+  }
+
+  if (verified.length !== 1) {
+    unresolved.push({
+      cardId: card.id,
+      reason: candidateFailures.length
+        ? "candidate_detail_failures"
+        : verified.length
+          ? "multiple_verified_candidates"
+          : "no_verified_candidate",
+      expectedNumber,
+      candidates: candidateResults.map((result) => ({
+        id: result.candidate.id,
+        name: result.candidate.name,
+        tcgplayerId: result.tcgplayerId || inferTcgplayerId(result.candidate),
+        error: result.error ? (result.error instanceof Error ? result.error.message : String(result.error)) : null,
+      })),
+      candidateFailures,
+    });
+  }
+
+  return { approved, rejected, unresolved, labelCorrections };
+}
+
 async function fetchPricedIds(config) {
   const rows = [];
   let offset = 0;
@@ -341,11 +477,17 @@ async function main() {
       continue;
     }
 
-    const verified = [];
-    const validByIdentity = [];
+    const candidateResults = [];
     for (const candidate of candidates) {
       const tcgplayerId = inferTcgplayerId(candidate);
-      if (!tcgplayerId) continue;
+      if (!tcgplayerId) {
+        candidateResults.push({
+          candidate,
+          tcgplayerId,
+          error: new Error("missing_tcgplayer_id"),
+        });
+        continue;
+      }
       try {
         const detail = await getTcgplayerProductDetail({
           productId: tcgplayerId,
@@ -354,113 +496,24 @@ async function main() {
           ttlMs: 24 * 60 * 60 * 1000,
           fetchImpl: fetch,
         });
-        if (!isOnePieceProduct(detail)) continue;
-        if (!numberMatches(card, detail, candidate)) continue;
-        if (!coreNameMatches(card, detail, candidate)) continue;
-        if (!setFamilyMatches(card, detail, candidate, releaseCode)) continue;
-        validByIdentity.push({ candidate, detail });
-        if (!labelMatches(card, detail, candidate)) continue;
-        verified.push({ candidate, detail });
+        candidateResults.push({ candidate, tcgplayerId, detail });
       } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        unresolved.push({
-          cardId: card.id,
-          reason: error?.name === "PermanentTcgplayerDetailError" ? "detail_fetch_invalid" : "detail_fetch_failed",
-          expectedNumber,
-          candidate: {
-            id: candidate.id,
-            name: candidate.name,
-            tcgplayerId,
-          },
-          error: message,
-        });
+        candidateResults.push({ candidate, tcgplayerId, error });
       }
     }
 
-    if (verified.length === 1) {
-      const candidate = verified[0].candidate;
-      const justtcgPrice = Number(pickVariant(candidate, "near mint")?.price ?? null);
-      const ebayPrice = ebayPrices.get(card.id) ?? null;
-      const guard = priceGuard(justtcgPrice, ebayPrice);
-      if (guard.suspicious) {
-        rejected.push({
-          cardId: card.id,
-          reason: "price_guard_rejected",
-          justtcgPrice,
-          ebayPrice,
-          ratio: guard.ratio,
-          candidate: {
-            id: candidate.id,
-            name: candidate.name,
-            tcgplayerId: inferTcgplayerId(candidate),
-          },
-        });
-        continue;
-      }
-
-      approved.push({ card, candidate });
-      continue;
-    }
-
-    if (allowLabelCorrections && !verified.length && validByIdentity.length) {
-      const deduped = new Map();
-      for (const item of validByIdentity) {
-        deduped.set(item.candidate.id, item);
-      }
-      const normalized = [...deduped.values()].map((item) => ({
-        ...item,
-        derivedLabel: labelFromCandidateAndDetail(item.candidate, item.detail),
-      })).filter((item) => item.derivedLabel);
-      const labels = [...new Set(normalized.map((item) => item.derivedLabel.variantLabel))];
-      if (normalized.length === 1 && labels.length === 1) {
-        const { candidate, derivedLabel } = normalized[0];
-        const justtcgPrice = Number(pickVariant(candidate, "near mint")?.price ?? null);
-        const ebayPrice = ebayPrices.get(card.id) ?? null;
-        const guard = priceGuard(justtcgPrice, ebayPrice);
-        if (guard.suspicious) {
-          rejected.push({
-            cardId: card.id,
-            reason: "price_guard_rejected_after_label_correction",
-            justtcgPrice,
-            ebayPrice,
-            ratio: guard.ratio,
-            candidate: {
-              id: candidate.id,
-              name: candidate.name,
-              tcgplayerId: inferTcgplayerId(candidate),
-            },
-          });
-          continue;
-        }
-        approved.push({ card, candidate });
-        labelCorrections.push({
-          cardId: card.id,
-          currentVariantType: card.variantType || null,
-          currentVariantLabel: card.variantLabel || null,
-          suggestedVariantType: derivedLabel.variantType,
-          suggestedVariantLabel: derivedLabel.variantLabel,
-          justtcgId: candidate.id,
-          justtcgName: candidate.name,
-          justtcgTcgplayerId: inferTcgplayerId(candidate),
-        });
-        continue;
-      }
-    }
-
-    if (verified.length !== 1) {
-      unresolved.push({
-        cardId: card.id,
-        reason: verified.length ? "multiple_verified_candidates" : "no_verified_candidate",
-        expectedNumber,
-        candidates: candidates.map((candidate) => ({
-          id: candidate.id,
-          name: candidate.name,
-          tcgplayerId: inferTcgplayerId(candidate),
-          set: candidate.set_name || candidate.set || null,
-        })),
-      });
-      continue;
-    }
+    const cardOutcome = evaluateVerificationCard({
+      card,
+      expectedNumber,
+      releaseCode,
+      candidateResults,
+      ebayPrice: ebayPrices.get(card.id) ?? null,
+      allowLabelCorrections,
+    });
+    approved.push(...cardOutcome.approved);
+    rejected.push(...cardOutcome.rejected);
+    unresolved.push(...cardOutcome.unresolved);
+    labelCorrections.push(...cardOutcome.labelCorrections);
   }
 
   const fetchedAt = new Date().toISOString();
@@ -505,4 +558,6 @@ async function main() {
   }, null, 2));
 }
 
-await main();
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  await main();
+}
