@@ -95,6 +95,9 @@ type DisplayPayloadInput = {
 };
 
 const STALE_PROVIDER_MAX_AGE_MS = 72 * 60 * 60 * 1000;
+const ABSOLUTE_PRICE_TOLERANCE = 0.05;
+const FLOAT_TOLERANCE_EPSILON = 1e-9;
+const SUPPORTED_GENERIC_TREATMENTS = new Set(["Parallel", "Base", "Special Print"]);
 const RELEASE_ALIASES: Record<string, string[]> = {
   PRB01: ["premium booster the best", "one piece card the best"],
   PRB02: ["premium booster the best vol 2", "one piece card the best vol 2"],
@@ -123,6 +126,7 @@ function titleCaseToken(token: string) {
   if (!token) return token;
   if (/^\d+$/u.test(token)) return token;
   if (/^[A-Z]{1,5}\d+$/u.test(token)) return token;
+  if (/^[A-Z]{1,5}-\d+$/iu.test(token)) return token.toUpperCase();
   if (/^(OP|ST|EB|PRB|GC|CS|SP|P)$/iu.test(token)) return token.toUpperCase();
   return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
 }
@@ -297,6 +301,17 @@ function normalizeExpectedTreatment(value: string | null | undefined) {
   return canonicalTreatmentLabel(String(value || ""), true);
 }
 
+function treatmentsMatchForIntegrity(
+  expectedTreatment: TreatmentDetection | null,
+  providerTreatment: TreatmentDetection | null,
+) {
+  if (!expectedTreatment?.label) return true;
+  if (!providerTreatment?.label) return false;
+  if (providerTreatment.label !== expectedTreatment.label) return false;
+  if (providerTreatment.exact) return true;
+  return SUPPORTED_GENERIC_TREATMENTS.has(providerTreatment.label) && !expectedTreatment.exact;
+}
+
 function listHasConflictingAssignment(ids: string[] | undefined, currentId: string) {
   const unique = new Set((ids || []).filter(Boolean));
   if (!unique.size) return false;
@@ -360,7 +375,7 @@ export function verifyMappingIntegrity(input: MappingInput) {
   }
 
   if (expectedTreatment?.label) {
-    if (!providerTreatment || !providerTreatment.exact || providerTreatment.label !== expectedTreatment.label) {
+    if (!treatmentsMatchForIntegrity(expectedTreatment, providerTreatment)) {
       conflicts.push(
         buildConflict(input, "treatment_mismatch", {
           expectedTreatment: expectedTreatment.label,
@@ -472,10 +487,11 @@ export function verifyPriceDrift(input: PriceDriftInput) {
     };
   }
 
-  const priceDeltaAbs = roundCurrencyDelta(Math.abs(input.justtcgPriceNm - input.tcgplayerMarketPrice));
+  const rawPriceDeltaAbs = Math.abs(input.justtcgPriceNm - input.tcgplayerMarketPrice);
+  const priceDeltaAbs = roundCurrencyDelta(rawPriceDeltaAbs);
   const priceDeltaRatio = computePriceDeltaRatio(input.justtcgPriceNm, input.tcgplayerMarketPrice);
 
-  if (priceDeltaAbs <= 0.05 || priceDeltaRatio <= 0.005) {
+  if (rawPriceDeltaAbs <= ABSOLUTE_PRICE_TOLERANCE + FLOAT_TOLERANCE_EPSILON || priceDeltaRatio <= 0.005) {
     return {
       verificationStatus: "verified" as const,
       publishable: true,

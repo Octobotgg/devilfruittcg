@@ -366,6 +366,28 @@ test("verifyMappingIntegrity captures premium treatment mismatches explicitly", 
   assert.deepEqual(result.conflictTypes, ["treatment_mismatch"]);
 });
 
+test("verifyMappingIntegrity accepts explicit supported generic treatment matches", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        treatmentLabel: "Parallel",
+      },
+      provider: {
+        productName: "Monkey D. Luffy Parallel OP01-001",
+        productUrlName: "monkey-d-luffy-parallel-op01-001",
+        treatment: "Parallel",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "verified");
+  assert.equal(result.verificationStatus, "verified");
+  assert.deepEqual(result.conflictTypes, []);
+  assert.equal(result.publishable, true);
+});
+
 test("verifyMappingIntegrity blocks mismatches for trusted event and SP treatment labels", async () => {
   const { verifyMappingIntegrity } = await importPricingVerifier();
 
@@ -508,6 +530,28 @@ test("buildPublishedDisplayPayload normalizes trusted event and SP premium label
   }
 });
 
+test("buildPublishedDisplayPayload preserves canonical casing for hyphenated set code prefixes", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const result = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "OP-01 ROMANCE DAWN",
+      setCode: "OP-01",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy OP-01",
+      setName: "OP-01 ROMANCE DAWN",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(result.displaySetName, "OP-01 Romance Dawn");
+});
+
 test("verifyPriceDrift uses stricter thresholds for premium cards than non-premium cards", async () => {
   const { verifyPriceDrift } = await importPricingVerifier();
 
@@ -566,6 +610,24 @@ test("verifyPriceDrift treats exact and near-exact deltas as verified", async ()
   assert.equal(absoluteTolerance.publishable, true);
   assert.equal(ratioTolerance.verificationStatus, "verified");
   assert.equal(ratioTolerance.publishable, true);
+});
+
+test("verifyPriceDrift does not verify values just above the absolute tolerance after rounding", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 1.051,
+    tcgplayerMarketPrice: 1,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "mismatch");
+  assert.equal(result.publishable, false);
 });
 
 test("verifyPriceDrift publishes low-volatility non-premium rows with drift warnings", async () => {
