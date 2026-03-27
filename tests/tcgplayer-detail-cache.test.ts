@@ -544,7 +544,11 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh r
       fetchImpl,
     });
 
-    cache["322"].fetched_at = new Date(Date.now() - 60_000).toISOString();
+    const staleFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    cache["322"].fetched_at = staleFetchedAt;
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    persisted["322"].fetched_at = staleFetchedAt;
+    writeFileSync(cachePath, `${JSON.stringify(persisted, null, 2)}\n`);
 
     const fallback = await getTcgplayerProductDetail({
       productId: 322,
@@ -556,9 +560,9 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh r
 
     assert.equal(calls.length, 2);
     assert.deepEqual(fallback, { id: 322, title: "Stable Card" });
-    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["322"];
-    assert.equal(persisted.id, 322);
-    assert.equal(persisted.title, "Stable Card");
+    const persistedMalformed = JSON.parse(readFileSync(cachePath, "utf8"))["322"];
+    assert.equal(persistedMalformed.id, 322);
+    assert.equal(persistedMalformed.title, "Stable Card");
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
