@@ -1,89 +1,69 @@
 import { createRequire } from "node:module";
 
+import type { CardPrintRuntimePrice } from "./external-products";
+
 const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
   require("server-only");
 }
-const { createPostgresClient }: typeof import("../db/postgres") = require("../db/postgres.ts");
+const { createPostgresClient }: typeof import("../../../db/postgres") = require("../../../db/postgres.ts");
+const pricingShared = require("./external-products.ts") as typeof import("./external-products");
 
-const JUSTTCG_SOURCE_ID = "justtcg";
-const JUSTTCG_STALE_THRESHOLD_MS = 8 * 24 * 60 * 60 * 1000;
-
-type ReadModelPriceRow = {
+type VariantPriceRow = {
   cardPrintId: string;
-  printedCardCode: string | null;
   cardId: string | null;
+  printedCardCode: string | null;
+  officialName: string | null;
+  officialSetCode: string | null;
+  officialSetName: string | null;
   externalProductId: string | null;
   externalVariantId: string | null;
   activeExternalVariantId: string | null;
-  externalRawPayload?: Record<string, unknown> | null;
   productKind: string | null;
-  variantCondition?: string | null;
-  variantPrinting?: string | null;
-  variantLanguage?: string | null;
+  justtcgTitle: string | null;
+  justtcgImageUrl: string | null;
+  variantCondition: string | null;
+  variantPrinting: string | null;
+  variantLanguage: string | null;
   mappingApproved: boolean;
   priceMarket: string | number | null;
   priceNm: string | number | null;
   priceLp: string | number | null;
   priceChange24h: string | number | null;
-  priceChange7d: string | number | null;
-  priceChange30d: string | number | null;
   updatedAt: string | null;
   fetchedAt: string | null;
 };
 
-type ReadModelHistoryRow = {
+export type VariantPriceHistoryRow = {
   cardPrintId: string;
-  printedCardCode: string | null;
   cardId: string | null;
+  printedCardCode: string | null;
   externalProductId: string | null;
   externalVariantId: string | null;
   recordedAt: string;
   priceNm: string | number | null;
 };
 
-type JustTcgVariant = {
-  condition?: string | null;
-  printing?: string | null;
-  language?: string | null;
-  priceHistory?: Array<{ p?: number; t?: number }>;
-  priceHistory30d?: Array<{ p?: number; t?: number }>;
-  priceHistory90d?: Array<{ p?: number; t?: number }>;
+export type VariantRuntimePrice = CardPrintRuntimePrice & {
+  externalVariantId?: string | null;
+  justtcgVariant?: {
+    externalVariantId: string | null;
+    condition: string | null;
+    printing: string | null;
+    language: string | null;
+  };
 };
 
-export type JustTcgPriceSummary = {
-  cardId: string;
-  justtcgId: string;
-  marketPrice: number | null;
-  averagePrice: number | null;
-  lowestPrice: number | null;
-  highestPrice: number | null;
-  priceLp: number | null;
-  priceChange24h: number | null;
-  priceChange7d: number | null;
-  priceChange30d: number | null;
-  updatedAt: string | null;
-  fetchedAt: string | null;
-  stale: boolean;
-  cached: true;
-  source: "justtcg";
-};
+export type LoadVariantPriceRows = (cardPrintIds: string[]) => Promise<VariantPriceRow[]>;
+export type LoadVariantHistoryRows = (params: {
+  cardPrintId: string;
+  externalProductId: string;
+  externalVariantId: string;
+  rangeDays: number;
+}) => Promise<VariantPriceHistoryRow[]>;
 
-export type JustTcgHistoryPoint = {
-  ts: number;
-  date: string;
-  tcgMarket: number | null;
-};
-
-export type JustTcgStoreOptions = {
-  loadCurrentRows?: (requestedIds: string[]) => Promise<ReadModelPriceRow[]>;
-  loadHistoryRows?: (params: {
-    requestedIds: string[];
-    rangeDays: number;
-    priceRow: ReadModelPriceRow;
-  }) => Promise<ReadModelHistoryRow[]>;
-  now?: () => number;
-};
+const JUSTTCG_SOURCE_ID = "justtcg";
+const JUSTTCG_STALE_THRESHOLD_MS = 8 * 24 * 60 * 60 * 1000;
 
 function parseNullableNumber(value: string | number | null | undefined) {
   if (value == null || value === "") return null;
@@ -127,12 +107,7 @@ function normalizeProductKind(value: string | null | undefined) {
   }
 }
 
-function extractJustTcgId(externalProductId: string | null | undefined) {
-  const value = String(externalProductId || "").trim();
-  return value.startsWith("justtcg:") ? value.slice("justtcg:".length) : value;
-}
-
-function rowAliases(row: ReadModelPriceRow | ReadModelHistoryRow) {
+function rowAliases(row: VariantPriceRow | VariantPriceHistoryRow) {
   return new Set(
     [row.printedCardCode, row.cardId]
       .map((value) => normalizeRequestedId(String(value || "")))
@@ -142,7 +117,7 @@ function rowAliases(row: ReadModelPriceRow | ReadModelHistoryRow) {
 
 function rowMatchesRequestedId(
   requestedId: string,
-  row: ReadModelPriceRow | ReadModelHistoryRow,
+  row: VariantPriceRow | VariantPriceHistoryRow,
 ) {
   const normalized = normalizeRequestedId(requestedId);
   const baseId = baseRequestedId(requestedId);
@@ -150,24 +125,23 @@ function rowMatchesRequestedId(
   return aliases.has(normalized) || aliases.has(baseId);
 }
 
-function usablePriceRow(row: ReadModelPriceRow | null | undefined): row is ReadModelPriceRow {
+function usablePriceRow(row: VariantPriceRow | null | undefined): row is VariantPriceRow {
   return Boolean(
     row &&
       row.externalProductId &&
       row.externalVariantId &&
       row.activeExternalVariantId &&
-      row.externalVariantId === row.activeExternalVariantId &&
       row.mappingApproved &&
       normalizeProductKind(row.productKind) === "raw_card",
   );
 }
 
-function rowUpdatedAtMs(row: ReadModelPriceRow) {
+function rowUpdatedAtMs(row: VariantPriceRow) {
   const updatedAt = row.updatedAt || row.fetchedAt;
   return updatedAt ? Date.parse(updatedAt) : Number.NaN;
 }
 
-function chooseBestPriceRow(requestedId: string, rows: ReadModelPriceRow[]) {
+function chooseBestPriceRow(requestedId: string, rows: VariantPriceRow[]) {
   const normalized = normalizeRequestedId(requestedId);
   const baseId = baseRequestedId(requestedId);
 
@@ -193,7 +167,7 @@ function chooseBestPriceRow(requestedId: string, rows: ReadModelPriceRow[]) {
   })[0] || null;
 }
 
-function summaryFromRow(row: ReadModelPriceRow, now: number): JustTcgPriceSummary {
+function summaryFromRow(row: VariantPriceRow, now: number): VariantRuntimePrice {
   const updatedAt = row.updatedAt || row.fetchedAt || null;
   const updatedAtMs = updatedAt ? Date.parse(updatedAt) : Number.NaN;
   const stale = Number.isFinite(updatedAtMs)
@@ -201,91 +175,78 @@ function summaryFromRow(row: ReadModelPriceRow, now: number): JustTcgPriceSummar
     : true;
 
   return {
-    cardId: normalizeRequestedId(String(row.printedCardCode || row.cardId || "")),
-    justtcgId: extractJustTcgId(row.externalProductId),
-    marketPrice: parseNullableNumber(row.priceNm),
-    averagePrice: parseNullableNumber(row.priceNm),
-    lowestPrice: null,
-    highestPrice: null,
+    status: "priced",
+    kind: "raw_card",
+    cardPrintId: row.cardPrintId,
+    cardId: row.cardId,
+    printedCardCode: row.printedCardCode,
+    currency: pricingShared.USD_CURRENCY,
+    currentPrice: parseNullableNumber(row.priceNm) as number,
+    currentPriceType: "near_mint",
+    priceMarket: parseNullableNumber(row.priceMarket),
     priceLp: parseNullableNumber(row.priceLp),
     priceChange24h: parseNullableNumber(row.priceChange24h),
-    priceChange7d: parseNullableNumber(row.priceChange7d),
-    priceChange30d: parseNullableNumber(row.priceChange30d),
     updatedAt,
     fetchedAt: row.fetchedAt || null,
+    externalProductId: String(row.externalProductId),
+    externalVariantId: row.externalVariantId,
+    justtcg: {
+      title: row.justtcgTitle,
+      imageUrl: row.justtcgImageUrl,
+    },
+    official: {
+      name: row.officialName,
+      setCode: row.officialSetCode,
+      setName: row.officialSetName,
+    },
+    justtcgVariant: {
+      externalVariantId: row.externalVariantId,
+      condition: row.variantCondition,
+      printing: row.variantPrinting,
+      language: row.variantLanguage,
+    },
     stale,
     cached: true,
     source: "justtcg",
-  };
+  } as VariantRuntimePrice;
 }
 
-function historyPointFromRow(row: ReadModelHistoryRow): JustTcgHistoryPoint | null {
-  const ts = Date.parse(row.recordedAt);
-  if (!Number.isFinite(ts)) return null;
-
+function createUnpriced(cardPrintId: string, reason: pricingShared.UnpricedReason): VariantRuntimePrice {
   return {
-    ts,
-    date: new Date(ts).toISOString().slice(0, 10),
-    tcgMarket: parseNullableNumber(row.priceNm),
+    status: "unpriced",
+    kind: "raw_card",
+    cardPrintId,
+    reason,
+    currency: pricingShared.USD_CURRENCY,
   };
 }
 
-function variantScore(variant: JustTcgVariant) {
-  const condition = String(variant.condition || "").toLowerCase();
-  const printing = String(variant.printing || "").toLowerCase();
-  const language = String(variant.language || "").toLowerCase();
+function resolveRuntimePrice(cardPrintId: string, row: VariantPriceRow | null | undefined): VariantRuntimePrice {
+  if (!row || !row.externalProductId || !row.mappingApproved) {
+    return createUnpriced(cardPrintId, "missing_active_approved_mapping");
+  }
 
-  let score = 0;
-  if (language === "english") score += 100;
-  if (condition === "near mint") score += 60;
-  if (printing === "normal") score += 20;
-  if (printing === "foil") score += 10;
-  return score;
-}
+  if (normalizeProductKind(row.productKind) !== "raw_card") {
+    return createUnpriced(cardPrintId, "kind_mismatch");
+  }
 
-function pickPreferredVariant(rawPayload: Record<string, unknown> | null | undefined) {
-  const variants = Array.isArray(rawPayload?.variants) ? (rawPayload.variants as JustTcgVariant[]) : [];
-  if (!variants.length) return null;
-  return [...variants].sort((left, right) => variantScore(right) - variantScore(left))[0] || null;
-}
+  if (!row.activeExternalVariantId || !row.externalVariantId || row.activeExternalVariantId !== row.externalVariantId) {
+    return createUnpriced(cardPrintId, "missing_active_approved_mapping");
+  }
 
-function historyPointFromRawEntry(entry: { p?: number; t?: number } | null | undefined) {
-  if (!entry || typeof entry.t !== "number") return null;
+  const currentPrice = parseNullableNumber(row.priceNm);
+  if (currentPrice == null) {
+    return createUnpriced(cardPrintId, "missing_current_price");
+  }
 
-  const ts = entry.t * 1000;
-  return {
-    ts,
-    date: new Date(ts).toISOString().slice(0, 10),
-    tcgMarket: typeof entry.p === "number" ? entry.p : null,
-  };
-}
-
-function supplementalHistoryFromRaw(
-  rawPayload: Record<string, unknown> | null | undefined,
-  rangeDays: number,
-  now: number,
-) {
-  const variant = pickPreferredVariant(rawPayload);
-  if (!variant) return [] as JustTcgHistoryPoint[];
-
-  const source =
-    rangeDays > 30
-      ? variant.priceHistory90d || variant.priceHistory30d || variant.priceHistory || []
-      : rangeDays > 7
-        ? variant.priceHistory30d || variant.priceHistory || []
-        : variant.priceHistory || [];
-  const fromTs = now - Math.max(1, rangeDays) * 24 * 60 * 60 * 1000;
-
-  return source
-    .map((entry) => historyPointFromRawEntry(entry))
-    .filter((point): point is JustTcgHistoryPoint => point !== null && point.ts >= fromTs);
+  return summaryFromRow(row, Date.now());
 }
 
 function toPlainRows<T>(rows: Iterable<unknown>): T[] {
   return Array.from(rows, (row) => ({ ...(row as Record<string, unknown>) })) as T[];
 }
 
-async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModelPriceRow[]> {
+async function defaultLoadCurrentRows(requestedIds: string[]): Promise<VariantPriceRow[]> {
   const lookupIds = candidateLookupIds(requestedIds);
   if (!lookupIds.length) return [];
 
@@ -301,6 +262,8 @@ async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModel
         current_prices.external_variant_id as "externalVariantId",
         ep.raw_payload as "externalRawPayload",
         ep.product_kind as "productKind",
+        ep.name as "justtcgTitle",
+        ep.image_url as "justtcgImageUrl",
         variant.condition as "variantCondition",
         variant.printing as "variantPrinting",
         variant.language as "variantLanguage",
@@ -309,12 +272,14 @@ async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModel
         current_prices.price_nm as "priceNm",
         current_prices.price_lp as "priceLp",
         current_prices.price_change_24h as "priceChange24h",
-        current_prices.price_change_7d as "priceChange7d",
-        current_prices.price_change_30d as "priceChange30d",
         current_prices.updated_at::text as "updatedAt",
-        current_prices.fetched_at::text as "fetchedAt"
+        current_prices.fetched_at::text as "fetchedAt",
+        cards.name as "officialName",
+        releases.code as "officialSetCode",
+        releases.name as "officialSetName"
       from card_prints cp
       join cards on cards.id = cp.card_id
+      join releases on releases.id = cp.release_id
       left join external_products ep
         on ep.id = cp.active_external_product_id
       left join external_product_variants variant
@@ -339,16 +304,15 @@ async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModel
     [lookupIds, JUSTTCG_SOURCE_ID],
   );
 
-  return toPlainRows<ReadModelPriceRow>(rows);
+  return toPlainRows<VariantPriceRow>(rows);
 }
 
 async function defaultLoadHistoryRows(params: {
-  requestedIds: string[];
+  cardPrintId: string;
+  externalProductId: string;
+  externalVariantId: string;
   rangeDays: number;
-  priceRow: ReadModelPriceRow;
-}): Promise<ReadModelHistoryRow[]> {
-  if (!usablePriceRow(params.priceRow)) return [];
-
+}): Promise<VariantPriceHistoryRow[]> {
   const sql = createPostgresClient();
   const fromIso = new Date(Date.now() - Math.max(1, params.rangeDays) * 24 * 60 * 60 * 1000).toISOString();
   const rows = await sql.unsafe(
@@ -401,89 +365,103 @@ async function defaultLoadHistoryRows(params: {
       order by "recordedAt" asc
     `,
     [
-      params.priceRow.cardPrintId,
-      params.priceRow.externalProductId,
-      params.priceRow.externalVariantId,
+      params.cardPrintId,
+      params.externalProductId,
+      params.externalVariantId,
       JUSTTCG_SOURCE_ID,
       fromIso,
     ],
   );
 
-  return toPlainRows<ReadModelHistoryRow>(rows);
+  return toPlainRows<VariantPriceHistoryRow>(rows);
 }
 
-export async function getJustTcgPriceSummaries(
-  cardIds: string[],
-  options?: JustTcgStoreOptions,
-) {
-  const loadCurrentRows = options?.loadCurrentRows ?? defaultLoadCurrentRows;
-  const now = (options?.now ?? Date.now)();
-  const rows = await loadCurrentRows(cardIds.map((cardId) => normalizeRequestedId(cardId)));
-  const selected: Record<string, JustTcgPriceSummary> = {};
+export function resolveJustTcgVariantRuntimePrice(
+  cardPrintId: string,
+  row: VariantPriceRow | null | undefined,
+): VariantRuntimePrice {
+  return resolveRuntimePrice(cardPrintId, row);
+}
 
-  for (const cardId of cardIds) {
-    const requestedId = normalizeRequestedId(cardId);
-    if (!requestedId) continue;
+export async function getCardPrintRuntimePrice(
+  cardPrintId: string,
+  options?: {
+    loadRows?: LoadVariantPriceRows;
+  },
+): Promise<VariantRuntimePrice> {
+  const loadRows = options?.loadRows ?? defaultLoadCurrentRows;
+  const rows = await loadRows([cardPrintId]);
+  const row = rows.find((candidate) => candidate.cardPrintId === cardPrintId) || null;
 
-    const row = chooseBestPriceRow(requestedId, rows);
-    if (!usablePriceRow(row)) continue;
+  return resolveRuntimePrice(cardPrintId, row);
+}
 
-    const summary = summaryFromRow(row, now);
-    selected[requestedId] = summary;
-
-    for (const alias of rowAliases(row)) {
-      selected[alias] = summary;
+export async function getCardPrintRuntimePrices(
+  cardPrintIds: string[],
+  options?: {
+    loadRows?: LoadVariantPriceRows;
+  },
+): Promise<Map<string, VariantRuntimePrice>> {
+  const loadRows = options?.loadRows ?? defaultLoadCurrentRows;
+  const rows = await loadRows(cardPrintIds);
+  const indexedRows = new Map<string, VariantPriceRow>();
+  for (const row of rows) {
+    if (!indexedRows.has(row.cardPrintId)) {
+      indexedRows.set(row.cardPrintId, row);
     }
   }
 
-  return selected;
+  const results = new Map<string, VariantRuntimePrice>();
+  for (const cardPrintId of new Set(cardPrintIds.map((id) => id.trim()).filter(Boolean))) {
+    results.set(cardPrintId, resolveRuntimePrice(cardPrintId, indexedRows.get(cardPrintId)));
+  }
+
+  return results;
 }
 
-export async function getJustTcgPriceDetail(
-  cardId: string,
+export async function getCardPrintRuntimeDetail(
+  cardPrintId: string,
   rangeDays: number,
-  options?: JustTcgStoreOptions,
-) {
-  const requestedId = normalizeRequestedId(cardId);
-  const loadCurrentRows = options?.loadCurrentRows ?? defaultLoadCurrentRows;
+  options?: {
+    loadRows?: LoadVariantPriceRows;
+    loadHistoryRows?: LoadVariantHistoryRows;
+  },
+): Promise<{
+  price: VariantRuntimePrice | null;
+  points: Array<{ ts: number; date: string; tcgMarket: number | null }>;
+}> {
+  const loadRows = options?.loadRows ?? defaultLoadCurrentRows;
   const loadHistoryRows = options?.loadHistoryRows ?? defaultLoadHistoryRows;
-  const now = (options?.now ?? Date.now)();
+  const rows = await loadRows([cardPrintId]);
+  const row = rows.find((candidate) => candidate.cardPrintId === cardPrintId) || null;
+  const price = resolveRuntimePrice(cardPrintId, row);
 
-  const rows = await loadCurrentRows([requestedId]);
-  const row = chooseBestPriceRow(requestedId, rows);
-
-  if (!usablePriceRow(row)) {
-    return {
-      price: null,
-      points: [] as JustTcgHistoryPoint[],
-    };
+  if (price.status !== "priced" || !row?.externalProductId || !row.externalVariantId) {
+    return { price: null, points: [] };
   }
 
   const historyRows = await loadHistoryRows({
-    requestedIds: [requestedId],
+    cardPrintId,
+    externalProductId: row.externalProductId,
+    externalVariantId: row.externalVariantId,
     rangeDays,
-    priceRow: row,
   });
 
-  const primaryPoints = historyRows
-    .filter((historyRow) => rowMatchesRequestedId(requestedId, historyRow))
+  const points = historyRows
+    .filter((historyRow) => rowMatchesRequestedId(cardPrintId, historyRow))
     .filter((historyRow) => !historyRow.externalProductId || historyRow.externalProductId === row.externalProductId)
     .filter((historyRow) => !historyRow.externalVariantId || historyRow.externalVariantId === row.externalVariantId)
-    .map((historyRow) => historyPointFromRow(historyRow))
-    .filter((point): point is JustTcgHistoryPoint => Boolean(point))
+    .map((historyRow) => {
+      const ts = Date.parse(historyRow.recordedAt);
+      if (!Number.isFinite(ts)) return null;
+      return {
+        ts,
+        date: new Date(ts).toISOString().slice(0, 10),
+        tcgMarket: parseNullableNumber(historyRow.priceNm),
+      };
+    })
+    .filter((point): point is { ts: number; date: string; tcgMarket: number | null } => Boolean(point))
     .sort((left, right) => left.ts - right.ts);
-  const supplementalPoints = supplementalHistoryFromRaw(row.externalRawPayload || null, rangeDays, now);
-  const pointsByTs = new Map<number, JustTcgHistoryPoint>();
 
-  for (const point of supplementalPoints) {
-    pointsByTs.set(point.ts, point);
-  }
-  for (const point of primaryPoints) {
-    pointsByTs.set(point.ts, point);
-  }
-
-  return {
-    price: summaryFromRow(row, now),
-    points: [...pointsByTs.values()].sort((left, right) => left.ts - right.ts),
-  };
+  return { price, points };
 }

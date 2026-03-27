@@ -44,6 +44,8 @@ test("mapped raw card returns NM USD price", async () => {
         officialSetCode: "OP01",
         officialSetName: "Romance Dawn",
         externalProductId: "justtcg:123",
+        externalVariantId: "justtcg:123:nm",
+        activeExternalVariantId: "justtcg:123:nm",
         productKind: "raw_card",
         justtcgTitle: "Monkey D. Luffy OP01-001",
         justtcgImageUrl: "https://img.example/luffy.jpg",
@@ -64,7 +66,86 @@ test("mapped raw card returns NM USD price", async () => {
   assert.equal(result.currentPrice, 12.5);
   assert.equal(result.currentPriceType, "near_mint");
   assert.equal(result.currency, "USD");
+  assert.equal((result as { externalVariantId?: string | null }).externalVariantId, "justtcg:123:nm");
   assert.equal(result.justtcg.title, "Monkey D. Luffy OP01-001");
+});
+
+test("variant-backed raw card pricing exposes the active NM variant", async () => {
+  const { getCardPrintRuntimePrice } =
+    await importModule<typeof import("../lib/server/pricing/card-print-prices")>(
+      "lib/server/pricing/card-print-prices.ts",
+    );
+
+  const result = await getCardPrintRuntimePrice("cp-variant-priced", {
+    loadRows: async () => [
+      {
+        cardPrintId: "cp-variant-priced",
+        cardId: "OP01-001",
+        printedCardCode: "OP01-001",
+        officialName: "Monkey D. Luffy",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:123",
+        externalVariantId: "justtcg:123:nm",
+        activeExternalVariantId: "justtcg:123:nm",
+        productKind: "raw_card",
+        justtcgTitle: "Monkey D. Luffy OP01-001",
+        justtcgImageUrl: "https://img.example/luffy.jpg",
+        mappingApproved: true,
+        priceMarket: "13.00",
+        priceNm: "12.50",
+        priceLp: "10.25",
+        priceChange24h: "1.20",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:05:00.000Z",
+      },
+    ],
+  });
+
+  assert.equal(result.status, "priced");
+  assert.equal(result.kind, "raw_card");
+  assert.equal(result.cardPrintId, "cp-variant-priced");
+  assert.equal((result as { externalVariantId?: string | null }).externalVariantId, "justtcg:123:nm");
+  assert.equal(result.currentPrice, 12.5);
+  assert.equal(result.currentPriceType, "near_mint");
+  assert.equal(result.currency, "USD");
+  assert.equal(result.justtcg.title, "Monkey D. Luffy OP01-001");
+});
+
+test("product-level links without an active NM variant remain unpriced", async () => {
+  const { getCardPrintRuntimePrice } =
+    await importModule<typeof import("../lib/server/pricing/card-print-prices")>(
+      "lib/server/pricing/card-print-prices.ts",
+    );
+
+  const result = await getCardPrintRuntimePrice("cp-no-active-variant", {
+    loadRows: async () => [
+      {
+        cardPrintId: "cp-no-active-variant",
+        cardId: "OP01-010",
+        printedCardCode: "OP01-010",
+        officialName: "Nami",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:456",
+        externalVariantId: null,
+        activeExternalVariantId: null,
+        productKind: "raw_card",
+        justtcgTitle: "Nami OP01-010",
+        justtcgImageUrl: "https://img.example/nami.jpg",
+        mappingApproved: true,
+        priceMarket: "15.00",
+        priceNm: "14.50",
+        priceLp: "11.25",
+        priceChange24h: "0.80",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:05:00.000Z",
+      },
+    ],
+  });
+
+  assert.equal(result.status, "unpriced");
+  assert.equal(result.reason, "missing_active_approved_mapping");
 });
 
 test("sealed and raw cards do not mix", async () => {

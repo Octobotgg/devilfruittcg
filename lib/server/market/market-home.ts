@@ -15,6 +15,8 @@ type MarketMoverRow = {
   officialSetName: string | null;
   externalProductId: string | null;
   activeExternalProductId: string | null;
+  externalVariantId: string | null;
+  activeExternalVariantId: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   currentPrice: string | number | null;
@@ -85,6 +87,8 @@ const RAW_CARD_MOVER_QUERY = `
     releases.name as "officialSetName",
     current_prices.external_product_id as "externalProductId",
     cp.active_external_product_id as "activeExternalProductId",
+    current_prices.external_variant_id as "externalVariantId",
+    cp.active_external_variant_id as "activeExternalVariantId",
     ep.name as "justtcgTitle",
     ep.image_url as "justtcgImageUrl",
     current_prices.price_nm as "currentPrice",
@@ -95,6 +99,7 @@ const RAW_CARD_MOVER_QUERY = `
   join card_prints cp
     on cp.id = current_prices.card_print_id
    and cp.active_external_product_id = current_prices.external_product_id
+   and cp.active_external_variant_id = current_prices.external_variant_id
   join cards on cards.id = cp.card_id
   join releases on releases.id = cp.release_id
   join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'raw_card'
@@ -117,6 +122,8 @@ const SEALED_MOVER_QUERY = `
     releases.name as "officialSetName",
     current_prices.external_product_id as "externalProductId",
     sealed.active_external_product_id as "activeExternalProductId",
+    current_prices.external_variant_id as "externalVariantId",
+    sealed.active_external_variant_id as "activeExternalVariantId",
     ep.name as "justtcgTitle",
     ep.image_url as "justtcgImageUrl",
     current_prices.price_market as "currentPrice",
@@ -127,6 +134,7 @@ const SEALED_MOVER_QUERY = `
   join sealed_products sealed
     on sealed.id = current_prices.sealed_product_id
    and sealed.active_external_product_id = current_prices.external_product_id
+   and sealed.active_external_variant_id = current_prices.external_variant_id
   left join releases on releases.id = sealed.release_id
   join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'sealed'
   join sealed_product_market_links link
@@ -164,6 +172,8 @@ export function passesMarketMoverTrustFilters(
   if (!row.mappingApproved) return false;
   if (!row.externalProductId || !row.activeExternalProductId) return false;
   if (row.externalProductId !== row.activeExternalProductId) return false;
+  if (!row.externalVariantId || !row.activeExternalVariantId) return false;
+  if (row.externalVariantId !== row.activeExternalVariantId) return false;
 
   const currentPrice = parseNullableNumber(row.currentPrice);
   const priceChange24h = parseNullableNumber(row.priceChange24h);

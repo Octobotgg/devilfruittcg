@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
   require("server-only");
 }
-const cardPrintPrices = require("../pricing/card-print-prices.ts") as typeof import("../pricing/card-print-prices");
+const cardPrintPrices = require("../pricing/justtcg-variant-read-model.ts") as typeof import("../pricing/justtcg-variant-read-model");
 const { createPostgresClient }: typeof import("../../../db/postgres") = require("../../../db/postgres.ts");
 const pricingShared = require("../pricing/external-products.ts") as typeof import("../pricing/external-products");
 
@@ -25,6 +25,7 @@ export type PortfolioPriceHistoryPoint = {
   recordedAt: string;
   price: number | null;
   externalProductId?: string | null;
+  externalVariantId?: string | null;
   approvedActive?: boolean;
 };
 
@@ -126,6 +127,7 @@ async function defaultLoadHistory(
       select
         history.card_print_id as card_print_id,
         history.external_product_id as external_product_id,
+        history.external_variant_id as external_variant_id,
         history.recorded_at as recorded_at,
         history.price_nm as price_nm
       from card_print_price_history history
@@ -139,6 +141,7 @@ async function defaultLoadHistory(
       where history.card_print_id = any($1::text[])
         and history.source_id = 'justtcg'
         and history.external_product_id = cp.active_external_product_id
+        and history.external_variant_id = cp.active_external_variant_id
     )
   `;
 
@@ -158,6 +161,7 @@ async function defaultLoadHistory(
       select
         combined.card_print_id as "cardPrintId",
         combined.external_product_id as "externalProductId",
+        combined.external_variant_id as "externalVariantId",
         combined.recorded_at::text as "recordedAt",
         combined.price_nm as "price",
         true as "approvedActive"
@@ -173,6 +177,7 @@ async function defaultLoadHistory(
       select
         eligible_history.card_print_id as "cardPrintId",
         eligible_history.external_product_id as "externalProductId",
+        eligible_history.external_variant_id as "externalVariantId",
         eligible_history.recorded_at::text as "recordedAt",
         eligible_history.price_nm as "price",
         true as "approvedActive"
@@ -193,6 +198,7 @@ async function defaultLoadHistory(
       recordedAt: row.recordedAt,
       price: pricingShared.parseNullableNumber(row.price),
       externalProductId: row.externalProductId ?? null,
+      externalVariantId: row.externalVariantId ?? null,
       approvedActive: row.approvedActive,
     });
     history.set(row.cardPrintId, bucket);
@@ -210,6 +216,13 @@ function historyMatchesActivePrice(
     point.externalProductId &&
     currentPrice?.status === "priced" &&
     point.externalProductId !== currentPrice.externalProductId
+  ) {
+    return false;
+  }
+  if (
+    point.externalVariantId &&
+    currentPrice?.status === "priced" &&
+    point.externalVariantId !== (currentPrice as { externalVariantId?: string | null }).externalVariantId
   ) {
     return false;
   }

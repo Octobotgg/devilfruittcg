@@ -62,6 +62,8 @@ type MarketSearchRow = {
   imageUrl: string | null;
   releaseDate: string | null;
   productKind: string | null;
+  activeExternalVariantId: string | null;
+  externalVariantId: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   mappingApproved: boolean;
@@ -173,6 +175,8 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
           coalesce(case when ep.product_kind = 'raw_card' then ep.image_url end, cp.image_url) as "imageUrl",
           coalesce(cp.release_date_override::text, releases.release_date::text) as "releaseDate",
           ep.product_kind as "productKind",
+          cp.active_external_variant_id as "activeExternalVariantId",
+          current_prices.external_variant_id as "externalVariantId",
           case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
           case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
           coalesce(link.approved_at is not null and link.mapping_status = 'exact', false) as "mappingApproved",
@@ -193,6 +197,7 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
         left join card_print_price_current current_prices
           on current_prices.card_print_id = cp.id
          and current_prices.external_product_id = cp.active_external_product_id
+         and current_prices.external_variant_id = cp.active_external_variant_id
          and current_prices.source_id = 'justtcg'
         where cp.is_active = true
       `,
@@ -394,6 +399,8 @@ function attributeMatch(card: RuntimeMarketCardResult, filters: string[]) {
 function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
   if (!row.mappingApproved) return null;
   if (normalizeProductKind(row.productKind) !== "raw_card") return null;
+  if (!row.activeExternalVariantId || !row.externalVariantId) return null;
+  if (row.activeExternalVariantId !== row.externalVariantId) return null;
 
   const marketPrice = parseNullableNumber(row.priceNm);
   if (marketPrice == null) return null;

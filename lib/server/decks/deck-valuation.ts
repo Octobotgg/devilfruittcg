@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
   require("server-only");
 }
-const cardPrintPrices = require("../pricing/card-print-prices.ts") as typeof import("../pricing/card-print-prices");
+const cardPrintPrices = require("../pricing/justtcg-variant-read-model.ts") as typeof import("../pricing/justtcg-variant-read-model");
 const pricingShared = require("../pricing/external-products.ts") as typeof import("../pricing/external-products");
 
 export type DeckValuationItem = {
