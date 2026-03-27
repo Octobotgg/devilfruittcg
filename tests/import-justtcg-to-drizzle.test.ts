@@ -281,6 +281,7 @@ test("buildSeed promotes clean single-candidate base mappings into active runtim
       card_print_id: "EB02-001",
       source_id: "justtcg",
       external_product_id: "justtcg:karoo-eb02-base",
+      external_variant_id: null,
       price_market: 0.12,
       price_nm: 0.12,
       price_lp: 0.08,
@@ -606,4 +607,150 @@ test("buildSeed trusts official event verified mappings even below 0.95 confiden
   const link = seed.cardPrintMarketLinks.find((entry) => entry.card_print_id === "OP05-076_p4");
   assert.equal(link?.mapping_status, "exact");
   assert.equal(link?.approved_by, "auto_approval");
+});
+
+test("buildSeed uses the Near Mint JustTCG variant as the canonical runtime price source", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "oden-neo-openings",
+            name: "Kouzuki Oden",
+            set: "Extra Booster: Memorial Collection",
+            tcgplayerId: "544523",
+            variants: [
+              {
+                variantId: "oden-neo-openings-lp",
+                condition: "Lightly Played",
+                printing: "Normal",
+                language: "English",
+                price: 0.18,
+                lastUpdated: "2026-03-19T12:50:00.000Z",
+                priceHistory: [{ price: 0.21, recordedAt: "2026-03-18T12:50:00.000Z" }],
+              },
+              {
+                variantId: "oden-neo-openings-nm",
+                condition: "Near Mint",
+                printing: "Normal",
+                language: "English",
+                price: 0.22,
+                lastUpdated: "2026-03-19T12:54:12.000Z",
+                priceHistory: [{ price: 0.23, recordedAt: "2026-03-18T12:54:12.000Z" }],
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-19T13:00:00.000Z",
+        results: [
+          {
+            cardId: "EB01-001",
+            confidence: "0.9800",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            notes: null,
+            bestCandidate: {
+              id: "oden-neo-openings",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+              lastUpdated: "2026-03-19T12:54:12.000Z",
+            },
+            cardPrintContext: {
+              setName: "Extra Booster: Memorial Collection [EB-01]",
+              releaseCode: "EB01",
+              canonicalId: "EB01-001",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-19T13:00:00.000Z",
+        fetchedAt: "2026-03-19T13:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "EB01-001",
+            justtcg_id: "oden-neo-openings",
+            price_nm: 0.45,
+            price_lp: 0.18,
+            price_change_24h: 0,
+            last_updated_justtcg: "2026-03-19T12:54:12.000Z",
+            fetched_at: "2026-03-19T13:00:00.000Z",
+            raw_response: {
+              id: "oden-neo-openings",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "EB01-001",
+      active_external_product_id: "justtcg:oden-neo-openings",
+    },
+  ]);
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, [
+    {
+      card_print_id: "EB01-001",
+      active_external_variant_id: "justtcg:oden-neo-openings-nm",
+    },
+  ]);
+  assert.deepEqual(seed.cardPrintPriceCurrent, [
+    {
+      card_print_id: "EB01-001",
+      source_id: "justtcg",
+      external_product_id: "justtcg:oden-neo-openings",
+      external_variant_id: "justtcg:oden-neo-openings-nm",
+      price_market: 0.22,
+      price_nm: 0.22,
+      price_lp: 0.18,
+      price_change_24h: 0,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: "2026-03-19T12:54:12.000Z",
+      fetched_at: "2026-03-19T13:00:00.000Z",
+    },
+  ]);
+  assert.deepEqual(seed.priceSnapshots, [
+    {
+      external_product_id: "justtcg:oden-neo-openings",
+      external_variant_id: "justtcg:oden-neo-openings-nm",
+      captured_at: "2026-03-19T13:00:00.000Z",
+      price_market: 0.22,
+      price_low: null,
+      price_mid: null,
+      price_high: null,
+      price_nm: 0.22,
+      price_lp: 0.18,
+      currency: "USD",
+      availability: null,
+      raw_payload: {
+        id: "oden-neo-openings",
+        name: "Kouzuki Oden",
+        set: "Extra Booster: Memorial Collection",
+      },
+    },
+  ]);
 });

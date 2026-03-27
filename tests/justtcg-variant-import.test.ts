@@ -13,6 +13,10 @@ async function importSchema() {
   return import(pathToFileURL(path.join(REPO_ROOT, "db/schema.ts")).href);
 }
 
+async function importModule<T>(relativePath: string): Promise<T> {
+  return import(pathToFileURL(path.join(REPO_ROOT, relativePath)).href) as Promise<T>;
+}
+
 function columnNames(table: Parameters<typeof getTableConfig>[0]) {
   return getTableConfig(table).columns.map((column) => column.name);
 }
@@ -130,4 +134,132 @@ test("JustTCG variant schema includes the new variant layer", async () => {
     sql,
     /FOREIGN KEY \("external_product_id","external_variant_id"\) REFERENCES "public"\."external_product_variants"\("external_product_id","id"\) ON DELETE no action ON UPDATE no action;/,
   );
+});
+
+test("buildSeed imports a JustTCG card row separately from its variants", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "ace-finalist-pack",
+            name: "Portgas.D.Ace",
+            set: "One Piece Promotion Cards",
+            number: "OP10-033",
+            tcgplayerId: "999999",
+            variants: [
+              {
+                variantId: "ace-finalist-pack-nm",
+                condition: "Near Mint",
+                printing: "Normal",
+                language: "English",
+                price: 850,
+                lastUpdated: "2026-03-25T00:00:00.000Z",
+                priceHistory: [{ price: 825, recordedAt: "2026-03-24T00:00:00.000Z" }],
+              },
+              {
+                variantId: "ace-finalist-pack-lp",
+                condition: "Lightly Played",
+                printing: "Normal",
+                language: "English",
+                price: 600,
+                lastUpdated: "2026-03-25T00:00:00.000Z",
+                priceHistory: [{ price: 610, recordedAt: "2026-03-24T00:00:00.000Z" }],
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP10-033_p2",
+            confidence: "0.9000",
+            status: "auto_approved",
+            searchMethod: "tcgplayer_verified",
+            notes: null,
+            confidenceReasons: ["tcgplayer_verified", "exact_number_match", "exact_product_match"],
+            bestCandidate: {
+              id: "ace-finalist-pack",
+              name: "Portgas.D.Ace",
+              set: "One Piece Promotion Cards",
+              lastUpdated: "2026-03-25T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "CS 25-26 Finalist Card Set 1",
+              releaseCode: "PRIZE",
+              canonicalId: "OP10-033_cs_25_26_finalist_card_set_1",
+              variantSlug: "cs_25_26_finalist_card_set_1",
+              variantLabel: "CS 25-26 Finalist Card Set 1",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:05:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP10-033_p2",
+            justtcg_id: "ace-finalist-pack",
+            price_nm: 999,
+            price_lp: 600,
+            price_change_24h: 0,
+            last_updated_justtcg: "2026-03-25T00:00:00.000Z",
+            fetched_at: "2026-03-25T00:05:00.000Z",
+            raw_response: {
+              id: "ace-finalist-pack",
+              name: "Portgas.D.Ace",
+              set: "One Piece Promotion Cards",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  const product = seed.externalProducts.find((entry) => entry.id === "justtcg:ace-finalist-pack");
+  assert.ok(product);
+  assert.equal(product?.source_id, "justtcg");
+  assert.equal(product?.external_product_id, "ace-finalist-pack");
+  assert.equal(product?.product_kind, "raw_card");
+  assert.equal(product?.condition_model, "condition_variant");
+
+  const variants = seed.externalProductVariants ?? [];
+  const nmVariant = variants.find(
+    (entry) => entry.provider_variant_id === "ace-finalist-pack-nm",
+  );
+  const lpVariant = variants.find(
+    (entry) => entry.provider_variant_id === "ace-finalist-pack-lp",
+  );
+
+  assert.ok(nmVariant);
+  assert.ok(lpVariant);
+  assert.equal(variants.length, 2);
+  assert.equal(nmVariant?.external_product_id, "justtcg:ace-finalist-pack");
+  assert.equal(nmVariant?.source_id, "justtcg");
+  assert.equal(nmVariant?.condition, "Near Mint");
+  assert.equal(nmVariant?.printing, "Normal");
+  assert.equal(nmVariant?.language, "English");
+  assert.equal(nmVariant?.price, 850);
+  assert.equal(lpVariant?.condition, "Lightly Played");
+  assert.equal(lpVariant?.price, 600);
 });

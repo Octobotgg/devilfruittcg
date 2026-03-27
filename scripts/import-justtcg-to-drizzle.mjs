@@ -359,6 +359,64 @@ function buildExternalProductRow(raw, overrides = {}) {
   };
 }
 
+function stripVariantsFromRawProduct(raw) {
+  if (!raw || typeof raw !== "object") return raw || null;
+  if (!Array.isArray(raw.variants)) return raw;
+
+  const { variants: _ignoredVariants, ...card } = raw;
+  return card;
+}
+
+function buildExternalProductVariantRow(product, rawVariant, overrides = {}) {
+  const providerVariantId = cleanText(
+    overrides.providerVariantId || rawVariant?.variantId || rawVariant?.variant_id || rawVariant?.id || "",
+  );
+  if (!providerVariantId) return null;
+
+  const condition = cleanText(overrides.condition || rawVariant?.condition || "");
+  const printing = cleanText(overrides.printing || rawVariant?.printing || "");
+  const language = cleanText(overrides.language || rawVariant?.language || "");
+  const price = overrides.price ?? rawVariant?.price ?? null;
+  const lastUpdatedAt =
+    normalizeTimestamp(overrides.lastUpdatedAt || rawVariant?.lastUpdated || rawVariant?.last_updated || product?.last_seen_at) ||
+    null;
+
+  if (!condition || !printing || !language || !lastUpdatedAt) return null;
+
+  return {
+    id: `justtcg:${providerVariantId}`,
+    external_product_id: product.id,
+    source_id: product.source_id,
+    provider_variant_id: providerVariantId,
+    condition,
+    printing,
+    language,
+    price,
+    last_updated_at: lastUpdatedAt,
+    price_history_payload: overrides.priceHistoryPayload || rawVariant?.priceHistory || rawVariant?.price_history || null,
+    raw_payload: overrides.rawPayload || rawVariant || null,
+  };
+}
+
+function mergeExternalProductVariantRows(existing, nextRow) {
+  if (!existing) return nextRow;
+
+  return {
+    ...existing,
+    ...nextRow,
+    external_product_id: preferNonEmpty(existing.external_product_id, nextRow.external_product_id),
+    source_id: preferNonEmpty(existing.source_id, nextRow.source_id),
+    provider_variant_id: preferNonEmpty(existing.provider_variant_id, nextRow.provider_variant_id),
+    condition: preferNonEmpty(existing.condition, nextRow.condition),
+    printing: preferNonEmpty(existing.printing, nextRow.printing),
+    language: preferNonEmpty(existing.language, nextRow.language),
+    price: preferNonEmpty(existing.price, nextRow.price),
+    last_updated_at: preferNonEmpty(existing.last_updated_at, nextRow.last_updated_at),
+    price_history_payload: mergeRawPayload(existing.price_history_payload, nextRow.price_history_payload),
+    raw_payload: mergeRawPayload(existing.raw_payload, nextRow.raw_payload),
+  };
+}
+
 function preferNonEmpty(currentValue, nextValue) {
   if (nextValue == null) return currentValue;
   if (typeof nextValue === "string" && nextValue.trim() === "") return currentValue;
@@ -434,6 +492,7 @@ function buildTcgplayerProductRow(product) {
 
 function buildExternalProducts(catalog, mappingReport, priceData, options) {
   const products = new Map();
+  const variants = new Map();
   const tcgplayerProducts = new Map();
 
   const addProduct = (raw, overrides = {}) => {
@@ -451,13 +510,32 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
     return products.get(row.id);
   };
 
+  const addVariants = (productRow, rawProduct) => {
+    if (!productRow || !Array.isArray(rawProduct?.variants)) return;
+
+    for (const rawVariant of rawProduct.variants) {
+      const variantRow = buildExternalProductVariantRow(productRow, rawVariant, {
+        rawPayload: rawVariant,
+        priceHistoryPayload: rawVariant?.priceHistory || rawVariant?.price_history || null,
+      });
+      if (!variantRow) continue;
+
+      const existing = variants.get(variantRow.id);
+      variants.set(variantRow.id, mergeExternalProductVariantRows(existing, variantRow));
+    }
+  };
+
   for (const product of Array.isArray(catalog?.cards) ? catalog.cards : []) {
-    addProduct(product, { rawPayload: product, lastSeenAt: catalog?.fetchedAt || null });
+    const importedProduct = addProduct(product, {
+      rawPayload: stripVariantsFromRawProduct(product),
+      lastSeenAt: catalog?.fetchedAt || null,
+    });
+    addVariants(importedProduct, product);
   }
 
   for (const entry of Array.isArray(mappingReport?.results) ? mappingReport.results : []) {
     if (!entry?.bestCandidate) continue;
-    addProduct(entry.bestCandidate, {
+    const importedProduct = addProduct(entry.bestCandidate, {
       productKind: entry.product_kind || entry.productKind || "raw_card",
       rawPayload: {
         source: "mapping_report",
@@ -466,6 +544,7 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
       },
       lastSeenAt: entry.bestCandidate?.lastUpdated || mappingReport?.generatedAt || null,
     });
+    addVariants(importedProduct, entry.bestCandidate);
   }
 
   for (const row of Array.isArray(priceData?.priceRows) ? priceData.priceRows : []) {
@@ -475,17 +554,28 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
 
     const overrides = {
       justtcgId,
-      rawPayload: raw || row,
+      rawPayload: stripVariantsFromRawProduct(raw || row),
       lastSeenAt: row?.last_updated_justtcg || row?.fetched_at || priceData?.generatedAt || null,
       productKind: "raw_card",
     };
 
-    addProduct(raw || { id: justtcgId, name: row?.name || justtcgId }, overrides);
+    const importedProduct = addProduct(raw || { id: justtcgId, name: row?.name || justtcgId }, overrides);
+    addVariants(importedProduct, raw);
+  }
+
+  const variantRowsByProductId = new Map();
+  for (const variantRow of variants.values()) {
+    const list = variantRowsByProductId.get(variantRow.external_product_id) || [];
+    list.push(variantRow);
+    variantRowsByProductId.set(variantRow.external_product_id, list);
   }
 
   return {
     externalProducts: [...products.values(), ...tcgplayerProducts.values()],
+    externalProductVariants: [...variants.values()],
     productMap: products,
+    variantMap: variants,
+    variantRowsByProductId,
   };
 }
 
@@ -699,12 +789,28 @@ function indexPriceRows(priceData) {
   return { byCardPrintId, byJusttcgId };
 }
 
-function buildPriceSnapshotRow(externalProductId, priceRow) {
+function normalizeVariantCondition(value) {
+  return normalizeLookupKey(value);
+}
+
+function pickVariantByCondition(variants, condition) {
+  const pool = Array.isArray(variants) ? variants : [];
+  const english = pool.filter((variant) => normalizeLookupKey(variant?.language) === "english");
+  const searchPool = english.length ? english : pool;
+  return searchPool.find((variant) => normalizeVariantCondition(variant?.condition) === condition) || null;
+}
+
+function selectCanonicalVariant(variants) {
+  return pickVariantByCondition(variants, "near mint");
+}
+
+function buildPriceSnapshotRow(externalProductId, externalVariantId, priceRow, rawPayloadOverride = null) {
   const capturedAt = normalizeTimestamp(priceRow?.fetched_at || priceRow?.last_updated_justtcg);
   if (!capturedAt) return null;
 
   return {
     external_product_id: externalProductId,
+    external_variant_id: externalVariantId || null,
     captured_at: capturedAt,
     price_market: priceRow?.price_market ?? priceRow?.price_nm ?? null,
     price_low: priceRow?.price_low ?? null,
@@ -714,7 +820,7 @@ function buildPriceSnapshotRow(externalProductId, priceRow) {
     price_lp: priceRow?.price_lp ?? null,
     currency: cleanText(priceRow?.currency || "USD") || "USD",
     availability: Number.isInteger(priceRow?.availability) ? priceRow.availability : null,
-    raw_payload: priceRow?.raw_response || priceRow?.rawResponse || priceRow || null,
+    raw_payload: rawPayloadOverride || priceRow?.raw_response || priceRow?.rawResponse || priceRow || null,
   };
 }
 
@@ -722,40 +828,65 @@ function extractJusttcgId(externalProductId) {
   return cleanText(String(externalProductId || "").split(":").slice(1).join(":"));
 }
 
-function resolveApprovedRawPriceRow(assignment, priceIndex) {
+function resolveApprovedRawPriceRow(assignment, variantRowsByProductId, priceIndex) {
+  const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
+  const canonicalVariant = selectCanonicalVariant(variants);
+  const lpVariant = pickVariantByCondition(variants, "lightly played");
   const approvedJusttcgId = extractJusttcgId(assignment.external_product_id);
-  if (!approvedJusttcgId) return null;
-  return priceIndex.byJusttcgId.get(approvedJusttcgId) || null;
+  const fallbackPriceRow = approvedJusttcgId ? priceIndex.byJusttcgId.get(approvedJusttcgId) || null : null;
+  if (canonicalVariant) {
+    return { priceRow: fallbackPriceRow || canonicalVariant, canonicalVariant, lpVariant };
+  }
+
+  if (!fallbackPriceRow) return null;
+  return { priceRow: fallbackPriceRow, canonicalVariant: null, lpVariant: null };
 }
 
-function buildRawCardPrices(approvedRawAssignments, priceIndex) {
+function buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, priceIndex) {
   const rows = [];
   const snapshots = [];
 
   for (const assignment of approvedRawAssignments) {
-    const priceRow = resolveApprovedRawPriceRow(assignment, priceIndex);
-    if (!priceRow) continue;
+    const resolved = resolveApprovedRawPriceRow(assignment, variantRowsByProductId, priceIndex);
+    if (!resolved) continue;
 
-    const updatedAt =
-      normalizeTimestamp(priceRow?.last_updated_justtcg) ||
-      normalizeTimestamp(priceRow?.fetched_at);
+    const { priceRow, canonicalVariant, lpVariant } = resolved;
+    const updatedAt = normalizeTimestamp(priceRow?.last_updated_at || priceRow?.lastUpdated || priceRow?.last_updated_justtcg) || normalizeTimestamp(priceRow?.fetched_at);
     if (!updatedAt) continue;
+
+    const externalVariantId = canonicalVariant?.id || null;
+    const priceNm = canonicalVariant?.price ?? priceRow?.price_nm ?? null;
+    const priceLp = lpVariant?.price ?? priceRow?.price_lp ?? null;
+    const snapshotPriceRow = canonicalVariant
+      ? {
+          ...priceRow,
+          price_market: priceRow?.price_market ?? priceNm ?? null,
+          price_nm: priceNm,
+          price_lp: priceLp,
+        }
+      : priceRow;
 
     rows.push({
       card_print_id: assignment.card_print_id,
       source_id: JUSTTCG_SOURCE.id,
       external_product_id: assignment.external_product_id,
-      price_market: priceRow?.price_market ?? priceRow?.price_nm ?? null,
-      price_nm: priceRow?.price_nm ?? null,
-      price_lp: priceRow?.price_lp ?? null,
+      external_variant_id: externalVariantId,
+      price_market: priceRow?.price_market ?? priceNm ?? null,
+      price_nm: priceNm,
+      price_lp: priceLp,
       price_change_24h: priceRow?.price_change_24h ?? null,
       price_change_7d: priceRow?.price_change_7d ?? null,
       price_change_30d: priceRow?.price_change_30d ?? null,
       updated_at: updatedAt,
-      fetched_at: normalizeTimestamp(priceRow?.fetched_at) || null,
+      fetched_at: normalizeTimestamp(priceRow?.fetched_at) || normalizeTimestamp(canonicalVariant?.last_updated_at) || null,
     });
 
-    const snapshot = buildPriceSnapshotRow(assignment.external_product_id, priceRow);
+    const snapshot = buildPriceSnapshotRow(
+      assignment.external_product_id,
+      externalVariantId,
+      snapshotPriceRow,
+      priceRow?.raw_response || priceRow?.rawResponse || canonicalVariant?.raw_payload || canonicalVariant || null,
+    );
     if (snapshot) snapshots.push(snapshot);
   }
 
@@ -833,7 +964,7 @@ function buildSealedProducts(externalProducts, priceIndex, releaseLookup) {
       fetched_at: normalizeTimestamp(priceRow?.fetched_at) || null,
     });
 
-    const snapshot = buildPriceSnapshotRow(product.id, priceRow);
+    const snapshot = buildPriceSnapshotRow(product.id, null, priceRow);
     if (snapshot) sealedSnapshots.push(snapshot);
   }
 
@@ -867,6 +998,21 @@ function buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssign
   }
 
   return [...assignments.values()];
+}
+
+function buildActiveCardPrintVariantAssignments(approvedRawAssignments, variantRowsByProductId) {
+  return approvedRawAssignments
+    .map((assignment) => {
+      const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
+      const canonicalVariant = selectCanonicalVariant(variants);
+      if (!canonicalVariant) return null;
+
+      return {
+        card_print_id: assignment.card_print_id,
+        active_external_variant_id: canonicalVariant.id,
+      };
+    })
+    .filter(Boolean);
 }
 
 function buildAuthoritativeActiveCardPrintAssignments(currentAssignments, existingActiveCardPrintIds) {
@@ -908,18 +1054,29 @@ function splitActiveAssignmentStages(assignments) {
 
 function buildSeed(inputs, options) {
   const releaseLookup = buildReleaseLookup(inputs.officialReleases);
-  const { externalProducts, productMap } = buildExternalProducts(inputs.catalog, inputs.mappingReport, inputs.priceData, options);
+  const { externalProducts, externalProductVariants, productMap, variantRowsByProductId } = buildExternalProducts(
+    inputs.catalog,
+    inputs.mappingReport,
+    inputs.priceData,
+    options,
+  );
   const { cardPrintMarketLinks, approvedRawAssignments } = collectRawCardMappings(inputs.mappingReport, productMap);
   const priceIndex = indexPriceRows(inputs.priceData);
-  const rawCardPrices = buildRawCardPrices(approvedRawAssignments, priceIndex);
+  const rawCardPrices = buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, priceIndex);
   const sealed = buildSealedProducts(productMap, priceIndex, releaseLookup);
   const activeCardPrintAssignments = buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssignments);
+  const activeCardPrintVariantAssignments = buildActiveCardPrintVariantAssignments(
+    approvedRawAssignments,
+    variantRowsByProductId,
+  );
 
   return {
     externalSources: options.includeTcgplayerSource ? [JUSTTCG_SOURCE, TCGPLAYER_SOURCE] : [JUSTTCG_SOURCE],
     externalProducts,
+    externalProductVariants,
     cardPrintMarketLinks,
     activeCardPrintAssignments,
+    activeCardPrintVariantAssignments,
     cardPrintPriceCurrent: rawCardPrices.rows,
     sealedProducts: sealed.sealedProducts,
     sealedProductMarketLinks: sealed.sealedProductMarketLinks,
@@ -929,6 +1086,7 @@ function buildSeed(inputs, options) {
       ...summarizeFiles(inputs),
       approvedRawAssignments: approvedRawAssignments.length,
       importedExternalProducts: externalProducts.length,
+      importedExternalProductVariants: externalProductVariants.length,
       importedSealedProducts: sealed.sealedProducts.length,
     },
   };
@@ -938,6 +1096,7 @@ function summarizeSeed(seed) {
   return {
     externalSources: seed.externalSources.length,
     externalProducts: seed.externalProducts.length,
+    externalProductVariants: seed.externalProductVariants.length,
     cardPrintMarketLinks: seed.cardPrintMarketLinks.length,
     cardPrintPriceCurrent: seed.cardPrintPriceCurrent.length,
     sealedProducts: seed.sealedProducts.length,
