@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -24,6 +25,12 @@ function columnByName(table: Parameters<typeof getTableConfig>[0], name: string)
   const column = getTableConfig(table).columns.find((entry) => entry.name === name);
   assert.ok(column, `expected column ${name}`);
   return column;
+}
+
+function foreignKeyByName(table: Parameters<typeof getTableConfig>[0], name: string) {
+  const foreignKey = getTableConfig(table).foreignKeys.find((entry) => entry.getName() === name);
+  assert.ok(foreignKey, `expected foreign key ${name}`);
+  return foreignKey;
 }
 
 function assertColumns(table: Parameters<typeof getTableConfig>[0], expected: string[]) {
@@ -113,6 +120,32 @@ test("pricing verifier schema includes published and verification tables", async
   ]);
   assert.equal(columnByName(schema.cardPrintPricePublished, "external_variant_id").notNull, true);
   assert.equal(columnByName(schema.cardPrintDisplayPublished, "external_variant_id").notNull, true);
+  assert.deepEqual(columnByName(schema.pricingVerificationResults, "mapping_integrity_status").enumValues, [
+    "verified",
+    "warning",
+    "mismatch",
+    "blocked",
+    "unknown",
+  ]);
+  assert.deepEqual(columnByName(schema.pricingVerificationResults, "label_integrity_status").enumValues, [
+    "verified",
+    "normalized",
+    "fallback",
+    "blocked",
+    "unknown",
+  ]);
+  assert.deepEqual(columnByName(schema.cardPrintDisplayPublished, "label_status").enumValues, [
+    "verified",
+    "normalized",
+    "fallback",
+    "blocked",
+    "unknown",
+  ]);
+
+  assert.equal(foreignKeyByName(schema.cardPrintPricePublished, "card_print_price_published_external_product_id_external_products_id_fk").onDelete, "no action");
+  assert.equal(foreignKeyByName(schema.cardPrintPricePublished, "card_print_price_published_external_variant_id_external_product_variants_id_fk").onDelete, "no action");
+  assert.equal(foreignKeyByName(schema.cardPrintDisplayPublished, "card_print_display_published_external_product_id_external_products_id_fk").onDelete, "no action");
+  assert.equal(foreignKeyByName(schema.cardPrintDisplayPublished, "card_print_display_published_external_variant_id_external_product_variants_id_fk").onDelete, "no action");
 
   assertIndexes(schema.pricingVerificationResults, [
     "pricing_verification_results_card_print_idx",
@@ -130,4 +163,27 @@ test("pricing verifier schema includes published and verification tables", async
     "card_print_display_published_card_print_idx",
     "card_print_display_published_verification_run_idx",
   ]);
+
+  const migrationSql = readFileSync(
+    path.join(REPO_ROOT, "db/migrations/0004_flat_jack_murdock.sql"),
+    "utf8",
+  );
+  assert.match(
+    migrationSql,
+    /CREATE TYPE "public"\."pricing_mapping_integrity_status" AS ENUM\('verified', 'warning', 'mismatch', 'blocked', 'unknown'\);/,
+  );
+  assert.match(
+    migrationSql,
+    /CREATE TYPE "public"\."pricing_label_status" AS ENUM\('verified', 'normalized', 'fallback', 'blocked', 'unknown'\);/,
+  );
+  assert.match(
+    migrationSql,
+    /FOREIGN KEY \("external_product_id"\) REFERENCES "public"\."external_products"\("id"\) ON DELETE no action ON UPDATE no action;/,
+  );
+  assert.match(
+    migrationSql,
+    /FOREIGN KEY \("external_variant_id"\) REFERENCES "public"\."external_product_variants"\("id"\) ON DELETE no action ON UPDATE no action;/,
+  );
+  assert.doesNotMatch(migrationSql, /ALTER TABLE "card_print_display_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
+  assert.doesNotMatch(migrationSql, /ALTER TABLE "card_print_price_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
 });

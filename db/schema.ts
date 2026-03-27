@@ -114,6 +114,22 @@ export const pricingMappingConflictTypeEnum = pgEnum("pricing_mapping_conflict_t
   "ui_label_mismatch",
 ]);
 
+export const pricingMappingIntegrityStatusEnum = pgEnum("pricing_mapping_integrity_status", [
+  "verified",
+  "warning",
+  "mismatch",
+  "blocked",
+  "unknown",
+]);
+
+export const pricingLabelStatusEnum = pgEnum("pricing_label_status", [
+  "verified",
+  "normalized",
+  "fallback",
+  "blocked",
+  "unknown",
+]);
+
 export const games = pgTable(
   "games",
   {
@@ -570,8 +586,8 @@ export const pricingVerificationResults = pgTable(
     publishedPriceNmBefore: numeric("published_price_nm_before", { precision: 12, scale: 2 }),
     priceDeltaAbs: numeric("price_delta_abs", { precision: 12, scale: 2 }),
     priceDeltaRatio: numeric("price_delta_ratio", { precision: 10, scale: 6 }),
-    mappingIntegrityStatus: text("mapping_integrity_status").notNull(),
-    labelIntegrityStatus: text("label_integrity_status").notNull(),
+    mappingIntegrityStatus: pricingMappingIntegrityStatusEnum("mapping_integrity_status").notNull(),
+    labelIntegrityStatus: pricingLabelStatusEnum("label_integrity_status").notNull(),
     verificationStatus: pricingVerificationStatusEnum("verification_status").notNull(),
     reason: text("reason"),
     checkedAt: timestamp("checked_at", { withTimezone: true }).defaultNow().notNull(),
@@ -636,7 +652,7 @@ export const cardPrintPricePublished = pgTable(
       .references(() => externalSources.id, { onDelete: "cascade" }),
     externalProductId: text("external_product_id")
       .notNull()
-      .references(() => externalProducts.id, { onDelete: "cascade" }),
+      .references(() => externalProducts.id, { onDelete: "no action" }),
     externalVariantId: text("external_variant_id")
       .notNull()
       .references(() => externalProductVariants.id, { onDelete: "no action" }),
@@ -674,7 +690,7 @@ export const cardPrintDisplayPublished = pgTable(
       .references(() => cardPrints.id, { onDelete: "cascade" }),
     externalProductId: text("external_product_id")
       .notNull()
-      .references(() => externalProducts.id, { onDelete: "cascade" }),
+      .references(() => externalProducts.id, { onDelete: "no action" }),
     externalVariantId: text("external_variant_id")
       .notNull()
       .references(() => externalProductVariants.id, { onDelete: "no action" }),
@@ -684,7 +700,7 @@ export const cardPrintDisplayPublished = pgTable(
     displayTitle: text("display_title").notNull(),
     displayTreatmentLabel: text("display_treatment_label"),
     displayImageUrl: text("display_image_url"),
-    labelStatus: text("label_status").notNull(),
+    labelStatus: pricingLabelStatusEnum("label_status").notNull(),
     verificationRunId: bigint("verification_run_id", { mode: "number" })
       .notNull()
       .references(() => pricingVerificationRuns.id, { onDelete: "restrict" }),
