@@ -839,6 +839,7 @@ test("buildSeed uses the Near Mint JustTCG variant as the canonical runtime pric
           {
             devilfruit_id: "EB01-001",
             justtcg_id: "oden-neo-openings",
+            price_market: 7.77,
             price_nm: 0.45,
             price_lp: 0.18,
             price_change_24h: 0,
@@ -901,9 +902,9 @@ test("buildSeed uses the Near Mint JustTCG variant as the canonical runtime pric
       external_product_id: "justtcg:oden-neo-openings",
       external_variant_id: "justtcg:oden-neo-openings-nm",
       recorded_at: "2026-03-19T12:54:12.000Z",
-      price_nm: 0.45,
+      price_nm: 0.22,
       price_lp: 0.18,
-      price_market: 0.45,
+      price_market: 0.22,
     },
   ]);
   assert.deepEqual(seed.priceSnapshots, [

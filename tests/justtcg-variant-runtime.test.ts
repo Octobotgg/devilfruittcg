@@ -83,6 +83,7 @@ test("applySeed backfills active NM variants into current prices and history row
           {
             devilfruit_id: "EB01-001",
             justtcg_id: "oden-backfill",
+            price_market: 9.99,
             price_nm: 0.45,
             price_lp: 0.18,
             price_change_24h: 0,
@@ -98,9 +99,9 @@ test("applySeed backfills active NM variants into current prices and history row
         historyRows: [
           {
             devilfruit_id: "EB01-001",
-            price_nm: 0.22,
-            price_lp: 0.18,
-            price_market: 0.22,
+            price_nm: 9.99,
+            price_lp: 8.88,
+            price_market: 7.77,
             recorded_at: "2026-03-18T13:00:00.000Z",
           },
         ],
@@ -264,6 +265,7 @@ test("buildSeed leaves exact approved raw cards unpriced when no English Near Mi
           {
             devilfruit_id: "EB01-001",
             justtcg_id: "oden-no-nm",
+            price_market: 9.99,
             price_nm: 0.45,
             price_lp: 0.18,
             price_change_24h: 0,

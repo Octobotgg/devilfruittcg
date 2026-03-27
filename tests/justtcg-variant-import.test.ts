@@ -279,9 +279,9 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
       external_product_id: "justtcg:ace-finalist-pack",
       external_variant_id: "justtcg:ace-finalist-pack-nm",
       recorded_at: "2026-03-24T00:05:00.000Z",
-      price_nm: 810,
-      price_lp: 590,
-      price_market: 810,
+      price_nm: 850,
+      price_lp: 600,
+      price_market: 850,
     },
   ]);
 });
@@ -397,7 +397,7 @@ test("buildSeed deterministically picks the lexicographically smallest English N
       external_variant_id: "justtcg:a-ace-nm",
       price_market: 850,
       price_nm: 850,
-      price_lp: 590,
+      price_lp: null,
       price_change_24h: null,
       price_change_7d: null,
       price_change_30d: null,

@@ -10,8 +10,6 @@ const ROOT = path.resolve(__dirname, "..");
 const DEFAULT_CATALOG_PATH = path.join(ROOT, ".cache", "justtcg", "one-piece-catalog.latest.json");
 const DEFAULT_MAPPING_REPORT_PATH = path.join(ROOT, ".cache", "justtcg", "released-mapping-report.json");
 const DEFAULT_PRICE_DATA_PATH = path.join(ROOT, ".cache", "justtcg", "approved-price-sync-data.json");
-const DEFAULT_DESKTOP_CATALOG_PATH = "/Users/javierbarro/Desktop/devilfruittcg/.cache/justtcg/one-piece-catalog.latest.json";
-const DEFAULT_DESKTOP_PRICE_DATA_PATH = "/Users/javierbarro/Desktop/devilfruittcg/.cache/justtcg/approved-price-sync-data.json";
 const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-releases.json");
 const DEFAULT_CHUNK_SIZE = 250;
 
@@ -56,6 +54,8 @@ function parseArgs(argv) {
     catalog: DEFAULT_CATALOG_PATH,
     mappingReport: DEFAULT_MAPPING_REPORT_PATH,
     priceData: DEFAULT_PRICE_DATA_PATH,
+    catalogFallback: [],
+    priceDataFallback: [],
     seedOut: null,
     chunkSize: DEFAULT_CHUNK_SIZE,
   };
@@ -79,6 +79,12 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (value === "--catalog-fallback") {
+      args.catalogFallback = parseFallbackPaths(argv[index + 1]);
+      index += 1;
+      continue;
+    }
+
     if (value === "--mapping-report") {
       args.mappingReport = argv[index + 1] ? path.resolve(process.cwd(), argv[index + 1]) : args.mappingReport;
       index += 1;
@@ -87,6 +93,12 @@ function parseArgs(argv) {
 
     if (value === "--price-data") {
       args.priceData = argv[index + 1] ? path.resolve(process.cwd(), argv[index + 1]) : args.priceData;
+      index += 1;
+      continue;
+    }
+
+    if (value === "--price-data-fallback") {
+      args.priceDataFallback = parseFallbackPaths(argv[index + 1]);
       index += 1;
       continue;
     }
@@ -105,6 +117,14 @@ function parseArgs(argv) {
   }
 
   return args;
+}
+
+function parseFallbackPaths(value) {
+  return String(value || "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .map((entry) => path.resolve(process.cwd(), entry));
 }
 
 function cleanText(value) {
@@ -850,6 +870,17 @@ function buildPriceSnapshotRow(externalProductId, externalVariantId, priceRow, r
   };
 }
 
+function buildVariantPriceValues(canonicalVariant, lpVariant) {
+  const priceNm = typeof canonicalVariant?.price === "number" ? canonicalVariant.price : null;
+  const priceLp = typeof lpVariant?.price === "number" ? lpVariant.price : null;
+
+  return {
+    price_market: priceNm,
+    price_nm: priceNm,
+    price_lp: priceLp,
+  };
+}
+
 function extractJusttcgId(externalProductId) {
   return cleanText(String(externalProductId || "").split(":").slice(1).join(":"));
 }
@@ -880,18 +911,17 @@ function buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, pric
     if (!resolved) continue;
 
     const { priceRow, canonicalVariant, lpVariant } = resolved;
+    const variantPriceValues = buildVariantPriceValues(canonicalVariant, lpVariant);
     const updatedAt = normalizeTimestamp(priceRow?.last_updated_at || priceRow?.lastUpdated || priceRow?.last_updated_justtcg) || normalizeTimestamp(priceRow?.fetched_at);
     if (!updatedAt) continue;
 
     const externalVariantId = canonicalVariant?.id || null;
-    const priceNm = canonicalVariant?.price ?? priceRow?.price_nm ?? null;
-    const priceLp = lpVariant?.price ?? priceRow?.price_lp ?? null;
+    const priceNm = variantPriceValues.price_nm;
+    const priceLp = variantPriceValues.price_lp;
     const snapshotPriceRow = canonicalVariant
       ? {
           ...priceRow,
-          price_market: priceRow?.price_market ?? priceNm ?? null,
-          price_nm: priceNm,
-          price_lp: priceLp,
+          ...variantPriceValues,
         }
       : priceRow;
 
@@ -900,7 +930,7 @@ function buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, pric
       source_id: JUSTTCG_SOURCE.id,
       external_product_id: assignment.external_product_id,
       external_variant_id: externalVariantId,
-      price_market: priceRow?.price_market ?? priceNm ?? null,
+      price_market: variantPriceValues.price_market,
       price_nm: priceNm,
       price_lp: priceLp,
       price_change_24h: priceRow?.price_change_24h ?? null,
@@ -938,6 +968,14 @@ function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId
     const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
     const canonicalVariant = selectCanonicalVariant(variants);
     if (!canonicalVariant) continue;
+    const lpVariant = [...variants]
+      .filter(
+        (variant) =>
+          normalizeLookupKey(variant?.language) === "english" &&
+          normalizeLookupKey(variant?.condition) === "lightly played",
+      )
+      .sort(compareVariantCandidates)[0] || null;
+    const variantPriceValues = buildVariantPriceValues(canonicalVariant, lpVariant);
     const recordedAt = normalizeTimestamp(historyRow?.recorded_at);
     if (!recordedAt) continue;
 
@@ -947,9 +985,9 @@ function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId
       external_product_id: assignment.external_product_id,
       external_variant_id: canonicalVariant?.id || null,
       recorded_at: recordedAt,
-      price_nm: historyRow?.price_nm ?? null,
-      price_lp: historyRow?.price_lp ?? null,
-      price_market: historyRow?.price_market ?? historyRow?.price_nm ?? null,
+      price_nm: variantPriceValues.price_nm,
+      price_lp: variantPriceValues.price_lp,
+      price_market: variantPriceValues.price_market,
     });
   }
 
@@ -958,6 +996,14 @@ function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId
       const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
       const canonicalVariant = selectCanonicalVariant(variants);
       if (!canonicalVariant) continue;
+      const lpVariant = [...variants]
+        .filter(
+          (variant) =>
+            normalizeLookupKey(variant?.language) === "english" &&
+            normalizeLookupKey(variant?.condition) === "lightly played",
+        )
+        .sort(compareVariantCandidates)[0] || null;
+      const variantPriceValues = buildVariantPriceValues(canonicalVariant, lpVariant);
 
       const currentPriceRow = priceIndex?.byCardPrintId?.get(assignment.card_print_id) || null;
       const recordedAt =
@@ -971,9 +1017,9 @@ function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId
         external_product_id: assignment.external_product_id,
         external_variant_id: canonicalVariant.id,
         recorded_at: recordedAt,
-        price_nm: currentPriceRow?.price_nm ?? canonicalVariant?.price ?? null,
-        price_lp: currentPriceRow?.price_lp ?? null,
-        price_market: currentPriceRow?.price_market ?? currentPriceRow?.price_nm ?? canonicalVariant?.price ?? null,
+        price_nm: variantPriceValues.price_nm,
+        price_lp: variantPriceValues.price_lp,
+        price_market: variantPriceValues.price_market,
       });
     }
   }
@@ -1528,9 +1574,9 @@ async function applySeed(seed, options) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const [catalog, mappingReport, priceData, officialReleases] = await Promise.all([
-    readJsonWithFallback(args.catalog, [DEFAULT_DESKTOP_CATALOG_PATH]),
+    readJsonWithFallback(args.catalog, args.catalogFallback),
     readJsonWithFallback(args.mappingReport),
-    readJsonWithFallback(args.priceData, [DEFAULT_DESKTOP_PRICE_DATA_PATH]),
+    readJsonWithFallback(args.priceData, args.priceDataFallback),
     readJsonIfExists(OFFICIAL_RELEASES_PATH),
   ]);
 
