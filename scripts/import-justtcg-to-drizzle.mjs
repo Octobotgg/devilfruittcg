@@ -1323,6 +1323,53 @@ async function fetchExistingSnapshotKeys(sql, snapshotRows, chunkSize) {
   return keys;
 }
 
+function buildHistoryRowKey(row) {
+  return [
+    row.card_print_id,
+    row.source_id,
+    row.external_product_id ?? "",
+    row.external_variant_id ?? "",
+    new Date(row.recorded_at).toISOString(),
+  ].join("::");
+}
+
+function filterPendingHistoryRows(rows, existingHistoryKeys) {
+  return rows.filter((row) => !existingHistoryKeys.has(buildHistoryRowKey(row)));
+}
+
+async function fetchExistingHistoryKeys(sql, historyRows, chunkSize) {
+  const keys = new Set();
+  if (!historyRows.length) return keys;
+
+  for (const group of chunk(historyRows, chunkSize)) {
+    const params = [];
+    const tuples = group
+      .map((row) => {
+        params.push(
+          row.card_print_id,
+          row.source_id,
+          row.external_product_id,
+          row.external_variant_id || "",
+          row.recorded_at,
+        );
+        return `($${params.length - 4}, $${params.length - 3}, $${params.length - 2}, $${params.length - 1}, $${params.length})`;
+      })
+      .join(", ");
+
+    const sqlText = `
+      select card_print_id, source_id, external_product_id, coalesce(external_variant_id, '') as external_variant_id, recorded_at
+      from card_print_price_history
+      where (card_print_id, source_id, external_product_id, coalesce(external_variant_id, ''), recorded_at) in (${tuples})
+    `;
+    const rows = await sql.unsafe(sqlText, params);
+    for (const row of rows) {
+      keys.add(buildHistoryRowKey(row));
+    }
+  }
+
+  return keys;
+}
+
 async function fetchExistingActiveJusttcgCardPrintIds(sql) {
   const rows = await sql.unsafe(
     `
@@ -1387,6 +1434,10 @@ async function applySeed(seed, options) {
       ["card_print_id", "source_id"],
       options.chunkSize,
     );
+
+    const existingHistoryKeys = await fetchExistingHistoryKeys(sql, seed.cardPrintPriceHistory || [], options.chunkSize);
+    const pendingHistory = filterPendingHistoryRows(seed.cardPrintPriceHistory || [], existingHistoryKeys);
+    await insertRows(sql, "card_print_price_history", pendingHistory, options.chunkSize);
 
     await deleteCurrentByCollectibleIds(
       sql,

@@ -119,6 +119,28 @@ test("applySeed upserts variants first, writes active variant ids, and dedupes s
       external_variant_id: "justtcg:z-ace-nm",
     },
   ];
+  seed.cardPrintPriceHistory = [
+    {
+      card_print_id: "OP10-033_p2",
+      source_id: "justtcg",
+      external_product_id: "justtcg:ace-nm-order",
+      external_variant_id: "justtcg:a-ace-nm",
+      recorded_at: "2026-03-24T00:05:00.000Z",
+      price_nm: 810,
+      price_lp: 590,
+      price_market: 810,
+    },
+    {
+      card_print_id: "OP10-033_p2",
+      source_id: "justtcg",
+      external_product_id: "justtcg:ace-nm-order",
+      external_variant_id: "justtcg:z-ace-nm",
+      recorded_at: "2026-03-24T00:05:00.000Z",
+      price_nm: 799,
+      price_lp: 580,
+      price_market: 799,
+    },
+  ];
 
   const queries: Array<{ text: string; params: unknown[] }> = [];
   const fakeSql = {
@@ -140,6 +162,18 @@ test("applySeed upserts variants first, writes active variant ids, and dedupes s
         ];
       }
 
+      if (normalized.includes('from card_print_price_history')) {
+        return [
+          {
+            card_print_id: "OP10-033_p2",
+            source_id: "justtcg",
+            external_product_id: "justtcg:ace-nm-order",
+            external_variant_id: "justtcg:a-ace-nm",
+            recorded_at: "2026-03-24T00:05:00.000Z",
+          },
+        ];
+      }
+
       return [];
     },
     end: async () => {},
@@ -150,12 +184,14 @@ test("applySeed upserts variants first, writes active variant ids, and dedupes s
   const variantUpsertIndex = queries.findIndex((entry) => entry.text.includes('insert into "external_product_variants"'));
   const cardPrintsUpdateIndex = queries.findIndex((entry) => entry.text.startsWith('update "card_prints"'));
   const currentPriceUpsertIndex = queries.findIndex((entry) => entry.text.includes('insert into "card_print_price_current"'));
+  const historyInsertIndex = queries.findIndex((entry) => entry.text.includes('insert into "card_print_price_history"'));
   const snapshotSelect = queries.find((entry) => entry.text.includes("from price_snapshots"));
   const snapshotInsert = queries.find((entry) => entry.text.includes('insert into "price_snapshots"'));
 
   assert.ok(variantUpsertIndex >= 0, "external_product_variants should be written");
   assert.ok(cardPrintsUpdateIndex >= 0, "card_prints should be updated");
   assert.ok(currentPriceUpsertIndex >= 0, "card_print_price_current should be written");
+  assert.ok(historyInsertIndex >= 0, "card_print_price_history should be written");
   assert.ok(snapshotSelect, "snapshot de-dupe query should run");
   assert.ok(snapshotInsert, "price_snapshots should be written");
 
@@ -179,5 +215,15 @@ test("applySeed upserts variants first, writes active variant ids, and dedupes s
     snapshotInsert!.params.includes("justtcg:z-ace-nm"),
     true,
     "different variants with the same product and timestamp should not be deduped together",
+  );
+  assert.equal(
+    queries[historyInsertIndex].params.includes("justtcg:z-ace-nm"),
+    true,
+    "history writes should keep variant-specific rows that are not already present",
+  );
+  assert.equal(
+    queries[historyInsertIndex].params.includes("justtcg:a-ace-nm"),
+    false,
+    "history writes should skip rows already present by natural key",
   );
 });
