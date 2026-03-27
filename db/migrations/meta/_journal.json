@@ -15,6 +15,13 @@
       "when": 1774568872130,
       "tag": "0001_moaning_ultimates",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774569485452,
+      "tag": "0002_bright_warpath",
+      "breakpoints": true
     }
   ]
 }

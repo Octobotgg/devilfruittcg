@@ -2,6 +2,7 @@ import {
   bigserial,
   boolean,
   date,
+  foreignKey,
   index,
   integer,
   jsonb,
@@ -204,6 +205,7 @@ export const externalProducts = pgTable(
       table.sourceId,
       table.externalProductId,
     ),
+    idSourceUnique: uniqueIndex("external_products_id_source_id_unique").on(table.id, table.sourceId),
     productKindIdx: index("external_products_product_kind_idx").on(table.productKind),
     numberIdx: index("external_products_number_idx").on(table.number),
     nameIdx: index("external_products_name_idx").on(table.name),
@@ -231,8 +233,18 @@ export const externalProductVariants = pgTable(
     ...timestamps,
   },
   (table) => ({
+    productSourceFk: foreignKey({
+      name: "external_product_variants_product_source_fk",
+      columns: [table.externalProductId, table.sourceId],
+      foreignColumns: [externalProducts.id, externalProducts.sourceId],
+    }).onDelete("cascade"),
     providerVariantIdUnique: uniqueIndex("external_product_variants_provider_variant_id_unique").on(
       table.providerVariantId,
+    ),
+    productSourceIdUnique: uniqueIndex("external_product_variants_product_source_id_unique").on(
+      table.externalProductId,
+      table.sourceId,
+      table.id,
     ),
     externalProductIdx: index("external_product_variants_external_product_id_idx").on(table.externalProductId),
     conditionPrintingIdx: index("external_product_variants_condition_printing_idx").on(table.condition, table.printing),
@@ -281,6 +293,9 @@ export const cardPrints = pgTable(
     activeExternalProductUnique: uniqueIndex("card_prints_active_external_product_unique")
       .on(table.activeExternalProductId)
       .where(sql`${table.activeExternalProductId} is not null`),
+    activeExternalVariantUnique: uniqueIndex("card_prints_active_external_variant_unique")
+      .on(table.activeExternalVariantId)
+      .where(sql`${table.activeExternalVariantId} is not null`),
     variantTypeIdx: index("card_prints_variant_type_idx").on(table.variantType),
   }),
 );
@@ -430,6 +445,15 @@ export const cardPrintPriceCurrent = pgTable(
     fetchedAt: timestamp("fetched_at", { withTimezone: true }),
   },
   (table) => ({
+    productSourceVariantFk: foreignKey({
+      name: "card_print_price_current_product_source_variant_fk",
+      columns: [table.externalProductId, table.sourceId, table.externalVariantId],
+      foreignColumns: [
+        externalProductVariants.externalProductId,
+        externalProductVariants.sourceId,
+        externalProductVariants.id,
+      ],
+    }).onDelete("no action"),
     pk: primaryKey({ columns: [table.cardPrintId, table.sourceId] }),
     cardPrintIdx: index("card_print_price_current_card_print_idx").on(table.cardPrintId),
     sourceUpdatedIdx: index("card_print_price_current_source_updated_idx").on(table.sourceId, table.updatedAt),
@@ -457,6 +481,15 @@ export const cardPrintPriceHistory = pgTable(
     priceMarket: numeric("price_market", { precision: 12, scale: 2 }),
   },
   (table) => ({
+    productSourceVariantFk: foreignKey({
+      name: "card_print_price_history_product_source_variant_fk",
+      columns: [table.externalProductId, table.sourceId, table.externalVariantId],
+      foreignColumns: [
+        externalProductVariants.externalProductId,
+        externalProductVariants.sourceId,
+        externalProductVariants.id,
+      ],
+    }).onDelete("no action"),
     printRecordedAtIdx: index("card_print_price_history_print_recorded_at_idx").on(table.cardPrintId, table.recordedAt),
   }),
 );
