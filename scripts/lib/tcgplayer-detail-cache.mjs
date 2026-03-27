@@ -41,6 +41,23 @@ function normalizeFetchedAt(value) {
   return String(value ?? "");
 }
 
+function parseFetchedAtMs(value) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value < 1e12 ? value * 1000 : value;
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    if (/^\d+$/.test(trimmed)) {
+      const numeric = Number(trimmed);
+      return Number.isFinite(numeric) ? (numeric < 1e12 ? numeric * 1000 : numeric) : null;
+    }
+    const parsed = Date.parse(trimmed);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
 function normalizeEntry(entry) {
   if (!entry || typeof entry !== "object") return { entry: null, migrated: false, persistOnRead: false };
   if ("fetched_at" in entry) return { entry, migrated: false, persistOnRead: false };
@@ -149,12 +166,10 @@ function getCachedEntryForRead(cachePath, cache, key) {
 function getFetchedAtMs(entry) {
   if (!entry || typeof entry !== "object") return null;
   if ("fetched_at" in entry) {
-    const value = Date.parse(String(entry.fetched_at));
-    return Number.isFinite(value) ? value : null;
+    return parseFetchedAtMs(entry.fetched_at);
   }
   if ("fetchedAt" in entry) {
-    const value = Number(entry.fetchedAt);
-    return Number.isFinite(value) ? value : null;
+    return parseFetchedAtMs(entry.fetchedAt);
   }
   return null;
 }

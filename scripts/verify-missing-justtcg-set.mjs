@@ -56,6 +56,42 @@ function setAliasesForCard(card) {
   return [...aliases];
 }
 
+const PREMIUM_HINT_LABELS = {
+  red_super_alt: { variantType: "alt_art", variantLabel: "Red Super Alternate Art", token: "red super alternate art" },
+  super_alt: { variantType: "alt_art", variantLabel: "Super Alternate Art", token: "super alternate art" },
+  jolly_roger_foil: { variantType: "parallel", variantLabel: "Jolly Roger Foil", token: "jolly roger foil" },
+  full_art: { variantType: "alt_art", variantLabel: "Full Art", token: "full art" },
+  treasure_rare: { variantType: "alt_art", variantLabel: "Treasure Rare", token: "treasure rare" },
+  pirate_foil: { variantType: "parallel", variantLabel: "Pirate Foil", token: "pirate foil" },
+  participation: { variantType: "sp", variantLabel: "Participation Pack", token: "participation" },
+  finalist: { variantType: "sp", variantLabel: "Finalist", token: "finalist" },
+  champion: { variantType: "sp", variantLabel: "Champion", token: "champion" },
+  gold: { variantType: "sp", variantLabel: "SP (Gold)", token: "gold" },
+  silver: { variantType: "sp", variantLabel: "SP (Silver)", token: "silver" },
+  event_pack: { variantType: "sp", variantLabel: "Event Pack", token: "event pack" },
+  winner_pack: { variantType: "sp", variantLabel: "Winner Pack", token: "winner pack" },
+  winner_card_set: { variantType: "sp", variantLabel: "Winner Card Set", token: "winner card set" },
+  tournament_pack: { variantType: "sp", variantLabel: "Tournament Pack", token: "tournament pack" },
+  alt: { variantType: "alt_art", variantLabel: "Alternate Art", token: "alternate art" },
+  sp: { variantType: "sp", variantLabel: "SP", token: "sp" },
+  manga: { variantType: "manga", variantLabel: "Manga", token: "manga" },
+  anniversary: { variantType: "anniversary", variantLabel: "Anniversary", token: "anniversary" },
+  reprint: { variantType: "parallel", variantLabel: "Reprint", token: "reprint" },
+};
+
+function premiumLabelFromCard(card) {
+  const syntheticCandidate = {
+    name: [card.variantLabel, card.variantSlug, card.name].filter(Boolean).join(" "),
+    set_name: [card.set, card.originSet].filter(Boolean).join(" "),
+    set: [card.set, card.originSet].filter(Boolean).join(" "),
+  };
+  for (const hint of candidatePremiumHints(syntheticCandidate)) {
+    const mapped = PREMIUM_HINT_LABELS[hint];
+    if (mapped) return mapped.token;
+  }
+  return null;
+}
+
 function labelTokens(card) {
   const variantLabel = normalizeText(card.variantLabel || "");
   const variantType = String(card.variantType || "").toLowerCase();
@@ -66,16 +102,29 @@ function labelTokens(card) {
   if (variantLabel.includes("champion") || variantSlug.includes("champion")) return ["champion"];
   if (variantLabel.includes("gold") || variantSlug.includes("gold")) return ["gold"];
   if (variantLabel.includes("silver") || variantSlug.includes("silver")) return ["silver"];
-  if (variantType === "alt_art" || variantLabel.includes("alternate art") || variantSlug.includes("alternate art")) return ["alternate art"];
   if (variantType === "sp" || variantLabel === "sp" || variantSlug === "sp") return ["sp"];
   if (variantType === "parallel" || variantLabel.includes("parallel") || variantSlug.includes("parallel")) return ["parallel"];
   if (variantType === "anniversary" || variantLabel.includes("anniversary") || variantSlug.includes("anniversary")) return ["anniversary"];
   if (variantType === "manga" || variantLabel.includes("manga") || variantSlug.includes("manga")) return ["manga"];
   if (variantLabel.includes("reprint") || variantSlug.includes("reprint")) return ["reprint"];
+  const premiumLabel = premiumLabelFromCard(card);
+  if (premiumLabel) return [premiumLabel];
+  if (variantType === "alt_art" || variantLabel.includes("alternate art") || variantSlug.includes("alternate art")) return ["alternate art"];
   return [];
 }
 
 function labelFromCandidateAndDetail(candidate, detail) {
+  const syntheticCandidate = {
+    name: [candidate?.name, detail?.productName, detail?.productUrlName].filter(Boolean).join(" "),
+    set_name: [candidate?.set_name, detail?.setName].filter(Boolean).join(" "),
+    set: [candidate?.set, detail?.setName].filter(Boolean).join(" "),
+    id: candidate?.id,
+  };
+  for (const hint of candidatePremiumHints(syntheticCandidate)) {
+    const mapped = PREMIUM_HINT_LABELS[hint];
+    if (mapped) return { variantType: mapped.variantType, variantLabel: mapped.variantLabel };
+  }
+
   const haystack = normalizeText([
     candidate?.name,
     detail?.productName,
