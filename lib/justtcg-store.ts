@@ -127,6 +127,10 @@ function normalizeProductKind(value: string | null | undefined) {
   }
 }
 
+function isNearMintVariant(condition: string | null | undefined) {
+  return String(condition || "").trim().toLowerCase() === "near mint";
+}
+
 function extractJustTcgId(externalProductId: string | null | undefined) {
   const value = String(externalProductId || "").trim();
   return value.startsWith("justtcg:") ? value.slice("justtcg:".length) : value;
@@ -158,6 +162,7 @@ function usablePriceRow(row: ReadModelPriceRow | null | undefined): row is ReadM
       row.activeExternalVariantId &&
       row.externalVariantId === row.activeExternalVariantId &&
       row.mappingApproved &&
+      isNearMintVariant(row.variantCondition) &&
       normalizeProductKind(row.productKind) === "raw_card",
   );
 }

@@ -107,6 +107,10 @@ function normalizeProductKind(value: string | null | undefined) {
   }
 }
 
+function isNearMintVariant(condition: string | null | undefined) {
+  return String(condition || "").trim().toLowerCase() === "near mint";
+}
+
 function rowAliases(row: VariantPriceRow | VariantPriceHistoryRow) {
   return new Set(
     [row.printedCardCode, row.cardId]
@@ -132,6 +136,7 @@ function usablePriceRow(row: VariantPriceRow | null | undefined): row is Variant
       row.externalVariantId &&
       row.activeExternalVariantId &&
       row.mappingApproved &&
+      isNearMintVariant(row.variantCondition) &&
       normalizeProductKind(row.productKind) === "raw_card",
   );
 }
@@ -230,7 +235,12 @@ function resolveRuntimePrice(cardPrintId: string, row: VariantPriceRow | null | 
     return createUnpriced(cardPrintId, "kind_mismatch");
   }
 
-  if (!row.activeExternalVariantId || !row.externalVariantId || row.activeExternalVariantId !== row.externalVariantId) {
+  if (
+    !row.activeExternalVariantId ||
+    !row.externalVariantId ||
+    row.activeExternalVariantId !== row.externalVariantId ||
+    !isNearMintVariant(row.variantCondition)
+  ) {
     return createUnpriced(cardPrintId, "missing_active_approved_mapping");
   }
 

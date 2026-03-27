@@ -46,6 +46,7 @@ test("mapped raw card returns NM USD price", async () => {
         externalProductId: "justtcg:123",
         externalVariantId: "justtcg:123:nm",
         activeExternalVariantId: "justtcg:123:nm",
+        variantCondition: "Near Mint",
         productKind: "raw_card",
         justtcgTitle: "Monkey D. Luffy OP01-001",
         justtcgImageUrl: "https://img.example/luffy.jpg",
@@ -88,6 +89,7 @@ test("variant-backed raw card pricing exposes the active NM variant", async () =
         externalProductId: "justtcg:123",
         externalVariantId: "justtcg:123:nm",
         activeExternalVariantId: "justtcg:123:nm",
+        variantCondition: "Near Mint",
         productKind: "raw_card",
         justtcgTitle: "Monkey D. Luffy OP01-001",
         justtcgImageUrl: "https://img.example/luffy.jpg",
@@ -110,6 +112,43 @@ test("variant-backed raw card pricing exposes the active NM variant", async () =
   assert.equal(result.currentPriceType, "near_mint");
   assert.equal(result.currency, "USD");
   assert.equal(result.justtcg.title, "Monkey D. Luffy OP01-001");
+});
+
+test("non-NM active variants remain unpriced", async () => {
+  const { getCardPrintRuntimePrice } =
+    await importModule<typeof import("../lib/server/pricing/card-print-prices")>(
+      "lib/server/pricing/card-print-prices.ts",
+    );
+
+  const result = await getCardPrintRuntimePrice("cp-non-nm-variant", {
+    loadRows: async () => [
+      {
+        cardPrintId: "cp-non-nm-variant",
+        cardId: "OP01-002",
+        printedCardCode: "OP01-002",
+        officialName: "Roronoa Zoro",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:124",
+        externalVariantId: "justtcg:124-lp",
+        activeExternalVariantId: "justtcg:124-lp",
+        variantCondition: "Lightly Played",
+        productKind: "raw_card",
+        justtcgTitle: "Roronoa Zoro OP01-002",
+        justtcgImageUrl: "https://img.example/zoro.jpg",
+        mappingApproved: true,
+        priceMarket: "11.00",
+        priceNm: "10.50",
+        priceLp: "9.25",
+        priceChange24h: "0.75",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        fetchedAt: "2026-03-25T00:05:00.000Z",
+      },
+    ],
+  });
+
+  assert.equal(result.status, "unpriced");
+  assert.equal(result.reason, "missing_active_approved_mapping");
 });
 
 test("product-level links without an active NM variant remain unpriced", async () => {
@@ -495,6 +534,40 @@ test("market home rejects remapped sealed rows that do not match the active exte
       },
     ),
     false,
+  );
+});
+
+test("market home sealed movers stay compatible without variant gating", async () => {
+  const { passesMarketMoverTrustFilters } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  assert.equal(
+    passesMarketMoverTrustFilters(
+      {
+        collectibleId: "sealed-ok",
+        collectibleKind: "sealed",
+        cardId: null,
+        officialName: "Romance Dawn Booster Box",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:sealed-1",
+        activeExternalProductId: "justtcg:sealed-1",
+        justtcgTitle: "Romance Dawn Booster Box",
+        justtcgImageUrl: "https://img.example/box.jpg",
+        currentPrice: "110.00",
+        priceChange24h: "10.00",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        mappingApproved: true,
+      },
+      {
+        minimumPriceFloor: 0,
+        maximumAbsoluteDelta: 500,
+        maximumPercentSwing: 500,
+      },
+    ),
+    true,
   );
 });
 
