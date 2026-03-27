@@ -41,13 +41,78 @@ function normalizeSql(text: string) {
   return text.replace(/\s+/g, " ").trim();
 }
 
-function createRecordingSql() {
-  const queries: Array<{ text: string; params: unknown[] }> = [];
+function clone<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function createStatefulSql(initialState?: {
+  cardPrints?: Array<{ id: string; active_external_product_id: string | null; active_external_variant_id: string | null }>;
+  cardPrintPriceCurrent?: Array<Record<string, unknown>>;
+}) {
+  const state = {
+    cardPrints: new Map(
+      (initialState?.cardPrints || []).map((row) => [row.id, clone(row)] as const),
+    ),
+    cardPrintPriceCurrent: new Map(
+      (initialState?.cardPrintPriceCurrent || []).map((row) => [
+        `${String(row.card_print_id)}::${String(row.source_id)}`,
+        clone(row),
+      ] as const),
+    ),
+  };
 
   return {
-    queries,
+    state,
     unsafe: async (text: string, params: unknown[] = []) => {
-      queries.push({ text: normalizeSql(text), params });
+      const normalized = normalizeSql(text);
+
+      if (normalized.startsWith('update "card_prints"')) {
+        for (let index = 0; index < params.length; index += 3) {
+          const cardPrintId = String(params[index] || "");
+          const activeExternalProductId = (params[index + 1] ?? null) as string | null;
+          const activeExternalVariantId = (params[index + 2] ?? null) as string | null;
+          const existing = state.cardPrints.get(cardPrintId) || {
+            id: cardPrintId,
+            active_external_product_id: null,
+            active_external_variant_id: null,
+          };
+          existing.active_external_product_id = activeExternalProductId;
+          existing.active_external_variant_id = activeExternalVariantId;
+          state.cardPrints.set(cardPrintId, existing);
+        }
+        return [];
+      }
+
+      if (normalized.startsWith('insert into "card_print_price_current"')) {
+        for (let index = 0; index < params.length; index += 12) {
+          const row = {
+            card_print_id: String(params[index] || ""),
+            source_id: String(params[index + 1] || ""),
+            external_product_id: String(params[index + 2] || ""),
+            external_variant_id: (params[index + 3] ?? null) as string | null,
+            price_market: params[index + 4] ?? null,
+            price_nm: params[index + 5] ?? null,
+            price_lp: params[index + 6] ?? null,
+            price_change_24h: params[index + 7] ?? null,
+            price_change_7d: params[index + 8] ?? null,
+            price_change_30d: params[index + 9] ?? null,
+            updated_at: params[index + 10] ?? null,
+            fetched_at: params[index + 11] ?? null,
+          };
+          state.cardPrintPriceCurrent.set(`${row.card_print_id}::${row.source_id}`, row);
+        }
+        return [];
+      }
+
+      if (normalized.startsWith('delete from "card_print_price_current"')) {
+        const sourceId = String(params[0] || "");
+        for (let index = 1; index < params.length; index += 1) {
+          const cardPrintId = String(params[index] || "");
+          state.cardPrintPriceCurrent.delete(`${cardPrintId}::${sourceId}`);
+        }
+        return [];
+      }
+
       return [];
     },
     end: async () => {},
@@ -532,19 +597,41 @@ test("applySeed incremental refresh updates an existing variant-backed current p
     },
   );
 
-  const sql = createRecordingSql();
+  const sql = createStatefulSql({
+    cardPrints: [
+      {
+        id: "EB01-001",
+        active_external_product_id: "justtcg:oden-refresh",
+        active_external_variant_id: "justtcg:oden-refresh-nm",
+      },
+    ],
+    cardPrintPriceCurrent: [
+      {
+        card_print_id: "EB01-001",
+        source_id: "justtcg",
+        external_product_id: "justtcg:oden-refresh",
+        external_variant_id: "justtcg:oden-refresh-nm",
+        price_market: 0.12,
+        price_nm: 0.12,
+        price_lp: 0.08,
+        price_change_24h: 0,
+        price_change_7d: null,
+        price_change_30d: null,
+        updated_at: "2026-03-25T00:00:00.000Z",
+        fetched_at: "2026-03-25T00:00:00.000Z",
+      },
+    ],
+  });
+  const beforeRow = clone(sql.state.cardPrintPriceCurrent.get("EB01-001::justtcg"));
+
   await applySeed(seed, { chunkSize: 50, sql });
 
-  const currentPriceUpsert = sql.queries.find((query) =>
-    query.text.startsWith('insert into "card_print_price_current"'),
-  );
-  assert.ok(currentPriceUpsert, "incremental refresh should upsert the current price row");
-  assert.equal(currentPriceUpsert?.params.includes("justtcg:oden-refresh-nm"), true);
-  assert.equal(sql.queries.some((query) => query.text.startsWith('update "card_prints"')), false);
-  assert.equal(
-    sql.queries.some((query) => query.text.startsWith('delete from "card_print_price_current"')),
-    false,
-  );
+  const afterRow = sql.state.cardPrintPriceCurrent.get("EB01-001::justtcg");
+  assert.ok(afterRow, "incremental refresh should keep the existing current price row");
+  assert.equal(afterRow?.external_variant_id, "justtcg:oden-refresh-nm");
+  assert.equal(afterRow?.price_nm, 0.3);
+  assert.equal(afterRow?.price_lp, null);
+  assert.equal(sql.state.cardPrints.get("EB01-001")?.active_external_variant_id, beforeRow?.external_variant_id);
   assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.meta?.updatedAfter, 1774483200);
 });
@@ -615,18 +702,38 @@ test("applySeed incremental LP-only refresh preserves the canonical NM current p
     },
   );
 
-  const sql = createRecordingSql();
+  const sql = createStatefulSql({
+    cardPrints: [
+      {
+        id: "EB01-001",
+        active_external_product_id: "justtcg:oden-refresh",
+        active_external_variant_id: "justtcg:oden-refresh-nm",
+      },
+    ],
+    cardPrintPriceCurrent: [
+      {
+        card_print_id: "EB01-001",
+        source_id: "justtcg",
+        external_product_id: "justtcg:oden-refresh",
+        external_variant_id: "justtcg:oden-refresh-nm",
+        price_market: 0.22,
+        price_nm: 0.22,
+        price_lp: 0.18,
+        price_change_24h: 0,
+        price_change_7d: null,
+        price_change_30d: null,
+        updated_at: "2026-03-25T00:00:00.000Z",
+        fetched_at: "2026-03-25T00:00:00.000Z",
+      },
+    ],
+  });
+  const beforeRow = clone(sql.state.cardPrintPriceCurrent.get("EB01-001::justtcg"));
+
   await applySeed(seed, { chunkSize: 50, sql });
 
-  assert.equal(
-    sql.queries.some((query) => query.text.startsWith('insert into "card_print_price_current"')),
-    false,
-  );
-  assert.equal(
-    sql.queries.some((query) => query.text.startsWith('delete from "card_print_price_current"')),
-    false,
-  );
-  assert.equal(sql.queries.some((query) => query.text.startsWith('update "card_prints"')), false);
+  const afterRow = sql.state.cardPrintPriceCurrent.get("EB01-001::justtcg");
+  assert.deepEqual(afterRow, beforeRow);
+  assert.equal(sql.state.cardPrints.get("EB01-001")?.active_external_variant_id, "justtcg:oden-refresh-nm");
   assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.externalProductVariants.length, 1);
   assert.equal(seed.externalProductVariants[0]?.condition, "Lightly Played");
