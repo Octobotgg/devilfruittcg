@@ -232,6 +232,10 @@ function CardPriceBlock({ card }: { card: MarketCardResult }) {
   );
 }
 
+function marketCardImageUrl(card: Pick<MarketCardResult, "id" | "imageUrl">) {
+  return card.imageUrl || `/api/card-image?id=${encodeURIComponent(card.id)}`;
+}
+
 function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPath: string }) {
   const variantLabel = marketVariantLabel(card);
 
@@ -242,7 +246,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
     >
       <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#08111f]">
         <img
-          src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
+          src={marketCardImageUrl(card)}
           alt={card.name}
           className="aspect-[5/7] w-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
         />
@@ -285,7 +289,7 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
     >
       <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#08111f]">
         <img
-          src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
+          src={marketCardImageUrl(card)}
           alt={card.name}
           className="aspect-[5/7] w-full object-contain p-2"
         />
@@ -341,7 +345,7 @@ function SuggestionRow({
       className="flex w-full items-center gap-3 px-4 py-3 text-left transition-all hover:bg-white/5"
     >
       <img
-        src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
+        src={marketCardImageUrl(card)}
         alt={card.name}
         className="h-14 w-10 rounded-lg border border-white/10 bg-[#08111f] object-contain p-1"
       />

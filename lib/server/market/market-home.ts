@@ -20,6 +20,9 @@ type MarketMoverRow = {
   variantCondition?: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
+  displayTitle?: string | null;
+  displayImageUrl?: string | null;
+  internalImageUrl?: string | null;
   currentPrice: string | number | null;
   priceChange24h: string | number | null;
   updatedAt: string | null;
@@ -86,34 +89,37 @@ const RAW_CARD_MOVER_QUERY = `
     cards.name as "officialName",
     releases.code as "officialSetCode",
     releases.name as "officialSetName",
-    current_prices.external_product_id as "externalProductId",
+    published.external_product_id as "externalProductId",
     cp.active_external_product_id as "activeExternalProductId",
-    current_prices.external_variant_id as "externalVariantId",
+    published.external_variant_id as "externalVariantId",
     cp.active_external_variant_id as "activeExternalVariantId",
     variant.condition as "variantCondition",
     ep.name as "justtcgTitle",
     ep.image_url as "justtcgImageUrl",
-    current_prices.price_nm as "currentPrice",
+    display.display_title as "displayTitle",
+    display.display_image_url as "displayImageUrl",
+    cp.image_url as "internalImageUrl",
+    published.price_nm as "currentPrice",
     current_prices.price_change_24h as "priceChange24h",
-    current_prices.updated_at::text as "updatedAt",
+    published.updated_at::text as "updatedAt",
     true as "mappingApproved"
-  from card_print_price_current current_prices
+  from card_print_price_published published
   join card_prints cp
-    on cp.id = current_prices.card_print_id
-   and cp.active_external_product_id = current_prices.external_product_id
-   and cp.active_external_variant_id = current_prices.external_variant_id
+    on cp.id = published.card_print_id
   join cards on cards.id = cp.card_id
   join releases on releases.id = cp.release_id
-  join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'raw_card'
+  join external_products ep on ep.id = published.external_product_id and ep.product_kind = 'raw_card'
   left join external_product_variants variant
-    on variant.id = cp.active_external_variant_id
-   and variant.external_product_id = cp.active_external_product_id
-  join card_print_market_links link
-    on link.card_print_id = cp.id
-   and link.external_product_id = current_prices.external_product_id
-   and link.approved_at is not null
-   and link.mapping_status = 'exact'
-  where current_prices.source_id = 'justtcg'
+    on variant.id = published.external_variant_id
+   and variant.external_product_id = published.external_product_id
+  left join card_print_display_published display
+    on display.card_print_id = cp.id
+  left join card_print_price_current current_prices
+    on current_prices.card_print_id = cp.id
+   and current_prices.external_product_id = published.external_product_id
+   and current_prices.external_variant_id = published.external_variant_id
+   and current_prices.source_id = published.source_id
+  where published.source_id = 'justtcg'
     and cp.is_active = true
 `;
 
@@ -172,11 +178,13 @@ export function passesMarketMoverTrustFilters(
   filters: MarketMoverTrustFilters = DEFAULT_MARKET_MOVER_TRUST_FILTERS,
 ) {
   if (!row.mappingApproved) return false;
-  if (!row.externalProductId || !row.activeExternalProductId) return false;
-  if (row.externalProductId !== row.activeExternalProductId) return false;
+  if (!row.externalProductId) return false;
+  if (row.collectibleKind === "sealed") {
+    if (!row.activeExternalProductId) return false;
+    if (row.externalProductId !== row.activeExternalProductId) return false;
+  }
   if (row.collectibleKind === "raw_card") {
-    if (!row.externalVariantId || !row.activeExternalVariantId) return false;
-    if (row.externalVariantId !== row.activeExternalVariantId) return false;
+    if (!row.externalVariantId) return false;
     if (String(row.variantCondition || "").trim().toLowerCase() !== "near mint") return false;
   }
 
@@ -208,9 +216,9 @@ function toMarketMover(row: MarketMoverRow): MarketMover | null {
     collectibleId: row.collectibleId,
     collectibleKind: row.collectibleKind,
     cardId: row.cardId,
-    name: row.officialName,
+    name: String(row.displayTitle || "").trim() || row.officialName,
     justtcgTitle: row.justtcgTitle,
-    imageUrl: row.justtcgImageUrl,
+    imageUrl: String(row.displayImageUrl || "").trim() || row.internalImageUrl || null,
     currentPrice,
     priceChange24h,
     previousPrice,
@@ -220,6 +228,10 @@ function toMarketMover(row: MarketMoverRow): MarketMover | null {
     officialSetName: row.officialSetName,
     source: "justtcg-runtime-pricing",
   };
+}
+
+export function toMarketMoverForTesting(row: MarketMoverRow) {
+  return toMarketMover(row);
 }
 
 function latestUpdatedAt(movers: MarketMover[]) {

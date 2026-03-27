@@ -3,6 +3,7 @@ import type { MarketPriceSummary } from "./market-types";
 
 type MarketCardLabelSource = Pick<Card, "id" | "baseId" | "rarity" | "variantLabel"> & {
   justtcgTitle?: string | null;
+  publishedTreatmentLabel?: string | null;
 };
 
 function titleCaseToken(token: string) {
@@ -88,6 +89,8 @@ function normalizeKnownTreatmentLabel(value: string | null | undefined) {
   if (normalized.includes("textured foil")) return "Textured Foil";
   if (normalized.includes("treasure rare")) return "Treasure Rare";
   if (normalized.includes("full art")) return "Full Art";
+  if (normalized.includes("red super alternate art")) return "Red Super Alternate Art";
+  if (normalized.includes("super alternate art")) return "Super Alternate Art";
 
   const anniversary = normalizeAnniversaryLabel(normalized);
   if (anniversary) return anniversary;
@@ -150,6 +153,9 @@ export function marketVariantDisplayLabel(card: MarketCardLabelSource) {
   const normalizedRarity = String(card.rarity || "").trim().toUpperCase() === "SP CARD"
     ? "sp"
     : String(card.rarity || "").trim().toLowerCase();
+
+  const publishedLabel = normalizeKnownTreatmentLabel(card.publishedTreatmentLabel);
+  if (publishedLabel) return publishedLabel;
 
   const internalLabel = normalizeKnownTreatmentLabel(card.variantLabel);
   if (internalLabel && internalLabel.toLowerCase() === normalizedRarity && internalLabel !== "SP") {

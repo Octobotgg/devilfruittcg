@@ -454,6 +454,54 @@ test("market search does not price raw card rows unless the active variant is NM
   assert.equal(result.currentPrice, null);
 });
 
+test("market search still uses published pricing when candidate active variant state is missing", async () => {
+  const { toMarketCardResultForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  const result = toMarketCardResultForTesting({
+    cardPrintId: "cp-published-1",
+    cardId: "OP01-012",
+    printedCardCode: "OP01-012",
+    variantLabel: "Alternate Art",
+    variantSlug: "alternate-art",
+    cardName: "Monkey D. Luffy",
+    setCode: "OP01",
+    setName: "Romance Dawn",
+    number: "012",
+    cardType: "Character",
+    color: "Red",
+    rarity: "SR",
+    cost: 5,
+    life: null,
+    power: 6000,
+    counter: 1000,
+    attribute: "Strike",
+    traits: "Straw Hat Crew",
+    effectText: null,
+    triggerText: null,
+    imageUrl: "https://img.example/internal-luffy.jpg",
+    releaseDate: "2025-01-01",
+    productKind: "raw_card",
+    activeExternalVariantId: null,
+    externalVariantId: "justtcg:125:nm",
+    variantCondition: "Near Mint",
+    justtcgTitle: "Monkey D. Luffy (012) (Alternate Art)",
+    justtcgImageUrl: "https://img.example/provider-luffy.jpg",
+    mappingApproved: true,
+    priceNm: "4435.99",
+    priceLp: "4120.00",
+    priceChange7d: "150.00",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    fetchedAt: "2026-03-25T00:05:00.000Z",
+  });
+
+  assert.equal(result.pricingStatus, "priced");
+  assert.equal(result.market?.marketPrice, 4435.99);
+  assert.equal(result.currentPrice, 4435.99);
+});
+
 test("market search preserves public print identity for variant-aware routing and display", async () => {
   const { toMarketCardResultForTesting } =
     await importModule<typeof import("../lib/server/market/market-search")>(
@@ -517,7 +565,7 @@ test("market search preserves public print identity for variant-aware routing an
   assert.equal(routeCardIdLikeUi(result), encodeURIComponent("OP01-001-P1"));
 });
 
-test("market home rejects remapped raw card rows that do not match the active external product", async () => {
+test("market home trusts published raw-card rows even when candidate active product state drifts", async () => {
   const { passesMarketMoverTrustFilters } =
     await importModule<typeof import("../lib/server/market/market-home")>(
       "lib/server/market/market-home.ts",
@@ -532,8 +580,11 @@ test("market home rejects remapped raw card rows that do not match the active ex
         officialName: "Monkey D. Luffy",
         officialSetCode: "OP01",
         officialSetName: "Romance Dawn",
-        externalProductId: "justtcg:old",
-        activeExternalProductId: "justtcg:new",
+        externalProductId: "justtcg:published",
+        activeExternalProductId: "justtcg:stale-candidate",
+        externalVariantId: "justtcg:published:nm",
+        activeExternalVariantId: null,
+        variantCondition: "Near Mint",
         justtcgTitle: "Old listing",
         justtcgImageUrl: "https://img.example/old.jpg",
         currentPrice: "12.00",
@@ -547,7 +598,7 @@ test("market home rejects remapped raw card rows that do not match the active ex
         maximumPercentSwing: 500,
       },
     ),
-    false,
+    true,
   );
 });
 
@@ -1140,11 +1191,11 @@ test("market home mover queries exclude inactive raw and sealed collectibles", a
 
   const queries = getMarketHomeMoverQueriesForTesting();
 
-  assert.match(queries.rawCardQuery, /where current_prices\.source_id = 'justtcg'\s+and cp\.is_active = true/i);
+  assert.match(queries.rawCardQuery, /where published\.source_id = 'justtcg'\s+and cp\.is_active = true/i);
   assert.match(queries.sealedQuery, /where current_prices\.source_id = 'justtcg'\s+and sealed\.is_active = true/i);
 });
 
-test("market home mover queries only admit exact approved mappings", async () => {
+test("market home mover queries read published rows without candidate active-state joins", async () => {
   const { getMarketHomeMoverQueriesForTesting } =
     await importModule<typeof import("../lib/server/market/market-home")>(
       "lib/server/market/market-home.ts",
@@ -1152,7 +1203,9 @@ test("market home mover queries only admit exact approved mappings", async () =>
 
   const queries = getMarketHomeMoverQueriesForTesting();
 
-  assert.match(queries.rawCardQuery, /link\.mapping_status = 'exact'/i);
+  assert.match(queries.rawCardQuery, /on cp\.id = published\.card_print_id/i);
+  assert.doesNotMatch(queries.rawCardQuery, /cp\.active_external_product_id = published\.external_product_id/i);
+  assert.doesNotMatch(queries.rawCardQuery, /cp\.active_external_variant_id = published\.external_variant_id/i);
   assert.match(queries.sealedQuery, /link\.mapping_status = 'exact'/i);
 });
 

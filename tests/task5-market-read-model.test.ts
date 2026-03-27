@@ -284,6 +284,40 @@ test("getJustTcgPriceSummaries resolves canonical variant ids onto the base Just
   assert.equal(detail.points[0]?.tcgMarket, 11.25);
 });
 
+test("getJustTcgPriceSummaries still returns published prices when candidate active variant state is missing", async () => {
+  const { getJustTcgPriceSummaries } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const summaries = await getJustTcgPriceSummaries(
+    ["OP01-001"],
+    {
+      loadCurrentRows: async () => [
+        {
+          cardPrintId: "cp-1",
+          printedCardCode: "OP01-001",
+          cardId: "OP01-001",
+          externalProductId: "justtcg:123",
+          externalVariantId: "justtcg:123:nm",
+          activeExternalVariantId: null,
+          variantCondition: "Near Mint",
+          productKind: "raw_card",
+          mappingApproved: true,
+          priceMarket: "12.75",
+          priceNm: "12.50",
+          priceLp: "10.25",
+          priceChange24h: "0.5",
+          priceChange7d: "1.25",
+          priceChange30d: "3.75",
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          fetchedAt: "2026-03-25T00:05:00.000Z",
+        },
+      ],
+    },
+  );
+
+  assert.equal(summaries["OP01-001"]?.marketPrice, 12.5);
+});
+
 test("getJustTcgPriceDetail keeps the legacy detail shape from the new price tables", async () => {
   const { getJustTcgPriceDetail } =
     await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
@@ -431,4 +465,16 @@ test("getJustTcgPriceDetail falls back to active-product raw history when struct
       tcgMarket: 12.5,
     },
   ]);
+});
+
+test("default JustTCG compatibility query reads published price rows instead of candidate current rows", async () => {
+  const { getJustTcgCurrentPriceQueryForTesting } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const query = getJustTcgCurrentPriceQueryForTesting();
+
+  assert.match(query, /card_print_price_published/u);
+  assert.match(query, /card_print_display_published/u);
+  assert.match(query, /published\.price_nm as "priceNm"/u);
+  assert.match(query, /current_prices\.price_change_24h as "priceChange24h"/u);
 });

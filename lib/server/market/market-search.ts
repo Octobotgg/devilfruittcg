@@ -67,18 +67,27 @@ type MarketSearchRow = {
   variantCondition?: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
+  displayTitle?: string | null;
+  displaySetName?: string | null;
+  displaySetCode?: string | null;
+  displayRarity?: string | null;
+  displayTreatmentLabel?: string | null;
+  displayImageUrl?: string | null;
+  labelStatus?: string | null;
   mappingApproved: boolean;
   priceNm: string | number | null;
   priceLp: string | number | null;
   priceChange7d: string | number | null;
   updatedAt: string | null;
   fetchedAt: string | null;
+  publishedAt?: string | null;
 };
 
 type RuntimeMarketCardResult = MarketCardResult & {
   cardPrintId: string;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
+  publishedTreatmentLabel?: string | null;
   official: {
     name: string;
     setCode: string;
@@ -173,36 +182,44 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
           cards.traits as "traits",
           cards.effect_text as "effectText",
           cards.trigger_text as "triggerText",
-          coalesce(case when ep.product_kind = 'raw_card' then ep.image_url end, cp.image_url) as "imageUrl",
+          cp.image_url as "imageUrl",
           coalesce(cp.release_date_override::text, releases.release_date::text) as "releaseDate",
           ep.product_kind as "productKind",
           cp.active_external_variant_id as "activeExternalVariantId",
-          current_prices.external_variant_id as "externalVariantId",
+          published.external_variant_id as "externalVariantId",
           variant.condition as "variantCondition",
           case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
           case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
-          coalesce(link.approved_at is not null and link.mapping_status = 'exact', false) as "mappingApproved",
-          current_prices.price_nm as "priceNm",
-          current_prices.price_lp as "priceLp",
+          display.display_title as "displayTitle",
+          display.display_set_name as "displaySetName",
+          display.display_set_code as "displaySetCode",
+          display.display_rarity as "displayRarity",
+          display.display_treatment_label as "displayTreatmentLabel",
+          display.display_image_url as "displayImageUrl",
+          display.label_status as "labelStatus",
+          (published.external_product_id is not null and published.external_variant_id is not null) as "mappingApproved",
+          published.price_nm as "priceNm",
+          published.price_lp as "priceLp",
           current_prices.price_change_7d as "priceChange7d",
-          current_prices.updated_at::text as "updatedAt",
-          current_prices.fetched_at::text as "fetchedAt"
+          published.updated_at::text as "updatedAt",
+          published.published_at::text as "fetchedAt",
+          published.published_at::text as "publishedAt"
         from card_prints cp
         join cards on cards.id = cp.card_id
         join releases on releases.id = cp.release_id
-        left join external_products ep on ep.id = cp.active_external_product_id
+        left join card_print_price_published published
+          on published.card_print_id = cp.id
+         and published.source_id = 'justtcg'
+        left join card_print_display_published display
+          on display.card_print_id = cp.id
+        left join external_products ep on ep.id = published.external_product_id
         left join external_product_variants variant
-          on variant.id = cp.active_external_variant_id
-         and variant.external_product_id = cp.active_external_product_id
-        left join card_print_market_links link
-          on link.card_print_id = cp.id
-         and link.external_product_id = cp.active_external_product_id
-         and link.approved_at is not null
-         and link.mapping_status = 'exact'
+          on variant.id = published.external_variant_id
+         and variant.external_product_id = published.external_product_id
         left join card_print_price_current current_prices
           on current_prices.card_print_id = cp.id
-         and current_prices.external_product_id = cp.active_external_product_id
-         and current_prices.external_variant_id = cp.active_external_variant_id
+         and current_prices.external_product_id = published.external_product_id
+         and current_prices.external_variant_id = published.external_variant_id
          and current_prices.source_id = 'justtcg'
         where cp.is_active = true
       `,
@@ -404,8 +421,7 @@ function attributeMatch(card: RuntimeMarketCardResult, filters: string[]) {
 function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
   if (!row.mappingApproved) return null;
   if (normalizeProductKind(row.productKind) !== "raw_card") return null;
-  if (!row.activeExternalVariantId || !row.externalVariantId) return null;
-  if (row.activeExternalVariantId !== row.externalVariantId) return null;
+  if (!row.externalVariantId) return null;
   if (String(row.variantCondition || "").trim().toLowerCase() !== "near mint") return null;
 
   const marketPrice = parseNullableNumber(row.priceNm);
@@ -434,6 +450,22 @@ function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
 export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarketCardResult {
   const market = toMarketPriceSummary(row);
   const publicPrintId = row.printedCardCode || row.cardId;
+  const hasPublishedDisplay =
+    row.labelStatus != null ||
+    row.displayTitle != null ||
+    row.displaySetName != null ||
+    row.displaySetCode != null ||
+    row.displayRarity != null ||
+    row.displayTreatmentLabel != null ||
+    row.displayImageUrl != null;
+  const publishedTitle = String(row.displayTitle || "").trim() || row.cardName;
+  const publishedSetName = String(row.displaySetName || "").trim() || row.setName;
+  const publishedSetCode = String(row.displaySetCode || "").trim() || row.setCode;
+  const publishedRarity = String(row.displayRarity || "").trim() || row.rarity;
+  const publishedTreatmentLabel = hasPublishedDisplay
+    ? String(row.displayTreatmentLabel || "").trim() || null
+    : row.variantLabel;
+  const publishedImageUrl = String(row.displayImageUrl || "").trim() || row.imageUrl;
 
   const card: Card = {
     id: publicPrintId,
@@ -443,15 +475,15 @@ export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarke
     canonicalId: publicPrintId,
     canonicalVariantId: publicPrintId,
     canonicalVariantKey: row.variantSlug,
-    variantLabel: row.variantLabel,
+    variantLabel: publishedTreatmentLabel ?? undefined,
     variantSlug: row.variantSlug,
-    name: row.cardName,
-    set: row.setName,
-    setCode: row.setCode,
+    name: publishedTitle,
+    set: publishedSetName,
+    setCode: publishedSetCode,
     number: row.number,
     type: row.cardType,
     color: row.color,
-    rarity: row.rarity,
+    rarity: publishedRarity,
     cost: row.cost,
     life: row.life,
     power: row.power,
@@ -460,7 +492,7 @@ export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarke
     traits: row.traits,
     effect: row.effectText,
     trigger: row.triggerText,
-    imageUrl: row.justtcgImageUrl || row.imageUrl,
+    imageUrl: publishedImageUrl,
     releaseDate: row.releaseDate,
     language: "EN",
   };
@@ -470,7 +502,10 @@ export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarke
     market,
     cardPrintId: row.cardPrintId,
     justtcgTitle: row.justtcgTitle,
-    justtcgImageUrl: row.justtcgImageUrl,
+    justtcgImageUrl: publishedImageUrl,
+    publishedTreatmentLabel: hasPublishedDisplay
+      ? String(row.displayTreatmentLabel || "").trim() || null
+      : null,
     official: {
       name: row.cardName,
       setCode: row.setCode,

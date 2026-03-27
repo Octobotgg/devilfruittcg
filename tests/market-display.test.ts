@@ -120,6 +120,46 @@ test("marketVariantDisplayLabel prefers exact JustTCG treatment wording when ava
   assert.equal(marketDisplay.marketVariantDisplayLabel(jollyRogerCard), "Jolly Roger Foil");
 });
 
+test("marketVariantDisplayLabel keeps specific super alternate art treatments", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  const redSuperAltCard = {
+    id: "OP13-120_p2",
+    baseId: "OP13-120",
+    rarity: "SEC",
+    variantLabel: "Red Super Alternate Art",
+    justtcgTitle: "Sabo (120) (Red Super Alternate Art)",
+  };
+
+  const superAltCard = {
+    id: "OP13-118_p2",
+    baseId: "OP13-118",
+    rarity: "SEC",
+    variantLabel: "Super Alternate Art",
+    justtcgTitle: "Monkey.D.Luffy (118) (Red Super Alternate Art)",
+  };
+
+  assert.equal(marketDisplay.marketVariantDisplayLabel(redSuperAltCard), "Red Super Alternate Art");
+  assert.equal(marketDisplay.marketVariantDisplayLabel(superAltCard), "Red Super Alternate Art");
+});
+
+test("marketVariantDisplayLabel prefers a published treatment label when one is available", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  const publishedLabelCard = {
+    id: "EB01-033_p2",
+    baseId: "EB01-033",
+    rarity: "SR",
+    variantLabel: "Alternate Art",
+    justtcgTitle: "Monkey.D.Luffy (Alternate Art)",
+    publishedTreatmentLabel: "Jolly Roger Foil",
+  };
+
+  assert.equal(marketDisplay.marketVariantDisplayLabel(publishedLabelCard), "Jolly Roger Foil");
+});
+
 test("marketVariantDisplayLabel cleans anniversary wording from JustTCG titles", async () => {
   const marketDisplay =
     await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");

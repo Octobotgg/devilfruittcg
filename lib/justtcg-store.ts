@@ -21,6 +21,9 @@ type ReadModelPriceRow = {
   variantCondition?: string | null;
   variantPrinting?: string | null;
   variantLanguage?: string | null;
+  displayTitle?: string | null;
+  displayTreatmentLabel?: string | null;
+  displayImageUrl?: string | null;
   mappingApproved: boolean;
   priceMarket: string | number | null;
   priceNm: string | number | null;
@@ -159,8 +162,6 @@ function usablePriceRow(row: ReadModelPriceRow | null | undefined): row is ReadM
     row &&
       row.externalProductId &&
       row.externalVariantId &&
-      row.activeExternalVariantId &&
-      row.externalVariantId === row.activeExternalVariantId &&
       row.mappingApproved &&
       isNearMintVariant(row.variantCondition) &&
       normalizeProductKind(row.productKind) === "raw_card",
@@ -290,59 +291,65 @@ function toPlainRows<T>(rows: Iterable<unknown>): T[] {
   return Array.from(rows, (row) => ({ ...(row as Record<string, unknown>) })) as T[];
 }
 
+const DEFAULT_LOAD_CURRENT_ROWS_QUERY = `
+  select
+    cp.id as "cardPrintId",
+    cp.printed_card_code as "printedCardCode",
+    cards.id as "cardId",
+    published.external_product_id as "externalProductId",
+    published.external_variant_id as "activeExternalVariantId",
+    published.external_variant_id as "externalVariantId",
+    ep.raw_payload as "externalRawPayload",
+    ep.product_kind as "productKind",
+    variant.condition as "variantCondition",
+    variant.printing as "variantPrinting",
+    variant.language as "variantLanguage",
+    display.display_title as "displayTitle",
+    display.display_treatment_label as "displayTreatmentLabel",
+    display.display_image_url as "displayImageUrl",
+    true as "mappingApproved",
+    published.price_market as "priceMarket",
+    published.price_nm as "priceNm",
+    published.price_lp as "priceLp",
+    current_prices.price_change_24h as "priceChange24h",
+    current_prices.price_change_7d as "priceChange7d",
+    current_prices.price_change_30d as "priceChange30d",
+    published.updated_at::text as "updatedAt",
+    published.published_at::text as "fetchedAt"
+  from card_prints cp
+  join cards on cards.id = cp.card_id
+  left join card_print_price_published published
+    on published.card_print_id = cp.id
+   and published.source_id = $2
+  left join external_products ep
+    on ep.id = published.external_product_id
+  left join external_product_variants variant
+    on variant.id = published.external_variant_id
+   and variant.external_product_id = published.external_product_id
+  left join card_print_display_published display
+    on display.card_print_id = cp.id
+  left join card_print_price_current current_prices
+    on current_prices.card_print_id = cp.id
+   and current_prices.external_product_id = published.external_product_id
+   and current_prices.external_variant_id = published.external_variant_id
+   and current_prices.source_id = published.source_id
+  where cp.is_active = true
+    and (
+      upper(coalesce(cp.printed_card_code, '')) = any($1::text[])
+      or upper(cards.id) = any($1::text[])
+    )
+`;
+
+export function getJustTcgCurrentPriceQueryForTesting() {
+  return DEFAULT_LOAD_CURRENT_ROWS_QUERY;
+}
+
 async function defaultLoadCurrentRows(requestedIds: string[]): Promise<ReadModelPriceRow[]> {
   const lookupIds = candidateLookupIds(requestedIds);
   if (!lookupIds.length) return [];
 
   const sql = createPostgresClient();
-  const rows = await sql.unsafe(
-    `
-      select
-        cp.id as "cardPrintId",
-        cp.printed_card_code as "printedCardCode",
-        cards.id as "cardId",
-        cp.active_external_product_id as "externalProductId",
-        cp.active_external_variant_id as "activeExternalVariantId",
-        current_prices.external_variant_id as "externalVariantId",
-        ep.raw_payload as "externalRawPayload",
-        ep.product_kind as "productKind",
-        variant.condition as "variantCondition",
-        variant.printing as "variantPrinting",
-        variant.language as "variantLanguage",
-        coalesce(link.approved_at is not null and link.mapping_status = 'exact', false) as "mappingApproved",
-        current_prices.price_market as "priceMarket",
-        current_prices.price_nm as "priceNm",
-        current_prices.price_lp as "priceLp",
-        current_prices.price_change_24h as "priceChange24h",
-        current_prices.price_change_7d as "priceChange7d",
-        current_prices.price_change_30d as "priceChange30d",
-        current_prices.updated_at::text as "updatedAt",
-        current_prices.fetched_at::text as "fetchedAt"
-      from card_prints cp
-      join cards on cards.id = cp.card_id
-      left join external_products ep
-        on ep.id = cp.active_external_product_id
-      left join external_product_variants variant
-        on variant.id = cp.active_external_variant_id
-       and variant.external_product_id = cp.active_external_product_id
-      left join card_print_market_links link
-        on link.card_print_id = cp.id
-       and link.external_product_id = cp.active_external_product_id
-       and link.approved_at is not null
-       and link.mapping_status = 'exact'
-      left join card_print_price_current current_prices
-        on current_prices.card_print_id = cp.id
-       and current_prices.external_product_id = cp.active_external_product_id
-       and current_prices.external_variant_id = cp.active_external_variant_id
-       and current_prices.source_id = $2
-      where cp.is_active = true
-        and (
-          upper(coalesce(cp.printed_card_code, '')) = any($1::text[])
-          or upper(cards.id) = any($1::text[])
-        )
-    `,
-    [lookupIds, JUSTTCG_SOURCE_ID],
-  );
+  const rows = await sql.unsafe(DEFAULT_LOAD_CURRENT_ROWS_QUERY, [lookupIds, JUSTTCG_SOURCE_ID]);
 
   return toPlainRows<ReadModelPriceRow>(rows);
 }
@@ -373,11 +380,6 @@ async function defaultLoadHistoryRows(params: {
           on cp.id = history.card_print_id
         join cards
           on cards.id = cp.card_id
-        join card_print_market_links link
-          on link.card_print_id = cp.id
-         and link.external_product_id = cp.active_external_product_id
-         and link.approved_at is not null
-         and link.mapping_status = 'exact'
         where history.card_print_id = $1
           and history.external_product_id = $2
           and history.external_variant_id = $3
