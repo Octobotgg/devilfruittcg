@@ -8,9 +8,21 @@ DO $$ BEGIN
 		RAISE EXCEPTION 'card_print_price_published.external_variant_id must be populated before hardening';
 	END IF;
 END $$;--> statement-breakpoint
-UPDATE "card_print_display_published" SET "label_status" = 'unknown' WHERE "label_status" IS NULL;--> statement-breakpoint
-UPDATE "pricing_verification_results" SET "mapping_integrity_status" = 'unknown' WHERE "mapping_integrity_status" IS NULL;--> statement-breakpoint
-UPDATE "pricing_verification_results" SET "label_integrity_status" = 'unknown' WHERE "label_integrity_status" IS NULL;--> statement-breakpoint
+UPDATE "card_print_display_published"
+SET "label_status" = CASE
+	WHEN lower(btrim("label_status")) IN ('verified', 'normalized', 'fallback', 'blocked', 'unknown') THEN lower(btrim("label_status"))
+	ELSE 'unknown'
+END;--> statement-breakpoint
+UPDATE "pricing_verification_results"
+SET "mapping_integrity_status" = CASE
+	WHEN lower(btrim("mapping_integrity_status")) IN ('verified', 'warning', 'mismatch', 'blocked', 'unknown') THEN lower(btrim("mapping_integrity_status"))
+	ELSE 'unknown'
+END;--> statement-breakpoint
+UPDATE "pricing_verification_results"
+SET "label_integrity_status" = CASE
+	WHEN lower(btrim("label_integrity_status")) IN ('verified', 'normalized', 'fallback', 'blocked', 'unknown') THEN lower(btrim("label_integrity_status"))
+	ELSE 'unknown'
+END;--> statement-breakpoint
 ALTER TABLE "card_print_display_published" DROP CONSTRAINT "card_print_display_published_external_product_id_external_products_id_fk";
 --> statement-breakpoint
 ALTER TABLE "card_print_display_published" DROP CONSTRAINT "card_print_display_published_external_variant_id_external_product_variants_id_fk";

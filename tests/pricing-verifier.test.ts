@@ -191,9 +191,18 @@ test("pricing verifier schema includes published and verification tables", async
   assert.match(hardeningMigrationSql, /CREATE TYPE "public"\."pricing_label_status" AS ENUM/);
   assert.match(hardeningMigrationSql, /CREATE TYPE "public"\."pricing_mapping_integrity_status" AS ENUM/);
   assert.match(hardeningMigrationSql, /DO \$\$/);
-  assert.match(hardeningMigrationSql, /UPDATE "pricing_verification_results" SET "mapping_integrity_status" = 'unknown'/);
-  assert.match(hardeningMigrationSql, /UPDATE "pricing_verification_results" SET "label_integrity_status" = 'unknown'/);
-  assert.match(hardeningMigrationSql, /UPDATE "card_print_display_published" SET "label_status" = 'unknown'/);
+  assert.match(
+    hardeningMigrationSql,
+    /UPDATE "pricing_verification_results"\s+SET "mapping_integrity_status" = CASE\s+WHEN lower\(btrim\("mapping_integrity_status"\)\) IN \('verified', 'warning', 'mismatch', 'blocked', 'unknown'\) THEN lower\(btrim\("mapping_integrity_status"\)\)\s+ELSE 'unknown'\s+END;/,
+  );
+  assert.match(
+    hardeningMigrationSql,
+    /UPDATE "pricing_verification_results"\s+SET "label_integrity_status" = CASE\s+WHEN lower\(btrim\("label_integrity_status"\)\) IN \('verified', 'normalized', 'fallback', 'blocked', 'unknown'\) THEN lower\(btrim\("label_integrity_status"\)\)\s+ELSE 'unknown'\s+END;/,
+  );
+  assert.match(
+    hardeningMigrationSql,
+    /UPDATE "card_print_display_published"\s+SET "label_status" = CASE\s+WHEN lower\(btrim\("label_status"\)\) IN \('verified', 'normalized', 'fallback', 'blocked', 'unknown'\) THEN lower\(btrim\("label_status"\)\)\s+ELSE 'unknown'\s+END;/,
+  );
   assert.match(
     hardeningMigrationSql,
     /card_print_display_published_external_product_id_external_products_id_fk.*ON DELETE no action/,
