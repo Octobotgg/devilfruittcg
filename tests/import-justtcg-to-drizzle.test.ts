@@ -293,6 +293,12 @@ test("buildSeed promotes clean single-candidate base mappings into active runtim
       active_external_product_id: "justtcg:karoo-eb02-base",
     },
   ]);
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, [
+    {
+      card_print_id: "EB02-001",
+      active_external_variant_id: "justtcg:karoo-eb02-base-nm",
+    },
+  ]);
 
   assert.deepEqual(seed.cardPrintPriceCurrent, [
     {
@@ -308,6 +314,26 @@ test("buildSeed promotes clean single-candidate base mappings into active runtim
       price_change_30d: null,
       updated_at: "2026-03-26T00:00:00.000Z",
       fetched_at: "2026-03-26T00:05:00.000Z",
+    },
+  ]);
+  assert.deepEqual(seed.priceSnapshots, [
+    {
+      external_product_id: "justtcg:karoo-eb02-base",
+      external_variant_id: "justtcg:karoo-eb02-base-nm",
+      captured_at: "2026-03-26T00:05:00.000Z",
+      price_market: 0.12,
+      price_low: null,
+      price_mid: null,
+      price_high: null,
+      price_nm: 0.12,
+      price_lp: 0.08,
+      currency: "USD",
+      availability: null,
+      raw_payload: {
+        id: "karoo-eb02-base",
+        name: "Karoo",
+        set: "Extra Booster: Anime 25th Collection",
+      },
     },
   ]);
 
@@ -550,6 +576,8 @@ test("buildSeed leaves a mapped raw card unpriced when no Near Mint variant exis
   ]);
   assert.deepEqual(seed.activeCardPrintVariantAssignments, []);
   assert.deepEqual(seed.cardPrintPriceCurrent, []);
+  assert.deepEqual(seed.cardPrintPriceHistory, []);
+  assert.deepEqual(seed.priceSnapshots, []);
 });
 
 test("buildSeed trusts tcgplayer-verified exact product event mappings even below 0.95 confidence", async () => {
@@ -864,6 +892,18 @@ test("buildSeed uses the Near Mint JustTCG variant as the canonical runtime pric
       price_change_30d: null,
       updated_at: "2026-03-19T12:54:12.000Z",
       fetched_at: "2026-03-19T13:00:00.000Z",
+    },
+  ]);
+  assert.deepEqual(seed.cardPrintPriceHistory, [
+    {
+      card_print_id: "EB01-001",
+      source_id: "justtcg",
+      external_product_id: "justtcg:oden-neo-openings",
+      external_variant_id: "justtcg:oden-neo-openings-nm",
+      recorded_at: "2026-03-19T12:54:12.000Z",
+      price_nm: 0.45,
+      price_lp: 0.18,
+      price_market: 0.45,
     },
   ]);
   assert.deepEqual(seed.priceSnapshots, [

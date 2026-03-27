@@ -10,6 +10,8 @@ const ROOT = path.resolve(__dirname, "..");
 const DEFAULT_CATALOG_PATH = path.join(ROOT, ".cache", "justtcg", "one-piece-catalog.latest.json");
 const DEFAULT_MAPPING_REPORT_PATH = path.join(ROOT, ".cache", "justtcg", "released-mapping-report.json");
 const DEFAULT_PRICE_DATA_PATH = path.join(ROOT, ".cache", "justtcg", "approved-price-sync-data.json");
+const DEFAULT_DESKTOP_CATALOG_PATH = "/Users/javierbarro/Desktop/devilfruittcg/.cache/justtcg/one-piece-catalog.latest.json";
+const DEFAULT_DESKTOP_PRICE_DATA_PATH = "/Users/javierbarro/Desktop/devilfruittcg/.cache/justtcg/approved-price-sync-data.json";
 const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-releases.json");
 const DEFAULT_CHUNK_SIZE = 250;
 
@@ -240,6 +242,14 @@ async function readJsonIfExists(filePath) {
     }
     throw error;
   }
+}
+
+async function readJsonWithFallback(filePath, fallbackPaths = []) {
+  for (const candidate of [filePath, ...fallbackPaths]) {
+    const data = await readJsonIfExists(candidate);
+    if (data != null) return data;
+  }
+  return null;
 }
 
 function inferTcgplayerId(candidate) {
@@ -898,7 +908,7 @@ function buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, pric
   return { rows, snapshots };
 }
 
-function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId, priceData) {
+function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId, priceData, priceIndex) {
   const assignmentsByCardPrintId = new Map(
     approvedRawAssignments.map((assignment) => [assignment.card_print_id, assignment]),
   );
@@ -929,6 +939,31 @@ function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId
     });
   }
 
+  if (rows.length === 0) {
+    for (const assignment of approvedRawAssignments) {
+      const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
+      const canonicalVariant = selectCanonicalVariant(variants);
+      if (!canonicalVariant) continue;
+
+      const currentPriceRow = priceIndex?.byCardPrintId?.get(assignment.card_print_id) || null;
+      const recordedAt =
+        normalizeTimestamp(currentPriceRow?.last_updated_at || currentPriceRow?.lastUpdated || currentPriceRow?.last_updated_justtcg) ||
+        normalizeTimestamp(currentPriceRow?.fetched_at);
+      if (!recordedAt) continue;
+
+      rows.push({
+        card_print_id: assignment.card_print_id,
+        source_id: JUSTTCG_SOURCE.id,
+        external_product_id: assignment.external_product_id,
+        external_variant_id: canonicalVariant.id,
+        recorded_at: recordedAt,
+        price_nm: currentPriceRow?.price_nm ?? canonicalVariant?.price ?? null,
+        price_lp: currentPriceRow?.price_lp ?? null,
+        price_market: currentPriceRow?.price_market ?? currentPriceRow?.price_nm ?? canonicalVariant?.price ?? null,
+      });
+    }
+  }
+
   return rows;
 }
 
@@ -953,7 +988,7 @@ function buildSealedProducts(externalProducts, priceIndex, releaseLookup) {
     sealedById.set(sealedProductId, product.id);
     activeByExternalProductId.set(product.id, sealedProductId);
 
-    const sku = cleanText(product.number || product.external_product_id) || null;
+    const sku = cleanText(product.external_product_id || product.number) || null;
 
     sealedProducts.push({
       id: sealedProductId,
@@ -1128,7 +1163,12 @@ function buildSeed(inputs, options) {
   const { cardPrintMarketLinks, approvedRawAssignments } = collectRawCardMappings(inputs.mappingReport, productMap);
   const priceIndex = indexPriceRows(inputs.priceData);
   const rawCardPrices = buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, priceIndex);
-  const rawCardPriceHistory = buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId, inputs.priceData);
+  const rawCardPriceHistory = buildRawCardPriceHistory(
+    approvedRawAssignments,
+    variantRowsByProductId,
+    inputs.priceData,
+    priceIndex,
+  );
   const sealed = buildSealedProducts(productMap, priceIndex, releaseLookup);
   const activeCardPrintAssignments = buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssignments);
   const activeCardPrintVariantAssignments = buildActiveCardPrintVariantAssignments(
@@ -1474,9 +1514,9 @@ async function applySeed(seed, options) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const [catalog, mappingReport, priceData, officialReleases] = await Promise.all([
-    readJsonIfExists(args.catalog),
-    readJsonIfExists(args.mappingReport),
-    readJsonIfExists(args.priceData),
+    readJsonWithFallback(args.catalog, [DEFAULT_DESKTOP_CATALOG_PATH]),
+    readJsonWithFallback(args.mappingReport),
+    readJsonWithFallback(args.priceData, [DEFAULT_DESKTOP_PRICE_DATA_PATH]),
     readJsonIfExists(OFFICIAL_RELEASES_PATH),
   ]);
 
