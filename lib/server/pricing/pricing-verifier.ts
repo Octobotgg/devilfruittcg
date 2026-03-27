@@ -45,6 +45,7 @@ type MappingInput = {
   duplicateProductCardPrintIds?: string[];
   publishedDisplay?: {
     displayTreatmentLabel?: string | null;
+    labelStatus?: string | null;
   } | null;
 };
 
@@ -126,6 +127,7 @@ function titleCaseToken(token: string) {
   if (!token) return token;
   if (/^\d+$/u.test(token)) return token;
   if (/[A-Z]/u.test(token) && /\d/u.test(token) && !/[a-z]/u.test(token)) return token;
+  if (/^[A-Z0-9]+(?:-[A-Z0-9]+)+$/u.test(token) && !/[a-z]/u.test(token)) return token;
   if (/^[A-Z]{1,5}\d+$/u.test(token)) return token;
   if (/^[A-Z]{1,5}-\d+$/iu.test(token)) return token.toUpperCase();
   if (/^(OP|ST|EB|PRB|GC|CS|SP|P)$/iu.test(token)) return token.toUpperCase();
@@ -422,15 +424,23 @@ export function verifyMappingIntegrity(input: MappingInput) {
   }
 
   const publishedLabel = normalizeExpectedTreatment(input.publishedDisplay?.displayTreatmentLabel);
-  if (
+  const stalePublishedFallbackSuppressed =
     publishedLabel?.label &&
-    providerTreatment?.exact &&
-    publishedLabel.label !== providerTreatment.label
+    input.publishedDisplay?.labelStatus === "fallback" &&
+    providerTreatment?.label === publishedLabel.label &&
+    !providerTreatment.exact;
+  if (
+    (publishedLabel?.label &&
+      providerTreatment?.exact &&
+      publishedLabel.label !== providerTreatment.label) ||
+    stalePublishedFallbackSuppressed
   ) {
     conflicts.push(
       buildConflict(input, "ui_label_mismatch", {
         publishedDisplayTreatmentLabel: input.publishedDisplay?.displayTreatmentLabel || null,
-        providerTreatment: providerTreatment.label,
+        publishedLabelStatus: input.publishedDisplay?.labelStatus || null,
+        providerTreatment: providerTreatment?.label || null,
+        nextDisplayTreatmentLabel: providerTreatment?.exact ? providerTreatment.label : null,
       }),
     );
   }

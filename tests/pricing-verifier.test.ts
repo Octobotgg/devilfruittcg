@@ -565,6 +565,28 @@ test("verifyMappingIntegrity captures duplicate product assignments and ui label
   assert.deepEqual(result.conflictTypes, ["duplicate_product_assignment", "ui_label_mismatch"]);
 });
 
+test("verifyMappingIntegrity flags stale published fallback chips when the new payload suppresses them", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      provider: {
+        productName: "Monkey D. Luffy Parallel OP01-001",
+        productUrlName: "monkey-d-luffy-parallel-op01-001",
+        treatment: "Parallel",
+      },
+      publishedDisplay: {
+        displayTreatmentLabel: "Parallel",
+        labelStatus: "fallback",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.deepEqual(result.conflictTypes, ["ui_label_mismatch"]);
+});
+
 test("buildPublishedDisplayPayload hides vague fallback treatments when no exact provider treatment is trustworthy", async () => {
   const { buildPublishedDisplayPayload } = await importPricingVerifier();
 
@@ -737,6 +759,45 @@ test("buildPublishedDisplayPayload preserves canonical casing for mixed alphanum
   });
 
   assert.equal(result.displaySetName, "ST-14 3D2Y");
+});
+
+test("buildPublishedDisplayPayload preserves uppercase hyphenated words in set names", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const prerelease = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "PRE-RELEASE OP02",
+      setCode: "OP02",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy OP02",
+      setName: "PRE-RELEASE OP02",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  const treasureCup = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "TREASURE CUP NOVEMBER-DECEMBER",
+      setCode: null,
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy",
+      setName: "TREASURE CUP NOVEMBER-DECEMBER",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(prerelease.displaySetName, "PRE-RELEASE OP02");
+  assert.equal(treasureCup.displaySetName, "Treasure Cup NOVEMBER-DECEMBER");
 });
 
 test("verifyPriceDrift uses stricter thresholds for premium cards than non-premium cards", async () => {
