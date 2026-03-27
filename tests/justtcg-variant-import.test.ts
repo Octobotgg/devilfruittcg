@@ -159,7 +159,7 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
                 printing: "Normal",
                 language: "English",
                 price: 850,
-                lastUpdated: "2026-03-25T00:00:00.000Z",
+                lastUpdated: 1774396800,
                 priceHistory: [{ price: 825, recordedAt: "2026-03-24T00:00:00.000Z" }],
               },
               {
@@ -168,7 +168,7 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
                 printing: "Normal",
                 language: "English",
                 price: 600,
-                lastUpdated: "2026-03-25T00:00:00.000Z",
+                lastUpdated: 1774396800,
                 priceHistory: [{ price: 610, recordedAt: "2026-03-24T00:00:00.000Z" }],
               },
             ],
@@ -267,8 +267,10 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
   assert.equal(nmVariant?.printing, "Normal");
   assert.equal(nmVariant?.language, "English");
   assert.equal(nmVariant?.price, 850);
+  assert.equal(nmVariant?.last_updated_at, "2026-03-25T00:00:00.000Z");
   assert.equal(lpVariant?.condition, "Lightly Played");
   assert.equal(lpVariant?.price, 600);
+  assert.equal(lpVariant?.last_updated_at, "2026-03-25T00:00:00.000Z");
 
   assert.deepEqual(seed.cardPrintPriceHistory, [
     {
@@ -307,7 +309,7 @@ test("buildSeed deterministically picks the lexicographically smallest English N
                 printing: "Normal",
                 language: "English",
                 price: 810,
-                lastUpdated: "2026-03-25T00:00:00.000Z",
+                lastUpdated: 1774396800,
               },
               {
                 variantId: "a-ace-nm",
@@ -315,7 +317,7 @@ test("buildSeed deterministically picks the lexicographically smallest English N
                 printing: "Normal",
                 language: "English",
                 price: 850,
-                lastUpdated: "2026-03-25T00:00:00.000Z",
+                lastUpdated: 1774396800,
               },
             ],
           },

@@ -205,7 +205,21 @@ function isTrustedEventApproval(entry) {
 
 function normalizeTimestamp(value) {
   if (!value) return null;
-  const parsed = Date.parse(String(value));
+  if (typeof value === "number" && Number.isFinite(value)) {
+    const milliseconds = value < 1e12 ? value * 1000 : value;
+    return new Date(milliseconds).toISOString();
+  }
+
+  const text = String(value).trim();
+  if (/^\d+$/.test(text)) {
+    const parsed = Number.parseInt(text, 10);
+    if (Number.isFinite(parsed)) {
+      const milliseconds = parsed < 1e12 ? parsed * 1000 : parsed;
+      return new Date(milliseconds).toISOString();
+    }
+  }
+
+  const parsed = Date.parse(text);
   return Number.isFinite(parsed) ? new Date(parsed).toISOString() : null;
 }
 
