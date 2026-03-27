@@ -133,7 +133,7 @@ async function insertSnapshot(sql, row) {
   await sql.unsafe(sqlText, params);
 }
 
-async function insertSnapshots(sql, rows, chunkSize, label) {
+async function insertRows(sql, tableName, rows, chunkSize, label) {
   if (!rows.length) return;
   const columns = Object.keys(rows[0]);
   const groups = chunk(rows, chunkSize);
@@ -153,7 +153,7 @@ async function insertSnapshots(sql, rows, chunkSize, label) {
         return `(${placeholders.join(", ")})`;
       })
       .join(", ");
-    const sqlText = `insert into "price_snapshots" (${columns.map(quoteIdentifier).join(", ")}) values ${valuesSql}`;
+    const sqlText = `insert into ${quoteIdentifier(tableName)} (${columns.map(quoteIdentifier).join(", ")}) values ${valuesSql}`;
     await sql.unsafe(sqlText, params);
     await logProgress(label, Math.min((groupIndex + 1) * chunkSize, rows.length), rows.length);
   }
@@ -161,8 +161,7 @@ async function insertSnapshots(sql, rows, chunkSize, label) {
 
 async function insertHistoryRows(sql, rows, chunkSize, label) {
   if (!rows.length) return;
-
-  await insertSnapshots(sql, rows, chunkSize, label);
+  await insertRows(sql, "card_print_price_history", rows, chunkSize, label);
 }
 
 async function applyCardPrintAssignments(sql, assignments, chunkSize, label) {
@@ -369,7 +368,7 @@ async function main() {
     );
 
     await insertHistoryRows(sql, pendingCurrentHistory, 100, "card_print_price_history");
-    await insertSnapshots(sql, pendingSnapshots, 50, "price_snapshots");
+    await insertRows(sql, "price_snapshots", pendingSnapshots, 50, "price_snapshots");
 
     console.log("Manual JustTCG seed apply complete");
   } finally {
