@@ -1054,19 +1054,40 @@ function buildActiveCardPrintVariantAssignments(approvedRawAssignments, variantR
     .filter(Boolean);
 }
 
-function buildAuthoritativeActiveCardPrintAssignments(currentAssignments, existingActiveCardPrintIds) {
+function buildAuthoritativeActiveCardPrintAssignments(
+  currentAssignments,
+  currentVariantAssignments,
+  existingActiveCardPrintIds,
+) {
   const assignments = new Map(
     [...existingActiveCardPrintIds].map((cardPrintId) => [
       cardPrintId,
       {
         card_print_id: cardPrintId,
         active_external_product_id: null,
+        active_external_variant_id: null,
       },
     ]),
   );
 
   for (const assignment of currentAssignments) {
-    assignments.set(assignment.card_print_id, assignment);
+    const existing = assignments.get(assignment.card_print_id) || {
+      card_print_id: assignment.card_print_id,
+      active_external_product_id: null,
+      active_external_variant_id: null,
+    };
+    existing.active_external_product_id = assignment.active_external_product_id;
+    assignments.set(assignment.card_print_id, existing);
+  }
+
+  for (const assignment of currentVariantAssignments || []) {
+    const existing = assignments.get(assignment.card_print_id) || {
+      card_print_id: assignment.card_print_id,
+      active_external_product_id: null,
+      active_external_variant_id: null,
+    };
+    existing.active_external_variant_id = assignment.active_external_variant_id;
+    assignments.set(assignment.card_print_id, existing);
   }
 
   return [...assignments.values()];
@@ -1077,10 +1098,15 @@ function splitActiveAssignmentStages(assignments) {
   const assignStage = [];
 
   for (const assignment of assignments) {
-    const { active_external_product_id: _ignoredActiveExternalProductId, ...identity } = assignment;
+    const {
+      active_external_product_id: _ignoredActiveExternalProductId,
+      active_external_variant_id: _ignoredActiveExternalVariantId,
+      ...identity
+    } = assignment;
     clearStage.push({
       ...identity,
       active_external_product_id: null,
+      active_external_variant_id: null,
     });
 
     if (assignment.active_external_product_id != null) {
@@ -1254,15 +1280,16 @@ async function applyActiveAssignments(sql, tableName, targetIdColumn, sourceIdKe
     const params = [];
     const valuesSql = group
       .map((row) => {
-        params.push(row[sourceIdKey], row.active_external_product_id);
-        return `($${params.length - 1}, $${params.length})`;
+        params.push(row[sourceIdKey], row.active_external_product_id, row.active_external_variant_id);
+        return `($${params.length - 2}, $${params.length - 1}, $${params.length})`;
       })
       .join(", ");
 
     const sqlText = `
       update ${quoteIdentifier(tableName)} as target
-      set active_external_product_id = source.active_external_product_id
-      from (values ${valuesSql}) as source(${quoteIdentifier(sourceIdKey)}, "active_external_product_id")
+      set active_external_product_id = source.active_external_product_id,
+          active_external_variant_id = source.active_external_variant_id
+      from (values ${valuesSql}) as source(${quoteIdentifier(sourceIdKey)}, "active_external_product_id", "active_external_variant_id")
       where target.${quoteIdentifier(targetIdColumn)} = source.${quoteIdentifier(sourceIdKey)}
     `;
     await sql.unsafe(sqlText, params);
@@ -1277,19 +1304,19 @@ async function fetchExistingSnapshotKeys(sql, snapshotRows, chunkSize) {
     const params = [];
     const tuples = group
       .map((row) => {
-        params.push(row.external_product_id, row.captured_at);
-        return `($${params.length - 1}, $${params.length})`;
+        params.push(row.external_product_id, row.external_variant_id || "", row.captured_at);
+        return `($${params.length - 2}, $${params.length - 1}, $${params.length})`;
       })
       .join(", ");
 
     const sqlText = `
-      select external_product_id, captured_at
+      select external_product_id, coalesce(external_variant_id, '') as external_variant_id, captured_at
       from price_snapshots
-      where (external_product_id, captured_at) in (${tuples})
+      where (external_product_id, coalesce(external_variant_id, ''), captured_at) in (${tuples})
     `;
     const rows = await sql.unsafe(sqlText, params);
     for (const row of rows) {
-      keys.add(`${row.external_product_id}::${new Date(row.captured_at).toISOString()}`);
+      keys.add(`${row.external_product_id}::${row.external_variant_id || ""}::${new Date(row.captured_at).toISOString()}`);
     }
   }
 
@@ -1311,21 +1338,32 @@ async function fetchExistingActiveJusttcgCardPrintIds(sql) {
 }
 
 async function applySeed(seed, options) {
-  const sql = postgres(getConnectionString(), {
-    prepare: false,
-    max: 1,
-  });
+  const sql =
+    options.sql ||
+    postgres(getConnectionString(), {
+      prepare: false,
+      max: 1,
+    });
+  const ownsConnection = !options.sql;
 
   try {
     const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(sql);
     const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
       seed.activeCardPrintAssignments,
+      seed.activeCardPrintVariantAssignments,
       existingActiveCardPrintIds,
     );
     const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
 
     await upsertRows(sql, "external_sources", seed.externalSources, ["id"], options.chunkSize);
     await upsertRows(sql, "external_products", seed.externalProducts, ["id"], options.chunkSize);
+    await upsertRows(
+      sql,
+      "external_product_variants",
+      seed.externalProductVariants || [],
+      ["provider_variant_id"],
+      options.chunkSize,
+    );
     await upsertRows(sql, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
 
     await upsertRows(sql, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
@@ -1369,14 +1407,16 @@ async function applySeed(seed, options) {
     const existingSnapshotKeys = await fetchExistingSnapshotKeys(sql, seed.priceSnapshots, options.chunkSize);
     const seenSnapshotKeys = new Set(existingSnapshotKeys);
     const newSnapshots = seed.priceSnapshots.filter((row) => {
-      const key = `${row.external_product_id}::${new Date(row.captured_at).toISOString()}`;
+      const key = `${row.external_product_id}::${row.external_variant_id || ""}::${new Date(row.captured_at).toISOString()}`;
       if (seenSnapshotKeys.has(key)) return false;
       seenSnapshotKeys.add(key);
       return true;
     });
     await insertRows(sql, "price_snapshots", newSnapshots, options.chunkSize);
   } finally {
-    await sql.end({ timeout: 5 });
+    if (ownsConnection) {
+      await sql.end({ timeout: 5 });
+    }
   }
 }
 
@@ -1425,6 +1465,7 @@ export {
   buildExternalProducts,
   buildRawCardPrices,
   buildSeed,
+  applySeed,
   extractJusttcgId,
   resolveApprovedRawPriceRow,
   splitActiveAssignmentStages,
