@@ -1,5 +1,6 @@
 import {
   bigserial,
+  bigint,
   boolean,
   date,
   foreignKey,
@@ -85,6 +86,32 @@ export const reviewStatusEnum = pgEnum("review_status", [
   "in_progress",
   "resolved",
   "rejected",
+]);
+
+export const pricingVerificationRunStatusEnum = pgEnum("pricing_verification_run_status", [
+  "running",
+  "completed",
+  "failed",
+]);
+
+export const pricingVerificationStatusEnum = pgEnum("pricing_verification_status", [
+  "verified",
+  "drift_warning",
+  "mismatch",
+  "stale_provider",
+  "missing_tcgplayer_id",
+  "unpriced_no_variant",
+  "mapping_conflict",
+]);
+
+export const pricingMappingConflictTypeEnum = pgEnum("pricing_mapping_conflict_type", [
+  "number_mismatch",
+  "set_mismatch",
+  "name_mismatch",
+  "treatment_mismatch",
+  "duplicate_variant_assignment",
+  "duplicate_product_assignment",
+  "ui_label_mismatch",
 ]);
 
 export const games = pgTable(
@@ -505,6 +532,173 @@ export const cardPrintPriceHistory = pgTable(
       ],
     }).onDelete("no action"),
     printRecordedAtIdx: index("card_print_price_history_print_recorded_at_idx").on(table.cardPrintId, table.recordedAt),
+  }),
+);
+
+export const pricingVerificationRuns = pgTable(
+  "pricing_verification_runs",
+  {
+    id: bigserial("id", { mode: "number" }).primaryKey(),
+    status: pricingVerificationRunStatusEnum("status").notNull().default("running"),
+    startedAt: timestamp("started_at", { withTimezone: true }).defaultNow().notNull(),
+    finishedAt: timestamp("finished_at", { withTimezone: true }),
+    source: text("source").notNull(),
+    notes: text("notes"),
+  },
+  (table) => ({
+    sourceIdx: index("pricing_verification_runs_source_idx").on(table.source),
+    startedAtIdx: index("pricing_verification_runs_started_at_idx").on(table.startedAt),
+  }),
+);
+
+export const pricingVerificationResults = pgTable(
+  "pricing_verification_results",
+  {
+    verificationRunId: bigint("verification_run_id", { mode: "number" })
+      .notNull()
+      .references(() => pricingVerificationRuns.id, { onDelete: "cascade" }),
+    cardPrintId: text("card_print_id")
+      .notNull()
+      .references(() => cardPrints.id, { onDelete: "cascade" }),
+    externalProductId: text("external_product_id").references(() => externalProducts.id, { onDelete: "set null" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
+    tcgplayerProductId: text("tcgplayer_product_id"),
+    justtcgPriceNm: numeric("justtcg_price_nm", { precision: 12, scale: 2 }),
+    tcgplayerMarketPrice: numeric("tcgplayer_market_price", { precision: 12, scale: 2 }),
+    publishedPriceNmBefore: numeric("published_price_nm_before", { precision: 12, scale: 2 }),
+    priceDeltaAbs: numeric("price_delta_abs", { precision: 12, scale: 2 }),
+    priceDeltaRatio: numeric("price_delta_ratio", { precision: 10, scale: 6 }),
+    mappingIntegrityStatus: text("mapping_integrity_status").notNull(),
+    labelIntegrityStatus: text("label_integrity_status").notNull(),
+    verificationStatus: pricingVerificationStatusEnum("verification_status").notNull(),
+    reason: text("reason"),
+    checkedAt: timestamp("checked_at", { withTimezone: true }).defaultNow().notNull(),
+    rawTcgplayerPayload: jsonb("raw_tcgplayer_payload").$type<Record<string, unknown>>(),
+  },
+  (table) => ({
+    productVariantFk: foreignKey({
+      name: "pricing_verification_results_product_variant_fk",
+      columns: [table.externalProductId, table.externalVariantId],
+      foreignColumns: [externalProductVariants.externalProductId, externalProductVariants.id],
+    }).onDelete("no action"),
+    pk: primaryKey({ columns: [table.verificationRunId, table.cardPrintId] }),
+    cardPrintIdx: index("pricing_verification_results_card_print_idx").on(table.cardPrintId),
+    verificationRunIdx: index("pricing_verification_results_verification_run_idx").on(table.verificationRunId),
+  }),
+);
+
+export const pricingMappingConflicts = pgTable(
+  "pricing_mapping_conflicts",
+  {
+    id: bigserial("id", { mode: "number" }).primaryKey(),
+    verificationRunId: bigint("verification_run_id", { mode: "number" })
+      .notNull()
+      .references(() => pricingVerificationRuns.id, { onDelete: "cascade" }),
+    cardPrintId: text("card_print_id")
+      .notNull()
+      .references(() => cardPrints.id, { onDelete: "cascade" }),
+    externalProductId: text("external_product_id").references(() => externalProducts.id, { onDelete: "set null" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
+    tcgplayerProductId: text("tcgplayer_product_id"),
+    conflictType: pricingMappingConflictTypeEnum("conflict_type").notNull(),
+    expectedNumber: text("expected_number"),
+    expectedSetCode: text("expected_set_code"),
+    expectedName: text("expected_name"),
+    providerNumber: text("provider_number"),
+    providerSetName: text("provider_set_name"),
+    providerProductName: text("provider_product_name"),
+    details: jsonb("details").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    productVariantFk: foreignKey({
+      name: "pricing_mapping_conflicts_product_variant_fk",
+      columns: [table.externalProductId, table.externalVariantId],
+      foreignColumns: [externalProductVariants.externalProductId, externalProductVariants.id],
+    }).onDelete("no action"),
+    cardPrintIdx: index("pricing_mapping_conflicts_card_print_idx").on(table.cardPrintId),
+    verificationRunIdx: index("pricing_mapping_conflicts_verification_run_idx").on(table.verificationRunId),
+  }),
+);
+
+export const cardPrintPricePublished = pgTable(
+  "card_print_price_published",
+  {
+    cardPrintId: text("card_print_id")
+      .notNull()
+      .references(() => cardPrints.id, { onDelete: "cascade" }),
+    sourceId: text("source_id")
+      .notNull()
+      .references(() => externalSources.id, { onDelete: "cascade" }),
+    externalProductId: text("external_product_id")
+      .notNull()
+      .references(() => externalProducts.id, { onDelete: "cascade" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
+    priceMarket: numeric("price_market", { precision: 12, scale: 2 }),
+    priceNm: numeric("price_nm", { precision: 12, scale: 2 }),
+    priceLp: numeric("price_lp", { precision: 12, scale: 2 }),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull(),
+    publishedAt: timestamp("published_at", { withTimezone: true }).defaultNow().notNull(),
+    verificationStatus: pricingVerificationStatusEnum("verification_status").notNull(),
+    verificationRunId: bigint("verification_run_id", { mode: "number" })
+      .notNull()
+      .references(() => pricingVerificationRuns.id, { onDelete: "restrict" }),
+  },
+  (table) => ({
+    productSourceVariantFk: foreignKey({
+      name: "card_print_price_published_product_source_variant_fk",
+      columns: [table.externalProductId, table.sourceId, table.externalVariantId],
+      foreignColumns: [
+        externalProductVariants.externalProductId,
+        externalProductVariants.sourceId,
+        externalProductVariants.id,
+      ],
+    }).onDelete("no action"),
+    pk: primaryKey({ columns: [table.cardPrintId, table.sourceId] }),
+    cardPrintIdx: index("card_print_price_published_card_print_idx").on(table.cardPrintId),
+    verificationRunIdx: index("card_print_price_published_verification_run_idx").on(table.verificationRunId),
+  }),
+);
+
+export const cardPrintDisplayPublished = pgTable(
+  "card_print_display_published",
+  {
+    cardPrintId: text("card_print_id")
+      .notNull()
+      .references(() => cardPrints.id, { onDelete: "cascade" }),
+    externalProductId: text("external_product_id")
+      .notNull()
+      .references(() => externalProducts.id, { onDelete: "cascade" }),
+    externalVariantId: text("external_variant_id").references(() => externalProductVariants.id, {
+      onDelete: "set null",
+    }),
+    displaySetName: text("display_set_name").notNull(),
+    displaySetCode: text("display_set_code").notNull(),
+    displayRarity: text("display_rarity"),
+    displayTitle: text("display_title").notNull(),
+    displayTreatmentLabel: text("display_treatment_label"),
+    displayImageUrl: text("display_image_url"),
+    labelStatus: text("label_status").notNull(),
+    verificationRunId: bigint("verification_run_id", { mode: "number" })
+      .notNull()
+      .references(() => pricingVerificationRuns.id, { onDelete: "restrict" }),
+    publishedAt: timestamp("published_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => ({
+    productVariantFk: foreignKey({
+      name: "card_print_display_published_product_variant_fk",
+      columns: [table.externalProductId, table.externalVariantId],
+      foreignColumns: [externalProductVariants.externalProductId, externalProductVariants.id],
+    }).onDelete("no action"),
+    pk: primaryKey({ columns: [table.cardPrintId] }),
+    cardPrintIdx: index("card_print_display_published_card_print_idx").on(table.cardPrintId),
+    verificationRunIdx: index("card_print_display_published_verification_run_idx").on(table.verificationRunId),
   }),
 );
 
