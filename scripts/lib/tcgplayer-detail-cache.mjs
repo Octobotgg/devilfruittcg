@@ -3,6 +3,7 @@ import { writeJson } from "./justtcg-utils.mjs";
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
 const TCGPLAYER_DETAILS_BASE_URL = "https://mp-search-api.tcgplayer.com/v1/product";
 const RETRIABLE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504, 520, 522, 524]);
+const LEGACY_RAW_FRESH_AT = new Date(0).toISOString();
 
 class TransientTcgplayerDetailError extends Error {
   constructor(message) {
@@ -39,8 +40,8 @@ function normalizeFetchedAt(value) {
 }
 
 function normalizeEntry(entry) {
-  if (!entry || typeof entry !== "object") return { entry: null, migrated: false };
-  if ("fetched_at" in entry) return { entry, migrated: false };
+  if (!entry || typeof entry !== "object") return { entry: null, migrated: false, persistOnRead: false };
+  if ("fetched_at" in entry) return { entry, migrated: false, persistOnRead: false };
   if ("payload" in entry && "fetchedAt" in entry) {
     return {
       entry: {
@@ -48,14 +49,16 @@ function normalizeEntry(entry) {
         fetched_at: normalizeFetchedAt(entry.fetchedAt),
       },
       migrated: true,
+      persistOnRead: true,
     };
   }
   return {
     entry: {
       ...entry,
-      fetched_at: new Date().toISOString(),
+      fetched_at: LEGACY_RAW_FRESH_AT,
     },
     migrated: true,
+    persistOnRead: false,
   };
 }
 
@@ -142,7 +145,7 @@ export async function getTcgplayerProductDetail({
 
   if (cachedEntry) {
     cache[key] = cachedEntry;
-    if (normalized.migrated && cachePath) {
+    if (normalized.persistOnRead && cachePath) {
       writeJson(cachePath, cache);
     }
     if (isFresh(cachedEntry, ttlMs, nowMs)) {

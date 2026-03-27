@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync, readFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -82,7 +82,7 @@ test("getTcgplayerProductDetail fetches product details from the TCGplayer detai
   }
 });
 
-test("getTcgplayerProductDetail migrates legacy raw payload cache entries without refetching", async () => {
+test("getTcgplayerProductDetail refetches legacy raw payload cache entries immediately", async () => {
   const tempDir = createTempDir();
   try {
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
@@ -93,7 +93,7 @@ test("getTcgplayerProductDetail migrates legacy raw payload cache entries withou
         title: "Legacy Raw",
       } as TcgplayerCacheEntry,
     };
-    const { calls, fetchImpl } = createFetchStub([{ error: new Error("should not fetch") }]);
+    const { calls, fetchImpl } = createFetchStub([{ body: { id: 999, title: "Refetched Raw" } }]);
 
     const detail = await getTcgplayerProductDetail({
       productId: 999,
@@ -103,15 +103,44 @@ test("getTcgplayerProductDetail migrates legacy raw payload cache entries withou
       fetchImpl,
     });
 
-    assert.equal(calls.length, 0);
-    assert.deepEqual(detail, { id: 999, title: "Legacy Raw" });
+    assert.equal(calls.length, 1);
+    assert.deepEqual(detail, { id: 999, title: "Refetched Raw" });
 
     const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["999"];
     assert.equal(persisted.id, 999);
-    assert.equal(persisted.title, "Legacy Raw");
+    assert.equal(persisted.title, "Refetched Raw");
     assert.equal(typeof persisted.fetched_at, "string");
     assert.equal("payload" in persisted, false);
     assert.equal("fetchedAt" in persisted, false);
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("getTcgplayerProductDetail preserves legacy raw payload cache entries as fallback on transient refresh failure", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const cache: Record<string, TcgplayerCacheEntry> = {
+      "997": {
+        id: 997,
+        title: "Legacy Raw Fallback",
+      } as TcgplayerCacheEntry,
+    };
+    const { calls, fetchImpl } = createFetchStub([{ error: new Error("network down") }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 997,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    assert.deepEqual(detail, { id: 997, title: "Legacy Raw Fallback" });
+    assert.equal(existsSync(cachePath), false);
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
