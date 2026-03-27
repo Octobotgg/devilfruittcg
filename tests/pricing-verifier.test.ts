@@ -242,6 +242,8 @@ function createMappingInput(overrides?: {
       number: "OP01-001",
       setCode: "OP01",
       setName: "Romance Dawn [OP01]",
+      originSet: null,
+      releaseCode: "OP01",
       title: "Monkey D. Luffy",
       rarity: "SR",
       treatmentLabel: null,
@@ -277,6 +279,32 @@ test("verifyMappingIntegrity marks exact number, set, and title matches as verif
   assert.equal(result.primaryConflictType, null);
   assert.equal(result.labelIntegrityStatus, "verified");
   assert.equal(result.normalizedProviderTreatmentLabel, null);
+  assert.equal(result.publishable, true);
+});
+
+test("verifyMappingIntegrity accepts same-family provider set aliases and containment matches", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        number: "PRB02-001",
+        setCode: "PRB02",
+        setName: "Premium Booster The Best [PRB02]",
+        originSet: "Premium Booster The Best Vol. 2",
+        releaseCode: "PRB02",
+      },
+      provider: {
+        number: "PRB02-001",
+        setName: "One Piece Card The Best Vol 2",
+        productName: "Monkey D. Luffy PRB02-001",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "verified");
+  assert.equal(result.verificationStatus, "verified");
+  assert.deepEqual(result.conflictTypes, []);
   assert.equal(result.publishable, true);
 });
 
@@ -328,6 +356,28 @@ test("verifyMappingIntegrity captures premium treatment mismatches explicitly", 
         productName: "Monkey D. Luffy Parallel OP01-001",
         productUrlName: "monkey-d-luffy-parallel-op01-001",
         treatment: "Parallel",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "treatment_mismatch");
+  assert.deepEqual(result.conflictTypes, ["treatment_mismatch"]);
+});
+
+test("verifyMappingIntegrity blocks mismatches for trusted event and SP treatment labels", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        treatmentLabel: "Winner Pack",
+      },
+      provider: {
+        productName: "Monkey D. Luffy Event Pack OP01-001",
+        productUrlName: "monkey-d-luffy-event-pack-op01-001",
+        treatment: "EVENT_PACK",
       },
     }),
   );
@@ -420,6 +470,42 @@ test("buildPublishedDisplayPayload normalizes provider treatment slugs for publi
 
   assert.equal(result.displayTreatmentLabel, "Jolly Roger Foil");
   assert.equal(result.labelStatus, "normalized");
+});
+
+test("buildPublishedDisplayPayload normalizes trusted event and SP premium labels for published display", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const cases = [
+    { treatment: "CHAMPION", expected: "Champion" },
+    { treatment: "FINALIST", expected: "Finalist" },
+    { treatment: "PARTICIPATION_PACK", expected: "Participation Pack" },
+    { treatment: "WINNER_PACK", expected: "Winner Pack" },
+    { treatment: "EVENT_PACK", expected: "Event Pack" },
+    { treatment: "TOURNAMENT_PACK", expected: "Tournament Pack" },
+    { treatment: "SP_GOLD", expected: "SP (Gold)" },
+    { treatment: "SP_SILVER", expected: "SP (Silver)" },
+  ];
+
+  for (const testCase of cases) {
+    const result = buildPublishedDisplayPayload({
+      cardPrint: {
+        title: "Monkey D. Luffy",
+        setName: "Premium Booster The Best [PRB01]",
+        setCode: "PRB01",
+        rarity: "SR",
+        imageUrl: "https://example.com/luffy.jpg",
+      },
+      provider: {
+        productName: `Monkey D. Luffy (${testCase.treatment})`,
+        setName: "PREMIUM_BOOSTER_THE_BEST",
+        treatment: testCase.treatment,
+        imageUrl: "https://example.com/provider-luffy.jpg",
+      },
+    });
+
+    assert.equal(result.displayTreatmentLabel, testCase.expected, testCase.treatment);
+    assert.equal(result.labelStatus, "normalized", testCase.treatment);
+  }
 });
 
 test("verifyPriceDrift uses stricter thresholds for premium cards than non-premium cards", async () => {

@@ -23,6 +23,8 @@ type MappingInput = {
     number?: string | null;
     setCode?: string | null;
     setName?: string | null;
+    originSet?: string | null;
+    releaseCode?: string | null;
     title?: string | null;
     rarity?: string | null;
     treatmentLabel?: string | null;
@@ -93,6 +95,12 @@ type DisplayPayloadInput = {
 };
 
 const STALE_PROVIDER_MAX_AGE_MS = 72 * 60 * 60 * 1000;
+const RELEASE_ALIASES: Record<string, string[]> = {
+  PRB01: ["premium booster the best", "one piece card the best"],
+  PRB02: ["premium booster the best vol 2", "one piece card the best vol 2"],
+  EB03: ["extra booster one piece heroines edition", "one piece heroines edition", "extra booster 03"],
+  EB04: ["the azure sea s seven", "extra booster 04"],
+};
 
 function normalizeText(value: string | null | undefined) {
   return String(value || "")
@@ -162,6 +170,34 @@ function normalizeAnniversaryLabel(value: string) {
   return "Anniversary";
 }
 
+function setAliasesForCard(cardPrint: MappingInput["cardPrint"]) {
+  const aliases = new Set<string>();
+
+  for (const value of [cardPrint.setName, cardPrint.originSet]) {
+    const normalized = normalizeText(stripBracketCode(value));
+    if (normalized) aliases.add(normalized);
+  }
+
+  for (const alias of RELEASE_ALIASES[String(cardPrint.releaseCode || cardPrint.setCode || "").toUpperCase()] || []) {
+    aliases.add(normalizeText(alias));
+  }
+
+  return [...aliases];
+}
+
+function setFamilyMatches(input: MappingInput) {
+  const providerSet = normalizeText(input.provider.setName);
+  if (!providerSet) return false;
+
+  const haystacks = [providerSet];
+  const release = normalizeText(input.cardPrint.releaseCode || input.cardPrint.setCode);
+  if (release && haystacks.some((value) => value.includes(release))) return true;
+
+  return setAliasesForCard(input.cardPrint).some((alias) =>
+    haystacks.some((value) => value.includes(alias) || alias.includes(value)),
+  );
+}
+
 function canonicalTreatmentLabel(rawValue: string, allowGeneric: boolean) {
   const raw = String(rawValue || "").trim();
   if (!raw || isIdentifierLike(raw)) return null;
@@ -181,6 +217,15 @@ function canonicalTreatmentLabel(rawValue: string, allowGeneric: boolean) {
     return exactMatch("Jolly Roger Foil");
   }
   if (normalized.includes("pirate foil")) return exactMatch("Pirate Foil");
+  if (normalized.includes("participation")) return exactMatch("Participation Pack");
+  if (normalized.includes("finalist")) return exactMatch("Finalist");
+  if (normalized.includes("champion")) return exactMatch("Champion");
+  if (normalized.includes("winner pack")) return exactMatch("Winner Pack");
+  if (normalized.includes("winner card set")) return exactMatch("Winner Card Set");
+  if (normalized.includes("event pack")) return exactMatch("Event Pack");
+  if (normalized.includes("tournament pack")) return exactMatch("Tournament Pack");
+  if (normalized.includes("sp gold") || normalized.includes("gold sp")) return exactMatch("SP (Gold)");
+  if (normalized.includes("sp silver") || normalized.includes("silver sp")) return exactMatch("SP (Silver)");
   if (normalized.includes("gold stamped signature")) return exactMatch("Gold-Stamped Signature");
   if (normalized.includes("textured foil")) return exactMatch("Textured Foil");
   if (normalized.includes("treasure rare")) return exactMatch("Treasure Rare");
@@ -304,7 +349,7 @@ export function verifyMappingIntegrity(input: MappingInput) {
 
   const expectedSet = normalizeText(stripBracketCode(input.cardPrint.setName) || input.cardPrint.setCode);
   const providerSet = normalizeText(input.provider.setName);
-  if (expectedSet && providerSet && expectedSet !== providerSet) {
+  if (expectedSet && providerSet && !setFamilyMatches(input)) {
     conflicts.push(buildConflict(input, "set_mismatch"));
   }
 
