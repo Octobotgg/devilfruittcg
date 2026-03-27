@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -164,26 +164,54 @@ test("pricing verifier schema includes published and verification tables", async
     "card_print_display_published_verification_run_idx",
   ]);
 
-  const migrationSql = readFileSync(
-    path.join(REPO_ROOT, "db/migrations/0004_flat_jack_murdock.sql"),
-    "utf8",
+  const migrationDir = path.join(REPO_ROOT, "db/migrations");
+  const migrationFiles = readdirSync(migrationDir)
+    .filter((file) => file.endsWith(".sql"))
+    .sort();
+  const hardeningMigration = migrationFiles.find((file) => file.startsWith("0005_"));
+  assert.ok(hardeningMigration, "expected append-only follow-up migration 0005_*");
+
+  const baseMigrationSql = readFileSync(path.join(migrationDir, "0004_flat_jack_murdock.sql"), "utf8");
+  const hardeningMigrationSql = readFileSync(path.join(migrationDir, hardeningMigration), "utf8");
+  const journal = JSON.parse(readFileSync(path.join(migrationDir, "meta/_journal.json"), "utf8")) as {
+    entries: Array<{ tag: string }>;
+  };
+  assert.ok(journal.entries.some((entry) => entry.tag === hardeningMigration.replace(".sql", "")));
+
+  assert.match(baseMigrationSql, /"card_print_display_published_external_product_id_external_products_id_fk".*ON DELETE cascade/);
+  assert.match(baseMigrationSql, /"card_print_display_published_external_variant_id_external_product_variants_id_fk".*ON DELETE set null/);
+  assert.match(baseMigrationSql, /"card_print_price_published_external_product_id_external_products_id_fk".*ON DELETE cascade/);
+  assert.match(baseMigrationSql, /"card_print_price_published_external_variant_id_external_product_variants_id_fk".*ON DELETE set null/);
+  assert.match(baseMigrationSql, /"external_variant_id" text,/);
+  assert.match(baseMigrationSql, /"label_status" text NOT NULL/);
+  assert.match(baseMigrationSql, /"mapping_integrity_status" text NOT NULL/);
+  assert.doesNotMatch(baseMigrationSql, /pricing_label_status/);
+  assert.doesNotMatch(baseMigrationSql, /pricing_mapping_integrity_status/);
+
+  assert.match(hardeningMigrationSql, /CREATE TYPE "public"\."pricing_label_status" AS ENUM/);
+  assert.match(hardeningMigrationSql, /CREATE TYPE "public"\."pricing_mapping_integrity_status" AS ENUM/);
+  assert.match(hardeningMigrationSql, /DO \$\$/);
+  assert.match(hardeningMigrationSql, /UPDATE "pricing_verification_results" SET "mapping_integrity_status" = 'unknown'/);
+  assert.match(hardeningMigrationSql, /UPDATE "pricing_verification_results" SET "label_integrity_status" = 'unknown'/);
+  assert.match(hardeningMigrationSql, /UPDATE "card_print_display_published" SET "label_status" = 'unknown'/);
+  assert.match(
+    hardeningMigrationSql,
+    /card_print_display_published_external_product_id_external_products_id_fk.*ON DELETE no action/,
   );
   assert.match(
-    migrationSql,
-    /CREATE TYPE "public"\."pricing_mapping_integrity_status" AS ENUM\('verified', 'warning', 'mismatch', 'blocked', 'unknown'\);/,
+    hardeningMigrationSql,
+    /card_print_display_published_external_variant_id_external_product_variants_id_fk.*ON DELETE no action/,
   );
   assert.match(
-    migrationSql,
-    /CREATE TYPE "public"\."pricing_label_status" AS ENUM\('verified', 'normalized', 'fallback', 'blocked', 'unknown'\);/,
+    hardeningMigrationSql,
+    /card_print_price_published_external_product_id_external_products_id_fk.*ON DELETE no action/,
   );
   assert.match(
-    migrationSql,
-    /FOREIGN KEY \("external_product_id"\) REFERENCES "public"\."external_products"\("id"\) ON DELETE no action ON UPDATE no action;/,
+    hardeningMigrationSql,
+    /card_print_price_published_external_variant_id_external_product_variants_id_fk.*ON DELETE no action/,
   );
-  assert.match(
-    migrationSql,
-    /FOREIGN KEY \("external_variant_id"\) REFERENCES "public"\."external_product_variants"\("id"\) ON DELETE no action ON UPDATE no action;/,
-  );
-  assert.doesNotMatch(migrationSql, /ALTER TABLE "card_print_display_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
-  assert.doesNotMatch(migrationSql, /ALTER TABLE "card_print_price_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
+  assert.match(hardeningMigrationSql, /ALTER TABLE "card_print_display_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
+  assert.match(hardeningMigrationSql, /ALTER TABLE "card_print_price_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
+  assert.doesNotMatch(hardeningMigrationSql, /CREATE TABLE "card_print_price_published"/);
+  assert.doesNotMatch(hardeningMigrationSql, /CREATE TABLE "card_print_display_published"/);
 });

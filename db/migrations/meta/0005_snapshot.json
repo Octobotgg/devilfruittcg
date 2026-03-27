@@ -1,6 +1,6 @@
 {
-  "id": "a8bdfa99-fe44-4549-afe5-4c294267d922",
-  "prevId": "24cbe428-f787-4b89-8445-ffb39e04c693",
+  "id": "8c128836-0c8f-4a49-b942-9e471053fa0c",
+  "prevId": "a8bdfa99-fe44-4549-afe5-4c294267d922",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -24,7 +24,7 @@
           "name": "external_variant_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "display_set_name": {
           "name": "display_set_name",
@@ -64,7 +64,8 @@
         },
         "label_status": {
           "name": "label_status",
-          "type": "text",
+          "type": "pricing_label_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -138,7 +139,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "no action",
           "onUpdate": "no action"
         },
         "card_print_display_published_external_variant_id_external_product_variants_id_fk": {
@@ -151,7 +152,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "set null",
+          "onDelete": "no action",
           "onUpdate": "no action"
         },
         "card_print_display_published_verification_run_id_pricing_verification_runs_id_fk": {
@@ -757,7 +758,7 @@
           "name": "external_variant_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "price_market": {
           "name": "price_market",
@@ -873,7 +874,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "no action",
           "onUpdate": "no action"
         },
         "card_print_price_published_external_variant_id_external_product_variants_id_fk": {
@@ -886,7 +887,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "set null",
+          "onDelete": "no action",
           "onUpdate": "no action"
         },
         "card_print_price_published_verification_run_id_pricing_verification_runs_id_fk": {
@@ -2988,13 +2989,15 @@
         },
         "mapping_integrity_status": {
           "name": "mapping_integrity_status",
-          "type": "text",
+          "type": "pricing_mapping_integrity_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
         "label_integrity_status": {
           "name": "label_integrity_status",
-          "type": "text",
+          "type": "pricing_label_status",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -4201,6 +4204,17 @@
         "rejected"
       ]
     },
+    "public.pricing_label_status": {
+      "name": "pricing_label_status",
+      "schema": "public",
+      "values": [
+        "verified",
+        "normalized",
+        "fallback",
+        "blocked",
+        "unknown"
+      ]
+    },
     "public.pricing_mapping_conflict_type": {
       "name": "pricing_mapping_conflict_type",
       "schema": "public",
@@ -4212,6 +4226,17 @@
         "duplicate_variant_assignment",
         "duplicate_product_assignment",
         "ui_label_mismatch"
+      ]
+    },
+    "public.pricing_mapping_integrity_status": {
+      "name": "pricing_mapping_integrity_status",
+      "schema": "public",
+      "values": [
+        "verified",
+        "warning",
+        "mismatch",
+        "blocked",
+        "unknown"
       ]
     },
     "public.pricing_verification_run_status": {
