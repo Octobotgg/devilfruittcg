@@ -37,6 +37,23 @@ function migrationSql() {
     .join("\n");
 }
 
+function normalizeSql(text: string) {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function createRecordingSql() {
+  const queries: Array<{ text: string; params: unknown[] }> = [];
+
+  return {
+    queries,
+    unsafe: async (text: string, params: unknown[] = []) => {
+      queries.push({ text: normalizeSql(text), params });
+      return [];
+    },
+    end: async () => {},
+  };
+}
+
 test("JustTCG variant schema includes the new variant layer", async () => {
   const schema = await importSchema();
 
@@ -449,8 +466,8 @@ test("fetchJusttcgCatalogSince requests updated_after without fuzzy search", asy
   }
 });
 
-test("buildIncrementalSeed refreshes an active Near Mint variant without a full remap", async () => {
-  const { buildIncrementalSeed } =
+test("applySeed incremental refresh updates an existing variant-backed current price row without full remap", async () => {
+  const { applySeed, buildIncrementalSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
       "scripts/import-justtcg-to-drizzle.mjs",
     );
@@ -515,28 +532,25 @@ test("buildIncrementalSeed refreshes an active Near Mint variant without a full 
     },
   );
 
-  assert.deepEqual(seed.cardPrintPriceCurrent, [
-    {
-      card_print_id: "EB01-001",
-      source_id: "justtcg",
-      external_product_id: "justtcg:oden-refresh",
-      external_variant_id: "justtcg:oden-refresh-nm",
-      price_market: 0.3,
-      price_nm: 0.3,
-      price_lp: null,
-      price_change_24h: null,
-      price_change_7d: null,
-      price_change_30d: null,
-      updated_at: "2026-03-26T00:00:00.000Z",
-      fetched_at: "2026-03-26T00:00:00.000Z",
-    },
-  ]);
+  const sql = createRecordingSql();
+  await applySeed(seed, { chunkSize: 50, sql });
+
+  const currentPriceUpsert = sql.queries.find((query) =>
+    query.text.startsWith('insert into "card_print_price_current"'),
+  );
+  assert.ok(currentPriceUpsert, "incremental refresh should upsert the current price row");
+  assert.equal(currentPriceUpsert?.params.includes("justtcg:oden-refresh-nm"), true);
+  assert.equal(sql.queries.some((query) => query.text.startsWith('update "card_prints"')), false);
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('delete from "card_print_price_current"')),
+    false,
+  );
   assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.meta?.updatedAfter, 1774483200);
 });
 
-test("buildIncrementalSeed ignores Lightly Played-only updates for canonical runtime pricing", async () => {
-  const { buildIncrementalSeed } =
+test("applySeed incremental LP-only refresh preserves the canonical NM current price row", async () => {
+  const { applySeed, buildIncrementalSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
       "scripts/import-justtcg-to-drizzle.mjs",
     );
@@ -601,8 +615,19 @@ test("buildIncrementalSeed ignores Lightly Played-only updates for canonical run
     },
   );
 
-  assert.deepEqual(seed.cardPrintPriceCurrent, []);
-  assert.deepEqual(seed.activeCardPrintVariantAssignments, []);
+  const sql = createRecordingSql();
+  await applySeed(seed, { chunkSize: 50, sql });
+
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('insert into "card_print_price_current"')),
+    false,
+  );
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('delete from "card_print_price_current"')),
+    false,
+  );
+  assert.equal(sql.queries.some((query) => query.text.startsWith('update "card_prints"')), false);
+  assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.externalProductVariants.length, 1);
   assert.equal(seed.externalProductVariants[0]?.condition, "Lightly Played");
 });

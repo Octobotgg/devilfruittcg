@@ -1635,16 +1635,9 @@ async function applySeed(seed, options) {
       max: 1,
     });
   const ownsConnection = !options.sql;
+  const incrementalSync = seed?.meta?.syncMode === "incremental";
 
   try {
-    const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(sql);
-    const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
-      seed.activeCardPrintAssignments,
-      seed.activeCardPrintVariantAssignments,
-      existingActiveCardPrintIds,
-    );
-    const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
-
     await upsertRows(sql, "external_sources", seed.externalSources, ["id"], options.chunkSize);
     await upsertRows(sql, "external_products", seed.externalProducts, ["id"], options.chunkSize);
     await upsertRows(
@@ -1659,17 +1652,28 @@ async function applySeed(seed, options) {
     await upsertRows(sql, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
     await upsertRows(sql, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
-    await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", clearStage, options.chunkSize);
-    await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", assignStage, options.chunkSize);
+    if (!incrementalSync) {
+      const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(sql);
+      const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
+        seed.activeCardPrintAssignments,
+        seed.activeCardPrintVariantAssignments,
+        existingActiveCardPrintIds,
+      );
+      const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
 
-    await deleteCurrentByCollectibleIds(
-      sql,
-      "card_print_price_current",
-      "card_print_id",
-      JUSTTCG_SOURCE.id,
-      authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
-      options.chunkSize,
-    );
+      await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", clearStage, options.chunkSize);
+      await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", assignStage, options.chunkSize);
+
+      await deleteCurrentByCollectibleIds(
+        sql,
+        "card_print_price_current",
+        "card_print_id",
+        JUSTTCG_SOURCE.id,
+        authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
+        options.chunkSize,
+      );
+    }
+
     await upsertRows(
       sql,
       "card_print_price_current",
@@ -1682,14 +1686,16 @@ async function applySeed(seed, options) {
     const pendingHistory = filterPendingHistoryRows(seed.cardPrintPriceHistory || [], existingHistoryKeys);
     await insertRows(sql, "card_print_price_history", pendingHistory, options.chunkSize);
 
-    await deleteCurrentByCollectibleIds(
-      sql,
-      "sealed_product_price_current",
-      "sealed_product_id",
-      JUSTTCG_SOURCE.id,
-      seed.sealedProducts.map((row) => row.id),
-      options.chunkSize,
-    );
+    if (!incrementalSync) {
+      await deleteCurrentByCollectibleIds(
+        sql,
+        "sealed_product_price_current",
+        "sealed_product_id",
+        JUSTTCG_SOURCE.id,
+        seed.sealedProducts.map((row) => row.id),
+        options.chunkSize,
+      );
+    }
     await upsertRows(
       sql,
       "sealed_product_price_current",
