@@ -13,6 +13,10 @@ async function importSchema() {
   return import(pathToFileURL(path.join(REPO_ROOT, "db/schema.ts")).href);
 }
 
+async function importPricingVerifier() {
+  return import(pathToFileURL(path.join(REPO_ROOT, "lib/server/pricing/pricing-verifier.ts")).href);
+}
+
 function columnNames(table: Parameters<typeof getTableConfig>[0]) {
   return getTableConfig(table).columns.map((column) => column.name);
 }
@@ -223,4 +227,388 @@ test("pricing verifier schema includes published and verification tables", async
   assert.match(hardeningMigrationSql, /ALTER TABLE "card_print_price_published" ALTER COLUMN "external_variant_id" SET NOT NULL;/);
   assert.doesNotMatch(hardeningMigrationSql, /CREATE TABLE "card_print_price_published"/);
   assert.doesNotMatch(hardeningMigrationSql, /CREATE TABLE "card_print_display_published"/);
+});
+
+function createMappingInput(overrides?: {
+  cardPrint?: Record<string, unknown>;
+  provider?: Record<string, unknown>;
+  duplicateVariantCardPrintIds?: string[];
+  duplicateProductCardPrintIds?: string[];
+  publishedDisplay?: Record<string, unknown> | null;
+}) {
+  return {
+    cardPrint: {
+      id: "print-1",
+      number: "OP01-001",
+      setCode: "OP01",
+      setName: "Romance Dawn [OP01]",
+      title: "Monkey D. Luffy",
+      rarity: "SR",
+      treatmentLabel: null,
+      imageUrl: "https://example.com/luffy.jpg",
+      ...overrides?.cardPrint,
+    },
+    provider: {
+      externalProductId: "product-1",
+      externalVariantId: "variant-1",
+      tcgplayerProductId: "123",
+      productName: "Monkey D. Luffy OP01-001",
+      productUrlName: "monkey-d-luffy-op01-001",
+      setName: "Romance Dawn",
+      number: "OP01-001",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+      ...overrides?.provider,
+    },
+    duplicateVariantCardPrintIds: overrides?.duplicateVariantCardPrintIds || [],
+    duplicateProductCardPrintIds: overrides?.duplicateProductCardPrintIds || [],
+    publishedDisplay: overrides?.publishedDisplay,
+  };
+}
+
+test("verifyMappingIntegrity marks exact number, set, and title matches as verified", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(createMappingInput());
+
+  assert.equal(result.mappingIntegrityStatus, "verified");
+  assert.equal(result.verificationStatus, "verified");
+  assert.deepEqual(result.conflictTypes, []);
+  assert.equal(result.primaryConflictType, null);
+  assert.equal(result.labelIntegrityStatus, "verified");
+  assert.equal(result.normalizedProviderTreatmentLabel, null);
+  assert.equal(result.publishable, true);
+});
+
+test("verifyMappingIntegrity captures number mismatches explicitly", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      provider: {
+        number: "OP01-999",
+        productName: "Monkey D. Luffy OP01-999",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "number_mismatch");
+  assert.deepEqual(result.conflictTypes, ["number_mismatch"]);
+  assert.equal(result.publishable, false);
+});
+
+test("verifyMappingIntegrity captures set mismatches explicitly", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      provider: {
+        setName: "Paramount War",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "set_mismatch");
+  assert.deepEqual(result.conflictTypes, ["set_mismatch"]);
+});
+
+test("verifyMappingIntegrity captures premium treatment mismatches explicitly", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        treatmentLabel: "Jolly Roger Foil",
+      },
+      provider: {
+        productName: "Monkey D. Luffy Parallel OP01-001",
+        productUrlName: "monkey-d-luffy-parallel-op01-001",
+        treatment: "Parallel",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "treatment_mismatch");
+  assert.deepEqual(result.conflictTypes, ["treatment_mismatch"]);
+});
+
+test("verifyMappingIntegrity captures duplicate variant assignments explicitly", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      duplicateVariantCardPrintIds: ["print-1", "print-2"],
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "duplicate_variant_assignment");
+  assert.deepEqual(result.conflictTypes, ["duplicate_variant_assignment"]);
+});
+
+test("verifyMappingIntegrity captures duplicate product assignments and ui label mismatches explicitly", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        treatmentLabel: "Jolly Roger Foil",
+      },
+      provider: {
+        productName: "Monkey D. Luffy (JOLLY_RODGER_FOIL)",
+      },
+      duplicateProductCardPrintIds: ["print-1", "print-9"],
+      publishedDisplay: {
+        displayTreatmentLabel: "Pirate Foil",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.deepEqual(result.conflictTypes, ["duplicate_product_assignment", "ui_label_mismatch"]);
+});
+
+test("buildPublishedDisplayPayload hides vague fallback treatments when no exact provider treatment is trustworthy", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const result = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "Romance Dawn [OP01]",
+      setCode: "OP01",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy Parallel OP01-001",
+      setName: "ROMANCE_DAWN",
+      treatment: "Parallel",
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(result.displayTreatmentLabel, null);
+  assert.equal(result.labelStatus, "fallback");
+});
+
+test("buildPublishedDisplayPayload normalizes provider treatment slugs for published labels", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const result = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "Romance Dawn [OP01]",
+      setCode: "OP01",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy (JOLLY_RODGER_FOIL)",
+      setName: "ROMANCE_DAWN",
+      treatment: "JOLLY_RODGER_FOIL",
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(result.displayTreatmentLabel, "Jolly Roger Foil");
+  assert.equal(result.labelStatus, "normalized");
+});
+
+test("verifyPriceDrift uses stricter thresholds for premium cards than non-premium cards", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const premium = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: true,
+    justtcgPriceNm: 10.1,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+  const nonPremium = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10.1,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(premium.verificationStatus, "mismatch");
+  assert.equal(premium.publishable, false);
+  assert.equal(nonPremium.verificationStatus, "drift_warning");
+  assert.equal(nonPremium.publishable, true);
+});
+
+test("verifyPriceDrift treats exact and near-exact deltas as verified", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const absoluteTolerance = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10.05,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+  const ratioTolerance = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: true,
+    justtcgPriceNm: 100.5,
+    tcgplayerMarketPrice: 100,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(absoluteTolerance.verificationStatus, "verified");
+  assert.equal(absoluteTolerance.publishable, true);
+  assert.equal(ratioTolerance.verificationStatus, "verified");
+  assert.equal(ratioTolerance.publishable, true);
+});
+
+test("verifyPriceDrift publishes low-volatility non-premium rows with drift warnings", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10.2,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "drift_warning");
+  assert.equal(result.publishable, true);
+});
+
+test("verifyPriceDrift blocks non-premium mismatch rows in the >2% and <=5% band", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10.25,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "mismatch");
+  assert.equal(result.publishable, false);
+});
+
+test("verifyPriceDrift blocks premium rows once ratio delta exceeds 2%", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: true,
+    justtcgPriceNm: 10.3,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "mismatch");
+  assert.equal(result.publishable, false);
+});
+
+test("verifyPriceDrift blocks non-premium rows once ratio delta exceeds 5%", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10.6,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "mismatch");
+  assert.equal(result.publishable, false);
+});
+
+test("verifyPriceDrift blocks mapping conflicts before evaluating price drift", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "blocked",
+    isPremium: false,
+    justtcgPriceNm: 10,
+    tcgplayerMarketPrice: 9,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.publishable, false);
+  assert.equal(result.priceDeltaAbs, null);
+  assert.equal(result.priceDeltaRatio, null);
+});
+
+test("verifyPriceDrift persists stale provider, missing id, and unpriced statuses explicitly", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const staleProvider = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-20T12:00:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+  const missingTcgplayerId = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: null,
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+  const unpricedNoVariant = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: null,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: null,
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "2026-03-27T11:30:00.000Z",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(staleProvider.verificationStatus, "stale_provider");
+  assert.equal(missingTcgplayerId.verificationStatus, "missing_tcgplayer_id");
+  assert.equal(unpricedNoVariant.verificationStatus, "unpriced_no_variant");
 });
