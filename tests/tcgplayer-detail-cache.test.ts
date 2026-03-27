@@ -223,6 +223,40 @@ test("getTcgplayerProductDetail migrates legacy wrapped payload cache entries wi
   }
 });
 
+test("getTcgplayerProductDetail treats malformed wrapped fetchedAt values as stale and refetches immediately", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const cache: Record<string, TcgplayerCacheEntry> = {
+      "996": {
+        payload: {
+          id: 996,
+          title: "Malformed Wrapped",
+        },
+        fetchedAt: "not-a-date",
+      } as unknown as LegacyWrappedCacheEntry,
+    };
+    const { calls, fetchImpl } = createFetchStub([{ body: { id: 996, title: "Refetched Wrapped" } }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 996,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    assert.deepEqual(detail, { id: 996, title: "Refetched Wrapped" });
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["996"];
+    assert.equal(persisted.id, 996);
+    assert.equal(persisted.title, "Refetched Wrapped");
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("getTcgplayerProductDetail reuses a cached response on the second fetch", async () => {
   const tempDir = createTempDir();
   try {

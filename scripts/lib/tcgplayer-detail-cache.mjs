@@ -32,11 +32,12 @@ function normalizeFetchedAt(value) {
     if (Number.isFinite(parsed)) {
       return trimmed;
     }
+    return trimmed;
   }
   if (typeof value === "number" && Number.isFinite(value)) {
     return new Date(value < 1e12 ? value * 1000 : value).toISOString();
   }
-  return new Date().toISOString();
+  return String(value ?? "");
 }
 
 function normalizeEntry(entry) {

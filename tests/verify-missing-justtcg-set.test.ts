@@ -117,3 +117,164 @@ test("evaluateVerificationCard emits one unresolved card for candidate-level fai
   assert.equal(result.unresolved[0].cardId, "card-2");
   assert.equal(result.unresolved[0].candidateFailures.length, 2);
 });
+
+test("evaluateVerificationCard rejects cards that fail the price guard", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-3",
+    name: "Monkey D. Luffy",
+    printedCardId: "OP01-003",
+    set: "Romance Dawn [OP01]",
+    releaseCode: "OP01",
+    variantType: "parallel",
+    variantLabel: "Parallel",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP01-003",
+    releaseCode: "OP01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-5",
+          name: "Monkey D. Luffy Parallel OP01-003",
+          number: "OP01-003",
+          set_name: "Romance Dawn",
+          variants: [{ condition: "near mint", price: 100 }],
+          tcgplayerId: "123",
+        },
+        tcgplayerId: "123",
+        detail: {
+          productName: "Monkey D. Luffy Parallel OP01-003",
+          productUrlName: "monkey-d-luffy-parallel-op01-003",
+          setName: "Romance Dawn",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "OP01-003" },
+          formattedAttributes: { Number: "OP01-003" },
+        },
+      },
+    ],
+    ebayPrice: 10,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 0);
+  assert.equal(result.rejected.length, 1);
+  assert.equal(result.rejected[0].reason, "price_guard_rejected");
+});
+
+test("evaluateVerificationCard approves label corrections when identity matches but the label needs normalization", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-4",
+    name: "Monkey D. Luffy",
+    printedCardId: "OP01-004",
+    set: "Romance Dawn [OP01]",
+    releaseCode: "OP01",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP01-004",
+    releaseCode: "OP01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-6",
+          name: "Monkey D. Luffy Pirate Foil OP01-004",
+          number: "OP01-004",
+          set_name: "Romance Dawn",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "124",
+        },
+        tcgplayerId: "124",
+        detail: {
+          productName: "Monkey D. Luffy Pirate Foil OP01-004",
+          productUrlName: "monkey-d-luffy-pirate-foil-op01-004",
+          setName: "Romance Dawn",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "OP01-004" },
+          formattedAttributes: { Number: "OP01-004" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: true,
+  });
+
+  assert.equal(result.approved.length, 1);
+  assert.equal(result.labelCorrections.length, 1);
+  assert.equal(result.unresolved.length, 0);
+  assert.equal(result.labelCorrections[0].suggestedVariantLabel, "Pirate Foil");
+});
+
+test("evaluateVerificationCard marks ambiguous multi-candidate results as unresolved", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-5",
+    name: "Monkey D. Luffy",
+    printedCardId: "OP01-005",
+    set: "Romance Dawn [OP01]",
+    releaseCode: "OP01",
+    variantType: "parallel",
+    variantLabel: "Parallel",
+  };
+
+  const candidateResults = [
+    {
+      candidate: {
+        id: "candidate-7",
+        name: "Monkey D. Luffy Parallel OP01-005",
+        number: "OP01-005",
+        set_name: "Romance Dawn",
+        variants: [{ condition: "near mint", price: 11 }],
+        tcgplayerId: "125",
+      },
+      tcgplayerId: "125",
+      detail: {
+        productName: "Monkey D. Luffy Parallel OP01-005",
+        productUrlName: "monkey-d-luffy-parallel-op01-005",
+        setName: "Romance Dawn",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "OP01-005" },
+        formattedAttributes: { Number: "OP01-005" },
+      },
+    },
+    {
+      candidate: {
+        id: "candidate-8",
+        name: "Monkey D. Luffy Parallel OP01-005 Alt",
+        number: "OP01-005",
+        set_name: "Romance Dawn",
+        variants: [{ condition: "near mint", price: 11 }],
+        tcgplayerId: "126",
+      },
+      tcgplayerId: "126",
+      detail: {
+        productName: "Monkey D. Luffy Parallel OP01-005 Alt",
+        productUrlName: "monkey-d-luffy-parallel-op01-005-alt",
+        setName: "Romance Dawn",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "OP01-005" },
+        formattedAttributes: { Number: "OP01-005" },
+      },
+    },
+  ];
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP01-005",
+    releaseCode: "OP01",
+    candidateResults,
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 0);
+  assert.equal(result.unresolved.length, 1);
+  assert.equal(result.unresolved[0].reason, "multiple_verified_candidates");
+});
