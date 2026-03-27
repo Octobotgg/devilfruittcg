@@ -131,13 +131,14 @@ export async function publishPricingVerificationRun(options: {
       if (displayRows.length) {
         await adapter.upsertPublishedDisplays(displayRows);
       }
-      await adapter.markRunCompleted(options.verificationRunId, publishedAt);
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     await adapter.markRunFailed(options.verificationRunId, publishedAt, message);
     throw error;
   }
+
+  await adapter.markRunCompleted(options.verificationRunId, publishedAt);
 }
 
 export function createPostgresPricingPublisherAdapter(sql: Sql = createPostgresClient()): PricingPublisherAdapter {

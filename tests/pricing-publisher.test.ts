@@ -105,6 +105,7 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
     publishedDisplays: new Map<string, PublishedDisplayRow>(),
     runs: new Map<number, { status: string; finishedAt: string | null; notes: string | null }>(),
     conflicts: [] as Array<{ verificationRunId: number; cardPrintId: string; conflictType: string }>,
+    operations: [] as string[],
   };
 
   const snapshot = () => ({
@@ -114,6 +115,7 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
       Array.from(state.runs.entries(), ([key, value]) => [key, { ...value }]),
     ),
     conflicts: state.conflicts.map((entry) => ({ ...entry })),
+    operations: [...state.operations],
   });
 
   const restore = (value: ReturnType<typeof snapshot>) => {
@@ -121,25 +123,32 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
     state.publishedDisplays = value.publishedDisplays;
     state.runs = value.runs;
     state.conflicts = value.conflicts;
+    state.operations = value.operations;
   };
 
   return {
     state,
     async transaction<T>(work: () => Promise<T>) {
       const before = snapshot();
+      state.operations.push("transaction:start");
       try {
-        return await work();
+        const result = await work();
+        state.operations.push("transaction:commit");
+        return result;
       } catch (error) {
         restore(before);
+        state.operations.push("transaction:rollback");
         throw error;
       }
     },
     async upsertPublishedPrices(rows: PublishedPriceRow[]) {
+      state.operations.push(`prices:${rows.length}`);
       for (const row of rows) {
         state.publishedPrices.set(`${row.cardPrintId}:${row.sourceId}`, row);
       }
     },
     async upsertPublishedDisplays(rows: PublishedDisplayRow[]) {
+      state.operations.push(`displays:${rows.length}`);
       if (options?.throwOnDisplay) {
         throw new Error("display write failed");
       }
@@ -152,6 +161,7 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
       verificationRunId: number,
       conflicts: Array<{ cardPrintId: string; conflictType: string }>,
     ) {
+      state.operations.push(`conflicts:${conflicts.length}`);
       state.conflicts.push(
         ...conflicts.map((entry) => ({
           verificationRunId,
@@ -161,6 +171,7 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
       );
     },
     async markRunCompleted(verificationRunId: number, finishedAt: string) {
+      state.operations.push("run:completed");
       state.runs.set(verificationRunId, {
         status: "completed",
         finishedAt,
@@ -168,6 +179,7 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
       });
     },
     async markRunFailed(verificationRunId: number, finishedAt: string, notes: string | null) {
+      state.operations.push("run:failed");
       state.runs.set(verificationRunId, {
         status: "failed",
         finishedAt,
@@ -210,6 +222,7 @@ test("publishPricingVerificationRun publishes verified and drift_warning rows an
     notes: null,
   });
   assert.equal(adapter.state.publishedPrices.get("cp-2:justtcg")?.verificationStatus, "drift_warning");
+  assert.deepEqual(adapter.state.operations.slice(-2), ["transaction:commit", "run:completed"]);
 });
 
 test("publishPricingVerificationRun leaves blocked rows untouched and records blocked conflicts", async () => {
@@ -276,6 +289,7 @@ test("publishPricingVerificationRun leaves blocked rows untouched and records bl
     ["duplicate_product_assignment", "ui_label_mismatch"],
   );
   assert.equal(adapter.state.runs.get(78)?.status, "completed");
+  assert.deepEqual(adapter.state.operations.slice(-2), ["transaction:commit", "run:completed"]);
 });
 
 test("publishPricingVerificationRun rolls back published writes if the display write fails and marks the run failed", async () => {
@@ -303,4 +317,5 @@ test("publishPricingVerificationRun rolls back published writes if the display w
     finishedAt: "2026-03-27T11:00:00.000Z",
     notes: "display write failed",
   });
+  assert.equal(adapter.state.operations.includes("run:completed"), false);
 });

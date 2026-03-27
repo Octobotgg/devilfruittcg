@@ -130,7 +130,7 @@ test("published runtime pricing falls back to safe internal labels when display 
 
   assert.equal(result.status, "priced");
   assert.equal(result.justtcg.title, "Monkey D. Luffy");
-  assert.equal(result.justtcg.imageUrl, "https://img.example/luffy-provider.jpg");
+  assert.equal(result.justtcg.imageUrl, null);
   assert.deepEqual(result.official, {
     name: "Monkey D. Luffy",
     setCode: "OP01",

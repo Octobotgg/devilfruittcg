@@ -128,6 +128,9 @@ function resolvePublishedRuntimePrice(
   const runtimeTitle = hasPublishedDisplayFields
     ? String(row.displayTitle || row.officialName || "").trim() || row.justtcgTitle
     : row.justtcgTitle || String(row.officialName || "").trim() || null;
+  const runtimeImageUrl = hasPublishedDisplayFields
+    ? String(row.displayImageUrl || "").trim() || null
+    : null;
 
   return {
     status: "priced",
@@ -147,7 +150,7 @@ function resolvePublishedRuntimePrice(
     externalVariantId: row.externalVariantId,
     justtcg: {
       title: runtimeTitle,
-      imageUrl: String(row.displayImageUrl || "").trim() || row.justtcgImageUrl,
+      imageUrl: runtimeImageUrl,
     },
     official: {
       name: row.officialName,
