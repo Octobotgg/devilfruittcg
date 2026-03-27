@@ -47,6 +47,10 @@ test("JustTCG variant schema includes the new variant layer", async () => {
     "provider_variant_id should be unique",
   );
   assert.ok(
+    indexNames(schema.externalProductVariants).includes("external_product_variants_external_product_id_id_unique"),
+    "external_product_id and id should form a supporting unique key for variant-to-product references",
+  );
+  assert.ok(
     indexNames(schema.cardPrints).includes("card_prints_active_external_variant_unique"),
     "card_prints.active_external_variant_id should be uniquely protected",
   );
@@ -68,12 +72,20 @@ test("JustTCG variant schema includes the new variant layer", async () => {
     "variant product/source relationship should be enforced",
   );
   assert.ok(
+    foreignKeyNames(schema.cardPrints).includes("card_prints_active_external_product_variant_fk"),
+    "active product and variant should stay aligned on card_prints",
+  );
+  assert.ok(
     foreignKeyNames(schema.cardPrintPriceCurrent).includes("card_print_price_current_product_source_variant_fk"),
     "current price rows should be tied to the exact product/source/variant identity",
   );
   assert.ok(
     foreignKeyNames(schema.cardPrintPriceHistory).includes("card_print_price_history_product_source_variant_fk"),
     "history rows should be tied to the exact product/source/variant identity",
+  );
+  assert.ok(
+    foreignKeyNames(schema.priceSnapshots).includes("price_snapshots_product_variant_fk"),
+    "price snapshots should be tied to the exact product/variant identity",
   );
 
   assert.ok(
@@ -105,5 +117,17 @@ test("JustTCG variant schema includes the new variant layer", async () => {
   assert.match(
     sql,
     /FOREIGN KEY \("external_product_id","source_id","external_variant_id"\) REFERENCES "public"\."external_product_variants"\("external_product_id","source_id","id"\) ON DELETE no action ON UPDATE no action;/,
+  );
+  assert.match(
+    sql,
+    /CREATE UNIQUE INDEX "external_product_variants_external_product_id_id_unique" ON "external_product_variants" USING btree \("external_product_id","id"\);/,
+  );
+  assert.match(
+    sql,
+    /FOREIGN KEY \("active_external_product_id","active_external_variant_id"\) REFERENCES "public"\."external_product_variants"\("external_product_id","id"\) ON DELETE set null ON UPDATE no action;/,
+  );
+  assert.match(
+    sql,
+    /FOREIGN KEY \("external_product_id","external_variant_id"\) REFERENCES "public"\."external_product_variants"\("external_product_id","id"\) ON DELETE no action ON UPDATE no action;/,
   );
 });

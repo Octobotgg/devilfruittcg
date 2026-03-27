@@ -241,6 +241,10 @@ export const externalProductVariants = pgTable(
     providerVariantIdUnique: uniqueIndex("external_product_variants_provider_variant_id_unique").on(
       table.providerVariantId,
     ),
+    externalProductIdIdUnique: uniqueIndex("external_product_variants_external_product_id_id_unique").on(
+      table.externalProductId,
+      table.id,
+    ),
     productSourceIdUnique: uniqueIndex("external_product_variants_product_source_id_unique").on(
       table.externalProductId,
       table.sourceId,
@@ -286,6 +290,11 @@ export const cardPrints = pgTable(
     ...timestamps,
   },
   (table) => ({
+    activeExternalProductVariantFk: foreignKey({
+      name: "card_prints_active_external_product_variant_fk",
+      columns: [table.activeExternalProductId, table.activeExternalVariantId],
+      foreignColumns: [externalProductVariants.externalProductId, externalProductVariants.id],
+    }).onDelete("set null"),
     printedCardCodeUnique: uniqueIndex("card_prints_printed_card_code_unique").on(table.printedCardCode),
     cardVariantSlugUnique: uniqueIndex("card_prints_card_variant_slug_unique").on(table.cardId, table.variantSlug),
     releaseIdx: index("card_prints_release_idx").on(table.releaseId),
@@ -413,6 +422,11 @@ export const priceSnapshots = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
   (table) => ({
+    productVariantFk: foreignKey({
+      name: "price_snapshots_product_variant_fk",
+      columns: [table.externalProductId, table.externalVariantId],
+      foreignColumns: [externalProductVariants.externalProductId, externalProductVariants.id],
+    }).onDelete("no action"),
     externalProductCapturedAtIdx: index("price_snapshots_external_product_captured_at_idx").on(
       table.externalProductId,
       table.capturedAt,

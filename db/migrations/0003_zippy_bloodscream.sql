@@ -1,0 +1,3 @@
+CREATE UNIQUE INDEX "external_product_variants_external_product_id_id_unique" ON "external_product_variants" USING btree ("external_product_id","id");
+ALTER TABLE "card_prints" ADD CONSTRAINT "card_prints_active_external_product_variant_fk" FOREIGN KEY ("active_external_product_id","active_external_variant_id") REFERENCES "public"."external_product_variants"("external_product_id","id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "price_snapshots" ADD CONSTRAINT "price_snapshots_product_variant_fk" FOREIGN KEY ("external_product_id","external_variant_id") REFERENCES "public"."external_product_variants"("external_product_id","id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
