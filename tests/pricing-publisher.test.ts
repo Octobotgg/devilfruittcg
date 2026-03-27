@@ -17,6 +17,7 @@ type Candidate = {
   sourceId: string;
   externalProductId: string | null;
   externalVariantId: string | null;
+  currentCandidatePriced?: boolean;
   verificationStatus:
     | "verified"
     | "drift_warning"
@@ -106,6 +107,7 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
     runs: new Map<number, { status: string; finishedAt: string | null; notes: string | null }>(),
     conflicts: [] as Array<{ verificationRunId: number; cardPrintId: string; conflictType: string }>,
     operations: [] as string[],
+    nextRunId: 100,
   };
 
   const snapshot = () => ({
@@ -185,6 +187,30 @@ function createFakeAdapter(options?: { throwOnDisplay?: boolean }) {
         finishedAt,
         notes,
       });
+    },
+    async createVerificationRun(source: string, notes: string | null, startedAt: string) {
+      const runId = state.nextRunId;
+      state.nextRunId += 1;
+      state.operations.push("run:created");
+      state.runs.set(runId, {
+        status: "running",
+        finishedAt: null,
+        notes: notes || `${source}@${startedAt}`,
+      });
+      return runId;
+    },
+    async listPublishedCoverage(cardPrintIds: string[]) {
+      const priceCardPrintIds = new Set<string>();
+      const displayCardPrintIds = new Set<string>();
+      for (const cardPrintId of cardPrintIds) {
+        if (state.publishedPrices.has(`${cardPrintId}:justtcg`)) {
+          priceCardPrintIds.add(cardPrintId);
+        }
+        if (state.publishedDisplays.has(cardPrintId)) {
+          displayCardPrintIds.add(cardPrintId);
+        }
+      }
+      return { priceCardPrintIds, displayCardPrintIds };
     },
   };
 }
@@ -318,4 +344,182 @@ test("publishPricingVerificationRun rolls back published writes if the display w
     notes: "display write failed",
   });
   assert.equal(adapter.state.operations.includes("run:completed"), false);
+});
+
+test("bootstrapPublishedPricing seeds published price and display rows and is idempotent", async () => {
+  const { bootstrapPublishedPricing } =
+    await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
+      "scripts/bootstrap-published-pricing.mjs",
+    );
+
+  const adapter = createFakeAdapter();
+  const candidates = [
+    createCandidate({
+      cardPrintId: "cp-boot-1",
+    }),
+    createCandidate({
+      cardPrintId: "cp-boot-2",
+      externalProductId: "product-2",
+      externalVariantId: "variant-2",
+      verificationStatus: "drift_warning",
+      displayTitle: "Roronoa Zoro",
+    }),
+  ];
+
+  const firstRun = await bootstrapPublishedPricing({
+    candidates,
+    adapter,
+    now: () => "2026-03-27T12:00:00.000Z",
+  });
+  const secondRun = await bootstrapPublishedPricing({
+    candidates,
+    adapter,
+    now: () => "2026-03-27T12:05:00.000Z",
+  });
+
+  assert.equal(firstRun.publishedPriceCount, 2);
+  assert.equal(firstRun.publishedDisplayCount, 2);
+  assert.equal(secondRun.publishedPriceCount, 2);
+  assert.equal(secondRun.publishedDisplayCount, 2);
+  assert.equal(adapter.state.publishedPrices.size, 2);
+  assert.equal(adapter.state.publishedDisplays.size, 2);
+});
+
+test("bootstrapPublishedPricing skips blocked or incomplete non-live candidates without blanking existing published rows", async () => {
+  const { bootstrapPublishedPricing } =
+    await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
+      "scripts/bootstrap-published-pricing.mjs",
+    );
+
+  const adapter = createFakeAdapter();
+  adapter.state.publishedPrices.set("cp-keep:justtcg", {
+    cardPrintId: "cp-keep",
+    sourceId: "justtcg",
+    externalProductId: "product-keep",
+    externalVariantId: "variant-keep",
+    priceMarket: 7.2,
+    priceNm: 6.9,
+    priceLp: 5.75,
+    updatedAt: "2026-03-20T00:00:00.000Z",
+    publishedAt: "2026-03-20T00:05:00.000Z",
+    verificationStatus: "verified",
+    verificationRunId: 11,
+  });
+  adapter.state.publishedDisplays.set("cp-keep", {
+    cardPrintId: "cp-keep",
+    externalProductId: "product-keep",
+    externalVariantId: "variant-keep",
+    displaySetName: "Romance Dawn",
+    displaySetCode: "OP01",
+    displayRarity: "SR",
+    displayTitle: "Keep Me",
+    displayTreatmentLabel: null,
+    displayImageUrl: "https://img.example/keep.jpg",
+    labelStatus: "verified",
+    verificationRunId: 11,
+    publishedAt: "2026-03-20T00:05:00.000Z",
+  });
+
+  const result = await bootstrapPublishedPricing({
+    candidates: [
+      createCandidate({
+        cardPrintId: "cp-safe",
+      }),
+      createCandidate({
+        cardPrintId: "cp-blocked",
+        verificationStatus: "mapping_conflict",
+        conflictTypes: ["duplicate_product_assignment"],
+        currentCandidatePriced: false,
+      }),
+      createCandidate({
+        cardPrintId: "cp-incomplete",
+        externalVariantId: null,
+        currentCandidatePriced: false,
+      }),
+    ],
+    adapter,
+    now: () => "2026-03-27T12:10:00.000Z",
+  });
+
+  assert.equal(result.publishedPriceCount, 1);
+  assert.equal(result.publishedDisplayCount, 1);
+  assert.equal(adapter.state.publishedPrices.get("cp-keep:justtcg")?.externalProductId, "product-keep");
+  assert.equal(adapter.state.publishedDisplays.get("cp-keep")?.displayImageUrl, "https://img.example/keep.jpg");
+});
+
+test("bootstrapPublishedPricing fails loudly when live candidate-priced rows still lack published coverage after seeding", async () => {
+  const { bootstrapPublishedPricing } =
+    await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
+      "scripts/bootstrap-published-pricing.mjs",
+    );
+
+  const adapter = createFakeAdapter();
+
+  await assert.rejects(
+    bootstrapPublishedPricing({
+      candidates: [
+        createCandidate({
+          cardPrintId: "cp-gap",
+          verificationStatus: "missing_tcgplayer_id",
+        }),
+      ],
+      adapter,
+      now: () => "2026-03-27T12:15:00.000Z",
+    }),
+    /published coverage gap/u,
+  );
+
+  const latestRun = Math.max(...adapter.state.runs.keys());
+  assert.equal(adapter.state.runs.get(latestRun)?.status, "failed");
+});
+
+test("publishPricingVerificationRun blocks price publishes when a candidate cannot produce a synced display row", async () => {
+  const { publishPricingVerificationRun } =
+    await importModule<typeof import("../lib/server/pricing/pricing-publisher")>(
+      "lib/server/pricing/pricing-publisher.ts",
+    );
+
+  const adapter = createFakeAdapter();
+
+  await publishPricingVerificationRun({
+    verificationRunId: 90,
+    candidates: [
+      createCandidate({
+        cardPrintId: "cp-no-display",
+        displayTitle: null,
+        displaySetName: null,
+        displaySetCode: null,
+        officialName: null,
+        officialSetName: null,
+        officialSetCode: null,
+      }),
+    ],
+    adapter,
+    now: () => "2026-03-27T12:30:00.000Z",
+  });
+
+  assert.equal(adapter.state.publishedPrices.has("cp-no-display:justtcg"), false);
+  assert.equal(adapter.state.publishedDisplays.has("cp-no-display"), false);
+});
+
+test("publishPricingVerificationRun preserves the original publish failure when marking the run failed also errors", async () => {
+  const { publishPricingVerificationRun } =
+    await importModule<typeof import("../lib/server/pricing/pricing-publisher")>(
+      "lib/server/pricing/pricing-publisher.ts",
+    );
+
+  const adapter = createFakeAdapter({ throwOnDisplay: true });
+  adapter.markRunFailed = async () => {
+    throw new Error("run failure update failed");
+  };
+
+  await assert.rejects(
+    publishPricingVerificationRun({
+      verificationRunId: 91,
+      candidates: [createCandidate()],
+      adapter,
+      now: () => "2026-03-27T12:35:00.000Z",
+    }),
+    /display write failed/u,
+  );
 });

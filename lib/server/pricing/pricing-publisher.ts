@@ -102,14 +102,6 @@ export async function publishPricingVerificationRun(options: {
 }) {
   const adapter = options.adapter ?? createPostgresPricingPublisherAdapter();
   const publishedAt = options.now ? options.now() : new Date().toISOString();
-  const priceRows = options.candidates
-    .map((candidate) =>
-      buildPublishedPriceUpsert(candidate, {
-        verificationRunId: options.verificationRunId,
-        publishedAt,
-      }),
-    )
-    .filter((row): row is PublishedPriceUpsert => Boolean(row));
   const displayRows = options.candidates
     .map((candidate) =>
       buildPublishedDisplayUpsert(candidate, {
@@ -118,6 +110,16 @@ export async function publishPricingVerificationRun(options: {
       }),
     )
     .filter((row): row is PublishedDisplayUpsert => Boolean(row));
+  const displayReadyCardPrintIds = new Set(displayRows.map((row) => row.cardPrintId));
+  const priceRows = options.candidates
+    .filter((candidate) => displayReadyCardPrintIds.has(candidate.cardPrintId))
+    .map((candidate) =>
+      buildPublishedPriceUpsert(candidate, {
+        verificationRunId: options.verificationRunId,
+        publishedAt,
+      }),
+    )
+    .filter((row): row is PublishedPriceUpsert => Boolean(row));
   const conflicts = collectConflictRows(options.candidates);
 
   try {
@@ -134,11 +136,24 @@ export async function publishPricingVerificationRun(options: {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    await adapter.markRunFailed(options.verificationRunId, publishedAt, message);
+    try {
+      await adapter.markRunFailed(options.verificationRunId, publishedAt, message);
+    } catch (markRunFailedError) {
+      throw new AggregateError(
+        [error, markRunFailedError],
+        `publish failed and run failure update also failed: ${message}`,
+      );
+    }
     throw error;
   }
 
-  await adapter.markRunCompleted(options.verificationRunId, publishedAt);
+  try {
+    await adapter.markRunCompleted(options.verificationRunId, publishedAt);
+  } catch (error) {
+    throw new Error("published rows committed but run completion update failed", {
+      cause: error,
+    });
+  }
 }
 
 export function createPostgresPricingPublisherAdapter(sql: Sql = createPostgresClient()): PricingPublisherAdapter {

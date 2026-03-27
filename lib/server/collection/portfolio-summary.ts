@@ -122,6 +122,34 @@ async function defaultLoadHistory(
   const now = new Date();
   const start = rangeStart(range, now);
   const params: Array<string | string[]> = [ids];
+  const query = buildPortfolioHistoryQuery(Boolean(start));
+
+  if (start) {
+    params.push(start.toISOString());
+  }
+
+  const rows = await sql.unsafe(
+    query,
+    params,
+  );
+
+  for (const row of toPlainRows<PortfolioPriceHistoryPoint>(rows)) {
+    const bucket = history.get(row.cardPrintId) || [];
+    bucket.push({
+      cardPrintId: row.cardPrintId,
+      recordedAt: row.recordedAt,
+      price: pricingShared.parseNullableNumber(row.price),
+      externalProductId: row.externalProductId ?? null,
+      externalVariantId: row.externalVariantId ?? null,
+      approvedActive: row.approvedActive,
+    });
+    history.set(row.cardPrintId, bucket);
+  }
+
+  return history;
+}
+
+export function buildPortfolioHistoryQuery(hasBoundarySeed: boolean) {
   let query = `
     with eligible_history as (
       select
@@ -145,13 +173,13 @@ async function defaultLoadHistory(
     )
   `;
 
-  if (start) {
-    params.push(start.toISOString());
+  if (hasBoundarySeed) {
     query += `
       , boundary_seed as (
         select distinct on (card_print_id)
           card_print_id,
           external_product_id,
+          external_variant_id,
           recorded_at,
           price_nm
         from eligible_history
@@ -186,25 +214,11 @@ async function defaultLoadHistory(
     `;
   }
 
-  const rows = await sql.unsafe(
-    query,
-    params,
-  );
+  return query;
+}
 
-  for (const row of toPlainRows<PortfolioPriceHistoryPoint>(rows)) {
-    const bucket = history.get(row.cardPrintId) || [];
-    bucket.push({
-      cardPrintId: row.cardPrintId,
-      recordedAt: row.recordedAt,
-      price: pricingShared.parseNullableNumber(row.price),
-      externalProductId: row.externalProductId ?? null,
-      externalVariantId: row.externalVariantId ?? null,
-      approvedActive: row.approvedActive,
-    });
-    history.set(row.cardPrintId, bucket);
-  }
-
-  return history;
+export function getPortfolioHistoryQueryForTesting(hasBoundarySeed: boolean) {
+  return buildPortfolioHistoryQuery(hasBoundarySeed);
 }
 
 function historyMatchesActivePrice(

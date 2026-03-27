@@ -312,3 +312,83 @@ test("buildSeed leaves exact approved raw cards unpriced when no English Near Mi
   assert.deepEqual(seed.cardPrintPriceHistory, []);
   assert.deepEqual(seed.priceSnapshots, []);
 });
+
+test("bootstrapPublishedPricing can seed published rows from current candidate-priced runtime rows", async () => {
+  const { bootstrapPublishedPricing } =
+    await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
+      "scripts/bootstrap-published-pricing.mjs",
+    );
+
+  const state = {
+    publishedPrices: new Map(),
+    publishedDisplays: new Map(),
+    runs: new Map(),
+  };
+
+  const adapter = {
+    async transaction(work: () => Promise<unknown>) {
+      return work();
+    },
+    async upsertPublishedPrices(rows: Array<Record<string, unknown>>) {
+      for (const row of rows) {
+        state.publishedPrices.set(`${row.cardPrintId}:${row.sourceId}`, row);
+      }
+    },
+    async upsertPublishedDisplays(rows: Array<Record<string, unknown>>) {
+      for (const row of rows) {
+        state.publishedDisplays.set(row.cardPrintId, row);
+      }
+    },
+    async recordConflicts() {},
+    async markRunCompleted(verificationRunId: number, finishedAt: string) {
+      state.runs.set(verificationRunId, { status: "completed", finishedAt });
+    },
+    async markRunFailed(verificationRunId: number, finishedAt: string, notes: string | null) {
+      state.runs.set(verificationRunId, { status: "failed", finishedAt, notes });
+    },
+    async createVerificationRun() {
+      return 500;
+    },
+    async listPublishedCoverage() {
+      return {
+        priceCardPrintIds: new Set(["EB01-001"]),
+        displayCardPrintIds: new Set(["EB01-001"]),
+      };
+    },
+  };
+
+  const result = await bootstrapPublishedPricing({
+    candidates: [
+      {
+        cardPrintId: "EB01-001",
+        sourceId: "justtcg",
+        externalProductId: "justtcg:oden-backfill",
+        externalVariantId: "justtcg:oden-backfill-nm",
+        verificationStatus: "verified",
+        conflictTypes: [],
+        priceMarket: 0.22,
+        priceNm: 0.22,
+        priceLp: 0.18,
+        updatedAt: "2026-03-19T12:54:12.000Z",
+        displaySetName: "Extra Booster: Memorial Collection",
+        displaySetCode: "EB01",
+        displayRarity: "SR",
+        displayTitle: "Kouzuki Oden",
+        displayTreatmentLabel: null,
+        displayImageUrl: "https://img.example/oden.jpg",
+        labelStatus: "verified",
+        officialName: "Kouzuki Oden",
+        officialSetName: "Extra Booster: Memorial Collection",
+        officialSetCode: "EB01",
+        officialRarity: "SR",
+      },
+    ],
+    adapter,
+    now: () => "2026-03-27T12:20:00.000Z",
+  });
+
+  assert.equal(result.verificationRunId, 500);
+  assert.equal(state.publishedPrices.size, 1);
+  assert.equal(state.publishedDisplays.size, 1);
+  assert.equal(state.runs.get(500)?.status, "completed");
+});

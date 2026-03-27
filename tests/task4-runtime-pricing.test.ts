@@ -1155,3 +1155,18 @@ test("market home mover queries only admit exact approved mappings", async () =>
   assert.match(queries.rawCardQuery, /link\.mapping_status = 'exact'/i);
   assert.match(queries.sealedQuery, /link\.mapping_status = 'exact'/i);
 });
+
+test("portfolio history boundary query preserves external variant ids in boundary rows", async () => {
+  const { getPortfolioHistoryQueryForTesting } =
+    await importModule<typeof import("../lib/server/collection/portfolio-summary")>(
+      "lib/server/collection/portfolio-summary.ts",
+    );
+
+  const query = getPortfolioHistoryQueryForTesting(true);
+
+  assert.match(
+    query,
+    /boundary_seed as \(\s*select distinct on \(card_print_id\)\s*card_print_id,\s*external_product_id,\s*external_variant_id,/iu,
+  );
+  assert.match(query, /select \* from boundary_seed/iu);
+});
