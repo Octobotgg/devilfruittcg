@@ -221,7 +221,14 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
             },
           },
         ],
-        historyRows: [],
+        historyRows: [
+          {
+            devilfruit_id: "OP10-033_p2",
+            price_nm: 810,
+            price_lp: 590,
+            recorded_at: "2026-03-24T00:05:00.000Z",
+          },
+        ],
         missing: [],
       },
     },
@@ -262,4 +269,17 @@ test("buildSeed imports a JustTCG card row separately from its variants", async 
   assert.equal(nmVariant?.price, 850);
   assert.equal(lpVariant?.condition, "Lightly Played");
   assert.equal(lpVariant?.price, 600);
+
+  assert.deepEqual(seed.cardPrintPriceHistory, [
+    {
+      card_print_id: "OP10-033_p2",
+      source_id: "justtcg",
+      external_product_id: "justtcg:ace-finalist-pack",
+      external_variant_id: "justtcg:ace-finalist-pack-nm",
+      recorded_at: "2026-03-24T00:05:00.000Z",
+      price_nm: 810,
+      price_lp: 590,
+      price_market: 810,
+    },
+  ]);
 });

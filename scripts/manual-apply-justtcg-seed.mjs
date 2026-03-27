@@ -159,6 +159,12 @@ async function insertSnapshots(sql, rows, chunkSize, label) {
   }
 }
 
+async function insertHistoryRows(sql, rows, chunkSize, label) {
+  if (!rows.length) return;
+
+  await insertSnapshots(sql, rows, chunkSize, label);
+}
+
 async function applyCardPrintAssignments(sql, assignments, chunkSize, label) {
   if (!assignments.length) return;
   const groups = chunk(assignments, chunkSize);
@@ -275,29 +281,22 @@ async function main() {
     const [
       existingExternalSourceIds,
       existingExternalProductIds,
-      existingExternalProductVariantIds,
       existingLinkIds,
-      existingCurrentKeys,
       existingSnapshotKeys,
     ] =
       await Promise.all([
         fetchExistingIds(sql, "external_sources"),
         fetchExistingIds(sql, "external_products"),
-        fetchExistingIds(sql, "external_product_variants"),
         fetchExistingIds(sql, "card_print_market_links"),
-        fetchExistingCurrentKeys(sql),
         fetchExistingSnapshotKeys(sql),
       ]);
 
     const pendingExternalSources = seed.externalSources.filter((row) => !existingExternalSourceIds.has(row.id));
     const pendingExternalProducts = seed.externalProducts.filter((row) => !existingExternalProductIds.has(row.id));
-    const pendingExternalProductVariants = (seed.externalProductVariants || []).filter(
-      (row) => !existingExternalProductVariantIds.has(row.id),
-    );
+    const pendingExternalProductVariants = seed.externalProductVariants || [];
     const pendingLinks = seed.cardPrintMarketLinks.filter((row) => !existingLinkIds.has(row.id));
-    const pendingCurrentPrices = seed.cardPrintPriceCurrent.filter(
-      (row) => !existingCurrentKeys.has(`${row.card_print_id}::${row.source_id}`),
-    );
+    const pendingCurrentPrices = seed.cardPrintPriceCurrent;
+    const pendingCurrentHistory = seed.cardPrintPriceHistory || [];
     const pendingSnapshots = seed.priceSnapshots.filter(
       (row) => !existingSnapshotKeys.has(snapshotRowKey(row)),
     );
@@ -310,6 +309,7 @@ async function main() {
           pendingExternalProductVariants: pendingExternalProductVariants.length,
           pendingLinks: pendingLinks.length,
           pendingCurrentPrices: pendingCurrentPrices.length,
+          pendingCurrentHistory: pendingCurrentHistory.length,
           pendingSnapshots: pendingSnapshots.length,
         },
         null,
@@ -368,6 +368,7 @@ async function main() {
       "card_print_price_current",
     );
 
+    await insertHistoryRows(sql, pendingCurrentHistory, 100, "card_print_price_history");
     await insertSnapshots(sql, pendingSnapshots, 50, "price_snapshots");
 
     console.log("Manual JustTCG seed apply complete");

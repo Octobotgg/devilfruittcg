@@ -893,6 +893,39 @@ function buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, pric
   return { rows, snapshots };
 }
 
+function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId, priceData) {
+  const assignmentsByCardPrintId = new Map(
+    approvedRawAssignments.map((assignment) => [assignment.card_print_id, assignment]),
+  );
+  const rows = [];
+
+  for (const historyRow of Array.isArray(priceData?.historyRows) ? priceData.historyRows : []) {
+    const cardPrintId = cleanText(historyRow?.devilfruit_id);
+    if (!cardPrintId) continue;
+
+    const assignment = assignmentsByCardPrintId.get(cardPrintId);
+    if (!assignment) continue;
+
+    const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
+    const canonicalVariant = selectCanonicalVariant(variants);
+    const recordedAt = normalizeTimestamp(historyRow?.recorded_at);
+    if (!recordedAt) continue;
+
+    rows.push({
+      card_print_id: cardPrintId,
+      source_id: JUSTTCG_SOURCE.id,
+      external_product_id: assignment.external_product_id,
+      external_variant_id: canonicalVariant?.id || null,
+      recorded_at: recordedAt,
+      price_nm: historyRow?.price_nm ?? null,
+      price_lp: historyRow?.price_lp ?? null,
+      price_market: historyRow?.price_market ?? historyRow?.price_nm ?? null,
+    });
+  }
+
+  return rows;
+}
+
 function buildSealedProducts(externalProducts, priceIndex, releaseLookup) {
   const sealedProducts = [];
   const sealedProductMarketLinks = [];
@@ -1063,6 +1096,7 @@ function buildSeed(inputs, options) {
   const { cardPrintMarketLinks, approvedRawAssignments } = collectRawCardMappings(inputs.mappingReport, productMap);
   const priceIndex = indexPriceRows(inputs.priceData);
   const rawCardPrices = buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, priceIndex);
+  const rawCardPriceHistory = buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId, inputs.priceData);
   const sealed = buildSealedProducts(productMap, priceIndex, releaseLookup);
   const activeCardPrintAssignments = buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssignments);
   const activeCardPrintVariantAssignments = buildActiveCardPrintVariantAssignments(
@@ -1078,6 +1112,7 @@ function buildSeed(inputs, options) {
     activeCardPrintAssignments,
     activeCardPrintVariantAssignments,
     cardPrintPriceCurrent: rawCardPrices.rows,
+    cardPrintPriceHistory: rawCardPriceHistory,
     sealedProducts: sealed.sealedProducts,
     sealedProductMarketLinks: sealed.sealedProductMarketLinks,
     sealedProductPriceCurrent: sealed.sealedProductPriceCurrent,
@@ -1087,6 +1122,7 @@ function buildSeed(inputs, options) {
       approvedRawAssignments: approvedRawAssignments.length,
       importedExternalProducts: externalProducts.length,
       importedExternalProductVariants: externalProductVariants.length,
+      importedCardPrintPriceHistory: rawCardPriceHistory.length,
       importedSealedProducts: sealed.sealedProducts.length,
     },
   };
@@ -1099,6 +1135,7 @@ function summarizeSeed(seed) {
     externalProductVariants: seed.externalProductVariants.length,
     cardPrintMarketLinks: seed.cardPrintMarketLinks.length,
     cardPrintPriceCurrent: seed.cardPrintPriceCurrent.length,
+    cardPrintPriceHistory: seed.cardPrintPriceHistory.length,
     sealedProducts: seed.sealedProducts.length,
     sealedProductMarketLinks: seed.sealedProductMarketLinks.length,
     sealedProductPriceCurrent: seed.sealedProductPriceCurrent.length,
