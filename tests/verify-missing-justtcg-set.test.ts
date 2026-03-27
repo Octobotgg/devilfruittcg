@@ -404,6 +404,168 @@ test("evaluateVerificationCard approves exact labeled Full Art matches", async (
   assert.equal(result.unresolved.length, 0);
 });
 
+test("evaluateVerificationCard approves exact labeled Winner Pack and Event Pack matches", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const cases = [
+    {
+      card: {
+        id: "card-winner-pack-exact",
+        name: "Monkey D. Luffy",
+        printedCardId: "PRB01-001",
+        set: "Premium Booster The Best [PRB01]",
+        releaseCode: "PRB01",
+        variantType: "sp",
+        variantLabel: "Winner Pack",
+      },
+      candidate: {
+        id: "candidate-winner-pack-exact",
+        name: "Monkey D. Luffy SP PRB01-001",
+        number: "PRB01-001",
+        set_name: "Premium Booster The Best",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "124",
+      },
+      detail: {
+        productName: "Monkey D. Luffy SP PRB01-001",
+        productUrlName: "monkey-d-luffy-sp-prb01-001",
+        setName: "Premium Booster The Best",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "PRB01-001" },
+        formattedAttributes: { Number: "PRB01-001" },
+      },
+    },
+    {
+      card: {
+        id: "card-event-pack-exact",
+        name: "Monkey D. Luffy",
+        printedCardId: "PRB01-001",
+        set: "Premium Booster The Best [PRB01]",
+        releaseCode: "PRB01",
+        variantType: "sp",
+        variantLabel: "Event Pack",
+      },
+      candidate: {
+        id: "candidate-event-pack-exact",
+        name: "Monkey D. Luffy SP PRB01-001",
+        number: "PRB01-001",
+        set_name: "Premium Booster The Best",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "125",
+      },
+      detail: {
+        productName: "Monkey D. Luffy SP PRB01-001",
+        productUrlName: "monkey-d-luffy-sp-prb01-001",
+        setName: "Premium Booster The Best",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "PRB01-001" },
+        formattedAttributes: { Number: "PRB01-001" },
+      },
+    },
+  ];
+
+  for (const testCase of cases) {
+    const result = evaluateVerificationCard({
+      card: testCase.card,
+      expectedNumber: "PRB01-001",
+      releaseCode: "PRB01",
+      candidateResults: [
+        {
+          candidate: testCase.candidate,
+          tcgplayerId: testCase.candidate.tcgplayerId,
+          detail: testCase.detail,
+        },
+      ],
+      ebayPrice: null,
+      allowLabelCorrections: false,
+    });
+
+    assert.equal(result.approved.length, 1);
+    assert.equal(result.unresolved.length, 0);
+  }
+});
+
+test("evaluateVerificationCard approves exact labeled Jolly Roger Foil and Reprint matches", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const cases = [
+    {
+      card: {
+        id: "card-jolly-roger-foil-exact",
+        name: "Monkey D. Luffy",
+        printedCardId: "OP01-004",
+        set: "Romance Dawn [OP01]",
+        releaseCode: "OP01",
+        variantType: "parallel",
+        variantLabel: "Jolly Roger Foil",
+      },
+      candidate: {
+        id: "candidate-jolly-roger-foil-exact",
+        name: "Monkey D. Luffy Parallel OP01-004",
+        number: "OP01-004",
+        set_name: "Romance Dawn",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "126",
+      },
+      detail: {
+        productName: "Monkey D. Luffy Parallel OP01-004",
+        productUrlName: "monkey-d-luffy-parallel-op01-004",
+        setName: "Romance Dawn",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "OP01-004" },
+        formattedAttributes: { Number: "OP01-004" },
+      },
+    },
+    {
+      card: {
+        id: "card-reprint-exact",
+        name: "Monkey D. Luffy",
+        printedCardId: "OP01-004",
+        set: "Romance Dawn [OP01]",
+        releaseCode: "OP01",
+        variantType: "parallel",
+        variantLabel: "Reprint",
+      },
+      candidate: {
+        id: "candidate-reprint-exact",
+        name: "Monkey D. Luffy Parallel OP01-004",
+        number: "OP01-004",
+        set_name: "Romance Dawn",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "127",
+      },
+      detail: {
+        productName: "Monkey D. Luffy Parallel OP01-004",
+        productUrlName: "monkey-d-luffy-parallel-op01-004",
+        setName: "Romance Dawn",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "OP01-004" },
+        formattedAttributes: { Number: "OP01-004" },
+      },
+    },
+  ];
+
+  for (const testCase of cases) {
+    const result = evaluateVerificationCard({
+      card: testCase.card,
+      expectedNumber: "OP01-004",
+      releaseCode: "OP01",
+      candidateResults: [
+        {
+          candidate: testCase.candidate,
+          tcgplayerId: testCase.candidate.tcgplayerId,
+          detail: testCase.detail,
+        },
+      ],
+      ebayPrice: null,
+      allowLabelCorrections: false,
+    });
+
+    assert.equal(result.approved.length, 1);
+    assert.equal(result.unresolved.length, 0);
+  }
+});
+
 test("evaluateVerificationCard does not auto-approve unlabeled premium-looking cards like Box Topper", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 
@@ -449,6 +611,52 @@ test("evaluateVerificationCard does not auto-approve unlabeled premium-looking c
   assert.equal(result.approved.length, 0);
   assert.equal(result.unresolved.length, 1);
   assert.equal(result.unresolved[0].reason, "no_verified_candidate");
+});
+
+test("evaluateVerificationCard approves unlabeled base cards for Silvers Rayleigh without treating silver as premium", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-silvers-rayleigh",
+    name: "Silvers Rayleigh",
+    printedCardId: "OP02-001",
+    set: "Paramount War [OP02]",
+    releaseCode: "OP02",
+    variantType: "",
+    variantLabel: "",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP02-001",
+    releaseCode: "OP02",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-silvers-rayleigh",
+          name: "Silvers Rayleigh OP02-001",
+          number: "OP02-001",
+          set_name: "Paramount War",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "128",
+        },
+        tcgplayerId: "128",
+        detail: {
+          productName: "Silvers Rayleigh OP02-001",
+          productUrlName: "silvers-rayleigh-op02-001",
+          setName: "Paramount War",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "OP02-001" },
+          formattedAttributes: { Number: "OP02-001" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 1);
+  assert.equal(result.unresolved.length, 0);
 });
 
 test("evaluateVerificationCard does not auto-approve unlabeled Full Art cards", async () => {

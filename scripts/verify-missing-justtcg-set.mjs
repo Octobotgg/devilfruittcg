@@ -16,8 +16,6 @@ import {
 import { getTcgplayerProductDetail } from "./lib/tcgplayer-detail-cache.mjs";
 import {
   cleanedCardName,
-  candidatePremiumHints,
-  classifyCatalogCard,
   normalizeBandaiNumber,
   normalizeText,
 } from "./lib/justtcg-matcher.mjs";
@@ -56,43 +54,53 @@ function setAliasesForCard(card) {
   return [...aliases];
 }
 
-const PREMIUM_HINT_LABELS = {
-  red_super_alt: { variantType: "alt_art", variantLabel: "Red Super Alternate Art", token: "red super alternate art" },
-  super_alt: { variantType: "alt_art", variantLabel: "Super Alternate Art", token: "super alternate art" },
-  jolly_roger_foil: { variantType: "parallel", variantLabel: "Jolly Roger Foil", token: "jolly roger foil" },
-  full_art: { variantType: "alt_art", variantLabel: "Full Art", token: "full art" },
-  treasure_rare: { variantType: "alt_art", variantLabel: "Treasure Rare", token: "treasure rare" },
-  pirate_foil: { variantType: "parallel", variantLabel: "Pirate Foil", token: "pirate foil" },
-  participation: { variantType: "sp", variantLabel: "Participation Pack", token: "participation" },
-  finalist: { variantType: "sp", variantLabel: "Finalist", token: "finalist" },
-  champion: { variantType: "sp", variantLabel: "Champion", token: "champion" },
-  gold: { variantType: "sp", variantLabel: "SP (Gold)", token: "gold" },
-  silver: { variantType: "sp", variantLabel: "SP (Silver)", token: "silver" },
-  event_pack: { variantType: "sp", variantLabel: "Event Pack", token: "event pack" },
-  winner_pack: { variantType: "sp", variantLabel: "Winner Pack", token: "winner pack" },
-  winner_card_set: { variantType: "sp", variantLabel: "Winner Card Set", token: "winner card set" },
-  tournament_pack: { variantType: "sp", variantLabel: "Tournament Pack", token: "tournament pack" },
-  alt: { variantType: "alt_art", variantLabel: "Alternate Art", token: "alternate art" },
-  sp: { variantType: "sp", variantLabel: "SP", token: "sp" },
-  manga: { variantType: "manga", variantLabel: "Manga", token: "manga" },
-  anniversary: { variantType: "anniversary", variantLabel: "Anniversary", token: "anniversary" },
-  reprint: { variantType: "parallel", variantLabel: "Reprint", token: "reprint" },
-};
+const PREMIUM_LABELS = [
+  { phrase: "red super alternate art", variantType: "alt_art", variantLabel: "Red Super Alternate Art", token: "red super alternate art", fallbackToken: "alternate art" },
+  { phrase: "super alternate art", variantType: "alt_art", variantLabel: "Super Alternate Art", token: "super alternate art", fallbackToken: "alternate art" },
+  { phrase: "box topper", variantType: "alt_art", variantLabel: "Box Topper", token: "box topper", fallbackToken: "alternate art" },
+  { phrase: "jolly roger foil", variantType: "parallel", variantLabel: "Jolly Roger Foil", token: "jolly roger foil", fallbackToken: "parallel" },
+  { phrase: "full art", variantType: "alt_art", variantLabel: "Full Art", token: "full art", fallbackToken: "alternate art" },
+  { phrase: "treasure rare", variantType: "alt_art", variantLabel: "Treasure Rare", token: "treasure rare", fallbackToken: "alternate art" },
+  { phrase: "pirate foil", variantType: "parallel", variantLabel: "Pirate Foil", token: "pirate foil", fallbackToken: "parallel" },
+  { phrase: "participation", variantType: "sp", variantLabel: "Participation Pack", token: "participation", fallbackToken: "sp" },
+  { phrase: "finalist", variantType: "sp", variantLabel: "Finalist", token: "finalist", fallbackToken: "sp" },
+  { phrase: "champion", variantType: "sp", variantLabel: "Champion", token: "champion", fallbackToken: "sp" },
+  { phrase: "sp gold", variantType: "sp", variantLabel: "SP (Gold)", token: "sp gold", fallbackToken: "sp" },
+  { phrase: "sp silver", variantType: "sp", variantLabel: "SP (Silver)", token: "sp silver", fallbackToken: "sp" },
+  { phrase: "winner pack", variantType: "sp", variantLabel: "Winner Pack", token: "winner pack", fallbackToken: "sp" },
+  { phrase: "winner card set", variantType: "sp", variantLabel: "Winner Card Set", token: "winner card set", fallbackToken: "sp" },
+  { phrase: "event pack", variantType: "sp", variantLabel: "Event Pack", token: "event pack", fallbackToken: "sp" },
+  { phrase: "tournament pack", variantType: "sp", variantLabel: "Tournament Pack", token: "tournament pack", fallbackToken: "sp" },
+  { phrase: "alternate art", variantType: "alt_art", variantLabel: "Alternate Art", token: "alternate art", fallbackToken: "alternate art" },
+  { phrase: "manga", variantType: "manga", variantLabel: "Manga", token: "manga", fallbackToken: "manga" },
+  { phrase: "anniversary", variantType: "anniversary", variantLabel: "Anniversary", token: "anniversary", fallbackToken: "anniversary" },
+  { phrase: "reprint", variantType: "parallel", variantLabel: "Reprint", token: "reprint", fallbackToken: "parallel" },
+];
 
-function premiumLabelFromCard(card) {
-  const syntheticCandidate = {
-    name: [card.variantLabel, card.variantSlug, card.name].filter(Boolean).join(" "),
-    set_name: [card.set, card.originSet].filter(Boolean).join(" "),
-    set: [card.set, card.originSet].filter(Boolean).join(" "),
-  };
-  for (const hint of candidatePremiumHints(syntheticCandidate)) {
-    const mapped = PREMIUM_HINT_LABELS[hint];
-    if (mapped) return mapped.token;
+function labelTextFromCard(card) {
+  return normalizeText([card.variantLabel, card.variantSlug].filter(Boolean).join(" "));
+}
+
+function labelTokenFromText(text) {
+  const normalized = normalizeText(text);
+  for (const entry of PREMIUM_LABELS) {
+    if (normalized.includes(entry.phrase)) return entry;
   }
   return null;
 }
 
+function specificPremiumLabelFromCard(card) {
+  return labelTokenFromText(labelTextFromCard(card));
+}
+
+function specificPremiumLabelFromText(text) {
+  return labelTokenFromText(text);
+}
+
 function labelTokens(card) {
+  const premiumLabel = specificPremiumLabelFromCard(card);
+  if (premiumLabel) return premiumLabel.fallbackToken ? [premiumLabel.token, premiumLabel.fallbackToken] : [premiumLabel.token];
+
   const variantLabel = normalizeText(card.variantLabel || "");
   const variantType = String(card.variantType || "").toLowerCase();
   const variantSlug = normalizeText(String(card.variantSlug || "").replace(/_/g, " "));
@@ -107,8 +115,6 @@ function labelTokens(card) {
   if (variantType === "anniversary" || variantLabel.includes("anniversary") || variantSlug.includes("anniversary")) return ["anniversary"];
   if (variantType === "manga" || variantLabel.includes("manga") || variantSlug.includes("manga")) return ["manga"];
   if (variantLabel.includes("reprint") || variantSlug.includes("reprint")) return ["reprint"];
-  const premiumLabel = premiumLabelFromCard(card);
-  if (premiumLabel) return [premiumLabel];
   if (variantType === "alt_art" || variantLabel.includes("alternate art") || variantSlug.includes("alternate art")) return ["alternate art"];
   return [];
 }
@@ -120,9 +126,16 @@ function labelFromCandidateAndDetail(candidate, detail) {
     set: [candidate?.set, detail?.setName].filter(Boolean).join(" "),
     id: candidate?.id,
   };
-  for (const hint of candidatePremiumHints(syntheticCandidate)) {
-    const mapped = PREMIUM_HINT_LABELS[hint];
-    if (mapped) return { variantType: mapped.variantType, variantLabel: mapped.variantLabel };
+  const specific = specificPremiumLabelFromText([
+    candidate?.name,
+    detail?.productName,
+    detail?.productUrlName,
+    candidate?.set_name,
+    candidate?.set,
+    detail?.setName,
+  ].join(" "));
+  if (specific) {
+    return { variantType: specific.variantType, variantLabel: specific.variantLabel };
   }
 
   const haystack = normalizeText([
@@ -173,13 +186,15 @@ function labelFromCandidateAndDetail(candidate, detail) {
 }
 
 function looksLikePremiumTreatment(candidate, detail) {
-  const syntheticCandidate = {
-    name: [candidate?.name, detail?.productName, detail?.productUrlName].filter(Boolean).join(" "),
-    set_name: [candidate?.set_name, detail?.setName].filter(Boolean).join(" "),
-    set: [candidate?.set, detail?.setName].filter(Boolean).join(" "),
-    id: candidate?.id,
-  };
-  return classifyCatalogCard(syntheticCandidate).bucket !== "base_candidate" || candidatePremiumHints(syntheticCandidate).length > 0;
+  const text = normalizeText([
+    candidate?.name,
+    detail?.productName,
+    detail?.productUrlName,
+    candidate?.set_name,
+    candidate?.set,
+    detail?.setName,
+  ].join(" "));
+  return PREMIUM_LABELS.some((entry) => text.includes(entry.phrase));
 }
 
 function getExpectedNumber(card) {
@@ -216,7 +231,7 @@ function labelMatches(card, detail, candidate) {
     detail?.productUrlName,
     candidate?.name,
   ].map((value) => normalizeText(value));
-  return tokens.every((token) => haystacks.some((value) => value.includes(token)));
+  return tokens.some((token) => haystacks.some((value) => value.includes(token)));
 }
 
 function setFamilyMatches(card, detail, candidate, releaseCode) {
