@@ -49,6 +49,7 @@ function createStatefulSql(initialState?: {
   cardPrints?: Array<{ id: string; active_external_product_id: string | null; active_external_variant_id: string | null }>;
   cardPrintPriceCurrent?: Array<Record<string, unknown>>;
 }) {
+  const queries: Array<{ text: string; params: unknown[] }> = [];
   const state = {
     cardPrints: new Map(
       (initialState?.cardPrints || []).map((row) => [row.id, clone(row)] as const),
@@ -62,9 +63,11 @@ function createStatefulSql(initialState?: {
   };
 
   return {
+    queries,
     state,
     unsafe: async (text: string, params: unknown[] = []) => {
       const normalized = normalizeSql(text);
+      queries.push({ text: normalized, params: [...params] });
 
       if (normalized.startsWith('update "card_prints"')) {
         for (let index = 0; index < params.length; index += 3) {
@@ -632,6 +635,20 @@ test("applySeed incremental refresh updates an existing variant-backed current p
   assert.equal(afterRow?.price_nm, 0.3);
   assert.equal(afterRow?.price_lp, null);
   assert.equal(sql.state.cardPrints.get("EB01-001")?.active_external_variant_id, beforeRow?.external_variant_id);
+  assert.ok(
+    sql.queries.some((query) => query.text.startsWith('insert into "card_print_price_current"')),
+    "incremental refresh should update the current price row in place",
+  );
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('delete from "card_print_price_current"')),
+    false,
+    "incremental refresh should not delete canonical current price rows",
+  );
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('update "card_prints"')),
+    false,
+    "incremental refresh should not clear or reassign card_prints",
+  );
   assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.meta?.updatedAfter, 1774483200);
 });
@@ -734,6 +751,21 @@ test("applySeed incremental LP-only refresh preserves the canonical NM current p
   const afterRow = sql.state.cardPrintPriceCurrent.get("EB01-001::justtcg");
   assert.deepEqual(afterRow, beforeRow);
   assert.equal(sql.state.cardPrints.get("EB01-001")?.active_external_variant_id, "justtcg:oden-refresh-nm");
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('insert into "card_print_price_current"')),
+    false,
+    "LP-only refresh should not rewrite the canonical current price row",
+  );
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('delete from "card_print_price_current"')),
+    false,
+    "LP-only refresh should not delete the canonical current price row",
+  );
+  assert.equal(
+    sql.queries.some((query) => query.text.startsWith('update "card_prints"')),
+    false,
+    "LP-only refresh should not clear or reassign card_prints",
+  );
   assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.externalProductVariants.length, 1);
   assert.equal(seed.externalProductVariants[0]?.condition, "Lightly Played");
