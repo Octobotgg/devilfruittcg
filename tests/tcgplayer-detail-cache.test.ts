@@ -45,8 +45,8 @@ function createFetchStub(responses: Array<{
 }
 
 type TcgplayerCacheEntry = {
-  fetchedAt: number;
-  payload: unknown;
+  fetched_at: string;
+  [key: string]: unknown;
 };
 
 test("getTcgplayerProductDetail fetches product details from the TCGplayer details endpoint", async () => {
@@ -123,7 +123,7 @@ test("getTcgplayerProductDetail refreshes stale cache entries after the TTL expi
       fetchImpl,
     });
 
-    cache["789"].fetchedAt = Date.now() - 60_000;
+    cache["789"].fetched_at = new Date(Date.now() - 60_000).toISOString();
 
     const refreshed = await getTcgplayerProductDetail({
       productId: 789,
@@ -159,7 +159,7 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh f
       fetchImpl,
     });
 
-    cache["321"].fetchedAt = Date.now() - 60_000;
+    cache["321"].fetched_at = new Date(Date.now() - 60_000).toISOString();
 
     const fallback = await getTcgplayerProductDetail({
       productId: 321,
@@ -171,7 +171,12 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh f
 
     assert.equal(calls.length, 2);
     assert.deepEqual(fallback, { id: 321, title: "Stable Card" });
-    assert.deepEqual(JSON.parse(readFileSync(cachePath, "utf8"))["321"].payload, { id: 321, title: "Stable Card" });
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["321"];
+    assert.equal(persisted.id, 321);
+    assert.equal(persisted.title, "Stable Card");
+    assert.equal(typeof persisted.fetched_at, "string");
+    assert.equal("payload" in persisted, false);
+    assert.equal("fetchedAt" in persisted, false);
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
