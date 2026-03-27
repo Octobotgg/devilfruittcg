@@ -266,6 +266,98 @@ test("evaluateVerificationCard approves exact unlabeled matches when both sides 
   assert.equal(result.unresolved.length, 0);
 });
 
+test("evaluateVerificationCard approves unlabeled PRB01 base-card matches", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-prb01",
+    name: "Monkey D. Luffy",
+    printedCardId: "PRB01-001",
+    set: "Premium Booster The Best [PRB01]",
+    releaseCode: "PRB01",
+    variantType: "",
+    variantLabel: "",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "PRB01-001",
+    releaseCode: "PRB01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-prb01",
+          name: "Monkey D. Luffy PRB01-001",
+          number: "PRB01-001",
+          set_name: "Premium Booster The Best",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "124",
+        },
+        tcgplayerId: "124",
+        detail: {
+          productName: "Monkey D. Luffy PRB01-001",
+          productUrlName: "monkey-d-luffy-prb01-001",
+          setName: "Premium Booster The Best",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "PRB01-001" },
+          formattedAttributes: { Number: "PRB01-001" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 1);
+  assert.equal(result.unresolved.length, 0);
+});
+
+test("evaluateVerificationCard approves unlabeled base-card matches even when rare appears in the title", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-rare",
+    name: "Monkey D. Luffy",
+    printedCardId: "PRB02-001",
+    set: "Premium Booster The Best Vol. 2 [PRB02]",
+    releaseCode: "PRB02",
+    variantType: "",
+    variantLabel: "",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "PRB02-001",
+    releaseCode: "PRB02",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-rare",
+          name: "Monkey D. Luffy Rare PRB02-001",
+          number: "PRB02-001",
+          set_name: "Premium Booster The Best Vol. 2",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "125",
+        },
+        tcgplayerId: "125",
+        detail: {
+          productName: "Monkey D. Luffy Rare PRB02-001",
+          productUrlName: "monkey-d-luffy-rare-prb02-001",
+          setName: "Premium Booster The Best Vol. 2",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "PRB02-001" },
+          formattedAttributes: { Number: "PRB02-001" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 1);
+  assert.equal(result.unresolved.length, 0);
+});
+
 test("evaluateVerificationCard does not auto-approve unlabeled premium-looking cards like Box Topper", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 

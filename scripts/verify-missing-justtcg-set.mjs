@@ -134,9 +134,7 @@ const PREMIUM_TREATMENT_PATTERNS = [
   "jolly roger foil",
   "treasure rare",
   "foil",
-  "rare",
   "promo",
-  "premium",
 ];
 
 function looksLikePremiumTreatment(candidate, detail) {
