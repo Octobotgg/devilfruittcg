@@ -64,6 +64,7 @@ type MarketSearchRow = {
   productKind: string | null;
   activeExternalVariantId: string | null;
   externalVariantId: string | null;
+  variantCondition: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   mappingApproved: boolean;
@@ -177,6 +178,7 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
           ep.product_kind as "productKind",
           cp.active_external_variant_id as "activeExternalVariantId",
           current_prices.external_variant_id as "externalVariantId",
+          variant.condition as "variantCondition",
           case when ep.product_kind = 'raw_card' then ep.name end as "justtcgTitle",
           case when ep.product_kind = 'raw_card' then ep.image_url end as "justtcgImageUrl",
           coalesce(link.approved_at is not null and link.mapping_status = 'exact', false) as "mappingApproved",
@@ -189,6 +191,9 @@ async function loadMarketRows(): Promise<MarketSearchRow[]> {
         join cards on cards.id = cp.card_id
         join releases on releases.id = cp.release_id
         left join external_products ep on ep.id = cp.active_external_product_id
+        left join external_product_variants variant
+          on variant.id = cp.active_external_variant_id
+         and variant.external_product_id = cp.active_external_product_id
         left join card_print_market_links link
           on link.card_print_id = cp.id
          and link.external_product_id = cp.active_external_product_id
@@ -401,6 +406,7 @@ function toMarketPriceSummary(row: MarketSearchRow): MarketPriceSummary | null {
   if (normalizeProductKind(row.productKind) !== "raw_card") return null;
   if (!row.activeExternalVariantId || !row.externalVariantId) return null;
   if (row.activeExternalVariantId !== row.externalVariantId) return null;
+  if (String(row.variantCondition || "").trim().toLowerCase() !== "near mint") return null;
 
   const marketPrice = parseNullableNumber(row.priceNm);
   if (marketPrice == null) return null;

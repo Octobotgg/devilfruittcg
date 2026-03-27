@@ -406,6 +406,54 @@ test("market search does not price raw card rows when the active product kind is
   assert.equal(result.currentPrice, null);
 });
 
+test("market search does not price raw card rows unless the active variant is NM", async () => {
+  const { toMarketCardResultForTesting } =
+    await importModule<typeof import("../lib/server/market/market-search")>(
+      "lib/server/market/market-search.ts",
+    );
+
+  const result = toMarketCardResultForTesting({
+    cardPrintId: "cp-nm-guard",
+    cardId: "OP01-011",
+    printedCardCode: "OP01-011",
+    variantLabel: "Base",
+    variantSlug: "base",
+    cardName: "Usopp",
+    setCode: "OP01",
+    setName: "Romance Dawn",
+    number: "011",
+    cardType: "Character",
+    color: "Red",
+    rarity: "C",
+    cost: 1,
+    life: null,
+    power: 1000,
+    counter: 1000,
+    attribute: null,
+    traits: null,
+    effectText: null,
+    triggerText: null,
+    imageUrl: "https://img.example/internal.jpg",
+    releaseDate: "2025-01-01",
+    productKind: "raw_card",
+    activeExternalVariantId: "justtcg:124-lp",
+    externalVariantId: "justtcg:124-lp",
+    variantCondition: "Lightly Played",
+    justtcgTitle: "Usopp OP01-011",
+    justtcgImageUrl: "https://img.example/usopp.jpg",
+    mappingApproved: true,
+    priceNm: "8.00",
+    priceLp: "6.50",
+    priceChange7d: "1.25",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    fetchedAt: "2026-03-25T00:05:00.000Z",
+  });
+
+  assert.equal(result.pricingStatus, "unpriced");
+  assert.equal(result.market, null);
+  assert.equal(result.currentPrice, null);
+});
+
 test("market search preserves public print identity for variant-aware routing and display", async () => {
   const { toMarketCardResultForTesting } =
     await importModule<typeof import("../lib/server/market/market-search")>(
@@ -524,6 +572,43 @@ test("market home rejects remapped sealed rows that do not match the active exte
         justtcgImageUrl: "https://img.example/old-sealed.jpg",
         currentPrice: "110.00",
         priceChange24h: "10.00",
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        mappingApproved: true,
+      },
+      {
+        minimumPriceFloor: 0,
+        maximumAbsoluteDelta: 500,
+        maximumPercentSwing: 500,
+      },
+    ),
+    false,
+  );
+});
+
+test("market home rejects raw card movers unless the active variant is NM", async () => {
+  const { passesMarketMoverTrustFilters } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  assert.equal(
+    passesMarketMoverTrustFilters(
+      {
+        collectibleId: "cp-nm-guard",
+        collectibleKind: "raw_card",
+        cardId: "OP01-011",
+        officialName: "Usopp",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        externalProductId: "justtcg:124",
+        activeExternalProductId: "justtcg:124",
+        externalVariantId: "justtcg:124-lp",
+        activeExternalVariantId: "justtcg:124-lp",
+        variantCondition: "Lightly Played",
+        justtcgTitle: "Usopp OP01-011",
+        justtcgImageUrl: "https://img.example/usopp.jpg",
+        currentPrice: "8.00",
+        priceChange24h: "1.00",
         updatedAt: "2026-03-25T00:00:00.000Z",
         mappingApproved: true,
       },

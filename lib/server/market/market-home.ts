@@ -17,6 +17,7 @@ type MarketMoverRow = {
   activeExternalProductId: string | null;
   externalVariantId: string | null;
   activeExternalVariantId: string | null;
+  variantCondition: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   currentPrice: string | number | null;
@@ -89,6 +90,7 @@ const RAW_CARD_MOVER_QUERY = `
     cp.active_external_product_id as "activeExternalProductId",
     current_prices.external_variant_id as "externalVariantId",
     cp.active_external_variant_id as "activeExternalVariantId",
+    variant.condition as "variantCondition",
     ep.name as "justtcgTitle",
     ep.image_url as "justtcgImageUrl",
     current_prices.price_nm as "currentPrice",
@@ -103,6 +105,9 @@ const RAW_CARD_MOVER_QUERY = `
   join cards on cards.id = cp.card_id
   join releases on releases.id = cp.release_id
   join external_products ep on ep.id = current_prices.external_product_id and ep.product_kind = 'raw_card'
+  left join external_product_variants variant
+    on variant.id = cp.active_external_variant_id
+   and variant.external_product_id = cp.active_external_product_id
   join card_print_market_links link
     on link.card_print_id = cp.id
    and link.external_product_id = current_prices.external_product_id
@@ -172,6 +177,7 @@ export function passesMarketMoverTrustFilters(
   if (row.collectibleKind === "raw_card") {
     if (!row.externalVariantId || !row.activeExternalVariantId) return false;
     if (row.externalVariantId !== row.activeExternalVariantId) return false;
+    if (String(row.variantCondition || "").trim().toLowerCase() !== "near mint") return false;
   }
 
   const currentPrice = parseNullableNumber(row.currentPrice);
