@@ -16,6 +16,8 @@ import {
 import { getTcgplayerProductDetail } from "./lib/tcgplayer-detail-cache.mjs";
 import {
   cleanedCardName,
+  candidatePremiumHints,
+  classifyCatalogCard,
   normalizeBandaiNumber,
   normalizeText,
 } from "./lib/justtcg-matcher.mjs";
@@ -42,19 +44,11 @@ function baseId(cardId) {
   return String(cardId || "").replace(/_[A-Za-z0-9]+$/u, "");
 }
 
-function normalizeSetLabel(value) {
-  return normalizeText(String(value || "").replace(/\s*\[[^\]]+\]\s*$/u, ""));
-}
-
-function aliasesFromText(value) {
-  const normalized = normalizeSetLabel(value);
-  return normalized ? [normalized] : [];
-}
-
 function setAliasesForCard(card) {
   const aliases = new Set();
   for (const value of [card.set, card.originSet]) {
-    for (const alias of aliasesFromText(value)) aliases.add(alias);
+    const normalized = normalizeText(String(value || "").replace(/\s*\[[^\]]+\]\s*$/u, ""));
+    if (normalized) aliases.add(normalized);
   }
   for (const alias of RELEASE_ALIASES[String(card.releaseCode || "").toUpperCase()] || []) {
     aliases.add(normalizeText(alias));
@@ -129,25 +123,14 @@ function labelFromCandidateAndDetail(candidate, detail) {
   return null;
 }
 
-const PREMIUM_TREATMENT_PATTERNS = [
-  "box topper",
-  "jolly roger foil",
-  "treasure rare",
-  "foil",
-  "promo",
-];
-
 function looksLikePremiumTreatment(candidate, detail) {
-  const haystack = normalizeText([
-    candidate?.name,
-    candidate?.set_name,
-    candidate?.set,
-    detail?.productName,
-    detail?.productUrlName,
-    detail?.setName,
-  ].join(" "));
-  if (!haystack) return false;
-  return PREMIUM_TREATMENT_PATTERNS.some((pattern) => haystack.includes(pattern));
+  const syntheticCandidate = {
+    name: [candidate?.name, detail?.productName, detail?.productUrlName].filter(Boolean).join(" "),
+    set_name: [candidate?.set_name, detail?.setName].filter(Boolean).join(" "),
+    set: [candidate?.set, detail?.setName].filter(Boolean).join(" "),
+    id: candidate?.id,
+  };
+  return classifyCatalogCard(syntheticCandidate).bucket !== "base_candidate" || candidatePremiumHints(syntheticCandidate).length > 0;
 }
 
 function getExpectedNumber(card) {

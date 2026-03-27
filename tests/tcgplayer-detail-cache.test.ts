@@ -373,6 +373,33 @@ test("getTcgplayerProductDetail prefers fresher on-disk data on same-key reads",
   }
 });
 
+test("getTcgplayerProductDetail leaves malformed on-disk cache files untouched during writes", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const malformed = "{\n  \"111\": {\n    \"id\": 111,\n    \"title\": \"Partial Entry\"\n";
+    writeFileSync(cachePath, malformed);
+    const cache: Record<string, TcgplayerCacheEntry> = {};
+    const { calls, fetchImpl } = createFetchStub([{ body: { id: 222, title: "Fresh Entry" } }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 222,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    assert.deepEqual(detail, { id: 222, title: "Fresh Entry" });
+    assert.equal(readFileSync(cachePath, "utf8"), malformed);
+    assert.equal(cache["222"].title, "Fresh Entry");
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("getTcgplayerProductDetail reuses a cached response on the second fetch", async () => {
   const tempDir = createTempDir();
   try {

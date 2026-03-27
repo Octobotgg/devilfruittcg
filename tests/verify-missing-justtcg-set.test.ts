@@ -405,6 +405,118 @@ test("evaluateVerificationCard does not auto-approve unlabeled premium-looking c
   assert.equal(result.unresolved[0].reason, "no_verified_candidate");
 });
 
+test("evaluateVerificationCard does not auto-approve unlabeled Full Art cards", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-full-art",
+    name: "Monkey D. Luffy",
+    printedCardId: "OP01-004",
+    set: "Romance Dawn [OP01]",
+    releaseCode: "OP01",
+    variantType: "",
+    variantLabel: "",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP01-004",
+    releaseCode: "OP01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-full-art",
+          name: "Monkey D. Luffy Full Art OP01-004",
+          number: "OP01-004",
+          set_name: "Romance Dawn",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "124",
+        },
+        tcgplayerId: "124",
+        detail: {
+          productName: "Monkey D. Luffy Full Art OP01-004",
+          productUrlName: "monkey-d-luffy-full-art-op01-004",
+          setName: "Romance Dawn",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "OP01-004" },
+          formattedAttributes: { Number: "OP01-004" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 0);
+  assert.equal(result.unresolved.length, 1);
+});
+
+test("evaluateVerificationCard does not auto-approve unlabeled Winner Pack or Event Pack cards", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-winner-pack",
+    name: "Monkey D. Luffy",
+    printedCardId: "PRB01-001",
+    set: "Premium Booster The Best [PRB01]",
+    releaseCode: "PRB01",
+    variantType: "",
+    variantLabel: "",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "PRB01-001",
+    releaseCode: "PRB01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-winner-pack",
+          name: "Monkey D. Luffy Winner Pack PRB01-001",
+          number: "PRB01-001",
+          set_name: "Premium Booster The Best",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "124",
+        },
+        tcgplayerId: "124",
+        detail: {
+          productName: "Monkey D. Luffy Winner Pack PRB01-001",
+          productUrlName: "monkey-d-luffy-winner-pack-prb01-001",
+          setName: "Premium Booster The Best",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "PRB01-001" },
+          formattedAttributes: { Number: "PRB01-001" },
+        },
+      },
+      {
+        candidate: {
+          id: "candidate-event-pack",
+          name: "Monkey D. Luffy Event Pack PRB01-001",
+          number: "PRB01-001",
+          set_name: "Premium Booster The Best",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "125",
+        },
+        tcgplayerId: "125",
+        detail: {
+          productName: "Monkey D. Luffy Event Pack PRB01-001",
+          productUrlName: "monkey-d-luffy-event-pack-prb01-001",
+          setName: "Premium Booster The Best",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "PRB01-001" },
+          formattedAttributes: { Number: "PRB01-001" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 0);
+  assert.equal(result.unresolved.length, 1);
+  assert.equal(result.unresolved[0].reason, "no_verified_candidate");
+});
+
 test("evaluateVerificationCard marks ambiguous multi-candidate results as unresolved", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 

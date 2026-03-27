@@ -70,14 +70,21 @@ function cachePayload(cache, key, payload) {
   return entry;
 }
 
-function loadCacheFile(cachePath) {
-  if (!cachePath) return {};
+function loadCacheFileState(cachePath) {
+  if (!cachePath) return { entries: {}, exists: false, readable: true };
   try {
     const text = fs.readFileSync(cachePath, "utf8");
     const parsed = JSON.parse(text);
-    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
-  } catch {
-    return {};
+    return {
+      entries: parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {},
+      exists: true,
+      readable: true,
+    };
+  } catch (error) {
+    if (error && typeof error === "object" && error.code === "ENOENT") {
+      return { entries: {}, exists: false, readable: true };
+    }
+    return { entries: null, exists: true, readable: false };
   }
 }
 
@@ -115,7 +122,9 @@ function syncCacheObject(cache, merged) {
 
 function writeMergedCache(cachePath, cache) {
   if (!cachePath) return null;
-  const merged = mergeCacheContents(loadCacheFile(cachePath), cache);
+  const state = loadCacheFileState(cachePath);
+  if (!state.readable) return null;
+  const merged = mergeCacheContents(state.entries, cache);
   writeJson(cachePath, merged);
   syncCacheObject(cache, merged);
   return merged;
@@ -123,7 +132,8 @@ function writeMergedCache(cachePath, cache) {
 
 function getCachedEntryForRead(cachePath, cache, key) {
   const memoryState = normalizeEntry(cache[key]);
-  const onDiskState = cachePath ? normalizeEntry(loadCacheFile(cachePath)[key]) : { entry: null, migrated: false, persistOnRead: false };
+  const cacheFileState = loadCacheFileState(cachePath);
+  const onDiskState = cacheFileState.readable ? normalizeEntry(cacheFileState.entries[key]) : { entry: null, migrated: false, persistOnRead: false };
   const preferred = preferCacheEntry(memoryState.entry, onDiskState.entry);
 
   if (preferred) {
