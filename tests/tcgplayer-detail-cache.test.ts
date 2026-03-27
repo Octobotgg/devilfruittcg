@@ -58,6 +58,12 @@ type LegacyWrappedCacheEntry = {
   fetchedAt: string | number;
 };
 
+function assertWrappedLegacyCacheEntry(entry: unknown): asserts entry is LegacyWrappedCacheEntry {
+  assert.ok(entry && typeof entry === "object", "expected wrapped legacy cache entry");
+  assert.ok("payload" in entry, "expected wrapped legacy payload");
+  assert.ok("fetchedAt" in entry, "expected wrapped legacy fetchedAt");
+}
+
 test("getTcgplayerProductDetail fetches product details from the TCGplayer details endpoint", async () => {
   const tempDir = createTempDir();
   try {
@@ -87,11 +93,11 @@ test("getTcgplayerProductDetail refetches legacy raw payload cache entries immed
   try {
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
     const cachePath = path.join(tempDir, "cache.json");
-    const cache: Record<string, TcgplayerCacheEntry> = {
+    const cache: Record<string, Record<string, unknown>> = {
       "999": {
         id: 999,
         title: "Legacy Raw",
-      } as TcgplayerCacheEntry,
+      },
     };
     const { calls, fetchImpl } = createFetchStub([{ body: { id: 999, title: "Refetched Raw" } }]);
 
@@ -122,11 +128,11 @@ test("getTcgplayerProductDetail preserves legacy raw payload cache entries as fa
   try {
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
     const cachePath = path.join(tempDir, "cache.json");
-    const cache: Record<string, TcgplayerCacheEntry> = {
+    const cache: Record<string, Record<string, unknown>> = {
       "997": {
         id: 997,
         title: "Legacy Raw Fallback",
-      } as TcgplayerCacheEntry,
+      },
     };
     const { calls, fetchImpl } = createFetchStub([{ error: new Error("network down") }]);
 
@@ -152,14 +158,14 @@ test("getTcgplayerProductDetail migrates legacy wrapped payload cache entries wi
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
     const cachePath = path.join(tempDir, "cache.json");
     const fetchedAt = new Date(Date.now() - 10_000).toISOString();
-    const cache: Record<string, TcgplayerCacheEntry> = {
+    const cache: Record<string, LegacyWrappedCacheEntry> = {
       "998": {
         payload: {
           id: 998,
           title: "Wrapped Legacy",
         },
         fetchedAt,
-      } as unknown as LegacyWrappedCacheEntry,
+      },
     };
     const { calls, fetchImpl } = createFetchStub([{ error: new Error("should not fetch") }]);
 
@@ -192,14 +198,14 @@ test("getTcgplayerProductDetail migrates legacy wrapped payload cache entries wi
     const cachePath = path.join(tempDir, "cache.json");
     const fetchedAt = Date.now() - 10_000;
     const expectedFetchedAt = new Date(fetchedAt).toISOString();
-    const cache: Record<string, TcgplayerCacheEntry> = {
+    const cache: Record<string, LegacyWrappedCacheEntry> = {
       "997": {
         payload: {
           id: 997,
           title: "Numeric Wrapped Legacy",
         },
         fetchedAt,
-      } as unknown as LegacyWrappedCacheEntry,
+      },
     };
     const { calls, fetchImpl } = createFetchStub([{ error: new Error("should not fetch") }]);
 
@@ -228,14 +234,14 @@ test("getTcgplayerProductDetail treats malformed wrapped fetchedAt values as sta
   try {
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
     const cachePath = path.join(tempDir, "cache.json");
-    const cache: Record<string, TcgplayerCacheEntry> = {
+    const cache: Record<string, LegacyWrappedCacheEntry> = {
       "996": {
         payload: {
           id: 996,
           title: "Malformed Wrapped",
         },
         fetchedAt: "not-a-date",
-      } as unknown as LegacyWrappedCacheEntry,
+      },
     };
     const { calls, fetchImpl } = createFetchStub([{ body: { id: 996, title: "Refetched Wrapped" } }]);
 
@@ -371,6 +377,7 @@ test("getTcgplayerProductDetail prefers fresher wrapped on-disk entries for the 
     assert.equal(persisted["111"].payload.title, "Wrapped Fresher Disk");
     assert.equal(persisted["111"].fetchedAt, onDiskFetchedAt);
     assert.equal(persisted["222"].title, "Another Entry");
+    assertWrappedLegacyCacheEntry(cache["111"]);
     assert.equal(cache["111"].payload.title, "Wrapped Fresher Disk");
     assert.equal(cache["111"].fetchedAt, onDiskFetchedAt);
   } finally {
@@ -571,14 +578,14 @@ test("getTcgplayerProductDetail refreshes stale wrapped legacy cache entries aft
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
     const cachePath = path.join(tempDir, "cache.json");
     const staleFetchedAt = new Date(Date.now() - 60_000).toISOString();
-    const cache: Record<string, TcgplayerCacheEntry> = {
+    const cache: Record<string, LegacyWrappedCacheEntry> = {
       "788": {
         payload: {
           id: 788,
           title: "Stale Wrapped Legacy",
         },
         fetchedAt: staleFetchedAt,
-      } as unknown as LegacyWrappedCacheEntry,
+      },
     };
     const { calls, fetchImpl } = createFetchStub([{ body: { id: 788, title: "Fresh Wrapped" } }]);
 
