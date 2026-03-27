@@ -220,6 +220,52 @@ test("evaluateVerificationCard approves label corrections when identity matches 
   assert.equal(result.labelCorrections[0].suggestedVariantLabel, "Pirate Foil");
 });
 
+test("evaluateVerificationCard approves exact unlabeled matches when both sides are effectively base cards", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-4b",
+    name: "Monkey D. Luffy",
+    printedCardId: "OP01-004",
+    set: "Romance Dawn [OP01]",
+    releaseCode: "OP01",
+    variantType: "",
+    variantLabel: "",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP01-004",
+    releaseCode: "OP01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-6b",
+          name: "Monkey D. Luffy OP01-004",
+          number: "OP01-004",
+          set_name: "Romance Dawn",
+          variants: [{ condition: "near mint", price: 15 }],
+          tcgplayerId: "124",
+        },
+        tcgplayerId: "124",
+        detail: {
+          productName: "Monkey D. Luffy OP01-004",
+          productUrlName: "monkey-d-luffy-op01-004",
+          setName: "Romance Dawn",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "OP01-004" },
+          formattedAttributes: { Number: "OP01-004" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 1);
+  assert.equal(result.unresolved.length, 0);
+});
+
 test("evaluateVerificationCard marks ambiguous multi-candidate results as unresolved", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 

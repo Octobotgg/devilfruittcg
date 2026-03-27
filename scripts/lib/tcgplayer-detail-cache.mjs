@@ -104,10 +104,21 @@ function mergeCacheContents(onDisk, cache) {
   return merged;
 }
 
+function syncCacheObject(cache, merged) {
+  for (const key of Object.keys(cache)) {
+    if (!(key in merged)) delete cache[key];
+  }
+  for (const [key, value] of Object.entries(merged)) {
+    cache[key] = value;
+  }
+}
+
 function writeMergedCache(cachePath, cache) {
-  if (!cachePath) return;
+  if (!cachePath) return null;
   const merged = mergeCacheContents(loadCacheFile(cachePath), cache);
   writeJson(cachePath, merged);
+  syncCacheObject(cache, merged);
+  return merged;
 }
 
 function getFetchedAtMs(entry) {

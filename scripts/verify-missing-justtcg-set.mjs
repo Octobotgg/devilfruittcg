@@ -155,7 +155,9 @@ function coreNameMatches(card, detail, candidate) {
 
 function labelMatches(card, detail, candidate) {
   const tokens = labelTokens(card);
-  if (!tokens.length) return false;
+  if (!tokens.length) {
+    return labelFromCandidateAndDetail(candidate, detail) == null;
+  }
   const haystacks = [
     detail?.productName,
     detail?.productUrlName,

@@ -326,6 +326,8 @@ test("getTcgplayerProductDetail keeps the fresher on-disk entry for the same pro
     const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
     assert.equal(persisted["111"].title, "Fresher Disk");
     assert.equal(persisted["222"].title, "Another Entry");
+    assert.equal(cache["111"].title, "Fresher Disk");
+    assert.equal(cache["111"].fetched_at, onDiskFetchedAt);
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
