@@ -308,6 +308,34 @@ test("verifyMappingIntegrity accepts same-family provider set aliases and contai
   assert.equal(result.publishable, true);
 });
 
+test("verifyMappingIntegrity does not treat short promo-like codes as set family matches on unrelated names", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        number: "P-001",
+        setCode: "P",
+        setName: "Promo [P]",
+        originSet: null,
+        releaseCode: "P",
+      },
+      provider: {
+        number: "P-001",
+        setName: "Paramount War",
+        productName: "Monkey D. Luffy P-001",
+        productUrlName: "monkey-d-luffy-p-001",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "set_mismatch");
+  assert.deepEqual(result.conflictTypes, ["set_mismatch"]);
+  assert.equal(result.publishable, false);
+});
+
 test("verifyMappingIntegrity captures number mismatches explicitly", async () => {
   const { verifyMappingIntegrity } = await importPricingVerifier();
 
@@ -882,4 +910,25 @@ test("verifyPriceDrift persists stale provider, missing id, and unpriced statuse
   assert.equal(staleProvider.verificationStatus, "stale_provider");
   assert.equal(missingTcgplayerId.verificationStatus, "missing_tcgplayer_id");
   assert.equal(unpricedNoVariant.verificationStatus, "unpriced_no_variant");
+});
+
+test("verifyPriceDrift blocks malformed providerUpdatedAt values as unknown provider freshness", async () => {
+  const { verifyPriceDrift } = await importPricingVerifier();
+
+  const result = verifyPriceDrift({
+    mappingIntegrityStatus: "verified",
+    isPremium: false,
+    justtcgPriceNm: 10,
+    tcgplayerMarketPrice: 10,
+    externalVariantId: "variant-1",
+    tcgplayerProductId: "123",
+    providerUpdatedAt: "not-a-timestamp",
+    checkedAt: "2026-03-27T12:00:00.000Z",
+  });
+
+  assert.equal(result.verificationStatus, "stale_provider");
+  assert.equal(result.publishable, false);
+  assert.equal(result.priceDeltaAbs, null);
+  assert.equal(result.priceDeltaRatio, null);
+  assert.equal(result.reason, "invalid_provider_updated_at");
 });

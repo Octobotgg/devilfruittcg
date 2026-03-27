@@ -190,13 +190,33 @@ function setAliasesForCard(cardPrint: MappingInput["cardPrint"]) {
   return [...aliases];
 }
 
+function releaseCodeMatchesProviderSet(
+  releaseCode: string | null | undefined,
+  providerSetName: string | null | undefined,
+) {
+  const normalizedRelease = normalizeSimple(releaseCode);
+  if (!normalizedRelease) return false;
+
+  const providerTokens = normalizeText(providerSetName)
+    .split(" ")
+    .filter(Boolean);
+  if (providerTokens.includes(normalizedRelease)) return true;
+
+  if (normalizedRelease.length < 3 && !/\d/u.test(normalizedRelease)) {
+    return false;
+  }
+
+  return normalizeSimple(providerSetName).includes(normalizedRelease);
+}
+
 function setFamilyMatches(input: MappingInput) {
   const providerSet = normalizeText(input.provider.setName);
   if (!providerSet) return false;
 
   const haystacks = [providerSet];
-  const release = normalizeText(input.cardPrint.releaseCode || input.cardPrint.setCode);
-  if (release && haystacks.some((value) => value.includes(release))) return true;
+  if (releaseCodeMatchesProviderSet(input.cardPrint.releaseCode || input.cardPrint.setCode, input.provider.setName)) {
+    return true;
+  }
 
   return setAliasesForCard(input.cardPrint).some((alias) =>
     haystacks.some((value) => value.includes(alias) || alias.includes(value)),
@@ -483,6 +503,16 @@ export function verifyPriceDrift(input: PriceDriftInput) {
 
   const checkedAt = input.checkedAt ? Date.parse(input.checkedAt) : Date.now();
   const providerUpdatedAt = input.providerUpdatedAt ? Date.parse(input.providerUpdatedAt) : NaN;
+  if (!Number.isFinite(providerUpdatedAt)) {
+    return {
+      verificationStatus: "stale_provider" as const,
+      publishable: false,
+      priceDeltaAbs: null,
+      priceDeltaRatio: null,
+      reason: input.providerUpdatedAt ? "invalid_provider_updated_at" : "missing_provider_updated_at",
+    };
+  }
+
   if (Number.isFinite(checkedAt) && Number.isFinite(providerUpdatedAt) && checkedAt - providerUpdatedAt > STALE_PROVIDER_MAX_AGE_MS) {
     return {
       verificationStatus: "stale_provider" as const,
