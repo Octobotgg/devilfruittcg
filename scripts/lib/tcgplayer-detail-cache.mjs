@@ -94,7 +94,7 @@ async function readResponseBody(response, productId) {
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    throw new PermanentTcgplayerDetailError(`TCGplayer details for ${productId} returned invalid JSON: ${message}`);
+    throw new TransientTcgplayerDetailError(`TCGplayer details for ${productId} returned invalid JSON: ${message}`);
   }
 
   throw new Error(`TCGplayer details response for ${productId} did not expose json() or text()`);

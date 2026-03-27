@@ -346,20 +346,35 @@ async function main() {
     for (const candidate of candidates) {
       const tcgplayerId = inferTcgplayerId(candidate);
       if (!tcgplayerId) continue;
-      const detail = await getTcgplayerProductDetail({
-        productId: tcgplayerId,
-        cache: tcgCache,
-        cachePath,
-        ttlMs: 24 * 60 * 60 * 1000,
-        fetchImpl: fetch,
-      });
-      if (!isOnePieceProduct(detail)) continue;
-      if (!numberMatches(card, detail, candidate)) continue;
-      if (!coreNameMatches(card, detail, candidate)) continue;
-      if (!setFamilyMatches(card, detail, candidate, releaseCode)) continue;
-      validByIdentity.push({ candidate, detail });
-      if (!labelMatches(card, detail, candidate)) continue;
-      verified.push({ candidate, detail });
+      try {
+        const detail = await getTcgplayerProductDetail({
+          productId: tcgplayerId,
+          cache: tcgCache,
+          cachePath,
+          ttlMs: 24 * 60 * 60 * 1000,
+          fetchImpl: fetch,
+        });
+        if (!isOnePieceProduct(detail)) continue;
+        if (!numberMatches(card, detail, candidate)) continue;
+        if (!coreNameMatches(card, detail, candidate)) continue;
+        if (!setFamilyMatches(card, detail, candidate, releaseCode)) continue;
+        validByIdentity.push({ candidate, detail });
+        if (!labelMatches(card, detail, candidate)) continue;
+        verified.push({ candidate, detail });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        unresolved.push({
+          cardId: card.id,
+          reason: error?.name === "PermanentTcgplayerDetailError" ? "detail_fetch_invalid" : "detail_fetch_failed",
+          expectedNumber,
+          candidate: {
+            id: candidate.id,
+            name: candidate.name,
+            tcgplayerId,
+          },
+          error: message,
+        });
+      }
     }
 
     if (verified.length === 1) {
