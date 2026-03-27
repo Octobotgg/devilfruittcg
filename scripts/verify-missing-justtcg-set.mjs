@@ -1,6 +1,6 @@
 import path from "path";
 import Database from "better-sqlite3";
-import { pathToFileURL } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import {
   chunk,
   DEFAULT_CATALOG_PATH,
@@ -20,10 +20,13 @@ import {
   normalizeText,
 } from "./lib/justtcg-matcher.mjs";
 
-const REPO_ROOT = "/Users/javierbarro/Desktop/devilfruittcg";
-const DEFAULT_DB_PATH = path.join(REPO_ROOT, ".cache", "devilfruit.db");
-const DEFAULT_TCGPLAYER_CACHE_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "tcgplayer-details-cache.json");
-const DEFAULT_REPORT_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "set-verification-report.json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const REPO_ROOT = path.resolve(__dirname, "..");
+export const DEFAULT_DB_PATH = path.join(REPO_ROOT, ".cache", "devilfruit.db");
+export const DEFAULT_TCGPLAYER_CACHE_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "tcgplayer-details-cache.json");
+export const DEFAULT_REPORT_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "set-verification-report.json");
 const RELEASE_ALIASES = {
   PRB01: ["premium booster the best", "one piece card the best"],
   PRB02: ["premium booster the best vol 2", "one piece card the best vol 2"],

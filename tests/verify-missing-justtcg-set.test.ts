@@ -69,6 +69,15 @@ test("evaluateVerificationCard keeps approval and unresolved reporting mutually 
   assert.equal(result.unresolved.length, 0);
 });
 
+test("verify-missing-justtcg-set defaults resolve against the current worktree", async () => {
+  const module = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  assert.equal(module.REPO_ROOT, REPO_ROOT);
+  assert.equal(module.DEFAULT_DB_PATH, path.join(REPO_ROOT, ".cache", "devilfruit.db"));
+  assert.equal(module.DEFAULT_TCGPLAYER_CACHE_PATH, path.join(REPO_ROOT, ".cache", "justtcg", "tcgplayer-details-cache.json"));
+  assert.equal(module.DEFAULT_REPORT_PATH, path.join(REPO_ROOT, ".cache", "justtcg", "set-verification-report.json"));
+});
+
 test("evaluateVerificationCard emits one unresolved card for candidate-level failures", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 

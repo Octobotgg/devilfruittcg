@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, rmSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -252,6 +252,40 @@ test("getTcgplayerProductDetail treats malformed wrapped fetchedAt values as sta
     const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["996"];
     assert.equal(persisted.id, 996);
     assert.equal(persisted.title, "Refetched Wrapped");
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("getTcgplayerProductDetail merges new writes with existing on-disk cache entries", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const existing = {
+      "111": {
+        id: 111,
+        title: "Existing Entry",
+        fetched_at: new Date(Date.now() - 10_000).toISOString(),
+      },
+    };
+    writeFileSync(cachePath, `${JSON.stringify(existing, null, 2)}\n`);
+    const cache: Record<string, TcgplayerCacheEntry> = {};
+    const { calls, fetchImpl } = createFetchStub([{ body: { id: 222, title: "Merged Entry" } }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 222,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    assert.deepEqual(detail, { id: 222, title: "Merged Entry" });
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    assert.equal(persisted["111"].title, "Existing Entry");
+    assert.equal(persisted["222"].title, "Merged Entry");
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }

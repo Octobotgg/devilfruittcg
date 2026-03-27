@@ -1,3 +1,4 @@
+import fs from "fs";
 import { writeJson } from "./justtcg-utils.mjs";
 
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
@@ -67,6 +68,26 @@ function cachePayload(cache, key, payload) {
   const entry = { ...payload, fetched_at: new Date().toISOString() };
   cache[key] = entry;
   return entry;
+}
+
+function loadCacheFile(cachePath) {
+  if (!cachePath) return {};
+  try {
+    const text = fs.readFileSync(cachePath, "utf8");
+    const parsed = JSON.parse(text);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeMergedCache(cachePath, cache) {
+  if (!cachePath) return;
+  const merged = {
+    ...loadCacheFile(cachePath),
+    ...cache,
+  };
+  writeJson(cachePath, merged);
 }
 
 function getFetchedAtMs(entry) {
@@ -147,7 +168,7 @@ export async function getTcgplayerProductDetail({
   if (cachedEntry) {
     cache[key] = cachedEntry;
     if (normalized.persistOnRead && cachePath) {
-      writeJson(cachePath, cache);
+      writeMergedCache(cachePath, cache);
     }
     if (isFresh(cachedEntry, ttlMs, nowMs)) {
       return getPayload(cachedEntry);
@@ -164,7 +185,7 @@ export async function getTcgplayerProductDetail({
     });
     const payload = await readResponseBody(response, key);
     cachePayload(cache, key, payload);
-    if (cachePath) writeJson(cachePath, cache);
+    if (cachePath) writeMergedCache(cachePath, cache);
     return payload;
   } catch (error) {
     if (cachedEntry && isTransientFetchFailure(error)) {
