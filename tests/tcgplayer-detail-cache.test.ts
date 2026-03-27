@@ -291,6 +291,46 @@ test("getTcgplayerProductDetail merges new writes with existing on-disk cache en
   }
 });
 
+test("getTcgplayerProductDetail keeps the fresher on-disk entry for the same product key", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const onDiskFetchedAt = new Date(Date.now() - 1_000).toISOString();
+    const memoryFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    writeFileSync(cachePath, `${JSON.stringify({
+      "111": {
+        id: 111,
+        title: "Fresher Disk",
+        fetched_at: onDiskFetchedAt,
+      },
+    }, null, 2)}\n`);
+    const cache: Record<string, TcgplayerCacheEntry> = {
+      "111": {
+        id: 111,
+        title: "Staler Memory",
+        fetched_at: memoryFetchedAt,
+      } as TcgplayerCacheEntry,
+    };
+    const { calls, fetchImpl } = createFetchStub([{ body: { id: 222, title: "Another Entry" } }]);
+
+    await getTcgplayerProductDetail({
+      productId: 222,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    assert.equal(persisted["111"].title, "Fresher Disk");
+    assert.equal(persisted["222"].title, "Another Entry");
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("getTcgplayerProductDetail reuses a cached response on the second fetch", async () => {
   const tempDir = createTempDir();
   try {

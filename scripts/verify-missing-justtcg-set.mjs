@@ -167,6 +167,7 @@ function labelMatches(card, detail, candidate) {
 function setFamilyMatches(card, detail, candidate, releaseCode) {
   const candidateSet = normalizeText(candidate?.set_name || candidate?.set || "");
   const detailSet = normalizeText(detail?.setName || "");
+  if (!candidateSet || !detailSet) return false;
   const release = normalizeText(releaseCode);
   const aliases = setAliasesForCard(card);
   const haystacks = [candidateSet, detailSet];

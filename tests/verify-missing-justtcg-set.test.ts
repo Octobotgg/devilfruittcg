@@ -287,3 +287,50 @@ test("evaluateVerificationCard marks ambiguous multi-candidate results as unreso
   assert.equal(result.unresolved.length, 1);
   assert.equal(result.unresolved[0].reason, "multiple_verified_candidates");
 });
+
+test("evaluateVerificationCard rejects blank set metadata even when other fields match", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const card = {
+    id: "card-6",
+    name: "Monkey D. Luffy",
+    printedCardId: "OP01-006",
+    set: "Romance Dawn [OP01]",
+    releaseCode: "OP01",
+    variantType: "parallel",
+    variantLabel: "Parallel",
+  };
+
+  const result = evaluateVerificationCard({
+    card,
+    expectedNumber: "OP01-006",
+    releaseCode: "OP01",
+    candidateResults: [
+      {
+        candidate: {
+          id: "candidate-9",
+          name: "Monkey D. Luffy Parallel OP01-006",
+          number: "OP01-006",
+          set_name: "",
+          variants: [{ condition: "near mint", price: 11 }],
+          tcgplayerId: "127",
+        },
+        tcgplayerId: "127",
+        detail: {
+          productName: "Monkey D. Luffy Parallel OP01-006",
+          productUrlName: "monkey-d-luffy-parallel-op01-006",
+          setName: "",
+          productLineName: "One Piece Card Game",
+          customAttributes: { number: "OP01-006" },
+          formattedAttributes: { Number: "OP01-006" },
+        },
+      },
+    ],
+    ebayPrice: null,
+    allowLabelCorrections: false,
+  });
+
+  assert.equal(result.approved.length, 0);
+  assert.equal(result.unresolved.length, 1);
+  assert.equal(result.unresolved[0].reason, "no_verified_candidate");
+});

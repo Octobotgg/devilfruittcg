@@ -81,12 +81,32 @@ function loadCacheFile(cachePath) {
   }
 }
 
+function entryFreshnessMs(entry) {
+  return getFetchedAtMs(entry);
+}
+
+function preferCacheEntry(existing, incoming) {
+  if (!existing) return incoming;
+  if (!incoming) return existing;
+  const existingMs = entryFreshnessMs(existing);
+  const incomingMs = entryFreshnessMs(incoming);
+  if (existingMs == null && incomingMs == null) return incoming;
+  if (existingMs == null) return incoming;
+  if (incomingMs == null) return existing;
+  return incomingMs >= existingMs ? incoming : existing;
+}
+
+function mergeCacheContents(onDisk, cache) {
+  const merged = { ...onDisk };
+  for (const [key, incoming] of Object.entries(cache)) {
+    merged[key] = preferCacheEntry(onDisk[key], incoming);
+  }
+  return merged;
+}
+
 function writeMergedCache(cachePath, cache) {
   if (!cachePath) return;
-  const merged = {
-    ...loadCacheFile(cachePath),
-    ...cache,
-  };
+  const merged = mergeCacheContents(loadCacheFile(cachePath), cache);
   writeJson(cachePath, merged);
 }
 
