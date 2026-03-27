@@ -410,6 +410,34 @@ test("verifyMappingIntegrity blocks mismatches for trusted event and SP treatmen
   assert.deepEqual(result.conflictTypes, ["treatment_mismatch"]);
 });
 
+test("verifyMappingIntegrity ignores incidental premium keywords in freeform product titles", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        title: "Champion",
+      },
+      provider: {
+        productName: "Champion OP01-001",
+        productUrlName: "champion-op01-001",
+        treatment: null,
+      },
+      publishedDisplay: {
+        displayTreatmentLabel: "Champion",
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "verified");
+  assert.equal(result.verificationStatus, "verified");
+  assert.equal(result.labelIntegrityStatus, "verified");
+  assert.equal(result.normalizedProviderTreatmentLabel, null);
+  assert.equal(result.exactTreatmentTrusted, false);
+  assert.deepEqual(result.conflictTypes, []);
+  assert.equal(result.publishable, true);
+});
+
 test("verifyMappingIntegrity captures duplicate variant assignments explicitly", async () => {
   const { verifyMappingIntegrity } = await importPricingVerifier();
 
@@ -530,6 +558,30 @@ test("buildPublishedDisplayPayload normalizes trusted event and SP premium label
   }
 });
 
+test("buildPublishedDisplayPayload ignores incidental premium keywords in freeform product titles", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const result = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "Romance Dawn [OP01]",
+      setCode: "OP01",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Champion OP01-001",
+      productUrlName: "champion-op01-001",
+      setName: "ROMANCE_DAWN",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(result.displayTreatmentLabel, null);
+  assert.equal(result.labelStatus, "verified");
+});
+
 test("buildPublishedDisplayPayload preserves canonical casing for hyphenated set code prefixes", async () => {
   const { buildPublishedDisplayPayload } = await importPricingVerifier();
 
@@ -550,6 +602,28 @@ test("buildPublishedDisplayPayload preserves canonical casing for hyphenated set
   });
 
   assert.equal(result.displaySetName, "OP-01 Romance Dawn");
+});
+
+test("buildPublishedDisplayPayload preserves canonical casing for mixed alphanumeric set tokens", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const result = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "ST-14 3D2Y",
+      setCode: "ST-14",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy ST-14",
+      setName: "ST-14 3D2Y",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(result.displaySetName, "ST-14 3D2Y");
 });
 
 test("verifyPriceDrift uses stricter thresholds for premium cards than non-premium cards", async () => {

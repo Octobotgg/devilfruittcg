@@ -125,6 +125,7 @@ function stripBracketCode(value: string | null | undefined) {
 function titleCaseToken(token: string) {
   if (!token) return token;
   if (/^\d+$/u.test(token)) return token;
+  if (/[A-Z]/u.test(token) && /\d/u.test(token) && !/[a-z]/u.test(token)) return token;
   if (/^[A-Z]{1,5}\d+$/u.test(token)) return token;
   if (/^[A-Z]{1,5}-\d+$/iu.test(token)) return token.toUpperCase();
   if (/^(OP|ST|EB|PRB|GC|CS|SP|P)$/iu.test(token)) return token.toUpperCase();
@@ -282,8 +283,6 @@ function detectProviderTreatment(provider: MappingInput["provider"] | DisplayPay
     provider.treatment,
     ...extractTitleSegments(provider.productName),
     ...extractTitleSegments(provider.productUrlName),
-    provider.productName,
-    provider.productUrlName,
   ];
 
   let genericMatch: TreatmentDetection | null = null;
