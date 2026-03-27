@@ -1,6 +1,6 @@
 import { createRequire } from "node:module";
 
-import type { CardPrintRuntimePrice } from "./external-products";
+import type { CardPrintRuntimePrice, UnpricedReason } from "./external-products";
 
 const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
@@ -17,14 +17,14 @@ type VariantPriceRow = {
   officialSetCode: string | null;
   officialSetName: string | null;
   externalProductId: string | null;
-  externalVariantId: string | null;
-  activeExternalVariantId: string | null;
   productKind: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
-  variantCondition: string | null;
-  variantPrinting: string | null;
-  variantLanguage: string | null;
+  externalVariantId?: string | null;
+  activeExternalVariantId?: string | null;
+  variantCondition?: string | null;
+  variantPrinting?: string | null;
+  variantLanguage?: string | null;
   mappingApproved: boolean;
   priceMarket: string | number | null;
   priceNm: string | number | null;
@@ -216,7 +216,7 @@ function summaryFromRow(row: VariantPriceRow, now: number): VariantRuntimePrice 
   } as VariantRuntimePrice;
 }
 
-function createUnpriced(cardPrintId: string, reason: pricingShared.UnpricedReason): VariantRuntimePrice {
+function createUnpriced(cardPrintId: string, reason: UnpricedReason): VariantRuntimePrice {
   return {
     status: "unpriced",
     kind: "raw_card",

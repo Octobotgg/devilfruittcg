@@ -37,7 +37,7 @@ type ReadModelHistoryRow = {
   printedCardCode: string | null;
   cardId: string | null;
   externalProductId: string | null;
-  externalVariantId: string | null;
+  externalVariantId?: string | null;
   recordedAt: string;
   priceNm: string | number | null;
 };

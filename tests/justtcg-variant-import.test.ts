@@ -407,6 +407,206 @@ test("buildSeed deterministically picks the lexicographically smallest English N
   ]);
 });
 
+test("fetchJusttcgCatalogSince requests updated_after without fuzzy search", async () => {
+  const originalFetch = globalThis.fetch;
+  let requestedUrl: string | null = null;
+
+  globalThis.fetch = async (input: RequestInfo | URL) => {
+    requestedUrl = String(input);
+    return new Response(
+      JSON.stringify({
+        data: [],
+        meta: { total: 0 },
+      }),
+      {
+        status: 200,
+        headers: {
+          "content-type": "application/json",
+        },
+      },
+    );
+  };
+
+  try {
+    const { fetchJusttcgCatalogSince } =
+      await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+        "scripts/import-justtcg-to-drizzle.mjs",
+      );
+
+    const snapshot = await fetchJusttcgCatalogSince({
+      apiKey: "test-api-key",
+      updatedAfter: 1774483200,
+    });
+
+    assert.ok(requestedUrl);
+    assert.match(requestedUrl || "", /updated_after=1774483200/);
+    assert.match(requestedUrl || "", /game=one-piece-card-game/);
+    assert.doesNotMatch(requestedUrl || "", /[?&]q=/);
+    assert.equal(snapshot.cardCount, 0);
+    assert.equal(snapshot.pageCount, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("buildIncrementalSeed refreshes an active Near Mint variant without a full remap", async () => {
+  const { buildIncrementalSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildIncrementalSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "oden-refresh",
+            name: "Kouzuki Oden",
+            set: "Extra Booster: Memorial Collection",
+            tcgplayerId: "544523",
+            variants: [
+              {
+                variantId: "oden-refresh-nm",
+                condition: "Near Mint",
+                printing: "Normal",
+                language: "English",
+                price: 0.3,
+                lastUpdated: 1774483200,
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        results: [
+          {
+            cardId: "EB01-001",
+            confidence: "0.9800",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            notes: null,
+            bestCandidate: {
+              id: "oden-refresh",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+              lastUpdated: "2026-03-26T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Extra Booster: Memorial Collection [EB-01]",
+              releaseCode: "EB01",
+              canonicalId: "EB01-001",
+            },
+          },
+        ],
+      },
+      priceData: null,
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+      updatedAfter: 1774483200,
+    },
+  );
+
+  assert.deepEqual(seed.cardPrintPriceCurrent, [
+    {
+      card_print_id: "EB01-001",
+      source_id: "justtcg",
+      external_product_id: "justtcg:oden-refresh",
+      external_variant_id: "justtcg:oden-refresh-nm",
+      price_market: 0.3,
+      price_nm: 0.3,
+      price_lp: null,
+      price_change_24h: null,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: "2026-03-26T00:00:00.000Z",
+      fetched_at: "2026-03-26T00:00:00.000Z",
+    },
+  ]);
+  assert.equal(seed.meta?.syncMode, "incremental");
+  assert.equal(seed.meta?.updatedAfter, 1774483200);
+});
+
+test("buildIncrementalSeed ignores Lightly Played-only updates for canonical runtime pricing", async () => {
+  const { buildIncrementalSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildIncrementalSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "oden-refresh",
+            name: "Kouzuki Oden",
+            set: "Extra Booster: Memorial Collection",
+            tcgplayerId: "544523",
+            variants: [
+              {
+                variantId: "oden-refresh-lp",
+                condition: "Lightly Played",
+                printing: "Normal",
+                language: "English",
+                price: 0.18,
+                lastUpdated: 1774483200,
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        results: [
+          {
+            cardId: "EB01-001",
+            confidence: "0.9800",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            notes: null,
+            bestCandidate: {
+              id: "oden-refresh",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+              lastUpdated: "2026-03-26T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "Extra Booster: Memorial Collection [EB-01]",
+              releaseCode: "EB01",
+              canonicalId: "EB01-001",
+            },
+          },
+        ],
+      },
+      priceData: null,
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+      updatedAfter: 1774483200,
+    },
+  );
+
+  assert.deepEqual(seed.cardPrintPriceCurrent, []);
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, []);
+  assert.equal(seed.externalProductVariants.length, 1);
+  assert.equal(seed.externalProductVariants[0]?.condition, "Lightly Played");
+});
+
 test("manual history apply skips rows that already exist by natural key", async () => {
   const { buildHistoryRowKey, filterPendingHistoryRows } =
     await importModule<typeof import("../scripts/manual-apply-justtcg-seed.mjs")>(

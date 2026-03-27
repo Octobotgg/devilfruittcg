@@ -62,9 +62,9 @@ type MarketSearchRow = {
   imageUrl: string | null;
   releaseDate: string | null;
   productKind: string | null;
-  activeExternalVariantId: string | null;
-  externalVariantId: string | null;
-  variantCondition: string | null;
+  activeExternalVariantId?: string | null;
+  externalVariantId?: string | null;
+  variantCondition?: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   mappingApproved: boolean;

@@ -15,9 +15,9 @@ type MarketMoverRow = {
   officialSetName: string | null;
   externalProductId: string | null;
   activeExternalProductId: string | null;
-  externalVariantId: string | null;
-  activeExternalVariantId: string | null;
-  variantCondition: string | null;
+  externalVariantId?: string | null;
+  activeExternalVariantId?: string | null;
+  variantCondition?: string | null;
   justtcgTitle: string | null;
   justtcgImageUrl: string | null;
   currentPrice: string | number | null;

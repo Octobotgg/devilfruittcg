@@ -14,6 +14,7 @@ const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-relea
 const DEFAULT_CHUNK_SIZE = 250;
 
 const GAME_ID = "one-piece-card-game";
+const JUSTTCG_CARDS_URL = "https://api.justtcg.com/v1/cards";
 const JUSTTCG_SOURCE = {
   id: "justtcg",
   code: "justtcg",
@@ -54,6 +55,7 @@ function parseArgs(argv) {
     catalog: DEFAULT_CATALOG_PATH,
     mappingReport: DEFAULT_MAPPING_REPORT_PATH,
     priceData: DEFAULT_PRICE_DATA_PATH,
+    updatedAfter: null,
     catalogFallback: [],
     priceDataFallback: [],
     seedOut: null,
@@ -97,6 +99,13 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (value === "--updated-after") {
+      const parsed = Number.parseInt(argv[index + 1] || "", 10);
+      args.updatedAfter = Number.isFinite(parsed) ? parsed : null;
+      index += 1;
+      continue;
+    }
+
     if (value === "--price-data-fallback") {
       args.priceDataFallback = parseFallbackPaths(argv[index + 1]);
       index += 1;
@@ -125,6 +134,10 @@ function parseFallbackPaths(value) {
     .map((entry) => entry.trim())
     .filter(Boolean)
     .map((entry) => path.resolve(process.cwd(), entry));
+}
+
+async function sleep(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function cleanText(value) {
@@ -284,6 +297,121 @@ async function readJsonWithFallback(filePath, fallbackPaths = []) {
     if (data != null) return data;
   }
   return null;
+}
+
+function dedupeCards(cards) {
+  const seen = new Set();
+  const unique = [];
+  for (const card of cards) {
+    if (!card?.id || seen.has(card.id)) continue;
+    seen.add(card.id);
+    unique.push(card);
+  }
+  return unique;
+}
+
+async function fetchJusttcgCatalogPage({
+  apiKey,
+  game = GAME_ID,
+  limit = 100,
+  offset = 0,
+  includeNullPrices = true,
+  updatedAfter,
+}) {
+  const params = new URLSearchParams({
+    game,
+    limit: String(limit),
+    offset: String(offset),
+  });
+
+  if (includeNullPrices) params.set("include_null_prices", "true");
+  if (updatedAfter != null) params.set("updated_after", String(updatedAfter));
+
+  const maxRetries = 4;
+  const retryBaseMs = 3000;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt += 1) {
+    const response = await fetch(`${JUSTTCG_CARDS_URL}?${params.toString()}`, {
+      headers: {
+        "X-API-Key": apiKey,
+        "User-Agent": "DevilFruitTCG/JustTCGCatalogImport",
+      },
+    });
+
+    const text = await response.text();
+    let payload;
+    try {
+      payload = text ? JSON.parse(text) : {};
+    } catch {
+      payload = { raw: text };
+    }
+
+    if (response.ok) {
+      return {
+        cards: Array.isArray(payload?.data) ? payload.data : [],
+        meta: payload?.meta || null,
+      };
+    }
+
+    const retriable = response.status === 429 || response.status >= 500;
+    if (retriable && attempt < maxRetries) {
+      const retryAfterHeader = Number(response.headers.get("retry-after"));
+      const waitMs =
+        Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
+          ? retryAfterHeader * 1000
+          : retryBaseMs * (attempt + 1);
+      await sleep(waitMs);
+      continue;
+    }
+
+    throw new Error(`JustTCG ${response.status}: ${payload?.error || payload?.message || text || "request failed"}`);
+  }
+
+  return { cards: [], meta: null };
+}
+
+async function fetchJusttcgCatalogSince({
+  apiKey,
+  updatedAfter,
+  game = GAME_ID,
+  limit = 100,
+  includeNullPrices = true,
+}) {
+  const cards = [];
+  let offset = 0;
+  let pageCount = 0;
+  let lastMeta = null;
+
+  while (true) {
+    const page = await fetchJusttcgCatalogPage({
+      apiKey,
+      game,
+      limit,
+      offset,
+      includeNullPrices,
+      updatedAfter,
+    });
+
+    cards.push(...page.cards);
+    pageCount += 1;
+    lastMeta = page.meta;
+    if (page.cards.length < limit) break;
+    offset += limit;
+  }
+
+  const uniqueCards = dedupeCards(cards);
+
+  return {
+    game,
+    fetchedAt: new Date().toISOString(),
+    pageCount,
+    pageSize: limit,
+    rawCardCount: cards.length,
+    cardCount: uniqueCards.length,
+    totalReported: lastMeta?.total ?? null,
+    notes: `Fetched from JustTCG cards endpoint with include_null_prices=${includeNullPrices} and updated_after=${updatedAfter}`,
+    cards: uniqueCards,
+  };
 }
 
 function inferTcgplayerId(candidate) {
@@ -1251,6 +1379,8 @@ function buildSeed(inputs, options) {
     priceSnapshots: [...rawCardPrices.snapshots, ...sealed.sealedSnapshots],
     meta: {
       ...summarizeFiles(inputs),
+      syncMode: options.syncMode || "full",
+      updatedAfter: options.updatedAfter ?? null,
       approvedRawAssignments: approvedRawAssignments.length,
       importedExternalProducts: externalProducts.length,
       importedExternalProductVariants: externalProductVariants.length,
@@ -1258,6 +1388,19 @@ function buildSeed(inputs, options) {
       importedSealedProducts: sealed.sealedProducts.length,
     },
   };
+}
+
+function buildIncrementalSeed(inputs, options) {
+  return buildSeed(
+    {
+      ...inputs,
+      priceData: null,
+    },
+    {
+      ...options,
+      syncMode: "incremental",
+    },
+  );
 }
 
 function summarizeSeed(seed) {
@@ -1573,16 +1716,29 @@ async function applySeed(seed, options) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const [catalog, mappingReport, priceData, officialReleases] = await Promise.all([
-    readJsonWithFallback(args.catalog, args.catalogFallback),
+  if (args.updatedAfter != null && !String(process.env.JUSTTCG_API_KEY || "").trim()) {
+    throw new Error("Missing JUSTTCG_API_KEY for --updated-after incremental imports");
+  }
+  const [mappingReport, priceData, officialReleases] = await Promise.all([
     readJsonWithFallback(args.mappingReport),
-    readJsonWithFallback(args.priceData, args.priceDataFallback),
+    args.updatedAfter != null ? Promise.resolve(null) : readJsonWithFallback(args.priceData, args.priceDataFallback),
     readJsonIfExists(OFFICIAL_RELEASES_PATH),
   ]);
 
+  const catalog =
+    args.updatedAfter != null
+      ? await fetchJusttcgCatalogSince({
+          apiKey: String(process.env.JUSTTCG_API_KEY || "").trim(),
+          updatedAfter: args.updatedAfter,
+        })
+      : await readJsonWithFallback(args.catalog, args.catalogFallback);
+
   assertApplyPreconditions({ catalog, mappingReport, priceData, officialReleases }, args);
 
-  const seed = buildSeed({ catalog, mappingReport, priceData, officialReleases }, args);
+  const seed =
+    args.updatedAfter != null
+      ? buildIncrementalSeed({ catalog, mappingReport, priceData, officialReleases }, args)
+      : buildSeed({ catalog, mappingReport, priceData, officialReleases }, args);
   const summary = summarizeSeed(seed);
 
   console.log("JustTCG -> Drizzle seed summary");
@@ -1613,11 +1769,13 @@ export {
   assertApplyPreconditions,
   buildActiveCardPrintAssignments,
   buildAuthoritativeActiveCardPrintAssignments,
+  buildIncrementalSeed,
   buildExternalProducts,
   buildRawCardPrices,
   buildSeed,
   applySeed,
   extractJusttcgId,
+  fetchJusttcgCatalogSince,
   resolveApprovedRawPriceRow,
   splitActiveAssignmentStages,
 };
