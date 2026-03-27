@@ -394,19 +394,19 @@ export function verifyMappingIntegrity(input: MappingInput) {
 
   const expectedNumber = String(input.cardPrint.number || "").trim().toUpperCase();
   const providerNumber = String(input.provider.number || "").trim().toUpperCase();
-  if (expectedNumber && providerNumber && expectedNumber !== providerNumber) {
+  if (expectedNumber && (!providerNumber || expectedNumber !== providerNumber)) {
     conflicts.push(buildConflict(input, "number_mismatch"));
   }
 
   const expectedSet = normalizeText(stripBracketCode(input.cardPrint.setName) || input.cardPrint.setCode);
   const providerSet = normalizeText(input.provider.setName);
-  if (expectedSet && providerSet && !setFamilyMatches(input)) {
+  if (expectedSet && (!providerSet || !setFamilyMatches(input))) {
     conflicts.push(buildConflict(input, "set_mismatch"));
   }
 
   const expectedName = normalizeSimple(input.cardPrint.title);
   const providerName = normalizeSimple(input.provider.productName || input.provider.productUrlName);
-  if (expectedName && providerName && !providerName.includes(expectedName)) {
+  if (expectedName && (!providerName || !providerName.includes(expectedName))) {
     conflicts.push(buildConflict(input, "name_mismatch"));
   }
 

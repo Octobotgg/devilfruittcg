@@ -372,6 +372,42 @@ test("verifyMappingIntegrity captures set mismatches explicitly", async () => {
   assert.deepEqual(result.conflictTypes, ["set_mismatch"]);
 });
 
+test("verifyMappingIntegrity blocks missing provider set metadata", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      provider: {
+        setName: null,
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "set_mismatch");
+  assert.deepEqual(result.conflictTypes, ["set_mismatch"]);
+  assert.equal(result.publishable, false);
+});
+
+test("verifyMappingIntegrity blocks missing provider number metadata", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      provider: {
+        number: null,
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "blocked");
+  assert.equal(result.verificationStatus, "mapping_conflict");
+  assert.equal(result.primaryConflictType, "number_mismatch");
+  assert.deepEqual(result.conflictTypes, ["number_mismatch"]);
+  assert.equal(result.publishable, false);
+});
+
 test("verifyMappingIntegrity captures premium treatment mismatches explicitly", async () => {
   const { verifyMappingIntegrity } = await importPricingVerifier();
 
