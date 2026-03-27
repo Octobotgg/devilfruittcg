@@ -9,5 +9,5 @@ export {
   getCardPrintRuntimeDetail,
   getCardPrintRuntimePrice,
   getCardPrintRuntimePrices,
-  resolveJustTcgVariantRuntimePrice as resolveCardPrintRuntimePrice,
-} from "./justtcg-variant-read-model.ts";
+  resolvePublishedCardPrintRuntimePrice as resolveCardPrintRuntimePrice,
+} from "./published-card-prices.ts";
