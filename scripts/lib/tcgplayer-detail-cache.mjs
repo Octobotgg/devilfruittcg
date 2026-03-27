@@ -121,6 +121,21 @@ function writeMergedCache(cachePath, cache) {
   return merged;
 }
 
+function getCachedEntryForRead(cachePath, cache, key) {
+  const memoryState = normalizeEntry(cache[key]);
+  const onDiskState = cachePath ? normalizeEntry(loadCacheFile(cachePath)[key]) : { entry: null, migrated: false, persistOnRead: false };
+  const preferred = preferCacheEntry(memoryState.entry, onDiskState.entry);
+
+  if (preferred) {
+    cache[key] = preferred;
+  }
+
+  return {
+    entry: preferred,
+    persistOnRead: Boolean(memoryState.persistOnRead || onDiskState.persistOnRead),
+  };
+}
+
 function getFetchedAtMs(entry) {
   if (!entry || typeof entry !== "object") return null;
   if ("fetched_at" in entry) {
@@ -193,12 +208,10 @@ export async function getTcgplayerProductDetail({
 }) {
   const key = String(productId);
   const nowMs = Date.now();
-  const normalized = normalizeEntry(cache[key]);
-  const cachedEntry = normalized.entry;
+  const { entry: cachedEntry, persistOnRead } = getCachedEntryForRead(cachePath, cache, key);
 
   if (cachedEntry) {
-    cache[key] = cachedEntry;
-    if (normalized.persistOnRead && cachePath) {
+    if (persistOnRead && cachePath) {
       writeMergedCache(cachePath, cache);
     }
     if (isFresh(cachedEntry, ttlMs, nowMs)) {

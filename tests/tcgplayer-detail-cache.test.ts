@@ -333,6 +333,46 @@ test("getTcgplayerProductDetail keeps the fresher on-disk entry for the same pro
   }
 });
 
+test("getTcgplayerProductDetail prefers fresher on-disk data on same-key reads", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const onDiskFetchedAt = new Date(Date.now() - 1_000).toISOString();
+    const memoryFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    writeFileSync(cachePath, `${JSON.stringify({
+      "111": {
+        id: 111,
+        title: "Fresher Disk",
+        fetched_at: onDiskFetchedAt,
+      },
+    }, null, 2)}\n`);
+    const cache: Record<string, TcgplayerCacheEntry> = {
+      "111": {
+        id: 111,
+        title: "Staler Memory",
+        fetched_at: memoryFetchedAt,
+      } as TcgplayerCacheEntry,
+    };
+    const { calls, fetchImpl } = createFetchStub([{ error: new Error("should not fetch") }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 111,
+      cache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 0);
+    assert.deepEqual(detail, { id: 111, title: "Fresher Disk" });
+    assert.equal(cache["111"].title, "Fresher Disk");
+    assert.equal(cache["111"].fetched_at, onDiskFetchedAt);
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("getTcgplayerProductDetail reuses a cached response on the second fetch", async () => {
   const tempDir = createTempDir();
   try {
@@ -383,7 +423,11 @@ test("getTcgplayerProductDetail refreshes stale cache entries after the TTL expi
       fetchImpl,
     });
 
-    cache["789"].fetched_at = new Date(Date.now() - 60_000).toISOString();
+    const staleFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    cache["789"].fetched_at = staleFetchedAt;
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    persisted["789"].fetched_at = staleFetchedAt;
+    writeFileSync(cachePath, `${JSON.stringify(persisted, null, 2)}\n`);
 
     const refreshed = await getTcgplayerProductDetail({
       productId: 789,
@@ -454,7 +498,11 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh f
       fetchImpl,
     });
 
-    cache["321"].fetched_at = new Date(Date.now() - 60_000).toISOString();
+    const staleFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    cache["321"].fetched_at = staleFetchedAt;
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    persisted["321"].fetched_at = staleFetchedAt;
+    writeFileSync(cachePath, `${JSON.stringify(persisted, null, 2)}\n`);
 
     const fallback = await getTcgplayerProductDetail({
       productId: 321,
@@ -466,12 +514,12 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh f
 
     assert.equal(calls.length, 2);
     assert.deepEqual(fallback, { id: 321, title: "Stable Card" });
-    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["321"];
-    assert.equal(persisted.id, 321);
-    assert.equal(persisted.title, "Stable Card");
-    assert.equal(typeof persisted.fetched_at, "string");
-    assert.equal("payload" in persisted, false);
-    assert.equal("fetchedAt" in persisted, false);
+    const persistedFallback = JSON.parse(readFileSync(cachePath, "utf8"))["321"];
+    assert.equal(persistedFallback.id, 321);
+    assert.equal(persistedFallback.title, "Stable Card");
+    assert.equal(typeof persistedFallback.fetched_at, "string");
+    assert.equal("payload" in persistedFallback, false);
+    assert.equal("fetchedAt" in persistedFallback, false);
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
@@ -535,7 +583,11 @@ test("getTcgplayerProductDetail does not fall back to stale cache on permanent f
       fetchImpl,
     });
 
-    cache["404"].fetched_at = new Date(Date.now() - 60_000).toISOString();
+    const staleFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    cache["404"].fetched_at = staleFetchedAt;
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    persisted["404"].fetched_at = staleFetchedAt;
+    writeFileSync(cachePath, `${JSON.stringify(persisted, null, 2)}\n`);
 
     await assert.rejects(
       getTcgplayerProductDetail({
@@ -549,9 +601,9 @@ test("getTcgplayerProductDetail does not fall back to stale cache on permanent f
     );
 
     assert.equal(calls.length, 2);
-    const persisted = JSON.parse(readFileSync(cachePath, "utf8"))["404"];
-    assert.equal(persisted.id, 404);
-    assert.equal(persisted.title, "Stale Card");
+    const persistedFailure = JSON.parse(readFileSync(cachePath, "utf8"))["404"];
+    assert.equal(persistedFailure.id, 404);
+    assert.equal(persistedFailure.title, "Stale Card");
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }

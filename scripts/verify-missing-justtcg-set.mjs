@@ -129,6 +129,29 @@ function labelFromCandidateAndDetail(candidate, detail) {
   return null;
 }
 
+const PREMIUM_TREATMENT_PATTERNS = [
+  "box topper",
+  "jolly roger foil",
+  "treasure rare",
+  "foil",
+  "rare",
+  "promo",
+  "premium",
+];
+
+function looksLikePremiumTreatment(candidate, detail) {
+  const haystack = normalizeText([
+    candidate?.name,
+    candidate?.set_name,
+    candidate?.set,
+    detail?.productName,
+    detail?.productUrlName,
+    detail?.setName,
+  ].join(" "));
+  if (!haystack) return false;
+  return PREMIUM_TREATMENT_PATTERNS.some((pattern) => haystack.includes(pattern));
+}
+
 function getExpectedNumber(card) {
   if (String(card.printedCardId || "").trim()) return String(card.printedCardId).trim().toUpperCase();
   if (String(card.baseId || "").trim()) return String(card.baseId).trim().toUpperCase();
@@ -156,7 +179,7 @@ function coreNameMatches(card, detail, candidate) {
 function labelMatches(card, detail, candidate) {
   const tokens = labelTokens(card);
   if (!tokens.length) {
-    return labelFromCandidateAndDetail(candidate, detail) == null;
+    return labelFromCandidateAndDetail(candidate, detail) == null && !looksLikePremiumTreatment(candidate, detail);
   }
   const haystacks = [
     detail?.productName,
