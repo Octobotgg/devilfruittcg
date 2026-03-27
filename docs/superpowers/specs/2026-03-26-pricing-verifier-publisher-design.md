@@ -13,6 +13,7 @@ Make DevilFruit pricing fast, trustworthy, and recoverable by treating:
 - DevilFruit runtime prices as a published layer, not a direct side effect of every refresh
 
 This design prevents bad refreshes, stale imports, and mapping drift from silently changing live prices.
+It also prevents wrong card labels and wrong card-to-price links from leaking into the UI.
 
 ## Problem
 
@@ -42,6 +43,7 @@ For every mapped raw card, DevilFruit should be able to answer:
 - is the DevilFruit live price verified, stale, drifted, or blocked?
 
 The website should only show live prices from a published price layer that has passed verification rules.
+The website should also only show labels and treatment chips from a published display layer that has passed mapping integrity checks.
 
 ## Approaches Considered
 
@@ -106,10 +108,10 @@ The system becomes a three-layer pipeline:
 
 2. `Verify`
    - compare the candidate JustTCG NM price against TCGplayer product details
-   - determine verification status and drift
+   - determine verification status, mapping integrity, and drift
 
 3. `Publish`
-   - only verified or policy-allowed rows update live user-facing prices
+   - only verified or policy-allowed rows update live user-facing prices and labels
    - failed or suspicious rows do not wipe the current live layer
 
 ## Pricing Layers
@@ -181,6 +183,44 @@ Meaning:
 
 The site should read from `card_print_price_published`.
 
+### D. Published display layer
+
+This is what the website uses for card naming and treatment chips on priced surfaces.
+
+Recommendation:
+
+add a published display table so the backend can send the UI one verified label package instead of mixing:
+
+- internal print metadata
+- raw JustTCG product title
+- fallback UI heuristics
+
+Recommended table:
+
+- `card_print_display_published`
+
+Columns:
+
+- `card_print_id`
+- `external_product_id`
+- `external_variant_id`
+- `display_title`
+- `display_set_name`
+- `display_set_code`
+- `display_rarity`
+- `display_treatment_label`
+- `display_image_url`
+- `label_status`
+- `verification_run_id`
+- `published_at`
+
+Meaning:
+
+- the UI uses one verified display payload
+- labels stop leaking from raw slugs, stale internal fields, or mismatched fallback logic
+
+The market grid, card detail header, collection cards, deck cost cards, and search suggestions should read from this table once it exists.
+
 ## Verification Data Model
 
 ### `pricing_verification_runs`
@@ -214,6 +254,8 @@ Columns:
 - `published_price_nm_before`
 - `price_delta_abs`
 - `price_delta_ratio`
+- `mapping_integrity_status`
+- `label_integrity_status`
 - `verification_status`
 - `reason`
 - `checked_at`
@@ -229,7 +271,65 @@ Statuses:
 - `unpriced_no_variant`
 - `mapping_conflict`
 
+### `pricing_mapping_conflicts`
+
+Tracks concrete integrity failures when one imported commercial object appears to be attached to the wrong internal card.
+
+Columns:
+
+- `verification_run_id`
+- `card_print_id`
+- `external_product_id`
+- `external_variant_id`
+- `tcgplayer_product_id`
+- `conflict_type`
+- `expected_number`
+- `expected_set_code`
+- `expected_name`
+- `provider_number`
+- `provider_set_name`
+- `provider_product_name`
+- `details`
+- `created_at`
+
+Suggested `conflict_type` values:
+
+- `number_mismatch`
+- `set_mismatch`
+- `name_mismatch`
+- `treatment_mismatch`
+- `duplicate_variant_assignment`
+- `duplicate_product_assignment`
+- `ui_label_mismatch`
+
 ## Verification Rules
+
+### Mapping integrity rules
+
+Before price drift is even considered, the backend must decide whether the mapped JustTCG product looks like the same actual card.
+
+A candidate mapping should be blocked from publication if any of these are true:
+
+- the expected Bandai/printed number does not match the JustTCG / TCGplayer product number
+- the expected set family does not match the provider set family
+- the core card name does not match
+- the expected treatment does not match the provider treatment
+- the same JustTCG variant is attached to multiple unrelated `card_prints`
+- the same JustTCG product is active on multiple conflicting prints where only one should win
+
+This is the layer that catches:
+
+- one card showing another card's price
+- reprints inheriting a manga or premium price
+- wrong alt-art treatment labels
+- wrong event/tournament promo labels
+
+If mapping integrity fails:
+
+- do not publish the candidate price
+- do not publish the candidate display label
+- keep the existing published row if one exists
+- record the failure in `pricing_mapping_conflicts`
 
 ### Publish-safe rows
 
@@ -239,6 +339,7 @@ A row is publish-safe when:
 - the `card_print` has an approved active JustTCG Near Mint variant link
 - the JustTCG candidate price is present
 - the product has a usable `tcgplayerId`
+- mapping integrity checks pass
 - the fetched TCGplayer product details match the same product identity
 - price drift is within allowed tolerance
 
@@ -263,6 +364,36 @@ Premium buckets include:
 - Gold/Silver SP
 - Anniversary
 - high-value event/tournament promos
+
+### Label publication rules
+
+The same verifier run should also decide what the card is called in the UI.
+
+Recommended display policy:
+
+- use the exact treatment name from the provider when it is specific and trustworthy
+- normalize formatting for display
+- do not publish vague generic labels like `Parallel` when a more exact treatment exists
+- if the treatment cannot be identified confidently, publish no treatment chip
+
+Examples:
+
+- `JOLLY_RODGER_FOIL` -> `Jolly Roger Foil`
+- `RED_SUPER_ALTERNATE_ART` -> `Red Super Alternate Art`
+- `ALT ART` -> `Alternate Art`
+- ambiguous `parallel` with no trusted exact treatment -> publish nothing
+
+The published display layer should be the only source of truth for:
+
+- display title
+- treatment chip
+- set label
+- image choice on priced surfaces
+
+This fixes both backend and UI problems together:
+
+- prices are attached to the right card
+- labels describe the same verified card
 
 ### Never wipe live prices on failed verification
 
@@ -305,17 +436,22 @@ This is enough to confirm:
 1. fetch JustTCG cards + variants
 2. update source layer
 3. rebuild candidate NM variant links and candidate current prices
-4. run TCGplayer verification on changed/high-risk cards
-5. publish verified rows to `card_print_price_published`
-6. keep previous published rows for failures
+4. run mapping integrity checks
+5. run TCGplayer verification on changed/high-risk cards
+6. build published display payloads
+7. publish verified price rows to `card_print_price_published`
+8. publish verified display rows to `card_print_display_published`
+9. keep previous published rows for failures
 
 ### Incremental refresh
 
 1. fetch changed JustTCG cards with `updated_after`
 2. update source layer
 3. recompute candidate prices only for affected `card_prints`
-4. verify only affected rows against TCGplayer
-5. publish only verified rows
+4. run mapping integrity checks for affected rows
+5. verify only affected rows against TCGplayer
+6. rebuild affected published display payloads
+7. publish only verified rows
 
 ## Fast Path for Performance
 
@@ -331,6 +467,7 @@ Recommended priority tiers:
   - verify sampled or less frequently
 
 This keeps the system fast while protecting trust where it matters most.
+Mapping integrity checks should still run on every changed row, even when TCGplayer price verification is sampled less aggressively.
 
 ## Caching
 
@@ -357,6 +494,12 @@ For raw cards:
 - if no published row exists and there has never been one, show `Unpriced`
 - do not read candidate rows directly on customer-facing pages
 
+For labels:
+
+- if a published display row exists, use it
+- if no published display row exists, fall back to a minimal safe internal identity view
+- do not render raw provider slugs or guessed treatment chips on customer-facing pages
+
 This creates a stable public contract:
 
 - staging can be messy
@@ -369,8 +512,9 @@ This creates a stable public contract:
 
 1. incremental CLI must fail loudly when `--updated-after` is missing or invalid
 2. JustTCG fetches must respect plan-safe page limits and rate handling
-3. refresh jobs must not clear the published table before verification succeeds
+3. refresh jobs must not clear the published price or display tables before verification succeeds
 4. publish must be atomic
+5. no single refresh should be able to assign one external variant to multiple conflicting live cards without recording a conflict
 
 ### Rollback
 
@@ -387,6 +531,7 @@ Do not attempt automatic destructive cleanup of live prices during a failed run.
 Every run should produce a report with:
 
 - number of changed candidate rows
+- number of mapping conflicts
 - number verified
 - number published
 - number blocked
@@ -394,18 +539,23 @@ Every run should produce a report with:
 - top mismatches by ratio
 - rows missing `tcgplayerId`
 - rows with mapping conflicts
+- top label mismatches
+- duplicate external product / variant assignments
 
 This should be easy to inspect in JSON first.
 
 ## Recommended Implementation Order
 
 1. add verification + published price tables
-2. switch runtime reads from `card_print_price_current` to `card_print_price_published`
-3. add TCGplayer detail cache + verification runner
-4. update full refresh flow to stage -> verify -> publish
-5. update incremental refresh flow to stage -> verify -> publish
-6. add JSON reporting for drift/mismatch results
-7. add premium-card regression checks
+2. add published display table
+3. switch runtime price reads from `card_print_price_current` to `card_print_price_published`
+4. switch display-heavy market surfaces to published display rows
+5. add TCGplayer detail cache + verification runner
+6. add mapping integrity audit
+7. update full refresh flow to stage -> verify -> publish
+8. update incremental refresh flow to stage -> verify -> publish
+9. add JSON reporting for drift/mismatch results
+10. add premium-card and label regression checks
 
 ## Success Criteria
 
@@ -413,7 +563,8 @@ This design is successful when:
 
 - a bad JustTCG refresh cannot blank out live prices
 - DevilFruit can explain why any price is live, stale, blocked, or unpriced
+- DevilFruit can explain why any label/treatment chip is live, blocked, or hidden
 - premium cards can be checked quickly against TCGplayer
 - the website shows only published verified prices
+- the website shows only verified display labels on priced surfaces
 - JustTCG remains the operational source without being blindly trusted
-
