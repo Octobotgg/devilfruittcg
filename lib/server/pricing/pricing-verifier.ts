@@ -203,28 +203,19 @@ function setFamilyMatches(input: MappingInput) {
   );
 }
 
-function canonicalTreatmentLabel(rawValue: string, allowGeneric: boolean) {
-  const raw = String(rawValue || "").trim();
-  if (!raw || isIdentifierLike(raw)) return null;
-
-  const normalized = normalizeText(raw);
-  if (!normalized) return null;
-
-  const exactMatch = (label: string): TreatmentDetection => ({
-    label,
-    exact: true,
-    normalized: raw !== label,
-    source: raw,
-  });
-
+function matchExactTreatmentLabel(
+  normalized: string,
+  exactMatch: (label: string) => TreatmentDetection,
+  allowAmbiguousSingleWord: boolean,
+) {
   if (normalized === "sp" || normalized === "sp card") return exactMatch("SP");
   if (normalized.includes("jolly roger foil") || normalized.includes("jolly rodger foil")) {
     return exactMatch("Jolly Roger Foil");
   }
   if (normalized.includes("pirate foil")) return exactMatch("Pirate Foil");
-  if (normalized.includes("participation")) return exactMatch("Participation Pack");
-  if (normalized.includes("finalist")) return exactMatch("Finalist");
-  if (normalized.includes("champion")) return exactMatch("Champion");
+  if (normalized.includes("participation pack")) return exactMatch("Participation Pack");
+  if (allowAmbiguousSingleWord && normalized.includes("finalist")) return exactMatch("Finalist");
+  if (allowAmbiguousSingleWord && normalized.includes("champion")) return exactMatch("Champion");
   if (normalized.includes("winner pack")) return exactMatch("Winner Pack");
   if (normalized.includes("winner card set")) return exactMatch("Winner Card Set");
   if (normalized.includes("event pack")) return exactMatch("Event Pack");
@@ -248,6 +239,26 @@ function canonicalTreatmentLabel(rawValue: string, allowGeneric: boolean) {
     if (normalized.includes("red")) return exactMatch("Red Manga");
     return exactMatch("Manga");
   }
+
+  return null;
+}
+
+function canonicalTreatmentLabel(rawValue: string, allowGeneric: boolean, allowAmbiguousSingleWord = true) {
+  const raw = String(rawValue || "").trim();
+  if (!raw || isIdentifierLike(raw)) return null;
+
+  const normalized = normalizeText(raw);
+  if (!normalized) return null;
+
+  const exactMatch = (label: string): TreatmentDetection => ({
+    label,
+    exact: true,
+    normalized: raw !== label,
+    source: raw,
+  });
+
+  const exact = matchExactTreatmentLabel(normalized, exactMatch, allowAmbiguousSingleWord);
+  if (exact) return exact;
 
   if (!allowGeneric) return null;
   if (normalized === "parallel") {
@@ -279,18 +290,24 @@ function canonicalTreatmentLabel(rawValue: string, allowGeneric: boolean) {
 }
 
 function detectProviderTreatment(provider: MappingInput["provider"] | DisplayPayloadInput["provider"]) {
-  const candidates = [
+  const structuredCandidates = [
     provider.treatment,
     ...extractTitleSegments(provider.productName),
     ...extractTitleSegments(provider.productUrlName),
   ];
 
   let genericMatch: TreatmentDetection | null = null;
-  for (const candidate of candidates) {
-    const detected = canonicalTreatmentLabel(String(candidate || ""), true);
+  for (const candidate of structuredCandidates) {
+    const detected = canonicalTreatmentLabel(String(candidate || ""), true, true);
     if (!detected) continue;
     if (detected.exact) return detected;
     genericMatch ??= detected;
+  }
+
+  for (const candidate of [provider.productName, provider.productUrlName]) {
+    const detected = canonicalTreatmentLabel(String(candidate || ""), true, false);
+    if (!detected?.exact) continue;
+    return detected;
   }
 
   return genericMatch;

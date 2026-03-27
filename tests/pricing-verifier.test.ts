@@ -410,6 +410,31 @@ test("verifyMappingIntegrity blocks mismatches for trusted event and SP treatmen
   assert.deepEqual(result.conflictTypes, ["treatment_mismatch"]);
 });
 
+test("verifyMappingIntegrity trusts strong multiword treatment phrases from provider product names", async () => {
+  const { verifyMappingIntegrity } = await importPricingVerifier();
+
+  const result = verifyMappingIntegrity(
+    createMappingInput({
+      cardPrint: {
+        treatmentLabel: "Winner Pack",
+      },
+      provider: {
+        productName: "Monkey D. Luffy Winner Pack PRB01-001",
+        productUrlName: "monkey-d-luffy-winner-pack-prb01-001",
+        treatment: null,
+      },
+    }),
+  );
+
+  assert.equal(result.mappingIntegrityStatus, "verified");
+  assert.equal(result.verificationStatus, "verified");
+  assert.equal(result.labelIntegrityStatus, "normalized");
+  assert.equal(result.normalizedProviderTreatmentLabel, "Winner Pack");
+  assert.equal(result.exactTreatmentTrusted, true);
+  assert.deepEqual(result.conflictTypes, []);
+  assert.equal(result.publishable, true);
+});
+
 test("verifyMappingIntegrity ignores incidental premium keywords in freeform product titles", async () => {
   const { verifyMappingIntegrity } = await importPricingVerifier();
 
@@ -556,6 +581,30 @@ test("buildPublishedDisplayPayload normalizes trusted event and SP premium label
     assert.equal(result.displayTreatmentLabel, testCase.expected, testCase.treatment);
     assert.equal(result.labelStatus, "normalized", testCase.treatment);
   }
+});
+
+test("buildPublishedDisplayPayload publishes strong multiword treatment phrases from provider product names", async () => {
+  const { buildPublishedDisplayPayload } = await importPricingVerifier();
+
+  const result = buildPublishedDisplayPayload({
+    cardPrint: {
+      title: "Monkey D. Luffy",
+      setName: "Premium Booster The Best [PRB01]",
+      setCode: "PRB01",
+      rarity: "SR",
+      imageUrl: "https://example.com/luffy.jpg",
+    },
+    provider: {
+      productName: "Monkey D. Luffy Winner Pack PRB01-001",
+      productUrlName: "monkey-d-luffy-winner-pack-prb01-001",
+      setName: "PREMIUM_BOOSTER_THE_BEST",
+      treatment: null,
+      imageUrl: "https://example.com/provider-luffy.jpg",
+    },
+  });
+
+  assert.equal(result.displayTreatmentLabel, "Winner Pack");
+  assert.equal(result.labelStatus, "normalized");
 });
 
 test("buildPublishedDisplayPayload ignores incidental premium keywords in freeform product titles", async () => {
