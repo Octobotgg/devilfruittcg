@@ -140,8 +140,7 @@ function syncCacheObject(cache, merged) {
 function writeMergedCache(cachePath, cache) {
   if (!cachePath) return null;
   const state = loadCacheFileState(cachePath);
-  if (!state.readable) return null;
-  const merged = mergeCacheContents(state.entries, cache);
+  const merged = mergeCacheContents(state.readable && state.entries ? state.entries : {}, cache);
   writeJson(cachePath, merged);
   syncCacheObject(cache, merged);
   return merged;

@@ -418,7 +418,7 @@ test("getTcgplayerProductDetail prefers fresher on-disk data on same-key reads",
   }
 });
 
-test("getTcgplayerProductDetail leaves malformed on-disk cache files untouched during writes", async () => {
+test("getTcgplayerProductDetail heals malformed on-disk cache files during writes", async () => {
   const tempDir = createTempDir();
   try {
     const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
@@ -438,8 +438,57 @@ test("getTcgplayerProductDetail leaves malformed on-disk cache files untouched d
 
     assert.equal(calls.length, 1);
     assert.deepEqual(detail, { id: 222, title: "Fresh Entry" });
-    assert.equal(readFileSync(cachePath, "utf8"), malformed);
+    const healed = JSON.parse(readFileSync(cachePath, "utf8"));
+    assert.equal(healed["222"].id, 222);
+    assert.equal(healed["222"].title, "Fresh Entry");
+    assert.equal(typeof healed["222"].fetched_at, "string");
     assert.equal(cache["222"].title, "Fresh Entry");
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
+test("getTcgplayerProductDetail heals malformed on-disk cache files after a successful fetch", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    writeFileSync(cachePath, "{\n  \"111\": {\n    \"id\": 111,\n    \"title\": \"Partial Entry\"\n");
+
+    const firstCache: Record<string, TcgplayerCacheEntry> = {};
+    const { calls, fetchImpl } = createFetchStub([{ body: { id: 222, title: "Fresh Entry" } }]);
+
+    const detail = await getTcgplayerProductDetail({
+      productId: 222,
+      cache: firstCache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    assert.deepEqual(detail, { id: 222, title: "Fresh Entry" });
+
+    const healed = JSON.parse(readFileSync(cachePath, "utf8"));
+    assert.deepEqual(healed["222"], {
+      id: 222,
+      title: "Fresh Entry",
+      fetched_at: healed["222"].fetched_at,
+    });
+    assert.equal(typeof healed["222"].fetched_at, "string");
+
+    const secondCache: Record<string, TcgplayerCacheEntry> = {};
+    const followUp = await getTcgplayerProductDetail({
+      productId: 222,
+      cache: secondCache,
+      cachePath,
+      ttlMs: 60_000,
+      fetchImpl,
+    });
+
+    assert.equal(calls.length, 1);
+    assert.deepEqual(followUp, { id: 222, title: "Fresh Entry" });
+    assert.equal(secondCache["222"].title, "Fresh Entry");
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }

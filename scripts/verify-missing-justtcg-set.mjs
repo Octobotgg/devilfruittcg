@@ -99,7 +99,7 @@ function specificPremiumLabelFromText(text) {
 
 function labelTokens(card) {
   const premiumLabel = specificPremiumLabelFromCard(card);
-  if (premiumLabel) return premiumLabel.fallbackToken ? [premiumLabel.token, premiumLabel.fallbackToken] : [premiumLabel.token];
+  if (premiumLabel) return [premiumLabel.token];
 
   const variantLabel = normalizeText(card.variantLabel || "");
   const variantType = String(card.variantType || "").toLowerCase();

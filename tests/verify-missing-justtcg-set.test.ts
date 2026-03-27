@@ -420,15 +420,15 @@ test("evaluateVerificationCard approves exact labeled Winner Pack and Event Pack
       },
       candidate: {
         id: "candidate-winner-pack-exact",
-        name: "Monkey D. Luffy SP PRB01-001",
+        name: "Monkey D. Luffy Winner Pack PRB01-001",
         number: "PRB01-001",
         set_name: "Premium Booster The Best",
         variants: [{ condition: "near mint", price: 15 }],
         tcgplayerId: "124",
       },
       detail: {
-        productName: "Monkey D. Luffy SP PRB01-001",
-        productUrlName: "monkey-d-luffy-sp-prb01-001",
+        productName: "Monkey D. Luffy Winner Pack PRB01-001",
+        productUrlName: "monkey-d-luffy-winner-pack-prb01-001",
         setName: "Premium Booster The Best",
         productLineName: "One Piece Card Game",
         customAttributes: { number: "PRB01-001" },
@@ -447,15 +447,15 @@ test("evaluateVerificationCard approves exact labeled Winner Pack and Event Pack
       },
       candidate: {
         id: "candidate-event-pack-exact",
-        name: "Monkey D. Luffy SP PRB01-001",
+        name: "Monkey D. Luffy Event Pack PRB01-001",
         number: "PRB01-001",
         set_name: "Premium Booster The Best",
         variants: [{ condition: "near mint", price: 15 }],
         tcgplayerId: "125",
       },
       detail: {
-        productName: "Monkey D. Luffy SP PRB01-001",
-        productUrlName: "monkey-d-luffy-sp-prb01-001",
+        productName: "Monkey D. Luffy Event Pack PRB01-001",
+        productUrlName: "monkey-d-luffy-event-pack-prb01-001",
         setName: "Premium Booster The Best",
         productLineName: "One Piece Card Game",
         customAttributes: { number: "PRB01-001" },
@@ -501,15 +501,15 @@ test("evaluateVerificationCard approves exact labeled Jolly Roger Foil and Repri
       },
       candidate: {
         id: "candidate-jolly-roger-foil-exact",
-        name: "Monkey D. Luffy Parallel OP01-004",
+        name: "Monkey D. Luffy Jolly Roger Foil OP01-004",
         number: "OP01-004",
         set_name: "Romance Dawn",
         variants: [{ condition: "near mint", price: 15 }],
         tcgplayerId: "126",
       },
       detail: {
-        productName: "Monkey D. Luffy Parallel OP01-004",
-        productUrlName: "monkey-d-luffy-parallel-op01-004",
+        productName: "Monkey D. Luffy Jolly Roger Foil OP01-004",
+        productUrlName: "monkey-d-luffy-jolly-roger-foil-op01-004",
         setName: "Romance Dawn",
         productLineName: "One Piece Card Game",
         customAttributes: { number: "OP01-004" },
@@ -528,15 +528,15 @@ test("evaluateVerificationCard approves exact labeled Jolly Roger Foil and Repri
       },
       candidate: {
         id: "candidate-reprint-exact",
-        name: "Monkey D. Luffy Parallel OP01-004",
+        name: "Monkey D. Luffy Reprint OP01-004",
         number: "OP01-004",
         set_name: "Romance Dawn",
         variants: [{ condition: "near mint", price: 15 }],
         tcgplayerId: "127",
       },
       detail: {
-        productName: "Monkey D. Luffy Parallel OP01-004",
-        productUrlName: "monkey-d-luffy-parallel-op01-004",
+        productName: "Monkey D. Luffy Reprint OP01-004",
+        productUrlName: "monkey-d-luffy-reprint-op01-004",
         setName: "Romance Dawn",
         productLineName: "One Piece Card Game",
         customAttributes: { number: "OP01-004" },
@@ -563,6 +563,146 @@ test("evaluateVerificationCard approves exact labeled Jolly Roger Foil and Repri
 
     assert.equal(result.approved.length, 1);
     assert.equal(result.unresolved.length, 0);
+  }
+});
+
+test("evaluateVerificationCard rejects named premium labels when only generic SP or Parallel text is present", async () => {
+  const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const cases = [
+    {
+      id: "winner-pack-generic",
+      card: {
+        id: "card-winner-pack-generic",
+        name: "Monkey D. Luffy",
+        printedCardId: "PRB01-001",
+        set: "Premium Booster The Best [PRB01]",
+        releaseCode: "PRB01",
+        variantType: "sp",
+        variantLabel: "Winner Pack",
+      },
+      candidate: {
+        id: "candidate-winner-pack-generic",
+        name: "Monkey D. Luffy SP PRB01-001",
+        number: "PRB01-001",
+        set_name: "Premium Booster The Best",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "124",
+      },
+      detail: {
+        productName: "Monkey D. Luffy SP PRB01-001",
+        productUrlName: "monkey-d-luffy-sp-prb01-001",
+        setName: "Premium Booster The Best",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "PRB01-001" },
+        formattedAttributes: { Number: "PRB01-001" },
+      },
+    },
+    {
+      id: "event-pack-generic",
+      card: {
+        id: "card-event-pack-generic",
+        name: "Monkey D. Luffy",
+        printedCardId: "PRB01-001",
+        set: "Premium Booster The Best [PRB01]",
+        releaseCode: "PRB01",
+        variantType: "sp",
+        variantLabel: "Event Pack",
+      },
+      candidate: {
+        id: "candidate-event-pack-generic",
+        name: "Monkey D. Luffy SP PRB01-001",
+        number: "PRB01-001",
+        set_name: "Premium Booster The Best",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "125",
+      },
+      detail: {
+        productName: "Monkey D. Luffy SP PRB01-001",
+        productUrlName: "monkey-d-luffy-sp-prb01-001",
+        setName: "Premium Booster The Best",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "PRB01-001" },
+        formattedAttributes: { Number: "PRB01-001" },
+      },
+    },
+    {
+      id: "jolly-roger-foil-generic",
+      card: {
+        id: "card-jolly-roger-foil-generic",
+        name: "Monkey D. Luffy",
+        printedCardId: "OP01-004",
+        set: "Romance Dawn [OP01]",
+        releaseCode: "OP01",
+        variantType: "parallel",
+        variantLabel: "Jolly Roger Foil",
+      },
+      candidate: {
+        id: "candidate-jolly-roger-foil-generic",
+        name: "Monkey D. Luffy Parallel OP01-004",
+        number: "OP01-004",
+        set_name: "Romance Dawn",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "126",
+      },
+      detail: {
+        productName: "Monkey D. Luffy Parallel OP01-004",
+        productUrlName: "monkey-d-luffy-parallel-op01-004",
+        setName: "Romance Dawn",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "OP01-004" },
+        formattedAttributes: { Number: "OP01-004" },
+      },
+    },
+    {
+      id: "reprint-generic",
+      card: {
+        id: "card-reprint-generic",
+        name: "Monkey D. Luffy",
+        printedCardId: "OP01-004",
+        set: "Romance Dawn [OP01]",
+        releaseCode: "OP01",
+        variantType: "parallel",
+        variantLabel: "Reprint",
+      },
+      candidate: {
+        id: "candidate-reprint-generic",
+        name: "Monkey D. Luffy Parallel OP01-004",
+        number: "OP01-004",
+        set_name: "Romance Dawn",
+        variants: [{ condition: "near mint", price: 15 }],
+        tcgplayerId: "127",
+      },
+      detail: {
+        productName: "Monkey D. Luffy Parallel OP01-004",
+        productUrlName: "monkey-d-luffy-parallel-op01-004",
+        setName: "Romance Dawn",
+        productLineName: "One Piece Card Game",
+        customAttributes: { number: "OP01-004" },
+        formattedAttributes: { Number: "OP01-004" },
+      },
+    },
+  ];
+
+  for (const testCase of cases) {
+    const result = evaluateVerificationCard({
+      card: testCase.card,
+      expectedNumber: testCase.card.printedCardId,
+      releaseCode: testCase.card.releaseCode,
+      candidateResults: [
+        {
+          candidate: testCase.candidate,
+          tcgplayerId: testCase.candidate.tcgplayerId,
+          detail: testCase.detail,
+        },
+      ],
+      ebayPrice: null,
+      allowLabelCorrections: false,
+    });
+
+    assert.equal(result.approved.length, 0, testCase.id);
+    assert.equal(result.unresolved.length, 1, testCase.id);
+    assert.equal(result.unresolved[0].reason, "no_verified_candidate");
   }
 });
 
