@@ -6,6 +6,13 @@ type MarketCardLabelSource = Pick<Card, "id" | "baseId" | "rarity" | "variantLab
   publishedTreatmentLabel?: string | null;
 };
 
+type MarketCardImageSource = Pick<Card, "id" | "imageUrl">;
+
+const OFFICIAL_CARD_IMAGE_HOSTS = new Set([
+  "en.onepiece-cardgame.com",
+  "www.en.onepiece-cardgame.com",
+]);
+
 function titleCaseToken(token: string) {
   if (!token) return token;
   if (/^\d+$/.test(token)) return token;
@@ -171,6 +178,24 @@ export function marketVariantDisplayLabel(card: MarketCardLabelSource) {
   }
 
   return internalLabel;
+}
+
+export function marketCardImageUrl(card: MarketCardImageSource) {
+  const directImageUrl = String(card.imageUrl || "").trim();
+  if (!directImageUrl) {
+    return `/api/card-image?id=${encodeURIComponent(card.id)}`;
+  }
+
+  try {
+    const parsed = new URL(directImageUrl);
+    if (OFFICIAL_CARD_IMAGE_HOSTS.has(parsed.hostname)) {
+      return `/api/card-image?id=${encodeURIComponent(card.id)}`;
+    }
+  } catch {
+    return directImageUrl;
+  }
+
+  return directImageUrl;
 }
 
 export function marketPriceDisplay(market: MarketPriceSummary | null | undefined) {

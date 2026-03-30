@@ -10,7 +10,7 @@ import {
 } from "./display-label-publisher.ts";
 
 const require = createRequire(import.meta.url);
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== "test" && process.env.NEXT_RUNTIME === "nodejs") {
   require("server-only");
 }
 const { createPostgresClient }: typeof import("../../../db/postgres") = require("../../../db/postgres.ts");

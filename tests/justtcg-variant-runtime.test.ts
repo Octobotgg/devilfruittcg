@@ -392,3 +392,149 @@ test("bootstrapPublishedPricing can seed published rows from current candidate-p
   assert.equal(state.publishedDisplays.size, 1);
   assert.equal(state.runs.get(500)?.status, "completed");
 });
+
+test("verifyPricingRefresh records blocked statuses without publishing live rows", async () => {
+  const { verifyPricingRefresh } =
+    await importModule<typeof import("../scripts/run-pricing-verification.mjs")>(
+      "scripts/run-pricing-verification.mjs",
+    );
+
+  const state = {
+    runs: new Map<number, { status: string; startedAt: string | null; finishedAt: string | null; notes: string | null }>(),
+    results: [] as Array<Record<string, unknown>>,
+    conflicts: [] as Array<Record<string, unknown>>,
+    publishedPrices: new Map<string, Record<string, unknown>>(),
+  };
+
+  const adapter = {
+    async createVerificationRun(source: string, notes: string | null, startedAt: string) {
+      state.runs.set(700, {
+        status: "running",
+        startedAt,
+        finishedAt: null,
+        notes: notes ?? source,
+      });
+      return 700;
+    },
+    async upsertVerificationResults(rows: Array<Record<string, unknown>>) {
+      state.results.push(...rows);
+    },
+    async recordConflicts(
+      verificationRunId: number,
+      rows: Array<{ cardPrintId: string; conflictType: string }>,
+    ) {
+      state.conflicts.push(...rows.map((row) => ({ verificationRunId, ...row })));
+    },
+    async markRunCompleted(verificationRunId: number, finishedAt: string) {
+      const existing = state.runs.get(verificationRunId);
+      if (existing) {
+        existing.status = "completed";
+        existing.finishedAt = finishedAt;
+      }
+    },
+    async markRunFailed(verificationRunId: number, finishedAt: string, notes: string | null) {
+      const existing = state.runs.get(verificationRunId);
+      if (existing) {
+        existing.status = "failed";
+        existing.finishedAt = finishedAt;
+        existing.notes = notes;
+      }
+    },
+  };
+
+  await verifyPricingRefresh({
+    candidates: [
+      {
+        cardPrintId: "cp-safe",
+        sourceId: "justtcg",
+        externalProductId: "product-safe",
+        externalVariantId: "variant-safe",
+        tcgplayerProductId: "123",
+        priceMarket: 12.5,
+        priceNm: 12.5,
+        priceLp: 10.2,
+        updatedAt: "2026-03-27T12:00:00.000Z",
+        cardPrint: {
+          id: "cp-safe",
+          number: "OP01-001",
+          setCode: "OP01",
+          setName: "Romance Dawn [OP01]",
+          releaseCode: "OP01",
+          title: "Monkey D. Luffy",
+          rarity: "SR",
+          treatmentLabel: null,
+          imageUrl: null,
+        },
+        provider: {
+          externalProductId: "product-safe",
+          externalVariantId: "variant-safe",
+          tcgplayerProductId: "123",
+          productName: "Monkey D. Luffy OP01-001",
+          productUrlName: "monkey-d-luffy-op01-001",
+          setName: "Romance Dawn",
+          number: "OP01-001",
+          treatment: null,
+          imageUrl: null,
+        },
+        publishedDisplay: null,
+        publishedPriceNmBefore: 12.45,
+      },
+      {
+        cardPrintId: "cp-blocked",
+        sourceId: "justtcg",
+        externalProductId: "product-blocked",
+        externalVariantId: "variant-blocked",
+        tcgplayerProductId: "456",
+        priceMarket: 999,
+        priceNm: 999,
+        priceLp: null,
+        updatedAt: "2026-03-27T12:00:00.000Z",
+        cardPrint: {
+          id: "cp-blocked",
+          number: "OP01-002",
+          setCode: "OP01",
+          setName: "Romance Dawn [OP01]",
+          releaseCode: "OP01",
+          title: "Roronoa Zoro",
+          rarity: "SR",
+          treatmentLabel: "Jolly Roger Foil",
+          imageUrl: null,
+        },
+        provider: {
+          externalProductId: "product-blocked",
+          externalVariantId: "variant-blocked",
+          tcgplayerProductId: "456",
+          productName: "Roronoa Zoro OP01-002",
+          productUrlName: "roronoa-zoro-op01-002",
+          setName: "Romance Dawn",
+          number: "OP01-002",
+          treatment: "Parallel",
+          imageUrl: null,
+        },
+        publishedDisplay: {
+          displayTreatmentLabel: "Jolly Roger Foil",
+          labelStatus: "verified",
+        },
+        publishedPriceNmBefore: 850,
+      },
+    ],
+    adapter,
+    fetchTcgplayerDetail: async ({ productId }: { productId: string }) => ({
+      productId,
+      marketPrice: productId === "123" ? 12.5 : 999,
+    }),
+    now: () => "2026-03-27T12:30:00.000Z",
+  });
+
+  assert.equal(state.runs.get(700)?.status, "completed");
+  assert.equal(state.results.length, 2);
+  assert.deepEqual(
+    state.results.map((row) => row.verificationStatus),
+    ["verified", "mapping_conflict"],
+  );
+  assert.deepEqual(
+    state.conflicts.map((row) => row.conflictType),
+    ["treatment_mismatch"],
+  );
+  assert.equal(state.publishedPrices.size, 0);
+});

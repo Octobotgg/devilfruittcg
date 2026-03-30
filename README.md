@@ -6,7 +6,7 @@ All-in-one One Piece Trading Card Game platform. Free. Built for players.
 
 ## What's Inside
 
-- **Market Watch** — eBay last 5 sold + TCGPlayer prices per card
+- **Market** — One Piece card catalog with published verified JustTCG pricing
 - **Matchup Matrix** — Win rates by deck (OPTCG Sim data, coming soon)
 - **Meta Snapshot** — Top decks from recent tournaments
 - **Collection Tracker** — Track your cards + live value (coming soon)
@@ -22,12 +22,18 @@ All-in-one One Piece Trading Card Game platform. Free. Built for players.
 - Provisional-source handling: OP11+ records with incomplete gameplay stats are flagged as warnings (not hard-failed) until official/public source parity is complete; a tiny explicit allowlist covers known upstream gaps in legacy sets pending correction
 - Image availability rule: explicit image URL or deterministic API fallback (`/api/card-image?id=...`)
 
+## Pricing Verification
+
+JustTCG is the runtime pricing source for candidate imports. TCGplayer is the audit and reference source used to verify those candidates before they are published.
+
+The website reads published verified prices and published verified labels, not raw refresh output. That keeps failed refreshes and mapping drift out of the live UI.
+
 ## Tech Stack
 
-- **Framework:** Next.js 14 (App Router, TypeScript)
+- **Framework:** Next.js 16 (App Router, TypeScript)
 - **Styling:** Tailwind CSS
 - **Cache:** better-sqlite3 (SQLite, local dev) → PostgreSQL (prod)
-- **APIs:** eBay Browse API + TCGPlayer
+- **Pricing Pipeline:** JustTCG candidate imports → TCGplayer verification → published pricing
 
 ## Local Development
 
@@ -54,11 +60,13 @@ Open [http://localhost:3000](http://localhost:3000)
 
 | Variable | Description | Where to get it |
 |---|---|---|
+| `JUSTTCG_API_KEY` | JustTCG API key for candidate imports and incremental refreshes | justtcg.com |
+| `DATABASE_URL` | Primary Postgres connection string for Drizzle scripts and runtime pricing reads | Supabase / Postgres provider |
+| `SUPABASE_DB_URL` | Optional fallback Postgres connection string alias | Supabase |
 | `EBAY_APP_ID` | eBay API client ID | developer.ebay.com |
 | `EBAY_CERT_ID` | eBay API cert ID | developer.ebay.com |
-| `TCGPLAYER_API_KEY` | TCGPlayer API key | developer.tcgplayer.com |
 
-> **Note:** App works without API keys — it uses mock/seed data as fallback. Add real keys to get live prices.
+> **Note:** The pricing pipeline needs a real Postgres connection plus a `JUSTTCG_API_KEY` for live refreshes. TCGplayer is used as an audit source during verification rather than as the runtime pricing provider.
 
 ## Deployment
 
@@ -70,8 +78,8 @@ Add env vars in Vercel dashboard.
 
 > Build pipeline includes `prebuild` validation (`npm run validate:cards`). Deploys fail if card IDs, set/number alignment, or duplicate card IDs/numbers are incorrect.
 
-### Database → Railway (prod)
-SQLite works for local dev. For production, swap `lib/db.ts` to use a Railway PostgreSQL connection string via `DATABASE_URL`.
+### Database → Postgres (prod)
+SQLite works for local dev. For production, point the app and Drizzle scripts at a Postgres connection string via `DATABASE_URL` or `SUPABASE_DB_URL`.
 
 ## Roadmap
 

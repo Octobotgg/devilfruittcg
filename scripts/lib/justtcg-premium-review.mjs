@@ -73,10 +73,12 @@ const HINT_WEIGHTS = new Map([
 
 function premiumHintScore(cardHints, candidateHints) {
   const shared = candidateHints.filter((hint) => cardHints.includes(hint));
+  const extra = candidateHints.filter((hint) => !cardHints.includes(hint));
   const weight = shared.reduce((total, hint) => total + (HINT_WEIGHTS.get(hint) || 0), 0);
   return {
     weight,
     sharedCount: shared.length,
+    extraCount: extra.length,
     candidateHintCount: candidateHints.length,
   };
 }
@@ -92,6 +94,7 @@ function chooseBestPremiumCandidate(cardHints, candidates) {
     .sort((left, right) =>
       right.score.weight - left.score.weight ||
       right.score.sharedCount - left.score.sharedCount ||
+      left.score.extraCount - right.score.extraCount ||
       right.score.candidateHintCount - left.score.candidateHintCount ||
       String(left.candidate.id || "").localeCompare(String(right.candidate.id || "")),
     );
@@ -163,16 +166,19 @@ export function reviewSuspiciousPremiumMappings({ report, snapshot, cards }) {
   const remaining = [];
 
   for (const row of Array.isArray(report?.results) ? report.results : []) {
-    const suspicious = classifySuspiciousApprovedMapping(row);
-    if (!suspicious.suspicious || !suspicious.premium) continue;
-
     const card = cardById.get(row.cardId);
+    const suspicious = classifySuspiciousApprovedMapping(row);
+    const cardHints = card ? detectVariantHints(card) : [];
+    const premiumNeedsReview =
+      normalizeText(row?.status) === "needs review" || normalizeText(row?.status) === "needs_review";
+    const shouldReview = (suspicious.suspicious && suspicious.premium) || (premiumNeedsReview && cardHints.length > 0);
+
+    if (!shouldReview) continue;
     if (!card) {
       remaining.push(row);
       continue;
     }
 
-    const cardHints = detectVariantHints(card);
     const pool = candidatePoolForCard(card, indexes);
     const eligible = pool.filter((candidate) => classifyCatalogCard(candidate).bucket === "premium_candidate");
     const exactCore = eligible.filter((candidate) => sameNumber(card, candidate) && coreNameMatch(card.name, candidate.name));

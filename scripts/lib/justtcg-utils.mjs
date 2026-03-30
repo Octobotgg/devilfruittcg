@@ -11,6 +11,63 @@ export const DEFAULT_CATALOG_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "o
 export const DEFAULT_MAPPING_STATE_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "mapping-state.json");
 export const DEFAULT_MAPPING_REPORT_PATH = path.join(REPO_ROOT, ".cache", "justtcg", "mapping-report.json");
 export const JUSTTCG_CARDS_URL = "https://api.justtcg.com/v1/cards";
+const OP13_THIRD_ANNIVERSARY_CARD_IDS = [
+  "OP13-008",
+  "OP13-010",
+  "OP13-018",
+  "OP13-020",
+  "OP13-033",
+  "OP13-041",
+  "OP13-048",
+  "OP13-052",
+  "OP13-055",
+  "OP13-056",
+  "OP13-059",
+  "OP13-060",
+  "OP13-062",
+  "OP13-068",
+  "OP13-070",
+  "OP13-088",
+  "OP13-093",
+  "OP13-103",
+  "OP13-105",
+  "OP13-106",
+  "OP13-107",
+  "OP13-111",
+];
+
+const OFFICIAL_CARD_VARIANT_OVERRIDES = new Map([
+  ["OP09-118_p3", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+  ["OP09-004_p2", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
+  ["OP09-051_p2", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
+  ["OP09-093_p1", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
+  ["OP09-119_p2", { variantType: "manga", variantLabel: "Manga", variantSlug: "manga_op09" }],
+  ["ST18-004_p1", { variantType: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op09" }],
+  ["OP11-058_p1", { variantType: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op13" }],
+  ...OP13_THIRD_ANNIVERSARY_CARD_IDS.map((id) => [
+    id,
+    {
+      isVariant: true,
+      variantType: "anniversary",
+      variantLabel: "3rd Anniversary Tournament",
+      variantSlug: "third_anniversary_tournament_op13",
+    },
+  ]),
+  ["OP13-080_p2", { variantType: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+  ["OP13-083_p2", { variantType: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+  ["OP13-084_p2", { variantType: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+  ["OP13-089_p2", { variantType: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+  ["OP13-091_p2", { variantType: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+  ["OP13-118_p2", { variantType: "alt_art", variantLabel: "Super Alternate Art", variantSlug: "super_alternate_art_op13_print_2" }],
+  ["OP13-118_p3", { variantType: "alt_art", variantLabel: "Red Super Alternate Art", variantSlug: "red_super_alternate_art_op13_print_3" }],
+  ["OP13-118_p4", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+  ["OP13-119_p2", { variantType: "alt_art", variantLabel: "Super Alternate Art", variantSlug: "super_alternate_art_op13_print_2" }],
+  ["OP13-119_p3", { variantType: "alt_art", variantLabel: "Red Super Alternate Art", variantSlug: "red_super_alternate_art_op13_print_3" }],
+  ["OP13-119_p4", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+  ["OP13-120_p2", { variantType: "alt_art", variantLabel: "Super Alternate Art", variantSlug: "super_alternate_art_op13_print_2" }],
+  ["OP13-120_p3", { variantType: "alt_art", variantLabel: "Red Super Alternate Art", variantSlug: "red_super_alternate_art_op13_print_3" }],
+  ["OP13-120_p4", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+]);
 
 export function parseArgs(argv) {
   const args = {};
@@ -54,8 +111,19 @@ export function chunk(items, size) {
   return chunks;
 }
 
+function normalizeOfficialCard(card) {
+  const override = OFFICIAL_CARD_VARIANT_OVERRIDES.get(String(card?.id || "").trim());
+  if (!override) return card;
+  return {
+    ...card,
+    variantType: override.variantType,
+    variantLabel: override.variantLabel,
+    variantSlug: override.variantSlug,
+  };
+}
+
 export function readOfficialCards() {
-  return JSON.parse(fs.readFileSync(CARDS_PATH, "utf8"));
+  return JSON.parse(fs.readFileSync(CARDS_PATH, "utf8")).map(normalizeOfficialCard);
 }
 
 export function supabaseConfigFromEnv() {

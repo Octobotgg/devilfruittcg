@@ -20,7 +20,6 @@ export const EXCLUSION_TERMS = [
   "promotion",
   "memorial",
   "premium",
-  "wanted poster",
 ];
 
 export const SET_CODE_ALIASES = {
@@ -104,8 +103,18 @@ export function baseId(cardId) {
   return String(cardId || "").replace(/_[A-Za-z0-9]+$/u, "");
 }
 
+function hasExplicitSpecialPrintMetadata(card) {
+  const variantType = String(card?.variantType || "").toLowerCase().trim();
+  const variantLabel = normalizeText(card?.variantLabel || "");
+  const variantSlug = normalizeText(String(card?.variantSlug || "").replace(/_/g, " "));
+
+  if (variantType && variantType !== "base") return true;
+  if (variantLabel && variantLabel !== "base") return true;
+  return Boolean(variantSlug && variantSlug !== "base");
+}
+
 export function isVariantCard(card) {
-  return baseId(card.id) !== card.id;
+  return baseId(card.id) !== card.id || card?.isVariant === true || hasExplicitSpecialPrintMetadata(card);
 }
 
 export function normalizeBandaiNumber(card) {
@@ -171,6 +180,7 @@ export function detectVariantHints(card) {
   if (explicitLabel.includes("jolly roger foil") || explicitSlug.includes("jolly roger foil")) hints.push("jolly_roger_foil");
   if (explicitLabel.includes("full art") || explicitSlug.includes("full art")) hints.push("full_art");
   if (explicitLabel.includes("treasure rare") || explicitSlug.includes("treasure rare")) hints.push("treasure_rare");
+  if (explicitLabel.includes("wanted poster") || explicitSlug.includes("wanted poster")) hints.push("wanted_poster");
   if (explicitLabel.includes("pirate foil") || explicitSlug.includes("pirate foil")) hints.push("pirate_foil");
   if (explicitLabel.includes("participation") || explicitSlug.includes("participation")) hints.push("participation");
   if (explicitLabel.includes("finalist") || explicitSlug.includes("finalist")) hints.push("finalist");
@@ -196,6 +206,7 @@ export function detectVariantHints(card) {
   if (raw.includes("jolly roger foil")) hints.push("jolly_roger_foil");
   if (raw.includes("full art")) hints.push("full_art");
   if (raw.includes("treasure rare")) hints.push("treasure_rare");
+  if (raw.includes("wanted poster")) hints.push("wanted_poster");
   if (raw.includes("alternate art") || raw.includes("alt art")) hints.push("alt");
   if (raw.includes("parallel")) hints.push("parallel");
   if (raw.includes("reprint") || /_r\d+$/i.test(card.id)) hints.push("reprint");
@@ -233,6 +244,7 @@ export function candidatePremiumHints(candidate) {
   if (text.includes("jolly roger foil")) hints.push("jolly_roger_foil");
   if (text.includes("full art")) hints.push("full_art");
   if (text.includes("treasure rare")) hints.push("treasure_rare");
+  if (text.includes("wanted poster")) hints.push("wanted_poster");
   if (text.includes("pirate foil")) hints.push("pirate_foil");
   if (text.includes("participation")) hints.push("participation");
   if (text.includes("finalist")) hints.push("finalist");
@@ -247,6 +259,7 @@ export function candidatePremiumHints(candidate) {
   if (text.includes("tournament pack")) hints.push("tournament_pack");
   if (text.includes("sp") || text.includes("special")) hints.push("sp");
   if (text.includes("manga")) hints.push("manga");
+  if (text.includes("anniversary")) hints.push("anniversary");
   if (text.includes("alternate art") || text.includes("alt art")) hints.push("alt");
   if (text.includes("parallel")) hints.push("parallel");
   if (text.includes("reprint")) hints.push("reprint");
@@ -256,6 +269,10 @@ export function candidatePremiumHints(candidate) {
 export function classifyCatalogCard(candidate) {
   const composite = normalizeText([candidate.name, candidate.set_name, candidate.set, candidate.id].join(" "));
   const candidateSet = normalizeText(candidate.set_name || candidate.set || "");
+  const premiumHints = candidatePremiumHints(candidate);
+  if (premiumHints.length) {
+    return { bucket: "premium_candidate", reason: `premium_hint:${premiumHints.join(",")}` };
+  }
   const knownReleaseSet = Object.values(SET_CODE_ALIASES)
     .flat()
     .some((alias) => candidateSet.includes(alias) || alias.includes(candidateSet));
@@ -269,10 +286,6 @@ export function classifyCatalogCard(candidate) {
   });
   if (excluded) {
     return { bucket: "excluded_product", reason: `excluded_term:${excluded}` };
-  }
-  const premiumHints = candidatePremiumHints(candidate);
-  if (premiumHints.length) {
-    return { bucket: "premium_candidate", reason: `premium_hint:${premiumHints.join(",")}` };
   }
   return { bucket: "base_candidate", reason: "base_print_candidate" };
 }

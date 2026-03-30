@@ -19,6 +19,7 @@ import {
 import { displayCardId, displayRarity, routeCardId, type Card } from "@/lib/cards";
 import {
   formatMarketSetLabel,
+  marketCardImageUrl,
   marketEmptyStateCopy,
   marketPriceDisplay,
   marketVariantDisplayLabel,
@@ -230,10 +231,6 @@ function CardPriceBlock({ card }: { card: MarketCardResult }) {
       {updatedLabel && !isMuted ? <p className="mt-1 text-[11px] text-white/45">Updated {updatedLabel}</p> : null}
     </div>
   );
-}
-
-function marketCardImageUrl(card: Pick<MarketCardResult, "id" | "imageUrl">) {
-  return card.imageUrl || `/api/card-image?id=${encodeURIComponent(card.id)}`;
 }
 
 function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPath: string }) {

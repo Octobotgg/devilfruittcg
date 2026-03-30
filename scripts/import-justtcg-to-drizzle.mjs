@@ -12,6 +12,7 @@ const DEFAULT_MAPPING_REPORT_PATH = path.join(ROOT, ".cache", "justtcg", "releas
 const DEFAULT_PRICE_DATA_PATH = path.join(ROOT, ".cache", "justtcg", "approved-price-sync-data.json");
 const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-releases.json");
 const DEFAULT_CHUNK_SIZE = 250;
+const JUSTTCG_MAX_PLAN_LIMIT = 20;
 
 const GAME_ID = "one-piece-card-game";
 const JUSTTCG_CARDS_URL = "https://api.justtcg.com/v1/cards";
@@ -47,6 +48,26 @@ const SEALED_TYPE_KEYWORDS = [
   ["box", "box"],
   ["pack", "pack"],
 ];
+
+export function describeRefreshPipeline() {
+  return [
+    {
+      step: "import",
+      command: "node scripts/import-justtcg-to-drizzle.mjs --apply",
+      liveWrites: false,
+    },
+    {
+      step: "verify",
+      command: "node scripts/run-pricing-verification.mjs",
+      liveWrites: false,
+    },
+    {
+      step: "publish",
+      command: "node scripts/publish-verified-prices.mjs",
+      liveWrites: true,
+    },
+  ];
+}
 
 function parseArgs(argv) {
   const args = {
@@ -100,8 +121,12 @@ function parseArgs(argv) {
     }
 
     if (value === "--updated-after") {
-      const parsed = Number.parseInt(argv[index + 1] || "", 10);
-      args.updatedAfter = Number.isFinite(parsed) ? parsed : null;
+      const raw = argv[index + 1];
+      const parsed = Number.parseInt(raw || "", 10);
+      if (!Number.isFinite(parsed)) {
+        throw new Error("--updated-after requires a numeric unix timestamp");
+      }
+      args.updatedAfter = parsed;
       index += 1;
       continue;
     }
@@ -313,7 +338,7 @@ function dedupeCards(cards) {
 async function fetchJusttcgCatalogPage({
   apiKey,
   game = GAME_ID,
-  limit = 100,
+  limit = JUSTTCG_MAX_PLAN_LIMIT,
   offset = 0,
   includeNullPrices = true,
   updatedAfter,
@@ -374,7 +399,7 @@ async function fetchJusttcgCatalogSince({
   apiKey,
   updatedAfter,
   game = GAME_ID,
-  limit = 100,
+  limit = JUSTTCG_MAX_PLAN_LIMIT,
   includeNullPrices = true,
 }) {
   const cards = [];
@@ -539,9 +564,34 @@ function stripVariantsFromRawProduct(raw) {
   return card;
 }
 
+function normalizeVariantIdPart(value) {
+  return cleanText(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function synthesizeProviderVariantId(product, rawVariant, overrides = {}) {
+  const productKey = cleanText(product?.external_product_id || product?.id || overrides.providerVariantId || "");
+  const conditionKey = normalizeVariantIdPart(overrides.condition || rawVariant?.condition || "");
+  const printingKey = normalizeVariantIdPart(overrides.printing || rawVariant?.printing || "");
+  const languageKey = normalizeVariantIdPart(overrides.language || rawVariant?.language || "");
+
+  if (!productKey || !conditionKey || !printingKey) return null;
+  if (languageKey && languageKey !== "english") {
+    return `${productKey}_${conditionKey}_${printingKey}_${languageKey}`;
+  }
+  return `${productKey}_${conditionKey}_${printingKey}`;
+}
+
 function buildExternalProductVariantRow(product, rawVariant, overrides = {}) {
   const providerVariantId = cleanText(
-    overrides.providerVariantId || rawVariant?.variantId || rawVariant?.variant_id || rawVariant?.id || "",
+    overrides.providerVariantId ||
+      rawVariant?.variantId ||
+      rawVariant?.variant_id ||
+      rawVariant?.id ||
+      synthesizeProviderVariantId(product, rawVariant, overrides) ||
+      "",
   );
   if (!providerVariantId) return null;
 
@@ -639,6 +689,37 @@ function mergeExternalProductRows(existing, nextRow) {
   };
 }
 
+function buildSyntheticVariantsFromPriceRow(row) {
+  const lastUpdatedAt = row?.last_updated_justtcg || row?.fetched_at || null;
+  const printing = cleanText(row?.printing || row?.raw_response?.printing || "Normal");
+  const language = cleanText(row?.language || row?.raw_response?.language || "English");
+  const variants = [];
+
+  if (row?.price_nm != null) {
+    variants.push({
+      condition: "Near Mint",
+      printing,
+      language,
+      price: row.price_nm,
+      lastUpdated: lastUpdatedAt,
+      priceHistory: null,
+    });
+  }
+
+  if (row?.price_lp != null) {
+    variants.push({
+      condition: "Lightly Played",
+      printing,
+      language,
+      price: row.price_lp,
+      lastUpdated: lastUpdatedAt,
+      priceHistory: null,
+    });
+  }
+
+  return variants;
+}
+
 function buildTcgplayerProductRow(product) {
   const tcgplayerId = cleanText(inferTcgplayerId(product));
   if (!tcgplayerId) return null;
@@ -665,6 +746,7 @@ function buildTcgplayerProductRow(product) {
 function buildExternalProducts(catalog, mappingReport, priceData, options) {
   const products = new Map();
   const variants = new Map();
+  const variantCountByProductId = new Map();
   const tcgplayerProducts = new Map();
 
   const addProduct = (raw, overrides = {}) => {
@@ -682,6 +764,14 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
     return products.get(row.id);
   };
 
+  const upsertVariant = (variantRow) => {
+    const existing = variants.get(variantRow.id);
+    variants.set(variantRow.id, mergeExternalProductVariantRows(existing, variantRow));
+    const productId = variantRow.external_product_id;
+    if (!productId) return;
+    variantCountByProductId.set(productId, (variantCountByProductId.get(productId) || 0) + (existing ? 0 : 1));
+  };
+
   const addVariants = (productRow, rawProduct) => {
     if (!productRow || !Array.isArray(rawProduct?.variants)) return;
 
@@ -691,9 +781,7 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
         priceHistoryPayload: rawVariant?.priceHistory || rawVariant?.price_history || null,
       });
       if (!variantRow) continue;
-
-      const existing = variants.get(variantRow.id);
-      variants.set(variantRow.id, mergeExternalProductVariantRows(existing, variantRow));
+      upsertVariant(variantRow);
     }
   };
 
@@ -732,7 +820,21 @@ function buildExternalProducts(catalog, mappingReport, priceData, options) {
     };
 
     const importedProduct = addProduct(raw || { id: justtcgId, name: row?.name || justtcgId }, overrides);
-    addVariants(importedProduct, raw);
+    if (!importedProduct) continue;
+    if (Array.isArray(raw?.variants) && raw.variants.length) {
+      addVariants(importedProduct, raw);
+      continue;
+    }
+    if ((variantCountByProductId.get(importedProduct.id) || 0) > 0) continue;
+
+    for (const syntheticVariant of buildSyntheticVariantsFromPriceRow(row)) {
+      const variantRow = buildExternalProductVariantRow(importedProduct, syntheticVariant, {
+        rawPayload: syntheticVariant,
+        priceHistoryPayload: syntheticVariant.priceHistory || null,
+      });
+      if (!variantRow) continue;
+      upsertVariant(variantRow);
+    }
   }
 
   const variantRowsByProductId = new Map();
@@ -1638,81 +1740,89 @@ async function applySeed(seed, options) {
   const incrementalSync = seed?.meta?.syncMode === "incremental";
 
   try {
-    await upsertRows(sql, "external_sources", seed.externalSources, ["id"], options.chunkSize);
-    await upsertRows(sql, "external_products", seed.externalProducts, ["id"], options.chunkSize);
-    await upsertRows(
-      sql,
-      "external_product_variants",
-      seed.externalProductVariants || [],
-      ["provider_variant_id"],
-      options.chunkSize,
-    );
-    await upsertRows(sql, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
-
-    await upsertRows(sql, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
-    await upsertRows(sql, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
-
-    if (!incrementalSync) {
-      const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(sql);
-      const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
-        seed.activeCardPrintAssignments,
-        seed.activeCardPrintVariantAssignments,
-        existingActiveCardPrintIds,
+    const runApply = async (db) => {
+      await upsertRows(db, "external_sources", seed.externalSources, ["id"], options.chunkSize);
+      await upsertRows(db, "external_products", seed.externalProducts, ["id"], options.chunkSize);
+      await upsertRows(
+        db,
+        "external_product_variants",
+        seed.externalProductVariants || [],
+        ["provider_variant_id"],
+        options.chunkSize,
       );
-      const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
+      await upsertRows(db, "sealed_products", seed.sealedProducts, ["id"], options.chunkSize);
 
-      await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", clearStage, options.chunkSize);
-      await applyActiveAssignments(sql, "card_prints", "id", "card_print_id", assignStage, options.chunkSize);
+      await upsertRows(db, "card_print_market_links", seed.cardPrintMarketLinks, ["id"], options.chunkSize);
+      await upsertRows(db, "sealed_product_market_links", seed.sealedProductMarketLinks, ["id"], options.chunkSize);
 
-      await deleteCurrentByCollectibleIds(
-        sql,
+      if (!incrementalSync) {
+        const existingActiveCardPrintIds = await fetchExistingActiveJusttcgCardPrintIds(db);
+        const authoritativeActiveCardPrintAssignments = buildAuthoritativeActiveCardPrintAssignments(
+          seed.activeCardPrintAssignments,
+          seed.activeCardPrintVariantAssignments,
+          existingActiveCardPrintIds,
+        );
+        const { clearStage, assignStage } = splitActiveAssignmentStages(authoritativeActiveCardPrintAssignments);
+
+        await applyActiveAssignments(db, "card_prints", "id", "card_print_id", clearStage, options.chunkSize);
+        await applyActiveAssignments(db, "card_prints", "id", "card_print_id", assignStage, options.chunkSize);
+
+        await deleteCurrentByCollectibleIds(
+          db,
+          "card_print_price_current",
+          "card_print_id",
+          JUSTTCG_SOURCE.id,
+          authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
+          options.chunkSize,
+        );
+      }
+
+      await upsertRows(
+        db,
         "card_print_price_current",
-        "card_print_id",
-        JUSTTCG_SOURCE.id,
-        authoritativeActiveCardPrintAssignments.map((row) => row.card_print_id),
+        seed.cardPrintPriceCurrent,
+        ["card_print_id", "source_id"],
         options.chunkSize,
       );
-    }
 
-    await upsertRows(
-      sql,
-      "card_print_price_current",
-      seed.cardPrintPriceCurrent,
-      ["card_print_id", "source_id"],
-      options.chunkSize,
-    );
+      const existingHistoryKeys = await fetchExistingHistoryKeys(db, seed.cardPrintPriceHistory || [], options.chunkSize);
+      const pendingHistory = filterPendingHistoryRows(seed.cardPrintPriceHistory || [], existingHistoryKeys);
+      await insertRows(db, "card_print_price_history", pendingHistory, options.chunkSize);
 
-    const existingHistoryKeys = await fetchExistingHistoryKeys(sql, seed.cardPrintPriceHistory || [], options.chunkSize);
-    const pendingHistory = filterPendingHistoryRows(seed.cardPrintPriceHistory || [], existingHistoryKeys);
-    await insertRows(sql, "card_print_price_history", pendingHistory, options.chunkSize);
-
-    if (!incrementalSync) {
-      await deleteCurrentByCollectibleIds(
-        sql,
+      if (!incrementalSync) {
+        await deleteCurrentByCollectibleIds(
+          db,
+          "sealed_product_price_current",
+          "sealed_product_id",
+          JUSTTCG_SOURCE.id,
+          seed.sealedProducts.map((row) => row.id),
+          options.chunkSize,
+        );
+      }
+      await upsertRows(
+        db,
         "sealed_product_price_current",
-        "sealed_product_id",
-        JUSTTCG_SOURCE.id,
-        seed.sealedProducts.map((row) => row.id),
+        seed.sealedProductPriceCurrent,
+        ["sealed_product_id", "source_id"],
         options.chunkSize,
       );
-    }
-    await upsertRows(
-      sql,
-      "sealed_product_price_current",
-      seed.sealedProductPriceCurrent,
-      ["sealed_product_id", "source_id"],
-      options.chunkSize,
-    );
 
-    const existingSnapshotKeys = await fetchExistingSnapshotKeys(sql, seed.priceSnapshots, options.chunkSize);
-    const seenSnapshotKeys = new Set(existingSnapshotKeys);
-    const newSnapshots = seed.priceSnapshots.filter((row) => {
-      const key = `${row.external_product_id}::${row.external_variant_id || ""}::${new Date(row.captured_at).toISOString()}`;
-      if (seenSnapshotKeys.has(key)) return false;
-      seenSnapshotKeys.add(key);
-      return true;
-    });
-    await insertRows(sql, "price_snapshots", newSnapshots, options.chunkSize);
+      const existingSnapshotKeys = await fetchExistingSnapshotKeys(db, seed.priceSnapshots, options.chunkSize);
+      const seenSnapshotKeys = new Set(existingSnapshotKeys);
+      const newSnapshots = seed.priceSnapshots.filter((row) => {
+        const key = `${row.external_product_id}::${row.external_variant_id || ""}::${new Date(row.captured_at).toISOString()}`;
+        if (seenSnapshotKeys.has(key)) return false;
+        seenSnapshotKeys.add(key);
+        return true;
+      });
+      await insertRows(db, "price_snapshots", newSnapshots, options.chunkSize);
+    };
+
+    if (typeof sql.begin === "function") {
+      await sql.begin(async (transactionSql) => runApply(transactionSql));
+    } else {
+      await runApply(sql);
+    }
   } finally {
     if (ownsConnection) {
       await sql.end({ timeout: 5 });
@@ -1760,6 +1870,10 @@ async function main() {
 
   await applySeed(seed, args);
   console.log("Applied JustTCG seed to Postgres");
+  console.log("Next steps:");
+  for (const step of describeRefreshPipeline().slice(1)) {
+    console.log(`- ${step.step}: ${step.command}`);
+  }
 }
 
 const isDirectRun = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
@@ -1773,6 +1887,7 @@ if (isDirectRun) {
 
 export {
   assertApplyPreconditions,
+  parseArgs,
   buildActiveCardPrintAssignments,
   buildAuthoritativeActiveCardPrintAssignments,
   buildIncrementalSeed,

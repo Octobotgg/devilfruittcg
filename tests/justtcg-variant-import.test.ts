@@ -525,6 +525,7 @@ test("fetchJusttcgCatalogSince requests updated_after without fuzzy search", asy
 
     assert.ok(requestedUrl);
     assert.match(requestedUrl || "", /updated_after=1774483200/);
+    assert.match(requestedUrl || "", /limit=20/);
     assert.match(requestedUrl || "", /game=one-piece-card-game/);
     assert.doesNotMatch(requestedUrl || "", /[?&]q=/);
     assert.equal(snapshot.cardCount, 0);
@@ -532,6 +533,43 @@ test("fetchJusttcgCatalogSince requests updated_after without fuzzy search", asy
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("parseArgs rejects an empty --updated-after value", async () => {
+  const { parseArgs } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  assert.throws(
+    () => parseArgs(["--updated-after", ""]),
+    /--updated-after requires a numeric unix timestamp/,
+  );
+});
+
+test("import script documents import, verify, and publish as separate explicit steps", async () => {
+  const module =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  assert.deepEqual(module.describeRefreshPipeline(), [
+    {
+      step: "import",
+      command: "node scripts/import-justtcg-to-drizzle.mjs --apply",
+      liveWrites: false,
+    },
+    {
+      step: "verify",
+      command: "node scripts/run-pricing-verification.mjs",
+      liveWrites: false,
+    },
+    {
+      step: "publish",
+      command: "node scripts/publish-verified-prices.mjs",
+      liveWrites: true,
+    },
+  ]);
 });
 
 test("applySeed incremental refresh updates an existing variant-backed current price row without full remap", async () => {
@@ -792,4 +830,60 @@ test("manual history apply skips rows that already exist by natural key", async 
   const pending = filterPendingHistoryRows([historyRow], existingKeys);
 
   assert.equal(pending.length, 0);
+});
+
+test("applySeed wraps full refresh writes in one transaction when begin() is available", async () => {
+  const { applySeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const operations: string[] = [];
+  type TransactionSql = {
+    begin<T>(work: (transaction: TransactionSql) => Promise<T>): Promise<T>;
+    unsafe(text: string): Promise<unknown[]>;
+    end(): Promise<void>;
+  };
+
+  const fakeSql: TransactionSql = {
+    async begin<T>(work: (transaction: TransactionSql) => Promise<T>) {
+      operations.push("begin");
+      const result = await work(fakeSql);
+      operations.push("commit");
+      return result;
+    },
+    async unsafe(text: string) {
+      const normalized = normalizeSql(text);
+      if (normalized.startsWith("select card_prints.id")) {
+        return [];
+      }
+      operations.push(normalized);
+      return [];
+    },
+    async end() {},
+  };
+
+  await applySeed(
+    {
+      externalSources: [],
+      externalProducts: [],
+      externalProductVariants: [],
+      sealedProducts: [],
+      cardPrintMarketLinks: [],
+      sealedProductMarketLinks: [],
+      activeCardPrintAssignments: [{ card_print_id: "OP01-001", active_external_product_id: "justtcg:luffy" }],
+      activeCardPrintVariantAssignments: [
+        { card_print_id: "OP01-001", active_external_variant_id: "justtcg:luffy-nm" },
+      ],
+      cardPrintPriceCurrent: [],
+      cardPrintPriceHistory: [],
+      sealedProductPriceCurrent: [],
+      priceSnapshots: [],
+      meta: { syncMode: "full" },
+    },
+    { chunkSize: 50, sql: fakeSql },
+  );
+
+  assert.equal(operations[0], "begin");
+  assert.equal(operations.at(-1), "commit");
 });

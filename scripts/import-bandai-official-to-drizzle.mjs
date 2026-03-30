@@ -18,6 +18,64 @@ const GAME = {
 
 const DEFAULT_CHUNK_SIZE = 250;
 const STANDARD_RELEASE_TYPES = new Set(["booster", "starter_deck", "premium_booster"]);
+const OP13_THIRD_ANNIVERSARY_CARD_IDS = [
+  "OP13-008",
+  "OP13-010",
+  "OP13-018",
+  "OP13-020",
+  "OP13-033",
+  "OP13-041",
+  "OP13-048",
+  "OP13-052",
+  "OP13-055",
+  "OP13-056",
+  "OP13-059",
+  "OP13-060",
+  "OP13-062",
+  "OP13-068",
+  "OP13-070",
+  "OP13-088",
+  "OP13-093",
+  "OP13-103",
+  "OP13-105",
+  "OP13-106",
+  "OP13-107",
+  "OP13-111",
+];
+const OP13_VARIANT_OVERRIDES = new Map(
+  [
+    ["OP09-118_p3", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+    ["OP09-004_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
+    ["OP09-051_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
+    ["OP09-093_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
+    ["OP09-119_p2", { variantType: "manga", variantFamily: "manga", variantLabel: "Manga", variantSlug: "manga_op09" }],
+    ["ST18-004_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op09" }],
+    ["OP11-058_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op13" }],
+    ...OP13_THIRD_ANNIVERSARY_CARD_IDS.map((id) => [
+      id,
+      {
+        variantType: "anniversary",
+        variantFamily: "anniversary",
+        variantLabel: "3rd Anniversary Tournament",
+        variantSlug: "third_anniversary_tournament_op13",
+      },
+    ]),
+    ["OP13-080_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+    ["OP13-083_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+    ["OP13-084_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+    ["OP13-089_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+    ["OP13-091_p2", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op13_print_2" }],
+    ["OP13-118_p2", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Super Alternate Art", variantSlug: "super_alternate_art_op13_print_2" }],
+    ["OP13-118_p3", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Red Super Alternate Art", variantSlug: "red_super_alternate_art_op13_print_3" }],
+    ["OP13-118_p4", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+    ["OP13-119_p2", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Super Alternate Art", variantSlug: "super_alternate_art_op13_print_2" }],
+    ["OP13-119_p3", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Red Super Alternate Art", variantSlug: "red_super_alternate_art_op13_print_3" }],
+    ["OP13-119_p4", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+    ["OP13-120_p2", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Super Alternate Art", variantSlug: "super_alternate_art_op13_print_2" }],
+    ["OP13-120_p3", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Red Super Alternate Art", variantSlug: "red_super_alternate_art_op13_print_3" }],
+    ["OP13-120_p4", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
+  ].map(([id, override]) => [id, Object.freeze(override)]),
+);
 
 function parseArgs(argv) {
   const args = {
@@ -194,6 +252,10 @@ function deriveVariantSlug(card, variantType, release) {
   return `${variantType}_${slugify(release.code || release.name || "release")}`;
 }
 
+function getVariantOverride(cardId) {
+  return OP13_VARIANT_OVERRIDES.get(String(cardId || "").trim()) || null;
+}
+
 function buildSearchText(card) {
   return [
     card.name,
@@ -310,8 +372,11 @@ function createCardRows(cards) {
 function createCardPrintRows(cards, releaseLookup) {
   return cards.map((card) => {
     const release = resolveReleaseRow(card, releaseLookup);
-    const variantType = deriveVariantType(card, release.release_type);
-    const variantFamily = deriveVariantFamily(card, variantType, release.release_type);
+    const variantOverride = getVariantOverride(card.id);
+    const derivedVariantType = deriveVariantType(card, release.release_type);
+    const variantType = variantOverride?.variantType || derivedVariantType;
+    const variantFamily =
+      variantOverride?.variantFamily || deriveVariantFamily(card, derivedVariantType, release.release_type);
     const releaseDateOverride = card.releaseDate && card.releaseDate !== release.release_date ? card.releaseDate : null;
 
     return {
@@ -322,12 +387,12 @@ function createCardPrintRows(cards, releaseLookup) {
       printed_card_code: card.id,
       variant_family: variantFamily,
       variant_type: variantType,
-      variant_label: deriveVariantLabel(card, variantType),
-      variant_slug: deriveVariantSlug(card, variantType, release),
+      variant_label: variantOverride?.variantLabel || deriveVariantLabel(card, variantType),
+      variant_slug: variantOverride?.variantSlug || deriveVariantSlug(card, variantType, release),
       is_reprint: Boolean(card.isReprint),
       is_pre_release: variantType === "pre_release" || variantFamily === "pre_release",
       is_alt_art: variantType === "alternate_art",
-      is_special_print: card.isVariant || !STANDARD_RELEASE_TYPES.has(release.release_type),
+      is_special_print: card.isVariant || variantType !== "base" || !STANDARD_RELEASE_TYPES.has(release.release_type),
       is_active: true,
       image_url: card.imageUrl || null,
       release_date_override: releaseDateOverride,

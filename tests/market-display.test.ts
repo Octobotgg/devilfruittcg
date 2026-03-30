@@ -204,6 +204,35 @@ test("marketPriceDisplay uses an explicit unpriced state when no market price ex
   );
 });
 
+test("marketCardImageUrl proxies official Bandai-hosted images but keeps safe external images direct", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  assert.equal(
+    marketDisplay.marketCardImageUrl({
+      id: "OP13-119_p2",
+      imageUrl: "https://en.onepiece-cardgame.com/images/cardlist/card/OP13-119_p2.png?260305",
+    }),
+    "/api/card-image?id=OP13-119_p2",
+  );
+
+  assert.equal(
+    marketDisplay.marketCardImageUrl({
+      id: "OP13-119_p2",
+      imageUrl: "https://images.justtcg.com/cards/op13-119-p2.png",
+    }),
+    "https://images.justtcg.com/cards/op13-119-p2.png",
+  );
+
+  assert.equal(
+    marketDisplay.marketCardImageUrl({
+      id: "OP13-119_p2",
+      imageUrl: null,
+    }),
+    "/api/card-image?id=OP13-119_p2",
+  );
+});
+
 test("marketEmptyStateCopy adapts to search and active filters", async () => {
   const marketDisplay =
     await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");

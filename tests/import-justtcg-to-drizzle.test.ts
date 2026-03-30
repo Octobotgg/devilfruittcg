@@ -770,6 +770,355 @@ test("buildSeed trusts official event verified mappings even below 0.95 confiden
   assert.equal(link?.approved_by, "auto_approval");
 });
 
+test("buildSeed trusts reviewed premium exact-set winners into active runtime pricing", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const productId = "one-piece-card-game-carrying-on-his-will-portgas-d-ace-119-red-super-alternate-art-secret-rare";
+  const variantId = `${productId}_near-mint_foil`;
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-29T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP13-119_p3",
+            confidence: "medium",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            confidenceReasons: [
+              "review_pass_auto_approved",
+              "premium_exact_set_match",
+              "single_set_matched_premium_after_review",
+              "final_aggressive_review_pass",
+              "premium_lane",
+              "multiple_premium_candidates_correct_set",
+              "multiple_candidates",
+              "premium_hint_mismatch",
+            ],
+            notes: "Review pass auto-approved: single_set_matched_premium_after_review",
+            bestCandidate: {
+              id: productId,
+              name: "Portgas.D.Ace (119) (Red Super Alternate Art)",
+              set: "Carrying On His Will",
+              tcgplayerId: "657406",
+              exactNumber: true,
+              exactName: true,
+              setMatches: true,
+              variants: [
+                {
+                  variantId,
+                  condition: "Near Mint",
+                  printing: "Foil",
+                  language: "English",
+                  price: 4420.37,
+                  lastUpdated: "2026-03-29T00:00:00.000Z",
+                },
+              ],
+              lastUpdated: "2026-03-29T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "CARRYING ON HIS WILL [OP-13]",
+              releaseCode: "OP13",
+              canonicalId: "OP13-119_red_super_alternate_art_op13_print_3",
+              variantSlug: "red_super_alternate_art_op13_print_3",
+              variantLabel: "Red Super Alternate Art",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-29T00:00:00.000Z",
+        fetchedAt: "2026-03-29T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP13-119_p3",
+            justtcg_id: productId,
+            price_nm: 4420.37,
+            price_lp: 3315.28,
+            last_updated_justtcg: "2026-03-29T00:00:00.000Z",
+            fetched_at: "2026-03-29T00:05:00.000Z",
+            raw_response: {
+              id: productId,
+              name: "Portgas.D.Ace (119) (Red Super Alternate Art)",
+              set: "Carrying On His Will",
+              number: "OP13-119",
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "OP13-119_p3",
+      active_external_product_id: `justtcg:${productId}`,
+    },
+  ]);
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, [
+    {
+      card_print_id: "OP13-119_p3",
+      active_external_variant_id: `justtcg:${variantId}`,
+    },
+  ]);
+  assert.equal(seed.cardPrintPriceCurrent.length, 1);
+
+  const link = seed.cardPrintMarketLinks.find((entry) => entry.card_print_id === "OP13-119_p3");
+  assert.equal(link?.mapping_status, "exact");
+  assert.equal(link?.approved_by, "auto_approval");
+});
+
+test("buildSeed synthesizes stable variant IDs when JustTCG omits variantId for a priced card", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const productId = "one-piece-card-game-carrying-on-his-will-portgas-d-ace-002-leader";
+  const synthesizedVariantId = `${productId}_near-mint_normal`;
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-29T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP13-002",
+            confidence: "0.99",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            confidenceReasons: [
+              "live_justtcg_exact_print_match",
+              "leader_recovery_batch",
+            ],
+            notes: "Leader recovery batch from live JustTCG + set/variant matching",
+            bestCandidate: {
+              id: productId,
+              name: "Portgas.D.Ace (002)",
+              set: "Carrying On His Will",
+              tcgplayerId: "657252",
+              variants: [
+                {
+                  variantId: null,
+                  condition: "Near Mint",
+                  printing: "Normal",
+                  language: "English",
+                  price: 0.13,
+                  lastUpdated: 1774800184,
+                },
+                {
+                  variantId: null,
+                  condition: "Lightly Played",
+                  printing: "Normal",
+                  language: "English",
+                  price: 0.14,
+                  lastUpdated: 1774800184,
+                },
+              ],
+              lastUpdated: "2026-03-29T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "CARRYING ON HIS WILL [OP-13]",
+              releaseCode: "OP13",
+              canonicalId: null,
+              variantSlug: "base",
+              variantLabel: "Base",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-29T00:00:00.000Z",
+        fetchedAt: "2026-03-29T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP13-002",
+            justtcg_id: productId,
+            price_nm: 0.13,
+            price_lp: 0.14,
+            last_updated_justtcg: "2026-03-29T00:00:00.000Z",
+            fetched_at: "2026-03-29T00:05:00.000Z",
+            raw_response: {
+              id: productId,
+              name: "Portgas.D.Ace (002)",
+              set: "Carrying On His Will",
+              number: "OP13-002",
+              variants: [
+                {
+                  variantId: null,
+                  condition: "Near Mint",
+                  printing: "Normal",
+                  language: "English",
+                  price: 0.13,
+                  lastUpdated: 1774800184,
+                },
+              ],
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintAssignments, [
+    {
+      card_print_id: "OP13-002",
+      active_external_product_id: `justtcg:${productId}`,
+    },
+  ]);
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, [
+    {
+      card_print_id: "OP13-002",
+      active_external_variant_id: `justtcg:${synthesizedVariantId}`,
+    },
+  ]);
+  assert.deepEqual(seed.cardPrintPriceCurrent, [
+    {
+      card_print_id: "OP13-002",
+      source_id: "justtcg",
+      external_product_id: `justtcg:${productId}`,
+      external_variant_id: `justtcg:${synthesizedVariantId}`,
+      price_market: 0.13,
+      price_nm: 0.13,
+      price_lp: 0.14,
+      price_change_24h: null,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: "2026-03-29T00:00:00.000Z",
+      fetched_at: "2026-03-29T00:05:00.000Z",
+    },
+  ]);
+});
+
+test("buildSeed synthesizes variant rows from flat JustTCG price sync data when variants are missing", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const productId = "one-piece-card-game-carrying-on-his-will-portgas-d-ace-002-leader";
+  const synthesizedVariantId = `${productId}_near-mint_normal`;
+
+  const seed = buildSeed(
+    {
+      catalog: null,
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-29T00:00:00.000Z",
+        results: [
+          {
+            cardId: "OP13-002",
+            confidence: "0.99",
+            status: "auto_approved",
+            searchMethod: "live_number_lookup",
+            confidenceReasons: ["live_justtcg_exact_print_match", "leader_recovery_batch"],
+            notes: "Leader recovery batch from live JustTCG + set/variant matching",
+            bestCandidate: {
+              id: productId,
+              name: "Portgas.D.Ace (002)",
+              set: "Carrying On His Will",
+              tcgplayerId: "657252",
+              lastUpdated: "2026-03-29T00:00:00.000Z",
+            },
+            cardPrintContext: {
+              setName: "CARRYING ON HIS WILL [OP-13]",
+              releaseCode: "OP13",
+              canonicalId: null,
+              variantSlug: "base",
+              variantLabel: "Base",
+            },
+          },
+        ],
+      },
+      priceData: {
+        generatedAt: "2026-03-29T00:00:00.000Z",
+        fetchedAt: "2026-03-29T00:00:00.000Z",
+        priceRows: [
+          {
+            devilfruit_id: "OP13-002",
+            justtcg_id: productId,
+            price_nm: 0.12,
+            price_lp: 0.14,
+            last_updated_justtcg: "2026-03-29T00:00:00.000Z",
+            fetched_at: "2026-03-29T00:05:00.000Z",
+            raw_response: {
+              id: productId,
+              name: "Portgas.D.Ace (002)",
+              set: "Carrying On His Will",
+              tcgplayerId: "657252",
+              image: null,
+            },
+          },
+        ],
+        historyRows: [],
+        missing: [],
+      },
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+    },
+  );
+
+  assert.deepEqual(seed.activeCardPrintVariantAssignments, [
+    {
+      card_print_id: "OP13-002",
+      active_external_variant_id: `justtcg:${synthesizedVariantId}`,
+    },
+  ]);
+  assert.deepEqual(seed.cardPrintPriceCurrent, [
+    {
+      card_print_id: "OP13-002",
+      source_id: "justtcg",
+      external_product_id: `justtcg:${productId}`,
+      external_variant_id: `justtcg:${synthesizedVariantId}`,
+      price_market: 0.12,
+      price_nm: 0.12,
+      price_lp: 0.14,
+      price_change_24h: null,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: "2026-03-29T00:00:00.000Z",
+      fetched_at: "2026-03-29T00:05:00.000Z",
+    },
+  ]);
+});
+
 test("buildSeed uses the Near Mint JustTCG variant as the canonical runtime price source", async () => {
   const { buildSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(

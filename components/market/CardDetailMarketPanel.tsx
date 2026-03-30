@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ExternalLink, Loader2, Minus, TrendingDown, TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import type { MarketData } from "@/lib/ebay";
+import { resolveCardDetailPricingState } from "@/lib/market-detail-pricing";
 
 type MarketResponse = MarketData & {
   cached?: boolean;
@@ -91,6 +92,7 @@ export default function CardDetailMarketPanel({
   const loading = !market && !error;
   const history = historyCache[cardId]?.[range] || [];
   const tcgDetail = tcgDetailCache[cardId]?.[range] || null;
+  const hasResolvedTcgPrice = Boolean(tcgDetailCache[cardId]?.[range]);
   const tcgPrice =
     tcgDetail?.price ||
     Object.values(tcgDetailCache[cardId] || {}).find((entry) => entry?.price)?.price ||
@@ -257,19 +259,36 @@ export default function CardDetailMarketPanel({
 
   if (!market) return null;
 
+  const pricingState = resolveCardDetailPricingState({
+    market,
+    tcgPrice,
+    hasResolvedTcgPrice,
+  });
+  const showLegacySnapshot = pricingState.mode === "legacy";
+
   const updatedAt = justTcgAvailable
     ? tcgPrice.updatedAt || tcgPrice.fetchedAt || null
-    : market.freshness?.updatedAt || market.lastUpdated || null;
+    : showLegacySnapshot
+      ? market.freshness?.updatedAt || market.lastUpdated || null
+      : null;
   const updatedLabel = updatedAt ? new Date(updatedAt).toLocaleString() : "Unknown";
-  const stale = justTcgAvailable ? Boolean(tcgDetail?.freshness?.stale ?? tcgPrice.stale) : Boolean(market.freshness?.stale);
+  const stale = justTcgAvailable
+    ? Boolean(tcgDetail?.freshness?.stale ?? tcgPrice.stale)
+    : showLegacySnapshot
+      ? Boolean(market.freshness?.stale)
+      : true;
   const weeklyTrendValue = justTcgAvailable && typeof tcgPrice.priceChange7d === "number" ? tcgPrice.priceChange7d : null;
-  const trendDirection = weeklyTrendValue !== null ? trendDirectionFromValue(weeklyTrendValue) : market.trend.direction;
-  const trendValueLabel = weeklyTrendValue !== null ? formatTrendValue(weeklyTrendValue) : String(market.trend.percent);
+  const trendDirection = weeklyTrendValue !== null ? trendDirectionFromValue(weeklyTrendValue) : showLegacySnapshot ? market.trend.direction : "flat";
+  const trendValueLabel = weeklyTrendValue !== null ? formatTrendValue(weeklyTrendValue) : showLegacySnapshot ? String(market.trend.percent) : "0";
   const trendTone = trendDirection === "up" ? "text-emerald-300" : trendDirection === "down" ? "text-red-300" : "text-white/55";
-  const headlinePrice = justTcgAvailable ? (tcgPrice.marketPrice ?? market.ebay.averagePrice) : market.ebay.averagePrice;
-  const priceHistory = justTcgAvailable ? tcgDetail?.points || [] : history;
+  const headlinePrice = pricingState.headlinePrice;
+  const priceHistory = justTcgAvailable ? tcgDetail?.points || [] : showLegacySnapshot ? history : [];
   const historyHasEnoughPoints = priceHistory.length > 1;
-  const footerProvider = justTcgAvailable ? tcgDetail?.source?.provider || "JustTCG cache" : market.source?.provider;
+  const footerProvider = justTcgAvailable
+    ? tcgDetail?.source?.provider || "JustTCG cache"
+    : showLegacySnapshot
+      ? market.source?.provider
+      : tcgDetail?.source?.provider || "JustTCG read model";
 
   return (
     <div className="space-y-5">
@@ -277,11 +296,15 @@ export default function CardDetailMarketPanel({
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-[11px] uppercase tracking-[0.18em] text-[#F0C040]">Market Snapshot</p>
-            <p className="mt-2 text-4xl font-black text-[#F0C040]">${headlinePrice.toFixed(2)}</p>
+            <p className="mt-2 text-4xl font-black text-[#F0C040]">
+              {typeof headlinePrice === "number" ? `$${headlinePrice.toFixed(2)}` : "Unpriced"}
+            </p>
             <p className="mt-1 text-sm text-white/45">
               {justTcgAvailable
                 ? `TCG Market · Updated ${updatedLabel}`
-                : `Average of the last ${market.ebay.saleCount} eBay comps`}
+                : showLegacySnapshot
+                  ? `Average of the last ${market.ebay.saleCount} eBay comps`
+                  : "No approved JustTCG Near Mint price for this print"}
             </p>
           </div>
 
@@ -296,7 +319,7 @@ export default function CardDetailMarketPanel({
             { label: "eBay Low", value: market.ebay.lowestPrice },
             { label: "eBay Avg", value: market.ebay.averagePrice },
             { label: "eBay High", value: market.ebay.highestPrice },
-            { label: "TCG Market", value: justTcgAvailable ? tcgPrice.marketPrice : market.tcgplayer.market },
+            { label: "TCG Market", value: justTcgAvailable ? tcgPrice.marketPrice : showLegacySnapshot ? market.tcgplayer.market : null },
           ].map((item) => (
             <div key={item.label} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
               <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">{item.label}</p>
@@ -309,7 +332,7 @@ export default function CardDetailMarketPanel({
 
         <p className={`mt-4 text-xs ${stale ? "text-amber-300/90" : "text-white/40"}`}>
           {footerProvider || "Cache"}
-          {(justTcgAvailable ? tcgPrice.cached : market.cached) ? " · cached" : ""}
+          {(justTcgAvailable ? tcgPrice.cached : showLegacySnapshot ? market.cached : false) ? " · cached" : ""}
           {stale ? " · stale" : ""}
         </p>
       </div>
@@ -321,7 +344,9 @@ export default function CardDetailMarketPanel({
             <p className="text-sm text-white/45">
               {justTcgAvailable
                 ? "Tracks cached JustTCG market pricing for the selected print."
-                : "Tracks cached eBay average and TCG market snapshots."}
+                : showLegacySnapshot
+                  ? "Tracks cached eBay average and TCG market snapshots."
+                  : "No approved JustTCG price history for this print yet."}
             </p>
           </div>
 
@@ -371,7 +396,9 @@ export default function CardDetailMarketPanel({
             <div className="flex h-full items-center justify-center text-sm text-white/45">
               {justTcgAvailable
                 ? "Price tracking started — history building."
-                : "Not enough history yet. Open the card again later as the cache fills in."}
+                : showLegacySnapshot
+                  ? "Not enough history yet. Open the card again later as the cache fills in."
+                  : "This print is currently unpriced in the approved JustTCG model."}
             </div>
           )}
         </div>

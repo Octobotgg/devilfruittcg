@@ -61,6 +61,17 @@ test("detectVariantHints recognizes richer premium treatments from official card
     }),
     ["treasure_rare"],
   );
+
+  assert.deepEqual(
+    detectVariantHints({
+      id: "OP13-118_p4",
+      variantLabel: "Wanted Poster",
+      variantSlug: "wanted_poster_op13",
+      rarity: "SEC",
+      name: "Monkey.D.Luffy",
+    }),
+    ["wanted_poster"],
+  );
 });
 
 test("candidatePremiumHints recognizes richer premium treatments from JustTCG titles", async () => {
@@ -103,5 +114,44 @@ test("candidatePremiumHints recognizes richer premium treatments from JustTCG ti
       set: "Awakening of the New Era",
     }),
     ["treasure_rare"],
+  );
+
+  assert.deepEqual(
+    candidatePremiumHints({
+      id: "one-piece-card-game-carrying-on-his-will-monkey-d-luffy-118-wanted-poster-secret-rare",
+      name: "Monkey.D.Luffy (118) (Wanted Poster)",
+      set: "Carrying On His Will",
+    }),
+    ["wanted_poster"],
+  );
+});
+
+test("detectVariantLane treats explicit special-print metadata as premium even without a variant suffix", async () => {
+  const { detectVariantLane, classifyCatalogCard } =
+    await importModule<typeof import("../scripts/lib/justtcg-matcher.mjs")>(
+      "scripts/lib/justtcg-matcher.mjs",
+    );
+
+  assert.equal(
+    detectVariantLane({
+      id: "OP13-008",
+      isVariant: true,
+      variantType: "anniversary",
+      variantLabel: "3rd Anniversary Tournament",
+      variantSlug: "third_anniversary_tournament_op13",
+    }),
+    "premium",
+  );
+
+  assert.deepEqual(
+    classifyCatalogCard({
+      id: "one-piece-card-game-carrying-on-his-will-3rd-anniversary-tournament-cards-emporio-ivankov-common",
+      name: "Emporio.Ivankov",
+      set_name: "Carrying On His Will: 3rd Anniversary Tournament Cards",
+    }),
+    {
+      bucket: "premium_candidate",
+      reason: "premium_hint:anniversary",
+    },
   );
 });
