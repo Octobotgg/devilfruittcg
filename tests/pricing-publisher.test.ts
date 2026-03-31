@@ -848,6 +848,114 @@ test("postgres bootstrap adapter falls back to card print treatment labels when 
   );
 });
 
+test("postgres bootstrap adapter recomputes specific provider treatments when stored display labels are generic fallbacks", async () => {
+  const { createPostgresBootstrapAdapter } =
+    await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
+      "scripts/bootstrap-published-pricing.mjs",
+    );
+
+  const adapter = await createPostgresBootstrapAdapter({
+    begin: async (work: () => Promise<unknown>) => work(),
+    unsafe: async (query: string) => {
+      if (query.includes("from card_print_price_current current_prices")) {
+        return [
+          {
+            cardPrintId: "OP05-010_p2",
+            sourceId: "justtcg",
+            externalProductId: "product-nico-robin-full-art",
+            externalVariantId: "variant-nico-robin-full-art",
+            priceMarket: 30.72,
+            priceNm: 30.72,
+            priceLp: 25.11,
+            updatedAt: "2026-03-31T00:00:00.000Z",
+            officialName: "Nico Robin",
+            officialSetName: "ONE PIECE CARD THE BEST [PRB-01]",
+            officialSetCode: "PRB01",
+            officialRarity: "UC",
+            displaySetName: "ONE PIECE CARD THE BEST [PRB-01]",
+            displaySetCode: "PRB01",
+            displayRarity: "UC",
+            displayTitle: "Nico Robin",
+            displayTreatmentLabel: "Alternate Art",
+            displayImageUrl: "https://img.example/nico-robin.jpg",
+            labelStatus: "verified",
+            cardPrintVariantLabel: "Alternate Art",
+            cardPrintImageUrl: "https://img.example/nico-robin-card.jpg",
+            providerProductName: "Nico Robin (Full Art)",
+            providerProductUrlName: "nico-robin-full-art-op05-010",
+            providerSetName: "Premium Booster -The Best-",
+            providerTreatment: null,
+            providerImageUrl: "https://img.example/nico-robin-provider.jpg",
+          },
+        ];
+      }
+
+      return [];
+    },
+  } as never);
+
+  const candidates = await adapter.loadBootstrapCandidates();
+
+  assert.equal(candidates.length, 1);
+  assert.equal(candidates[0]?.displayTreatmentLabel, "Full Art");
+  assert.equal(candidates[0]?.labelStatus, "verified");
+  assert.equal(candidates[0]?.displayImageUrl, "https://img.example/nico-robin-provider.jpg");
+});
+
+test("postgres bootstrap adapter clears mirrored generic treatment chips when the provider product is a plain base printing", async () => {
+  const { createPostgresBootstrapAdapter } =
+    await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
+      "scripts/bootstrap-published-pricing.mjs",
+    );
+
+  const adapter = await createPostgresBootstrapAdapter({
+    begin: async (work: () => Promise<unknown>) => work(),
+    unsafe: async (query: string) => {
+      if (query.includes("from card_print_price_current current_prices")) {
+        return [
+          {
+            cardPrintId: "OP05-060_p3",
+            sourceId: "justtcg",
+            externalProductId: "product-st18-base",
+            externalVariantId: "variant-st18-base",
+            priceMarket: 0.3,
+            priceNm: 0.3,
+            priceLp: 0.12,
+            updatedAt: "2026-03-31T00:00:00.000Z",
+            officialName: "Monkey.D.Luffy",
+            officialSetName: "Purple Monkey.D.Luffy [ST-18]",
+            officialSetCode: "ST18",
+            officialRarity: "L",
+            displaySetName: "Purple Monkey.D.Luffy [ST-18]",
+            displaySetCode: "ST18",
+            displayRarity: "L",
+            displayTitle: "Monkey.D.Luffy",
+            displayTreatmentLabel: "Alternate Art",
+            displayImageUrl: "https://img.example/luffy-card.jpg",
+            labelStatus: "verified",
+            cardPrintVariantLabel: "Alternate Art",
+            cardPrintImageUrl: "https://img.example/luffy-card.jpg",
+            providerProductName: "Monkey.D.Luffy (OP05-060)",
+            providerProductUrlName: "monkey-d-luffy-op05-060-st18",
+            providerSetName: "Purple Monkey.D.Luffy [ST-18]",
+            providerTreatment: null,
+            providerImageUrl: "https://img.example/luffy-provider.jpg",
+          },
+        ];
+      }
+
+      return [];
+    },
+  } as never);
+
+  const candidates = await adapter.loadBootstrapCandidates();
+
+  assert.equal(candidates.length, 1);
+  assert.equal(candidates[0]?.displayTreatmentLabel, null);
+  assert.equal(candidates[0]?.labelStatus, "verified");
+  assert.equal(candidates[0]?.displayImageUrl, "https://img.example/luffy-provider.jpg");
+});
+
 test("bootstrapPublishedPricing skips blocked or incomplete non-live candidates without blanking existing published rows", async () => {
   const { bootstrapPublishedPricing } =
     await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(
