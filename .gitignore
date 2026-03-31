@@ -26,6 +26,7 @@
 .cache/
 .tmp/
 /test-results/
+.playwright-cli/
 .octo-project-root
 .worktrees/
 DevilFruitTCG_Project_Map.xlsx

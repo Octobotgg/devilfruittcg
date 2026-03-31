@@ -28,6 +28,10 @@ JustTCG is the runtime pricing source for candidate imports. TCGplayer is the au
 
 The website reads published verified prices and published verified labels, not raw refresh output. That keeps failed refreshes and mapping drift out of the live UI.
 
+## Workflow
+
+- LLM/GitHub workflow guide: [docs/llm-development-workflow.md](./docs/llm-development-workflow.md)
+
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, TypeScript)
