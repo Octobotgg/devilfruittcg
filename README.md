@@ -32,6 +32,12 @@ The website reads published verified prices and published verified labels, not r
 
 - LLM/GitHub workflow guide: [docs/llm-development-workflow.md](./docs/llm-development-workflow.md)
 
+## LLM Context
+
+- Quick handoff brief: [PROJECT_BRIEF.md](./PROJECT_BRIEF.md)
+- Full operating manual: [LLM_CONTEXT.md](./LLM_CONTEXT.md)
+- Pricing runbook: [docs/backend-pricing-verifier-runbook.md](./docs/backend-pricing-verifier-runbook.md)
+
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, TypeScript)
