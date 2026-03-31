@@ -12,8 +12,9 @@ If context is limited, read these in order:
 
 1. `PROJECT_BRIEF.md`
 2. `README.md`
-3. `docs/llm-development-workflow.md`
-4. this file
+3. `docs/one-piece-optcg-understanding.md`
+4. `docs/llm-development-workflow.md`
+5. this file
 
 Use `PROJECT_MAP.md` only as a navigation/reference file, not as the main source of truth.
 
@@ -59,6 +60,36 @@ The current major backend focus is the pricing system:
 
 The site should only show prices and labels it can trust.
 
+## Product Vision
+
+Before touching implementation details, an LLM should understand this:
+
+- DevilFruit is trying to become the **One Piece TCG home base**.
+- It should feel whole and inevitable, not like a stitched-together utility bundle.
+- It should feel like the people building it actually understand One Piece.
+- It should feel sharp, premium, clean, and trustworthy.
+- It should not sound like generic SaaS, a dry wiki, or filler-heavy product copy.
+- Accuracy beats coverage when trust is on the line.
+- Real player usefulness beats shallow feature breadth.
+
+## What The Product Should Feel Like
+
+The intended product feel is:
+
+- strong One Piece atmosphere
+- premium and polished
+- sharp and competitive
+- collector-aware
+- clear and easy to understand
+
+The emotional themes to preserve are:
+
+- adventure / discovery
+- inherited will
+- freedom
+
+Use One Piece references with discipline. The point is to preserve the soul, not to make the product corny or lore-dense.
+
 ---
 
 ## Non-Negotiable Rules
@@ -74,6 +105,7 @@ The site should only show prices and labels it can trust.
 - only edit files directly related to the task
 - do not mix unrelated outcomes in one branch
 - if a task turns into multiple outcomes, split it
+- do not drift into “while I’m here” changes
 
 ### 3. Prefer existing files over new files
 
@@ -101,6 +133,12 @@ The pipeline is:
 `JustTCG candidate import -> verification against TCGplayer -> publish verified rows -> live website reads published rows`
 
 If a row is unclear, the correct fallback is `Unpriced`, not a guessed sibling price.
+
+### 5A. Do not design from comparison first
+
+- do not frame DevilFruit as copying another site
+- do not write product-facing thinking around competitor references
+- design from DevilFruit’s own vision first
 
 ### 6. Shared files are protected
 
@@ -144,9 +182,32 @@ Before claiming a fix is complete:
 - run `npx tsc --noEmit` when TypeScript behavior may be affected
 - report what actually passed
 
+### 10. Research before acting when the area is meaning-sensitive
+
+If the task is sensitive to:
+
+- One Piece tone
+- OPTCG gameplay logic
+- pricing trust
+- collector treatment labels
+- matchup/deck logic
+
+then research first, act second.
+
 ---
 
 ## Current Architecture
+
+## Three Worlds An LLM Should Understand
+
+Before doing meaningful product work, the LLM should understand:
+
+1. **One Piece as a story and value system**
+   Focus on themes and tone, not just lore.
+2. **The One Piece Card Game as players actually experience it**
+   Focus on gameplay, decks, matchups, leaders, staples, and collector/product structure.
+3. **DevilFruit as a product**
+   A premium-feeling One Piece TCG home base where trust matters.
 
 ## Card Identity Source Of Truth
 
@@ -259,6 +320,10 @@ For branch/repo hygiene, read this guide:
 
 - `docs/llm-development-workflow.md`
 
+For One Piece + OPTCG understanding, read this guide:
+
+- `docs/one-piece-optcg-understanding.md`
+
 ---
 
 ## Low-Trust Or Reference-Only Files
@@ -284,5 +349,9 @@ If a historical doc disagrees with current code, trust the current code.
 - let one integrator own final verification, commit, and push
 - prefer small, reviewable steps inside the branch
 - expect squash merge to `main`
+- surface the important thing quickly
+- do not dump raw data without helping users understand it
+- clarity beats cleverness
+- earn emotion through quality, not filler
 
 If the branch starts telling more than one story, stop and split it.

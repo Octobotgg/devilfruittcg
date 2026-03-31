@@ -36,6 +36,7 @@ The website reads published verified prices and published verified labels, not r
 
 - Quick handoff brief: [PROJECT_BRIEF.md](./PROJECT_BRIEF.md)
 - Full operating manual: [LLM_CONTEXT.md](./LLM_CONTEXT.md)
+- One Piece + OPTCG understanding guide: [docs/one-piece-optcg-understanding.md](./docs/one-piece-optcg-understanding.md)
 - Pricing runbook: [docs/backend-pricing-verifier-runbook.md](./docs/backend-pricing-verifier-runbook.md)
 
 ## Tech Stack

@@ -9,14 +9,53 @@ For deeper operating rules, also read:
 
 ## What This Project Is
 
-DevilFruit TCG is a One Piece TCG site with:
+DevilFruit TCG is meant to become the **One Piece TCG home base**.
 
-- card browsing and card detail
-- market search and pricing
-- collection tracking
-- deck building and valuation
-- meta/matchup data
-- account/auth support
+It is not supposed to feel like a bundle of tools or a generic dashboard. It should feel whole, intentional, and native to the world of One Piece TCG.
+
+Its core pillars are:
+
+- matchup matrix
+- deck building
+- market/pricing
+
+The wider product can still include collection tracking, meta, account features, and future systems, but those three pillars are the current spine.
+
+## Product Vision
+
+An LLM should understand this before it changes anything:
+
+- DevilFruit should feel like the One Piece TCG home base.
+- It should feel self-contained and whole, not fragmented.
+- It should feel like the people behind it understand One Piece.
+- Accuracy and trust matter more than fake completeness.
+- Strong One Piece atmosphere matters, but it should still feel premium and easy to trust.
+- Every word should earn its place.
+
+## Product Feel
+
+The product should feel:
+
+- sharp and competitive
+- premium and collectible
+- clean and trustworthy
+
+It should not feel like:
+
+- generic SaaS
+- a dry wiki
+- a loud hype brand
+- filler-heavy product copy
+
+## One Piece Soul
+
+The clearest themes to preserve are:
+
+- adventure / discovery
+- inherited will
+- freedom
+
+Use One Piece flavor often, but with discipline. The goal is not cosplay or fanfic. The goal is to make the product feel like it belongs in that world.
 
 ## Current Architecture In One Paragraph
 
@@ -27,7 +66,8 @@ Card identity comes from the official Bandai English card catalog. Pricing comes
 1. `README.md`
 2. `LLM_CONTEXT.md`
 3. `docs/llm-development-workflow.md`
-4. `docs/backend-pricing-verifier-runbook.md` if the task touches pricing
+4. `docs/one-piece-optcg-understanding.md`
+5. `docs/backend-pricing-verifier-runbook.md` if the task touches pricing
 
 ## Main Runtime Truths
 
@@ -56,10 +96,14 @@ Card identity comes from the official Bandai English card catalog. Pricing comes
 
 ## Important Rules
 
+- Do not design from comparison first.
+- Do not frame DevilFruit as a clone of anything else.
 - Verify the current working directory before editing.
 - Stay inside the requested scope.
 - Do not guess with card data.
 - Do not guess with pricing.
+- Understand the game, not just the data fields.
+- Understand One Piece through its themes and values, not just references.
 - Keep scratch files out of git.
 - Verify before claiming success.
 
@@ -73,6 +117,7 @@ Read these first:
 2. README.md
 3. LLM_CONTEXT.md
 4. docs/llm-development-workflow.md
+5. docs/one-piece-optcg-understanding.md
 
 Use PROJECT_MAP.md only as a navigation aid, not as the main source of truth.
 
