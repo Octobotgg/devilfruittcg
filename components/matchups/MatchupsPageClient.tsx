@@ -20,6 +20,7 @@ import {
 } from "@/lib/meta-decks";
 import CardModal, { type CardModalData } from "@/components/CardModal";
 import { insightTimeRangeLabel } from "@/lib/competitive-time-range";
+import { getMatchupRefreshCopy } from "@/lib/matchup-refresh-state";
 
 export type MatchupsLeader = {
   id: string;
@@ -80,6 +81,42 @@ function cleanDeckDescription(text?: string) {
   return t || "Tournament matchup profile";
 }
 
+function LogPoseLoader({ compact = false }: { compact?: boolean }) {
+  const shellSize = compact ? "h-5 w-5" : "h-16 w-16";
+  const outerInset = compact ? "12%" : "10%";
+  const innerInset = compact ? "28%" : "24%";
+  const needleHeight = compact ? "h-2.5" : "h-7";
+  const needleWidth = compact ? "w-[2px]" : "w-[3px]";
+  const centerSize = compact ? "h-2 w-2" : "h-3.5 w-3.5";
+
+  return (
+    <div className={`relative ${shellSize} shrink-0`}>
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full border border-[#F0C040]/30 bg-[radial-gradient(circle_at_30%_30%,rgba(240,192,64,0.18),transparent_45%),radial-gradient(circle_at_70%_70%,rgba(220,38,38,0.12),transparent_48%)] shadow-[0_0_30px_rgba(240,192,64,0.14)]"
+        animate={{ rotate: 360 }}
+        transition={{ duration: compact ? 1.9 : 2.6, repeat: Infinity, ease: "linear" }}
+      >
+        <div className="absolute rounded-full border border-[#F0C040]/20" style={{ inset: outerInset }} />
+        <div className="absolute rounded-full border border-red-400/15" style={{ inset: innerInset }} />
+        <div className="absolute left-1/2 top-[14%] h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[#F0C040] shadow-[0_0_12px_rgba(240,192,64,0.75)]" />
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 origin-bottom -translate-x-1/2 -translate-y-[84%]"
+        animate={{ rotate: [0, 28, -18, 0] }}
+        transition={{ duration: compact ? 1.6 : 2.2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div className={`${needleHeight} ${needleWidth} rounded-full bg-gradient-to-t from-[#F0C040] via-[#fff6d1] to-red-400 shadow-[0_0_18px_rgba(240,192,64,0.5)]`} />
+      </motion.div>
+      <div
+        aria-hidden="true"
+        className={`absolute left-1/2 top-1/2 ${centerSize} -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/25 bg-[#0b1325] shadow-[0_0_0_4px_rgba(240,192,64,0.08)]`}
+      />
+    </div>
+  );
+}
+
 export default function MatchupsPageClient({
   initialPayload,
   initialLeaders,
@@ -121,6 +158,7 @@ export default function MatchupsPageClient({
   const [activeIndexA, setActiveIndexA] = useState<number>(0);
   const [activeIndexB, setActiveIndexB] = useState<number>(0);
   const [lookupLoading, setLookupLoading] = useState(false);
+  const [isRefreshingMatrix, setIsRefreshingMatrix] = useState(false);
   const [hoverRowId, setHoverRowId] = useState<string | null>(null);
   const [hoverColId, setHoverColId] = useState<string | null>(null);
   const finderRef = useRef<HTMLDivElement | null>(null);
@@ -128,6 +166,11 @@ export default function MatchupsPageClient({
 
   const selectedDeck = selectedDeckId ? decks.find((d) => d.id === selectedDeckId) ?? null : null;
   const lowSample = comparableSample && sampleGames > 0 && sampleGames < 100;
+  const refreshCopy = getMatchupRefreshCopy({
+    period: matchupPeriod,
+    setCode: matchupSet,
+    deckLimit,
+  });
 
 
   const labelForLeader = (id: string) => {
@@ -381,17 +424,22 @@ export default function MatchupsPageClient({
       return;
     }
 
+    let cancelled = false;
+    const controller = new AbortController();
+
     const run = async () => {
       try {
+        setIsRefreshingMatrix(true);
         const params = new URLSearchParams({
           set: matchupSet,
           range: MATCHUPS_PAGE_RANGE,
           period: matchupPeriod,
           limit: String(deckLimit),
         });
-        const res = await fetch(`/api/matchups?${params.toString()}`);
+        const res = await fetch(`/api/matchups?${params.toString()}`, { signal: controller.signal });
         if (!res.ok) return;
         const json = await res.json();
+        if (cancelled || controller.signal.aborted) return;
         if (Array.isArray(json.decks) && json.decks.length) {
           setDecks(json.decks);
           const seeded = String(json.source).toLowerCase().includes("seeded");
@@ -404,10 +452,20 @@ export default function MatchupsPageClient({
           setLastSuccessAt(seeded ? null : typeof json.updatedAt === "string" ? json.updatedAt : null);
         }
       } catch {
+        if (controller.signal.aborted || cancelled) return;
         // fallback silently
+      } finally {
+        if (!cancelled && !controller.signal.aborted) {
+          setIsRefreshingMatrix(false);
+        }
       }
     };
     run();
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, [deckLimit, initialIsLive, matchupPeriod, matchupSet]);
 
   function openDeckModal(deck: MetaDeck) {
@@ -494,101 +552,126 @@ export default function MatchupsPageClient({
         formatLabel={`${insightTimeRangeLabel(MATCHUPS_PAGE_RANGE)} · ${matchupSet}`}
       />
 
-      {lowSample && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4"
-      >
-          <p className="text-amber-200 text-sm font-semibold">
-            Limited data: this week&apos;s sample has fewer than 100 logged games, so treat edges as directional.
-          </p>
-        </motion.div>
-      )}
-
-      {/* Command Brief */}
-      <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.08 }}
-        className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6"
-      >
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(240,192,64,0.15),transparent_45%),radial-gradient(circle_at_90%_75%,rgba(220,38,38,0.18),transparent_48%)]" />
-        <div className="relative grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Flagship deck</p>
-            <p className="mt-2 text-lg font-black text-white">{topDeck?.name ?? "—"}</p>
-            <p className="text-sm text-[#F0C040]">{topDeck?.metaShare ?? 0}% meta share</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Hardest punish</p>
-            <p className="mt-2 text-lg font-black text-white truncate">
-              {strongestEdge ? `${shortDeckName(strongestEdge.attacker.name)} → ${shortDeckName(strongestEdge.defender.name)}` : "—"}
-            </p>
-            <p className="text-sm text-green-300">{strongestEdge ? `${strongestEdge.rate}% projected win` : "No edge data"}</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Data confidence</p>
-            <p className="mt-2 text-lg font-black text-white">
-              {sourceLabel === "Live aggregate" ? sampleLabel || (sampleGames ? sampleGames.toLocaleString() : "Loading…") : "Live data unavailable"}
-            </p>
-            <p className="text-sm text-white/50">
-              {sourceLabel === "Live aggregate"
-                ? sampleDescription || (sampleGames ? "Logged cross-match games" : "Loading live matchup data")
-                : "Showing fallback matchup snapshot"}
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* View Toggle */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-        className="flex gap-2">
-        {([
-          { id: "matrix", label: "Matrix" },
-          { id: "tier",   label: "Tier List" },
-          { id: "detail", label: "Analysis" },
-        ] as const).map((v) => (
-          <button
-            key={v.id}
-            onClick={() => {
-              setView(v.id);
-            }}
-            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
-              view === v.id
-                ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black shadow-lg"
-                : "bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/8"
-            }`}>
-            {v.label}
-          </button>
-        ))}
-      </motion.div>
-
-      {/* Stats row */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { value: decks.length, label: "Meta Decks", color: "text-[#F0C040]" },
-          { value: decks.filter(d => d.tier === "S").length, label: "S-Tier Decks", color: "text-yellow-400" },
-          { value: decks.filter(d => d.tier === "A").length, label: "A-Tier Decks", color: "text-blue-400" },
-          { value: decks.filter(d => d.tier === "B").length, label: "B-Tier Decks", color: "text-purple-400" },
-        ].map((stat, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.05 }}
-            className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 text-center">
-            <div className={`text-3xl font-black ${stat.color}`}>{stat.value}</div>
-            <div className="text-xs text-white/40 mt-1">{stat.label}</div>
+      <AnimatePresence>
+        {isRefreshingMatrix ? (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            className="flex"
+          >
+            <div className="inline-flex items-center gap-3 rounded-full border border-[#F0C040]/25 bg-[#120f17]/90 px-4 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-md">
+              <LogPoseLoader compact />
+              <div>
+                <p className="text-sm font-black text-white">{refreshCopy.title}</p>
+                <p className="text-[11px] text-[#F0C040]">{refreshCopy.subtitle.replace(/^Charting /, "")}</p>
+              </div>
+            </div>
           </motion.div>
-        ))}
-      </motion.div>
+        ) : null}
+      </AnimatePresence>
 
-      {/* Leader lookup (analysis view only) */}
-      {view === "detail" && (
-      <motion.div
-        ref={finderRef}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
+      <div
+        aria-busy={isRefreshingMatrix}
+        data-matchup-refreshing={isRefreshingMatrix ? "true" : "false"}
+        className="relative"
+      >
+        <div className={`space-y-10 transition duration-300 ease-out ${isRefreshingMatrix ? "pointer-events-none select-none opacity-45 saturate-[0.82]" : ""}`}>
+          {lowSample && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4"
+            >
+              <p className="text-amber-200 text-sm font-semibold">
+                Limited data: this week&apos;s sample has fewer than 100 logged games, so treat edges as directional.
+              </p>
+            </motion.div>
+          )}
+
+          {/* Command Brief */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08 }}
+            className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6"
+          >
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(240,192,64,0.15),transparent_45%),radial-gradient(circle_at_90%_75%,rgba(220,38,38,0.18),transparent_48%)]" />
+            <div className="relative grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Flagship deck</p>
+                <p className="mt-2 text-lg font-black text-white">{topDeck?.name ?? "—"}</p>
+                <p className="text-sm text-[#F0C040]">{topDeck?.metaShare ?? 0}% meta share</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Hardest punish</p>
+                <p className="mt-2 text-lg font-black text-white truncate">
+                  {strongestEdge ? `${shortDeckName(strongestEdge.attacker.name)} → ${shortDeckName(strongestEdge.defender.name)}` : "—"}
+                </p>
+                <p className="text-sm text-green-300">{strongestEdge ? `${strongestEdge.rate}% projected win` : "No edge data"}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <p className="text-[11px] tracking-[0.18em] uppercase text-white/40">Data confidence</p>
+                <p className="mt-2 text-lg font-black text-white">
+                  {sourceLabel === "Live aggregate" ? sampleLabel || (sampleGames ? sampleGames.toLocaleString() : "Loading…") : "Live data unavailable"}
+                </p>
+                <p className="text-sm text-white/50">
+                  {sourceLabel === "Live aggregate"
+                    ? sampleDescription || (sampleGames ? "Logged cross-match games" : "Loading live matchup data")
+                    : "Showing fallback matchup snapshot"}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* View Toggle */}
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+            className="flex gap-2">
+            {([
+              { id: "matrix", label: "Matrix" },
+              { id: "tier",   label: "Tier List" },
+              { id: "detail", label: "Analysis" },
+            ] as const).map((v) => (
+              <button
+                key={v.id}
+                onClick={() => {
+                  setView(v.id);
+                }}
+                className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                  view === v.id
+                    ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black shadow-lg"
+                    : "bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/8"
+                }`}>
+                {v.label}
+              </button>
+            ))}
+          </motion.div>
+
+          {/* Stats row */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: decks.length, label: "Meta Decks", color: "text-[#F0C040]" },
+              { value: decks.filter(d => d.tier === "S").length, label: "S-Tier Decks", color: "text-yellow-400" },
+              { value: decks.filter(d => d.tier === "A").length, label: "A-Tier Decks", color: "text-blue-400" },
+              { value: decks.filter(d => d.tier === "B").length, label: "B-Tier Decks", color: "text-purple-400" },
+            ].map((stat, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.05 }}
+                className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 text-center">
+                <div className={`text-3xl font-black ${stat.color}`}>{stat.value}</div>
+                <div className="text-xs text-white/40 mt-1">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Leader lookup (analysis view only) */}
+          {view === "detail" && (
+          <motion.div
+            ref={finderRef}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
         <h3 className="text-white font-black">Leader Matchup Finder</h3>
         <p className="text-xs text-white/55">
           Pick any two leaders to run your own head-to-head test for this week&apos;s data.
@@ -864,13 +947,13 @@ export default function MatchupsPageClient({
           </div>
         )}
       </motion.div>
-      )}
+          )}
 
 
-      {/* Matrix View */}
-      <AnimatePresence mode="wait">
-        {view === "matrix" && (
-          <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+          {/* Matrix View */}
+          <AnimatePresence mode="wait">
+            {view === "matrix" && (
+              <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             {/* Legend */}
             <p className="md:hidden text-white/40 text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
@@ -978,12 +1061,12 @@ export default function MatchupsPageClient({
               </div>
             </div>
 
-          </motion.div>
-        )}
+              </motion.div>
+            )}
 
-        {/* Tier List View */}
-        {view === "tier" && (
-          <motion.div key="tier" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
+            {/* Tier List View */}
+            {view === "tier" && (
+              <motion.div key="tier" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-4">
             {["S", "A", "B", "C"].map((tier) => {
               const tierDecks = decks.filter(d => d.tier === tier);
               if (!tierDecks.length) return null;
@@ -1023,48 +1106,80 @@ export default function MatchupsPageClient({
                 </div>
               );
             })}
-          </motion.div>
-        )}
+              </motion.div>
+            )}
 
-        {/* Detail View */}
-        {view === "detail" && selectedDeck && (
-          <motion.div key="detail" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-            <DeckDetail
-              deck={selectedDeck}
-              decks={decks}
-              onBack={() => setView("matrix")}
-              onImageClick={openDeckModal}
-              onSelectSuggestedOpponent={(opp) => selectSuggestedOpponent(opp.cardId)}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {/* Detail View */}
+            {view === "detail" && selectedDeck && (
+              <motion.div key="detail" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                <DeckDetail
+                  deck={selectedDeck}
+                  decks={decks}
+                  onBack={() => setView("matrix")}
+                  onImageClick={openDeckModal}
+                  onSelectSuggestedOpponent={(opp) => selectSuggestedOpponent(opp.cardId)}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-      {/* Mobile one-thumb view switcher */}
-      <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
-        <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
-          <div className="grid grid-cols-3 gap-2">
-            {([
-              { id: "matrix", label: "Matrix" },
-              { id: "tier", label: "Tier" },
-              { id: "detail", label: "Detail" },
-            ] as const).map((v) => (
-              <button
-                key={v.id}
-                onClick={() => {
-                  setView(v.id);
-                }}
-                className={`h-11 rounded-xl text-xs font-bold transition-all ${
-                  view === v.id
-                    ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
-                    : "bg-white/5 text-white/60 border border-white/10"
-                }`}
-              >
-                {v.label}
-              </button>
-            ))}
+          {/* Mobile one-thumb view switcher */}
+          <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
+            <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
+              <div className="grid grid-cols-3 gap-2">
+                {([
+                  { id: "matrix", label: "Matrix" },
+                  { id: "tier", label: "Tier" },
+                  { id: "detail", label: "Detail" },
+                ] as const).map((v) => (
+                  <button
+                    key={v.id}
+                    onClick={() => {
+                      setView(v.id);
+                    }}
+                    className={`h-11 rounded-xl text-xs font-bold transition-all ${
+                      view === v.id
+                        ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
+                        : "bg-white/5 text-white/60 border border-white/10"
+                    }`}
+                  >
+                    {v.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
+
+        <AnimatePresence>
+          {isRefreshingMatrix ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="pointer-events-none absolute inset-0 z-30 flex items-start justify-center px-4 pt-32 md:pt-24"
+            >
+              <div
+                role="status"
+                aria-live="polite"
+                aria-label={refreshCopy.ariaLabel}
+                data-matchup-loading="true"
+                className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-[#F0C040]/22 bg-[linear-gradient(145deg,rgba(15,20,36,0.92),rgba(26,14,24,0.94))] px-5 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+              >
+                <div className="absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_20%_18%,rgba(240,192,64,0.18),transparent_38%),radial-gradient(circle_at_80%_78%,rgba(220,38,38,0.14),transparent_40%)]" />
+                <div className="relative flex items-center gap-4">
+                  <LogPoseLoader />
+                  <div>
+                    <p className="text-sm font-black uppercase tracking-[0.18em] text-[#F0C040]/75">Log Pose</p>
+                    <p className="mt-1 text-xl font-black text-white">{refreshCopy.title}</p>
+                    <p className="mt-1 text-sm text-[#F0C040]">{refreshCopy.subtitle}</p>
+                    <p className="mt-2 text-xs text-white/55">Hold course. The current chart stays visible until the new route is ready.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
     </div>
   );
