@@ -81,11 +81,12 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## Deployment
 
-### Frontend → Vercel
-```bash
-vercel deploy
-```
-Add env vars in Vercel dashboard.
+### Frontend → GitHub -> Vercel
+Push changes to GitHub and let the connected Vercel project deploy from there.
+
+- Production deploys come from the configured production branch in Vercel.
+- Non-production branches can be used for preview deploys if that is enabled in Vercel.
+- Manage environment variables in the Vercel dashboard.
 
 > Build pipeline includes `prebuild` validation (`npm run validate:cards`). Deploys fail if card IDs, set/number alignment, or duplicate card IDs/numbers are incorrect.
 
