@@ -5,6 +5,16 @@ type PostgresCache = {
   defaultClients: Map<string, Sql>;
 };
 
+type PostgresEnv = {
+  DATABASE_URL?: string | undefined;
+  SUPABASE_DB_URL?: string | undefined;
+};
+
+type ResolvePostgresConnectionStringOptions = {
+  connectionString?: string | undefined;
+  env?: PostgresEnv | undefined;
+};
+
 declare global {
   var __devilfruitPostgresCache__: PostgresCache | undefined;
 }
@@ -19,9 +29,17 @@ function getPostgresCache(): PostgresCache {
   return globalThis.__devilfruitPostgresCache__;
 }
 
+export function resolvePostgresConnectionString(
+  options: ResolvePostgresConnectionStringOptions = {},
+) {
+  if (options.connectionString) return options.connectionString;
+
+  const env = options.env ?? process.env;
+  return env.SUPABASE_DB_URL ?? env.DATABASE_URL;
+}
+
 export function createPostgresClient(connectionString?: string) {
-  const databaseUrl =
-    connectionString ?? process.env.DATABASE_URL ?? process.env.SUPABASE_DB_URL;
+  const databaseUrl = resolvePostgresConnectionString({ connectionString });
 
   if (!databaseUrl) {
     throw new Error(
