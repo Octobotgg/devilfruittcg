@@ -61,3 +61,26 @@ test("desktop market filter sections collapse when no matching filters are activ
     },
   );
 });
+
+test("desktop market sidebar uses one sticky scroll container", async () => {
+  const filters =
+    await importModule<typeof import("../lib/market-filters")>("lib/market-filters.ts");
+
+  const frameClassName = filters.getDesktopMarketSidebarClassName();
+  const utilityClassName = filters.getDesktopMarketSidebarUtilityClassName();
+  const bodyClassName = filters.getDesktopMarketSidebarBodyClassName();
+
+  assert.match(frameClassName, /\bsticky\b/);
+  assert.match(frameClassName, /\btop-24\b/);
+  assert.match(frameClassName, /\bflex\b/);
+  assert.match(frameClassName, /\bflex-col\b/);
+  assert.match(frameClassName, /\boverflow-hidden\b/);
+  assert.ok(frameClassName.includes("max-h-[calc(100vh-7rem)]"));
+
+  assert.match(utilityClassName, /\bshrink-0\b/);
+
+  assert.match(bodyClassName, /\bmin-h-0\b/);
+  assert.match(bodyClassName, /\bflex-1\b/);
+  assert.match(bodyClassName, /\boverflow-y-auto\b/);
+  assert.match(bodyClassName, /\boverscroll-contain\b/);
+});

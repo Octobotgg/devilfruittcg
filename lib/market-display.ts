@@ -23,7 +23,7 @@ function titleCaseToken(token: string) {
 
 function humanizeSlugSetName(value: string) {
   const tokens = value
-    .split(/[_\s]+/u)
+    .split(/[-_\s]+/u)
     .map((token) => token.trim())
     .filter(Boolean);
 
@@ -48,6 +48,18 @@ function humanizeSlugSetName(value: string) {
   }
 
   return parts.join(" ").replace(/\s+/gu, " ").trim();
+}
+
+function cleanupHumanizedSetName(value: string) {
+  const withoutGameSuffix = value.replace(/\s+One Piece Card Game$/iu, "").trim();
+
+  const starterDeckMatch = withoutGameSuffix.match(/^Starter Deck (\d+)\s+(.+)$/u);
+  if (starterDeckMatch) {
+    const [, number, title] = starterDeckMatch;
+    return `Starter Deck ${number}: ${title}`;
+  }
+
+  return withoutGameSuffix;
 }
 
 function normalizeLabelToken(value: string) {
@@ -119,6 +131,25 @@ function compactEventSetLabel(value: string) {
     .replace(/^BANDAI CARD GAMES Fest (\d{2}-\d{2})$/u, "BANDAI Fest $1");
 }
 
+function extractDisplaySetCode(code: string) {
+  const compactCode = String(code || "").trim().toUpperCase();
+  if (!compactCode) return "";
+  if (/(EVENT|CHAMPIONSHIP|REGIONAL|FINALIST|WINNER|TOP_PLAYER|ANNIVERSARY|FEST|PACK|PROMO)/u.test(compactCode)) {
+    return "";
+  }
+
+  if (
+    /^[A-Z]{1,5}\d{1,4}$/u.test(compactCode) ||
+    /^[A-Z]-\d+$/u.test(compactCode) ||
+    compactCode.length <= 4
+  ) {
+    return compactCode;
+  }
+
+  const mergedCodeMatch = compactCode.match(/^(OP|EB|ST|PRB)\d{1,2}/u);
+  return mergedCodeMatch?.[0] || "";
+}
+
 export function formatMarketSetLabel(
   value: string | null | undefined,
   options?: {
@@ -131,8 +162,11 @@ export function formatMarketSetLabel(
 
   if (!stripped) return "";
 
-  const looksLikeSlug = stripped.includes("_") || /^[A-Z0-9\s-]+$/u.test(stripped);
-  const pretty = !looksLikeSlug ? stripped : humanizeSlugSetName(stripped);
+  const looksLikeSlug =
+    stripped.includes("_") ||
+    /^[A-Z0-9\s-]+$/u.test(stripped) ||
+    /^[a-z0-9-]+$/u.test(stripped);
+  const pretty = !looksLikeSlug ? stripped : cleanupHumanizedSetName(humanizeSlugSetName(stripped));
   if (options?.compact) {
     return compactEventSetLabel(pretty);
   }
@@ -141,17 +175,11 @@ export function formatMarketSetLabel(
 }
 
 export function formatMarketSetFacetLabel(code: string | null | undefined, setName: string | null | undefined) {
-  const compactCode = String(code || "").trim();
-  const prettySetName = formatMarketSetLabel(setName || compactCode);
-  if (!compactCode) return prettySetName;
-
-  const shouldShowCode =
-    !compactCode.includes("_") &&
-    (/^[A-Z]{1,5}\d{1,4}$/u.test(compactCode) ||
-      /^[A-Z]-\d+$/u.test(compactCode) ||
-      compactCode.length <= 4);
-
-  return shouldShowCode ? `${compactCode} · ${prettySetName}` : prettySetName;
+  const rawCode = String(code || "").trim();
+  const prettySetName = formatMarketSetLabel(setName || rawCode);
+  const displayCode = extractDisplaySetCode(rawCode);
+  if (!displayCode) return prettySetName;
+  return `${displayCode} · ${prettySetName}`;
 }
 
 export function marketVariantDisplayLabel(card: MarketCardLabelSource) {
