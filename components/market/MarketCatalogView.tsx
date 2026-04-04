@@ -6,6 +6,7 @@ import { startTransition, useCallback, useEffect, useMemo, useRef, useState, typ
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Filter,
@@ -35,6 +36,12 @@ import {
   type MarketFilterSectionState,
   type MarketSectionKey,
 } from "@/lib/market-filters";
+import {
+  buildMarketSetFilterGroups,
+  searchMarketSetOptions,
+  type MarketSetGroup,
+  type MarketSetGroupKey,
+} from "@/lib/market-set-groups";
 import type { MarketCardResult, MarketCatalogResponse, MarketFacetOption, MarketSort } from "@/lib/market-types";
 
 type ViewMode = "grid" | "list";
@@ -465,6 +472,51 @@ function CheckboxFilter({
   );
 }
 
+function SetGroupBlock({
+  group,
+  selectedValues,
+  expanded,
+  onToggleExpanded,
+  onToggleValue,
+}: {
+  group: MarketSetGroup;
+  selectedValues: Set<string>;
+  expanded: boolean;
+  onToggleExpanded: () => void;
+  onToggleValue: (value: string) => void;
+}) {
+  if (!group.options.length) return null;
+
+  return (
+    <div className="rounded-2xl border border-white/8 bg-black/15 p-3">
+      <button
+        type="button"
+        onClick={onToggleExpanded}
+        className="flex w-full items-center justify-between gap-3 text-left"
+        aria-expanded={expanded}
+      >
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-white/65">{group.label}</p>
+          <p className="mt-1 text-[11px] text-white/35">{group.options.length} exact sets</p>
+        </div>
+        <ChevronDown className={`h-4 w-4 text-white/45 transition-transform ${expanded ? "rotate-180" : ""}`} />
+      </button>
+      {expanded ? (
+        <div className="mt-3 space-y-2">
+          {group.options.map((option) => (
+            <CheckboxFilter
+              key={option.value}
+              option={option}
+              checked={selectedValues.has(option.value)}
+              onChange={() => onToggleValue(option.value)}
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function Pagination({
   page,
   totalPages,
@@ -527,6 +579,11 @@ export default function MarketCatalogView() {
   const activeFilterCount = useMemo(() => countActiveFilters(state), [state]);
   const [draftQuery, setDraftQuery] = useState({ value: state.q, committed: state.q });
   const [setSearch, setSetSearch] = useState("");
+  const [expandedSetGroups, setExpandedSetGroups] = useState<Record<MarketSetGroupKey, boolean>>({
+    boosters: false,
+    starterDecks: false,
+    promos: false,
+  });
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [openSections, setOpenSections] = useState<MarketFilterSectionState>(() => getInitialMarketOpenSections());
   const [catalogState, setCatalogState] = useState<{ key: string; data: MarketCatalogResponse | null; error: string }>({
@@ -553,6 +610,17 @@ export default function MarketCatalogView() {
   const suggestions = suggestionQuery.length >= 2 && suggestionState.query === suggestionQuery ? suggestionState.data : [];
   const suggestionsLoading = suggestionQuery.length >= 2 && suggestionState.query !== suggestionQuery;
   const suggestionsError = suggestionQuery.length >= 2 && suggestionState.query === suggestionQuery ? suggestionState.error : "";
+  const setOptions = catalog?.facets.sets || [];
+  const setFilterGroups = useMemo(() => buildMarketSetFilterGroups(setOptions), [setOptions]);
+  const setSearchQuery = setSearch.trim();
+  const setSearchResults = useMemo(() => searchMarketSetOptions(setOptions, setSearchQuery), [setOptions, setSearchQuery]);
+  const selectedSetValues = useMemo(() => new Set(state.sets), [state.sets]);
+  const selectedSetOptions = useMemo(() => {
+    const optionByValue = new Map(setOptions.map((option) => [option.value, option]));
+    return state.sets
+      .map((value) => optionByValue.get(value))
+      .filter((option): option is MarketFacetOption => Boolean(option));
+  }, [setOptions, state.sets]);
   const currentMarketPath = useMemo(() => {
     const query = applyStateToParams(state).toString();
     return query ? `/market?${query}` : "/market";
@@ -746,12 +814,9 @@ export default function MarketCatalogView() {
     }));
   }, [updateState]);
 
-  const setList = useMemo(() => {
-    const options = catalog?.facets.sets || [];
-    const query = setSearch.trim().toLowerCase();
-    if (!query) return options;
-    return options.filter((option) => option.label.toLowerCase().includes(query) || option.value.toLowerCase().includes(query));
-  }, [catalog?.facets.sets, setSearch]);
+  const toggleSetValue = useCallback((value: string) => {
+    updateState((current) => ({ ...current, sets: toggleListValue(current.sets, value), page: 1 }));
+  }, [updateState]);
 
   const totalPages = catalog?.totalPages || 1;
   const currentPage = catalog?.page || state.page;
@@ -789,36 +854,72 @@ export default function MarketCatalogView() {
           <input
             value={setSearch}
             onChange={(event) => setSetSearch(event.target.value)}
-            placeholder="Search sets..."
+            placeholder="Search set code or release..."
             className="w-full rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
             aria-label="Search sets"
           />
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => updateState((current) => ({ ...current, sets: Array.from(new Set([...current.sets, ...setList.map((option) => option.value)])), page: 1 }))}
-              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white"
-            >
-              Select Visible
-            </button>
-            <button
-              type="button"
-              onClick={() => updateState((current) => ({ ...current, sets: current.sets.filter((value) => !setList.some((option) => option.value === value)), page: 1 }))}
-              className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white"
-            >
-              Clear Visible
-            </button>
-          </div>
-          <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
-            {setList.map((option) => (
-              <CheckboxFilter
-                key={option.value}
-                option={option}
-                checked={state.sets.includes(option.value)}
-                onChange={() => updateState((current) => ({ ...current, sets: toggleListValue(current.sets, option.value), page: 1 }))}
-              />
-            ))}
-          </div>
+          {selectedSetOptions.length ? (
+            <div className="space-y-2">
+              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">Selected Sets</p>
+              <div className="flex flex-wrap gap-2">
+                {selectedSetOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => toggleSetValue(option.value)}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-3 py-1.5 text-[11px] font-semibold text-[#F0C040] transition-all hover:border-[#F0C040]/40 hover:bg-[#F0C040]/15"
+                  >
+                    <span>{option.value}</span>
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {setSearchQuery ? (
+            <div className="space-y-3">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">Search Results</p>
+                <p className="mt-1 text-xs text-white/45">
+                  Search finds exact set codes and specific promo/event releases.
+                </p>
+              </div>
+              <div className="max-h-72 space-y-2 overflow-y-auto pr-1">
+                {setSearchResults.length ? (
+                  setSearchResults.map((option) => (
+                    <CheckboxFilter
+                      key={option.value}
+                      option={option}
+                      checked={selectedSetValues.has(option.value)}
+                      onChange={() => toggleSetValue(option.value)}
+                    />
+                  ))
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-white/10 bg-black/15 px-3 py-4 text-sm text-white/45">
+                    No matching sets. Try a set code like `OP15` or search a promo/event name.
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="space-y-3">
+                {setFilterGroups.map((group) => (
+                  <SetGroupBlock
+                    key={group.key}
+                    group={group}
+                    selectedValues={selectedSetValues}
+                    expanded={expandedSetGroups[group.key]}
+                    onToggleExpanded={() =>
+                      setExpandedSetGroups((current) => ({ ...current, [group.key]: !current[group.key] }))
+                    }
+                    onToggleValue={toggleSetValue}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </FilterSection>
 

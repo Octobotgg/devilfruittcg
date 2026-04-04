@@ -23,7 +23,7 @@ function titleCaseToken(token: string) {
 
 function humanizeSlugSetName(value: string) {
   const tokens = value
-    .split(/[_\s]+/u)
+    .split(/[-_\s]+/u)
     .map((token) => token.trim())
     .filter(Boolean);
 
@@ -48,6 +48,18 @@ function humanizeSlugSetName(value: string) {
   }
 
   return parts.join(" ").replace(/\s+/gu, " ").trim();
+}
+
+function cleanupHumanizedSetName(value: string) {
+  const withoutGameSuffix = value.replace(/\s+One Piece Card Game$/iu, "").trim();
+
+  const starterDeckMatch = withoutGameSuffix.match(/^Starter Deck (\d+)\s+(.+)$/u);
+  if (starterDeckMatch) {
+    const [, number, title] = starterDeckMatch;
+    return `Starter Deck ${number}: ${title}`;
+  }
+
+  return withoutGameSuffix;
 }
 
 function normalizeLabelToken(value: string) {
@@ -131,8 +143,11 @@ export function formatMarketSetLabel(
 
   if (!stripped) return "";
 
-  const looksLikeSlug = stripped.includes("_") || /^[A-Z0-9\s-]+$/u.test(stripped);
-  const pretty = !looksLikeSlug ? stripped : humanizeSlugSetName(stripped);
+  const looksLikeSlug =
+    stripped.includes("_") ||
+    /^[A-Z0-9\s-]+$/u.test(stripped) ||
+    /^[a-z0-9-]+$/u.test(stripped);
+  const pretty = !looksLikeSlug ? stripped : cleanupHumanizedSetName(humanizeSlugSetName(stripped));
   if (options?.compact) {
     return compactEventSetLabel(pretty);
   }

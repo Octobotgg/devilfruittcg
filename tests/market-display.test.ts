@@ -17,6 +17,11 @@ test("formatMarketSetLabel strips bracket codes and humanizes sluggy set names",
     await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
 
   assert.equal(marketDisplay.formatMarketSetLabel("ROMANCE DAWN [OP01]"), "Romance Dawn");
+  assert.equal(marketDisplay.formatMarketSetLabel("romance-dawn-one-piece-card-game"), "Romance Dawn");
+  assert.equal(
+    marketDisplay.formatMarketSetLabel("starter-deck-1-straw-hat-crew-one-piece-card-game"),
+    "Starter Deck 1: Straw Hat Crew",
+  );
   assert.equal(
     marketDisplay.formatMarketSetLabel("CHAMPIONSHIP_25_26_FINALS_SEASON_1"),
     "Championship 25-26 Finals Season 1",
@@ -34,6 +39,14 @@ test("formatMarketSetFacetLabel keeps compact real codes and hides sluggy intern
   assert.equal(
     marketDisplay.formatMarketSetFacetLabel("OP09", "EMPERORS IN THE NEW WORLD [OP-09]"),
     "OP09 · Emperors In The New World",
+  );
+  assert.equal(
+    marketDisplay.formatMarketSetFacetLabel("OP01", "romance-dawn-one-piece-card-game"),
+    "OP01 · Romance Dawn",
+  );
+  assert.equal(
+    marketDisplay.formatMarketSetFacetLabel("ST01", "starter-deck-1-straw-hat-crew-one-piece-card-game"),
+    "ST01 · Starter Deck 1: Straw Hat Crew",
   );
   assert.equal(
     marketDisplay.formatMarketSetFacetLabel(
