@@ -14,8 +14,18 @@ const GROUP_LABELS: Record<MarketSetGroupKey, string> = {
   promos: "Promos",
 };
 
+const EVENT_LANE_HINT = /(EVENT|CHAMPIONSHIP|REGIONAL|FINALIST|WINNER|TOP_PLAYER|ANNIVERSARY|FEST|PACK|PROMO)/iu;
+
 function normalizeText(value: string) {
   return value.toLowerCase().trim();
+}
+
+function extractPrimarySetCode(value: string) {
+  const normalizedValue = String(value || "").trim().toUpperCase();
+  if (!normalizedValue || EVENT_LANE_HINT.test(normalizedValue)) return null;
+
+  const match = normalizedValue.match(/^(OP|EB|ST|PRB)\d{1,2}/u);
+  return match?.[0] || null;
 }
 
 function compareFacetOptions(left: MarketFacetOption, right: MarketFacetOption) {
@@ -23,8 +33,9 @@ function compareFacetOptions(left: MarketFacetOption, right: MarketFacetOption) 
 }
 
 function classifyMarketSetOption(option: MarketFacetOption): MarketSetGroupKey {
-  const value = String(option.value || "").trim().toUpperCase();
+  const value = extractPrimarySetCode(option.value);
 
+  if (!value) return "promos";
   if (/^ST\d{1,2}$/u.test(value)) return "starterDecks";
   if (/^(OP|EB|PRB)\d{1,2}$/u.test(value)) return "boosters";
   return "promos";

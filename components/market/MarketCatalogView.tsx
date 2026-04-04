@@ -31,7 +31,10 @@ import {
   writeLastMarketState,
 } from "@/lib/market-navigation";
 import {
+  getDesktopMarketSidebarClassName,
+  getDesktopMarketSidebarBodyClassName,
   getDesktopMarketOpenSections,
+  getDesktopMarketSidebarUtilityClassName,
   getInitialMarketOpenSections,
   type MarketFilterSectionState,
   type MarketSectionKey,
@@ -744,6 +747,11 @@ export default function MarketCatalogView() {
     };
   }, [suggestionQuery]);
 
+  useEffect(() => {
+    if (!setSearchQuery) return;
+    setOpenSections((current) => (current.sets ? current : { ...current, sets: true }));
+  }, [setSearchQuery]);
+
   const updateState = useCallback((updater: (current: MarketUrlState) => MarketUrlState) => {
     const nextState = updater(state);
     const params = applyStateToParams(nextState);
@@ -824,7 +832,7 @@ export default function MarketCatalogView() {
   const showingTo = catalog?.total ? Math.min(catalog.total, currentPage * state.pageSize) : 0;
   const emptyState = marketEmptyStateCopy({ query: state.q, activeFilterCount });
 
-  const sidebarContent = (
+  const sidebarUtilityContent = (
     <div className="space-y-4">
       <div className="rounded-[28px] border border-[#F0C040]/20 bg-[radial-gradient(circle_at_top,rgba(240,192,64,0.14),transparent_55%),rgba(255,255,255,0.04)] p-4">
         <div className="flex items-center justify-between gap-3">
@@ -844,6 +852,41 @@ export default function MarketCatalogView() {
         </div>
       </div>
 
+      <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4">
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">Find Set</p>
+        <p className="mt-1 text-xs text-white/50">Search exact set codes or promo/event release names.</p>
+        <input
+          value={setSearch}
+          onChange={(event) => setSetSearch(event.target.value)}
+          placeholder="Search set code or release..."
+          className="mt-3 w-full rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+          aria-label="Search sets"
+        />
+        {selectedSetOptions.length ? (
+          <div className="mt-3 space-y-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">Selected Sets</p>
+            <div className="flex flex-wrap gap-2">
+              {selectedSetOptions.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => toggleSetValue(option.value)}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-3 py-1.5 text-[11px] font-semibold text-[#F0C040] transition-all hover:border-[#F0C040]/40 hover:bg-[#F0C040]/15"
+                >
+                  <span>{option.value}</span>
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+
+  const sidebarSectionsContent = (
+    <div className="space-y-4">
+
       <FilterSection
         title="Card Set / Booster"
         count={state.sets.length}
@@ -851,32 +894,6 @@ export default function MarketCatalogView() {
         onToggle={() => setOpenSections((current) => ({ ...current, sets: !current.sets }))}
       >
         <div className="space-y-3">
-          <input
-            value={setSearch}
-            onChange={(event) => setSetSearch(event.target.value)}
-            placeholder="Search set code or release..."
-            className="w-full rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
-            aria-label="Search sets"
-          />
-          {selectedSetOptions.length ? (
-            <div className="space-y-2">
-              <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">Selected Sets</p>
-              <div className="flex flex-wrap gap-2">
-                {selectedSetOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => toggleSetValue(option.value)}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#F0C040]/25 bg-[#F0C040]/10 px-3 py-1.5 text-[11px] font-semibold text-[#F0C040] transition-all hover:border-[#F0C040]/40 hover:bg-[#F0C040]/15"
-                  >
-                    <span>{option.value}</span>
-                    <X className="h-3.5 w-3.5" />
-                  </button>
-                ))}
-              </div>
-            </div>
-          ) : null}
-
           {setSearchQuery ? (
             <div className="space-y-3">
               <div>
@@ -1222,8 +1239,9 @@ export default function MarketCatalogView() {
       </motion.div>
 
       <div className="grid gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
-        <aside className="hidden lg:block">
-          <div className="sticky top-24">{sidebarContent}</div>
+        <aside className={`hidden self-start lg:flex ${getDesktopMarketSidebarClassName()}`}>
+          <div className={getDesktopMarketSidebarUtilityClassName()}>{sidebarUtilityContent}</div>
+          <div className={getDesktopMarketSidebarBodyClassName()}>{sidebarSectionsContent}</div>
         </aside>
 
         <section className="min-w-0 space-y-5">
@@ -1392,7 +1410,10 @@ export default function MarketCatalogView() {
                   <X className="h-4 w-4" />
                 </button>
               </div>
-              {sidebarContent}
+              <div className="space-y-4">
+                {sidebarUtilityContent}
+                {sidebarSectionsContent}
+              </div>
             </motion.div>
           </motion.div>
         ) : null}

@@ -49,6 +49,14 @@ test("formatMarketSetFacetLabel keeps compact real codes and hides sluggy intern
     "ST01 · Starter Deck 1: Straw Hat Crew",
   );
   assert.equal(
+    marketDisplay.formatMarketSetFacetLabel("OP14EB04", "The Azure Sea's Seven"),
+    "OP14 · The Azure Sea's Seven",
+  );
+  assert.equal(
+    marketDisplay.formatMarketSetFacetLabel("OP15EB04", "Adventure on Kami's Island"),
+    "OP15 · Adventure on Kami's Island",
+  );
+  assert.equal(
     marketDisplay.formatMarketSetFacetLabel(
       "CHAMPIONSHIP_25_26_FINALS_SEASON_1",
       "CHAMPIONSHIP_25_26_FINALS_SEASON_1",

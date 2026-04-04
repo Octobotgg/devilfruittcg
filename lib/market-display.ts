@@ -131,6 +131,25 @@ function compactEventSetLabel(value: string) {
     .replace(/^BANDAI CARD GAMES Fest (\d{2}-\d{2})$/u, "BANDAI Fest $1");
 }
 
+function extractDisplaySetCode(code: string) {
+  const compactCode = String(code || "").trim().toUpperCase();
+  if (!compactCode) return "";
+  if (/(EVENT|CHAMPIONSHIP|REGIONAL|FINALIST|WINNER|TOP_PLAYER|ANNIVERSARY|FEST|PACK|PROMO)/u.test(compactCode)) {
+    return "";
+  }
+
+  if (
+    /^[A-Z]{1,5}\d{1,4}$/u.test(compactCode) ||
+    /^[A-Z]-\d+$/u.test(compactCode) ||
+    compactCode.length <= 4
+  ) {
+    return compactCode;
+  }
+
+  const mergedCodeMatch = compactCode.match(/^(OP|EB|ST|PRB)\d{1,2}/u);
+  return mergedCodeMatch?.[0] || "";
+}
+
 export function formatMarketSetLabel(
   value: string | null | undefined,
   options?: {
@@ -156,17 +175,11 @@ export function formatMarketSetLabel(
 }
 
 export function formatMarketSetFacetLabel(code: string | null | undefined, setName: string | null | undefined) {
-  const compactCode = String(code || "").trim();
-  const prettySetName = formatMarketSetLabel(setName || compactCode);
-  if (!compactCode) return prettySetName;
-
-  const shouldShowCode =
-    !compactCode.includes("_") &&
-    (/^[A-Z]{1,5}\d{1,4}$/u.test(compactCode) ||
-      /^[A-Z]-\d+$/u.test(compactCode) ||
-      compactCode.length <= 4);
-
-  return shouldShowCode ? `${compactCode} · ${prettySetName}` : prettySetName;
+  const rawCode = String(code || "").trim();
+  const prettySetName = formatMarketSetLabel(setName || rawCode);
+  const displayCode = extractDisplaySetCode(rawCode);
+  if (!displayCode) return prettySetName;
+  return `${displayCode} · ${prettySetName}`;
 }
 
 export function marketVariantDisplayLabel(card: MarketCardLabelSource) {

@@ -55,3 +55,15 @@ export function getDesktopMarketOpenSections(state: DesktopOpenSectionsInput): M
     price: Boolean(state.priceMin || state.priceMax),
   };
 }
+
+export function getDesktopMarketSidebarClassName() {
+  return "sticky top-24 flex max-h-[calc(100vh-7rem)] flex-col gap-4 overflow-hidden";
+}
+
+export function getDesktopMarketSidebarUtilityClassName() {
+  return "shrink-0";
+}
+
+export function getDesktopMarketSidebarBodyClassName() {
+  return "min-h-0 flex-1 overflow-y-auto overscroll-contain pr-2";
+}

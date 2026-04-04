@@ -12,8 +12,10 @@ async function importModule<T>(relativePath: string): Promise<T> {
 
 const SAMPLE_OPTIONS = [
   { value: "OP15", label: "OP15 · Legacy of the Master", count: 121 },
+  { value: "OP15EB04", label: "OP15 · Adventure on Kami's Island", count: 196 },
   { value: "EB03", label: "EB03 · Extra Booster Memorial Collection", count: 61 },
   { value: "OP14", label: "OP14 · Royal Blood", count: 121 },
+  { value: "OP14EB04", label: "OP14 · The Azure Sea's Seven", count: 199 },
   { value: "ST21", label: "ST21 · Starter Deck Ex Gear 5", count: 17 },
   { value: "ST10", label: "ST10 · The Three Captains", count: 17 },
   { value: "P", label: "P · Promotional Cards", count: 150 },
@@ -29,7 +31,7 @@ test("buildMarketSetFilterGroups classifies exact sets into boosters, starter de
   assert.deepEqual(
     result.map((group) => ({ key: group.key, values: group.options.map((option) => option.value) })),
     [
-      { key: "boosters", values: ["EB03", "OP14", "OP15"] },
+      { key: "boosters", values: ["EB03", "OP14", "OP14EB04", "OP15", "OP15EB04"] },
       { key: "starterDecks", values: ["ST10", "ST21"] },
       { key: "promos", values: ["CHAMPIONSHIP_25_26_FINALS_SEASON_1", "P"] },
     ],
