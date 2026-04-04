@@ -4,19 +4,100 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import BrandMark from "@/components/BrandMark";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"] });
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700"] });
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION || process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
-  title: "DevilFruitTCG.gg — Your One Piece TCG Command Center",
-  description: "Market prices, matchup data, meta tracking, and more for One Piece TCG players.",
+  metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
+  title: {
+    default: "Devil Fruit TCG | One Piece TCG Prices, Meta, Matchups, and Deck Builder",
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  keywords: [
+    "devil fruit tcg",
+    "devilfruittcg",
+    "one piece tcg",
+    "one piece tcg prices",
+    "one piece tcg meta",
+    "one piece tcg deck builder",
+    "one piece tcg card database",
+  ],
+  openGraph: {
+    type: "website",
+    url: absoluteUrl("/"),
+    siteName: siteConfig.name,
+    title: "Devil Fruit TCG | One Piece TCG Prices, Meta, Matchups, and Deck Builder",
+    description: siteConfig.description,
+    images: [
+      {
+        url: absoluteUrl(siteConfig.socialImage),
+        width: 1024,
+        height: 1024,
+        alt: `${siteConfig.name} emblem`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Devil Fruit TCG | One Piece TCG Prices, Meta, Matchups, and Deck Builder",
+    description: siteConfig.description,
+    images: [absoluteUrl(siteConfig.socialImage)],
+  },
+  verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  category: "games",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    alternateName: siteConfig.alternateName,
+    url: siteConfig.url,
+    logo: absoluteUrl(siteConfig.socialImage),
+    sameAs: [siteConfig.url],
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    alternateName: siteConfig.alternateName,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    inLanguage: "en-US",
+  };
+
   return (
     <html lang="en" className="dark">
       <body className={`${inter.className} ${cormorant.variable} min-h-screen playmat-shell`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         <div className="relative z-10">
           <Navbar />
           <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">

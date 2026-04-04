@@ -371,7 +371,7 @@ export default function HomePageClient({
             className="journal-surface treasure-chart-surface rounded-[2rem] p-6 md:p-8"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.28)] bg-[rgba(10,10,10,0.56)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">
-              <ScrollText className="h-3.5 w-3.5" /> Grand Line command desk
+              <ScrollText className="h-3.5 w-3.5" /> Devil Fruit TCG for One Piece TCG
             </div>
 
             <div className="mt-5 flex flex-wrap items-start justify-between gap-4">
@@ -383,11 +383,11 @@ export default function HomePageClient({
             </div>
 
             <h1 className="mt-7 max-w-2xl text-4xl font-black leading-[0.92] text-white md:text-6xl">
-              Chart the Grand Line before the market turns.
+              Devil Fruit TCG for One Piece TCG prices, meta, and deck building.
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)] md:text-base">
-              Track bounty spikes, matchup pressure, and crew-level meta shifts in a command deck that feels like a treasure map, a collector vault, and a live tournament desk at the same time.
+              DevilFruitTCG.gg helps One Piece TCG players track card prices, matchup pressure, deck trends, and market movers in one command center built for collectors and competitive play.
             </p>
 
             <div className="brand-route-strip mt-5">

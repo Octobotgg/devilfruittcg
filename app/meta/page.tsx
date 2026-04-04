@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import MetaPageClient from "@/components/meta/MetaPageClient";
 import { unstable_cache } from "next/cache";
@@ -8,6 +9,15 @@ import {
   META_PAGE_RANGE,
 } from "@/lib/constants/page-defaults";
 import { getSeededMeta } from "@/lib/data/meta";
+import { absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "One Piece TCG Meta Reports",
+  description: "See One Piece TCG meta rankings, win rates, and deck trends on Devil Fruit TCG.",
+  alternates: {
+    canonical: absoluteUrl("/meta"),
+  },
+};
 
 export const revalidate = 300;
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import MatchupsPageClient from "@/components/matchups/MatchupsPageClient";
 import type { MatchupsInitialPayload, MatchupsLeader } from "@/components/matchups/MatchupsPageClient";
 import { unstable_cache } from "next/cache";
@@ -9,6 +10,15 @@ import {
   MATCHUPS_PAGE_RANGE,
 } from "@/lib/constants/page-defaults";
 import { OFFICIAL_BASE_CARDS } from "@/lib/official-cards";
+import { absoluteUrl } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "One Piece TCG Matchup Matrix",
+  description: "Compare One Piece TCG deck matchups, head-to-head win rates, and matchup pressure on Devil Fruit TCG.",
+  alternates: {
+    canonical: absoluteUrl("/matchups"),
+  },
+};
 
 export const revalidate = 300;
 

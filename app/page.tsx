@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HomePageClient from "@/components/home/HomePageClient";
 import type { HomeBountyCard, HomeBountyMeta, HomeMatchupPayload } from "@/components/home/HomePageClient";
 import { unstable_cache } from "next/cache";
@@ -11,6 +12,37 @@ import {
   HOME_META_RANGE,
   HOME_META_REGION,
 } from "@/lib/constants/page-defaults";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Devil Fruit TCG for One Piece TCG Prices, Meta, and Deck Building",
+  description:
+    "Track One Piece TCG card prices, meta reports, matchup data, and deck trends with Devil Fruit TCG on DevilFruitTCG.gg.",
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    title: "Devil Fruit TCG for One Piece TCG Prices, Meta, and Deck Building",
+    description:
+      "Track One Piece TCG card prices, meta reports, matchup data, and deck trends with Devil Fruit TCG on DevilFruitTCG.gg.",
+    url: absoluteUrl("/"),
+    images: [
+      {
+        url: absoluteUrl(siteConfig.socialImage),
+        width: 1024,
+        height: 1024,
+        alt: `${siteConfig.name} emblem`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Devil Fruit TCG for One Piece TCG Prices, Meta, and Deck Building",
+    description:
+      "Track One Piece TCG card prices, meta reports, matchup data, and deck trends with Devil Fruit TCG on DevilFruitTCG.gg.",
+    images: [absoluteUrl(siteConfig.socialImage)],
+  },
+};
 
 export const revalidate = 300;
 
