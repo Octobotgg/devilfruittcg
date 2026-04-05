@@ -368,7 +368,7 @@ export default function HomePageClient({
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="journal-surface treasure-chart-surface rounded-[2rem] p-6 md:p-8"
+            className="journal-surface treasure-chart-surface speed-lines rounded-[2rem] p-6 md:p-8"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.28)] bg-[rgba(10,10,10,0.56)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">
               <ScrollText className="h-3.5 w-3.5" /> Grand Line command desk
@@ -382,7 +382,7 @@ export default function HomePageClient({
               </div>
             </div>
 
-            <h1 className="mt-7 max-w-2xl text-4xl font-black leading-[0.92] text-white md:text-6xl">
+            <h1 className="manga-title mt-7 max-w-2xl text-4xl font-black leading-[0.92] text-white md:text-6xl">
               Chart the Grand Line before the market turns.
             </h1>
 
@@ -549,7 +549,7 @@ export default function HomePageClient({
           <div className="flex items-end justify-between gap-3">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Bento Engine</p>
-              <h2 className="mt-1 text-2xl font-black text-white md:text-3xl">From Vibe to Value</h2>
+              <h2 className="manga-section-header mt-1 text-2xl font-black text-white md:text-3xl">From Vibe to Value</h2>
               <p className="mt-1 text-sm text-white/60">Clean signal tiles for meta reads, market checks, and matchup decisions.</p>
             </div>
             <Link href="/matchups" className="hidden items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white/65 hover:text-white md:inline-flex">
@@ -780,7 +780,7 @@ export default function HomePageClient({
         >
           <div className="captains-tool-copy">
             <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Tool Teaser</p>
-            <h2 className="mt-2 text-3xl font-black text-white md:text-4xl">
+            <h2 className="manga-section-header mt-2 text-3xl font-black text-white md:text-4xl">
               Theorycraft your next crew with the fastest deck lab on the seas.
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65 md:text-base">
