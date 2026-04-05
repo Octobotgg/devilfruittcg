@@ -53,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a href="https://discord.gg/clawd" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-white">
                     Community Discord
                   </a>
+                  <Link href="/about" className="block hover:text-white">About Us</Link>
                 </div>
               </div>
             </div>
