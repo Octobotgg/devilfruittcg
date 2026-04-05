@@ -25,7 +25,7 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="captains-nav-paper sticky top-3 z-50 mx-4 rounded-[24px] border backdrop-blur-xl md:mx-6 xl:mx-auto xl:max-w-7xl"
+      className="captains-nav-paper sticky top-3 z-50 mx-4 rounded-[24px] md:mx-6 xl:mx-auto xl:max-w-7xl"
     >
       <div className="h-18 flex items-center justify-between px-5 md:px-6">
         <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobileOpen(false)}>

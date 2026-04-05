@@ -6,29 +6,38 @@
 @utility preserve-3d      { transform-style: preserve-3d; }
 
 :root {
-  --navy: #0d0d11;
-  --navy-mid: #131319;
+  --navy: #060a14;
+  --navy-mid: #0b1022;
   --gold: #d4af37;
   --gold-dim: #9e7a18;
   --red: #dc2626;
-  --obsidian-soft: #0f1014;
+  --obsidian-soft: #0a0e1a;
   --brand-purple: #7b3fe4;
   --brand-purple-soft: rgba(123, 63, 228, 0.2);
 
   /* Visual system tokens */
-  --bg-base: #0a0a0a;
-  --bg-depth: #131319;
-  --panel-bg: rgba(16, 16, 18, 0.76);
-  --panel-bg-soft: rgba(245, 245, 247, 0.04);
-  --panel-border: rgba(212, 175, 55, 0.16);
+  --bg-base: #04080f;
+  --bg-depth: #081028;
+  --panel-bg: rgba(6, 14, 36, 0.88);
+  --panel-bg-soft: rgba(240, 192, 64, 0.06);
+  --panel-border: rgba(240, 192, 64, 0.55);
   --text-primary: #f5f5f7;
   --text-muted: rgba(245, 245, 247, 0.72);
-  --theme-accent: #d4af37;
-  --theme-accent-2: #f2d784;
-  --theme-glow: rgba(212, 175, 55, 0.34);
-  --theme-ring: rgba(212, 175, 55, 0.24);
+  --theme-accent: #e8b923;
+  --theme-accent-2: #f8d84a;
+  --theme-glow: rgba(240, 192, 64, 0.65);
+  --theme-ring: rgba(240, 192, 64, 0.50);
   --success: #22c55e;
   --danger: #ef4444;
+
+  /* One Piece palette */
+  --manga-border: rgba(240, 192, 64, 0.6);
+  --manga-border-bold: rgba(240, 192, 64, 0.8);
+  --op-red: #d42b2b;
+  --op-red-glow: rgba(212, 43, 43, 0.45);
+  --op-blue: #0c2461;
+  --op-blue-deep: #061333;
+  --halftone-dot: rgba(240, 192, 64, 0.08);
 
   /* Playmat texture layers */
   --playmat-noise: url('/images/manga-bg.svg');
@@ -92,14 +101,14 @@ body {
 /* ─── MANGA PANEL BORDER ─────────────────────────── */
 .manga-panel {
   position: relative;
-  border: 2px solid rgba(240,192,64,0.18);
+  border: 2.5px solid var(--manga-border);
   border-radius: 2px;
 }
 .manga-panel::before {
   content: '';
   position: absolute;
   inset: -5px;
-  border: 1px solid rgba(240,192,64,0.07);
+  border: 1px solid rgba(240,192,64,0.20);
   border-radius: 4px;
   pointer-events: none;
 }
@@ -107,16 +116,16 @@ body {
 /* ─── MANGA PANEL CARD (premium card wrapper) ────── */
 .manga-card {
   position: relative;
-  border-radius: 1.5rem;
-  border: 1px solid rgba(240,192,64,0.12);
-  background: rgba(255,255,255,0.025);
+  border-radius: 1rem;
+  border: 2px solid var(--manga-border);
+  background: rgba(8,14,28,0.85);
   overflow: hidden;
 }
 .manga-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(240,192,64,0.04) 0%, transparent 50%, rgba(220,38,38,0.03) 100%);
+  background: linear-gradient(135deg, rgba(240,192,64,0.08) 0%, transparent 50%, rgba(192,57,43,0.06) 100%);
   pointer-events: none;
   z-index: 0;
 }
@@ -131,8 +140,8 @@ body {
 
 /* ─── SPEED LINES ───────────────────────────────── */
 @keyframes speed-lines-pulse {
-  0%, 100% { opacity: 0.07; }
-  50%       { opacity: 0.16; }
+  0%, 100% { opacity: 0.14; }
+  50%       { opacity: 0.30; }
 }
 .speed-lines {
   background-image: repeating-conic-gradient(
@@ -168,18 +177,19 @@ body {
 /* ─── MANGA TEXT EFFECTS ─────────────────────────── */
 .manga-title {
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  -webkit-text-stroke: 1px rgba(0,0,0,0.4);
+  -webkit-text-stroke: 1.5px rgba(0,0,0,0.6);
   paint-order: stroke fill;
 }
 .manga-impact {
   font-weight: 900;
   letter-spacing: 0.05em;
   text-shadow:
-    3px 3px 0 rgba(0,0,0,0.8),
-    -1px -1px 0 rgba(0,0,0,0.6),
-    0 0 40px rgba(240,192,64,0.3);
+    3px 3px 0 rgba(0,0,0,0.9),
+    -1px -1px 0 rgba(0,0,0,0.7),
+    0 0 50px rgba(240,192,64,0.5),
+    0 0 100px rgba(192,57,43,0.2);
 }
 
 /* ─── GLOW TEXT ──────────────────────────────────── */
@@ -250,11 +260,9 @@ body {
 
 /* ─── PREMIUM GLASS CARD ─────────────────────────── */
 .glass-card {
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top-color: rgba(255,255,255,0.14);
+  background: rgba(8,14,28,0.85);
+  border: 2px solid var(--manga-border);
+  border-top-color: var(--manga-border-bold);
 }
 
 /* ─── SCAN LINE ──────────────────────────────────── */
@@ -323,21 +331,21 @@ body {
 /* ─── OCEAN BG ───────────────────────────────────── */
 .ocean-bg {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(29,78,216,0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(124,58,237,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 60% 80%, rgba(16,185,129,0.04) 0%, transparent 50%),
-    linear-gradient(135deg, #060b18 0%, #0a0f1e 50%, #060d1f 100%);
+    radial-gradient(ellipse at 20% 50%, rgba(29,78,216,0.16) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(192,57,43,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(240,192,64,0.04) 0%, transparent 50%),
+    linear-gradient(135deg, #060a14 0%, #0b1022 50%, #040610 100%);
 }
 
 /* ─── SCROLLBAR ──────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #060b18; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #040610; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(240,192,64,0.4), rgba(220,38,38,0.3));
+  background: linear-gradient(180deg, rgba(240,192,64,0.5), rgba(192,57,43,0.4));
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(240,192,64,0.6), rgba(220,38,38,0.5));
+  background: linear-gradient(180deg, rgba(240,192,64,0.7), rgba(192,57,43,0.6));
 }
 
 /* ─── V4 VISUAL SYSTEM FOUNDATIONS ───────────────── */
@@ -352,11 +360,12 @@ body {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(circle at 18% 14%, color-mix(in oklab, var(--brand-purple) 24%, transparent), transparent 38%),
-    radial-gradient(circle at 56% 18%, color-mix(in oklab, var(--theme-accent) 12%, transparent), transparent 34%),
-    radial-gradient(circle at 80% 10%, color-mix(in oklab, var(--theme-accent) 18%, transparent), transparent 44%),
-    radial-gradient(circle at 74% 84%, color-mix(in oklab, var(--theme-accent-2) 12%, transparent), transparent 42%),
-    linear-gradient(180deg, var(--bg-base) 0%, var(--bg-depth) 48%, #09090d 100%);
+    radial-gradient(ellipse at 15% 10%, rgba(212,43,43,0.25), transparent 45%),
+    radial-gradient(ellipse at 85% 15%, rgba(240,192,64,0.2), transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(12,36,97,0.5), transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(12,36,97,0.35), transparent 50%),
+    radial-gradient(ellipse at 80% 85%, rgba(212,43,43,0.15), transparent 45%),
+    linear-gradient(180deg, #04080f 0%, #081028 30%, #0c1a40 60%, #04080f 100%);
 }
 
 .playmat-shell::after {
@@ -364,7 +373,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  opacity: 0.12;
+  opacity: 0.25;
   pointer-events: none;
   background-image: var(--playmat-map), var(--playmat-noise);
   background-size: cover, cover;
@@ -475,11 +484,17 @@ main h3 {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 3px solid var(--manga-border-bold);
   background:
-    radial-gradient(circle at 18% 16%, rgba(123, 63, 228, 0.14), transparent 32%),
-    linear-gradient(180deg, rgba(18, 18, 21, 0.92), rgba(10, 10, 10, 0.9));
-  box-shadow: inset 0 0 42px rgba(0, 0, 0, 0.42), 0 18px 40px rgba(0, 0, 0, 0.38);
+    radial-gradient(circle at 10% 10%, rgba(212, 43, 43, 0.18), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(12, 36, 97, 0.3), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(240, 192, 64, 0.05), transparent 60%),
+    linear-gradient(180deg, rgba(6, 14, 36, 0.96), rgba(4, 8, 20, 0.98));
+  box-shadow:
+    inset 0 0 60px rgba(0, 0, 0, 0.5),
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(240, 192, 64, 0.12),
+    0 0 80px rgba(12, 36, 97, 0.15);
 }
 
 .treasure-chart-surface::before {
@@ -514,12 +529,14 @@ main h3 {
 
 .captains-nav-paper {
   background:
-    radial-gradient(circle at 10% 0%, rgba(123, 63, 228, 0.18), transparent 44%),
-    linear-gradient(180deg, rgba(10, 10, 10, 0.74), rgba(10, 10, 10, 0.62));
-  border-color: rgba(212, 175, 55, 0.18);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(245, 245, 247, 0.06);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+    radial-gradient(circle at 10% 50%, rgba(212, 43, 43, 0.12), transparent 50%),
+    radial-gradient(circle at 90% 50%, rgba(240, 192, 64, 0.08), transparent 50%),
+    linear-gradient(180deg, rgba(4, 8, 20, 0.97), rgba(6, 12, 30, 0.95));
+  border: 2.5px solid var(--manga-border-bold) !important;
+  box-shadow:
+    0 6px 30px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(240, 192, 64, 0.1),
+    inset 0 1px 0 rgba(240, 192, 64, 0.15);
 }
 
 .nav-haki-link {
@@ -533,10 +550,10 @@ main h3 {
   left: 0.9rem;
   right: 0.9rem;
   bottom: 0.32rem;
-  height: 2px;
+  height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, rgba(248, 212, 121, 0.96), transparent);
-  box-shadow: 0 0 16px rgba(248, 212, 121, 0.45);
+  background: linear-gradient(90deg, transparent, var(--op-red), rgba(240, 192, 64, 0.9), transparent);
+  box-shadow: 0 0 20px rgba(192, 57, 43, 0.4);
   transform: scaleX(0.2);
   opacity: 0;
   transition: transform var(--motion-fast) var(--ease-out), opacity var(--motion-fast) var(--ease-out);
@@ -769,12 +786,17 @@ main h3 {
 }
 
 .captains-feature-shell {
-  border: 1px solid rgba(212, 175, 55, 0.18);
+  border: 3px solid var(--manga-border-bold);
   background:
-    radial-gradient(circle at 18% 12%, rgba(123, 63, 228, 0.2), transparent 42%),
-    radial-gradient(circle at 82% 14%, rgba(212, 175, 55, 0.12), transparent 34%),
-    linear-gradient(180deg, rgba(15, 15, 17, 0.9), rgba(10, 10, 10, 0.92));
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.36), 0 16px 36px rgba(0, 0, 0, 0.4);
+    radial-gradient(circle at 20% 15%, rgba(212, 43, 43, 0.15), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(240, 192, 64, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(12, 36, 97, 0.25), transparent 50%),
+    linear-gradient(180deg, rgba(6, 14, 36, 0.95), rgba(4, 8, 20, 0.98));
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.4),
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    0 0 30px rgba(240, 192, 64, 0.1),
+    0 0 60px rgba(12, 36, 97, 0.12);
 }
 
 .captains-feature-card {
@@ -868,15 +890,15 @@ main h3 {
 }
 
 .captains-link-tile {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(180deg, rgba(11, 14, 24, 0.84), rgba(8, 10, 18, 0.82));
+  border: 2px solid rgba(240, 192, 64, 0.28);
+  background: linear-gradient(180deg, rgba(8, 14, 28, 0.88), rgba(6, 10, 20, 0.86));
   transition: transform var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
 }
 
 .captains-link-tile:hover {
-  transform: translateY(-2px);
-  border-color: rgba(248, 212, 121, 0.4);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32), 0 0 20px rgba(248, 212, 121, 0.12);
+  transform: translateY(-3px);
+  border-color: var(--manga-border-bold);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(240, 192, 64, 0.14);
 }
 
 .captains-bento-grid {
@@ -892,13 +914,17 @@ main h3 {
 }
 
 .captains-bento-card {
-  border: 1px solid rgba(212, 175, 55, 0.12);
-  border-radius: 1.25rem;
+  border: 2.5px solid var(--manga-border);
+  border-radius: 1rem;
   background:
-    radial-gradient(circle at 12% 10%, rgba(123, 63, 228, 0.1), transparent 46%),
-    radial-gradient(circle at 78% 10%, rgba(212, 175, 55, 0.08), transparent 34%),
-    linear-gradient(180deg, rgba(14, 14, 16, 0.9), rgba(10, 10, 10, 0.92));
-  box-shadow: inset 0 0 0 1px rgba(245, 245, 247, 0.02), 0 14px 30px rgba(0, 0, 0, 0.34);
+    radial-gradient(circle at 8% 8%, rgba(212, 43, 43, 0.1), transparent 40%),
+    radial-gradient(circle at 92% 8%, rgba(240, 192, 64, 0.08), transparent 35%),
+    radial-gradient(circle at 50% 100%, rgba(12, 36, 97, 0.2), transparent 50%),
+    linear-gradient(180deg, rgba(6, 14, 36, 0.94), rgba(4, 8, 20, 0.97));
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(240, 192, 64, 0.06),
+    inset 0 1px 0 rgba(240, 192, 64, 0.12);
   padding: 1rem;
 }
 
@@ -925,17 +951,17 @@ main h3 {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(240, 192, 64, 0.28);
   border-radius: 0.85rem;
-  background: rgba(0, 0, 0, 0.26);
+  background: rgba(8, 14, 28, 0.6);
   padding: 0.45rem;
   transition: transform var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
 }
 
 .captains-yonko-strip:hover {
-  transform: translateY(-1px);
-  border-color: rgba(248, 212, 121, 0.35);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.24);
+  transform: translateY(-2px);
+  border-color: var(--manga-border-bold);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35), 0 0 12px rgba(240, 192, 64, 0.1);
 }
 
 .captains-winrate-track {
@@ -1001,23 +1027,23 @@ main h3 {
 }
 
 .bounty-stamp-hot {
-  background: rgba(140, 32, 28, 0.14);
-  color: #8c201c;
+  background: rgba(192, 57, 43, 0.22);
+  color: #a82318;
 }
 
 .bounty-stamp-collector {
-  background: rgba(114, 76, 17, 0.12);
-  color: #6e4910;
+  background: rgba(180, 120, 20, 0.2);
+  color: #8a5c10;
 }
 
 .bounty-stamp-rising {
-  background: rgba(16, 101, 74, 0.12);
-  color: #0f5f48;
+  background: rgba(16, 140, 90, 0.2);
+  color: #0d7a52;
 }
 
 .bounty-stamp-watch {
-  background: rgba(54, 55, 82, 0.1);
-  color: #35435e;
+  background: rgba(26, 58, 107, 0.18);
+  color: #2a4a78;
 }
 
 .captains-tool-teaser {
@@ -1025,14 +1051,20 @@ main h3 {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   align-items: center;
   gap: 1rem;
-  border: 1px solid rgba(212, 175, 55, 0.16);
-  border-radius: 1.3rem;
+  border: 2.5px solid var(--manga-border);
+  border-radius: 1rem;
   background:
-    radial-gradient(circle at 14% 12%, rgba(123, 63, 228, 0.16), transparent 44%),
-    radial-gradient(circle at 82% 18%, rgba(212, 175, 55, 0.12), transparent 32%),
-    linear-gradient(180deg, rgba(15, 15, 17, 0.92), rgba(10, 10, 10, 0.92));
-  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.38), inset 0 0 0 1px rgba(245, 245, 247, 0.03);
+    radial-gradient(circle at 10% 20%, rgba(212, 43, 43, 0.14), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(240, 192, 64, 0.1), transparent 40%),
+    radial-gradient(circle at 60% 80%, rgba(12, 36, 97, 0.22), transparent 50%),
+    linear-gradient(180deg, rgba(6, 14, 36, 0.95), rgba(4, 8, 20, 0.98));
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(240, 192, 64, 0.08),
+    inset 0 1px 0 rgba(240, 192, 64, 0.12);
   padding: 1.2rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .captains-card-fan {
@@ -1068,11 +1100,11 @@ main h3 {
 }
 
 .captains-footer {
-  border-top: 1px solid rgba(212, 175, 55, 0.18);
+  border-top: 2px solid var(--manga-border);
   background:
-    radial-gradient(circle at 20% 0%, rgba(123, 63, 228, 0.16), transparent 44%),
-    radial-gradient(circle at 82% 0%, rgba(212, 175, 55, 0.1), transparent 34%),
-    linear-gradient(180deg, rgba(14, 14, 16, 0.74), rgba(10, 10, 10, 0.88));
+    radial-gradient(circle at 20% 0%, rgba(192, 57, 43, 0.12), transparent 44%),
+    radial-gradient(circle at 82% 0%, rgba(240, 192, 64, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(6, 10, 20, 0.88), rgba(4, 6, 14, 0.95));
 }
 
 @keyframes haki-pulse {
@@ -1181,4 +1213,43 @@ main h3 {
   .bounty-stamp {
     right: -1.8rem;
   }
+}
+
+/* ─── HALFTONE DOT OVERLAY ──────────────────────── */
+.halftone-overlay {
+  position: relative;
+}
+.halftone-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--halftone-dot) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── MANGA SECTION HEADER ──────────────────────── */
+.manga-section-header {
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.3);
+  paint-order: stroke fill;
+}
+
+/* ─── RED ACCENT UNDERLINE ──────────────────────── */
+.op-red-accent {
+  position: relative;
+}
+.op-red-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--op-red), transparent);
+  border-radius: 2px;
 }
