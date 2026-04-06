@@ -48,8 +48,8 @@ export default function Navbar() {
                   transition={{ type: "spring", stiffness: 400 }}
                   className={`nav-haki-link flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition-colors ${
                     active
-                      ? "nav-haki-link-active border-[rgba(212,175,55,0.48)] bg-[rgba(212,175,55,0.1)] text-[var(--theme-accent-2)]"
-                      : "border-transparent text-white/60 hover:bg-white/5 hover:text-white"
+                      ? "nav-haki-link-active border-[rgba(212,160,84,0.48)] bg-[rgba(212,160,84,0.12)] text-[var(--color-gold)]"
+                      : "border-transparent text-[var(--color-parchment-dark)] hover:bg-white/8 hover:text-white"
                   }`}
                 >
                   <link.icon className="w-4 h-4" />
@@ -64,7 +64,7 @@ export default function Navbar() {
           <AuthNavButton />
 
           <button
-            className="md:hidden text-white/60 hover:text-white p-2"
+            className="md:hidden text-[var(--color-parchment-dark)] hover:text-white p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -79,7 +79,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t border-white/8 bg-[rgba(10,10,10,0.94)]"
+            className="md:hidden overflow-hidden border-t border-[rgba(212,160,84,0.2)] bg-[rgba(27,40,56,0.97)]"
           >
             <div className="px-4 py-3 space-y-1">
               <AuthNavButton mobile onNavigate={() => setMobileOpen(false)} />
@@ -92,8 +92,8 @@ export default function Navbar() {
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-sm font-medium transition-all ${
                       active
-                        ? "border-[rgba(212,175,55,0.48)] bg-[rgba(212,175,55,0.1)] text-[var(--theme-accent-2)]"
-                        : "border-transparent text-white/60 hover:bg-white/5 hover:text-white"
+                        ? "border-[rgba(212,160,84,0.48)] bg-[rgba(212,160,84,0.12)] text-[var(--color-gold)]"
+                        : "border-transparent text-[var(--color-parchment-dark)] hover:bg-white/8 hover:text-white"
                     }`}
                   >
                     <link.icon className="w-4 h-4" />

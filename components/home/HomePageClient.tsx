@@ -120,11 +120,11 @@ function getBountyStamp(card: HomeBountyCard): BountyStamp {
 }
 
 function heatClass(rate: number) {
-  if (rate >= 60) return "border-emerald-400/35 bg-emerald-500/18 text-emerald-100";
-  if (rate >= 55) return "border-emerald-300/30 bg-emerald-500/12 text-emerald-100";
-  if (rate >= 45) return "border-white/15 bg-white/8 text-white";
-  if (rate >= 40) return "border-orange-300/30 bg-orange-500/14 text-orange-100";
-  return "border-red-300/28 bg-red-500/15 text-red-100";
+  if (rate >= 60) return "border-emerald-600/30 bg-emerald-500/12 text-emerald-800";
+  if (rate >= 55) return "border-emerald-500/25 bg-emerald-500/8 text-emerald-800";
+  if (rate >= 45) return "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-dark)]";
+  if (rate >= 40) return "border-orange-400/30 bg-orange-500/10 text-orange-800";
+  return "border-red-400/25 bg-red-500/10 text-red-800";
 }
 
 export default function HomePageClient({
@@ -346,19 +346,11 @@ export default function HomePageClient({
 
   return (
     <div className="relative pb-14 md:pb-20">
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden>
-        <div
-          className="captains-parallax-map absolute inset-[-12%]"
-          style={{ transform: `translate3d(0, ${Math.round(scrollY * 0.18)}px, 0)` }}
-        />
-        <div className="captains-lantern captains-lantern-left" />
-        <div className="captains-lantern captains-lantern-right" />
-        <div className="captains-dust" />
-      </div>
+      {/* Background effects removed — cream body provides the base */}
 
       <div className="relative z-10 space-y-8">
         {homepageFeedsUnavailable ? (
-          <div className="rounded-2xl border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+          <div className="rounded-2xl border border-[var(--color-gold)] bg-[rgba(212,160,84,0.1)] px-4 py-3 text-sm text-[var(--color-text-dark)]">
             <span className="font-bold">Live data unavailable.</span> Some homepage sections are showing loading placeholders until the live meta, matchup, and market feeds recover.
           </div>
         ) : null}
@@ -370,7 +362,7 @@ export default function HomePageClient({
             transition={{ duration: 0.45 }}
             className="journal-surface treasure-chart-surface speed-lines rounded-[2rem] p-6 md:p-8"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.28)] bg-[rgba(10,10,10,0.56)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
               <ScrollText className="h-3.5 w-3.5" /> Grand Line command desk
             </div>
 
@@ -382,11 +374,11 @@ export default function HomePageClient({
               </div>
             </div>
 
-            <h1 className="manga-title mt-7 max-w-2xl text-4xl font-black leading-[0.92] text-white md:text-6xl">
+            <h1 className="manga-title mt-7 max-w-2xl text-4xl font-black leading-[0.92] text-[var(--color-navy)] md:text-6xl">
               Chart the Grand Line before the market turns.
             </h1>
 
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)] md:text-base">
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--color-text-mid)] md:text-base">
               Track bounty spikes, matchup pressure, and crew-level meta shifts in a command deck that feels like a treasure map, a collector vault, and a live tournament desk at the same time.
             </p>
 
@@ -411,7 +403,7 @@ export default function HomePageClient({
               </DonButton>
               <Link
                 href="/meta"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(212,175,55,0.22)] bg-[rgba(10,10,10,0.44)] px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/80 transition-colors hover:border-[rgba(212,175,55,0.4)] hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] transition-colors hover:border-[var(--color-gold)] hover:text-[var(--color-navy)]"
               >
                 Open Log Pose
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -424,14 +416,14 @@ export default function HomePageClient({
                   <Coins className="h-3.5 w-3.5" />
                   Market Pulse
                 </p>
-                <p className="mt-1 text-sm font-black text-white">{usingLiveBounty && liveBountyMeta?.updatedAt ? ago(liveBountyMeta.updatedAt) : "Live sync pending"}</p>
+                <p className="mt-1 text-sm font-black text-[var(--color-navy)]">{usingLiveBounty && liveBountyMeta?.updatedAt ? ago(liveBountyMeta.updatedAt) : "Live sync pending"}</p>
               </div>
               <div className="brand-stat-panel">
                 <p className="brand-stat-label brand-stat-header">
                   <ScrollText className="h-3.5 w-3.5" />
                   Match Sample
                 </p>
-                <p className="mt-1 text-sm font-black text-white">
+                <p className="mt-1 text-sm font-black text-[var(--color-navy)]">
                   {telemetrySampleText}
                 </p>
               </div>
@@ -440,7 +432,7 @@ export default function HomePageClient({
                   <Compass className="h-3.5 w-3.5" />
                   Lead Deck
                 </p>
-                <p className="mt-1 truncate text-sm font-black text-white">{topDeck?.name || "Live data unavailable"}</p>
+                <p className="mt-1 truncate text-sm font-black text-[var(--color-navy)]">{topDeck?.name || "Live data unavailable"}</p>
               </div>
             </div>
           </motion.article>
@@ -454,7 +446,7 @@ export default function HomePageClient({
             onMouseLeave={() => setHeroHover(false)}
           >
             <div className="flex items-center justify-between gap-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.28)] bg-[rgba(10,10,10,0.38)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
                 <Crown className="h-3.5 w-3.5" /> Wanted holo
               </div>
               <BrandMark variant="monogram" className="brand-mark-hero" />
@@ -476,7 +468,7 @@ export default function HomePageClient({
 
               <div className="relative mx-auto w-[min(76vw,340px)]">
                 <TiltCard className="relative rounded-[1.6rem]">
-                  <div className="captains-feature-card relative overflow-hidden rounded-[1.6rem] border border-white/18 p-2.5">
+                  <div className="captains-feature-card relative overflow-hidden rounded-[1.6rem] border border-[var(--color-parchment-dark)] p-2.5">
                     <div className="brand-card-rim rounded-[1.3rem] p-1.5">
                       {featuredId ? (
                         <img
@@ -485,7 +477,7 @@ export default function HomePageClient({
                           className="aspect-[5/7] w-full rounded-[1.1rem] object-cover shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
                         />
                       ) : (
-                        <div className="flex aspect-[5/7] w-full items-center justify-center rounded-[1.1rem] border border-dashed border-white/15 bg-[rgba(10,10,10,0.45)] px-6 text-center text-sm font-bold uppercase tracking-[0.14em] text-white/45">
+                        <div className="flex aspect-[5/7] w-full items-center justify-center rounded-[1.1rem] border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-6 text-center text-sm font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">
                           Live showcase unavailable
                         </div>
                       )}
@@ -497,17 +489,17 @@ export default function HomePageClient({
                   animate={{ opacity: heroHover ? 1 : 0.82, x: heroHover ? 0 : -8 }}
                   className="captains-aura captains-aura-left"
                 >
-                  <p className="text-[9px] uppercase tracking-[0.12em] text-white/55">Market Quote</p>
+                  <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Market Quote</p>
                   {featuredId ? (
                     <>
-                      <p className="text-sm font-black text-[var(--theme-accent-2)]">{formatBeli(featuredQuote.price)}</p>
-                      <p className={`text-[10px] font-bold ${featuredQuote.delta >= 0 ? "text-emerald-300" : "text-red-300"}`}>
+                      <p className="text-sm font-black text-[var(--color-gold-dark)]">{formatBeli(featuredQuote.price)}</p>
+                      <p className={`text-[10px] font-bold ${featuredQuote.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
                         {featuredQuote.delta >= 0 ? "+" : ""}
                         {featuredQuote.delta.toFixed(1)}% 24h
                       </p>
                     </>
                   ) : (
-                    <p className="text-[10px] font-bold text-white/50">Waiting for live market data</p>
+                    <p className="text-[10px] font-bold text-[var(--color-text-light)]">Waiting for live market data</p>
                   )}
                 </motion.div>
 
@@ -515,14 +507,14 @@ export default function HomePageClient({
                   animate={{ opacity: heroHover ? 1 : 0.82, x: heroHover ? 0 : 8 }}
                   className="captains-aura captains-aura-right"
                 >
-                  <p className="text-[9px] uppercase tracking-[0.12em] text-white/55">Meta Signal</p>
+                  <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Meta Signal</p>
                   {featuredRank && featuredWinRate != null ? (
                     <>
-                      <p className="text-sm font-black text-white">#{featuredRank} deck</p>
-                      <p className="text-[10px] font-bold text-emerald-300">{featuredWinRate.toFixed(1)}% WR</p>
+                      <p className="text-sm font-black text-[var(--color-navy)]">#{featuredRank} deck</p>
+                      <p className="text-[10px] font-bold text-emerald-700">{featuredWinRate.toFixed(1)}% WR</p>
                     </>
                   ) : (
-                    <p className="text-[10px] font-bold text-white/50">Waiting for live meta data</p>
+                    <p className="text-[10px] font-bold text-[var(--color-text-light)]">Waiting for live meta data</p>
                   )}
                 </motion.div>
 
@@ -530,15 +522,15 @@ export default function HomePageClient({
                   animate={{ opacity: heroHover ? 1 : 0.84, y: heroHover ? 0 : 6 }}
                   className="captains-aura captains-aura-bottom"
                 >
-                  <Sparkles className="h-3.5 w-3.5 text-[var(--theme-accent-2)]" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.12em]">Foil-grade visual focus</span>
+                  <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold-dark)]" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.12em] text-[var(--color-text-mid)]">Foil-grade visual focus</span>
                 </motion.div>
               </div>
             </div>
 
             <div className="mt-5 text-center">
-              <p className="text-xl font-black text-white">{featuredName}</p>
-              <p className="text-xs text-white/50">
+              <p className="text-xl font-black text-[var(--color-navy)]">{featuredName}</p>
+              <p className="text-xs text-[var(--color-text-light)]">
                 {featuredId ? `${featuredId} · live bounty, holo finish, and top-table signal` : "Load the latest live leader spotlight once the homepage feeds recover."}
               </p>
             </div>
@@ -548,11 +540,11 @@ export default function HomePageClient({
         <section className="space-y-4">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Bento Engine</p>
-              <h2 className="manga-section-header mt-1 text-2xl font-black text-white md:text-3xl">From Vibe to Value</h2>
-              <p className="mt-1 text-sm text-white/60">Clean signal tiles for meta reads, market checks, and matchup decisions.</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Bento Engine</p>
+              <h2 className="manga-section-header mt-1 text-2xl font-black text-[var(--color-navy)] md:text-3xl">From Vibe to Value</h2>
+              <p className="mt-1 text-sm text-[var(--color-text-mid)]">Clean signal tiles for meta reads, market checks, and matchup decisions.</p>
             </div>
-            <Link href="/matchups" className="hidden items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-white/65 hover:text-white md:inline-flex">
+            <Link href="/matchups" className="hidden items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-text-light)] hover:text-[var(--color-navy)] md:inline-flex">
               Open Full Matrix <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -566,12 +558,12 @@ export default function HomePageClient({
             >
               <div className="mb-3 flex items-end justify-between gap-2">
                 <div>
-                  <p className="text-lg font-black text-white">The Yonko</p>
-                  <p className="text-xs text-white/50">
+                  <p className="text-lg font-black text-[var(--color-navy)]">The Yonko</p>
+                  <p className="text-xs text-[var(--color-text-light)]">
                     {telemetryUpdatedAt ? `Top crews · refreshed ${ago(telemetryUpdatedAt)}` : "Top crews · live sync pending"}
                   </p>
                 </div>
-                <Link href="/meta" className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--theme-accent-2)] hover:text-white">View all</Link>
+                <Link href="/meta" className="text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-gold-dark)] hover:text-[var(--color-navy)]">View all</Link>
               </div>
 
               <div className="space-y-2.5">
@@ -584,12 +576,12 @@ export default function HomePageClient({
                     <img
                       src={`/api/card-image?id=${deck.cardId || "OP01-001"}&variant=p1`}
                       alt={deck.name}
-                      className="h-16 w-12 rounded-lg border border-white/20 object-cover"
+                      className="h-16 w-12 rounded-lg border border-[var(--color-parchment-dark)] object-cover"
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="truncate text-sm font-black text-white">{deck.name}</p>
-                        <p className="text-xs font-black text-emerald-300">{(deck.winRate ?? 50).toFixed(1)}%</p>
+                        <p className="truncate text-sm font-black text-[var(--color-navy)]">{deck.name}</p>
+                        <p className="text-xs font-black text-emerald-700">{(deck.winRate ?? 50).toFixed(1)}%</p>
                       </div>
 
                       <div className="captains-winrate-track mt-1.5">
@@ -599,17 +591,17 @@ export default function HomePageClient({
                         />
                       </div>
 
-                      <div className="mt-1 flex items-center justify-between text-[10px] text-white/50">
+                      <div className="mt-1 flex items-center justify-between text-[10px] text-[var(--color-text-light)]">
                         <span>#{deck.rank} · {deck.color || "Mixed"}</span>
                         <span>{deck.popularity.toFixed(1)}% field</span>
                       </div>
                     </div>
-                    <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${i === 0 ? "bg-[#f8d479]/20 text-[#f8d479]" : "bg-white/10 text-white/75"}`}>
+                    <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${i === 0 ? "bg-[rgba(212,160,84,0.2)] text-[var(--color-gold-dark)]" : "bg-[var(--color-parchment-dark)]/40 text-[var(--color-text-mid)]"}`}>
                       #{deck.rank}
                     </span>
                   </Link>
                 )) : (
-                  <div className="rounded-xl border border-white/10 bg-black/25 p-4 text-sm text-white/55">
+                  <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 text-sm text-[var(--color-text-light)]">
                     Live meta leaders are unavailable right now. Reload once the live feed recovers.
                   </div>
                 )}
@@ -623,9 +615,9 @@ export default function HomePageClient({
               className="captains-bento-card captains-bounty-board col-span-12 md:col-span-4 md:row-span-2"
             >
               <div className="mb-3">
-                <p className="text-lg font-black text-white">Bounty Board</p>
-                <p className="text-xs text-white/50">Marine issue board · 24h pulse</p>
-                <p className={`text-[10px] ${liveBountyMeta?.stale ? "text-amber-300/80" : "text-white/45"}`}>
+                <p className="text-lg font-black text-[var(--color-navy)]">Bounty Board</p>
+                <p className="text-xs text-[var(--color-text-light)]">Marine issue board · 24h pulse</p>
+                <p className={`text-[10px] ${liveBountyMeta?.stale ? "text-amber-700" : "text-[var(--color-text-light)]"}`}>
                   {formatFreshnessLabel(liveBountyMeta)}
                 </p>
               </div>
@@ -677,7 +669,7 @@ export default function HomePageClient({
                     </Link>
                   );
                 }) : (
-                  <div className="rounded-xl border border-white/10 bg-black/20 p-4 text-sm text-white/55">
+                  <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 text-sm text-[var(--color-text-light)]">
                     Live market movers are unavailable right now.
                   </div>
                 )}
@@ -698,12 +690,12 @@ export default function HomePageClient({
             >
               <div className="mb-3 flex items-end justify-between gap-2">
                 <div>
-                  <p className="text-lg font-black text-white">Tournament Radar</p>
-                  <p className="text-xs text-white/50">
+                  <p className="text-lg font-black text-[var(--color-navy)]">Tournament Radar</p>
+                  <p className="text-xs text-[var(--color-text-light)]">
                     {usingLiveMeta ? "Weekly live leaders · jump into current deck detail" : "Live tournament decklists unavailable right now"}
                   </p>
                 </div>
-                <CalendarDays className="h-4 w-4 text-[var(--theme-accent-2)]" />
+                <CalendarDays className="h-4 w-4 text-[var(--color-gold-dark)]" />
               </div>
 
               <div className="space-y-2">
@@ -711,25 +703,25 @@ export default function HomePageClient({
                   <Link
                     key={`${deck.name}-${deck.rank}`}
                     href={deck.deckId ? `/meta?deck=${deck.deckId}` : "/meta"}
-                    className="block rounded-xl border border-white/10 bg-black/25 p-3 transition-colors hover:border-white/20"
+                    className="block rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3 transition-colors hover:border-[var(--color-gold)]"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="text-sm font-black text-white">{deck.name}</p>
-                        <p className="text-[11px] text-white/55">
+                        <p className="text-sm font-black text-[var(--color-navy)]">{deck.name}</p>
+                        <p className="text-[11px] text-[var(--color-text-light)]">
                           Weekly OP15 meta · #{deck.rank} · {deck.color || "Mixed"}
                         </p>
                       </div>
-                      <span className="rounded-md border border-white/15 bg-black/35 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-white/70">
+                      <span className="rounded-md border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)]">
                         Open
                       </span>
                     </div>
-                    <p className="mt-2 text-[11px] text-[var(--theme-accent-2)]">
+                    <p className="mt-2 text-[11px] text-[var(--color-gold-dark)]">
                       {(deck.winRate ?? 0).toFixed(1)}% WR · {deck.popularity.toFixed(1)}% field
                     </p>
                   </Link>
                 )) : (
-                  <div className="rounded-xl border border-white/10 bg-black/25 p-4 text-sm text-white/55">
+                  <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 text-sm text-[var(--color-text-light)]">
                     Live tournament radar is unavailable right now.
                   </div>
                 )}
@@ -744,15 +736,15 @@ export default function HomePageClient({
             >
               <div className="mb-3 flex items-end justify-between gap-2">
                 <div>
-                  <p className="text-base font-black text-white">Matchup Teaser</p>
-                  <p className="text-[11px] text-white/50">Worst pairings for current #1</p>
+                  <p className="text-base font-black text-[var(--color-navy)]">Matchup Teaser</p>
+                  <p className="text-[11px] text-[var(--color-text-light)]">Worst pairings for current #1</p>
                 </div>
-                <TrendingUp className="h-4 w-4 text-[var(--theme-accent-2)]" />
+                <TrendingUp className="h-4 w-4 text-[var(--color-gold-dark)]" />
               </div>
 
               {matrixTeaser ? (
                 <>
-                  <p className="mb-2 text-xs text-white/70">#{1} {matrixTeaser.anchor.name}</p>
+                  <p className="mb-2 text-xs text-[var(--color-text-mid)]">#{1} {matrixTeaser.anchor.name}</p>
                   <div className="grid grid-cols-2 gap-2">
                     {matrixTeaser.opponents.map((m) => (
                       <div key={m.deck.id} className={`rounded-lg border px-2 py-1.5 text-xs ${heatClass(m.rate)}`}>
@@ -761,12 +753,12 @@ export default function HomePageClient({
                       </div>
                     ))}
                   </div>
-                  <Link href="/matchups" className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--theme-accent-2)] hover:text-white">
+                  <Link href="/matchups" className="mt-3 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-gold-dark)] hover:text-[var(--color-navy)]">
                     See full matrix <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </>
               ) : (
-                <p className="text-sm text-white/55">Matchup telemetry syncing...</p>
+                <p className="text-sm text-[var(--color-text-light)]">Matchup telemetry syncing...</p>
               )}
             </motion.article>
           </div>
@@ -779,7 +771,7 @@ export default function HomePageClient({
           className="captains-tool-teaser"
         >
           <div className="captains-tool-copy">
-            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Tool Teaser</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold)]">Tool Teaser</p>
             <h2 className="manga-section-header mt-2 text-3xl font-black text-white md:text-4xl">
               Theorycraft your next crew with the fastest deck lab on the seas.
             </h2>
@@ -792,7 +784,7 @@ export default function HomePageClient({
               </DonButton>
               <Link
                 href="/decks"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/80 hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-white/25 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/80 hover:text-white"
               >
                 Explore Top Decklists <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -806,7 +798,7 @@ export default function HomePageClient({
               </div>
             )) : [1, 2, 3].map((slot, i) => (
               <div key={`placeholder-${slot}`} className={`captains-fan-card captains-fan-${i + 1}`}>
-                <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-white/15 bg-[rgba(10,10,10,0.45)] text-[10px] font-bold uppercase tracking-[0.14em] text-white/35">
+                <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-white/25 bg-[rgba(27,40,56,0.6)] text-[10px] font-bold uppercase tracking-[0.14em] text-white/50">
                   Live sync pending
                 </div>
               </div>
