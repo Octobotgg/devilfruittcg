@@ -422,14 +422,14 @@ function MobileDrawer({
           >
             <div className="mb-4 flex items-center justify-between gap-3">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.16em] text-white/40">Collection Lab</p>
-                <h2 className="text-lg font-black text-white">{title}</h2>
+                <p className="text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-light)]">Collection Lab</p>
+                <h2 className="text-lg font-black text-[var(--color-navy)]">{title}</h2>
               </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label={`Dismiss ${title}`}
-                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/10 bg-black/30 text-white/70"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] bg-black/30 text-[var(--color-text-mid)]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -451,8 +451,8 @@ function PlaceholderCard({
 }) {
   return (
     <div className="rounded-2xl border border-dashed border-white/15 bg-black/20 p-4">
-      <p className="text-sm font-black text-white">{title}</p>
-      <p className="mt-2 text-sm text-white/55">{body}</p>
+      <p className="text-sm font-black text-[var(--color-navy)]">{title}</p>
+      <p className="mt-2 text-sm text-[var(--color-text-mid)]">{body}</p>
     </div>
   );
 }
@@ -1862,20 +1862,20 @@ function CollectionPageContent() {
   }, [allCardsById, collection, collectionEntries, conditionMap, priceMap, tradeIds, wishlistByCardId]);
 
   const renderFilters = (mobile = false) => {
-    const wrapClass = mobile ? "space-y-4" : "rounded-2xl border border-white/10 bg-white/[0.03] p-4";
-    const sectionClass = mobile ? "rounded-2xl border border-white/10 bg-black/20 p-3" : "rounded-2xl border border-white/10 bg-black/20 p-3";
+    const wrapClass = mobile ? "space-y-4" : "rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4";
+    const sectionClass = mobile ? "rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3" : "rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3";
 
     return (
       <div className={wrapClass}>
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-black text-white">Filters</p>
-            <p className="text-xs text-white/45">{activeFilterCount} active</p>
+            <p className="text-sm font-black text-[var(--color-navy)]">Filters</p>
+            <p className="text-xs text-[var(--color-text-light)]">{activeFilterCount} active</p>
           </div>
           <button
             type="button"
             onClick={clearFilters}
-            className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-bold text-white/70"
+            className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-xs font-bold text-[var(--color-text-mid)]"
           >
             Clear All
           </button>
@@ -1883,16 +1883,16 @@ function CollectionPageContent() {
 
         <div className="grid gap-3 xl:grid-cols-2">
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Set / Booster</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Set / Booster</p>
             <input
               value={setFilterQuery}
               onChange={(event) => setSetFilterQuery(event.target.value)}
               placeholder="Search sets"
-              className="mb-2 w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35"
+              className="mb-2 w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)]"
             />
             <div className="max-h-40 space-y-1 overflow-y-auto pr-1">
               {visibleSetOptions.map((option) => (
-                <label key={option.value} className="flex items-center gap-2 text-sm text-white/75">
+                <label key={option.value} className="flex items-center gap-2 text-sm text-[var(--color-text-dark)]">
                   <input
                     type="checkbox"
                     checked={selectedSets.includes(option.value)}
@@ -1906,12 +1906,12 @@ function CollectionPageContent() {
                   <span>{option.label}</span>
                 </label>
               ))}
-              {!visibleSetOptions.length ? <p className="text-sm text-white/45">No sets match that search.</p> : null}
+              {!visibleSetOptions.length ? <p className="text-sm text-[var(--color-text-mid)]">No sets match that search.</p> : null}
             </div>
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Color</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Color</p>
             <div className="flex flex-wrap gap-2">
               {COLOR_OPTIONS.map((color) => (
                 <button
@@ -1924,7 +1924,7 @@ function CollectionPageContent() {
                   className={`rounded-full border px-3 py-1 text-xs font-bold ${
                     selectedColors.includes(color)
                       ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                      : "border-white/10 bg-white/5 text-white/65"
+                      : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                   }`}
                 >
                   {color}
@@ -1934,7 +1934,7 @@ function CollectionPageContent() {
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Type</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type</p>
             <div className="flex flex-wrap gap-2">
               {TYPE_OPTIONS.map((type) => (
                 <button
@@ -1947,7 +1947,7 @@ function CollectionPageContent() {
                   className={`rounded-full border px-3 py-1 text-xs font-bold ${
                     selectedTypes.includes(type)
                       ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                      : "border-white/10 bg-white/5 text-white/65"
+                      : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                   }`}
                 >
                   {type}
@@ -1957,10 +1957,10 @@ function CollectionPageContent() {
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Rarity / Special Print</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Rarity / Special Print</p>
             <div className="max-h-40 space-y-1 overflow-y-auto pr-1">
               {rarityOptions.map((option) => (
-                <label key={option.value} className="flex items-center gap-2 text-sm text-white/75">
+                <label key={option.value} className="flex items-center gap-2 text-sm text-[var(--color-text-dark)]">
                   <input
                     type="checkbox"
                     checked={selectedRarities.includes(option.value)}
@@ -1978,7 +1978,7 @@ function CollectionPageContent() {
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Counter</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Counter</p>
             <div className="flex flex-wrap gap-2">
               {counterOptions.map((option) => (
                 <button
@@ -1993,7 +1993,7 @@ function CollectionPageContent() {
                   className={`rounded-full border px-3 py-1 text-xs font-bold ${
                     selectedCounters.includes(option.value)
                       ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                      : "border-white/10 bg-white/5 text-white/65"
+                      : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                   }`}
                 >
                   {option.label}
@@ -2003,7 +2003,7 @@ function CollectionPageContent() {
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Attribute</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Attribute</p>
             <div className="flex flex-wrap gap-2">
               {attributeOptions.map((attribute) => (
                 <button
@@ -2018,7 +2018,7 @@ function CollectionPageContent() {
                   className={`rounded-full border px-3 py-1 text-xs font-bold ${
                     selectedAttributes.includes(attribute)
                       ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                      : "border-white/10 bg-white/5 text-white/65"
+                      : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                   }`}
                 >
                   {attribute}
@@ -2028,7 +2028,7 @@ function CollectionPageContent() {
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Cost / Power</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Cost / Power</p>
             <div className="grid grid-cols-2 gap-2">
               <input
                 value={costMin}
@@ -2037,7 +2037,7 @@ function CollectionPageContent() {
                   setCostMin(clampNumberInput(event.target.value));
                 }}
                 placeholder="Min Cost"
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               />
               <input
                 value={costMax}
@@ -2046,7 +2046,7 @@ function CollectionPageContent() {
                   setCostMax(clampNumberInput(event.target.value));
                 }}
                 placeholder="Max Cost"
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               />
               <input
                 value={powerMin}
@@ -2055,7 +2055,7 @@ function CollectionPageContent() {
                   setPowerMin(clampNumberInput(event.target.value));
                 }}
                 placeholder="Min Power"
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               />
               <input
                 value={powerMax}
@@ -2064,13 +2064,13 @@ function CollectionPageContent() {
                   setPowerMax(clampNumberInput(event.target.value));
                 }}
                 placeholder="Max Power"
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               />
             </div>
           </div>
 
           <div className={sectionClass}>
-            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-white/45">Price / Ownership</p>
+            <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Price / Ownership</p>
             <div className="grid grid-cols-2 gap-2">
               <input
                 value={priceMin}
@@ -2079,7 +2079,7 @@ function CollectionPageContent() {
                   setPriceMin(clampNumberInput(event.target.value));
                 }}
                 placeholder="Min Price"
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               />
               <input
                 value={priceMax}
@@ -2088,7 +2088,7 @@ function CollectionPageContent() {
                   setPriceMax(clampNumberInput(event.target.value));
                 }}
                 placeholder="Max Price"
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               />
               <select
                 value={ownershipFilter}
@@ -2096,7 +2096,7 @@ function CollectionPageContent() {
                   setPage(1);
                   setOwnershipFilter(event.target.value as OwnershipStatus);
                 }}
-                className="col-span-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                className="col-span-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
               >
                 <option value="all">All Cards</option>
                 <option value="owned">Owned</option>
@@ -2120,7 +2120,7 @@ function CollectionPageContent() {
           className={`inline-flex min-h-11 items-center gap-2 rounded-xl px-4 text-sm font-bold transition-all ${
             activeTab === tab.id
               ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
-              : "border border-white/10 bg-white/[0.03] text-white/65 hover:text-white"
+              : "border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
           }`}
         >
           {tab.icon}
@@ -2145,12 +2145,12 @@ function CollectionPageContent() {
     const isActive = Boolean(count);
 
     return (
-      <div className="rounded-2xl border border-white/10 bg-black/20">
+      <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]">
         <button
           type="button"
           onClick={() => setDesktopExpandedFilter((current) => (current === id ? null : id))}
           className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors ${
-            isActive ? "bg-[var(--theme-accent)]/12 text-[var(--theme-accent-2)]" : "text-white/80"
+            isActive ? "bg-[var(--theme-accent)]/12 text-[var(--theme-accent-2)]" : "text-[var(--color-text-dark)]"
           }`}
           aria-expanded={isOpen}
           aria-controls={`collection-filter-${id}`}
@@ -2162,7 +2162,7 @@ function CollectionPageContent() {
                 {count}
               </span>
             ) : null}
-            <ChevronRight className={`h-4 w-4 text-white/45 transition-transform ${isOpen ? "rotate-90" : ""}`} />
+            <ChevronRight className={`h-4 w-4 text-[var(--color-text-light)] transition-transform ${isOpen ? "rotate-90" : ""}`} />
           </div>
         </button>
         <AnimatePresence initial={false}>
@@ -2175,7 +2175,7 @@ function CollectionPageContent() {
               transition={{ duration: 0.18, ease: "easeOut" }}
               className="overflow-hidden"
             >
-              <div className="border-t border-white/10 px-4 py-3">{children}</div>
+              <div className="border-t border-[var(--color-parchment-dark)] px-4 py-3">{children}</div>
             </motion.div>
           ) : null}
         </AnimatePresence>
@@ -2186,16 +2186,16 @@ function CollectionPageContent() {
   const renderDesktopSidebar = () => (
     <aside className="hidden md:block md:w-[250px]">
       <div className="md:sticky md:top-24 md:max-h-[calc(100vh-7rem)] md:overflow-y-auto">
-        <div className="rounded-3xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-4">
+        <div className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
           <div className="mb-4">
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/40">
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[var(--color-text-light)]">
               {activeTab === "my_cards" ? "My Cards Filters" : "Browse Filters"}
             </p>
-            <p className="mt-1 text-xs text-white/50">{activeFilterCount} active filters</p>
+            <p className="mt-1 text-xs text-[var(--color-text-light)]">{activeFilterCount} active filters</p>
           </div>
 
           <div className="relative mb-3">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-light)]" />
             <input
               value={query}
               onChange={(event) => {
@@ -2203,7 +2203,7 @@ function CollectionPageContent() {
                 setQuery(event.target.value);
               }}
               placeholder="Search cards..."
-              className="w-full rounded-2xl border border-white/10 bg-black/25 py-3 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
+              className="w-full rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-3 pl-9 pr-3 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)]"
             />
           </div>
 
@@ -2218,11 +2218,11 @@ function CollectionPageContent() {
                     value={setFilterQuery}
                     onChange={(event) => setSetFilterQuery(event.target.value)}
                     placeholder="Search sets"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35"
+                    className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)]"
                   />
                   <div className="max-h-48 space-y-1 overflow-y-auto pr-1">
                     {visibleSetOptions.map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 text-sm text-white/75">
+                      <label key={option.value} className="flex items-center gap-2 text-sm text-[var(--color-text-dark)]">
                         <input
                           type="checkbox"
                           checked={selectedSets.includes(option.value)}
@@ -2236,7 +2236,7 @@ function CollectionPageContent() {
                         <span>{option.label}</span>
                       </label>
                     ))}
-                    {!visibleSetOptions.length ? <p className="text-sm text-white/45">No sets match that search.</p> : null}
+                    {!visibleSetOptions.length ? <p className="text-sm text-[var(--color-text-mid)]">No sets match that search.</p> : null}
                   </div>
                 </div>
               ),
@@ -2259,7 +2259,7 @@ function CollectionPageContent() {
                       className={`rounded-full border px-2.5 py-1 text-[11px] font-bold ${
                         selectedColors.includes(color)
                           ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                          : "border-white/10 bg-white/5 text-white/65"
+                          : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                       }`}
                     >
                       {color}
@@ -2286,7 +2286,7 @@ function CollectionPageContent() {
                       className={`rounded-full border px-2.5 py-1 text-[11px] font-bold ${
                         selectedTypes.includes(type)
                           ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                          : "border-white/10 bg-white/5 text-white/65"
+                          : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                       }`}
                     >
                       {type}
@@ -2303,7 +2303,7 @@ function CollectionPageContent() {
               children: (
                 <div className="max-h-48 space-y-1 overflow-y-auto pr-1">
                   {rarityOptions.map((option) => (
-                    <label key={option.value} className="flex items-center gap-2 text-sm text-white/75">
+                    <label key={option.value} className="flex items-center gap-2 text-sm text-[var(--color-text-dark)]">
                       <input
                         type="checkbox"
                         checked={selectedRarities.includes(option.value)}
@@ -2340,7 +2340,7 @@ function CollectionPageContent() {
                       className={`rounded-full border px-2.5 py-1 text-[11px] font-bold ${
                         selectedCounters.includes(option.value)
                           ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                          : "border-white/10 bg-white/5 text-white/65"
+                          : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                       }`}
                     >
                       {option.label}
@@ -2369,7 +2369,7 @@ function CollectionPageContent() {
                       className={`rounded-full border px-2.5 py-1 text-[11px] font-bold ${
                         selectedAttributes.includes(attribute)
                           ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]"
-                          : "border-white/10 bg-white/5 text-white/65"
+                          : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                       }`}
                     >
                       {attribute}
@@ -2392,7 +2392,7 @@ function CollectionPageContent() {
                       setCostMin(clampNumberInput(event.target.value));
                     }}
                     placeholder="Min Cost"
-                    className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   />
                   <input
                     value={costMax}
@@ -2401,7 +2401,7 @@ function CollectionPageContent() {
                       setCostMax(clampNumberInput(event.target.value));
                     }}
                     placeholder="Max Cost"
-                    className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   />
                   <input
                     value={powerMin}
@@ -2410,7 +2410,7 @@ function CollectionPageContent() {
                       setPowerMin(clampNumberInput(event.target.value));
                     }}
                     placeholder="Min Power"
-                    className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   />
                   <input
                     value={powerMax}
@@ -2419,7 +2419,7 @@ function CollectionPageContent() {
                       setPowerMax(clampNumberInput(event.target.value));
                     }}
                     placeholder="Max Power"
-                    className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   />
                 </div>
               ),
@@ -2439,7 +2439,7 @@ function CollectionPageContent() {
                         setPriceMin(clampNumberInput(event.target.value));
                       }}
                       placeholder="Min Price"
-                      className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                      className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                     />
                     <input
                       value={priceMax}
@@ -2448,7 +2448,7 @@ function CollectionPageContent() {
                         setPriceMax(clampNumberInput(event.target.value));
                       }}
                       placeholder="Max Price"
-                      className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                      className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                     />
                   </div>
                   <select
@@ -2457,7 +2457,7 @@ function CollectionPageContent() {
                       setPage(1);
                       setOwnershipFilter(event.target.value as OwnershipStatus);
                     }}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                    className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   >
                     <option value="all">All Cards</option>
                     <option value="owned">Owned</option>
@@ -2480,7 +2480,7 @@ function CollectionPageContent() {
                         setPage(1);
                         setSortMode(event.target.value as BrowseSort);
                       }}
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                      className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                     >
                       <option value="number">Card Number</option>
                       <option value="price_desc">Price: High to Low</option>
@@ -2499,7 +2499,7 @@ function CollectionPageContent() {
             <button
               type="button"
               onClick={clearFilters}
-              className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/75"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-3 text-sm font-bold text-[var(--color-text-mid)]"
             >
               Clear All Filters
             </button>
@@ -2520,19 +2520,19 @@ function CollectionPageContent() {
         exit={{ opacity: 0, y: -8 }}
         className="space-y-4"
       >
-        <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+        <section className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-sm font-black text-white">Owned Cards List</p>
-              <p className="mt-1 text-sm text-white/45">Compact, value-first view of every card currently tracked in your collection.</p>
+              <p className="text-sm font-black text-[var(--color-navy)]">Owned Cards List</p>
+              <p className="mt-1 text-sm text-[var(--color-text-mid)]">Compact, value-first view of every card currently tracked in your collection.</p>
             </div>
             <div className="w-full max-w-xs">
-              <label className="block text-[11px] font-black uppercase tracking-[0.14em] text-white/40">
+              <label className="block text-[11px] font-black uppercase tracking-[0.14em] text-[var(--color-text-light)]">
                 Sort
                 <select
                   value={myCardsSort}
                   onChange={(event) => setMyCardsSort(event.target.value as MyCardsSort)}
-                  className="mt-2 min-h-11 w-full rounded-xl border border-white/10 bg-black/25 px-3 text-sm text-white"
+                  className="mt-2 min-h-11 w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm text-[var(--color-text-dark)]"
                 >
                   {MY_CARDS_SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -2545,28 +2545,28 @@ function CollectionPageContent() {
           </div>
 
           <div className="mt-4 grid gap-3 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Unique Cards</p>
-              <p className="mt-1 text-2xl font-black text-white">{uniqueCardsOwned.toLocaleString()}</p>
-              <p className="text-xs text-white/45">{myCardsRows.length.toLocaleString()} currently match your filters</p>
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Unique Cards</p>
+              <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{uniqueCardsOwned.toLocaleString()}</p>
+              <p className="text-xs text-[var(--color-text-light)]">{myCardsRows.length.toLocaleString()} currently match your filters</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Total Cards</p>
-              <p className="mt-1 text-2xl font-black text-white">{totalCardsOwned.toLocaleString()}</p>
-              <p className="text-xs text-white/45">Counted with quantities included</p>
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Total Cards</p>
+              <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{totalCardsOwned.toLocaleString()}</p>
+              <p className="text-xs text-[var(--color-text-light)]">Counted with quantities included</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Collection Value</p>
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Collection Value</p>
               <p className="mt-1 text-2xl font-black text-[#F0C040]">{formatCurrency(totalCollectionValue)}</p>
-              <p className="text-xs text-white/45">Estimated from current card pricing</p>
+              <p className="text-xs text-[var(--color-text-light)]">Estimated from current card pricing</p>
             </div>
           </div>
         </section>
 
         {!user ? (
-          <section className="rounded-2xl border border-white/10 bg-black/20 p-6 text-center">
-            <p className="text-xl font-black text-white">Log in to see your collection.</p>
-            <p className="mt-2 text-sm text-white/50">Your owned-card list is account-backed and only appears once you are signed in.</p>
+          <section className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-6 text-center">
+            <p className="text-xl font-black text-[var(--color-navy)]">Log in to see your collection.</p>
+            <p className="mt-2 text-sm text-[var(--color-text-mid)]">Your owned-card list is account-backed and only appears once you are signed in.</p>
             <button
               type="button"
               onClick={() => router.push(buildLoginUrl("/collection?tab=my_cards"))}
@@ -2577,30 +2577,30 @@ function CollectionPageContent() {
           </section>
         ) : !collectionEntries.length ? (
           <section className="rounded-2xl border border-dashed border-white/15 bg-black/20 p-6 text-center">
-            <p className="text-xl font-black text-white">Your collection is empty. Start adding cards from the Browse tab!</p>
+            <p className="text-xl font-black text-[var(--color-navy)]">Your collection is empty. Start adding cards from the Browse tab!</p>
             <button
               type="button"
               onClick={() => setActiveTab("browse")}
-              className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-bold text-white/75"
+              className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-5 text-sm font-bold text-[var(--color-text-mid)]"
             >
               Open Browse
             </button>
           </section>
         ) : !myCardsRows.length ? (
           <section className="rounded-2xl border border-dashed border-white/15 bg-black/20 p-6 text-center">
-            <p className="text-xl font-black text-white">No owned cards match the current filters.</p>
-            <p className="mt-2 text-sm text-white/50">Adjust the search or clear the active filters to bring cards back into view.</p>
+            <p className="text-xl font-black text-[var(--color-navy)]">No owned cards match the current filters.</p>
+            <p className="mt-2 text-sm text-[var(--color-text-mid)]">Adjust the search or clear the active filters to bring cards back into view.</p>
             <button
               type="button"
               onClick={clearFilters}
-              className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-bold text-white/75"
+              className="mt-4 inline-flex min-h-11 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-5 text-sm font-bold text-[var(--color-text-mid)]"
             >
               Clear Filters
             </button>
           </section>
         ) : (
-          <section className="overflow-hidden rounded-2xl border border-white/10 bg-black/20">
-            <div className="hidden grid-cols-[48px_minmax(0,2.1fr)_92px_72px_100px_70px_156px_92px_110px] items-center gap-3 border-b border-white/10 bg-white/[0.03] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-white/40 md:grid">
+          <section className="overflow-hidden rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]">
+            <div className="hidden grid-cols-[48px_minmax(0,2.1fr)_92px_72px_100px_70px_156px_92px_110px] items-center gap-3 border-b border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-3 text-[11px] font-black uppercase tracking-[0.14em] text-[var(--color-text-light)] md:grid">
               <span>Card</span>
               <span>Name</span>
               <span>Number</span>
@@ -2625,17 +2625,17 @@ function CollectionPageContent() {
                       type="button"
                       onClick={() => openModal(row.card)}
                       aria-label={`Open ${row.card.name} details`}
-                      className="overflow-hidden rounded-lg border border-white/10"
+                      className="overflow-hidden rounded-lg border border-[var(--color-parchment-dark)]"
                     >
                       <CatalogCardArt cardId={row.card.id} alt={row.card.name} className="aspect-[63/88] w-[46px]" />
                     </button>
 
                     <div className="min-w-0">
-                      <p className="text-sm font-black leading-tight text-white">{row.card.name}</p>
-                      <p className="mt-1 text-[11px] text-white/45">
+                      <p className="text-sm font-black leading-tight text-[var(--color-navy)]">{row.card.name}</p>
+                      <p className="mt-1 text-[11px] text-[var(--color-text-light)]">
                         {row.card.id} · {row.card.setCode} · {row.card.type} · {row.card.rarity}
                       </p>
-                      <p className="mt-1 text-[11px] text-white/55">
+                      <p className="mt-1 text-[11px] text-[var(--color-text-mid)]">
                         {typeof row.price === "number" ? `${formatCurrency(row.price)} each` : "Price unavailable"}
                       </p>
                     </div>
@@ -2644,21 +2644,21 @@ function CollectionPageContent() {
                       <p className="text-sm font-black text-[#F0C040]">
                         {typeof row.totalValue === "number" ? formatCurrency(row.totalValue) : "—"}
                       </p>
-                      <div className="inline-flex items-center rounded-xl border border-white/10 bg-black/25 p-1">
+                      <div className="inline-flex items-center rounded-xl border border-[var(--color-parchment-dark)] bg-black/25 p-1">
                         <button
                           type="button"
                           onClick={() => updateQuantity(row.card, -1)}
                           aria-label={`Remove one ${row.card.name}`}
-                          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-white/65 hover:bg-white/10 hover:text-white"
+                          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/30 hover:text-[var(--color-navy)]"
                         >
                           <Minus className="h-4 w-4" />
                         </button>
-                        <span className="min-w-10 text-center text-sm font-black text-white">×{row.quantity}</span>
+                        <span className="min-w-10 text-center text-sm font-black text-[var(--color-navy)]">×{row.quantity}</span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(row.card, 1)}
                           aria-label={`Add one ${row.card.name}`}
-                          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-white/65 hover:bg-white/10 hover:text-white"
+                          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/30 hover:text-[var(--color-navy)]"
                         >
                           <Plus className="h-4 w-4" />
                         </button>
@@ -2671,42 +2671,42 @@ function CollectionPageContent() {
                       type="button"
                       onClick={() => openModal(row.card)}
                       aria-label={`Open ${row.card.name} details`}
-                      className="overflow-hidden rounded-lg border border-white/10"
+                      className="overflow-hidden rounded-lg border border-[var(--color-parchment-dark)]"
                     >
                       <CatalogCardArt cardId={row.card.id} alt={row.card.name} className="aspect-[63/88] w-12" />
                     </button>
 
-                    <p className="pr-3 text-sm font-black leading-tight text-white">{row.card.name}</p>
-                    <p className="text-xs text-white/60">{row.card.id}</p>
-                    <p className="text-xs text-white/60">{row.card.setCode}</p>
-                    <p className="text-xs text-white/60">{row.card.type}</p>
+                    <p className="pr-3 text-sm font-black leading-tight text-[var(--color-navy)]">{row.card.name}</p>
+                    <p className="text-xs text-[var(--color-text-light)]">{row.card.id}</p>
+                    <p className="text-xs text-[var(--color-text-light)]">{row.card.setCode}</p>
+                    <p className="text-xs text-[var(--color-text-light)]">{row.card.type}</p>
                     <div>
-                      <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.08em] text-white/75">
+                      <span className="inline-flex rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.08em] text-[var(--color-text-dark)]">
                         {row.card.rarity}
                       </span>
                     </div>
                     <div className="justify-self-end">
-                      <div className="inline-flex items-center rounded-xl border border-white/10 bg-black/25 p-1">
+                      <div className="inline-flex items-center rounded-xl border border-[var(--color-parchment-dark)] bg-black/25 p-1">
                         <button
                           type="button"
                           onClick={() => updateQuantity(row.card, -1)}
                           aria-label={`Remove one ${row.card.name}`}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-white/65 hover:bg-white/10 hover:text-white"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/30 hover:text-[var(--color-navy)]"
                         >
                           <Minus className="h-3.5 w-3.5" />
                         </button>
-                        <span className="min-w-10 text-center text-sm font-black text-white">×{row.quantity}</span>
+                        <span className="min-w-10 text-center text-sm font-black text-[var(--color-navy)]">×{row.quantity}</span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(row.card, 1)}
                           aria-label={`Add one ${row.card.name}`}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-white/65 hover:bg-white/10 hover:text-white"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/30 hover:text-[var(--color-navy)]"
                         >
                           <Plus className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     </div>
-                    <p className="text-right text-sm font-bold text-white/75">
+                    <p className="text-right text-sm font-bold text-[var(--color-text-mid)]">
                       {typeof row.price === "number" ? formatCurrency(row.price) : "—"}
                     </p>
                     <p className="text-right text-sm font-black text-[#F0C040]">
@@ -2777,28 +2777,28 @@ function CollectionPageContent() {
             <p className="text-xs text-[var(--color-text-light)]">Official prints in the catalog</p>
           </div>
           <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Wishlist</p>
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Wishlist</p>
             <p className="mt-1 text-2xl font-black text-pink-300">{watchlistItems.length}</p>
-            <p className="text-xs text-white/45">{watchlistLoading ? "Loading watchlist" : "Tracked wanted cards"}</p>
+            <p className="text-xs text-[var(--color-text-light)]">{watchlistLoading ? "Loading watchlist" : "Tracked wanted cards"}</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Price Cache</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Price Cache</p>
             <p className="mt-1 text-2xl font-black text-emerald-300">{priceProgress.done}/{priceProgress.total || catalogCards.length}</p>
-            <p className="text-xs text-white/45">{priceLoading ? "Loading price estimates" : "Price map ready"}</p>
+            <p className="text-xs text-[var(--color-text-light)]">{priceLoading ? "Loading price estimates" : "Price map ready"}</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Deck Shortages</p>
-            <p className="mt-1 text-2xl font-black text-white">{cardsNeeded.length}</p>
-            <p className="text-xs text-white/45">Collection gaps across saved decks</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Deck Shortages</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{cardsNeeded.length}</p>
+            <p className="text-xs text-[var(--color-text-light)]">Collection gaps across saved decks</p>
           </div>
         </div>
       </section>
 
       {usesSidebarLayout ? (
-        <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:hidden">
+        <section className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 md:hidden">
           <div className="flex flex-col gap-3">
             <div className="relative w-full">
-              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-light)]" />
               <input
                 value={query}
                 onChange={(event) => {
@@ -2806,7 +2806,7 @@ function CollectionPageContent() {
                   setQuery(event.target.value);
                 }}
                 placeholder="Search by card name, set, effect text, or card ID..."
-                className="w-full rounded-xl border border-white/10 bg-black/25 py-3 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
+                className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-3 pl-9 pr-3 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)]"
               />
             </div>
 
@@ -2814,7 +2814,7 @@ function CollectionPageContent() {
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(true)}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-black/25 px-3 text-sm font-bold text-white md:hidden"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm font-bold text-[var(--color-text-mid)] md:hidden"
               >
                 <Filter className="h-4 w-4" />
                 Filters
@@ -2830,7 +2830,7 @@ function CollectionPageContent() {
                     setSortMode(event.target.value as BrowseSort);
                   }
                 }}
-                className="min-h-11 rounded-xl border border-white/10 bg-black/25 px-3 text-sm text-white"
+                className="min-h-11 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm text-[var(--color-text-dark)]"
               >
                 {(activeTab === "my_cards"
                   ? MY_CARDS_SORT_OPTIONS
@@ -2855,7 +2855,7 @@ function CollectionPageContent() {
                     type="button"
                     onClick={() => setQuickAddMode((value) => !value)}
                     className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-3 text-sm font-bold ${
-                      quickAddMode ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]" : "border-white/10 bg-black/25 text-white/70"
+                      quickAddMode ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                     }`}
                   >
                     <WandSparkles className="h-4 w-4" />
@@ -2866,7 +2866,7 @@ function CollectionPageContent() {
                     type="button"
                     onClick={refreshCollectionPrices}
                     disabled={!collectionEntries.length || refreshingCollectionPrices}
-                    className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-black/25 px-3 text-sm font-bold text-white/70 disabled:opacity-40"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm font-bold text-[var(--color-text-mid)] disabled:opacity-40"
                   >
                     <RefreshCw className={`h-4 w-4 ${refreshingCollectionPrices ? "animate-spin" : ""}`} />
                     Refresh Prices
@@ -2886,18 +2886,18 @@ function CollectionPageContent() {
 
             {activeTab === "browse" ? (
               <>
-                <section className="hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:block">
+                <section className="hidden rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 md:block">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-sm font-black text-white">{filteredCards.length.toLocaleString()} cards match the current view</p>
-                      <p className="text-sm text-white/45">Filters stay pinned on the left while you browse.</p>
+                      <p className="text-sm font-black text-[var(--color-navy)]">{filteredCards.length.toLocaleString()} cards match the current view</p>
+                      <p className="text-sm text-[var(--color-text-mid)]">Filters stay pinned on the left while you browse.</p>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
                       <button
                         type="button"
                         onClick={() => setQuickAddMode((value) => !value)}
                         className={`inline-flex min-h-11 items-center gap-2 rounded-xl border px-3 text-sm font-bold ${
-                          quickAddMode ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]" : "border-white/10 bg-black/25 text-white/70"
+                          quickAddMode ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 text-[var(--theme-accent-2)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"
                         }`}
                       >
                         <WandSparkles className="h-4 w-4" />
@@ -2908,7 +2908,7 @@ function CollectionPageContent() {
                         type="button"
                         onClick={refreshCollectionPrices}
                         disabled={!collectionEntries.length || refreshingCollectionPrices}
-                        className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-black/25 px-3 text-sm font-bold text-white/70 disabled:opacity-40"
+                        className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm font-bold text-[var(--color-text-mid)] disabled:opacity-40"
                       >
                         <RefreshCw className={`h-4 w-4 ${refreshingCollectionPrices ? "animate-spin" : ""}`} />
                         Refresh Prices
@@ -2927,12 +2927,12 @@ function CollectionPageContent() {
                   >
                 <div className="flex items-center justify-between gap-3 md:hidden">
                   <div>
-                    <p className="text-sm font-black text-white">{filteredCards.length.toLocaleString()} cards match the current view</p>
-                    <p className="text-sm text-white/50">
+                    <p className="text-sm font-black text-[var(--color-navy)]">{filteredCards.length.toLocaleString()} cards match the current view</p>
+                    <p className="text-sm text-[var(--color-text-mid)]">
                       {ownershipFilter === "all" ? "Full catalog browse" : ownershipFilter === "owned" ? "Owned-card view" : ownershipFilter === "wishlist" ? "Wishlist view" : "Unowned cards only"}
                     </p>
                   </div>
-                  <div className="text-right text-xs text-white/45">
+                  <div className="text-right text-xs text-[var(--color-text-light)]">
                     <p>Page {safeBrowsePage} / {totalBrowsePages}</p>
                     <p>{priceLoading ? "Pricing still loading in the background" : "Pricing ready"}</p>
                   </div>
@@ -2940,21 +2940,21 @@ function CollectionPageContent() {
 
                 <div className="hidden items-center justify-between gap-3 md:flex">
                   <div>
-                    <p className="text-sm font-black text-white">{filteredCards.length.toLocaleString()} cards match the current view</p>
-                    <p className="text-sm text-white/50">
+                    <p className="text-sm font-black text-[var(--color-navy)]">{filteredCards.length.toLocaleString()} cards match the current view</p>
+                    <p className="text-sm text-[var(--color-text-mid)]">
                       {ownershipFilter === "all" ? "Full catalog browse" : ownershipFilter === "owned" ? "Owned-card view" : ownershipFilter === "wishlist" ? "Wishlist view" : "Unowned cards only"}
                     </p>
                   </div>
-                  <div className="text-right text-xs text-white/45">
+                  <div className="text-right text-xs text-[var(--color-text-light)]">
                     <p>Page {safeBrowsePage} / {totalBrowsePages}</p>
                     <p>{priceLoading ? "Pricing still loading in the background" : "Pricing ready"}</p>
                   </div>
                 </div>
 
                 {catalogLoading ? (
-                  <div className="rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-14 text-center">
-                    <Loader2 className="mx-auto h-10 w-10 animate-spin text-white/20" />
-                    <p className="mt-4 text-sm text-white/55">Loading the card catalog...</p>
+                  <div className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-5 py-14 text-center">
+                    <Loader2 className="mx-auto h-10 w-10 animate-spin text-[var(--color-parchment-dark)]" />
+                    <p className="mt-4 text-sm text-[var(--color-text-mid)]">Loading the card catalog...</p>
                   </div>
                 ) : catalogError ? (
                   <div className="rounded-3xl border border-red-500/20 bg-red-500/10 px-5 py-10 text-center text-red-200">
@@ -2976,7 +2976,7 @@ function CollectionPageContent() {
                           className={`group relative overflow-hidden rounded-2xl border p-2 transition-all ${
                             owned > 0
                               ? "border-[var(--theme-accent)]/40 bg-[var(--theme-accent)]/5"
-                              : "border-white/10 bg-black/20"
+                              : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]"
                           }`}
                         >
                           <div className="relative">
@@ -2992,7 +2992,7 @@ function CollectionPageContent() {
                               aria-label={quickAddMode ? `Quick add ${card.name}` : `Open ${card.name} details`}
                               className="block w-full"
                             >
-                              <CatalogCardArt cardId={card.id} alt={card.name} className="aspect-[63/88] w-full rounded-xl border border-white/10" />
+                              <CatalogCardArt cardId={card.id} alt={card.name} className="aspect-[63/88] w-full rounded-xl border border-[var(--color-parchment-dark)]" />
                             </button>
 
                             <button
@@ -3000,7 +3000,7 @@ function CollectionPageContent() {
                               onClick={() => void toggleWishlist(card)}
                               aria-label={isWishlisted ? `Remove ${card.name} from wishlist` : `Add ${card.name} to wishlist`}
                               className={`absolute right-2 top-2 inline-flex h-9 w-9 items-center justify-center rounded-full border ${
-                                isWishlisted ? "border-pink-400/40 bg-pink-500/15 text-pink-300" : "border-white/10 bg-black/45 text-white/60"
+                                isWishlisted ? "border-pink-400/40 bg-pink-500/15 text-pink-300" : "border-white/10 bg-black/45 text-[var(--color-text-mid)]"
                               }`}
                             >
                               <Heart className={`h-4 w-4 ${isWishlisted ? "fill-current" : ""}`} />
@@ -3016,8 +3016,8 @@ function CollectionPageContent() {
                           <div className="mt-2 min-w-0">
                             <div className="flex items-start justify-between gap-2">
                               <div className="min-w-0">
-                                <p className="truncate text-sm font-black text-white">{card.name}</p>
-                                <p className="truncate text-[11px] text-white/45">
+                                <p className="truncate text-sm font-black text-[var(--color-navy)]">{card.name}</p>
+                                <p className="truncate text-[11px] text-[var(--color-text-light)]">
                                   {card.id} · {card.setCode} · {card.type}
                                 </p>
                               </div>
@@ -3025,26 +3025,26 @@ function CollectionPageContent() {
                             </div>
 
                             <div className="mt-2 flex items-center justify-between text-xs">
-                              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-white/75">{card.rarity}</span>
+                              <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-0.5 text-[var(--color-text-dark)]">{card.rarity}</span>
                               <span className="font-bold text-[#F0C040]">{typeof livePrice === "number" ? formatCurrency(livePrice) : "—"}</span>
                             </div>
 
                             <div className="mt-3 grid grid-cols-[1fr_auto] gap-2">
-                              <div className="inline-flex items-center rounded-xl border border-white/10 bg-white/5 p-1">
+                              <div className="inline-flex items-center rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-1">
                                 <button
                                   type="button"
                                   onClick={() => updateQuantity(card, -1)}
                                   aria-label={`Remove one ${card.name}`}
-                                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-white/65 hover:bg-white/10 hover:text-white"
+                                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/30 hover:text-[var(--color-navy)]"
                                 >
                                   <Minus className="h-3.5 w-3.5" />
                                 </button>
-                                <span className="min-w-10 text-center text-sm font-black text-white">{owned}</span>
+                                <span className="min-w-10 text-center text-sm font-black text-[var(--color-navy)]">{owned}</span>
                                 <button
                                   type="button"
                                   onClick={() => updateQuantity(card, 1)}
                                   aria-label={`Add one ${card.name}`}
-                                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-white/65 hover:bg-white/10 hover:text-white"
+                                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/30 hover:text-[var(--color-navy)]"
                                 >
                                   <Plus className="h-3.5 w-3.5" />
                                 </button>
@@ -3054,7 +3054,7 @@ function CollectionPageContent() {
                                 type="button"
                                 onClick={() => toggleTrade(card.id)}
                                 disabled={owned <= 0}
-                                className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-3 text-xs font-bold text-white/70 disabled:opacity-30"
+                                className="inline-flex h-11 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-xs font-bold text-[var(--color-text-mid)] disabled:opacity-30"
                               >
                                 Trade
                               </button>
@@ -3064,7 +3064,7 @@ function CollectionPageContent() {
                               <select
                                 value={condition}
                                 onChange={(event) => updateCondition(card.id, event.target.value as ConditionLabel)}
-                                className="mt-2 min-h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-xs text-white"
+                                className="mt-2 min-h-10 w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-xs text-[var(--color-text-dark)]"
                                 aria-label={`Condition for ${card.name}`}
                               >
                                 {CONDITION_OPTIONS.map((option) => (
@@ -3083,8 +3083,8 @@ function CollectionPageContent() {
 
                 {!catalogLoading && !browseCards.length ? (
                   <div className="rounded-3xl border border-dashed border-white/15 px-5 py-12 text-center">
-                    <p className="text-lg font-black text-white">No cards match this filter set</p>
-                    <p className="mt-2 text-sm text-white/50">Adjust the filters or clear the current view.</p>
+                    <p className="text-lg font-black text-[var(--color-navy)]">No cards match this filter set</p>
+                    <p className="mt-2 text-sm text-[var(--color-text-mid)]">Adjust the filters or clear the current view.</p>
                   </div>
                 ) : null}
 
@@ -3093,7 +3093,7 @@ function CollectionPageContent() {
                     type="button"
                     onClick={() => setPage((value) => Math.max(1, value - 1))}
                     disabled={safeBrowsePage <= 1}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white/70 disabled:opacity-30"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-2 text-sm font-bold text-[var(--color-text-mid)] disabled:opacity-30"
                   >
                     Previous
                   </button>
@@ -3101,7 +3101,7 @@ function CollectionPageContent() {
                     type="button"
                     onClick={() => setPage((value) => Math.min(totalBrowsePages, value + 1))}
                     disabled={safeBrowsePage >= totalBrowsePages}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white/70 disabled:opacity-30"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-2 text-sm font-bold text-[var(--color-text-mid)] disabled:opacity-30"
                   >
                     Next
                   </button>
@@ -3127,22 +3127,22 @@ function CollectionPageContent() {
                 className="space-y-4"
               >
                 <div className="grid gap-3 md:grid-cols-3">
-                  <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Overall Completion</p>
+                  <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                    <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Overall Completion</p>
                     <p className="mt-1 text-3xl font-black text-[#F0C040]">
                       {setSummaries.length ? Math.round((ownedSlotKeys.size / setSummaries.reduce((sum, row) => sum + row.totalSlots, 0)) * 100) : 0}%
                     </p>
-                    <p className="text-xs text-white/45">{ownedSlotKeys.size} unique numbered slots owned</p>
+                    <p className="text-xs text-[var(--color-text-light)]">{ownedSlotKeys.size} unique numbered slots owned</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Unique Owned</p>
-                    <p className="mt-1 text-3xl font-black text-white">{uniqueCardsOwned}</p>
-                    <p className="text-xs text-white/45">{totalCardsOwned} total cards tracked</p>
+                  <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                    <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Unique Owned</p>
+                    <p className="mt-1 text-3xl font-black text-[var(--color-navy)]">{uniqueCardsOwned}</p>
+                    <p className="text-xs text-[var(--color-text-light)]">{totalCardsOwned} total cards tracked</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Set Value</p>
+                  <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                    <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Set Value</p>
                     <p className="mt-1 text-3xl font-black text-emerald-300">{formatCurrency(totalCollectionValue)}</p>
-                    <p className="text-xs text-white/45">Across all owned sets</p>
+                    <p className="text-xs text-[var(--color-text-light)]">Across all owned sets</p>
                   </div>
                 </div>
 
@@ -3158,26 +3158,26 @@ function CollectionPageContent() {
                           className={`overflow-hidden rounded-2xl border text-left ${
                             selectedSetCode === setSummary.setCode
                               ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/8"
-                              : "border-white/10 bg-black/20"
+                              : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]"
                           }`}
                         >
                           <div className="relative h-28">
                             <CatalogCardArt cardId={setSummary.sampleCardId} alt={setSummary.setName} className="h-full w-full" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                             <div className="absolute inset-x-0 bottom-0 p-3">
-                              <p className="text-sm font-black text-white">{setSummary.setCode}</p>
-                              <p className="text-[11px] text-white/55">{setSummary.setName}</p>
+                              <p className="text-sm font-black text-[var(--color-navy)]">{setSummary.setCode}</p>
+                              <p className="text-[11px] text-[var(--color-text-mid)]">{setSummary.setName}</p>
                             </div>
                           </div>
                           <div className="space-y-2 p-3">
                             <div className="h-2 rounded-full bg-white/10">
                               <div className="h-2 rounded-full bg-[var(--theme-accent)]" style={{ width: `${percent}%` }} />
                             </div>
-                            <div className="flex items-center justify-between text-xs text-white/60">
+                            <div className="flex items-center justify-between text-xs text-[var(--color-text-light)]">
                               <span>{setSummary.ownedSlots}/{setSummary.totalSlots}</span>
                               <span>{percent}%</span>
                             </div>
-                            <div className="flex items-center justify-between text-xs text-white/45">
+                            <div className="flex items-center justify-between text-xs text-[var(--color-text-light)]">
                               <span>{setSummary.ownedQuantity} owned</span>
                               <span>{formatCurrency(setSummary.value)}</span>
                             </div>
@@ -3187,16 +3187,16 @@ function CollectionPageContent() {
                     })}
                   </div>
 
-                  <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4">
+                  <div className="space-y-3 rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <p className="text-lg font-black text-white">{selectedSetSummary?.setCode || "Set detail"}</p>
-                        <p className="text-sm text-white/45">{selectedSetSummary?.setName || "Pick a set to inspect completion."}</p>
+                        <p className="text-lg font-black text-[var(--color-navy)]">{selectedSetSummary?.setCode || "Set detail"}</p>
+                        <p className="text-sm text-[var(--color-text-mid)]">{selectedSetSummary?.setName || "Pick a set to inspect completion."}</p>
                       </div>
                       {selectedSetSummary ? (
                         <div className="text-right text-sm">
                           <p className="font-black text-[#F0C040]">{selectedSetSummary.ownedSlots}/{selectedSetSummary.totalSlots}</p>
-                          <p className="text-white/45">{selectedSetSummary.totalSlots ? Math.round((selectedSetSummary.ownedSlots / selectedSetSummary.totalSlots) * 100) : 0}% complete</p>
+                          <p className="text-[var(--color-text-light)]">{selectedSetSummary.totalSlots ? Math.round((selectedSetSummary.ownedSlots / selectedSetSummary.totalSlots) * 100) : 0}% complete</p>
                         </div>
                       ) : null}
                     </div>
@@ -3212,7 +3212,7 @@ function CollectionPageContent() {
                             onFocus={() => setHoveredSetCardId(card.id)}
                             onClick={() => openModal(card)}
                             className={`aspect-square rounded-xl border text-center text-[10px] font-bold ${
-                              owned ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/20 text-[var(--theme-accent-2)]" : "border-white/10 bg-black/30 text-white/45"
+                              owned ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/20 text-[var(--theme-accent-2)]" : "border-white/10 bg-black/30 text-[var(--color-text-light)]"
                             }`}
                             title={`${card.number} · ${card.name}`}
                           >
@@ -3223,18 +3223,18 @@ function CollectionPageContent() {
                     </div>
 
                     {hoveredSetCard ? (
-                      <div className="grid grid-cols-[72px_1fr] gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                      <div className="grid grid-cols-[72px_1fr] gap-3 rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3">
                         <CatalogCardArt cardId={hoveredSetCard.id} alt={hoveredSetCard.name} className="aspect-[63/88] w-[72px] rounded-xl" />
                         <div>
-                          <p className="text-sm font-black text-white">{hoveredSetCard.name}</p>
-                          <p className="text-xs text-white/45">{hoveredSetCard.id} · {hoveredSetCard.rarity}</p>
-                          <p className="mt-2 text-xs text-white/55">
+                          <p className="text-sm font-black text-[var(--color-navy)]">{hoveredSetCard.name}</p>
+                          <p className="text-xs text-[var(--color-text-light)]">{hoveredSetCard.id} · {hoveredSetCard.rarity}</p>
+                          <p className="mt-2 text-xs text-[var(--color-text-mid)]">
                             {ownedSlotKeys.has(setSlotKey(hoveredSetCard)) ? "Owned" : "Missing"} · {hoveredSetCard.type}
                           </p>
                         </div>
                       </div>
                     ) : (
-                      <p className="rounded-2xl border border-dashed border-white/10 p-4 text-sm text-white/45">Hover a heatmap slot to preview the card.</p>
+                      <p className="rounded-2xl border border-dashed border-[var(--color-parchment-dark)] p-4 text-sm text-[var(--color-text-mid)]">Hover a heatmap slot to preview the card.</p>
                     )}
                   </div>
                 </div>
@@ -3250,27 +3250,27 @@ function CollectionPageContent() {
             className="space-y-4"
           >
             <div className="grid gap-3 md:grid-cols-4">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Total Value</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Total Value</p>
                 <p className="mt-1 text-3xl font-black text-[#F0C040]">{totalCollectionValue > 0 ? formatCurrency(totalCollectionValue) : "—"}</p>
-                <p className="text-xs text-white/45">Current mark across tracked cards</p>
+                <p className="text-xs text-[var(--color-text-light)]">Current mark across tracked cards</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Value Change</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Value Change</p>
                 <p className={`mt-1 text-3xl font-black ${portfolioChange.absolute >= 0 ? "text-emerald-300" : "text-red-300"}`}>
                   {portfolioChange.absolute >= 0 ? "+" : ""}{formatCurrency(portfolioChange.absolute)}
                 </p>
-                <p className="text-xs text-white/45">{portfolioRange} range · {portfolioChange.percent.toFixed(1)}%</p>
+                <p className="text-xs text-[var(--color-text-light)]">{portfolioRange} range · {portfolioChange.percent.toFixed(1)}%</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Cards Owned</p>
-                <p className="mt-1 text-3xl font-black text-white">{totalCardsOwned}</p>
-                <p className="text-xs text-white/45">{uniqueCardsOwned} unique cards</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Cards Owned</p>
+                <p className="mt-1 text-3xl font-black text-[var(--color-navy)]">{totalCardsOwned}</p>
+                <p className="text-xs text-[var(--color-text-light)]">{uniqueCardsOwned} unique cards</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Historical Coverage</p>
-                <p className="mt-1 text-3xl font-black text-white">{historyIds.length}</p>
-                <p className="text-xs text-white/45">Top holdings sampled for price history</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Historical Coverage</p>
+                <p className="mt-1 text-3xl font-black text-[var(--color-navy)]">{historyIds.length}</p>
+                <p className="text-xs text-[var(--color-text-light)]">Top holdings sampled for price history</p>
               </div>
             </div>
 
@@ -3280,31 +3280,31 @@ function CollectionPageContent() {
                 { label: "7D", value: portfolioChangeWindows.day7 },
                 { label: "30D", value: portfolioChangeWindows.day30 },
               ].map((window) => (
-                <div key={window.label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">{window.label} Change</p>
+                <div key={window.label} className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">{window.label} Change</p>
                   <p className={`mt-1 text-2xl font-black ${window.value.absolute >= 0 ? "text-emerald-300" : "text-red-300"}`}>
                     {window.value.absolute >= 0 ? "+" : ""}
                     {formatCurrency(window.value.absolute)}
                   </p>
-                  <p className="text-xs text-white/45">{window.value.percent.toFixed(1)}%</p>
+                  <p className="text-xs text-[var(--color-text-light)]">{window.value.percent.toFixed(1)}%</p>
                 </div>
               ))}
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="text-lg font-black text-white">Collection Value Chart</p>
-                  <p className="text-sm text-white/45">Aggregated from cached card price history. Sparse historical data will flatten older dates.</p>
+                  <p className="text-lg font-black text-[var(--color-navy)]">Collection Value Chart</p>
+                  <p className="text-sm text-[var(--color-text-mid)]">Aggregated from cached card price history. Sparse historical data will flatten older dates.</p>
                 </div>
-                <div className="inline-flex rounded-xl border border-white/10 bg-white/5 p-1">
+                <div className="inline-flex rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-1">
                   {(["7d", "30d", "90d", "365d"] as PortfolioRange[]).map((range) => (
                     <button
                       key={range}
                       type="button"
                       onClick={() => setPortfolioRange(range)}
                       className={`rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] ${
-                        portfolioRange === range ? "bg-[var(--theme-accent)] text-black" : "text-white/60"
+                        portfolioRange === range ? "bg-[var(--theme-accent)] text-black" : "text-[var(--color-text-mid)]"
                       }`}
                     >
                       {range === "365d" ? "1Y" : range}
@@ -3315,7 +3315,7 @@ function CollectionPageContent() {
 
               <div className="h-72">
                 {historyLoading ? (
-                  <div className="flex h-full items-center justify-center text-sm text-white/45">
+                  <div className="flex h-full items-center justify-center text-sm text-[var(--color-text-mid)]">
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Building portfolio history...
                   </div>
@@ -3342,41 +3342,41 @@ function CollectionPageContent() {
             </div>
 
             <div className="grid gap-4 lg:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-lg font-black text-white">Top Gainers</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-lg font-black text-[var(--color-navy)]">Top Gainers</p>
                 <div className="mt-3 space-y-2">
                   {portfolioMovers.gainers.length ? portfolioMovers.gainers.map((row) => (
-                    <div key={row.cardId} className="grid grid-cols-[44px_1fr_auto] items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-2">
+                    <div key={row.cardId} className="grid grid-cols-[44px_1fr_auto] items-center gap-3 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2">
                       <CatalogCardArt cardId={row.cardId} alt={row.name} className="aspect-[63/88] w-11 rounded-lg" />
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-bold text-white">{row.name}</p>
-                        <p className="text-xs text-white/45">{row.setCode} · {formatCurrency(row.currentPrice)}</p>
+                        <p className="truncate text-sm font-bold text-[var(--color-navy)]">{row.name}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">{row.setCode} · {formatCurrency(row.currentPrice)}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-black text-emerald-300">+{row.percent.toFixed(1)}%</p>
-                        <p className="text-xs text-white/45">+{formatCurrency(row.delta)}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">+{formatCurrency(row.delta)}</p>
                       </div>
                     </div>
-                  )) : <p className="text-sm text-white/45">No gainers yet. Price history needs more snapshots.</p>}
+                  )) : <p className="text-sm text-[var(--color-text-mid)]">No gainers yet. Price history needs more snapshots.</p>}
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-lg font-black text-white">Top Losers</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-lg font-black text-[var(--color-navy)]">Top Losers</p>
                 <div className="mt-3 space-y-2">
                   {portfolioMovers.losers.length ? portfolioMovers.losers.map((row) => (
-                    <div key={row.cardId} className="grid grid-cols-[44px_1fr_auto] items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-2">
+                    <div key={row.cardId} className="grid grid-cols-[44px_1fr_auto] items-center gap-3 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2">
                       <CatalogCardArt cardId={row.cardId} alt={row.name} className="aspect-[63/88] w-11 rounded-lg" />
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-bold text-white">{row.name}</p>
-                        <p className="text-xs text-white/45">{row.setCode} · {formatCurrency(row.currentPrice)}</p>
+                        <p className="truncate text-sm font-bold text-[var(--color-navy)]">{row.name}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">{row.setCode} · {formatCurrency(row.currentPrice)}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-black text-red-300">{row.percent.toFixed(1)}%</p>
-                        <p className="text-xs text-white/45">{formatCurrency(row.delta)}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">{formatCurrency(row.delta)}</p>
                       </div>
                     </div>
-                  )) : <p className="text-sm text-white/45">No losers yet. Price history needs more snapshots.</p>}
+                  )) : <p className="text-sm text-[var(--color-text-mid)]">No losers yet. Price history needs more snapshots.</p>}
                 </div>
               </div>
             </div>
@@ -3387,8 +3387,8 @@ function CollectionPageContent() {
                 { title: "Value by Rarity", data: portfolioBreakdown.byRarity },
                 { title: "Value by Color", data: portfolioBreakdown.byColor },
               ].map((chart) => (
-                <div key={chart.title} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <p className="text-lg font-black text-white">{chart.title}</p>
+                <div key={chart.title} className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                  <p className="text-lg font-black text-[var(--color-navy)]">{chart.title}</p>
                   <div className="mt-3 h-64">
                     <ResponsiveContainer width="100%" height="100%">
                       {chart.title === "Value by Rarity" ? (
@@ -3434,29 +3434,29 @@ function CollectionPageContent() {
             className="space-y-4"
           >
             <div className="grid gap-3 md:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Wanted Cards</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Wanted Cards</p>
                 <p className="mt-1 text-3xl font-black text-pink-300">{watchlistItems.length}</p>
-                <p className="text-xs text-white/45">Tracked through your watchlist</p>
+                <p className="text-xs text-[var(--color-text-light)]">Tracked through your watchlist</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Wishlist Value</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Wishlist Value</p>
                 <p className="mt-1 text-3xl font-black text-[#F0C040]">
                   {formatCurrency(
                     watchlistItems.reduce((sum, item) => sum + (cardPrice(item.cardId, priceMap, collection) ?? 0), 0),
                   )}
                 </p>
-                <p className="text-xs text-white/45">Current estimated buy-in</p>
+                <p className="text-xs text-[var(--color-text-light)]">Current estimated buy-in</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Quick Browse Filter</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Quick Browse Filter</p>
                 <button
                   type="button"
                   onClick={() => {
                     setOwnershipFilter("wishlist");
                     setActiveTab("browse");
                   }}
-                  className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-bold text-white/70"
+                  className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 text-sm font-bold text-[var(--color-text-mid)]"
                 >
                   Open Wishlist View <ChevronRight className="h-4 w-4" />
                 </button>
@@ -3482,21 +3482,21 @@ function CollectionPageContent() {
                   const price = cardPrice(item.cardId, priceMap, collection);
 
                   return (
-                    <div key={item.watchId} className="rounded-2xl border border-white/10 bg-black/20 p-3">
+                    <div key={item.watchId} className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3">
                       <div className="grid grid-cols-[72px_1fr] gap-3">
                         <button type="button" onClick={() => openModal(card)}>
                           <CatalogCardArt cardId={card.id} alt={card.name} className="aspect-[63/88] w-[72px] rounded-xl" />
                         </button>
                         <div>
-                          <p className="text-sm font-black text-white">{card.name}</p>
-                          <p className="text-xs text-white/45">{card.id} · {card.setCode}</p>
+                          <p className="text-sm font-black text-[var(--color-navy)]">{card.name}</p>
+                          <p className="text-xs text-[var(--color-text-light)]">{card.id} · {card.setCode}</p>
                           <p className="mt-2 text-sm font-bold text-[#F0C040]">{typeof price === "number" ? formatCurrency(price) : "—"}</p>
-                          <p className="text-xs text-white/45">{owned > 0 ? `Owned ${owned}` : "Not owned yet"}</p>
+                          <p className="text-xs text-[var(--color-text-light)]">{owned > 0 ? `Owned ${owned}` : "Not owned yet"}</p>
                           <div className="mt-3 flex gap-2">
                             <button
                               type="button"
                               onClick={() => updateQuantity(card, 1)}
-                              className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 text-xs font-bold text-white/70"
+                              className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-xs font-bold text-[var(--color-text-mid)]"
                             >
                               <Plus className="h-3.5 w-3.5" />
                               Add
@@ -3529,18 +3529,18 @@ function CollectionPageContent() {
             className="space-y-4"
           >
             <div className="grid gap-3 md:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Cards Needed</p>
-                <p className="mt-1 text-3xl font-black text-white">{cardsNeeded.reduce((sum, row) => sum + row.needed, 0)}</p>
-                <p className="text-xs text-white/45">Missing copies across saved decks</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Cards Needed</p>
+                <p className="mt-1 text-3xl font-black text-[var(--color-navy)]">{cardsNeeded.reduce((sum, row) => sum + row.needed, 0)}</p>
+                <p className="text-xs text-[var(--color-text-light)]">Missing copies across saved decks</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Affected Decks</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Affected Decks</p>
                 <p className="mt-1 text-3xl font-black text-[#F0C040]">{new Set(cardsNeeded.map((row) => row.deckId)).size}</p>
-                <p className="text-xs text-white/45">Saved decks with shortages</p>
+                <p className="text-xs text-[var(--color-text-light)]">Saved decks with shortages</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Shopping Shortcut</p>
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Shopping Shortcut</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -3549,7 +3549,7 @@ function CollectionPageContent() {
                     setActionNotice({ tone: "success", message: "Copied the cards-needed list to your clipboard." });
                     window.setTimeout(() => setActionNotice(null), 1800);
                   }}
-                  className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-bold text-white/70"
+                  className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 text-sm font-bold text-[var(--color-text-mid)]"
                 >
                   <ClipboardList className="h-4 w-4" />
                   Copy List
@@ -3565,15 +3565,15 @@ function CollectionPageContent() {
             ) : (
               <div className="space-y-3">
                 {cardsNeeded.map((row) => (
-                  <div key={`${row.deckId}-${row.cardId}`} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                  <div key={`${row.deckId}-${row.cardId}`} className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <p className="text-sm font-black text-white">{row.cardName}</p>
-                        <p className="text-xs text-white/45">{row.deckName} · {row.cardId}</p>
+                        <p className="text-sm font-black text-[var(--color-navy)]">{row.cardName}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">{row.deckName} · {row.cardId}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-black text-red-300">Need {row.needed}</p>
-                        <p className="text-xs text-white/45">Owned {row.owned}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">Owned {row.owned}</p>
                       </div>
                     </div>
                   </div>
@@ -3592,16 +3592,16 @@ function CollectionPageContent() {
             className="space-y-4"
           >
             <div className="grid gap-4 xl:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                 <div className="flex items-center gap-2">
                   <WandSparkles className="h-4 w-4 text-[#F0C040]" />
-                  <p className="text-lg font-black text-white">Quick Add / Bulk Text Import</p>
+                  <p className="text-lg font-black text-[var(--color-navy)]">Quick Add / Bulk Text Import</p>
                 </div>
-                <p className="mt-2 text-sm text-white/50">Paste lines like `4x OP01-025` or `1 ST01-001` and import them directly.</p>
+                <p className="mt-2 text-sm text-[var(--color-text-mid)]">Paste lines like `4x OP01-025` or `1 ST01-001` and import them directly.</p>
                 <textarea
                   value={bulkText}
                   onChange={(event) => setBulkText(event.target.value)}
-                  className="mt-3 min-h-44 w-full rounded-2xl border border-white/10 bg-white/5 p-3 text-sm text-white"
+                  className="mt-3 min-h-44 w-full rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3 text-sm text-[var(--color-text-dark)]"
                   placeholder={"4x OP01-025\n2 ST01-001"}
                 />
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -3616,12 +3616,12 @@ function CollectionPageContent() {
                   <button
                     type="button"
                     onClick={exportCollectionCsv}
-                    className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-bold text-white/70"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 text-sm font-bold text-[var(--color-text-mid)]"
                   >
                     <Download className="h-4 w-4" />
                     Export CSV
                   </button>
-                  <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-bold text-white/70">
+                  <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 text-sm font-bold text-[var(--color-text-mid)]">
                     <Upload className="h-4 w-4" />
                     Import CSV
                     <input
@@ -3650,12 +3650,12 @@ function CollectionPageContent() {
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                   <div className="flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-pink-300" />
-                    <p className="text-lg font-black text-white">Trade Binder</p>
+                    <p className="text-lg font-black text-[var(--color-navy)]">Trade Binder</p>
                   </div>
-                  <p className="mt-2 text-sm text-white/50">
+                  <p className="mt-2 text-sm text-[var(--color-text-mid)]">
                     Cards marked `Trade` in browse appear here. Public trade URLs are not wired yet because username + profile privacy infrastructure does not exist yet.
                   </p>
                   <div className="mt-3 grid gap-2 sm:grid-cols-2">
@@ -3663,25 +3663,25 @@ function CollectionPageContent() {
                       const card = allCardsById.get(cardId);
                       if (!card) return null;
                       return (
-                        <div key={cardId} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm text-white">
+                        <div key={cardId} className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3 text-sm text-[var(--color-text-dark)]">
                           {card.name}
                         </div>
                       );
-                    }) : <p className="text-sm text-white/45">No trade cards marked yet.</p>}
+                    }) : <p className="text-sm text-[var(--color-text-mid)]">No trade cards marked yet.</p>}
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                   <div className="flex items-center gap-2">
                     <BadgeDollarSign className="h-4 w-4 text-emerald-300" />
-                    <p className="text-lg font-black text-white">Recent Activity</p>
+                    <p className="text-lg font-black text-[var(--color-navy)]">Recent Activity</p>
                   </div>
                   <div className="mt-3 space-y-2">
                     {recentActivity.length ? recentActivity.map((row) => (
-                      <div key={row.cardId} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm text-white/75">
+                      <div key={row.cardId} className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3 text-sm text-[var(--color-text-dark)]">
                         Added {row.name} · {row.quantity} copies · {formatAge(row.date)}
                       </div>
-                    )) : <p className="text-sm text-white/45">Add cards to start your activity feed.</p>}
+                    )) : <p className="text-sm text-[var(--color-text-mid)]">Add cards to start your activity feed.</p>}
                   </div>
                 </div>
               </div>

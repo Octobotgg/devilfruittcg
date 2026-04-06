@@ -63,7 +63,7 @@ function getHeatCellClass(rate: number) {
 function TrendIcon({ trend }: { trend: string }) {
   if (trend === "▲" || trend === "up") return <TrendingUp className="w-3.5 h-3.5 text-green-400" />;
   if (trend === "▼" || trend === "down") return <TrendingDown className="w-3.5 h-3.5 text-red-400" />;
-  return <Minus className="w-3.5 h-3.5 text-white/30" />;
+  return <Minus className="w-3.5 h-3.5 text-[var(--color-text-light)]" />;
 }
 
 function shortDeckName(name: string): string {
@@ -557,7 +557,7 @@ export default function MatchupsPageClient({
             className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
               view === v.id
                 ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black shadow-lg"
-                : "bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/8"
+                : "bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)] hover:bg-[var(--color-parchment)]"
             }`}>
             {v.label}
           </button>
@@ -574,9 +574,9 @@ export default function MatchupsPageClient({
           { value: decks.filter(d => d.tier === "B").length, label: "B-Tier Decks", color: "text-purple-400" },
         ].map((stat, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.05 }}
-            className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 text-center">
+            className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-2xl p-5 text-center">
             <div className={`text-3xl font-black ${stat.color}`}>{stat.value}</div>
-            <div className="text-xs text-white/40 mt-1">{stat.label}</div>
+            <div className="text-xs text-[var(--color-text-mid)] mt-1">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -588,11 +588,11 @@ export default function MatchupsPageClient({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white/[0.03] border border-white/10 rounded-3xl p-5 space-y-4">
-        <h3 className="text-white font-black">Leader Matchup Finder</h3>
-        <p className="text-xs text-white/55">
+        className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl p-5 space-y-4">
+        <h3 className="text-[var(--color-navy)] font-black">Leader Matchup Finder</h3>
+        <p className="text-xs text-[var(--color-text-mid)]">
           Pick any two leaders to run your own head-to-head test for this week&apos;s data.
-          Use <span className="font-bold text-white/80">Analyze</span> on suggested matchups below to instantly replace Leader B.
+          Use <span className="font-bold text-[var(--color-text-dark)]">Analyze</span> on suggested matchups below to instantly replace Leader B.
         </p>
 
         <div className="grid md:grid-cols-2 gap-3">
@@ -607,12 +607,12 @@ export default function MatchupsPageClient({
                 if (e.key === "Enter") { e.preventDefault(); selectLeader("a", filteredLeadersA[activeIndexA]?.id || filteredLeadersA[0].id); }
               }}
               placeholder="Leader A (type name or ID)"
-              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 pr-14 text-sm text-white"
+              className="w-full bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 pr-14 text-sm text-[var(--color-text-dark)]"
             />
             <button
               type="button"
               onClick={() => { setLeaderAQuery(""); setLookupLeaderCardId(""); setSelectedDeckId(null); setActiveIndexA(0); }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-bold text-white/70 hover:text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-1 text-[10px] font-bold text-[var(--color-text-mid)] hover:text-[var(--color-text-dark)]"
             >
               Clear
             </button>
@@ -642,12 +642,12 @@ export default function MatchupsPageClient({
                 if (e.key === "Enter") { e.preventDefault(); selectLeader("b", filteredLeadersB[activeIndexB]?.id || filteredLeadersB[0].id); }
               }}
               placeholder="Leader B / opponent"
-              className="w-full bg-white/5 border border-white/15 rounded-lg px-3 py-2 pr-14 text-sm text-white"
+              className="w-full bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 pr-14 text-sm text-[var(--color-text-dark)]"
             />
             <button
               type="button"
               onClick={() => { setLeaderBQuery(""); setLookupOpponentCardId(""); setActiveIndexB(0); }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-bold text-white/70 hover:text-white"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-1 text-[10px] font-bold text-[var(--color-text-mid)] hover:text-[var(--color-text-dark)]"
             >
               Clear
             </button>
@@ -668,8 +668,8 @@ export default function MatchupsPageClient({
         </div>
 
         {lookupOpponentCardId && otherLeadersFromOpponentSet.length > 0 && (
-          <div className="rounded-xl border border-white/10 bg-black/20 p-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">
               Other leaders from {opponentSetCode}
             </p>
             <div className="mt-2 flex flex-wrap gap-1.5">
@@ -680,10 +680,10 @@ export default function MatchupsPageClient({
                   className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition-colors ${
                     lookupOpponentCardId === d.id
                       ? "border-[var(--theme-accent-2)] bg-[var(--theme-accent-2)]/20 text-[var(--theme-accent-2)]"
-                      : "border-white/15 bg-black/30 text-white/75 hover:text-white"
+                      : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-mid)] hover:text-[var(--color-text-dark)]"
                   }`}
                 >
-                  {d.name} <span className="text-white/45">({d.id})</span>
+                  {d.name} <span className="text-[var(--color-text-light)]">({d.id})</span>
                 </button>
               ))}
             </div>
@@ -872,7 +872,7 @@ export default function MatchupsPageClient({
         {view === "matrix" && (
           <motion.div key="matrix" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             {/* Legend */}
-            <p className="md:hidden text-white/40 text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
+            <p className="md:hidden text-[var(--color-text-light)] text-xs mb-3">Tip: swipe horizontally to explore the full matchup table.</p>
             <div className="flex flex-wrap gap-3 mb-5 text-xs">
               {[
                 { color: "bg-[#14532d]", label: "60%+ Strong Favored" },
@@ -883,17 +883,17 @@ export default function MatchupsPageClient({
               ].map(l => (
                 <div key={l.label} className="flex items-center gap-1.5">
                   <div className={`w-3 h-3 rounded ${l.color}`} />
-                  <span className="text-white/40">{l.label}</span>
+                  <span className="text-[var(--color-text-mid)]">{l.label}</span>
                 </div>
               ))}
             </div>
 
             <div className="md:hidden space-y-2 mb-4">
               {matrixDecks.slice(0, 20).map((rowDeck) => (
-                <motion.div layout key={`mobile-${rowDeck.id}`} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                <motion.div layout key={`mobile-${rowDeck.id}`} className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3">
                   <div className="flex items-center gap-2 mb-2">
-                    <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name} className="w-8 h-11 rounded border border-white/10" />
-                    <div className="text-sm font-semibold text-white truncate">{rowDeck.name}</div>
+                    <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name} className="w-8 h-11 rounded border border-[var(--color-parchment-dark)]" />
+                    <div className="text-sm font-semibold text-[var(--color-navy)] truncate">{rowDeck.name}</div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {matrixDecks.filter((d) => d.id !== rowDeck.id).slice(0, 6).map((opp) => {
@@ -914,7 +914,7 @@ export default function MatchupsPageClient({
               ))}
             </div>
 
-            <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden hidden md:block">
+            <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl overflow-hidden hidden md:block">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
@@ -989,25 +989,25 @@ export default function MatchupsPageClient({
               if (!tierDecks.length) return null;
               const t = TIER_COLORS[tier] || "";
               return (
-                <div key={tier} className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
-                  <div className={`px-6 py-4 font-black text-xl border-b border-white/10 ${t}`}>
+                <div key={tier} className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl overflow-hidden">
+                  <div className={`px-6 py-4 font-black text-xl border-b border-[var(--color-parchment-dark)] ${t}`}>
                     Tier {tier}
                   </div>
-                  <div className="divide-y divide-white/5">
+                  <div className="divide-y divide-[var(--color-parchment-dark)]/40">
                     {tierDecks.sort((a, b) => b.metaShare - a.metaShare).map((deck, i) => (
                       <motion.button key={deck.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.06 }}
                         onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
-                        className="w-full p-5 flex items-center gap-5 hover:bg-white/5 transition-all text-left group">
+                        className="w-full p-5 flex items-center gap-5 hover:bg-[var(--color-cream)] transition-all text-left group">
                         <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                           onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
-                          className="w-12 h-16 object-cover rounded-xl border border-white/10 group-hover:border-[#F0C040]/40 transition-all group-hover:scale-105 cursor-zoom-in" />
+                          className="w-12 h-16 object-cover rounded-xl border border-[var(--color-parchment-dark)] group-hover:border-[#F0C040]/40 transition-all group-hover:scale-105 cursor-zoom-in" />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-white font-bold text-lg">{deck.name}</span>
+                            <span className="text-[var(--color-navy)] font-bold text-lg">{deck.name}</span>
                             <TrendIcon trend={deck.trend} />
                           </div>
-                          <p className="text-white/40 text-sm truncate">{cleanDeckDescription(deck.description)}</p>
+                          <p className="text-[var(--color-text-mid)] text-sm truncate">{cleanDeckDescription(deck.description)}</p>
                           <div className="flex items-center gap-4 mt-2 text-sm">
                             <LeaderColorTag colorLabel={deck.color} />
                             <span className="text-[#F0C040] font-bold">{deck.metaShare}% meta</span>
@@ -1015,7 +1015,7 @@ export default function MatchupsPageClient({
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <div className="text-3xl font-black text-white/20">#{decks.indexOf(deck) + 1}</div>
+                          <div className="text-3xl font-black text-[var(--color-parchment-dark)]">#{decks.indexOf(deck) + 1}</div>
                         </div>
                       </motion.button>
                     ))}
@@ -1057,7 +1057,7 @@ export default function MatchupsPageClient({
                 className={`h-11 rounded-xl text-xs font-bold transition-all ${
                   view === v.id
                     ? "bg-gradient-to-r from-[#F0C040] to-[#DC2626] text-black"
-                    : "bg-white/5 text-white/60 border border-white/10"
+                    : "bg-[var(--color-cream)] text-[var(--color-text-mid)] border border-[var(--color-parchment-dark)]"
                 }`}
               >
                 {v.label}
@@ -1092,35 +1092,35 @@ function DeckDetail({ deck, decks, onBack, onImageClick, onSelectSuggestedOppone
   return (
     <div className="space-y-6">
       <button onClick={onBack}
-        className="flex items-center gap-2 text-white/40 hover:text-white transition-colors text-sm font-medium">
+        className="flex items-center gap-2 text-[var(--color-text-mid)] hover:text-[var(--color-navy)] transition-colors text-sm font-medium">
         <ArrowLeft className="w-4 h-4" /> Back to Matrix
       </button>
 
       {/* Deck hero */}
-      <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-6 md:p-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#F0C040]/5 to-transparent pointer-events-none" />
+      <div className="relative bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl p-6 md:p-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-gold)]/5 to-transparent pointer-events-none" />
         <div className="relative flex items-start gap-6 flex-wrap">
           <motion.div whileHover={{ scale: 1.05, rotate: 2 }} transition={{ type: "spring", stiffness: 200 }}
             className="cursor-zoom-in" onClick={() => onImageClick(deck)}>
             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
-              className="w-28 h-36 object-cover rounded-2xl border border-white/10 shadow-2xl" />
-            <p className="text-center text-white/30 text-xs mt-1">Click to zoom</p>
+              className="w-28 h-36 object-cover rounded-2xl border border-[var(--color-parchment-dark)] shadow-2xl" />
+            <p className="text-center text-[var(--color-text-light)] text-xs mt-1">Click to zoom</p>
           </motion.div>
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2 flex-wrap">
-              <h2 className="text-3xl font-black text-white">{deck.name}</h2>
+              <h2 className="text-3xl font-black text-[var(--color-navy)]">{deck.name}</h2>
               <span className={`px-3 py-1 rounded-xl border font-black text-sm ${TIER_COLORS[deck.tier]}`}>Tier {deck.tier}</span>
             </div>
-            <p className="text-white/40 mb-6 text-base">{cleanDeckDescription(deck.description)}</p>
+            <p className="text-[var(--color-text-mid)] mb-6 text-base">{cleanDeckDescription(deck.description)}</p>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { value: `${deck.metaShare}%`, label: "Meta Share", color: "text-[#F0C040]" },
                 { value: `${deck.winRate}%`,   label: "Win Rate",   color: "text-green-400"  },
                 { value: TREND_ICONS[deck.trend], label: "Trend",   color: TREND_COLORS[deck.trend] },
               ].map((s, i) => (
-                <div key={i} className="bg-white/5 rounded-2xl p-4 text-center">
+                <div key={i} className="bg-[var(--color-cream)] rounded-2xl p-4 text-center">
                   <div className={`text-2xl font-black ${s.color}`}>{s.value}</div>
-                  <div className="text-xs text-white/40 mt-1">{s.label}</div>
+                  <div className="text-xs text-[var(--color-text-light)] mt-1">{s.label}</div>
                 </div>
               ))}
             </div>
@@ -1130,31 +1130,31 @@ function DeckDetail({ deck, decks, onBack, onImageClick, onSelectSuggestedOppone
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Best */}
-        <div className="bg-green-500/5 border border-green-500/20 rounded-3xl p-6">
-          <h3 className="text-lg font-black text-green-400 mb-5">✅ Best Matchups</h3>
+        <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-6">
+          <h3 className="text-lg font-black text-emerald-700 mb-5">✅ Best Matchups</h3>
           <div className="space-y-4">
             {best.map(({ deck: opp, winRate }) => (
               <div key={opp.id} className="flex items-center gap-3">
                 <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
                   onClick={() => onImageClick(opp)}
-                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
+                  className="w-10 h-14 object-cover rounded-lg border border-[var(--color-parchment-dark)] flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
                 <button
                   type="button"
                   onClick={() => onSelectSuggestedOpponent(opp)}
                   className="flex-1 min-w-0 text-left"
                 >
-                  <div className="truncate text-sm font-semibold text-white transition-colors hover:text-[#F0C040]">{opp.name}</div>
-                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                    <motion.div className="h-1.5 rounded-full bg-green-400"
+                  <div className="truncate text-sm font-semibold text-[var(--color-navy)] transition-colors hover:text-[#F0C040]">{opp.name}</div>
+                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-parchment-dark)]/30">
+                    <motion.div className="h-1.5 rounded-full bg-emerald-500"
                       initial={{ width: 0 }} animate={{ width: `${winRate}%` }} transition={{ duration: 0.6 }} />
                   </div>
                 </button>
                 <div className="text-right">
-                  <span className="text-sm font-black text-green-400">{winRate}%</span>
+                  <span className="text-sm font-black text-emerald-600">{winRate}%</span>
                   <button
                     type="button"
                     onClick={() => onSelectSuggestedOpponent(opp)}
-                    className="mt-1 block rounded-md border border-white/15 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75 hover:text-white"
+                    className="mt-1 block rounded-md border border-[var(--color-parchment-dark)] bg-[var(--color-navy)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-cream)] hover:text-white"
                   >
                     Analyze
                   </button>
@@ -1164,31 +1164,31 @@ function DeckDetail({ deck, decks, onBack, onImageClick, onSelectSuggestedOppone
           </div>
         </div>
         {/* Worst */}
-        <div className="bg-red-500/5 border border-red-500/20 rounded-3xl p-6">
-          <h3 className="text-lg font-black text-red-400 mb-5">❌ Worst Matchups</h3>
+        <div className="bg-red-50 border border-red-200 rounded-3xl p-6">
+          <h3 className="text-lg font-black text-red-700 mb-5">❌ Worst Matchups</h3>
           <div className="space-y-4">
             {worst.map(({ deck: opp, winRate }) => (
               <div key={opp.id} className="flex items-center gap-3">
                 <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
                   onClick={() => onImageClick(opp)}
-                  className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
+                  className="w-10 h-14 object-cover rounded-lg border border-[var(--color-parchment-dark)] flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
                 <button
                   type="button"
                   onClick={() => onSelectSuggestedOpponent(opp)}
                   className="flex-1 min-w-0 text-left"
                 >
-                  <div className="truncate text-sm font-semibold text-white transition-colors hover:text-[#F0C040]">{opp.name}</div>
-                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="truncate text-sm font-semibold text-[var(--color-navy)] transition-colors hover:text-[#F0C040]">{opp.name}</div>
+                  <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-[var(--color-parchment-dark)]/30">
                     <motion.div className="h-1.5 rounded-full bg-red-400"
                       initial={{ width: 0 }} animate={{ width: `${winRate}%` }} transition={{ duration: 0.6 }} />
                   </div>
                 </button>
                 <div className="text-right">
-                  <span className="text-sm font-black text-red-400">{winRate}%</span>
+                  <span className="text-sm font-black text-red-600">{winRate}%</span>
                   <button
                     type="button"
                     onClick={() => onSelectSuggestedOpponent(opp)}
-                    className="mt-1 block rounded-md border border-white/15 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75 hover:text-white"
+                    className="mt-1 block rounded-md border border-[var(--color-parchment-dark)] bg-[var(--color-navy)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-cream)] hover:text-white"
                   >
                     Analyze
                   </button>
@@ -1200,11 +1200,11 @@ function DeckDetail({ deck, decks, onBack, onImageClick, onSelectSuggestedOppone
       </div>
 
       {/* Full table */}
-      <div className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
-        <div className="p-5 border-b border-white/10">
-          <h3 className="font-black text-white text-lg">All Matchups — {deck.name}</h3>
+      <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl overflow-hidden">
+        <div className="p-5 border-b border-[var(--color-parchment-dark)]">
+          <h3 className="font-black text-[var(--color-navy)] text-lg">All Matchups — {deck.name}</h3>
         </div>
-        <div className="divide-y divide-white/5">
+        <div className="divide-y divide-[var(--color-parchment-dark)]/40">
           {decks.filter(d => d.id !== deck.id)
             .sort((a, b) => (deck.matchups[b.id] ?? 50) - (deck.matchups[a.id] ?? 50))
             .map((opp, i) => {
@@ -1212,22 +1212,22 @@ function DeckDetail({ deck, decks, onBack, onImageClick, onSelectSuggestedOppone
               const favored = rate >= 50;
               return (
                 <motion.div key={opp.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
-                  className="p-4 flex items-center gap-4 hover:bg-white/5 transition-colors">
+                  className="p-4 flex items-center gap-4 hover:bg-[var(--color-cream)] transition-colors">
                   <img src={`/api/card-image?id=${opp.cardId}`} alt={opp.name}
                     onClick={() => onImageClick(opp)}
-                    className="w-10 h-14 object-cover rounded-lg border border-white/10 flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
+                    className="w-10 h-14 object-cover rounded-lg border border-[var(--color-parchment-dark)] flex-shrink-0 cursor-zoom-in hover:border-[#F0C040]/40 transition-all" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-white font-semibold truncate">{opp.name}</div>
-                    <div className="text-xs text-white/40">{opp.color} · Tier {opp.tier}</div>
+                    <div className="text-[var(--color-navy)] font-semibold truncate">{opp.name}</div>
+                    <div className="text-xs text-[var(--color-text-mid)]">{opp.color} · Tier {opp.tier}</div>
                   </div>
                   <div className="text-right">
-                    <div className={`text-xl font-black ${favored ? "text-green-400" : "text-red-400"}`}>{rate}%</div>
-                    <div className="text-xs text-white/30">{getWinRateLabel(rate)}</div>
+                    <div className={`text-xl font-black ${favored ? "text-emerald-600" : "text-red-600"}`}>{rate}%</div>
+                    <div className="text-xs text-[var(--color-text-light)]">{getWinRateLabel(rate)}</div>
                   </div>
                   <button
                     type="button"
                     onClick={() => onSelectSuggestedOpponent(opp)}
-                    className="rounded-md border border-white/15 bg-black/25 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75 hover:text-white"
+                    className="rounded-md border border-[var(--color-parchment-dark)] bg-[var(--color-navy)] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-cream)] hover:text-white"
                   >
                     Analyze
                   </button>
