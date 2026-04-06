@@ -462,9 +462,9 @@ export default function CollectionPage() {
     <Suspense
       fallback={
         <div className="space-y-6 pb-24 md:pb-10">
-          <section className="rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-14 text-center">
-            <Loader2 className="mx-auto h-10 w-10 animate-spin text-white/20" />
-            <p className="mt-4 text-sm text-white/55">Loading collection command center...</p>
+          <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-5 py-14 text-center">
+            <Loader2 className="mx-auto h-10 w-10 animate-spin text-[var(--color-text-light)]" />
+            <p className="mt-4 text-sm text-[var(--color-text-light)]">Loading collection command center...</p>
           </section>
         </div>
       }
@@ -2726,34 +2726,34 @@ function CollectionPageContent() {
     <div className="space-y-6 pb-24 md:pb-10">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
 
-      <section className="rounded-3xl border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(240,192,64,0.12),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.14),transparent_42%),rgba(255,255,255,0.03)] p-5 md:p-6">
+      <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#F0C040]/30 bg-black/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#F0C040]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
               <Package className="h-3.5 w-3.5" /> Personal Collection
             </div>
-            <h1 className="mt-3 text-4xl font-black text-white md:text-5xl">
-              Collection <span className="bg-gradient-to-r from-[#F0C040] to-[#f472b6] bg-clip-text text-transparent">Command Center</span>
+            <h1 className="mt-3 text-4xl font-black text-[var(--color-navy)] md:text-5xl">
+              Collection <span className="text-[var(--color-gold-dark)]">Command Center</span>
             </h1>
-            <p className="mt-3 max-w-3xl text-sm text-white/60 md:text-base">
+            <p className="mt-3 max-w-3xl text-sm text-[var(--color-text-mid)] md:text-base">
               Browse the full catalog, track what you own, map set completion, monitor value, and spot the cards your decks still need.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
-              {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-white/45" : "animate-spin text-white/45"}`} />}
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">
+              {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-[var(--color-text-light)]" : "animate-spin text-[var(--color-text-light)]"}`} />}
               {storageReady ? storageLabel : "Checking collection storage"}
             </div>
           </div>
 
           <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-[26rem]">
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Collection Value</p>
-              <p className="mt-1 text-3xl font-black text-[#F0C040]">{totalCollectionValue > 0 ? formatCurrency(totalCollectionValue) : "—"}</p>
-              <p className="text-xs text-white/45">{priceMap.size ? "Live estimate from cached prices + placeholders" : "Loading price coverage"}</p>
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Collection Value</p>
+              <p className="mt-1 text-3xl font-black text-[var(--color-gold-dark)]">{totalCollectionValue > 0 ? formatCurrency(totalCollectionValue) : "—"}</p>
+              <p className="text-xs text-[var(--color-text-light)]">{priceMap.size ? "Live estimate from cached prices + placeholders" : "Loading price coverage"}</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Owned Cards</p>
-              <p className="mt-1 text-3xl font-black text-white">{totalCardsOwned}</p>
-              <p className="text-xs text-white/45">{uniqueCardsOwned} unique cards</p>
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+              <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Owned Cards</p>
+              <p className="mt-1 text-3xl font-black text-[var(--color-navy)]">{totalCardsOwned}</p>
+              <p className="text-xs text-[var(--color-text-light)]">{uniqueCardsOwned} unique cards</p>
             </div>
           </div>
         </div>
@@ -2771,12 +2771,12 @@ function CollectionPageContent() {
         ) : null}
 
         <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Browse Coverage</p>
-            <p className="mt-1 text-2xl font-black text-white">{catalogCards.length.toLocaleString()}</p>
-            <p className="text-xs text-white/45">Official prints in the catalog</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Browse Coverage</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{catalogCards.length.toLocaleString()}</p>
+            <p className="text-xs text-[var(--color-text-light)]">Official prints in the catalog</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
             <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Wishlist</p>
             <p className="mt-1 text-2xl font-black text-pink-300">{watchlistItems.length}</p>
             <p className="text-xs text-white/45">{watchlistLoading ? "Loading watchlist" : "Tracked wanted cards"}</p>

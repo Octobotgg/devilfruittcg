@@ -418,68 +418,68 @@ export default function MatchupsPageClient({
     <div className="space-y-10 pb-24 md:pb-0">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
       {!initialIsLive && sourceLabel !== "Live aggregate" ? (
-        <div className="rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4">
-          <p className="text-amber-200 text-sm font-semibold">
+        <div className="rounded-2xl border border-[var(--color-gold)] bg-[rgba(212,160,84,0.1)] p-4">
+          <p className="text-[var(--color-text-dark)] text-sm font-semibold">
             Live matchup data is unavailable right now. This page is showing a fallback snapshot until the live feed recovers.
           </p>
         </div>
       ) : null}
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-red-500/10 border border-red-500/20 rounded-full">
-          <Swords className="w-3.5 h-3.5 text-red-400" />
-          <span className="text-red-400 text-xs font-semibold tracking-wider uppercase">Win Rate Data</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-[var(--color-sunset)]/10 border border-[var(--color-sunset)]/25 rounded-full">
+          <Swords className="w-3.5 h-3.5 text-[var(--color-sunset)]" />
+          <span className="text-[var(--color-sunset)] text-xs font-semibold tracking-wider uppercase">Win Rate Data</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
-          Matchup <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#F0C040]">Matrix</span>
+        <h1 className="text-4xl md:text-5xl font-black text-[var(--color-navy)] mb-3">
+          Matchup <span className="text-[var(--color-sunset)]">Matrix</span>
         </h1>
-        <p className="text-white/40 text-lg">Matchup analysis · Click any deck for full breakdown</p>
-        <p className="text-xs text-white/30 mt-2">
+        <p className="text-[var(--color-text-light)] text-lg">Matchup analysis · Click any deck for full breakdown</p>
+        <p className="text-xs text-[var(--color-text-light)] mt-2">
           {sourceLabel === "Live aggregate"
             ? sampleLabel || (sampleGames ? `${sampleGames.toLocaleString()} logged games in range` : "Loading live aggregate data")
             : "Live matchup feed unavailable · showing fallback snapshot"}
         </p>
         <div className="mt-3 flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs text-white/40 mb-1">Matchup Format</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Matchup Format</label>
             <select
               value={matchupSet}
               onChange={(e) => setMatchupSet(e.target.value)}
-              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
               {['OP15','OP14','OP13','OP12','OP11','OP10','OP09','OP08'].map((s) => (
-                <option key={s} value={s} className="bg-[#0f172a]">{s}</option>
+                <option key={s} value={s} className="bg-[var(--color-cream)]">{s}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="block text-xs text-white/40 mb-1">Data Period</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Data Period</label>
             <select
               value={matchupPeriod}
               onChange={(e) => setMatchupPeriod(e.target.value)}
-              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
-              <option value="west_p" className="bg-[#0f172a]">West (Private)</option>
-              <option value="east_p" className="bg-[#0f172a]">East (Private)</option>
-              <option value="west" className="bg-[#0f172a]">West (All)</option>
-              <option value="east" className="bg-[#0f172a]">East (All)</option>
-              <option value="lw_p" className="bg-[#0f172a]">Last Week (Private)</option>
-              <option value="lw" className="bg-[#0f172a]">Last Week (All)</option>
+              <option value="west_p" className="bg-[var(--color-cream)]">West (Private)</option>
+              <option value="east_p" className="bg-[var(--color-cream)]">East (Private)</option>
+              <option value="west" className="bg-[var(--color-cream)]">West (All)</option>
+              <option value="east" className="bg-[var(--color-cream)]">East (All)</option>
+              <option value="lw_p" className="bg-[var(--color-cream)]">Last Week (Private)</option>
+              <option value="lw" className="bg-[var(--color-cream)]">Last Week (All)</option>
             </select>
           </div>
           <div>
-            <label className="block text-xs text-white/40 mb-1">Deck depth</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Deck depth</label>
             <select
               value={String(deckLimit)}
               onChange={(e) => setDeckLimit(Number(e.target.value))}
-              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
               {[12, 18, 24, 30].map((n) => (
-                <option key={n} value={n} className="bg-[#0f172a]">Top {n}</option>
+                <option key={n} value={n} className="bg-[var(--color-cream)]">Top {n}</option>
               ))}
             </select>
           </div>
-          <div className="text-xs text-white/40 pb-1">
+          <div className="text-xs text-[var(--color-text-light)] pb-1">
             Last updated: {lastSuccessAt ? new Date(lastSuccessAt).toLocaleString() : '—'}
           </div>
         </div>

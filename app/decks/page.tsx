@@ -746,20 +746,18 @@ export default function DecksPage() {
     <div className="space-y-6 pb-20">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
 
-      <section className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.18),transparent_40%),radial-gradient(circle_at_88%_82%,rgba(220,38,38,0.12),transparent_42%)]" />
-
+      <section className="relative overflow-hidden rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
         <div className="relative flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#f8d479]/35 bg-black/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f8d479]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
               <FlaskConical className="h-3.5 w-3.5" /> Deck Lab Archive
             </div>
-            <h1 className="mt-3 text-3xl font-black text-white md:text-4xl">Your Crew Hangar</h1>
-            <p className="mt-2 max-w-2xl text-sm text-white/65">
+            <h1 className="mt-3 text-3xl font-black text-[var(--color-navy)] md:text-4xl">Your Crew Hangar</h1>
+            <p className="mt-2 max-w-2xl text-sm text-[var(--color-text-mid)]">
               Manage every saved list, track build readiness, and jump back into Deck Lab with one click.
             </p>
-            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
-              {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-white/45" : "animate-spin text-white/45"}`} />}
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">
+              {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-[var(--color-text-light)]" : "animate-spin text-[var(--color-text-light)]"}`} />}
               {storageReady ? storageLabel : "Checking saved decks"}
             </div>
           </div>
@@ -769,7 +767,7 @@ export default function DecksPage() {
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/85"
+                className="inline-flex items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)]"
               >
                 <BookOpen className="h-3.5 w-3.5" /> Open Lab
               </motion.button>
@@ -781,39 +779,39 @@ export default function DecksPage() {
         </div>
 
         <div className="relative mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Vault</p>
-            <p className="mt-1 text-2xl font-black text-white">{totalDecks}</p>
-            <p className="text-xs text-white/50">Saved lists</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Vault</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{totalDecks}</p>
+            <p className="text-xs text-[var(--color-text-light)]">Saved lists</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Battle Ready</p>
-            <p className="mt-1 text-2xl font-black text-emerald-300">{readyDecks}</p>
-            <p className="text-xs text-white/50">50 cards + leader</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Battle Ready</p>
+            <p className="mt-1 text-2xl font-black text-emerald-700">{readyDecks}</p>
+            <p className="text-xs text-[var(--color-text-light)]">50 cards + leader</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Avg Completion</p>
-            <p className="mt-1 text-2xl font-black text-[var(--theme-accent-2)]">{avgCompletion}%</p>
-            <p className="text-xs text-white/50">Across all decks</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Avg Completion</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-gold-dark)]">{avgCompletion}%</p>
+            <p className="text-xs text-[var(--color-text-light)]">Across all decks</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Updated (7d)</p>
-            <p className="mt-1 text-2xl font-black text-white">{recentlyUpdated}</p>
-            <p className="text-xs text-white/50">Recently tuned</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Updated (7d)</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{recentlyUpdated}</p>
+            <p className="text-xs text-[var(--color-text-light)]">Recently tuned</p>
           </div>
         </div>
       </section>
 
       {!storageReady ? (
-        <section className="rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-14 text-center">
-          <Loader2 className="mx-auto h-10 w-10 animate-spin text-white/20" />
-          <p className="mt-4 text-sm text-white/55">Loading your saved decks...</p>
+        <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-5 py-14 text-center">
+          <Loader2 className="mx-auto h-10 w-10 animate-spin text-[var(--color-text-light)]" />
+          <p className="mt-4 text-sm text-[var(--color-text-light)]">Loading your saved decks...</p>
         </section>
       ) : totalDecks === 0 ? (
-        <section className="rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-14 text-center">
-          <BookOpen className="mx-auto h-14 w-14 text-white/15" />
-          <h2 className="mt-4 text-xl font-black text-white">No crews in your hangar yet</h2>
-          <p className="mt-2 text-sm text-white/55">Build your first deck and it will appear here instantly.</p>
+        <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-5 py-14 text-center">
+          <BookOpen className="mx-auto h-14 w-14 text-[var(--color-text-light)]" />
+          <h2 className="mt-4 text-xl font-black text-[var(--color-navy)]">No crews in your hangar yet</h2>
+          <p className="mt-2 text-sm text-[var(--color-text-light)]">Build your first deck and it will appear here instantly.</p>
           <div className="mt-6">
             <DonButton href="/deckbuilder" className="px-6 py-3 text-[11px]">Start in Deck Lab</DonButton>
           </div>

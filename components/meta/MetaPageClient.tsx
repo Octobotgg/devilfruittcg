@@ -166,8 +166,8 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
   return (
     <div className="space-y-10 pb-24 md:pb-0">
       {isSeeded ? (
-        <div className="rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4">
-          <p className="text-amber-200 text-sm font-semibold">
+        <div className="rounded-2xl border border-[var(--color-gold)] bg-[rgba(212,160,84,0.1)] p-4">
+          <p className="text-[var(--color-text-dark)] text-sm font-semibold">
             Live meta data is unavailable right now. This page is showing a fallback snapshot until the live feed recovers.
           </p>
         </div>
@@ -175,55 +175,55 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <div className="flex items-center gap-3 mb-4 flex-wrap">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full">
-            <Crown className="w-3.5 h-3.5 text-blue-400" />
-            <span className="text-blue-400 text-xs font-semibold tracking-wider uppercase">Tournament Meta</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[var(--color-ocean)]/10 border border-[var(--color-ocean)]/25 rounded-full">
+            <Crown className="w-3.5 h-3.5 text-[var(--color-ocean)]" />
+            <span className="text-[var(--color-ocean)] text-xs font-semibold tracking-wider uppercase">Tournament Meta</span>
           </div>
           <span className={`px-3 py-1.5 rounded-full text-xs font-semibold border ${
-            status === "live"    ? "border-green-400/40 text-green-400 bg-green-400/10" :
-            status === "loading" ? "border-white/20 text-white/50 bg-white/5 animate-pulse" :
-                                   "border-orange-400/40 text-orange-400 bg-orange-400/10"
+            status === "live"    ? "border-emerald-600/40 text-emerald-700 bg-emerald-500/10" :
+            status === "loading" ? "border-[var(--color-parchment-dark)] text-[var(--color-text-light)] bg-[var(--color-cream)] animate-pulse" :
+                                   "border-orange-500/40 text-orange-700 bg-orange-400/10"
           }`}>
             {status === "live" ? "● Live Aggregate" : status === "loading" ? "Loading..." : "● Live data unavailable"}
           </span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black text-white mb-3">
-          Meta <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#F0C040]">Snapshot</span>
+        <h1 className="text-4xl md:text-5xl font-black text-[var(--color-navy)] mb-3">
+          Meta <span className="text-[var(--color-ocean)]">Snapshot</span>
         </h1>
-        <p className="text-white/40 text-lg">
+        <p className="text-[var(--color-text-light)] text-lg">
           {isSeeded ? "Fallback snapshot while live data is unavailable" : "Top decks from live aggregate data"} · Updated {lastSuccessAt ? new Date(lastSuccessAt).toLocaleDateString() : "—"}
         </p>
         <div className="mt-4 flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs text-white/40 mb-1">Format</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Format</label>
             <select
               value={format}
               onChange={(e) => setFormat(e.target.value)}
-              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
               {["OP15", "OP14", "OP13", "OP12", "OP11", "OP10", "OP09", "OP08"].map((f) => (
-                <option key={f} value={f} className="bg-[#0f172a]">{f}</option>
+                <option key={f} value={f} className="bg-[var(--color-cream)]">{f}</option>
               ))}
             </select>
           </div>
 
           <div>
-            <label className="block text-xs text-white/40 mb-1">Region</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Region</label>
             <select
               value={region}
               onChange={(e) => setRegion(e.target.value)}
-              className="bg-white/5 border border-white/15 rounded-lg px-3 py-2 text-sm text-white"
+              className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
-              <option value="global" className="bg-[#0f172a]">Global</option>
-              <option value="na" className="bg-[#0f172a]">North America</option>
-              <option value="eu" className="bg-[#0f172a]">Europe</option>
-              <option value="la" className="bg-[#0f172a]">Latin America</option>
-              <option value="oc" className="bg-[#0f172a]">Oceania</option>
-              <option value="asia" className="bg-[#0f172a]">Asia</option>
+              <option value="global" className="bg-[var(--color-cream)]">Global</option>
+              <option value="na" className="bg-[var(--color-cream)]">North America</option>
+              <option value="eu" className="bg-[var(--color-cream)]">Europe</option>
+              <option value="la" className="bg-[var(--color-cream)]">Latin America</option>
+              <option value="oc" className="bg-[var(--color-cream)]">Oceania</option>
+              <option value="asia" className="bg-[var(--color-cream)]">Asia</option>
             </select>
           </div>
 
-          <div className="text-xs text-white/40 pb-1">
+          <div className="text-xs text-[var(--color-text-light)] pb-1">
             Last successful fetch: {lastSuccessAt ? new Date(lastSuccessAt).toLocaleTimeString() : "—"}
           </div>
           <div className="ml-auto"><DonButton href="/matchups">Open Matchup Matrix</DonButton></div>

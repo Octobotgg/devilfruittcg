@@ -977,26 +977,26 @@ export default function MarketCatalogView() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="rounded-[32px] border border-[#F0C040]/20 bg-[radial-gradient(circle_at_top_left,rgba(240,192,64,0.16),transparent_34%),radial-gradient(circle_at_top_right,rgba(96,165,250,0.14),transparent_30%),linear-gradient(135deg,rgba(12,19,36,0.96),rgba(8,13,23,0.92))] p-5 md:p-7"
+        className="rounded-[32px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-7"
       >
         <div className="flex flex-wrap items-start justify-between gap-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#F0C040]/20 bg-[#F0C040]/10 px-3 py-1.5">
-              <SlidersHorizontal className="h-3.5 w-3.5 text-[#F0C040]" />
-              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F0C040]">Market Search</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 px-3 py-1.5">
+              <SlidersHorizontal className="h-3.5 w-3.5 text-[var(--color-gold-dark)]" />
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-gold-dark)]">Market Search</span>
             </div>
-            <h1 className="mt-4 text-4xl font-black text-white md:text-5xl">
-              Browse the <span className="bg-gradient-to-r from-[#F0C040] to-[#ffd870] bg-clip-text text-transparent">Devil Fruit Marketplace</span>
+            <h1 className="mt-4 text-4xl font-black text-[var(--color-navy)] md:text-5xl">
+              Browse the <span className="text-[var(--color-gold-dark)]">Devil Fruit Marketplace</span>
             </h1>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-white/60">
+            <p className="mt-3 max-w-2xl text-base leading-7 text-[var(--color-text-mid)]">
               Search official English OPTCG prints, narrow by set and gameplay stats, then sort through market pricing with a faster TCGPlayer-style flow.
             </p>
           </div>
 
-          <div className="rounded-[24px] border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-white/40">Current view</p>
-            <p className="mt-1 text-2xl font-black text-white">{catalog?.total.toLocaleString() ?? "—"}</p>
-            <p className="mt-1 text-sm text-white/50">
+          <div className="rounded-[24px] border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--color-text-light)]">Current view</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{catalog?.total.toLocaleString() ?? "—"}</p>
+            <p className="mt-1 text-sm text-[var(--color-text-light)]">
               {state.q ? `Prints matching "${state.q}"` : "Official prints available to browse"}
             </p>
           </div>
@@ -1011,7 +1011,7 @@ export default function MarketCatalogView() {
             className="flex flex-col gap-3 md:flex-row"
           >
             <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/35" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-light)]" />
               <input
                 value={searchInput}
                 onChange={(event) => {
@@ -1020,7 +1020,7 @@ export default function MarketCatalogView() {
                 }}
                 onFocus={() => setShowSuggestions(true)}
                 placeholder="Search card names, numbers, set codes, traits, or effect text..."
-                className="w-full rounded-[24px] border border-white/10 bg-black/25 py-4 pl-12 pr-12 text-base text-white placeholder:text-white/30 focus:border-[#F0C040]/45 focus:outline-none"
+                className="w-full rounded-[24px] border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-4 pl-12 pr-12 text-base text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
                 aria-label="Search cards"
               />
               {searchInput ? (
@@ -1030,7 +1030,7 @@ export default function MarketCatalogView() {
                     setDraftQuery({ value: "", committed: "" });
                     if (state.q) submitSearch("");
                   }}
-                  className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/55 transition-all hover:bg-white/10 hover:text-white"
+                  className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-light)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-text-dark)]"
                   aria-label="Clear search"
                 >
                   <X className="h-4 w-4" />
@@ -1040,7 +1040,7 @@ export default function MarketCatalogView() {
 
             <button
               type="submit"
-              className="rounded-[24px] border border-[#F0C040]/30 bg-[#F0C040]/14 px-5 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#F0C040] transition-all hover:bg-[#F0C040]/18"
+              className="rounded-[24px] border border-[var(--color-gold)] bg-[var(--color-gold)]/14 px-5 py-4 text-sm font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)] transition-all hover:bg-[var(--color-gold)]/22"
             >
               Search
             </button>
@@ -1052,11 +1052,11 @@ export default function MarketCatalogView() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
-                className="absolute z-30 mt-2 w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#0c1324]/95 shadow-2xl shadow-black/50"
+                className="absolute z-30 mt-2 w-full overflow-hidden rounded-[24px] border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] shadow-2xl shadow-black/10"
               >
                 {suggestionsLoading ? (
-                  <div className="flex items-center gap-2 px-4 py-4 text-sm text-white/55">
-                    <Loader2 className="h-4 w-4 animate-spin text-[#F0C040]" />
+                  <div className="flex items-center gap-2 px-4 py-4 text-sm text-[var(--color-text-light)]">
+                    <Loader2 className="h-4 w-4 animate-spin text-[var(--color-gold-dark)]" />
                     Searching cards...
                   </div>
                 ) : suggestions.length ? (
@@ -1070,26 +1070,26 @@ export default function MarketCatalogView() {
                           setDraftQuery({ value: displayId, committed: displayId });
                           submitSearch(displayId);
                         }}
-                        className="flex w-full items-center gap-3 px-4 py-3 text-left transition-all hover:bg-white/5"
+                        className="flex w-full items-center gap-3 px-4 py-3 text-left transition-all hover:bg-[var(--color-parchment)]"
                       >
                         <img
                           src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
                           alt={card.name}
-                          className="h-14 w-10 rounded-lg border border-white/10 bg-[#08111f] object-contain p-1"
+                          className="h-14 w-10 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] object-contain p-1"
                         />
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-bold text-white">{card.name}</p>
-                          <p className="mt-1 truncate text-[11px] text-white/45">
+                          <p className="truncate text-sm font-bold text-[var(--color-navy)]">{card.name}</p>
+                          <p className="mt-1 truncate text-[11px] text-[var(--color-text-light)]">
                             {displayCardId(card)} · {cardSetLabel(card)} · {card.type}
                           </p>
                           {marketVariantLabel(card) ? (
-                            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">
+                            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-gold-dark)]">
                               {marketVariantLabel(card)}
                             </p>
                           ) : null}
                         </div>
                         {formatCurrency(card.market?.marketPrice) ? (
-                          <span className="text-[11px] font-semibold text-[#F0C040]">
+                          <span className="text-[11px] font-semibold text-[var(--color-gold-dark)]">
                             {formatCurrency(card.market?.marketPrice)}
                           </span>
                         ) : null}
@@ -1097,7 +1097,7 @@ export default function MarketCatalogView() {
                     ))}
                   </div>
                 ) : (
-                  <div className="px-4 py-4 text-sm text-white/50">
+                  <div className="px-4 py-4 text-sm text-[var(--color-text-light)]">
                     {suggestionsError || "No matching cards found."}
                   </div>
                 )}
@@ -1113,12 +1113,12 @@ export default function MarketCatalogView() {
         </aside>
 
         <section className="min-w-0 space-y-5">
-          <div className="flex flex-col gap-4 rounded-[28px] border border-white/10 bg-white/[0.03] p-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-4 rounded-[28px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm font-black text-white">
+              <p className="text-sm font-black text-[var(--color-navy)]">
                 {catalog?.total ? `Showing ${showingFrom}-${showingTo} of ${catalog.total.toLocaleString()} results` : "No results yet"}
               </p>
-              <p className="mt-1 text-sm text-white/50">
+              <p className="mt-1 text-sm text-[var(--color-text-light)]">
                 {state.q ? `Search: "${state.q}"` : "Search the full market catalog"}
               </p>
             </div>
@@ -1127,26 +1127,26 @@ export default function MarketCatalogView() {
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(true)}
-                className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/75 transition-all hover:bg-white/10 hover:text-white lg:hidden"
+                className="inline-flex items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm font-semibold text-[var(--color-text-mid)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)] lg:hidden"
                 aria-label="Open filters"
               >
                 <Filter className="h-4 w-4" />
                 Filters
                 {activeFilterCount ? (
-                  <span className="rounded-full bg-[#F0C040]/15 px-2 py-0.5 text-[11px] font-black text-[#F0C040]">{activeFilterCount}</span>
+                  <span className="rounded-full bg-[var(--color-gold)]/15 px-2 py-0.5 text-[11px] font-black text-[var(--color-gold-dark)]">{activeFilterCount}</span>
                 ) : null}
               </button>
 
-              <label className="text-sm text-white/45">
+              <label className="text-sm text-[var(--color-text-light)]">
                 <span className="sr-only">Sort cards</span>
                 <select
                   value={state.sort}
                   onChange={(event) => updateState((current) => ({ ...current, sort: event.target.value as MarketSort, page: 1 }))}
-                  className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                  className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   aria-label="Sort cards"
                 >
                   {SORT_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value} className="bg-[#0c1324]">
+                    <option key={option.value} value={option.value} className="bg-[var(--color-cream)]">
                       {option.label}
                     </option>
                   ))}

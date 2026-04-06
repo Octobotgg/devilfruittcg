@@ -239,7 +239,7 @@ function DeckCardImage({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <div className={`absolute inset-0 animate-pulse bg-white/10 transition-opacity ${loaded ? "opacity-0" : "opacity-100"}`} />
+      <div className={`absolute inset-0 animate-pulse bg-[var(--color-parchment-dark)]/40 transition-opacity ${loaded ? "opacity-0" : "opacity-100"}`} />
       <Image
         src={src}
         alt={alt}
@@ -810,20 +810,20 @@ function CurveChart({ title, buckets }: { title: string; buckets: CurveBucket[] 
 
   return (
     <div>
-      <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">{title}</p>
-      <div className="flex items-end gap-1 rounded-xl border border-white/10 bg-black/25 p-2">
+      <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{title}</p>
+      <div className="flex items-end gap-1 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
         {buckets.map((bucket) => {
           const height = Math.max(8, Math.round((bucket.count / maxCount) * 58));
 
           return (
             <div key={bucket.label} className="flex-1 text-center">
               <div
-                className="mx-auto flex w-full max-w-[26px] items-end justify-center rounded-sm border border-white/20 bg-[#0f1117] text-[9px] font-black text-white"
+                className="mx-auto flex w-full max-w-[26px] items-end justify-center rounded-sm border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[9px] font-black text-[var(--color-navy)]"
                 style={{ height: `${height}px` }}
               >
                 {bucket.count > 0 ? bucket.count : ""}
               </div>
-              <p className="mt-1 text-[9px] text-white/45">{bucket.label}</p>
+              <p className="mt-1 text-[9px] text-[var(--color-text-light)]">{bucket.label}</p>
             </div>
           );
         })}
@@ -837,9 +837,9 @@ export default function DeckBuilderPage() {
     <Suspense
       fallback={
         <div className="space-y-6 pb-20">
-          <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 md:p-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
-              <Loader2 className="h-3.5 w-3.5 animate-spin text-white/45" />
+          <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-mid)]">
+              <Loader2 className="h-3.5 w-3.5 animate-spin text-[var(--color-text-light)]" />
               Loading Deck Lab
             </div>
           </section>
@@ -1798,13 +1798,13 @@ function DeckBuilderPageContent() {
 
     const selectClass =
       layout === "desktop"
-        ? "rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-white"
-        : "min-h-11 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white";
+        ? "rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-xs text-[var(--color-text-dark)]"
+        : "min-h-11 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2.5 text-sm text-[var(--color-text-dark)]";
 
     const buttonClass =
       layout === "desktop"
-        ? "rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70 hover:text-white"
-        : "min-h-11 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white/80";
+        ? "rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-xs text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
+        : "min-h-11 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2.5 text-sm text-[var(--color-text-mid)]";
 
     return (
       <div className={containerClass}>
@@ -1843,12 +1843,12 @@ function DeckBuilderPageContent() {
 
   function renderDeckPanel() {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+      <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
         <input
           value={deck.name}
           onChange={(event) => setDeck((current) => ({ ...current, name: event.target.value, updatedAt: new Date().toISOString() }))}
           aria-label="Deck name"
-          className="w-full border-b border-white/10 bg-transparent pb-1 text-lg font-bold text-white outline-none"
+          className="w-full border-b border-[var(--color-parchment-dark)] bg-transparent pb-1 text-lg font-bold text-[var(--color-navy)] outline-none"
         />
 
         <div
@@ -1862,33 +1862,33 @@ function DeckBuilderPageContent() {
             setIsDropActive(false);
             handleDropCard(event.dataTransfer.getData("text/plain"));
           }}
-          className={`mt-3 rounded-xl border border-dashed p-3 text-xs transition-all ${isDropActive ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/10 text-white" : "border-white/20 bg-black/20 text-white/55"}`}
+          className={`mt-3 rounded-xl border border-dashed p-3 text-xs transition-all ${isDropActive ? "border-[var(--color-gold)] bg-[var(--color-gold)]/10 text-[var(--color-navy)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"}`}
         >
           Drag card here to add to deck
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
-          <div className="rounded-lg border border-white/10 bg-black/20 p-2">
-            <p className="text-[10px] text-white/45">Leader</p>
-            <p className="mt-1 text-xs font-bold text-white">{deck.leaderId ? "SET" : "NONE"}</p>
+          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
+            <p className="text-[10px] text-[var(--color-text-light)]">Leader</p>
+            <p className="mt-1 text-xs font-bold text-[var(--color-navy)]">{deck.leaderId ? "SET" : "NONE"}</p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-black/20 p-2">
-            <p className="text-[10px] text-white/45">Main</p>
-            <p className="mt-1 text-xs font-bold text-white">{mainDeckCount}</p>
+          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
+            <p className="text-[10px] text-[var(--color-text-light)]">Main</p>
+            <p className="mt-1 text-xs font-bold text-[var(--color-navy)]">{mainDeckCount}</p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-black/20 p-2">
-            <p className="text-[10px] text-white/45">Built</p>
-            <p className="mt-1 text-xs font-bold text-white">{totalCards}</p>
+          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
+            <p className="text-[10px] text-[var(--color-text-light)]">Built</p>
+            <p className="mt-1 text-xs font-bold text-[var(--color-navy)]">{totalCards}</p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-black/20 p-2" title={deckPriceTitle}>
-            <p className="text-[10px] text-white/45">Price</p>
-            <p className="mt-1 text-xs font-bold text-[#F0C040]">{deckPriceLoading && deckPrices.size === 0 ? "..." : formatCurrency(deckPriceSummary.total)}</p>
-            <p className="mt-1 text-[9px] text-white/35">{deckPriceStatus}</p>
+          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2" title={deckPriceTitle}>
+            <p className="text-[10px] text-[var(--color-text-light)]">Price</p>
+            <p className="mt-1 text-xs font-bold text-[var(--color-gold)]">{deckPriceLoading && deckPrices.size === 0 ? "..." : formatCurrency(deckPriceSummary.total)}</p>
+            <p className="mt-1 text-[9px] text-[var(--color-text-light)]">{deckPriceStatus}</p>
           </div>
         </div>
 
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/10 bg-black/20 p-3">
-          <div className={`inline-flex items-center gap-2 text-sm font-bold ${validationResult.legal ? "text-emerald-300" : "text-amber-300"}`}>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+          <div className={`inline-flex items-center gap-2 text-sm font-bold ${validationResult.legal ? "text-emerald-700" : "text-amber-700"}`}>
             {validationResult.legal ? <ShieldCheck className="h-4 w-4" /> : <ShieldAlert className="h-4 w-4" />}
             {validationResult.legal ? `${selectedFormatRule.label} legal` : `${validationResult.issues.length} issues to fix`}
           </div>
@@ -1896,7 +1896,7 @@ function DeckBuilderPageContent() {
             type="button"
             onClick={openPlaytest}
             disabled={!canPlaytest}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 px-4 text-sm font-bold text-[var(--theme-accent-2)] disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/35"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-gold)] bg-[var(--color-gold)]/15 px-4 text-sm font-bold text-[var(--color-gold)] disabled:cursor-not-allowed disabled:border-[var(--color-parchment-dark)] disabled:bg-[var(--color-cream)] disabled:text-[var(--color-text-light)]"
           >
             <FlaskConical className="h-4 w-4" />
             Playtest
@@ -1905,7 +1905,7 @@ function DeckBuilderPageContent() {
 
         <div className="mt-4">
           <div className="mb-2 flex items-center justify-between gap-2">
-            <p className="flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-white/45">
+            <p className="flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">
               <Crown className="h-3 w-3" />
               Leader
             </p>
@@ -1913,7 +1913,7 @@ function DeckBuilderPageContent() {
               <button
                 type="button"
                 onClick={() => toggleVariantPicker(leaderCard.id)}
-                className="inline-flex min-h-9 items-center gap-1 rounded-xl border border-white/10 px-2 text-[10px] font-bold uppercase tracking-[0.08em] text-white/65 hover:text-white"
+                className="inline-flex min-h-9 items-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] px-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Art
@@ -1922,7 +1922,7 @@ function DeckBuilderPageContent() {
           </div>
           {leaderCard ? (
             <>
-              <div className="flex items-center gap-2 rounded-xl border border-[var(--theme-ring)] bg-black/20 p-2">
+              <div className="flex items-center gap-2 rounded-xl border border-[var(--color-gold)]/30 bg-[var(--color-cream)] p-2">
                 <DeckCardImage
                   src={deckImageFor(leaderCard.id)}
                   alt={leaderCard.name}
@@ -1932,8 +1932,8 @@ function DeckBuilderPageContent() {
                   priority
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-bold text-white">{leaderCard.name}</p>
-                  <p className="text-[10px] text-white/45">
+                  <p className="truncate text-xs font-bold text-[var(--color-navy)]">{leaderCard.name}</p>
+                  <p className="text-[10px] text-[var(--color-text-light)]">
                     {leaderCard.id} · {leaderCard.color}
                   </p>
                 </div>
@@ -1941,22 +1941,22 @@ function DeckBuilderPageContent() {
                   type="button"
                   onClick={() => setDeck((current) => ({ ...current, leaderId: null, leaderVariantId: null, updatedAt: new Date().toISOString() }))}
                   aria-label="Remove leader"
-                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl text-white/45 hover:bg-white/10 hover:text-red-400"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
             </>
           ) : (
-            <p className="rounded-xl border border-dashed border-white/15 p-3 text-xs text-white/35">Pick or drop a Leader card</p>
+            <p className="rounded-xl border border-dashed border-[var(--color-parchment-dark)] p-3 text-xs text-[var(--color-text-light)]">Pick or drop a Leader card</p>
           )}
         </div>
 
         <div className="mt-4">
-          <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Captain&apos;s Tech Board (drag to reorder)</p>
-          <div className="rounded-xl border border-white/10 bg-black/20 p-3">
+          <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Captain&apos;s Tech Board (drag to reorder)</p>
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
             {visibleTechSlots.length === 0 ? (
-              <p className="text-xs text-white/35">Mark cards with the T button to pin up to 8 key tech slots.</p>
+              <p className="text-xs text-[var(--color-text-light)]">Mark cards with the T button to pin up to 8 key tech slots.</p>
             ) : (
               <div className="flex flex-wrap items-end gap-1">
                 {visibleTechSlots.map((cardId, index) => {
@@ -1981,7 +1981,7 @@ function DeckBuilderPageContent() {
                         src={deckImageFor(cardId)}
                         alt={card.name}
                         sizes="44px"
-                        className="h-16 w-11 rounded border border-white/20 shadow-lg"
+                        className="h-16 w-11 rounded border border-[var(--color-parchment-dark)] shadow-lg"
                         imageClassName="object-cover"
                       />
                     </div>
@@ -1994,16 +1994,16 @@ function DeckBuilderPageContent() {
 
         <div className="mt-4">
           <div className="mb-2 flex items-center justify-between gap-2">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-white/45">Visual Stack</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Visual Stack</p>
             <div className="flex items-center gap-2">
-              {deckSortMode === "manual" ? <p className="hidden text-[10px] text-white/35 sm:block">Drag rows to reorder</p> : null}
+              {deckSortMode === "manual" ? <p className="hidden text-[10px] text-[var(--color-text-light)] sm:block">Drag rows to reorder</p> : null}
               <div className="relative">
-                <ArrowUpDown className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/40" />
+                <ArrowUpDown className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[var(--color-text-light)]" />
                 <select
                   value={deckSortMode}
                   onChange={(event) => setDeckSortMode(event.target.value as DeckSortMode)}
                   aria-label="Sort deck cards"
-                  className="min-h-9 rounded-xl border border-white/10 bg-[#0b1422] py-2 pl-7 pr-3 text-[10px] font-bold uppercase tracking-[0.08em] text-white"
+                  className="min-h-9 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-2 pl-7 pr-3 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-dark)]"
                 >
                   {DECK_SORT_OPTIONS.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -2043,15 +2043,15 @@ function DeckBuilderPageContent() {
                     initial={{ opacity: 0, x: 8 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 8 }}
-                    className="rounded-xl border border-white/10 bg-black/25 px-2.5 py-2 lg:px-3"
+                    className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2.5 py-2 lg:px-3"
                   >
                     <div className="lg:hidden">
                       <div className="mb-2 flex items-start justify-between gap-2">
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-bold leading-tight text-white">{card.name}</p>
+                          <p className="truncate text-sm font-bold leading-tight text-[var(--color-navy)]">{card.name}</p>
                         </div>
                         {techSlots.includes(cardId) ? (
-                          <span className="shrink-0 rounded-full bg-[var(--theme-accent)] px-1.5 py-0.5 text-[9px] font-black text-black">
+                          <span className="shrink-0 rounded-full bg-[var(--color-gold)] px-1.5 py-0.5 text-[9px] font-black text-white">
                             TECH
                           </span>
                         ) : null}
@@ -2062,7 +2062,7 @@ function DeckBuilderPageContent() {
                           <button
                             type="button"
                             aria-label={deckSortMode === "manual" ? `Drag ${card.name} to reorder` : `${card.name} ordering is controlled by sort mode`}
-                            className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border border-white/10 sm:min-h-9 sm:min-w-9 ${deckSortMode === "manual" ? "cursor-grab text-white/60" : "cursor-not-allowed text-white/20"}`}
+                            className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] sm:min-h-9 sm:min-w-9 ${deckSortMode === "manual" ? "cursor-grab text-[var(--color-text-mid)]" : "cursor-not-allowed text-[var(--color-parchment-dark)]"}`}
                             disabled={deckSortMode !== "manual"}
                           >
                             <GripVertical className="h-4 w-4" />
@@ -2088,10 +2088,10 @@ function DeckBuilderPageContent() {
                         </div>
 
                         <div className="min-w-0 self-start sm:self-center">
-                          <p className="text-[10px] uppercase tracking-[0.08em] text-white/40">{card.id}</p>
-                          <p className="mt-1 text-[11px] text-white/55">{card.type}</p>
-                          <p className="text-[11px] text-white/55">Cost {costValue}</p>
-                          <p className="text-[11px] text-white/55">{counterValue} counter</p>
+                          <p className="text-[10px] uppercase tracking-[0.08em] text-[var(--color-text-light)]">{card.id}</p>
+                          <p className="mt-1 text-[11px] text-[var(--color-text-mid)]">{card.type}</p>
+                          <p className="text-[11px] text-[var(--color-text-mid)]">Cost {costValue}</p>
+                          <p className="text-[11px] text-[var(--color-text-mid)]">{counterValue} counter</p>
                         </div>
 
                         <div className="col-span-2 flex items-center justify-between gap-1 sm:col-span-1 sm:justify-end">
@@ -2099,17 +2099,17 @@ function DeckBuilderPageContent() {
                             type="button"
                             onClick={() => removeOne(cardId)}
                             aria-label={`Remove one ${card.name}`}
-                            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white sm:min-h-9 sm:min-w-9"
+                            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-[var(--color-navy)] sm:min-h-9 sm:min-w-9"
                           >
                             <Minus className="h-3.5 w-3.5" />
                           </button>
-                          <span className="w-6 text-center text-xs font-bold text-white">{quantity}</span>
+                          <span className="w-6 text-center text-xs font-bold text-[var(--color-navy)]">{quantity}</span>
                           <button
                             type="button"
                             onClick={() => addCard(card)}
                             disabled={quantity >= 4}
                             aria-label={`Add one ${card.name}`}
-                            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-white/55 hover:bg-white/10 hover:text-white disabled:opacity-30 sm:min-h-9 sm:min-w-9"
+                            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-[var(--color-navy)] disabled:opacity-30 sm:min-h-9 sm:min-w-9"
                           >
                             <Plus className="h-3.5 w-3.5" />
                           </button>
@@ -2117,7 +2117,7 @@ function DeckBuilderPageContent() {
                             type="button"
                             onClick={() => toggleVariantPicker(cardId)}
                             aria-label={`Choose art for ${card.name}`}
-                            className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border sm:min-h-9 sm:min-w-9 ${artOverrides[getBaseCardId(cardId)] ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/10 text-[var(--theme-accent-2)]" : "border-white/10 text-white/55 hover:text-white"}`}
+                            className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border sm:min-h-9 sm:min-w-9 ${artOverrides[getBaseCardId(cardId)] ? "border-[var(--color-gold)] bg-[var(--color-gold)]/10 text-[var(--color-gold)]" : "border-[var(--color-parchment-dark)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"}`}
                           >
                             <Sparkles className="h-3.5 w-3.5" />
                           </button>
@@ -2125,7 +2125,7 @@ function DeckBuilderPageContent() {
                             type="button"
                             onClick={() => toggleTechSlot(cardId)}
                             aria-label={techSlots.includes(cardId) ? `Unpin ${card.name} from tech board` : `Pin ${card.name} to tech board`}
-                            className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border text-xs font-bold sm:min-h-9 sm:min-w-9 ${techSlots.includes(cardId) ? "border-[var(--theme-accent)] bg-[var(--theme-accent)] text-black" : "border-white/10 text-white/55 hover:text-white"}`}
+                            className={`inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border text-xs font-bold sm:min-h-9 sm:min-w-9 ${techSlots.includes(cardId) ? "border-[var(--color-gold)] bg-[var(--color-gold)] text-white" : "border-[var(--color-parchment-dark)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"}`}
                           >
                             T
                           </button>
@@ -2133,7 +2133,7 @@ function DeckBuilderPageContent() {
                             type="button"
                             onClick={() => removeCard(cardId)}
                             aria-label={`Remove ${card.name} from deck`}
-                            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-white/45 hover:bg-white/10 hover:text-red-400 sm:min-h-9 sm:min-w-9"
+                            className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600 sm:min-h-9 sm:min-w-9"
                           >
                             <X className="h-3.5 w-3.5" />
                           </button>
@@ -2145,7 +2145,7 @@ function DeckBuilderPageContent() {
                       <button
                         type="button"
                         aria-label={deckSortMode === "manual" ? `Drag ${card.name} to reorder` : `${card.name} ordering is controlled by sort mode`}
-                        className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 ${deckSortMode === "manual" ? "cursor-grab text-white/55" : "cursor-not-allowed text-white/20"}`}
+                        className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[var(--color-parchment-dark)] ${deckSortMode === "manual" ? "cursor-grab text-[var(--color-text-mid)]" : "cursor-not-allowed text-[var(--color-parchment-dark)]"}`}
                         disabled={deckSortMode !== "manual"}
                       >
                         <GripVertical className="h-4 w-4" />
@@ -2165,46 +2165,46 @@ function DeckBuilderPageContent() {
                           src={deckImageFor(cardId)}
                           alt={card.name}
                           sizes="44px"
-                          className="h-16 w-11 shrink-0 rounded-lg border border-white/10"
+                          className="h-16 w-11 shrink-0 rounded-lg border border-[var(--color-parchment-dark)]"
                           imageClassName="object-cover"
                         />
                       </button>
 
                       <div className="min-w-0 flex-1 space-y-1">
                         <div className="flex min-w-0 items-center gap-2">
-                          <p title={card.name} className="min-w-0 flex-1 truncate text-[13px] font-bold leading-tight text-white">
+                          <p title={card.name} className="min-w-0 flex-1 truncate text-[13px] font-bold leading-tight text-[var(--color-navy)]">
                             {card.name}
                           </p>
                           {techSlots.includes(cardId) ? (
-                            <span className="shrink-0 rounded-full bg-[var(--theme-accent)] px-1.5 py-0.5 text-[9px] font-black text-black">
+                            <span className="shrink-0 rounded-full bg-[var(--color-gold)] px-1.5 py-0.5 text-[9px] font-black text-white">
                               TECH
                             </span>
                           ) : null}
                         </div>
-                        <p title={typeLine} className="truncate text-[11px] leading-[1.35] text-white/50">
+                        <p title={typeLine} className="truncate text-[11px] leading-[1.35] text-[var(--color-text-light)]">
                           {typeLine}
                         </p>
-                        <p title={statsLine} className="truncate text-[11px] leading-[1.35] text-white/60">
+                        <p title={statsLine} className="truncate text-[11px] leading-[1.35] text-[var(--color-text-mid)]">
                           {statsLine}
                         </p>
                       </div>
 
-                      <div className="flex shrink-0 items-center justify-center gap-1 rounded-xl border border-white/10 bg-black/20 px-1.5 py-1">
+                      <div className="flex shrink-0 items-center justify-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-1.5 py-1">
                         <button
                           type="button"
                           onClick={() => removeOne(cardId)}
                           aria-label={`Remove one ${card.name}`}
-                          className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg text-white/55 hover:bg-white/10 hover:text-white"
+                          className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-[var(--color-navy)]"
                         >
                           <Minus className="h-3.5 w-3.5" />
                         </button>
-                        <span className="w-5 text-center text-xs font-bold text-white">{quantity}</span>
+                        <span className="w-5 text-center text-xs font-bold text-[var(--color-navy)]">{quantity}</span>
                         <button
                           type="button"
                           onClick={() => addCard(card)}
                           disabled={quantity >= 4}
                           aria-label={`Add one ${card.name}`}
-                          className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg text-white/55 hover:bg-white/10 hover:text-white disabled:opacity-30"
+                          className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-[var(--color-navy)] disabled:opacity-30"
                         >
                           <Plus className="h-3.5 w-3.5" />
                         </button>
@@ -2215,7 +2215,7 @@ function DeckBuilderPageContent() {
                           type="button"
                           onClick={() => toggleVariantPicker(cardId)}
                           aria-label={`Choose art for ${card.name}`}
-                          className={`inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg border ${artOverrides[getBaseCardId(cardId)] ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/10 text-[var(--theme-accent-2)]" : "border-white/10 text-white/55 hover:text-white"}`}
+                          className={`inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg border ${artOverrides[getBaseCardId(cardId)] ? "border-[var(--color-gold)] bg-[var(--color-gold)]/10 text-[var(--color-gold)]" : "border-[var(--color-parchment-dark)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"}`}
                         >
                           <Sparkles className="h-3.5 w-3.5" />
                         </button>
@@ -2223,7 +2223,7 @@ function DeckBuilderPageContent() {
                           type="button"
                           onClick={() => toggleTechSlot(cardId)}
                           aria-label={techSlots.includes(cardId) ? `Unpin ${card.name} from tech board` : `Pin ${card.name} to tech board`}
-                          className={`inline-flex h-[30px] min-w-[30px] items-center justify-center rounded-lg border px-2 text-[10px] font-bold ${techSlots.includes(cardId) ? "border-[var(--theme-accent)] bg-[var(--theme-accent)] text-black" : "border-white/10 text-white/55 hover:text-white"}`}
+                          className={`inline-flex h-[30px] min-w-[30px] items-center justify-center rounded-lg border px-2 text-[10px] font-bold ${techSlots.includes(cardId) ? "border-[var(--color-gold)] bg-[var(--color-gold)] text-white" : "border-[var(--color-parchment-dark)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"}`}
                         >
                           T
                         </button>
@@ -2231,7 +2231,7 @@ function DeckBuilderPageContent() {
                           type="button"
                           onClick={() => removeCard(cardId)}
                           aria-label={`Remove ${card.name} from deck`}
-                          className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg text-white/45 hover:bg-white/10 hover:text-red-400"
+                          className="inline-flex h-[30px] w-[30px] items-center justify-center rounded-lg text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600"
                         >
                           <X className="h-3.5 w-3.5" />
                         </button>
@@ -2241,7 +2241,7 @@ function DeckBuilderPageContent() {
                 );
               })}
             </AnimatePresence>
-            {deckDisplayEntries.length === 0 ? <p className="rounded-xl border border-dashed border-white/15 p-4 text-xs text-white/35">Your deck is empty. Tap or drag cards in from the browser.</p> : null}
+            {deckDisplayEntries.length === 0 ? <p className="rounded-xl border border-dashed border-[var(--color-parchment-dark)] p-4 text-xs text-[var(--color-text-light)]">Your deck is empty. Tap or drag cards in from the browser.</p> : null}
           </div>
         </div>
 
@@ -2251,61 +2251,61 @@ function DeckBuilderPageContent() {
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border border-white/10 bg-black/20 p-3">
-            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Type Split</p>
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type Split</p>
             <div className="space-y-2">
               {typeDistribution.map((item) => (
                 <div key={item.label}>
-                  <div className="mb-1 flex items-center justify-between text-[10px] text-white/55">
+                  <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
                     <span>{item.label}</span>
                     <span>{item.count}</span>
                   </div>
-                  <div className="h-2 rounded-full bg-white/10">
-                    <div className="h-2 rounded-full bg-[var(--theme-accent)] transition-all" style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
+                  <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
+                    <div className="h-2 rounded-full bg-[var(--color-gold)] transition-all" style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-white/10 bg-black/20 p-3">
-            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Color Split</p>
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Color Split</p>
             <div className="space-y-2">
               {colorDistribution.length ? (
                 colorDistribution.map((item) => (
                   <div key={item.label}>
-                    <div className="mb-1 flex items-center justify-between text-[10px] text-white/55">
+                    <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
                       <span>{item.label}</span>
                       <span>{item.count}</span>
                     </div>
-                    <div className="h-2 rounded-full bg-white/10">
-                      <div className={`h-2 rounded-full transition-all ${COLOR_BAR_CLASS[item.label] || "bg-white"}`} style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
+                    <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
+                      <div className={`h-2 rounded-full transition-all ${COLOR_BAR_CLASS[item.label] || "bg-[var(--color-navy)]"}`} style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="text-xs text-white/35">Add cards to see the deck&apos;s color spread.</p>
+                <p className="text-xs text-[var(--color-text-light)]">Add cards to see the deck&apos;s color spread.</p>
               )}
             </div>
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-3">
+        <div className="mt-4 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
           <div className="mb-2 flex items-center justify-between gap-2">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-white/45">Average Power by Cost</p>
-            <p className="text-[10px] text-white/35">Characters only</p>
+            <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Average Power by Cost</p>
+            <p className="text-[10px] text-[var(--color-text-light)]">Characters only</p>
           </div>
           {powerByCost.length ? (
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {powerByCost.map((bucket) => (
-                <div key={bucket.label} className="rounded-lg border border-white/10 bg-[#0b1422] p-2 text-center">
-                  <p className="text-[9px] uppercase tracking-[0.12em] text-white/40">Cost {bucket.label}</p>
-                  <p className="mt-1 text-sm font-black text-white">{formatPower(bucket.averagePower)}</p>
-                  <p className="text-[10px] text-white/35">{bucket.copies} copies</p>
+                <div key={bucket.label} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-center">
+                  <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Cost {bucket.label}</p>
+                  <p className="mt-1 text-sm font-black text-[var(--color-navy)]">{formatPower(bucket.averagePower)}</p>
+                  <p className="text-[10px] text-[var(--color-text-light)]">{bucket.copies} copies</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-white/35">Character power averages appear once you add characters with power values.</p>
+            <p className="text-xs text-[var(--color-text-light)]">Character power averages appear once you add characters with power values.</p>
           )}
         </div>
 
@@ -2342,12 +2342,12 @@ function DeckBuilderPageContent() {
           <button
             type="button"
             onClick={clearDeckBuilder}
-            className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-red-500/30 py-2 text-xs text-red-400 hover:text-red-300"
+            className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-red-600/30 py-2 text-xs text-red-700 hover:text-red-600"
           >
             <Trash2 className="h-3.5 w-3.5" />
             Clear
           </button>
-          <Link href="/decks" className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-white/10 py-2 text-xs text-white/60 hover:text-white">
+          <Link href="/decks" className="flex min-h-11 items-center justify-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] py-2 text-xs text-[var(--color-text-mid)] hover:text-[var(--color-navy)]">
             <BookOpen className="h-3.5 w-3.5" />
             My Decks
           </Link>
@@ -2358,11 +2358,15 @@ function DeckBuilderPageContent() {
 
   return (
     <div className="space-y-6 pb-20">
-      <section className="rounded-3xl border border-[var(--panel-border)] bg-[var(--panel-bg)] p-5 md:p-6">
-        <h1 className="text-3xl font-black text-white md:text-4xl">Deck Lab</h1>
-        <p className="mt-2 text-sm text-white/60">Drag cards into your deck zone, tune your DON curve, and export tournament-ready lists.</p>
-        <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white/60">
-          {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-white/45" : "animate-spin text-white/45"}`} />}
+      <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
+        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-gold)]">
+          <FlaskConical className="h-3 w-3" />
+          Deck Construction
+        </div>
+        <h1 className="font-[var(--font-display)] text-3xl font-black text-[var(--color-navy)] md:text-4xl">Deck Lab</h1>
+        <p className="mt-2 text-sm text-[var(--color-text-mid)]">Drag cards into your deck zone, tune your DON curve, and export tournament-ready lists.</p>
+        <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">
+          {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-[var(--color-text-light)]" : "animate-spin text-[var(--color-text-light)]"}`} />}
           {storageReady ? storageLabel : deckIdFromUrl ? "Loading saved deck" : "Checking deck storage"}
         </div>
         <div className="mt-3">
@@ -2372,26 +2376,26 @@ function DeckBuilderPageContent() {
             aria-pressed={altArtView}
             aria-label={altArtView ? "Alt Art View on" : "Alt Art View off"}
             title="Swap deck images to alternate art when an explicit alt-art variant is available"
-            className={`rounded-lg border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] ${altArtView ? "border-[var(--theme-accent)] bg-[var(--theme-accent)]/20 text-[var(--theme-accent-2)]" : "border-white/20 bg-white/5 text-white/70"}`}
+            className={`rounded-lg border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] ${altArtView ? "border-[var(--color-gold)] bg-[var(--color-gold)]/15 text-[var(--color-gold)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"}`}
           >
             {altArtView ? "Alt Art View: ON" : "Alt Art View: OFF"}
           </button>
         </div>
 
         <div className="mt-4 grid gap-3 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Deck Size</p>
-            <p className="mt-1 text-2xl font-black text-white">{mainDeckCount}/50</p>
-            <p className="text-xs text-white/50">Leader counted separately</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Deck Size</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{mainDeckCount}/50</p>
+            <p className="text-xs text-[var(--color-text-mid)]">Leader counted separately</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Leader</p>
-            <p className="mt-1 text-2xl font-black text-[var(--theme-accent-2)]">{leaderCard ? leaderCard.name : "Not set"}</p>
-            <p className="text-xs text-white/50">{leaderCard ? leaderCard.color : "Drop/select a Leader card first"}</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Leader</p>
+            <p className="mt-1 text-2xl font-black text-[var(--color-gold)]">{leaderCard ? leaderCard.name : "Not set"}</p>
+            <p className="text-xs text-[var(--color-text-mid)]">{leaderCard ? leaderCard.color : "Drop/select a Leader card first"}</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Status</p>
-            <div className={`mt-1 inline-flex items-center gap-2 text-sm font-bold ${validationResult.legal ? "text-green-400" : "text-amber-400"}`}>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Status</p>
+            <div className={`mt-1 inline-flex items-center gap-2 text-sm font-bold ${validationResult.legal ? "text-emerald-700" : "text-amber-700"}`}>
               {validationResult.legal ? <CheckCircle2 className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
               {validationResult.legal ? "Deck Legal" : "Needs tuning"}
             </div>
@@ -2402,8 +2406,8 @@ function DeckBuilderPageContent() {
           <div
             className={`mt-4 rounded-2xl border px-4 py-3 text-sm ${
               actionNotice.tone === "success"
-                ? "border-emerald-400/20 bg-emerald-500/10 text-emerald-200"
-                : "border-red-400/20 bg-red-500/10 text-red-200"
+                ? "border-emerald-700/20 bg-emerald-700/10 text-emerald-800"
+                : "border-red-700/20 bg-red-700/10 text-red-800"
             }`}
           >
             {actionNotice.message}
@@ -2411,25 +2415,25 @@ function DeckBuilderPageContent() {
         ) : null}
       </section>
 
-      <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
+      <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.18em] text-white/40">Official Format Validation</p>
-            <div className={`mt-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-bold ${validationResult.legal ? "border-emerald-400/25 bg-emerald-500/10 text-emerald-200" : "border-amber-400/25 bg-amber-500/10 text-amber-100"}`}>
+            <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-light)]">Official Format Validation</p>
+            <div className={`mt-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-bold ${validationResult.legal ? "border-emerald-700/25 bg-emerald-700/10 text-emerald-800" : "border-amber-700/25 bg-amber-700/10 text-amber-800"}`}>
               {validationResult.legal ? <ShieldCheck className="h-4 w-4" /> : <ShieldAlert className="h-4 w-4" />}
               {validationResult.legal ? "Deck Legal" : "Deck Needs Fixes"}
             </div>
-            <p className="mt-2 text-sm text-white/55">{selectedFormatRule.description}</p>
-            {selectedFormatRule.effectiveDate ? <p className="mt-1 text-xs text-white/40">Official effective date: {selectedFormatRule.effectiveDate}</p> : null}
+            <p className="mt-2 text-sm text-[var(--color-text-mid)]">{selectedFormatRule.description}</p>
+            {selectedFormatRule.effectiveDate ? <p className="mt-1 text-xs text-[var(--color-text-light)]">Official effective date: {selectedFormatRule.effectiveDate}</p> : null}
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="block">
-              <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.14em] text-white/40">Format</span>
+              <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">Format</span>
               <select
                 value={selectedFormat}
                 onChange={(event) => setSelectedFormat(event.target.value as DeckFormatId)}
                 aria-label="Select deck validation format"
-                className="min-h-11 rounded-xl border border-white/10 bg-[#0b1422] px-3 text-sm text-white"
+                className="min-h-11 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm text-[var(--color-text-dark)]"
               >
                 {Object.values(DECK_FORMAT_RULES).map((rule) => (
                   <option key={rule.id} value={rule.id}>
@@ -2442,7 +2446,7 @@ function DeckBuilderPageContent() {
               type="button"
               onClick={openPlaytest}
               disabled={!canPlaytest}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 px-4 text-sm font-bold text-[var(--theme-accent-2)] disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/35 sm:self-end"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[var(--color-gold)] bg-[var(--color-gold)]/15 px-4 text-sm font-bold text-[var(--color-gold)] disabled:cursor-not-allowed disabled:border-[var(--color-parchment-dark)] disabled:bg-[var(--color-cream)] disabled:text-[var(--color-text-light)] sm:self-end"
             >
               <FlaskConical className="h-4 w-4" />
               Test Hand
@@ -2451,34 +2455,34 @@ function DeckBuilderPageContent() {
         </div>
 
         <div className="mt-4 grid gap-3 md:grid-cols-4">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">Leader</p>
-            <p className="mt-1 text-xl font-black text-white">{validationResult.summary.leaderCount}/1</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Leader</p>
+            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{validationResult.summary.leaderCount}/1</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">Main Deck</p>
-            <p className="mt-1 text-xl font-black text-white">{validationResult.summary.mainDeckCount}/50</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Main Deck</p>
+            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{validationResult.summary.mainDeckCount}/50</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">DON!! Deck</p>
-            <p className="mt-1 text-xl font-black text-white">{DON_DECK_SIZE}/10</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">DON!! Deck</p>
+            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{DON_DECK_SIZE}/10</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">Issues</p>
-            <p className="mt-1 text-xl font-black text-white">{validationResult.issues.length}</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Issues</p>
+            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{validationResult.issues.length}</p>
           </div>
         </div>
 
         {validationResult.issues.length ? (
           <div className="mt-4 space-y-2">
             {validationResult.issues.map((issue, index) => (
-              <div key={`${issue.code}-${index}`} className="rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+              <div key={`${issue.code}-${index}`} className="rounded-2xl border border-red-700/20 bg-red-700/10 px-4 py-3 text-sm text-red-800">
                 {issue.message}
               </div>
             ))}
           </div>
         ) : (
-          <div className="mt-4 rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+          <div className="mt-4 rounded-2xl border border-emerald-700/20 bg-emerald-700/10 px-4 py-3 text-sm text-emerald-800">
             This deck satisfies the current {selectedFormatRule.label} deck construction checks in the builder.
           </div>
         )}
@@ -2486,40 +2490,40 @@ function DeckBuilderPageContent() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_420px]">
         <section className="space-y-4">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-light)]" />
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 aria-label="Search cards"
                 placeholder="Set sail to a card..."
-                className="w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-9 pr-10 text-sm text-white placeholder:text-white/35"
+                className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-3 pl-9 pr-10 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
               />
-              {searching ? <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-white/35" /> : null}
+              {searching ? <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-[var(--color-text-light)]" /> : null}
             </div>
             <div className="mt-3 flex gap-2 md:hidden">
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(true)}
-                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-bold text-white"
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm font-bold text-[var(--color-navy)]"
               >
                 <Filter className="h-4 w-4" />
                 Filters
-                {hasActiveFilters ? <span className="rounded-full bg-[var(--theme-accent)] px-2 py-0.5 text-[10px] font-black text-black">Live</span> : null}
+                {hasActiveFilters ? <span className="rounded-full bg-[var(--color-gold)] px-2 py-0.5 text-[10px] font-black text-white">Live</span> : null}
               </button>
               <button
                 type="button"
                 onClick={() => setMobileDeckOpen(true)}
-                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 text-sm font-bold text-white"
+                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm font-bold text-[var(--color-navy)]"
               >
                 <BookOpen className="h-4 w-4" />
                 Deck
-                <span className="text-white/55">{mobileDeckLabel}</span>
+                <span className="text-[var(--color-text-mid)]">{mobileDeckLabel}</span>
               </button>
             </div>
             <div className="mt-3">{renderFilterControls("desktop")}</div>
-            <div className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.12em] text-white/40">
+            <div className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">
               <span>{results.length} cards loaded</span>
               <span>{hasActiveFilters ? "Filtered view" : "Full browse view"}</span>
             </div>
@@ -2548,7 +2552,7 @@ function DeckBuilderPageContent() {
                   role="button"
                   tabIndex={0}
                   aria-label={card.type === "Leader" ? `Set ${card.name} as leader` : `Add ${card.name} to deck`}
-                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border text-left ${qty > 0 ? "border-[var(--theme-accent)]" : "border-white/10"} bg-black/20 shadow-[0_12px_40px_rgba(0,0,0,0.22)]`}
+                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border text-left ${qty > 0 ? "border-[var(--color-gold)]" : "border-[var(--color-parchment-dark)]"} bg-[var(--color-cream)] shadow-[0_12px_40px_rgba(0,0,0,0.08)]`}
                 >
                   <DeckCardImage
                     src={`/api/card-image?id=${encodeURIComponent(card.id)}`}
@@ -2558,7 +2562,7 @@ function DeckBuilderPageContent() {
                     imageClassName="object-cover"
                     priority={index < 4}
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-90" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
                   <button
                     type="button"
                     onClick={(event) => {
@@ -2567,12 +2571,12 @@ function DeckBuilderPageContent() {
                       toggleVariantPicker(card.id);
                     }}
                     aria-label={`Open official print gallery for ${card.name}`}
-                    className="absolute left-2 top-2 z-10 inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border border-white/10 bg-black/55 text-white/80 backdrop-blur hover:text-white"
+                    className="absolute left-2 top-2 z-10 inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl border border-white/20 bg-black/55 text-white/80 backdrop-blur hover:text-white"
                   >
                     <Sparkles className="h-3.5 w-3.5" />
                   </button>
-                  {qty > 0 ? <span className="absolute right-2 top-2 rounded-full bg-[var(--theme-accent)] px-2 py-0.5 text-[10px] font-black text-black">{qty}</span> : null}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-1 py-1">
+                  {qty > 0 ? <span className="absolute right-2 top-2 rounded-full bg-[var(--color-gold)] px-2 py-0.5 text-[10px] font-black text-white">{qty}</span> : null}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-1 py-1">
                     <p className="truncate text-[10px] font-bold text-white/90">{card.name}</p>
                     <p className="mt-0.5 text-[9px] text-white/55">
                       {card.type} · {card.color}
@@ -2582,7 +2586,7 @@ function DeckBuilderPageContent() {
               );
             })}
           </div>
-          {!results.length && !searching ? <p className="rounded-2xl border border-dashed border-white/15 p-6 text-sm text-white/35">No cards matched the current search and filters.</p> : null}
+          {!results.length && !searching ? <p className="rounded-2xl border border-dashed border-[var(--color-parchment-dark)] p-6 text-sm text-[var(--color-text-light)]">No cards matched the current search and filters.</p> : null}
         </section>
 
         <aside className="hidden self-start space-y-4 lg:sticky lg:top-4 lg:block">{renderDeckPanel()}</aside>
@@ -2594,7 +2598,7 @@ function DeckBuilderPageContent() {
           <button
             type="button"
             onClick={() => setMobileFiltersOpen(false)}
-            className="flex min-h-11 w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-white"
+            className="flex min-h-11 w-full items-center justify-center rounded-xl border border-white/20 bg-white/10 text-sm font-bold text-white"
           >
             Apply Filters
           </button>

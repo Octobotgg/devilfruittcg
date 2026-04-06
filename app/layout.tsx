@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Pirata_One, Crimson_Pro, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import BrandMark from "@/components/BrandMark";
 
-const inter = Inter({ subsets: ["latin"] });
-const cormorant = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700"] });
+const pirataOne = Pirata_One({ subsets: ["latin"], weight: "400", variable: "--font-pirata", display: "swap" });
+const crimsonPro = Crimson_Pro({ subsets: ["latin"], weight: ["400", "600", "700"], style: ["normal", "italic"], variable: "--font-crimson", display: "swap" });
+const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-dm", display: "swap" });
 
 export const metadata: Metadata = {
   title: "DevilFruitTCG.gg — Your One Piece TCG Command Center",
@@ -15,8 +16,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} ${cormorant.variable} min-h-screen playmat-shell`}>
+    <html lang="en">
+      <body className={`${dmSans.className} ${pirataOne.variable} ${crimsonPro.variable} ${dmSans.variable} min-h-screen`}>
         <div className="relative z-10">
           <Navbar />
           <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
@@ -28,17 +29,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <div className="mb-3 flex items-center gap-3">
                   <BrandMark compact subtitle="ONE PIECE TCG INTELLIGENCE" />
                 </div>
-                <p className="max-w-md text-xs text-white/55">
+                <p className="max-w-md text-xs text-[var(--color-parchment-dark)]">
                   Market pricing, matchup signal, and deck tools presented with the feel of a premium collector desk.
                 </p>
-                <p className="mt-3 text-[11px] text-white/35">
+                <p className="mt-3 text-[11px] text-[var(--color-text-light)]">
                   Not affiliated with Bandai Namco or Toei Animation
                 </p>
               </div>
 
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--theme-accent-2)]">Platform</p>
-                <div className="mt-2 space-y-1.5 text-sm text-white/70">
+                <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--color-gold)]">Platform</p>
+                <div className="mt-2 space-y-1.5 text-sm text-[var(--color-parchment-dark)]">
                   <Link href="/collection" className="block hover:text-white">Card Database</Link>
                   <Link href="/meta" className="block hover:text-white">Meta Reports</Link>
                   <Link href="/market" className="block hover:text-white">Market Tracker</Link>
@@ -46,8 +47,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
 
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--theme-accent-2)]">Play Tools</p>
-                <div className="mt-2 space-y-1.5 text-sm text-white/70">
+                <p className="text-xs font-black uppercase tracking-[0.12em] text-[var(--color-gold)]">Play Tools</p>
+                <div className="mt-2 space-y-1.5 text-sm text-[var(--color-parchment-dark)]">
                   <Link href="/deckbuilder" className="block hover:text-white">Deck Builder</Link>
                   <Link href="/matchups" className="block hover:text-white">Matchup Matrix</Link>
                   <a href="https://discord.gg/clawd" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-white">
