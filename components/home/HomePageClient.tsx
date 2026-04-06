@@ -360,7 +360,7 @@ export default function HomePageClient({
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="journal-surface treasure-chart-surface speed-lines rounded-[2rem] p-6 md:p-8"
+            className="journal-surface treasure-chart-surface rounded-[2rem] p-6 md:p-8"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
               <ScrollText className="h-3.5 w-3.5" /> Grand Line command desk
