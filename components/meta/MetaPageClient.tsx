@@ -26,11 +26,11 @@ const tierConfig: Record<string, { bg: string; text: string; border: string; glo
   S: { bg: "bg-[#F0C040]/10", text: "text-[#F0C040]", border: "border-[#F0C040]/30", glow: "shadow-[#F0C040]/20" },
   A: { bg: "bg-blue-500/10",  text: "text-blue-400",  border: "border-blue-500/30",  glow: "shadow-blue-500/20"  },
   B: { bg: "bg-purple-500/10",text: "text-purple-400",border: "border-purple-500/30",glow: "shadow-purple-500/20"},
-  C: { bg: "bg-white/5",      text: "text-white/50",  border: "border-white/15",     glow: ""                   },
+  C: { bg: "bg-[var(--color-parchment-dark)]/30", text: "text-[var(--color-text-mid)]", border: "border-[var(--color-parchment-dark)]", glow: "" },
 };
 
 function barColor(win: number | null) {
-  if (win == null) return "bg-white/20";
+  if (win == null) return "bg-[var(--color-parchment-dark)]";
   if (win >= 56) return "bg-green-400";
   if (win >= 52) return "bg-blue-400";
   if (win >= 48) return "bg-orange-400";
@@ -40,7 +40,7 @@ function barColor(win: number | null) {
 function TrendBadge({ trend }: { trend: string }) {
   if (trend === "▲") return <span className="flex items-center gap-1 text-green-400 text-xs font-bold"><TrendingUp className="w-3 h-3" />Rising</span>;
   if (trend === "▼") return <span className="flex items-center gap-1 text-red-400 text-xs font-bold"><TrendingDown className="w-3 h-3" />Falling</span>;
-  return <span className="flex items-center gap-1 text-white/30 text-xs font-bold"><Minus className="w-3 h-3" />Steady</span>;
+  return <span className="flex items-center gap-1 text-[var(--color-text-light)] text-xs font-bold"><Minus className="w-3 h-3" />Steady</span>;
 }
 
 export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageClientProps) {
@@ -294,30 +294,30 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
               type="button"
               onClick={() => openDecklistByDeck(item.deck?.name || "Leader", deckLookupId)}
               disabled={!canOpenDeck}
-              className={`relative w-full text-left bg-white/[0.03] border border-white/10 rounded-3xl p-6 overflow-hidden group transition-all ${
-                canOpenDeck ? "hover:border-[#F0C040]/35 cursor-pointer" : "opacity-75 cursor-not-allowed"
+              className={`relative w-full text-left bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl p-6 overflow-hidden group transition-all ${
+                canOpenDeck ? "hover:border-[var(--color-gold)]/35 cursor-pointer" : "opacity-75 cursor-not-allowed"
               }`}
               title={canOpenDeck ? "Click leader to open decklist" : "Decklist unavailable"}
             >
               <div className="absolute top-0 right-0 text-6xl opacity-10 p-4">{item.icon}</div>
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-2">{item.label}</p>
+              <p className="text-[var(--color-text-light)] text-xs uppercase tracking-wider mb-2">{item.label}</p>
               <div className="flex gap-3 items-start">
                 {item.deck?.cardId ? (
                   <img
                     src={`/api/card-image?id=${item.deck.cardId}&variant=p1`}
                     alt={`${item.deck.name} alt art`}
-                    className="w-14 h-20 rounded-lg border border-white/15 object-cover"
+                    className="w-14 h-20 rounded-lg border border-[var(--color-parchment-dark)] object-cover"
                   />
                 ) : null}
                 <div>
-                  <p className="text-white text-xl font-black mb-1">{item.deck?.name ?? "—"}</p>
+                  <p className="text-[var(--color-navy)] text-xl font-black mb-1">{item.deck?.name ?? "—"}</p>
                   <div className="flex items-center gap-3 text-sm">
-                    <span className="text-[#F0C040] font-bold">{item.deck?.winRate != null ? `${item.deck.winRate}% WR` : "— WR"}</span>
-                    <span className="text-white/30">·</span>
-                    <span className="text-white/40">{item.deck?.popularity ?? "—"}% field</span>
+                    <span className="text-[var(--color-gold)] font-bold">{item.deck?.winRate != null ? `${item.deck.winRate}% WR` : "— WR"}</span>
+                    <span className="text-[var(--color-text-light)]">·</span>
+                    <span className="text-[var(--color-text-mid)]">{item.deck?.popularity ?? "—"}% field</span>
                   </div>
                   {item.deck && <div className="mt-3"><TrendBadge trend={item.deck.trend} /></div>}
-                  {canOpenDeck ? <p className="mt-2 text-[11px] text-[#F0C040]/85">Click leader to view decklist</p> : null}
+                  {canOpenDeck ? <p className="mt-2 text-[11px] text-[var(--color-gold)]">Click leader to view decklist</p> : null}
                 </div>
               </div>
             </button>
@@ -327,17 +327,17 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
 
       {/* Tier Table */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-        className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden">
-        <div className="p-6 border-b border-white/10 flex items-center justify-between flex-wrap gap-3">
-          <h2 className="text-xl font-black text-white">Current Tier List</h2>
-          <span className="text-xs text-white/30 font-mono">
+        className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl overflow-hidden">
+        <div className="p-6 border-b border-[var(--color-parchment-dark)] flex items-center justify-between flex-wrap gap-3">
+          <h2 className="text-xl font-black text-[var(--color-navy)]">Current Tier List</h2>
+          <span className="text-xs text-[var(--color-text-light)] font-mono">
             {isSeeded ? "Fallback snapshot" : "Public aggregate"} · {lastSuccessAt ? new Date(lastSuccessAt).toLocaleString() : "Awaiting live sync"}
           </span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/5 text-white/30 text-xs uppercase tracking-wider">
+              <tr className="border-b border-[var(--color-parchment-dark)] text-[var(--color-text-light)] text-xs uppercase tracking-wider">
                 <th className="text-left p-4 font-medium">Rank</th>
                 <th className="text-left p-4 font-medium">Deck</th>
                 <th className="text-left p-4 font-medium">Tier</th>
@@ -354,15 +354,15 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
                 return (
                   <motion.tr key={deck.rank} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.25 + i * 0.04 }}
-                    className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                    <td className="p-4 text-white/30 font-mono text-sm">#{deck.rank}</td>
-                    <td className="p-4 text-white font-bold">
+                    className="border-b border-[var(--color-parchment-dark)]/50 hover:bg-[var(--color-cream)] transition-colors">
+                    <td className="p-4 text-[var(--color-text-light)] font-mono text-sm">#{deck.rank}</td>
+                    <td className="p-4 text-[var(--color-navy)] font-bold">
                       <button
                         type="button"
                         onClick={() => openDecklistByDeck(deck.name, deckLookupId)}
                         disabled={!deckLookupId}
                         className={`flex items-center gap-3 text-left transition-colors ${
-                          deckLookupId ? "hover:text-[#F0C040]" : "cursor-not-allowed opacity-70"
+                          deckLookupId ? "hover:text-[var(--color-gold)]" : "cursor-not-allowed opacity-70"
                         }`}
                         title={deckLookupId ? "View decklist" : "Decklist unavailable"}
                       >
@@ -370,7 +370,7 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
                           <img
                             src={`/api/card-image?id=${deck.cardId}&variant=p1`}
                             alt={`${deck.name} alt art`}
-                            className="w-8 h-11 rounded border border-white/15 object-cover"
+                            className="w-8 h-11 rounded border border-[var(--color-parchment-dark)] object-cover"
                           />
                         ) : null}
                         <span>{deck.name}</span>
@@ -381,18 +381,18 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
                         {deck.tier}
                       </span>
                     </td>
-                    <td className="p-4 text-white/40 hidden md:table-cell"><LeaderColorTag colorLabel={deck.color} /></td>
+                    <td className="p-4 text-[var(--color-text-mid)] hidden md:table-cell"><LeaderColorTag colorLabel={deck.color} /></td>
                     <td className="p-4 hidden md:table-cell">
                       <div className="flex items-center gap-2 justify-end">
-                        <div className="w-24 bg-white/10 h-2 rounded-full overflow-hidden">
+                        <div className="w-24 bg-[var(--color-parchment-dark)]/50 h-2 rounded-full overflow-hidden">
                           <motion.div className={`h-2 rounded-full ${barColor(deck.winRate)}`}
                             initial={{ width: 0 }} animate={{ width: `${deck.winRate ?? 50}%` }}
                             transition={{ delay: 0.5 + i * 0.05, duration: 0.6 }} />
                         </div>
-                        <span className="text-white font-bold text-sm w-12 text-right">{deck.winRate != null ? `${deck.winRate}%` : "—"}</span>
+                        <span className="text-[var(--color-navy)] font-bold text-sm w-12 text-right">{deck.winRate != null ? `${deck.winRate}%` : "—"}</span>
                       </div>
                     </td>
-                    <td className="p-4 text-right text-white/60">{deck.popularity}%</td>
+                    <td className="p-4 text-right text-[var(--color-text-mid)]">{deck.popularity}%</td>
                     <td className="p-4 text-right"><TrendBadge trend={deck.trend} /></td>
                   </motion.tr>
                 );
@@ -406,19 +406,19 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Region split */}
-        <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-6">
+        <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Globe className="w-4 h-4 text-[#F0C040]" />
-            <h3 className="text-white font-bold">Region Split</h3>
+            <Globe className="w-4 h-4 text-[var(--color-gold)]" />
+            <h3 className="text-[var(--color-navy)] font-bold">Region Split</h3>
           </div>
           <div className="space-y-3">
             {meta.regions.map((r, i) => (
               <div key={r.region}>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-white/70">{r.region}</span>
-                  <span className="text-white/40">{r.events} events · {r.players} players</span>
+                  <span className="text-[var(--color-text-dark)]">{r.region}</span>
+                  <span className="text-[var(--color-text-light)]">{r.events} events · {r.players} players</span>
                 </div>
-                <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-[var(--color-parchment-dark)]/50 h-1.5 rounded-full overflow-hidden">
                   <motion.div className="bg-[#F0C040] h-1.5 rounded-full"
                     initial={{ width: 0 }} animate={{ width: `${Math.min(100, (r.players / 900) * 100)}%` }}
                     transition={{ delay: 0.6 + i * 0.1, duration: 0.6 }} />
@@ -429,12 +429,12 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
         </div>
 
         {/* Data plan */}
-        <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-6">
+        <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Database className="w-4 h-4 text-blue-400" />
-            <h3 className="text-white font-bold">Data Sources</h3>
+            <Database className="w-4 h-4 text-[var(--color-ocean)]" />
+            <h3 className="text-[var(--color-navy)] font-bold">Data Sources</h3>
           </div>
-          <ul className="space-y-2 text-sm text-white/50">
+          <ul className="space-y-2 text-sm text-[var(--color-text-mid)]">
             {(isSeeded
               ? [
                   "Fallback dataset (internal)",
@@ -461,7 +461,7 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
             <Activity className="w-4 h-4 text-[#F0C040]" />
             <h3 className="text-[#F0C040] font-bold">Live Feed Status</h3>
           </div>
-          <p className="text-white/50 text-sm leading-relaxed">
+          <p className="text-[var(--color-text-mid)] text-sm leading-relaxed">
             {isSeeded ? (
               <>
                 Running on fallback data right now. Live aggregate source will auto-resume when fetch succeeds via <code className="text-[#F0C040] text-xs bg-[#F0C040]/10 px-1 py-0.5 rounded">/api/meta</code>.

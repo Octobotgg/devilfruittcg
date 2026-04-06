@@ -235,10 +235,10 @@ function CardPriceBlock({ card }: { card: MarketCardResult }) {
   const isMuted = priceState.tone === "muted";
 
   return (
-    <div className={`rounded-2xl border px-3 py-2.5 ${isMuted ? "border-white/8 bg-white/[0.03]" : "border-white/10 bg-black/20"}`}>
-      <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">{priceState.sublabel}</p>
-      <p className={`mt-1 text-sm font-black ${isMuted ? "text-white/55" : "text-[#F0C040]"}`}>{priceState.label}</p>
-      {updatedLabel && !isMuted ? <p className="mt-1 text-[11px] text-white/45">Updated {updatedLabel}</p> : null}
+    <div className={`rounded-2xl border px-3 py-2.5 ${isMuted ? "border-[var(--color-parchment-dark)]/60 bg-[var(--color-parchment)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)]"}`}>
+      <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-light)]">{priceState.sublabel}</p>
+      <p className={`mt-1 text-sm font-black ${isMuted ? "text-[var(--color-text-mid)]" : "text-[#F0C040]"}`}>{priceState.label}</p>
+      {updatedLabel && !isMuted ? <p className="mt-1 text-[11px] text-[var(--color-text-light)]">Updated {updatedLabel}</p> : null}
     </div>
   );
 }
@@ -249,9 +249,9 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
   return (
     <Link
       href={buildCardHref(routeCardId(card), marketPath)}
-      className="group flex h-full flex-col rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(240,192,64,0.10),transparent_42%),rgba(255,255,255,0.03)] p-3 transition-all hover:-translate-y-1 hover:border-[#F0C040]/35 hover:bg-white/[0.05]"
+      className="group flex h-full flex-col rounded-[28px] border border-[var(--color-parchment-dark)] bg-[radial-gradient(circle_at_top,rgba(212,160,84,0.08),transparent_42%),var(--color-parchment)] p-3 transition-all hover:-translate-y-1 hover:border-[#F0C040]/35 hover:bg-[var(--color-cream)]"
     >
-      <div className="overflow-hidden rounded-[22px] border border-white/10 bg-[#08111f]">
+      <div className="overflow-hidden rounded-[22px] border border-[var(--color-parchment-dark)] bg-[var(--color-cream)]">
         <img
           src={marketCardImageUrl(card)}
           alt={card.name}
@@ -261,8 +261,8 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
       <div className="mt-3 flex flex-1 flex-col space-y-2">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="line-clamp-2 text-sm font-black text-white">{card.name}</p>
-            <p className="mt-1 text-[11px] text-white/45">{displayCardId(card)}</p>
+            <p className="line-clamp-2 text-sm font-black text-[var(--color-navy)]">{card.name}</p>
+            <p className="mt-1 text-[11px] text-[var(--color-text-light)]">{displayCardId(card)}</p>
             {variantLabel ? (
               <p className="mt-1 inline-flex rounded-full border border-[#F0C040]/20 bg-[#F0C040]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F0C040]">
                 {variantLabel}
@@ -274,7 +274,7 @@ function MarketCardTile({ card, marketPath }: { card: MarketCardResult; marketPa
           </span>
         </div>
 
-        <div className="text-[11px] text-white/50">
+        <div className="text-[11px] text-[var(--color-text-light)]">
           <p className="line-clamp-2">{compactCardSetLabel(card)}</p>
         </div>
 
@@ -292,9 +292,9 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
   return (
     <Link
       href={buildCardHref(routeCardId(card), marketPath)}
-      className="grid gap-4 rounded-[28px] border border-white/10 bg-white/[0.03] p-4 transition-all hover:border-[#F0C040]/35 hover:bg-white/[0.05] md:grid-cols-[96px_minmax(0,1fr)_220px]"
+      className="grid gap-4 rounded-[28px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 transition-all hover:border-[#F0C040]/35 hover:bg-[var(--color-cream)] md:grid-cols-[96px_minmax(0,1fr)_220px]"
     >
-      <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#08111f]">
+      <div className="overflow-hidden rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)]">
         <img
           src={marketCardImageUrl(card)}
           alt={card.name}
@@ -304,8 +304,8 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
 
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">
-          <h3 className="text-lg font-black text-white">{card.name}</h3>
-          <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white/60">
+          <h3 className="text-lg font-black text-[var(--color-navy)]">{card.name}</h3>
+          <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-mid)]">
             {displayRarity(card.rarity)}
           </span>
           {variantLabel ? (
@@ -314,18 +314,18 @@ function MarketCardRow({ card, marketPath }: { card: MarketCardResult; marketPat
             </span>
           ) : null}
         </div>
-        <p className="mt-1 text-sm text-white/45">
+        <p className="mt-1 text-sm text-[var(--color-text-light)]">
           {displayCardId(card)} · {compactCardSetLabel(card)} · {card.type} · {card.color}
         </p>
-        <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/70">{card.effect || "No effect text listed."}</p>
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-[var(--color-text-mid)]">{card.effect || "No effect text listed."}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3 md:grid-cols-1">
         <CardPriceBlock card={card} />
-        <div className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2.5">
-          <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">Card Facts</p>
-          <p className="mt-1 text-sm font-semibold text-white">{card.attribute || "No attribute"}</p>
-          <p className="mt-1 text-[11px] text-white/45">
+        <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2.5">
+          <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-light)]">Card Facts</p>
+          <p className="mt-1 text-sm font-semibold text-[var(--color-navy)]">{card.attribute || "No attribute"}</p>
+          <p className="mt-1 text-[11px] text-[var(--color-text-light)]">
             Cost {card.cost ?? "-"} · Power {typeof card.power === "number" ? card.power.toLocaleString() : "-"}
           </p>
         </div>
@@ -384,7 +384,7 @@ function ResultsSkeleton({ view }: { view: ViewMode }) {
     return (
       <div className="space-y-4">
         {Array.from({ length: 6 }).map((_, index) => (
-          <div key={`list-skeleton-${index}`} className="grid gap-4 rounded-[28px] border border-white/10 bg-white/[0.03] p-4 md:grid-cols-[96px_minmax(0,1fr)_220px]">
+          <div key={`list-skeleton-${index}`} className="grid gap-4 rounded-[28px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 md:grid-cols-[96px_minmax(0,1fr)_220px]">
             <div className="shimmer aspect-[5/7] rounded-2xl" />
             <div className="space-y-3">
               <div className="shimmer h-6 w-2/3 rounded-full" />
@@ -404,7 +404,7 @@ function ResultsSkeleton({ view }: { view: ViewMode }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       {Array.from({ length: 12 }).map((_, index) => (
-        <div key={`grid-skeleton-${index}`} className="rounded-[28px] border border-white/10 bg-white/[0.03] p-3">
+        <div key={`grid-skeleton-${index}`} className="rounded-[28px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3">
           <div className="shimmer aspect-[5/7] rounded-[22px]" />
           <div className="mt-3 space-y-2">
             <div className="shimmer h-5 rounded-full" />
@@ -431,20 +431,20 @@ function FilterSection({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-[24px] border border-white/10 bg-white/[0.03]">
+    <section className="rounded-[24px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]">
       <button
         type="button"
         onClick={onToggle}
         className="flex w-full items-center justify-between px-4 py-3 text-left"
         aria-expanded={open}
       >
-        <span className="text-sm font-black uppercase tracking-[0.12em] text-white/75">
+        <span className="text-sm font-black uppercase tracking-[0.12em] text-[var(--color-text-dark)]">
           {title}
           {count ? <span className="ml-2 text-[11px] text-[#F0C040]">({count})</span> : null}
         </span>
-        <ChevronRight className={`h-4 w-4 text-white/45 transition-transform ${open ? "rotate-90" : ""}`} />
+        <ChevronRight className={`h-4 w-4 text-[var(--color-text-light)] transition-transform ${open ? "rotate-90" : ""}`} />
       </button>
-      {open ? <div className="border-t border-white/8 px-4 py-3">{children}</div> : null}
+      {open ? <div className="border-t border-[var(--color-parchment-dark)] px-4 py-3">{children}</div> : null}
     </section>
   );
 }
@@ -459,18 +459,18 @@ function CheckboxFilter({
   onChange: () => void;
 }) {
   return (
-    <label className="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-white/8 bg-black/15 px-3 py-2 text-sm text-white/75 transition-all hover:border-[#F0C040]/25 hover:text-white">
+    <label className="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] transition-all hover:border-[#F0C040]/25 hover:text-[var(--color-navy)]">
       <span className="flex items-center gap-3">
         <input
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          className="h-4 w-4 rounded border-white/15 bg-white/5 text-[#F0C040] focus:ring-[#F0C040]/40"
+          className="h-4 w-4 rounded border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[#F0C040] focus:ring-[#F0C040]/40"
           aria-label={option.label}
         />
         <span>{option.label}</span>
       </span>
-      <span className="text-[11px] text-white/40">{option.count}</span>
+      <span className="text-[11px] text-[var(--color-text-light)]">{option.count}</span>
     </label>
   );
 }
@@ -537,7 +537,7 @@ function Pagination({
         type="button"
         onClick={() => onPageChange(page - 1)}
         disabled={page <= 1}
-        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+        className="inline-flex items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm font-semibold text-[var(--color-text-mid)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)] disabled:cursor-not-allowed disabled:opacity-35"
         aria-label="Previous page"
       >
         <ChevronLeft className="h-4 w-4" />
@@ -551,8 +551,8 @@ function Pagination({
           onClick={() => onPageChange(value)}
           className={`h-10 min-w-10 rounded-xl border px-3 text-sm font-semibold transition-all ${
             value === page
-              ? "border-[#F0C040]/40 bg-[#F0C040]/15 text-[#F0C040]"
-              : "border-white/10 bg-white/5 text-white/65 hover:bg-white/10 hover:text-white"
+              ? "border-[var(--color-gold)]/40 bg-[var(--color-gold)]/15 text-[var(--color-gold-dark)]"
+              : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)] hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)]"
           }`}
           aria-label={`Page ${value}`}
           aria-current={value === page ? "page" : undefined}
@@ -565,7 +565,7 @@ function Pagination({
         type="button"
         onClick={() => onPageChange(page + 1)}
         disabled={page >= totalPages}
-        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+        className="inline-flex items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm font-semibold text-[var(--color-text-mid)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)] disabled:cursor-not-allowed disabled:opacity-35"
         aria-label="Next page"
       >
         Next
@@ -838,14 +838,14 @@ export default function MarketCatalogView() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F0C040]">Filters</p>
-            <p className="mt-1 text-sm text-white/55">
+            <p className="mt-1 text-sm text-[var(--color-text-mid)]">
               {activeFilterCount ? `${activeFilterCount} active filter${activeFilterCount === 1 ? "" : "s"}` : "Narrow by set, gameplay stats, rarity, and price"}
             </p>
           </div>
           <button
             type="button"
             onClick={resetFilters}
-            className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-white/70 transition-all hover:bg-white/10 hover:text-white"
+            className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-xs font-semibold text-[var(--color-text-mid)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)]"
           >
             Clear Filters
           </button>
@@ -897,8 +897,8 @@ export default function MarketCatalogView() {
           {setSearchQuery ? (
             <div className="space-y-3">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/40">Search Results</p>
-                <p className="mt-1 text-xs text-white/45">
+                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Search Results</p>
+                <p className="mt-1 text-xs text-[var(--color-text-light)]">
                   Search finds exact set codes and specific promo/event releases.
                 </p>
               </div>
@@ -913,7 +913,7 @@ export default function MarketCatalogView() {
                     />
                   ))
                 ) : (
-                  <div className="rounded-2xl border border-dashed border-white/10 bg-black/15 px-3 py-4 text-sm text-white/45">
+                  <div className="rounded-2xl border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-3 py-4 text-sm text-[var(--color-text-light)]">
                     No matching sets. Try a set code like `OP15` or search a promo/event name.
                   </div>
                 )}
@@ -1002,40 +1002,40 @@ export default function MarketCatalogView() {
       >
         <div className="space-y-4">
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.16em] text-white/40">Cost</p>
+            <p className="mb-2 text-xs uppercase tracking-[0.16em] text-[var(--color-text-light)]">Cost</p>
             <div className="grid grid-cols-2 gap-2">
               <input
                 value={state.costMin}
                 onChange={(event) => updateState((current) => ({ ...current, costMin: event.target.value.replace(/[^0-9]/g, ""), page: 1 }))}
                 placeholder={`Min (${catalog?.ranges.cost.min ?? 1})`}
-                className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+                className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
                 aria-label="Minimum card cost"
               />
               <input
                 value={state.costMax}
                 onChange={(event) => updateState((current) => ({ ...current, costMax: event.target.value.replace(/[^0-9]/g, ""), page: 1 }))}
                 placeholder={`Max (${catalog?.ranges.cost.max ?? 10})`}
-                className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+                className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
                 aria-label="Maximum card cost"
               />
             </div>
           </div>
 
           <div>
-            <p className="mb-2 text-xs uppercase tracking-[0.16em] text-white/40">Life</p>
+            <p className="mb-2 text-xs uppercase tracking-[0.16em] text-[var(--color-text-light)]">Life</p>
             <div className="grid grid-cols-2 gap-2">
               <input
                 value={state.lifeMin}
                 onChange={(event) => updateState((current) => ({ ...current, lifeMin: event.target.value.replace(/[^0-9]/g, ""), page: 1 }))}
                 placeholder={`Min (${catalog?.ranges.life.min ?? 2})`}
-                className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+                className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
                 aria-label="Minimum life"
               />
               <input
                 value={state.lifeMax}
                 onChange={(event) => updateState((current) => ({ ...current, lifeMax: event.target.value.replace(/[^0-9]/g, ""), page: 1 }))}
                 placeholder={`Max (${catalog?.ranges.life.max ?? 6})`}
-                className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+                className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
                 aria-label="Maximum life"
               />
             </div>
@@ -1054,14 +1054,14 @@ export default function MarketCatalogView() {
             value={state.powerMin}
             onChange={(event) => updateState((current) => ({ ...current, powerMin: event.target.value.replace(/[^0-9]/g, ""), page: 1 }))}
             placeholder={`Min (${catalog?.ranges.power.min ?? 1000})`}
-            className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+            className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
             aria-label="Minimum power"
           />
           <input
             value={state.powerMax}
             onChange={(event) => updateState((current) => ({ ...current, powerMax: event.target.value.replace(/[^0-9]/g, ""), page: 1 }))}
             placeholder={`Max (${catalog?.ranges.power.max ?? 13000})`}
-            className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+            className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
             aria-label="Maximum power"
           />
         </div>
@@ -1114,14 +1114,14 @@ export default function MarketCatalogView() {
             value={state.priceMin}
             onChange={(event) => updateState((current) => ({ ...current, priceMin: event.target.value.replace(/[^0-9.]/g, ""), page: 1 }))}
             placeholder="Min price"
-            className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+            className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
             aria-label="Minimum market price"
           />
           <input
             value={state.priceMax}
             onChange={(event) => updateState((current) => ({ ...current, priceMax: event.target.value.replace(/[^0-9.]/g, ""), page: 1 }))}
             placeholder="Max price"
-            className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#F0C040]/40 focus:outline-none"
+            className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] focus:outline-none"
             aria-label="Maximum market price"
           />
         </div>
@@ -1285,27 +1285,27 @@ export default function MarketCatalogView() {
                 </select>
               </label>
 
-              <label className="text-sm text-white/45">
+              <label className="text-sm text-[var(--color-text-light)]">
                 <span className="sr-only">Results per page</span>
                 <select
                   value={state.pageSize}
                   onChange={(event) => updateState((current) => ({ ...current, pageSize: Number(event.target.value), page: 1 }))}
-                  className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white"
+                  className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   aria-label="Results per page"
                 >
                   {PAGE_SIZE_OPTIONS.map((option) => (
-                    <option key={option} value={option} className="bg-[#0c1324]">
+                    <option key={option} value={option} className="bg-[var(--color-cream)]">
                       {option} / page
                     </option>
                   ))}
                 </select>
               </label>
 
-              <div className="inline-flex rounded-xl border border-white/10 bg-white/5 p-1">
+              <div className="inline-flex rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-1">
                 <button
                   type="button"
                   onClick={() => updateState((current) => ({ ...current, view: "grid" }))}
-                  className={`rounded-lg px-3 py-2 text-sm transition-all ${state.view === "grid" ? "bg-[#F0C040]/15 text-[#F0C040]" : "text-white/55 hover:text-white"}`}
+                  className={`rounded-lg px-3 py-2 text-sm transition-all ${state.view === "grid" ? "bg-[var(--color-gold)]/15 text-[var(--color-gold-dark)]" : "text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"}`}
                   aria-label="Grid view"
                 >
                   <LayoutGrid className="h-4 w-4" />
@@ -1313,7 +1313,7 @@ export default function MarketCatalogView() {
                 <button
                   type="button"
                   onClick={() => updateState((current) => ({ ...current, view: "list" }))}
-                  className={`rounded-lg px-3 py-2 text-sm transition-all ${state.view === "list" ? "bg-[#F0C040]/15 text-[#F0C040]" : "text-white/55 hover:text-white"}`}
+                  className={`rounded-lg px-3 py-2 text-sm transition-all ${state.view === "list" ? "bg-[var(--color-gold)]/15 text-[var(--color-gold-dark)]" : "text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"}`}
                   aria-label="List view"
                 >
                   <Rows3 className="h-4 w-4" />
@@ -1325,16 +1325,16 @@ export default function MarketCatalogView() {
           {loading ? (
             <ResultsSkeleton view={state.view} />
           ) : error ? (
-            <div className="rounded-[28px] border border-red-500/25 bg-red-500/10 p-6">
+            <div className="rounded-[28px] border border-red-300 bg-red-50 p-6">
               <div className="flex items-start gap-3">
-                <AlertTriangle className="mt-0.5 h-5 w-5 text-red-300" />
+                <AlertTriangle className="mt-0.5 h-5 w-5 text-red-600" />
                 <div>
-                  <p className="text-lg font-black text-white">Unable to load the market catalog</p>
-                  <p className="mt-1 text-sm text-red-100/75">{error}</p>
+                  <p className="text-lg font-black text-[var(--color-navy)]">Unable to load the market catalog</p>
+                  <p className="mt-1 text-sm text-red-700">{error}</p>
                   <button
                     type="button"
                     onClick={() => setReloadKey((value) => value + 1)}
-                    className="mt-4 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                    className="mt-4 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm font-semibold text-[var(--color-text-mid)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)]"
                   >
                     Retry
                   </button>
@@ -1357,21 +1357,21 @@ export default function MarketCatalogView() {
                 </div>
               )}
 
-              <div className="flex flex-col gap-3 rounded-[28px] border border-white/10 bg-white/[0.03] p-4 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-col gap-3 rounded-[28px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 md:flex-row md:items-center md:justify-between">
                 <Pagination page={currentPage} totalPages={totalPages} onPageChange={(nextPage) => updateState((current) => ({ ...current, page: nextPage }))} />
-                <p className="text-sm text-white/45">
+                <p className="text-sm text-[var(--color-text-light)]">
                   {state.q ? "Relevance defaults while searching." : "Newest cards surface first until you pick another sort."}
                 </p>
               </div>
             </>
           ) : (
-            <div className="rounded-[32px] border border-white/10 bg-white/[0.03] px-6 py-14 text-center">
-              <p className="text-2xl font-black text-white">{emptyState.title}</p>
-              <p className="mt-3 text-sm text-white/50">{emptyState.body}</p>
+            <div className="rounded-[32px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-6 py-14 text-center">
+              <p className="text-2xl font-black text-[var(--color-navy)]">{emptyState.title}</p>
+              <p className="mt-3 text-sm text-[var(--color-text-mid)]">{emptyState.body}</p>
               <button
                 type="button"
                 onClick={clearAll}
-                className="mt-5 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white/80 transition-all hover:bg-white/10 hover:text-white"
+                className="mt-5 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-3 text-sm font-semibold text-[var(--color-text-mid)] transition-all hover:bg-[var(--color-parchment-dark)] hover:text-[var(--color-navy)]"
               >
                 {emptyState.actionLabel}
               </button>
@@ -1394,17 +1394,17 @@ export default function MarketCatalogView() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 260, damping: 30 }}
-              className="relative h-full w-[88vw] max-w-sm overflow-y-auto border-r border-white/10 bg-[#0c1324] p-4 shadow-2xl shadow-black/50"
+              className="relative h-full w-[88vw] max-w-sm overflow-y-auto border-r border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 shadow-2xl shadow-black/50"
             >
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F0C040]">Filters</p>
-                  <p className="mt-1 text-sm text-white/55">{activeFilterCount ? `${activeFilterCount} active` : "No filters applied"}</p>
+                  <p className="mt-1 text-sm text-[var(--color-text-mid)]">{activeFilterCount ? `${activeFilterCount} active` : "No filters applied"}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setMobileFiltersOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-mid)]"
                   aria-label="Close filters"
                 >
                   <X className="h-4 w-4" />
