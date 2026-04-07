@@ -1125,6 +1125,29 @@ function selectCanonicalVariant(variants) {
   return [...englishNearMint].sort(compareVariantCandidates)[0] || null;
 }
 
+function selectLightlyPlayedVariant(variants, preferredVariant = null) {
+  const pool = Array.isArray(variants) ? variants : [];
+  const englishLp = pool.filter(
+    (variant) =>
+      normalizeLookupKey(variant?.language) === "english" &&
+      normalizeLookupKey(variant?.condition) === "lightly played",
+  );
+
+  if (!englishLp.length) return null;
+
+  const preferredPrinting = normalizeLookupKey(preferredVariant?.printing);
+  if (preferredPrinting) {
+    const samePrinting = englishLp.filter(
+      (variant) => normalizeLookupKey(variant?.printing) === preferredPrinting,
+    );
+    if (samePrinting.length) {
+      return [...samePrinting].sort(compareVariantCandidates)[0] || null;
+    }
+  }
+
+  return [...englishLp].sort(compareVariantCandidates)[0] || null;
+}
+
 function buildPriceSnapshotRow(externalProductId, externalVariantId, priceRow, rawPayloadOverride = null) {
   const capturedAt = normalizeTimestamp(priceRow?.fetched_at || priceRow?.last_updated_justtcg);
   if (!capturedAt) return null;
@@ -1145,9 +1168,15 @@ function buildPriceSnapshotRow(externalProductId, externalVariantId, priceRow, r
   };
 }
 
+function normalizePriceValue(value) {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  const parsed = Number.parseFloat(String(value ?? ""));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
 function buildVariantPriceValues(canonicalVariant, lpVariant) {
-  const priceNm = typeof canonicalVariant?.price === "number" ? canonicalVariant.price : null;
-  const priceLp = typeof lpVariant?.price === "number" ? lpVariant.price : null;
+  const priceNm = normalizePriceValue(canonicalVariant?.price);
+  const priceLp = normalizePriceValue(lpVariant?.price);
 
   return {
     price_market: priceNm,
@@ -1163,18 +1192,95 @@ function extractJusttcgId(externalProductId) {
 function resolveApprovedRawPriceRow(assignment, variantRowsByProductId, priceIndex) {
   const variants = variantRowsByProductId.get(assignment.external_product_id) || [];
   const canonicalVariant = selectCanonicalVariant(variants);
-  const lpVariant = [...variants]
-    .filter(
-      (variant) =>
-        normalizeLookupKey(variant?.language) === "english" &&
-        normalizeLookupKey(variant?.condition) === "lightly played",
-    )
-    .sort(compareVariantCandidates)[0] || null;
+  const lpVariant = selectLightlyPlayedVariant(variants, canonicalVariant);
   const approvedJusttcgId = extractJusttcgId(assignment.external_product_id);
   const fallbackPriceRow = approvedJusttcgId ? priceIndex.byJusttcgId.get(approvedJusttcgId) || null : null;
   if (!canonicalVariant) return null;
 
   return { priceRow: fallbackPriceRow || canonicalVariant, canonicalVariant, lpVariant };
+}
+
+function buildVariantBackfilledCurrentPriceRows({
+  activeAssignments = [],
+  externalProducts = [],
+  externalProductVariants = [],
+}) {
+  const productById = new Map(
+    (externalProducts || []).map((row) => [String(row?.id || "").trim(), row]),
+  );
+  const variantById = new Map(
+    (externalProductVariants || []).map((row) => [String(row?.id || "").trim(), row]),
+  );
+  const variantRowsByProductId = new Map();
+
+  for (const variantRow of externalProductVariants || []) {
+    const productId = String(variantRow?.external_product_id || "").trim();
+    if (!productId) continue;
+    const list = variantRowsByProductId.get(productId) || [];
+    list.push(variantRow);
+    variantRowsByProductId.set(productId, list);
+  }
+
+  const rows = [];
+  for (const assignment of activeAssignments || []) {
+    const cardPrintId = cleanText(assignment?.card_print_id);
+    const externalProductId = cleanText(assignment?.active_external_product_id);
+    const externalVariantId = cleanText(assignment?.active_external_variant_id);
+    if (!cardPrintId || !externalProductId || !externalVariantId) continue;
+
+    const product = productById.get(externalProductId);
+    const canonicalVariant = variantById.get(externalVariantId);
+    if (!product || !canonicalVariant) continue;
+
+    if (
+      normalizeLookupKey(canonicalVariant.language) !== "english" ||
+      normalizeLookupKey(canonicalVariant.condition) !== "near mint"
+    ) {
+      continue;
+    }
+
+    const priceNm = normalizePriceValue(canonicalVariant.price);
+    const updatedAt = normalizeTimestamp(canonicalVariant.last_updated_at || product.last_seen_at);
+    if (priceNm == null || !updatedAt) continue;
+
+    const lpVariant = selectLightlyPlayedVariant(
+      variantRowsByProductId.get(externalProductId) || [],
+      canonicalVariant,
+    );
+
+    rows.push({
+      card_print_id: cardPrintId,
+      source_id: JUSTTCG_SOURCE.id,
+      external_product_id: externalProductId,
+      external_variant_id: externalVariantId,
+      price_market: priceNm,
+      price_nm: priceNm,
+      price_lp: normalizePriceValue(lpVariant?.price),
+      price_change_24h: null,
+      price_change_7d: null,
+      price_change_30d: null,
+      updated_at: updatedAt,
+      fetched_at: normalizeTimestamp(product.last_seen_at) || updatedAt,
+    });
+  }
+
+  return rows;
+}
+
+function mergeCurrentPriceRows(primaryRows, fallbackRows) {
+  const rowsByKey = new Map();
+
+  for (const row of fallbackRows || []) {
+    const key = `${row.card_print_id}::${row.source_id}`;
+    rowsByKey.set(key, row);
+  }
+
+  for (const row of primaryRows || []) {
+    const key = `${row.card_print_id}::${row.source_id}`;
+    rowsByKey.set(key, row);
+  }
+
+  return [...rowsByKey.values()];
 }
 
 function buildRawCardPrices(approvedRawAssignments, variantRowsByProductId, priceIndex) {
@@ -1774,6 +1880,49 @@ async function fetchExistingActiveJusttcgCardPrintIds(sql) {
   return rows.map((row) => row.id);
 }
 
+async function fetchActiveCardPrintAssignmentsByProductIds(sql, externalProductIds, chunkSize) {
+  const assignments = [];
+  const uniqueProductIds = [...new Set((externalProductIds || []).map((value) => cleanText(value)).filter(Boolean))];
+  if (!uniqueProductIds.length) return assignments;
+
+  for (const group of chunk(uniqueProductIds, chunkSize)) {
+    const placeholders = group.map((_, index) => `$${index + 1}`).join(", ");
+    const rows = await sql.unsafe(
+      `
+        select id as "card_print_id", active_external_product_id, active_external_variant_id
+        from card_prints
+        where active_external_product_id in (${placeholders})
+          and active_external_variant_id is not null
+      `,
+      group,
+    );
+    assignments.push(...rows);
+  }
+
+  return assignments;
+}
+
+async function buildIncrementalVariantBackfillRows(sql, seed, chunkSize) {
+  const importedJusttcgProducts = (seed?.externalProducts || []).filter(
+    (row) => row?.source_id === JUSTTCG_SOURCE.id,
+  );
+  if (!importedJusttcgProducts.length || !(seed?.externalProductVariants || []).length) {
+    return [];
+  }
+
+  const activeAssignments = await fetchActiveCardPrintAssignmentsByProductIds(
+    sql,
+    importedJusttcgProducts.map((row) => row.id),
+    chunkSize,
+  );
+
+  return buildVariantBackfilledCurrentPriceRows({
+    activeAssignments,
+    externalProducts: importedJusttcgProducts,
+    externalProductVariants: seed.externalProductVariants || [],
+  });
+}
+
 async function applySeed(seed, options) {
   const sql =
     options.sql ||
@@ -1822,10 +1971,17 @@ async function applySeed(seed, options) {
         );
       }
 
+      const currentPriceRows = incrementalSync
+        ? mergeCurrentPriceRows(
+            seed.cardPrintPriceCurrent,
+            await buildIncrementalVariantBackfillRows(db, seed, options.chunkSize),
+          )
+        : seed.cardPrintPriceCurrent;
+
       await upsertRows(
         db,
         "card_print_price_current",
-        seed.cardPrintPriceCurrent,
+        currentPriceRows,
         ["card_print_id", "source_id"],
         options.chunkSize,
       );
@@ -1946,5 +2102,7 @@ export {
   extractJusttcgId,
   fetchJusttcgCatalogSince,
   resolveApprovedRawPriceRow,
+  buildVariantBackfilledCurrentPriceRows,
   splitActiveAssignmentStages,
+  mergeCurrentPriceRows,
 };
