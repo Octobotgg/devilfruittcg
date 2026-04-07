@@ -75,3 +75,30 @@ test("home bounty delta formatter shows signed dollar changes instead of percent
   assert.equal(formatHomeBountyDelta(-1.12), "-$1.12");
   assert.equal(formatHomeBountyDelta(0), "$0.00");
 });
+
+test("home bounty state keeps a fuller board when more marketplace movers are available", async () => {
+  const { buildHomeBountyStateFromMarketWatch } =
+    await importModule<typeof import("../lib/home-bounty")>("lib/home-bounty.ts");
+
+  const bountyBoard = Array.from({ length: 10 }, (_, index) => ({
+    collectibleId: `OP15-0${index + 1}_p1`,
+    collectibleKind: "raw_card",
+    cardId: `OP15-0${index + 1}_p1`,
+    name: `Mover ${index + 1}`,
+    imageUrl: `https://img.example/mover-${index + 1}.jpg`,
+    currentPrice: index + 1,
+    dailyChangePct: index + 0.5,
+  }));
+
+  const state = buildHomeBountyStateFromMarketWatch({
+    source: "justtcg-runtime-pricing",
+    updatedAt: "2026-04-07T16:00:00.000Z",
+    bountyBoard,
+  });
+
+  assert.equal(state.cards.length, 8);
+  assert.deepEqual(
+    state.cards.map((card) => card.key),
+    bountyBoard.slice(0, 8).map((card) => card.collectibleId),
+  );
+});

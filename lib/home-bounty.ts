@@ -39,6 +39,8 @@ export type HomeBountyWatchPayload = {
   bountyBoard?: HomeBountyWatchItem[] | null;
 };
 
+export const HOME_BOUNTY_BOARD_LIMIT = 8;
+
 export function formatHomeBountyDelta(value: number) {
   const amount = Math.abs(Number(value) || 0);
   const formatted = new Intl.NumberFormat("en-US", {
@@ -80,7 +82,7 @@ export function buildHomeBountyStateFromMarketWatch(payload: HomeBountyWatchPayl
   const cards = (Array.isArray(payload.bountyBoard) ? payload.bountyBoard : [])
     .filter((item) => String(item?.collectibleKind || "").trim().toLowerCase() === "raw_card")
     .filter((item) => String(item?.cardId || "").trim())
-    .slice(0, 6)
+    .slice(0, HOME_BOUNTY_BOARD_LIMIT)
     .map((item) => {
       const cardId = String(item?.cardId || "").trim();
       const name = String(item?.name || "Unknown Card");

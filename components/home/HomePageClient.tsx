@@ -102,6 +102,7 @@ export default function HomePageClient({
   initialMatchupsAreLive,
   initialBountyIsLive,
 }: HomePageClientProps) {
+  const bountyTiltAngles = [-1.1, 0.8, -0.5, 1.1, -0.4, 0.6, -0.8, 0.5];
   const [meta, setMeta] = useState<MetaSnapshot | null>(initialMeta);
   const [matchups, setMatchups] = useState<HomeMatchupPayload | null>(initialMatchups);
   const [scrollY, setScrollY] = useState(0);
@@ -567,7 +568,7 @@ export default function HomePageClient({
                     </>
                   );
 
-                  const style = { transform: `rotate(${[-1.1, 0.8, -0.5, 1.1, -0.4, 0.6][i] ?? 0}deg)` };
+                  const style = { transform: `rotate(${bountyTiltAngles[i] ?? 0}deg)` };
 
                   if (card.external) {
                     return (
