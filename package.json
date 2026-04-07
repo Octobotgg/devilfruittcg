@@ -12,6 +12,8 @@
     "backfill:match-intel": "node scripts/backfill-match-intel.mjs",
     "import:bandai:db": "node scripts/import-bandai-official-to-drizzle.mjs",
     "import:justtcg:db": "node scripts/import-justtcg-to-drizzle.mjs",
+    "refresh:justtcg:set": "node scripts/run-justtcg-set-refresh.mjs",
+    "refresh:justtcg:scheduled": "node scripts/run-scheduled-justtcg-refresh.mjs",
     "verify:pricing": "node scripts/run-pricing-verification.mjs",
     "publish:pricing": "node scripts/publish-verified-prices.mjs",
     "bootstrap:pricing": "node scripts/bootstrap-published-pricing.mjs",
