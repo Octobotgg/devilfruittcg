@@ -107,6 +107,20 @@ function createStatefulSql(initialState?: {
         return [];
       }
 
+      if (
+        normalized.startsWith('select "id" as "card_print_id", "active_external_product_id", "active_external_variant_id" from "card_prints"') ||
+        normalized.startsWith('select id as "card_print_id", active_external_product_id, active_external_variant_id from card_prints')
+      ) {
+        const requestedProductIds = new Set(params.map((value) => String(value || "")));
+        return [...state.cardPrints.values()]
+          .filter((row) => requestedProductIds.has(String(row.active_external_product_id || "")))
+          .map((row) => ({
+            card_print_id: row.id,
+            active_external_product_id: row.active_external_product_id,
+            active_external_variant_id: row.active_external_variant_id,
+          }));
+      }
+
       if (normalized.startsWith('delete from "card_print_price_current"')) {
         const sourceId = String(params[0] || "");
         for (let index = 1; index < params.length; index += 1) {
@@ -738,6 +752,95 @@ test("applySeed incremental refresh updates an existing variant-backed current p
   );
   assert.equal(seed.meta?.syncMode, "incremental");
   assert.equal(seed.meta?.updatedAfter, 1774483200);
+});
+
+test("applySeed incremental refresh backfills current price rows from active assignments when legacy mapping rows are absent", async () => {
+  const { applySeed, buildIncrementalSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const seed = buildIncrementalSeed(
+    {
+      catalog: {
+        cards: [
+          {
+            id: "oden-refresh",
+            name: "Kouzuki Oden",
+            set: "Extra Booster: Memorial Collection",
+            tcgplayerId: "544523",
+            variants: [
+              {
+                variantId: "oden-refresh-nm",
+                condition: "Near Mint",
+                printing: "Normal",
+                language: "English",
+                price: 0.3,
+                lastUpdated: 1774483200,
+              },
+              {
+                variantId: "oden-refresh-lp",
+                condition: "Lightly Played",
+                printing: "Normal",
+                language: "English",
+                price: 0.18,
+                lastUpdated: 1774483200,
+              },
+            ],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-03-26T00:00:00.000Z",
+        results: [],
+      },
+      priceData: null,
+    },
+    {
+      apply: false,
+      includeTcgplayerSource: true,
+      catalog: "unused",
+      mappingReport: "unused",
+      priceData: "unused",
+      seedOut: null,
+      chunkSize: 250,
+      updatedAfter: 1774483200,
+    },
+  );
+
+  assert.deepEqual(seed.cardPrintPriceCurrent, []);
+
+  const sql = createStatefulSql({
+    cardPrints: [
+      {
+        id: "EB01-001",
+        active_external_product_id: "justtcg:oden-refresh",
+        active_external_variant_id: "justtcg:oden-refresh-nm",
+      },
+    ],
+  });
+
+  await applySeed(seed, { chunkSize: 50, sql });
+
+  const afterRow = sql.state.cardPrintPriceCurrent.get("EB01-001::justtcg");
+  assert.ok(afterRow, "incremental refresh should synthesize a current price row from the active variant");
+  assert.equal(afterRow?.external_product_id, "justtcg:oden-refresh");
+  assert.equal(afterRow?.external_variant_id, "justtcg:oden-refresh-nm");
+  assert.equal(afterRow?.price_market, 0.3);
+  assert.equal(afterRow?.price_nm, 0.3);
+  assert.equal(afterRow?.price_lp, 0.18);
+  assert.equal(afterRow?.updated_at, "2026-03-26T00:00:00.000Z");
+  assert.ok(
+    sql.queries.some((query) =>
+      query.text.includes('select id as "card_print_id", active_external_product_id, active_external_variant_id from card_prints'),
+    ),
+    "incremental refresh should look up existing active assignments for imported products",
+  );
+  assert.ok(
+    sql.queries.some((query) => query.text.startsWith('insert into "card_print_price_current"')),
+    "incremental refresh should upsert synthesized current price rows",
+  );
 });
 
 test("applySeed incremental LP-only refresh preserves the canonical NM current price row", async () => {

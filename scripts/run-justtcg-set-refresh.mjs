@@ -8,7 +8,6 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 const OFFICIAL_RELEASES_PATH = path.join(REPO_ROOT, "data", "bandai-en-official-releases.json");
-const OFFICIAL_CARDS_PATH = path.join(REPO_ROOT, "data", "bandai-en-official-cards.json");
 const JUSTTCG_SETS_URL = "https://api.justtcg.com/v1/sets";
 const JUSTTCG_GAME_ID = "one-piece-card-game";
 const DEFAULT_FETCH_PAGE_SIZE = 20;
@@ -49,10 +48,6 @@ function isBoosterRelease(release) {
 }
 
 async function readOfficialReleases(filePath = OFFICIAL_RELEASES_PATH) {
-  return JSON.parse(await fs.readFile(filePath, "utf8"));
-}
-
-async function readOfficialCards(filePath = OFFICIAL_CARDS_PATH) {
   return JSON.parse(await fs.readFile(filePath, "utf8"));
 }
 
@@ -187,37 +182,17 @@ function runNodeScript(label, scriptPath, args) {
   });
 }
 
-function buildTargetCardPrintIds(target, officialCards) {
-  const normalizedCode = normalizeSetCode(target.normalizedCode);
-  return (officialCards || [])
-    .filter((card) => normalizeSetCode(card?.releaseCode) === normalizedCode)
-    .map((card) => String(card?.id || "").trim())
-    .filter(Boolean);
-}
-
-function extractVerificationRunId(stdout) {
-  try {
-    const parsed = JSON.parse(String(stdout || "").trim());
-    const value = Number(parsed?.verificationRunId);
-    return Number.isFinite(value) && value > 0 ? value : null;
-  } catch {
-    return null;
-  }
-}
-
 export async function runSetRefresh({
   setCode,
   dryRun = false,
   fetchPageSize = DEFAULT_FETCH_PAGE_SIZE,
   releases,
-  officialCards,
   apiKey = process.env.JUSTTCG_API_KEY,
   fetchImpl = fetch,
   runCommand = (label, step) => runNodeScript(label, step.command, step.args),
   requireResolvedSetId = false,
 } = {}) {
   const officialReleases = releases || (await readOfficialReleases());
-  const cards = officialCards || (await readOfficialCards());
   const target = resolveSetRefreshTarget({ requestedSetCode: setCode, releases: officialReleases });
   const resolvedSet = await resolveJusttcgSetId({
     apiKey,
@@ -230,7 +205,6 @@ export async function runSetRefresh({
   }
 
   const justtcgSetId = resolvedSet?.id || target.normalizedCode;
-  const targetCardPrintIds = buildTargetCardPrintIds(target, cards);
   const steps = [
     {
       label: "import",
@@ -238,12 +212,13 @@ export async function runSetRefresh({
       args: ["--apply", "--updated-after", "0", "--set", justtcgSetId, "--fetch-page-size", String(fetchPageSize)],
     },
     {
-      label: "verify",
-      command: path.join(REPO_ROOT, "scripts", "run-pricing-verification.mjs"),
+      label: "publish_known_prices",
+      command: path.join(REPO_ROOT, "scripts", "refresh-known-justtcg-prices.mjs"),
       args: [
+        "--release-name",
+        target.releaseName,
         "--source",
         "justtcg_set_refresh",
-        ...(targetCardPrintIds.length ? ["--card-print-id", targetCardPrintIds.join(",")] : []),
       ],
     },
   ];
@@ -256,13 +231,9 @@ export async function runSetRefresh({
     justtcgSetId,
     justtcgSetName: resolvedSet?.name ?? null,
     fetchPageSize,
-    targetCardPrintCount: targetCardPrintIds.length,
+    targetCardPrintCount: Number(target.printCount || 0) || 0,
     dryRun,
-    steps: [...steps, {
-      label: "publish",
-      command: path.join(REPO_ROOT, "scripts", "publish-verified-prices.mjs"),
-      args: [],
-    }].map((step) => ({
+    steps: steps.map((step) => ({
       label: step.label,
       command: [path.relative(REPO_ROOT, step.command), ...step.args].join(" "),
     })),
@@ -272,25 +243,11 @@ export async function runSetRefresh({
     return summary;
   }
 
-  let verificationRunId = null;
   for (const step of steps) {
     const result = await runCommand(step.label, step);
     if (!result?.ok) {
       throw new Error(`${step.label} step failed with exit code ${result?.code ?? "unknown"}`);
     }
-    if (step.label === "verify") {
-      verificationRunId = extractVerificationRunId(result.stdout);
-    }
-  }
-
-  const publishStep = {
-    label: "publish",
-    command: path.join(REPO_ROOT, "scripts", "publish-verified-prices.mjs"),
-    args: verificationRunId ? ["--verification-run-id", String(verificationRunId)] : [],
-  };
-  const publishResult = await runCommand(publishStep.label, publishStep);
-  if (!publishResult?.ok) {
-    throw new Error(`publish step failed with exit code ${publishResult?.code ?? "unknown"}`);
   }
 
   return summary;

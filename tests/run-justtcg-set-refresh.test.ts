@@ -28,7 +28,7 @@ test("set refresh resolves booster lane and excludes release event lane", async 
   assert.doesNotMatch(target.releaseName, /Release Event/);
 });
 
-test("set refresh pipeline runs import, verify, and publish in order", async () => {
+test("set refresh pipeline runs import and known-price publish in order", async () => {
   const calls: string[] = [];
   const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
     "scripts/run-justtcg-set-refresh.mjs",
@@ -43,7 +43,7 @@ test("set refresh pipeline runs import, verify, and publish in order", async () 
     },
   });
 
-  assert.deepEqual(calls, ["import", "verify", "publish"]);
+  assert.deepEqual(calls, ["import", "publish_known_prices"]);
 });
 
 test("set refresh uses a 20-card fetch page size by default", async () => {
@@ -60,7 +60,7 @@ test("set refresh uses a 20-card fetch page size by default", async () => {
   assert.equal(summary.fetchPageSize, 20);
 });
 
-test("set refresh scopes verification and publish to the target set card prints", async () => {
+test("set refresh scopes known-price publish to the target release name", async () => {
   const steps: Array<{ label: string; args: string[] }> = [];
   const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
     "scripts/run-justtcg-set-refresh.mjs",
@@ -69,29 +69,17 @@ test("set refresh scopes verification and publish to the target set card prints"
   await mod.runSetRefresh({
     setCode: "OP15-EB04",
     releases: [{ codes: ["OP15EB04"], category: "BOOSTER_PACK", name: "ADVENTURE ON KAMI'S ISLAND [OP15-EB04]" }],
-    officialCards: [
-      { id: "OP15-001", releaseCode: "OP15EB04" },
-      { id: "OP15-002", releaseCode: "OP15EB04" },
-      { id: "OP14-001", releaseCode: "OP14EB04" },
-    ],
     runCommand: async (label, step) => {
       steps.push({ label, args: step.args });
-      if (label === "verify") {
-        return { ok: true, code: 0, stdout: JSON.stringify({ verificationRunId: 77 }) };
-      }
       return { ok: true, code: 0, stdout: "" };
     },
   });
 
-  const verifyStep = steps.find((step) => step.label === "verify");
-  assert.ok(verifyStep);
-  assert.ok(verifyStep.args.includes("--card-print-id"));
-  const cardPrintArg = verifyStep.args[verifyStep.args.indexOf("--card-print-id") + 1];
-  assert.match(cardPrintArg, /OP15-001/);
-  assert.match(cardPrintArg, /OP15-002/);
-  assert.doesNotMatch(cardPrintArg, /OP14-001/);
-
-  const publishStep = steps.find((step) => step.label === "publish");
+  const publishStep = steps.find((step) => step.label === "publish_known_prices");
   assert.ok(publishStep);
-  assert.deepEqual(publishStep.args, ["--verification-run-id", "77"]);
+  assert.ok(publishStep.args.includes("--release-name"));
+  const releaseNameArg = publishStep.args[publishStep.args.indexOf("--release-name") + 1];
+  assert.equal(releaseNameArg, "ADVENTURE ON KAMI'S ISLAND [OP15-EB04]");
+  assert.ok(publishStep.args.includes("--source"));
+  assert.equal(publishStep.args[publishStep.args.indexOf("--source") + 1], "justtcg_set_refresh");
 });
