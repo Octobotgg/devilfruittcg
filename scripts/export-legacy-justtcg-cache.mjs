@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import postgres from "postgres";
 
 const DEFAULT_OUT_DIR = path.join(process.cwd(), ".cache", "justtcg");
@@ -73,6 +74,21 @@ function parseJsonObject(value) {
   }
 }
 
+export function filterExportableLegacyRows({ maps, prices }) {
+  const exportableMaps = (Array.isArray(maps) ? maps : []).filter((row) =>
+    String(row?.resolved_card_print_id || "").trim(),
+  );
+  const exportableCardIds = new Set(exportableMaps.map((row) => String(row.devilfruit_id || "").trim()).filter(Boolean));
+  const exportablePrices = (Array.isArray(prices) ? prices : []).filter((row) =>
+    exportableCardIds.has(String(row?.devilfruit_id || "").trim()),
+  );
+
+  return {
+    maps: exportableMaps,
+    prices: exportablePrices,
+  };
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const sql = postgres(getConnectionString(), {
@@ -88,6 +104,7 @@ async function main() {
           sql`
             select
               justtcg_card_map.*,
+              card_prints.id as resolved_card_print_id,
               card_prints.variant_label as card_print_variant_label,
               card_prints.variant_slug as card_print_variant_slug,
               card_prints.metadata as card_print_metadata
@@ -111,10 +128,13 @@ async function main() {
         args.batchSize,
       ),
     ]);
+    const filtered = filterExportableLegacyRows({ maps, prices });
+    const filteredMaps = filtered.maps;
+    const filteredPrices = filtered.prices;
 
-    const priceByCardId = new Map(prices.map((row) => [row.devilfruit_id, row]));
+    const priceByCardId = new Map(filteredPrices.map((row) => [row.devilfruit_id, row]));
 
-    const results = maps.map((row) => {
+    const results = filteredMaps.map((row) => {
       const priceRow = priceByCardId.get(row.devilfruit_id);
       const raw = priceRow?.raw_response || {};
       const cardPrintMetadata = parseJsonObject(row.card_print_metadata);
@@ -159,7 +179,7 @@ async function main() {
       };
     });
 
-    const priceRows = prices.map((row) => ({
+    const priceRows = filteredPrices.map((row) => ({
       devilfruit_id: row.devilfruit_id,
       justtcg_id: row.justtcg_id,
       price_nm: row.price_nm != null ? Number(row.price_nm) : null,
@@ -212,7 +232,12 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.stack || error.message : error);
-  process.exitCode = 1;
-});
+const isDirectRun =
+  Boolean(process.argv[1]) && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.stack || error.message : error);
+    process.exitCode = 1;
+  });
+}
