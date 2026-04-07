@@ -47,7 +47,7 @@ test("home bounty state maps marketplace card movers into bounty cards", async (
     name: "Krieg",
     displayId: "OP15-001_p1",
     cardId: "OP15-001_p1",
-    imageUrl: "https://img.example/krieg.jpg",
+    imageUrl: "/api/card-image?id=OP15-001_p1",
     price: 20.13,
     delta: 18.2,
     href: "/cards/OP15-001_p1",
