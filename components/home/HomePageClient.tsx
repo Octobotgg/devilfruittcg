@@ -771,11 +771,11 @@ export default function HomePageClient({
           className="captains-tool-teaser"
         >
           <div className="captains-tool-copy">
-            <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold)]">Tool Teaser</p>
-            <h2 className="manga-section-header mt-2 text-3xl font-black text-white md:text-4xl">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.3em] text-[#d4a054]">Deck Lab</p>
+            <h2 className="manga-section-header mt-2 text-3xl font-black text-[#f5efe3] md:text-4xl">
               Theorycraft your next crew with the fastest deck lab on the seas.
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65 md:text-base">
+            <p className="mt-3 max-w-2xl font-serif text-[15px] leading-[1.7] text-[rgba(245,239,227,0.75)] md:text-base">
               Drag cards. Test ratios. Refine on matchup pressure. Then launch straight into ranked play with a tighter list.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -784,7 +784,7 @@ export default function HomePageClient({
               </DonButton>
               <Link
                 href="/decks"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-white/25 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-white/80 hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-[#d4a054] bg-transparent px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-[#d4a054] hover:text-[#f5efe3]"
               >
                 Explore Top Decklists <ArrowRight className="h-3.5 w-3.5" />
               </Link>
