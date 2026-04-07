@@ -772,7 +772,10 @@ export default function HomePageClient({
         >
           <div className="captains-tool-copy">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.3em] text-[#d4a054]">Deck Lab</p>
-            <h2 className="manga-section-header mt-2 text-3xl font-black text-[#f5efe3] md:text-4xl">
+            <h2
+              className="mt-2 max-w-3xl text-[2.15rem] font-semibold leading-[1.02] text-[#f5efe3] md:text-[2.85rem]"
+              style={{ fontFamily: "var(--font-crimson), 'Crimson Pro', Georgia, serif" }}
+            >
               Theorycraft your next crew with the fastest deck lab on the seas.
             </h2>
             <p className="mt-3 max-w-2xl font-serif text-[15px] leading-[1.7] text-[rgba(245,239,227,0.75)] md:text-base">
