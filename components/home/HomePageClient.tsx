@@ -16,6 +16,12 @@ import {
   HOME_META_RANGE,
   HOME_META_REGION,
 } from "@/lib/constants/page-defaults";
+import {
+  buildHomeBountyStateFromMarketWatch,
+  formatHomeBountyDelta,
+  type HomeBountyCard,
+  type HomeBountyMeta,
+} from "@/lib/home-bounty";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import type { MetaDeck as MatchupDeck } from "@/lib/meta-decks";
@@ -27,34 +33,6 @@ const BOUNTY_QUOTES: Record<string, { price: number; delta: number }> = {
   "OP02-001": { price: 542, delta: 2.3 },
   "OP01-061": { price: 208, delta: 1.2 },
   "OP06-007": { price: 312, delta: 0.9 },
-};
-
-export type HomeBountyCard = {
-  key: string;
-  name: string;
-  displayId: string;
-  cardId?: string;
-  imageUrl?: string;
-  price: number;
-  delta: number;
-  href: string;
-  external?: boolean;
-};
-
-export type HomeBountyMeta = {
-  provider: string;
-  updatedAt: string | null;
-  stale: boolean;
-  staleAgeMs: number | null;
-};
-
-export type HomeBountyFeedItem = {
-  productId?: string | number | null;
-  cardId?: string | number | null;
-  name?: string | null;
-  imageUrl?: string | null;
-  price?: number | string | null;
-  percent?: number | string | null;
 };
 
 export type HomeMatchupPayload = {
@@ -75,11 +53,6 @@ export type HomePageClientProps = {
   initialMetaIsLive: boolean;
   initialMatchupsAreLive: boolean;
   initialBountyIsLive: boolean;
-};
-
-type BountyStamp = {
-  label: string;
-  tone: string;
 };
 
 function ago(iso?: string | null) {
@@ -112,13 +85,6 @@ function formatFreshnessLabel(meta: HomeBountyMeta | null) {
   return `${meta.provider} · ${age}${meta.stale ? " · stale" : ""}`;
 }
 
-function getBountyStamp(card: HomeBountyCard): BountyStamp {
-  if (card.delta >= 4) return { label: "High Demand", tone: "bounty-stamp-hot" };
-  if (card.price >= 850) return { label: "Collector", tone: "bounty-stamp-collector" };
-  if (card.delta > 0) return { label: "Rising", tone: "bounty-stamp-rising" };
-  return { label: "Watchlist", tone: "bounty-stamp-watch" };
-}
-
 function heatClass(rate: number) {
   if (rate >= 60) return "border-emerald-600/30 bg-emerald-500/12 text-emerald-800";
   if (rate >= 55) return "border-emerald-500/25 bg-emerald-500/8 text-emerald-800";
@@ -136,6 +102,7 @@ export default function HomePageClient({
   initialMatchupsAreLive,
   initialBountyIsLive,
 }: HomePageClientProps) {
+  const bountyTiltAngles = [-1.1, 0.8, -0.5, 1.1, -0.4, 0.6, -0.8, 0.5];
   const [meta, setMeta] = useState<MetaSnapshot | null>(initialMeta);
   const [matchups, setMatchups] = useState<HomeMatchupPayload | null>(initialMatchups);
   const [scrollY, setScrollY] = useState(0);
@@ -212,58 +179,15 @@ export default function HomePageClient({
 
     const run = async () => {
       try {
-        const res = await fetch("/api/market-movers?limit=12", { cache: "no-store" });
+        const res = await fetch("/api/market/watch", { cache: "no-store" });
         if (!res.ok) return;
 
         const json = await res.json();
-        const board = Array.isArray(json?.board) ? (json.board as HomeBountyFeedItem[]) : [];
+        const next = buildHomeBountyStateFromMarketWatch(json);
 
-        if (alive) {
-          setLiveBountyMeta({
-            provider: String(json?.source?.provider || "GumGum"),
-            updatedAt: typeof json?.freshness?.updatedAt === "string" ? json.freshness.updatedAt : null,
-            stale: Boolean(json?.freshness?.stale),
-            staleAgeMs: typeof json?.freshness?.staleAgeMs === "number" ? json.freshness.staleAgeMs : null,
-          });
-        }
-
-        if (!alive || !board.length) return;
-
-        const mapped = board.slice(0, 6).map((item) => {
-          const productId = String(item?.productId ?? "").trim();
-          const cardId = item?.cardId ? String(item.cardId) : undefined;
-          const name = String(item?.name || "Unknown Card");
-          const displayId = cardId || (productId ? `TCG #${productId}` : "Unknown");
-          const href = cardId
-            ? `/cards/${encodeURIComponent(cardId)}`
-            : productId
-              ? `https://www.tcgplayer.com/product/${encodeURIComponent(productId)}`
-              : "/market";
-
-          return {
-            key: productId || cardId || name,
-            name,
-            displayId,
-            cardId,
-            imageUrl: item?.imageUrl ? String(item.imageUrl) : undefined,
-            price: Number(item?.price) || 0,
-            delta: Number(item?.percent) || 0,
-            href,
-            external: !cardId && Boolean(productId),
-          } satisfies HomeBountyCard;
-        });
-
-        const genericNameRx = /^TCG Product\s+\d+$/i;
-        const genericRatio = mapped.length
-          ? mapped.filter((item) => genericNameRx.test(item.name)).length / mapped.length
-          : 1;
-
-        if (genericRatio >= 0.5) {
-          setLiveBountyCards([]);
-          return;
-        }
-
-        setLiveBountyCards(mapped);
+        if (!alive) return;
+        setLiveBountyMeta(next.meta);
+        setLiveBountyCards(next.cards);
       } catch {
         // noop
       }
@@ -624,10 +548,8 @@ export default function HomePageClient({
 
               <div className="space-y-2">
                 {bountyCards.length ? bountyCards.map((card, i) => {
-                  const stamp = getBountyStamp(card);
                   const row = (
                     <>
-                      <span className={`bounty-stamp ${stamp.tone}`}>{stamp.label}</span>
                       <img
                         src={card.imageUrl || (card.cardId ? `/api/card-image?id=${encodeURIComponent(card.cardId)}` : "/api/card-image?id=OP01-001")}
                         alt={card.name}
@@ -640,13 +562,13 @@ export default function HomePageClient({
                       <div className="text-right">
                         <p className="text-xs font-black text-[#2c1c0d]">{formatBeli(card.price)}</p>
                         <p className={`text-[10px] font-bold ${card.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
-                          {card.delta >= 0 ? "+" : ""}{card.delta.toFixed(1)}%
+                          {formatHomeBountyDelta(card.delta)}
                         </p>
                       </div>
                     </>
                   );
 
-                  const style = { transform: `rotate(${[-1.1, 0.8, -0.5, 1.1, -0.4, 0.6][i] ?? 0}deg)` };
+                  const style = { transform: `rotate(${bountyTiltAngles[i] ?? 0}deg)` };
 
                   if (card.external) {
                     return (
