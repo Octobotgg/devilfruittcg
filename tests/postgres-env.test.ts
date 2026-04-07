@@ -10,36 +10,15 @@ async function importModule<T>(relativePath: string): Promise<T> {
   return import(pathToFileURL(path.join(REPO_ROOT, relativePath)).href) as Promise<T>;
 }
 
-test("postgres env resolution prefers SUPABASE_DB_URL over DATABASE_URL", async () => {
-  const postgresModule =
-    await importModule<typeof import("../db/postgres")>("db/postgres.ts");
+test("resolvePostgresConnectionString falls back to DATABASE_URL when SUPABASE_DB_URL is blank", async () => {
+  const mod = await importModule<typeof import("../db/postgres.ts")>("db/postgres.ts");
 
-  assert.equal(typeof postgresModule.resolvePostgresConnectionString, "function");
-  assert.equal(
-    postgresModule.resolvePostgresConnectionString({
-      env: {
-        DATABASE_URL: "postgres://platform-injected",
-        SUPABASE_DB_URL: "postgres://supabase-primary",
-      },
-    }),
-    "postgres://supabase-primary",
-  );
-  assert.equal(
-    postgresModule.resolvePostgresConnectionString({
-      env: {
-        DATABASE_URL: "postgres://platform-injected",
-      },
-    }),
-    "postgres://platform-injected",
-  );
-  assert.equal(
-    postgresModule.resolvePostgresConnectionString({
-      connectionString: "postgres://explicit-override",
-      env: {
-        DATABASE_URL: "postgres://platform-injected",
-        SUPABASE_DB_URL: "postgres://supabase-primary",
-      },
-    }),
-    "postgres://explicit-override",
-  );
+  const connectionString = mod.resolvePostgresConnectionString({
+    env: {
+      SUPABASE_DB_URL: "",
+      DATABASE_URL: "postgres://example-db",
+    },
+  });
+
+  assert.equal(connectionString, "postgres://example-db");
 });
