@@ -10,6 +10,13 @@ Live product:
 
 This repository contains the current production web app.
 
+Before changing UI, read these first:
+
+- `PROJECT_BRIEF.md`
+- `docs/design-system.md`
+
+The active site identity is the warm parchment / navy / gold DevilFruit reskin. The older cool-blue, glassy, SaaS-style identity is deprecated and should not be reintroduced.
+
 The product goal is simple:
 - give One Piece TCG players and collectors one place to check prices
 - build and publish decks
@@ -38,6 +45,12 @@ If you are new, use this mental model:
 - `data/` contains card catalog files and related snapshots
 - `scripts/` contains import, validation, and maintenance scripts
 - `docs/` contains architecture and runbooks
+
+If you are an LLM or design/coding agent, start with:
+
+1. `PROJECT_BRIEF.md`
+2. `docs/design-system.md`
+3. `docs/llm-development-workflow.md`
 
 ## Local Setup
 

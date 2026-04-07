@@ -47,6 +47,32 @@ It should not feel like:
 - a loud hype brand
 - filler-heavy product copy
 
+## Current Brand Identity
+
+This is the active visual and tonal identity of DevilFruit.
+
+- warm parchment backgrounds instead of cool glassy panels
+- navy, gold, sunset, and ocean accents instead of default SaaS blues
+- premium editorial contrast, not dashboard chrome
+- personal, fan-made confidence instead of product-marketing filler
+- One Piece energy through voyage, rivalry, treasure, crew, and discovery
+
+The old identity is deprecated:
+
+- dark blue glassmorphism
+- frosted panels
+- generic dashboard cards
+- "command center" style SaaS framing
+- cold or overly technical copy
+
+Do not reintroduce that older style in new pages, refactors, or partial redesigns.
+
+If a screen needs utility and density, solve it inside the current identity. Do not fall back to generic SaaS patterns just because they are convenient.
+
+For the visual system and UI rules, read:
+
+- `docs/design-system.md`
+
 ## One Piece Soul
 
 The clearest themes to preserve are:
@@ -98,6 +124,7 @@ Card identity comes from the official Bandai English card catalog. Pricing comes
 
 - Do not design from comparison first.
 - Do not frame DevilFruit as a clone of anything else.
+- Do not revert UI toward the older SaaS/glassmorphism identity.
 - Verify the current working directory before editing.
 - Stay inside the requested scope.
 - Do not guess with card data.
