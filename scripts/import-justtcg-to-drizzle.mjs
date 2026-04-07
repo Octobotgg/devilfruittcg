@@ -12,7 +12,7 @@ const DEFAULT_MAPPING_REPORT_PATH = path.join(ROOT, ".cache", "justtcg", "releas
 const DEFAULT_PRICE_DATA_PATH = path.join(ROOT, ".cache", "justtcg", "approved-price-sync-data.json");
 const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-releases.json");
 const DEFAULT_CHUNK_SIZE = 250;
-const JUSTTCG_MAX_PLAN_LIMIT = 20;
+const JUSTTCG_MAX_PLAN_LIMIT = 100;
 
 const GAME_ID = "one-piece-card-game";
 const JUSTTCG_CARDS_URL = "https://api.justtcg.com/v1/cards";
@@ -76,7 +76,9 @@ function parseArgs(argv) {
     catalog: DEFAULT_CATALOG_PATH,
     mappingReport: DEFAULT_MAPPING_REPORT_PATH,
     priceData: DEFAULT_PRICE_DATA_PATH,
+    set: null,
     updatedAfter: null,
+    fetchPageSize: JUSTTCG_MAX_PLAN_LIMIT,
     catalogFallback: [],
     priceDataFallback: [],
     seedOut: null,
@@ -131,6 +133,21 @@ function parseArgs(argv) {
       continue;
     }
 
+    if (value === "--set") {
+      args.set = argv[index + 1] ? String(argv[index + 1]).trim() || null : null;
+      index += 1;
+      continue;
+    }
+
+    if (value === "--fetch-page-size") {
+      const parsed = Number.parseInt(argv[index + 1] || "", 10);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        args.fetchPageSize = Math.min(parsed, JUSTTCG_MAX_PLAN_LIMIT);
+      }
+      index += 1;
+      continue;
+    }
+
     if (value === "--price-data-fallback") {
       args.priceDataFallback = parseFallbackPaths(argv[index + 1]);
       index += 1;
@@ -151,6 +168,27 @@ function parseArgs(argv) {
   }
 
   return args;
+}
+
+function buildJusttcgCardsUrl({
+  game = GAME_ID,
+  limit = JUSTTCG_MAX_PLAN_LIMIT,
+  offset = 0,
+  updatedAfter,
+  set,
+  includeNullPrices = true,
+} = {}) {
+  const params = new URLSearchParams({
+    game,
+    limit: String(limit),
+    offset: String(offset),
+  });
+
+  if (updatedAfter != null) params.set("updated_after", String(updatedAfter));
+  if (set) params.set("set", String(set));
+  if (includeNullPrices) params.set("include_null_prices", "true");
+
+  return `${JUSTTCG_CARDS_URL}?${params.toString()}`;
 }
 
 function parseFallbackPaths(value) {
@@ -341,22 +379,23 @@ async function fetchJusttcgCatalogPage({
   limit = JUSTTCG_MAX_PLAN_LIMIT,
   offset = 0,
   includeNullPrices = true,
+  set,
   updatedAfter,
 }) {
-  const params = new URLSearchParams({
+  const url = buildJusttcgCardsUrl({
     game,
-    limit: String(limit),
-    offset: String(offset),
+    limit,
+    offset,
+    set,
+    includeNullPrices,
+    updatedAfter,
   });
-
-  if (includeNullPrices) params.set("include_null_prices", "true");
-  if (updatedAfter != null) params.set("updated_after", String(updatedAfter));
 
   const maxRetries = 4;
   const retryBaseMs = 3000;
 
   for (let attempt = 0; attempt <= maxRetries; attempt += 1) {
-    const response = await fetch(`${JUSTTCG_CARDS_URL}?${params.toString()}`, {
+    const response = await fetch(url, {
       headers: {
         "X-API-Key": apiKey,
         "User-Agent": "DevilFruitTCG/JustTCGCatalogImport",
@@ -401,6 +440,7 @@ async function fetchJusttcgCatalogSince({
   game = GAME_ID,
   limit = JUSTTCG_MAX_PLAN_LIMIT,
   includeNullPrices = true,
+  set,
 }) {
   const cards = [];
   let offset = 0;
@@ -414,6 +454,7 @@ async function fetchJusttcgCatalogSince({
       limit,
       offset,
       includeNullPrices,
+      set,
       updatedAfter,
     });
 
@@ -1846,6 +1887,8 @@ async function main() {
       ? await fetchJusttcgCatalogSince({
           apiKey: String(process.env.JUSTTCG_API_KEY || "").trim(),
           updatedAfter: args.updatedAfter,
+          set: args.set,
+          limit: args.fetchPageSize,
         })
       : await readJsonWithFallback(args.catalog, args.catalogFallback);
 
@@ -1887,6 +1930,7 @@ if (isDirectRun) {
 
 export {
   assertApplyPreconditions,
+  buildJusttcgCardsUrl,
   parseArgs,
   buildActiveCardPrintAssignments,
   buildAuthoritativeActiveCardPrintAssignments,

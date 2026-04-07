@@ -12,6 +12,40 @@ async function importModule<T>(relativePath: string): Promise<T> {
   return import(pathToFileURL(path.join(REPO_ROOT, relativePath)).href) as Promise<T>;
 }
 
+test("parseArgs accepts --set and --fetch-page-size", async () => {
+  const { parseArgs } = await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+    "scripts/import-justtcg-to-drizzle.mjs",
+  );
+
+  const args = parseArgs(["--set", "OP-13", "--fetch-page-size", "75"]);
+
+  assert.equal(args.set, "OP-13");
+  assert.equal(args.fetchPageSize, 75);
+});
+
+test("buildJusttcgCardsUrl includes the cards query params", async () => {
+  const { buildJusttcgCardsUrl } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const url = buildJusttcgCardsUrl({
+    game: "one-piece-card-game",
+    limit: 42,
+    updatedAfter: 1710000000,
+    set: "OP-13",
+    includeNullPrices: true,
+  });
+
+  const parsed = new URL(url);
+  assert.equal(parsed.origin + parsed.pathname, "https://api.justtcg.com/v1/cards");
+  assert.equal(parsed.searchParams.get("game"), "one-piece-card-game");
+  assert.equal(parsed.searchParams.get("limit"), "42");
+  assert.equal(parsed.searchParams.get("updated_after"), "1710000000");
+  assert.equal(parsed.searchParams.get("set"), "OP-13");
+  assert.equal(parsed.searchParams.get("include_null_prices"), "true");
+});
+
 test("buildSeed keeps one active approved mapping when one JustTCG product is duplicated across prints", async () => {
   const { buildSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
