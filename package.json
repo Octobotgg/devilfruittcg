@@ -10,6 +10,7 @@
     "fetch:bandai": "node scripts/fetch-bandai-official-en.mjs",
     "audit:bandai": "node scripts/audit-bandai-en.mjs",
     "backfill:match-intel": "node scripts/backfill-match-intel.mjs",
+    "export:justtcg:cache": "node scripts/export-legacy-justtcg-cache.mjs",
     "import:bandai:db": "node scripts/import-bandai-official-to-drizzle.mjs",
     "import:justtcg:db": "node scripts/import-justtcg-to-drizzle.mjs",
     "refresh:justtcg:set": "node scripts/run-justtcg-set-refresh.mjs",

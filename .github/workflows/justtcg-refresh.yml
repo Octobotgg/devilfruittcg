@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Export JustTCG mapping cache from database
+        run: npm run export:justtcg:cache
+
       - name: Run scheduled JustTCG refresh
         if: ${{ github.event_name == 'schedule' || inputs.mode == 'scheduled' }}
         run: npm run refresh:justtcg:scheduled
