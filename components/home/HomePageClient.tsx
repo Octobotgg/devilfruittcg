@@ -773,12 +773,12 @@ export default function HomePageClient({
           <div className="captains-tool-copy">
             <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.3em] text-[#d4a054]">Deck Lab</p>
             <h2
-              className="mt-2 max-w-3xl text-[2.15rem] font-semibold leading-[1.02] text-[#f5efe3] md:text-[2.85rem]"
+              className="mt-2 max-w-3xl text-[2.15rem] font-semibold leading-[1.02] text-[var(--color-navy)] md:text-[2.85rem]"
               style={{ fontFamily: "var(--font-crimson), 'Crimson Pro', Georgia, serif" }}
             >
               Theorycraft your next crew with the fastest deck lab on the seas.
             </h2>
-            <p className="mt-3 max-w-2xl font-serif text-[15px] leading-[1.7] text-[rgba(245,239,227,0.75)] md:text-base">
+            <p className="mt-3 max-w-2xl font-serif text-[15px] leading-[1.7] text-[var(--color-text-mid)] md:text-base">
               Drag cards. Test ratios. Refine on matchup pressure. Then launch straight into ranked play with a tighter list.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -801,7 +801,7 @@ export default function HomePageClient({
               </div>
             )) : [1, 2, 3].map((slot, i) => (
               <div key={`placeholder-${slot}`} className={`captains-fan-card captains-fan-${i + 1}`}>
-                <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-white/25 bg-[rgba(27,40,56,0.6)] text-[10px] font-bold uppercase tracking-[0.14em] text-white/50">
+                <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">
                   Live sync pending
                 </div>
               </div>

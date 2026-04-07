@@ -1050,11 +1050,11 @@ main h3 {
   border: 2px solid var(--color-gold);
   border-radius: 1rem;
   background:
-    radial-gradient(circle at 10% 20%, rgba(212, 160, 84, 0.15), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(45, 106, 143, 0.08), transparent 50%),
-    var(--color-navy);
+    radial-gradient(circle at 10% 20%, rgba(212, 160, 84, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(232, 223, 208, 0.55), transparent 50%),
+    linear-gradient(180deg, rgba(250, 247, 242, 0.98), rgba(245, 239, 227, 0.98));
   box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.15),
+    0 12px 32px rgba(42, 33, 24, 0.12),
     0 0 0 1px rgba(212, 160, 84, 0.2);
   padding: 1.2rem;
   position: relative;
@@ -1073,8 +1073,8 @@ main h3 {
   height: 220px;
   width: 154px;
   border-radius: 0.95rem;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  box-shadow: 0 22px 28px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(138, 126, 112, 0.32);
+  box-shadow: 0 22px 28px rgba(42, 33, 24, 0.2);
   overflow: hidden;
 }
 
