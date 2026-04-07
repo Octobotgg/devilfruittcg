@@ -32,10 +32,17 @@ function getPostgresCache(): PostgresCache {
 export function resolvePostgresConnectionString(
   options: ResolvePostgresConnectionStringOptions = {},
 ) {
-  if (options.connectionString) return options.connectionString;
+  const explicitConnectionString = options.connectionString?.trim();
+  if (explicitConnectionString) return explicitConnectionString;
 
   const env = options.env ?? process.env;
-  return env.SUPABASE_DB_URL ?? env.DATABASE_URL;
+  const supabaseConnectionString = env.SUPABASE_DB_URL?.trim();
+  if (supabaseConnectionString) return supabaseConnectionString;
+
+  const databaseConnectionString = env.DATABASE_URL?.trim();
+  if (databaseConnectionString) return databaseConnectionString;
+
+  return undefined;
 }
 
 export function createPostgresClient(connectionString?: string) {
