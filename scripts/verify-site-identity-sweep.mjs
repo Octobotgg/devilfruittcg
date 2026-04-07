@@ -34,17 +34,6 @@ const checks = [
     ],
   },
   {
-    file: "app/matchhistory/page.tsx",
-    banned: [
-      "Match Intel V2",
-      "Match History Command",
-    ],
-    required: [
-      "Player Match Log",
-      "Match History",
-    ],
-  },
-  {
     file: "app/globals.css",
     banned: [".glass-card {"],
     required: [],

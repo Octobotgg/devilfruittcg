@@ -263,14 +263,11 @@ User-facing routes:
 | `/decks` | `app/decks/page.tsx` | Saved decks |
 | `/meta` | `app/meta/page.tsx` | Meta snapshot |
 | `/matchups` | `app/matchups/page.tsx` | Matchup matrix |
-| `/matchhistory` | `app/matchhistory/page.tsx` | Match history |
 | `/account` | `app/account/page.tsx` | Account page |
 | `/login` | `app/login/page.tsx` | Login page |
 | `/auth/callback` | `app/auth/callback/page.tsx` | Auth callback |
 | `/privacy` | `app/privacy/page.tsx` | Privacy policy |
 | `/terms` | `app/terms/page.tsx` | Terms |
-| `/theme-lab` | `app/theme-lab/page.tsx` | Dev/experiment page |
-| `/logo-lab` | `app/logo-lab/page.tsx` | Dev/experiment page |
 
 API routes:
 

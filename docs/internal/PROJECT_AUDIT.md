@@ -42,11 +42,8 @@ Think of it like a small ESPN for the One Piece card game: you can browse cards 
 | `/decks` | `app/decks/page.tsx` | **Saved Decks** — view your saved deck archive |
 | `/meta` | `app/meta/page.tsx` | **Meta Snapshot** — top decks in the current competitive scene |
 | `/matchups` | `app/matchups/page.tsx` | **Matchup Matrix** — deck vs. deck performance stats |
-| `/matchhistory` | `app/matchhistory/page.tsx` | **Match History** — look up tournament records by player |
 | `/account` | `app/account/page.tsx` | **Account** — sign in / account management |
 | `/login` | `app/login/page.tsx` | **Login** — sign up or sign in page |
-| `/logo-lab` | `app/logo-lab/page.tsx` | **Logo Lab** — ⚗️ Experimental page for testing logo designs |
-| `/theme-lab` | `app/theme-lab/page.tsx` | **Theme Lab** — ⚗️ Experimental page for testing color themes |
 | `/privacy` | `app/privacy/page.tsx` | Privacy policy |
 | `/terms` | `app/terms/page.tsx` | Terms of service |
 

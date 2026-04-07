@@ -102,11 +102,9 @@ devilfruittcg/ - Website project root.
 |   |-- layout.tsx - Root App Router layout that wires the navbar, main shell, and footer.
 |   |-- login/ - Login page route folder.
 |   |   `-- page.tsx - Login and account-creation page.
-|   |-- logo-lab/ - Experimental logo concepts page route folder.
 |   |   `-- page.tsx - Experimental logo showcase page.
 |   |-- market/ - Market browse/search page route folder.
 |   |   `-- page.tsx - Market browse/search page and main catalog surface.
-|   |-- matchhistory/ - Match history page route folder.
 |   |   `-- page.tsx - Match-history search and player history page.
 |   |-- matchups/ - Matchup matrix page route folder.
 |   |   `-- page.tsx - Matchup matrix page for deck-vs-deck performance.
@@ -117,7 +115,6 @@ devilfruittcg/ - Website project root.
 |   |   `-- page.tsx - Privacy policy page.
 |   |-- terms/ - Terms page route folder.
 |   |   `-- page.tsx - Terms of service page.
-|   `-- theme-lab/ - Experimental theme playground route folder.
 |       `-- page.tsx - Experimental theme playground page.
 |-- components/ - Shared React components used by pages and layouts.
 |   |-- auth/ - Authentication-related UI components.
@@ -246,9 +243,6 @@ devilfruittcg/ - Website project root.
 |   |-- images/ - Branding and art assets used by CSS or experimental pages.
 |   |   |-- devilfruit-emblem.svg - Older emblem/logo asset; no live references were found.
 |   |   |-- grandline-map.svg - Background map asset referenced by global CSS.
-|   |   |-- logo-concept-coin.svg - Experimental logo concept used by the logo-lab page.
-|   |   |-- logo-concept-crest.svg - Experimental crest logo concept used by the logo-lab page.
-|   |   |-- logo-concept-esports.svg - Experimental esports-style logo concept used by the logo-lab page.
 |   |   |-- logo-wordmark.svg - Standalone wordmark asset; no live references were found.
 |   |   |-- manga-bg.svg - Manga-style background texture referenced by global CSS.
 |   |   `-- straw-hat.png - Unused Straw Hat image asset; no live references were found.

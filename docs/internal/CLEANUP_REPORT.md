@@ -99,7 +99,7 @@ These were written to pull data from external tournament sites but never got con
 | `public/images/logo-wordmark.svg` | Unused logo variant, no references in code |
 | `public/images/straw-hat.png` | Unused image, no references in code |
 
-**Keep these** (actively referenced in CSS): `grandline-map.svg`, `manga-bg.svg`, and the three `logo-concept-*.svg` files (used by the logo-lab page).
+**Keep these** (actively referenced in CSS): `grandline-map.svg` and `manga-bg.svg`.
 
 ### Category F — Legacy Scripts (2 files, safe to delete)
 
@@ -217,9 +217,8 @@ BEFORE lib/ (65+ files):                    AFTER lib/ (21 files + 5 folders):
 BEFORE public/:                            AFTER public/:
 ├── file.svg               ✗ DELETE       ├── images/
 ├── globe.svg              ✗ DELETE       │   ├── grandline-map.svg     ✓ (used in CSS)
-├── images/                               │   ├── logo-concept-coin.svg ✓ (logo-lab)
-│   ├── devilfruit-emblem.svg ✗ DELETE    │   ├── logo-concept-crest.svg ✓ (logo-lab)
-│   ├── grandline-map.svg  ✓ KEEP        │   ├── logo-concept-esports.svg ✓ (logo-lab)
+├── images/                               │   ├── devilfruit-emblem.svg ✗ DELETE
+│   ├── grandline-map.svg  ✓ KEEP
 │   ├── logo-concept-coin.svg             │   └── manga-bg.svg         ✓ (used in CSS)
 │   ├── logo-concept-crest.svg            └── (favicon.ico and icon.svg in app/)
 │   ├── logo-concept-esports.svg
