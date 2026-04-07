@@ -10,8 +10,8 @@ const crimsonPro = Crimson_Pro({ subsets: ["latin"], weight: ["400", "600", "700
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-dm", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "DevilFruitTCG.gg — Your One Piece TCG Command Center",
-  description: "Market prices, matchup data, meta tracking, and more for One Piece TCG players.",
+  title: "DevilFruitTCG.gg — The One Piece TCG Home Base",
+  description: "One Piece TCG prices, matchups, meta tracking, deck building, and collection tools in one place.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

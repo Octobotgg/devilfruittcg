@@ -123,6 +123,7 @@ Read the plain-English architecture doc here:
 - Production hosting: Vercel
 - GitHub production branch: `main`
 - Build validation runs through `prebuild`
+- Deployment truth doc: [docs/deployment.md](docs/deployment.md)
 
 ## Workflow
 

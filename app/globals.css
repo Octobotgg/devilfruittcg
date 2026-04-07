@@ -484,9 +484,7 @@ p, .body-text {
   to { transform: translate3d(-36px, 24px, 0); }
 }
 
-.font-display,
-main h1,
-main h2 {
+.font-display {
   font-family: var(--font-pirata), 'Pirata One', cursive;
   letter-spacing: 0.01em;
 }

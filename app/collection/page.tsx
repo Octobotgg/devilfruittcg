@@ -464,7 +464,7 @@ export default function CollectionPage() {
         <div className="space-y-6 pb-24 md:pb-10">
           <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-5 py-14 text-center">
             <Loader2 className="mx-auto h-10 w-10 animate-spin text-[var(--color-text-light)]" />
-            <p className="mt-4 text-sm text-[var(--color-text-light)]">Loading collection command center...</p>
+            <p className="mt-4 text-sm text-[var(--color-text-light)]">Loading collection vault...</p>
           </section>
         </div>
       }
@@ -2733,7 +2733,7 @@ function CollectionPageContent() {
               <Package className="h-3.5 w-3.5" /> Personal Collection
             </div>
             <h1 className="mt-3 text-4xl font-black text-[var(--color-navy)] md:text-5xl">
-              Collection <span className="text-[var(--color-gold-dark)]">Command Center</span>
+              Collection <span className="text-[var(--color-gold-dark)]">Vault</span>
             </h1>
             <p className="mt-3 max-w-3xl text-sm text-[var(--color-text-mid)] md:text-base">
               Browse the full catalog, track what you own, map set completion, monitor value, and spot the cards your decks still need.

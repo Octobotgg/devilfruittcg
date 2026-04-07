@@ -540,9 +540,9 @@ export default function HomePageClient({
         <section className="space-y-4">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Bento Engine</p>
-              <h2 className="manga-section-header mt-1 text-2xl font-black text-[var(--color-navy)] md:text-3xl">From Vibe to Value</h2>
-              <p className="mt-1 text-sm text-[var(--color-text-mid)]">Clean signal tiles for meta reads, market checks, and matchup decisions.</p>
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Grand Line Signal</p>
+              <h2 className="manga-section-header mt-1 text-2xl font-black text-[var(--color-navy)] md:text-3xl">Live reads for the market, the meta, and the matchups.</h2>
+              <p className="mt-1 text-sm text-[var(--color-text-mid)]">Current signal for the cards climbing, the crews winning, and the pairings that matter right now.</p>
             </div>
             <Link href="/matchups" className="hidden items-center gap-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-text-light)] hover:text-[var(--color-navy)] md:inline-flex">
               Open Full Matrix <ArrowRight className="h-3.5 w-3.5" />
