@@ -997,16 +997,23 @@ export default function MatchupsPageClient({
               ))}
             </div>
 
-            <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl overflow-hidden hidden md:block">
+            <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(27,40,56,0.08)] hidden md:block">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr>
-                      <th className="p-3 text-left text-[var(--color-text-light)] text-xs sticky top-0 left-0 bg-[var(--color-parchment)] z-30 min-w-[120px] border-b border-r border-[var(--color-parchment-dark)]">
+                      <th className="p-3 text-left text-[var(--color-text-light)] text-xs sticky top-0 left-0 bg-[var(--color-parchment)] z-30 min-w-[120px] border-b border-r border-[rgba(209,91,58,0.24)] shadow-[inset_0_-1px_0_rgba(209,91,58,0.14)]">
                         Deck ↓ vs →
                       </th>
                       {matrixDecks.map((deck) => (
-                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 border-b border-[var(--color-parchment-dark)] ${hoverColId === deck.id ? "bg-[var(--color-cream)]" : "bg-[var(--color-parchment)]"}`}>
+                        <th
+                          key={deck.id}
+                          className={`p-2 min-w-[64px] sticky top-0 z-20 border-b border-l border-[rgba(212,160,84,0.2)] transition-colors ${
+                            hoverColId === deck.id
+                              ? "bg-[rgba(209,91,58,0.1)] shadow-[inset_0_-1px_0_rgba(209,91,58,0.35)]"
+                              : "bg-[var(--color-parchment)]"
+                          }`}
+                        >
                           <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
                             onMouseEnter={() => { setHoverColId(deck.id); setHoverRowId(null); }}
                             onMouseLeave={() => { setHoverColId(null); setHoverRowId(null); }}
@@ -1023,7 +1030,13 @@ export default function MatchupsPageClient({
                   <tbody>
                     {matrixDecks.map((rowDeck) => (
                       <motion.tr layout key={rowDeck.id} className="border-t border-[var(--color-parchment-dark)]/50">
-                        <td className={`p-2 sticky left-0 z-10 border-r border-[var(--color-parchment-dark)] ${hoverRowId === rowDeck.id ? "bg-[var(--color-cream)]" : "bg-[var(--color-parchment)]"}`}>
+                        <td
+                          className={`p-2 sticky left-0 z-10 border-r border-[rgba(212,160,84,0.28)] transition-colors ${
+                            hoverRowId === rowDeck.id
+                              ? "bg-[rgba(209,91,58,0.1)] shadow-[inset_-1px_0_0_rgba(209,91,58,0.35)]"
+                              : "bg-[var(--color-parchment)]"
+                          }`}
+                        >
                           <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                             onMouseEnter={() => { setHoverRowId(rowDeck.id); setHoverColId(null); }}
                             onMouseLeave={() => { setHoverRowId(null); setHoverColId(null); }}
@@ -1039,13 +1052,28 @@ export default function MatchupsPageClient({
                         {matrixDecks.map((colDeck) => {
                           const rate = rowDeck.matchups[colDeck.id] ?? 50;
                           const isSelf = rowDeck.id === colDeck.id;
+                          const isHoveredRow = hoverRowId === rowDeck.id;
+                          const isHoveredCol = hoverColId === colDeck.id;
+                          const isCrosshair = isHoveredRow || isHoveredCol;
+                          const isFocusCell = isHoveredRow && isHoveredCol;
                           return (
-                            <td key={colDeck.id} className="p-1">
+                            <td
+                              key={colDeck.id}
+                              className={`p-1 border-l border-t border-[rgba(232,223,208,0.78)] transition-colors ${
+                                isCrosshair ? "bg-[rgba(209,91,58,0.07)]" : "bg-transparent"
+                              } ${isFocusCell ? "bg-[rgba(209,91,58,0.12)]" : ""}`}
+                            >
                               {isSelf
-                                ? <div className="w-full h-9 flex items-center justify-center text-[var(--color-text-light)]/40">—</div>
+                                ? <div className={`w-full h-9 flex items-center justify-center rounded-lg text-[var(--color-text-light)]/40 ${isCrosshair ? "border border-dashed border-[rgba(209,91,58,0.24)]" : ""}`}>—</div>
                                 : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${(hoverRowId === rowDeck.id || hoverColId === colDeck.id) ? "ring-1 ring-[var(--color-gold)]" : ""}`}
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all ${getHeatCellClass(rate)} ${
+                                      isFocusCell
+                                        ? "relative z-10 scale-[1.06] ring-2 ring-[rgba(209,91,58,0.75)] shadow-[0_0_0_1px_rgba(245,239,227,0.88),0_14px_28px_rgba(27,40,56,0.2)]"
+                                        : isCrosshair
+                                          ? "relative z-[1] ring-1 ring-[rgba(209,91,58,0.32)] shadow-[0_8px_18px_rgba(27,40,56,0.1)]"
+                                          : "hover:scale-[1.04] hover:z-10"
+                                    }`}
                                     onMouseEnter={() => { setHoverRowId(rowDeck.id); setHoverColId(colDeck.id); }}
                                     onMouseLeave={() => { setHoverRowId(null); setHoverColId(null); }}>
                                     {rate}%
