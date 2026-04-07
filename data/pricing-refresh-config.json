@@ -1,0 +1,10 @@
+{
+  "newestSets": [
+    "OP15",
+    "EB04",
+    "OP14"
+  ],
+  "perRunBudget": 550,
+  "hardStopBudget": 650,
+  "hotReserve": 400
+}
