@@ -91,7 +91,7 @@ export function buildHomeBountyStateFromMarketWatch(payload: HomeBountyWatchPayl
         name,
         displayId: cardId,
         cardId,
-        imageUrl: item?.imageUrl ? String(item.imageUrl) : undefined,
+        imageUrl: `/api/card-image?id=${encodeURIComponent(cardId)}`,
         price: Number(item?.currentPrice) || 0,
         delta: Number(item?.dailyChangePct) || 0,
         href: `/cards/${encodeURIComponent(cardId)}`,
