@@ -560,7 +560,7 @@ export default function MatchupsPageClient({
             exit={{ opacity: 0, y: -4 }}
             className="flex"
           >
-            <div className="inline-flex items-center gap-3 rounded-full border border-[#F0C040]/25 bg-[#120f17]/90 px-4 py-2 shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-md">
+            <div className="inline-flex items-center gap-3 rounded-full border border-[#F0C040]/25 bg-[var(--color-parchment)] px-4 py-2 shadow-[0_12px_28px_rgba(42,33,24,0.14)]">
               <LogPoseLoader compact />
               <div>
                 <p className="text-sm font-black text-[var(--color-navy)]">{refreshCopy.title}</p>
@@ -594,9 +594,9 @@ export default function MatchupsPageClient({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08 }}
-            className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6"
+            className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-[linear-gradient(180deg,rgba(245,239,227,0.98),rgba(250,247,242,0.98))] p-5 md:p-6"
           >
-            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(240,192,64,0.15),transparent_45%),radial-gradient(circle_at_90%_75%,rgba(220,38,38,0.18),transparent_48%)]" />
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_15%_20%,rgba(240,192,64,0.15),transparent_45%),radial-gradient(circle_at_90%_75%,rgba(212,160,84,0.14),transparent_48%)]" />
             <div className="relative grid gap-4 md:grid-cols-3">
               <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                 <p className="text-[11px] tracking-[0.18em] uppercase text-[var(--color-text-light)]">Flagship deck</p>
@@ -608,7 +608,7 @@ export default function MatchupsPageClient({
                 <p className="mt-2 text-lg font-black text-[var(--color-navy)] truncate">
                   {strongestEdge ? `${shortDeckName(strongestEdge.attacker.name)} → ${shortDeckName(strongestEdge.defender.name)}` : "—"}
                 </p>
-                <p className="text-sm text-green-300">{strongestEdge ? `${strongestEdge.rate}% projected win` : "No edge data"}</p>
+                <p className="text-sm text-emerald-700">{strongestEdge ? `${strongestEdge.rate}% projected win` : "No edge data"}</p>
               </div>
               <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
                 <p className="text-[11px] tracking-[0.18em] uppercase text-[var(--color-text-light)]">Data confidence</p>
@@ -700,14 +700,14 @@ export default function MatchupsPageClient({
               Clear
             </button>
             {leaderAQuery.trim().length >= 2 && filteredLeadersA.length > 0 && (
-              <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
+              <div className="absolute z-20 mt-1 w-full rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] max-h-64 overflow-y-auto shadow-[0_12px_30px_rgba(42,33,24,0.14)]">
                 {filteredLeadersA.map((d, i) => (
                   <button
                     key={d.id}
                     onClick={() => selectLeader("a", d.id)}
-                    className={`w-full text-left px-3 py-2 text-sm text-white ${i === activeIndexA ? "bg-white/15" : "hover:bg-white/10"}`}
+                    className={`w-full text-left px-3 py-2 text-sm ${i === activeIndexA ? "bg-[var(--color-cream)] text-[var(--color-text-dark)]" : "text-[var(--color-text-mid)] hover:bg-[var(--color-cream)] hover:text-[var(--color-text-dark)]"}`}
                   >
-                    {d.name} <span className="text-white/40">({d.id})</span>
+                    {d.name} <span className="text-[var(--color-text-light)]">({d.id})</span>
                   </button>
                 ))}
               </div>
@@ -735,14 +735,14 @@ export default function MatchupsPageClient({
               Clear
             </button>
             {leaderBQuery.trim().length >= 2 && filteredLeadersB.length > 0 && (
-              <div className="absolute z-20 mt-1 w-full rounded-lg border border-white/15 bg-[#0f172a] max-h-64 overflow-y-auto">
+              <div className="absolute z-20 mt-1 w-full rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] max-h-64 overflow-y-auto shadow-[0_12px_30px_rgba(42,33,24,0.14)]">
                 {filteredLeadersB.map((d, i) => (
                   <button
                     key={d.id}
                     onClick={() => selectLeader("b", d.id)}
-                    className={`w-full text-left px-3 py-2 text-sm text-white ${i === activeIndexB ? "bg-white/15" : "hover:bg-white/10"}`}
+                    className={`w-full text-left px-3 py-2 text-sm ${i === activeIndexB ? "bg-[var(--color-cream)] text-[var(--color-text-dark)]" : "text-[var(--color-text-mid)] hover:bg-[var(--color-cream)] hover:text-[var(--color-text-dark)]"}`}
                   >
-                    {d.name} <span className="text-white/40">({d.id})</span>
+                    {d.name} <span className="text-[var(--color-text-light)]">({d.id})</span>
                   </button>
                 ))}
               </div>
@@ -774,14 +774,14 @@ export default function MatchupsPageClient({
         )}
 
         {lookupLeaderCardId && lookupOpponentCardId && (
-          <div className="relative overflow-hidden rounded-2xl border border-[var(--theme-ring)] bg-black/30 p-4">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(250,204,21,0.12),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(239,68,68,0.12),transparent_45%)]" />
+          <div className="relative overflow-hidden rounded-2xl border border-[#F0C040]/25 bg-[var(--color-parchment)] p-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(250,204,21,0.12),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(212,160,84,0.1),transparent_45%)]" />
             <div className="relative z-10 grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
               <div className="flex items-center gap-3">
-                <img src={`/api/card-image?id=${lookupLeaderCardId}`} alt={labelForLeader(lookupLeaderCardId)} className="h-20 w-14 rounded-lg border border-white/15" />
+                <img src={`/api/card-image?id=${lookupLeaderCardId}`} alt={labelForLeader(lookupLeaderCardId)} className="h-20 w-14 rounded-lg border border-[var(--color-parchment-dark)]" />
                 <div>
-                  <p className="text-sm font-bold text-white">{labelForLeader(lookupLeaderCardId)}</p>
-                  <p className="text-xs text-white/50">Leader A</p>
+                  <p className="text-sm font-bold text-[var(--color-text-dark)]">{labelForLeader(lookupLeaderCardId)}</p>
+                  <p className="text-xs text-[var(--color-text-light)]">Leader A</p>
                 </div>
               </div>
 
@@ -797,7 +797,7 @@ export default function MatchupsPageClient({
                   >
                     {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
                   </motion.span>
-                  <span className="text-white/35">vs</span>
+                  <span className="text-[var(--color-text-light)]">vs</span>
                   <motion.span
                     key={`b-${reverseRate}`}
                     initial={{ opacity: 0, y: 4 }}
@@ -807,23 +807,23 @@ export default function MatchupsPageClient({
                     {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
                   </motion.span>
                 </div>
-                <div className="mx-auto mt-2 h-1.5 w-44 overflow-hidden rounded-full bg-white/10">
+                <div className="mx-auto mt-2 h-1.5 w-44 overflow-hidden rounded-full bg-[var(--color-parchment-dark)]/35">
                   <div className="h-full bg-gradient-to-r from-green-400 to-red-400" style={{ width: `${Math.max(0, Math.min(100, lookupRate ?? 50))}%` }} />
                 </div>
               </div>
 
               <div className="flex items-center justify-start gap-3 md:justify-end">
                 <div className="text-right">
-                  <p className="text-sm font-bold text-white">{labelForLeader(lookupOpponentCardId)}</p>
-                  <p className="text-xs text-white/50">Leader B</p>
+                  <p className="text-sm font-bold text-[var(--color-text-dark)]">{labelForLeader(lookupOpponentCardId)}</p>
+                  <p className="text-xs text-[var(--color-text-light)]">Leader B</p>
                 </div>
-                <img src={`/api/card-image?id=${lookupOpponentCardId}`} alt={labelForLeader(lookupOpponentCardId)} className="h-20 w-14 rounded-lg border border-white/15" />
+                <img src={`/api/card-image?id=${lookupOpponentCardId}`} alt={labelForLeader(lookupOpponentCardId)} className="h-20 w-14 rounded-lg border border-[var(--color-parchment-dark)]" />
               </div>
             </div>
 
             <div className="mt-3 space-y-3 text-xs">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-md border border-white/20 px-2 py-1 text-white/75">
+                <span className="rounded-md border border-[var(--color-parchment-dark)] px-2 py-1 text-[var(--color-text-mid)]">
                   Confidence: {(() => {
                     const m = Math.min(lookupMatches ?? 0, reverseMatches ?? lookupMatches ?? 0);
                     if (!m) return "Unknown";
@@ -832,9 +832,9 @@ export default function MatchupsPageClient({
                     return "Low";
                   })()}
                 </span>
-                {lookupMatches != null ? <span className="text-white/45">matches: {lookupMatches}</span> : null}
+                {lookupMatches != null ? <span className="text-[var(--color-text-light)]">matches: {lookupMatches}</span> : null}
                 {lookupFirstGames != null || lookupSecondGames != null ? (
-                  <span className="text-white/45">
+                  <span className="text-[var(--color-text-light)]">
                     side sample: {(lookupFirstGames ?? 0).toLocaleString()} first · {(lookupSecondGames ?? 0).toLocaleString()} second
                   </span>
                 ) : null}
@@ -849,52 +849,52 @@ export default function MatchupsPageClient({
 
               {(lookupFirstRate != null || lookupSecondRate != null || reverseFirstRate != null || reverseSecondRate != null) && (
                 <div className="grid gap-2 md:grid-cols-2">
-                  <div className="rounded-xl border border-white/10 bg-black/20 p-3">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">{labelForLeader(lookupLeaderCardId)} side split</p>
+                  <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">{labelForLeader(lookupLeaderCardId)} side split</p>
                     <div className="mt-2 grid grid-cols-2 gap-2">
-                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
-                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going First</p>
+                      <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going First</p>
                         <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(lookupFirstRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
                           {lookupFirstRate != null ? `${lookupFirstRate.toFixed(2)}%` : "—"}
                         </p>
-                        <p className="mt-1 text-[10px] text-white/45">{lookupFirstGames != null ? `${lookupFirstGames.toLocaleString()} games` : "—"}</p>
+                        <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{lookupFirstGames != null ? `${lookupFirstGames.toLocaleString()} games` : "—"}</p>
                       </div>
-                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
-                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going Second</p>
+                      <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going Second</p>
                         <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(lookupSecondRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
                           {lookupSecondRate != null ? `${lookupSecondRate.toFixed(2)}%` : "—"}
                         </p>
-                        <p className="mt-1 text-[10px] text-white/45">{lookupSecondGames != null ? `${lookupSecondGames.toLocaleString()} games` : "—"}</p>
+                        <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{lookupSecondGames != null ? `${lookupSecondGames.toLocaleString()} games` : "—"}</p>
                       </div>
                     </div>
                     {leaderSideEdge != null ? (
-                      <p className="mt-2 text-[11px] text-white/65">
-                        Side edge: <span className={leaderSideEdge >= 0 ? "text-emerald-300" : "text-orange-300"}>{leaderSideEdge >= 0 ? `+${leaderSideEdge}` : leaderSideEdge}pp</span> {leaderSideEdge >= 0 ? "when going first" : "when going second"}
+                      <p className="mt-2 text-[11px] text-[var(--color-text-mid)]">
+                        Side edge: <span className={leaderSideEdge >= 0 ? "text-emerald-700" : "text-orange-700"}>{leaderSideEdge >= 0 ? `+${leaderSideEdge}` : leaderSideEdge}pp</span> {leaderSideEdge >= 0 ? "when going first" : "when going second"}
                       </p>
                     ) : null}
                   </div>
 
-                  <div className="rounded-xl border border-white/10 bg-black/20 p-3">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/45">{labelForLeader(lookupOpponentCardId)} side split</p>
+                  <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">{labelForLeader(lookupOpponentCardId)} side split</p>
                     <div className="mt-2 grid grid-cols-2 gap-2">
-                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
-                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going First</p>
+                      <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going First</p>
                         <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(reverseFirstRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
                           {reverseFirstRate != null ? `${reverseFirstRate.toFixed(2)}%` : "—"}
                         </p>
-                        <p className="mt-1 text-[10px] text-white/45">{reverseFirstGames != null ? `${reverseFirstGames.toLocaleString()} games` : "—"}</p>
+                        <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{reverseFirstGames != null ? `${reverseFirstGames.toLocaleString()} games` : "—"}</p>
                       </div>
-                      <div className="rounded-lg border border-white/10 bg-black/30 px-2 py-1.5">
-                        <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Going Second</p>
+                      <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
+                        <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going Second</p>
                         <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(reverseSecondRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
                           {reverseSecondRate != null ? `${reverseSecondRate.toFixed(2)}%` : "—"}
                         </p>
-                        <p className="mt-1 text-[10px] text-white/45">{reverseSecondGames != null ? `${reverseSecondGames.toLocaleString()} games` : "—"}</p>
+                        <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{reverseSecondGames != null ? `${reverseSecondGames.toLocaleString()} games` : "—"}</p>
                       </div>
                     </div>
                     {opponentSideEdge != null ? (
-                      <p className="mt-2 text-[11px] text-white/65">
-                        Side edge: <span className={opponentSideEdge >= 0 ? "text-emerald-300" : "text-orange-300"}>{opponentSideEdge >= 0 ? `+${opponentSideEdge}` : opponentSideEdge}pp</span> {opponentSideEdge >= 0 ? "when going first" : "when going second"}
+                      <p className="mt-2 text-[11px] text-[var(--color-text-mid)]">
+                        Side edge: <span className={opponentSideEdge >= 0 ? "text-emerald-700" : "text-orange-700"}>{opponentSideEdge >= 0 ? `+${opponentSideEdge}` : opponentSideEdge}pp</span> {opponentSideEdge >= 0 ? "when going first" : "when going second"}
                       </p>
                     ) : null}
                   </div>
@@ -902,9 +902,9 @@ export default function MatchupsPageClient({
               )}
 
               {(overallEdge != null || leaderPreferredSide || opponentPreferredSide) && (
-                <div className="rounded-xl border border-[var(--theme-ring)]/60 bg-black/35 p-3">
+                <div className="rounded-xl border border-[#F0C040]/25 bg-[var(--color-cream)] p-3">
                   <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">Matchup Analysis</p>
-                  <ul className="mt-2 space-y-1.5 text-[12px] text-white/75">
+                  <ul className="mt-2 space-y-1.5 text-[12px] text-[var(--color-text-mid)]">
                     {overallEdge != null ? (
                       <li>
                         Overall edge: <span className={overallEdge >= 0 ? "text-emerald-300 font-bold" : "text-orange-300 font-bold"}>{overallEdge >= 0 ? `Leader A +${overallEdge}pp` : `Leader B +${Math.abs(overallEdge)}pp`}</span>
@@ -921,7 +921,7 @@ export default function MatchupsPageClient({
                       </li>
                     ) : leaderPreferredSide === "neutral" ? (
                       <li>
-                        {labelForLeader(lookupLeaderCardId)} shows <span className="font-bold text-white">minimal side dependency</span> (first/second nearly equal).
+                        {labelForLeader(lookupLeaderCardId)} shows <span className="font-bold text-[var(--color-text-dark)]">minimal side dependency</span> (first/second nearly equal).
                       </li>
                     ) : null}
 
@@ -936,7 +936,7 @@ export default function MatchupsPageClient({
                     ) : null}
 
                     <li>
-                      Directional confidence: <span className="font-bold text-white">{directionalConfidence}</span>
+                      Directional confidence: <span className="font-bold text-[var(--color-text-dark)]">{directionalConfidence}</span>
                       {directionalMinSample != null ? ` (min side sample ${directionalMinSample.toLocaleString()} games)` : ""}
                       {sideSensitive ? " · side-sensitive matchup" : ""}
                     </li>
@@ -1002,19 +1002,19 @@ export default function MatchupsPageClient({
                 <table className="w-full">
                   <thead>
                     <tr>
-                      <th className="p-3 text-left text-white/30 text-xs sticky top-0 left-0 bg-[#0a0f1e] z-30 min-w-[120px]">
+                      <th className="p-3 text-left text-[var(--color-text-light)] text-xs sticky top-0 left-0 bg-[var(--color-parchment)] z-30 min-w-[120px] border-b border-r border-[var(--color-parchment-dark)]">
                         Deck ↓ vs →
                       </th>
                       {matrixDecks.map((deck) => (
-                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 ${hoverColId === deck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
+                        <th key={deck.id} className={`p-2 min-w-[64px] sticky top-0 z-20 border-b border-[var(--color-parchment-dark)] ${hoverColId === deck.id ? "bg-[var(--color-cream)]" : "bg-[var(--color-parchment)]"}`}>
                           <button onClick={() => { setSelectedDeckId(deck.id); setView("detail"); }}
                             onMouseEnter={() => { setHoverColId(deck.id); setHoverRowId(null); }}
                             onMouseLeave={() => { setHoverColId(null); setHoverRowId(null); }}
                             className="flex flex-col items-center gap-1 group">
                             <img src={`/api/card-image?id=${deck.cardId}`} alt={deck.name}
                               onClick={e => { e.stopPropagation(); openDeckModal(deck); }}
-                              className="w-10 h-14 object-cover rounded-lg border border-white/10 group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105 cursor-zoom-in" />
-                            <span className="text-[10px] text-white/30 truncate max-w-[70px]">{shortDeckName(deck.name)}</span>
+                              className="w-10 h-14 object-cover rounded-lg border border-[var(--color-parchment-dark)] group-hover:border-[#F0C040]/50 transition-all group-hover:scale-105 cursor-zoom-in" />
+                            <span className="text-[10px] text-[var(--color-text-light)] truncate max-w-[70px]">{shortDeckName(deck.name)}</span>
                           </button>
                         </th>
                       ))}
@@ -1022,16 +1022,16 @@ export default function MatchupsPageClient({
                   </thead>
                   <tbody>
                     {matrixDecks.map((rowDeck) => (
-                      <motion.tr layout key={rowDeck.id} className="border-t border-white/5">
-                        <td className={`p-2 sticky left-0 z-10 ${hoverRowId === rowDeck.id ? "bg-[#121b2f]" : "bg-[#0a0f1e]"}`}>
+                      <motion.tr layout key={rowDeck.id} className="border-t border-[var(--color-parchment-dark)]/50">
+                        <td className={`p-2 sticky left-0 z-10 border-r border-[var(--color-parchment-dark)] ${hoverRowId === rowDeck.id ? "bg-[var(--color-cream)]" : "bg-[var(--color-parchment)]"}`}>
                           <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                             onMouseEnter={() => { setHoverRowId(rowDeck.id); setHoverColId(null); }}
                             onMouseLeave={() => { setHoverRowId(null); setHoverColId(null); }}
                             className="flex items-center gap-2 group">
                             <img src={`/api/card-image?id=${rowDeck.cardId}`} alt={rowDeck.name}
-                              className="w-8 h-11 object-cover rounded border border-white/10 group-hover:border-[#F0C040]/50 transition-all" />
+                              className="w-8 h-11 object-cover rounded border border-[var(--color-parchment-dark)] group-hover:border-[#F0C040]/50 transition-all" />
                             <div className="text-left">
-                              <div className="text-xs text-white font-semibold leading-tight">{shortDeckName(rowDeck.name)}</div>
+                              <div className="text-xs text-[var(--color-text-dark)] font-semibold leading-tight">{shortDeckName(rowDeck.name)}</div>
                               <span className={`text-[10px] px-1 rounded border font-bold ${TIER_COLORS[rowDeck.tier]}`}>{rowDeck.tier}</span>
                             </div>
                           </button>
@@ -1042,10 +1042,10 @@ export default function MatchupsPageClient({
                           return (
                             <td key={colDeck.id} className="p-1">
                               {isSelf
-                                ? <div className="w-full h-9 flex items-center justify-center text-white/10">—</div>
+                                ? <div className="w-full h-9 flex items-center justify-center text-[var(--color-text-light)]/40">—</div>
                                 : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${(hoverRowId === rowDeck.id || hoverColId === colDeck.id) ? "ring-1 ring-[var(--theme-accent-2)]" : ""}`}
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all hover:scale-110 hover:z-10 ${getHeatCellClass(rate)} ${(hoverRowId === rowDeck.id || hoverColId === colDeck.id) ? "ring-1 ring-[var(--color-gold)]" : ""}`}
                                     onMouseEnter={() => { setHoverRowId(rowDeck.id); setHoverColId(colDeck.id); }}
                                     onMouseLeave={() => { setHoverRowId(null); setHoverColId(null); }}>
                                     {rate}%
@@ -1125,7 +1125,7 @@ export default function MatchupsPageClient({
 
           {/* Mobile one-thumb view switcher */}
           <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
-            <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-[var(--color-parchment-dark)] rounded-2xl p-2 shadow-2xl">
+            <div className="bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] rounded-2xl p-2 shadow-[0_12px_30px_rgba(42,33,24,0.18)]">
               <div className="grid grid-cols-3 gap-2">
                 {([
                   { id: "matrix", label: "Matrix" },
@@ -1164,16 +1164,16 @@ export default function MatchupsPageClient({
                 aria-live="polite"
                 aria-label={refreshCopy.ariaLabel}
                 data-matchup-loading="true"
-                className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-[#F0C040]/22 bg-[linear-gradient(145deg,rgba(15,20,36,0.92),rgba(26,14,24,0.94))] px-5 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+                className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-[#F0C040]/22 bg-[linear-gradient(145deg,rgba(245,239,227,0.98),rgba(250,247,242,0.98))] px-5 py-4 shadow-[0_24px_60px_rgba(42,33,24,0.18)]"
               >
-                <div className="absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_20%_18%,rgba(240,192,64,0.18),transparent_38%),radial-gradient(circle_at_80%_78%,rgba(220,38,38,0.14),transparent_40%)]" />
+                <div className="absolute inset-0 rounded-[28px] bg-[radial-gradient(circle_at_20%_18%,rgba(240,192,64,0.18),transparent_38%),radial-gradient(circle_at_80%_78%,rgba(212,160,84,0.12),transparent_40%)]" />
                 <div className="relative flex items-center gap-4">
                   <LogPoseLoader />
                   <div>
                     <p className="text-sm font-black uppercase tracking-[0.18em] text-[#F0C040]/75">Current Route</p>
-                    <p className="mt-1 text-xl font-black text-white">{refreshCopy.title}</p>
+                    <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{refreshCopy.title}</p>
                     <p className="mt-1 text-sm text-[#F0C040]">{refreshCopy.subtitle}</p>
-                    <p className="mt-2 text-xs text-white/55">Hold course. The current chart stays visible until the new route is ready.</p>
+                    <p className="mt-2 text-xs text-[var(--color-text-mid)]">Hold course. The current chart stays visible until the new route is ready.</p>
                   </div>
                 </div>
               </div>

@@ -26,15 +26,26 @@ export default function LiveStatusStrip({
   formatLabel = "OP14",
 }: LiveStatusStripProps) {
   return (
-    <div className="grid gap-2 rounded-xl border border-white/10 bg-black/20 p-3 text-xs text-white/75 md:grid-cols-4">
-      <div><span className="text-white/45">Status</span><p className="font-bold text-[var(--theme-accent-2)]">● {sourceLabel}</p></div>
-      <div><span className="text-white/45">Updated</span><p className="font-bold">{ago(updatedAt)}</p></div>
+    <div className="grid gap-2 rounded-[1.4rem] border border-[var(--color-parchment-dark)] bg-[linear-gradient(180deg,rgba(245,239,227,0.98),rgba(250,247,242,0.98))] p-4 text-xs text-[var(--color-text-mid)] shadow-[0_12px_30px_rgba(42,33,24,0.08)] md:grid-cols-4">
       <div>
-        <span className="text-white/45">Sample</span>
-        <p className="font-bold">{sampleText || (sampleGames ? `${sampleGames.toLocaleString()} games` : "—")}</p>
-        {sampleCaption ? <p className="text-[11px] text-white/40">{sampleCaption}</p> : null}
+        <span className="text-[var(--color-text-light)]">Status</span>
+        <p className="font-bold text-[var(--color-text-dark)]">
+          <span className="text-[var(--color-gold-dark)]">●</span> {sourceLabel}
+        </p>
       </div>
-      <div><span className="text-white/45">Format</span><p className="font-bold">{formatLabel}</p></div>
+      <div>
+        <span className="text-[var(--color-text-light)]">Updated</span>
+        <p className="font-bold text-[var(--color-text-dark)]">{ago(updatedAt)}</p>
+      </div>
+      <div>
+        <span className="text-[var(--color-text-light)]">Sample</span>
+        <p className="font-bold text-[var(--color-text-dark)]">{sampleText || (sampleGames ? `${sampleGames.toLocaleString()} games` : "—")}</p>
+        {sampleCaption ? <p className="text-[11px] text-[var(--color-text-light)]">{sampleCaption}</p> : null}
+      </div>
+      <div>
+        <span className="text-[var(--color-text-light)]">Format</span>
+        <p className="font-bold text-[var(--color-text-dark)]">{formatLabel}</p>
+      </div>
     </div>
   );
 }
