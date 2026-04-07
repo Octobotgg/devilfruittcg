@@ -256,24 +256,24 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.08 }}
-        className="relative overflow-hidden rounded-3xl border border-[#F0C040]/25 bg-gradient-to-br from-[#1a1325]/90 via-[#111a2e]/90 to-[#221212]/90 p-5 md:p-6"
+        className="relative overflow-hidden rounded-3xl border border-[var(--color-parchment-dark)] bg-[linear-gradient(135deg,rgba(245,239,227,0.96),rgba(250,247,242,0.98))] p-5 md:p-6 shadow-[0_20px_48px_rgba(42,33,24,0.1)]"
       >
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.16),transparent_46%),radial-gradient(circle_at_86%_78%,rgba(59,130,246,0.16),transparent_48%)]" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_12%_18%,rgba(240,192,64,0.14),transparent_44%),radial-gradient(circle_at_86%_78%,rgba(209,91,58,0.1),transparent_48%)]" />
         <div className="relative grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Deck to beat</p>
-            <p className="mt-2 text-lg font-black text-white">{decks[0]?.name ?? "—"}</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[rgba(250,247,242,0.82)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <p className="text-[11px] tracking-[0.16em] uppercase text-[var(--color-text-light)]">Deck to beat</p>
+            <p className="mt-2 text-lg font-black text-[var(--color-navy)]">{decks[0]?.name ?? "—"}</p>
             <p className="text-sm text-[#F0C040]">{decks[0]?.winRate != null ? `${decks[0].winRate}% win rate` : "Win rate not provided by source"}</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Meta pressure</p>
-            <p className="mt-2 text-lg font-black text-white">{decks[0]?.popularity ?? "—"}% field share</p>
-            <p className="text-sm text-white/50">Top archetype representation</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[rgba(250,247,242,0.82)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <p className="text-[11px] tracking-[0.16em] uppercase text-[var(--color-text-light)]">Meta pressure</p>
+            <p className="mt-2 text-lg font-black text-[var(--color-navy)]">{decks[0]?.popularity ?? "—"}% field share</p>
+            <p className="text-sm text-[var(--color-text-mid)]">Top archetype representation</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-            <p className="text-[11px] tracking-[0.16em] uppercase text-white/40">Source mode</p>
-            <p className="mt-2 text-lg font-black text-white">{isSeeded ? "Fallback" : "Live"}</p>
-            <p className="text-sm text-white/50">Updated {lastSuccessAt ? new Date(lastSuccessAt).toLocaleDateString() : "—"}</p>
+          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[rgba(250,247,242,0.82)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <p className="text-[11px] tracking-[0.16em] uppercase text-[var(--color-text-light)]">Source mode</p>
+            <p className="mt-2 text-lg font-black text-[var(--color-navy)]">{isSeeded ? "Fallback" : "Live"}</p>
+            <p className="text-sm text-[var(--color-text-mid)]">Updated {lastSuccessAt ? new Date(lastSuccessAt).toLocaleDateString() : "—"}</p>
           </div>
         </div>
       </motion.div>
@@ -476,40 +476,40 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
       </motion.div>
 
       {activeDeck && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end md:items-center justify-center p-3" onClick={closeDecklist}>
-          <div className="w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/15 bg-[#0c1324] p-4 md:p-6" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 bg-[rgba(42,33,24,0.38)] backdrop-blur-sm flex items-end md:items-center justify-center p-3" onClick={closeDecklist}>
+          <div className="w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 md:p-6 shadow-[0_28px_80px_rgba(42,33,24,0.28)]" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white text-lg md:text-xl font-black">{activeDeck.name} · Decklist</h3>
-              <button onClick={closeDecklist} className="text-white/60 hover:text-white">Close</button>
+              <h3 className="text-[var(--color-navy)] text-lg md:text-xl font-black">{activeDeck.name} · Decklist</h3>
+              <button onClick={closeDecklist} className="text-[var(--color-text-light)] hover:text-[var(--color-text-dark)]">Close</button>
             </div>
 
             {deckLoading ? (
-              <p className="text-white/50">Loading real tournament list…</p>
+              <p className="text-[var(--color-text-mid)]">Loading real tournament list…</p>
             ) : deckCards.length === 0 ? (
-              <p className="text-orange-300">No decklist found for this filter. Try Global region or another format.</p>
+              <p className="text-[var(--color-sunset)]">No decklist found for this filter. Try Global region or another format.</p>
             ) : (
               <div className="space-y-5">
                 <div>
-                  <h4 className="text-white font-bold mb-2">Recent Tournament Placings ({deckLists.length})</h4>
+                  <h4 className="text-[var(--color-navy)] font-bold mb-2">Recent Tournament Placings ({deckLists.length})</h4>
                   <div className="space-y-2">
                     {deckLists.slice(0, 8).map((l) => (
-                      <div key={l.listId} className="rounded-lg border border-white/10 bg-white/[0.03] p-2 text-sm">
-                        <div className="text-white font-semibold">{l.place} · {l.player}</div>
-                        <div className="text-white/50 text-xs">{l.tournament || "Tournament"} · {l.format} · list #{l.listId}</div>
+                      <div key={l.listId} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-sm">
+                        <div className="text-[var(--color-text-dark)] font-semibold">{l.place} · {l.player}</div>
+                        <div className="text-[var(--color-text-mid)] text-xs">{l.tournament || "Tournament"} · {l.format} · list #{l.listId}</div>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-white font-bold mb-2">Core Card Usage (across fetched lists)</h4>
+                  <h4 className="text-[var(--color-navy)] font-bold mb-2">Core Card Usage (across fetched lists)</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {deckUsage.slice(0, 20).map((u) => (
-                      <div key={u.id} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-2">
-                        <img src={u.imageUrl} alt={u.name} className="w-10 h-14 rounded border border-white/10 object-cover" />
+                      <div key={u.id} className="flex items-center gap-3 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2">
+                        <img src={u.imageUrl} alt={u.name} className="w-10 h-14 rounded border border-[var(--color-parchment-dark)] object-cover" />
                         <div className="min-w-0">
-                          <div className="text-white font-semibold text-sm truncate">{u.name}</div>
-                          <div className="text-white/50 text-xs">{u.id} · {u.usagePct}% lists · avg {u.avgQty}</div>
+                          <div className="text-[var(--color-text-dark)] font-semibold text-sm truncate">{u.name}</div>
+                          <div className="text-[var(--color-text-mid)] text-xs">{u.id} · {u.usagePct}% lists · avg {u.avgQty}</div>
                         </div>
                       </div>
                     ))}
@@ -517,14 +517,14 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
                 </div>
 
                 <div>
-                  <h4 className="text-white font-bold mb-2">Representative List</h4>
+                  <h4 className="text-[var(--color-navy)] font-bold mb-2">Representative List</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {deckCards.map((c, i) => (
-                      <div key={`${c.id}-${i}`} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-2">
-                        <img src={c.imageUrl} alt={c.name} className="w-10 h-14 rounded border border-white/10 object-cover" />
+                      <div key={`${c.id}-${i}`} className="flex items-center gap-3 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2">
+                        <img src={c.imageUrl} alt={c.name} className="w-10 h-14 rounded border border-[var(--color-parchment-dark)] object-cover" />
                         <div className="min-w-0">
-                          <div className="text-white font-semibold text-sm truncate">{c.name}</div>
-                          <div className="text-white/50 text-xs">{c.id} · x{c.count}</div>
+                          <div className="text-[var(--color-text-dark)] font-semibold text-sm truncate">{c.name}</div>
+                          <div className="text-[var(--color-text-mid)] text-xs">{c.id} · x{c.count}</div>
                         </div>
                       </div>
                     ))}
@@ -538,11 +538,11 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
 
       {/* Mobile one-thumb utility bar */}
       <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">
-        <div className="bg-[#0c1324]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl">
+        <div className="bg-[var(--color-cream)]/95 backdrop-blur-xl border border-[var(--color-parchment-dark)] rounded-2xl p-2 shadow-[0_18px_38px_rgba(42,33,24,0.18)]">
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="h-11 rounded-xl bg-white/5 border border-white/10 text-white/70 text-sm font-bold"
+              className="h-11 rounded-xl bg-[var(--color-parchment)] border border-[var(--color-parchment-dark)] text-[var(--color-text-mid)] text-sm font-bold"
             >
               Back to Top
             </button>
