@@ -1170,7 +1170,7 @@ export default function MatchupsPageClient({
                 <div className="relative flex items-center gap-4">
                   <LogPoseLoader />
                   <div>
-                    <p className="text-sm font-black uppercase tracking-[0.18em] text-[#F0C040]/75">Log Pose</p>
+                    <p className="text-sm font-black uppercase tracking-[0.18em] text-[#F0C040]/75">Current Route</p>
                     <p className="mt-1 text-xl font-black text-white">{refreshCopy.title}</p>
                     <p className="mt-1 text-sm text-[#F0C040]">{refreshCopy.subtitle}</p>
                     <p className="mt-2 text-xs text-white/55">Hold course. The current chart stays visible until the new route is ready.</p>

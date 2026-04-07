@@ -367,7 +367,7 @@ export default function HomePageClient({
             </div>
 
             <div className="mt-5 flex flex-wrap items-start justify-between gap-4">
-              <BrandMark className="brand-lockup-large" subtitle="ONE PIECE TCG MARKET + META INTELLIGENCE" />
+              <BrandMark className="brand-lockup-large" subtitle="ONE PIECE TCG PRICES + META" />
               <div className="brand-proof-chip">
                 <span className="brand-proof-label">Fresh from the line</span>
                 <span className="brand-proof-value">{telemetryUpdatedAt ? ago(telemetryUpdatedAt) : "Live sync pending"}</span>
@@ -447,7 +447,7 @@ export default function HomePageClient({
           >
             <div className="flex items-center justify-between gap-4">
               <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
-                <Crown className="h-3.5 w-3.5" /> Wanted holo
+                <Crown className="h-3.5 w-3.5" /> Featured Card
               </div>
               <BrandMark variant="monogram" className="brand-mark-hero" />
             </div>
@@ -523,7 +523,7 @@ export default function HomePageClient({
                   className="captains-aura captains-aura-bottom"
                 >
                   <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold-dark)]" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.12em] text-[var(--color-text-mid)]">Foil-grade visual focus</span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.12em] text-[var(--color-text-mid)]">Card spotlight</span>
                 </motion.div>
               </div>
             </div>

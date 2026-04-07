@@ -301,13 +301,6 @@ p, .body-text {
   border-radius: 1rem;
 }
 
-/* ─── PREMIUM GLASS CARD ─────────────────────────── */
-.glass-card {
-  background: rgba(8,14,28,0.85);
-  border: 2px solid var(--manga-border);
-  border-top-color: var(--manga-border-bold);
-}
-
 /* ─── SCAN LINE ──────────────────────────────────── */
 @keyframes scan {
   0%   { transform: translateY(-100%); }
