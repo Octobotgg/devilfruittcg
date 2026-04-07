@@ -239,9 +239,9 @@ export default function CardDetailMarketPanel({
 
   if (loading) {
     return (
-      <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-5">
-        <div className="flex items-center gap-3 text-sm text-white/55">
-          <Loader2 className="h-4 w-4 animate-spin text-[#F0C040]" />
+      <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-5 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+        <div className="flex items-center gap-3 font-sans text-sm text-[#5a4e40]">
+          <Loader2 className="h-4 w-4 animate-spin text-[#d4a054]" />
           Loading market data for {cardName}...
         </div>
       </div>
@@ -250,9 +250,9 @@ export default function CardDetailMarketPanel({
 
   if (error) {
     return (
-      <div className="rounded-[28px] border border-red-500/25 bg-red-500/10 p-5">
-        <p className="text-lg font-black text-white">Market data unavailable</p>
-        <p className="mt-2 text-sm text-red-100/75">{error}</p>
+      <div className="rounded-[14px] border border-[#e6c7c1] bg-[#f8ece9] p-5">
+        <p className="font-sans text-lg font-black text-[#2a2118]">Market data unavailable</p>
+        <p className="mt-2 font-sans text-sm text-[#8f4b42]">{error}</p>
       </div>
     );
   }
@@ -280,7 +280,6 @@ export default function CardDetailMarketPanel({
   const weeklyTrendValue = justTcgAvailable && typeof tcgPrice.priceChange7d === "number" ? tcgPrice.priceChange7d : null;
   const trendDirection = weeklyTrendValue !== null ? trendDirectionFromValue(weeklyTrendValue) : showLegacySnapshot ? market.trend.direction : "flat";
   const trendValueLabel = weeklyTrendValue !== null ? formatTrendValue(weeklyTrendValue) : showLegacySnapshot ? String(market.trend.percent) : "0";
-  const trendTone = trendDirection === "up" ? "text-emerald-300" : trendDirection === "down" ? "text-red-300" : "text-white/55";
   const headlinePrice = pricingState.headlinePrice;
   const priceHistory = justTcgAvailable ? tcgDetail?.points || [] : showLegacySnapshot ? history : [];
   const historyHasEnoughPoints = priceHistory.length > 1;
@@ -292,14 +291,14 @@ export default function CardDetailMarketPanel({
 
   return (
     <div className="space-y-5">
-      <div className="rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(240,192,64,0.14),transparent_36%),rgba(255,255,255,0.03)] p-5">
+      <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-6 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[#F0C040]">Market Snapshot</p>
-            <p className="mt-2 text-4xl font-black text-[#F0C040]">
+            <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a7e70]">TCG Market</p>
+            <p className="mt-2 font-sans text-4xl font-bold text-[#2a2118]">
               {typeof headlinePrice === "number" ? `$${headlinePrice.toFixed(2)}` : "Unpriced"}
             </p>
-            <p className="mt-1 text-sm text-white/45">
+            <p className="mt-1 font-sans text-sm text-[#8a7e70]">
               {justTcgAvailable
                 ? `TCG Market · Updated ${updatedLabel}`
                 : showLegacySnapshot
@@ -308,7 +307,15 @@ export default function CardDetailMarketPanel({
             </p>
           </div>
 
-          <div className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-2 text-sm font-bold ${trendTone}`}>
+          <div
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 font-sans text-sm font-bold ${
+              trendDirection === "up"
+                ? "border-[#b8d5be] bg-[#edf6ef] text-[#4a8c5c]"
+                : trendDirection === "down"
+                  ? "border-[#e7c1ba] bg-[#faece9] text-[#c0392b]"
+                  : "border-[#ddd3c4] bg-[#faf7f2] text-[#5a4e40]"
+            }`}
+          >
             <TrendIcon direction={trendDirection} />
             {trendValueLabel}% this week
           </div>
@@ -321,27 +328,27 @@ export default function CardDetailMarketPanel({
             { label: "eBay High", value: market.ebay.highestPrice },
             { label: "TCG Market", value: justTcgAvailable ? tcgPrice.marketPrice : showLegacySnapshot ? market.tcgplayer.market : null },
           ].map((item) => (
-            <div key={item.label} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-white/35">{item.label}</p>
-              <p className="mt-1 text-lg font-black text-white">
+            <div key={item.label} className="rounded-[12px] border border-[#e3d8c5] bg-[#faf7f2] px-4 py-3">
+              <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a7e70]">{item.label}</p>
+              <p className="mt-1 font-sans text-lg font-bold text-[#2a2118]">
                 {typeof item.value === "number" ? `$${item.value.toFixed(2)}` : "—"}
               </p>
             </div>
           ))}
         </div>
 
-        <p className={`mt-4 text-xs ${stale ? "text-amber-300/90" : "text-white/40"}`}>
+        <p className={`mt-4 font-sans text-xs ${stale ? "text-[#b8863c]" : "text-[#8a7e70]"}`}>
           {footerProvider || "Cache"}
           {(justTcgAvailable ? tcgPrice.cached : showLegacySnapshot ? market.cached : false) ? " · cached" : ""}
           {stale ? " · stale" : ""}
         </p>
       </div>
 
-      <div className="rounded-[28px] border border-white/10 bg-white/[0.03]">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
+      <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e8dfd0] px-5 py-4">
           <div>
-            <p className="text-lg font-black text-white">Price History</p>
-            <p className="text-sm text-white/45">
+            <p className="font-sans text-lg font-black text-[#2a2118]">Price History</p>
+            <p className="font-sans text-sm text-[#8a7e70]">
               {justTcgAvailable
                 ? "Tracks cached JustTCG market pricing for the selected print."
                 : showLegacySnapshot
@@ -356,10 +363,10 @@ export default function CardDetailMarketPanel({
                 key={option.id}
                 type="button"
                 onClick={() => setRange(option.id)}
-                className={`rounded-xl border px-3 py-2 text-xs font-bold transition-all ${
+                className={`rounded-full border px-3 py-2 font-sans text-xs font-bold transition-all ${
                   range === option.id
-                    ? "border-[#F0C040]/40 bg-[#F0C040]/15 text-[#F0C040]"
-                    : "border-white/10 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                    ? "border-[#d4a054] bg-[#d4a054]/12 text-[#b8863c]"
+                    : "border-[#ddd3c4] bg-[#faf7f2] text-[#5a4e40] hover:border-[#d4a054]/60 hover:text-[#2a2118]"
                 }`}
               >
                 {option.label}
@@ -372,28 +379,28 @@ export default function CardDetailMarketPanel({
           {historyHasEnoughPoints ? (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={priceHistory}>
-                <CartesianGrid stroke="rgba(255,255,255,0.08)" strokeDasharray="3 3" />
-                <XAxis dataKey="date" tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 11 }} />
-                <YAxis tick={{ fill: "rgba(255,255,255,0.45)", fontSize: 11 }} />
+                <CartesianGrid stroke="rgba(138,126,112,0.18)" strokeDasharray="3 3" />
+                <XAxis dataKey="date" tick={{ fill: "#8a7e70", fontSize: 11 }} />
+                <YAxis tick={{ fill: "#8a7e70", fontSize: 11 }} />
                 <Tooltip
-                  contentStyle={{ background: "#0c1324", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12 }}
+                  contentStyle={{ background: "#faf7f2", border: "1px solid #e3d8c5", borderRadius: 12, color: "#2a2118" }}
                   formatter={(value: unknown, name?: string) => [
                     `$${Number(value || 0).toFixed(2)}`,
                     name === "ebayAvg" ? "eBay Avg" : "TCG Market",
                   ]}
                 />
                 {justTcgAvailable ? (
-                  <Line type="monotone" dataKey="tcgMarket" stroke="#60A5FA" strokeWidth={2.5} dot={false} />
+                  <Line type="monotone" dataKey="tcgMarket" stroke="#2d6a8f" strokeWidth={2.5} dot={false} />
                 ) : (
                   <>
-                    <Line type="monotone" dataKey="ebayAvg" stroke="#F0C040" strokeWidth={2.5} dot={false} />
-                    <Line type="monotone" dataKey="tcgMarket" stroke="#60A5FA" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="ebayAvg" stroke="#d4a054" strokeWidth={2.5} dot={false} />
+                    <Line type="monotone" dataKey="tcgMarket" stroke="#2d6a8f" strokeWidth={2} dot={false} />
                   </>
                 )}
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex h-full items-center justify-center text-sm text-white/45">
+            <div className="flex h-full items-center justify-center font-sans text-sm text-[#8a7e70]">
               {justTcgAvailable
                 ? "Price tracking started — history building."
                 : showLegacySnapshot
@@ -404,11 +411,11 @@ export default function CardDetailMarketPanel({
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-white/10 bg-white/[0.03]">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
+      <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#e8dfd0] px-5 py-4">
           <div>
-            <p className="text-lg font-black text-white">Recent eBay Listings</p>
-            <p className="text-sm text-white/45">
+            <p className="font-sans text-lg font-black text-[#2a2118]">Recent eBay Listings</p>
+            <p className="font-sans text-sm text-[#8a7e70]">
               Variant target: {market.ebay.queryTemplate?.variantLabel || "Unknown"}
             </p>
           </div>
@@ -418,7 +425,7 @@ export default function CardDetailMarketPanel({
               href={market.ebay.queryTemplate.searchUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/75 transition-all hover:bg-white/10 hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-[#d4a054]/35 bg-[#faf7f2] px-3 py-2 font-sans text-sm font-semibold text-[#2d6a8f] transition-all hover:border-[#d4a054] hover:text-[#1b2838]"
             >
               eBay Recent Sales
               <ExternalLink className="h-4 w-4" />
@@ -429,7 +436,7 @@ export default function CardDetailMarketPanel({
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-sm">
             <thead>
-              <tr className="border-b border-white/5 text-left text-[11px] uppercase tracking-[0.16em] text-white/35">
+              <tr className="border-b border-[#e8dfd0] bg-[#1b2838] text-left font-sans text-[11px] uppercase tracking-[0.16em] text-[#f5efe3]">
                 <th className="px-5 py-3 font-medium">Title</th>
                 <th className="px-5 py-3 font-medium">Condition</th>
                 <th className="px-5 py-3 font-medium">Date</th>
@@ -438,10 +445,13 @@ export default function CardDetailMarketPanel({
             </thead>
             <tbody>
               {market.ebay.sales.map((sale, index) => (
-                <tr key={`${sale.url || sale.title}-${index}`} className="border-b border-white/5 last:border-b-0">
-                  <td className="px-5 py-3 text-white/75">
+                <tr
+                  key={`${sale.url || sale.title}-${index}`}
+                  className={`border-b border-[#e8dfd0] last:border-b-0 ${index % 2 === 0 ? "bg-[#faf7f2]" : "bg-[#f5efe3]"}`}
+                >
+                  <td className="px-5 py-3 font-sans text-[#2a2118]">
                     {sale.url ? (
-                      <a href={sale.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white">
+                      <a href={sale.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-[#2d6a8f]">
                         <span className="line-clamp-2">{sale.title}</span>
                         <ExternalLink className="h-3.5 w-3.5 flex-shrink-0" />
                       </a>
@@ -449,9 +459,9 @@ export default function CardDetailMarketPanel({
                       <span className="line-clamp-2">{sale.title}</span>
                     )}
                   </td>
-                  <td className="px-5 py-3 text-white/50">{sale.condition}</td>
-                  <td className="px-5 py-3 text-white/50">{sale.soldDate}</td>
-                  <td className="px-5 py-3 text-right font-black text-[#F0C040]">${sale.price.toFixed(2)}</td>
+                  <td className="px-5 py-3 font-sans text-[#5a4e40]">{sale.condition}</td>
+                  <td className="px-5 py-3 font-sans text-[#5a4e40]">{sale.soldDate}</td>
+                  <td className="px-5 py-3 text-right font-sans font-bold text-[#2a2118]">${sale.price.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

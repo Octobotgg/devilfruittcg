@@ -45,7 +45,7 @@ export default function BackToMarketButton() {
     <button
       type="button"
       onClick={handleClick}
-      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm font-semibold text-white/75 transition-all hover:bg-white/10 hover:text-white"
+      className="inline-flex items-center gap-2 rounded-full border border-[#d4a054]/35 bg-[#faf7f2] px-3.5 py-2 text-sm font-semibold text-[#2d6a8f] shadow-[0_10px_24px_rgba(27,40,56,0.08)] transition-all hover:-translate-y-[1px] hover:border-[#d4a054] hover:text-[#1b2838]"
       aria-label="Back to market"
       data-market-target={fallbackHref}
     >
