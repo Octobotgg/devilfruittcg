@@ -818,29 +818,29 @@ export default function DecksPage() {
         </section>
       ) : (
         <>
-          <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <section className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 shadow-[0_18px_40px_rgba(42,33,24,0.08)]">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="relative w-full lg:max-w-md">
-                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-light)]" />
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search by deck name, leader, or card ID..."
-                  className="w-full rounded-xl border border-white/10 bg-black/25 py-2.5 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
+                  className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-2.5 pl-9 pr-3 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)]"
                 />
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-2 py-1.5">
-                  <Filter className="h-3.5 w-3.5 text-white/45" />
+                <div className="inline-flex items-center gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-1.5">
+                  <Filter className="h-3.5 w-3.5 text-[var(--color-text-light)]" />
                   {(["all", "ready", "draft"] as const).map((f) => (
                     <button
                       key={f}
                       onClick={() => setStatusFilter(f)}
                       className={`rounded-lg px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.08em] ${
                         statusFilter === f
-                          ? "bg-[var(--theme-accent)]/20 text-[var(--theme-accent-2)]"
-                          : "text-white/60 hover:text-white"
+                          ? "bg-[rgba(212,160,84,0.16)] text-[var(--color-gold-dark)]"
+                          : "text-[var(--color-text-light)] hover:text-[var(--color-text-dark)]"
                       }`}
                     >
                       {f}
@@ -851,7 +851,7 @@ export default function DecksPage() {
                 <select
                   value={sortMode}
                   onChange={(e) => setSortMode(e.target.value as SortMode)}
-                  className="rounded-xl border border-white/10 bg-black/25 px-3 py-2 text-xs text-white/80"
+                  className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-xs text-[var(--color-text-mid)]"
                 >
                   <option value="updated">Sort: Updated</option>
                   <option value="created">Sort: Created</option>
@@ -865,8 +865,8 @@ export default function DecksPage() {
             <section
               className={`rounded-2xl border px-4 py-3 text-sm ${
                 featuredNotice.tone === "error"
-                  ? "border-red-400/20 bg-red-500/10 text-red-200"
-                  : "border-emerald-400/20 bg-emerald-500/10 text-emerald-200"
+                  ? "border-red-300/35 bg-red-50 text-red-700"
+                  : "border-emerald-300/35 bg-emerald-50 text-emerald-700"
               }`}
             >
               {featuredNotice.message}
@@ -874,8 +874,8 @@ export default function DecksPage() {
           ) : null}
 
           {filteredDecks.length === 0 ? (
-            <section className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-10 text-center">
-              <p className="text-sm text-white/60">No decks match your current search/filter.</p>
+            <section className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-5 py-10 text-center">
+              <p className="text-sm text-[var(--color-text-light)]">No decks match your current search/filter.</p>
             </section>
           ) : (
             <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -900,10 +900,10 @@ export default function DecksPage() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ delay: index * 0.03 }}
-                      className="group relative overflow-hidden rounded-2xl border border-white/12 bg-[linear-gradient(180deg,rgba(10,14,24,0.86),rgba(7,10,18,0.9))]"
+                      className="group relative overflow-hidden rounded-2xl border border-[var(--color-parchment-dark)] bg-[linear-gradient(180deg,rgba(245,239,227,0.98),rgba(250,247,242,0.98))] shadow-[0_22px_48px_rgba(42,33,24,0.1)]"
                     >
                       {deck.leaderId ? (
-                        <div className="pointer-events-none absolute inset-0 opacity-[0.12] transition-opacity duration-200 group-hover:opacity-[0.18]">
+                        <div className="pointer-events-none absolute inset-0 opacity-[0.14] transition-opacity duration-200 group-hover:opacity-[0.2]">
                           <img
                             src={`/api/card-image?id=${encodeURIComponent(leaderImageId || deck.leaderId)}`}
                             alt=""
@@ -911,6 +911,7 @@ export default function DecksPage() {
                           />
                         </div>
                       ) : null}
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(250,247,242,0.32),rgba(250,247,242,0.92)_44%,rgba(245,239,227,0.98))]" />
 
                       <div className="relative space-y-3 p-4">
                         <div className="flex items-start gap-3">
@@ -919,21 +920,21 @@ export default function DecksPage() {
                               <img
                                 src={`/api/card-image?id=${encodeURIComponent(leaderImageId || deck.leaderId)}`}
                                 alt={leader?.name || "Leader"}
-                                className="h-20 w-14 rounded-xl border border-white/20 object-cover"
+                                className="h-20 w-14 rounded-xl border border-[var(--color-parchment-dark)] object-cover shadow-[0_10px_24px_rgba(42,33,24,0.16)]"
                               />
                               <div className="absolute -right-1 -top-1 rounded-full bg-[var(--theme-accent)] p-1">
                                 <Crown className="h-2.5 w-2.5 text-black" />
                               </div>
                             </div>
                           ) : (
-                            <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/30">
-                              <Crown className="h-4 w-4 text-white/30" />
+                            <div className="flex h-20 w-14 shrink-0 items-center justify-center rounded-xl border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]">
+                              <Crown className="h-4 w-4 text-[var(--color-text-light)]" />
                             </div>
                           )}
 
                           <div className="min-w-0 flex-1">
-                            <p className="truncate text-sm font-black text-white">{deck.name}</p>
-                            <p className="truncate text-[11px] text-white/45">{leader?.name || "No leader selected"}</p>
+                            <p className="truncate text-sm font-black text-[var(--color-navy)]">{deck.name}</p>
+                            <p className="truncate text-[11px] text-[var(--color-text-light)]">{leader?.name || "No leader selected"}</p>
 
                             <div className="mt-2 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em]">
                               {ready ? (
@@ -949,11 +950,11 @@ export default function DecksPage() {
 
                             <div className="mt-2">
                               {deckVisibility(deck) === "public" ? (
-                                <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/20 bg-sky-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-sky-200">
+                                <span className="inline-flex items-center gap-1 rounded-full border border-sky-300/35 bg-sky-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-sky-700">
                                   <Globe2 className="h-3 w-3" /> Public
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 rounded-full border border-white/12 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/55">
+                                <span className="inline-flex items-center gap-1 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)]">
                                   <Lock className="h-3 w-3" /> Private
                                 </span>
                               )}
@@ -966,7 +967,7 @@ export default function DecksPage() {
                             {colors.map(([color, count]) => (
                               <span
                                 key={`${deck.id}-${color}`}
-                                className="inline-flex items-center gap-1 rounded-full border border-white/12 bg-black/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/80"
+                                className="inline-flex items-center gap-1 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)]"
                               >
                                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: COLOR_HEX[color] || "#999" }} />
                                 {color} · {count}
@@ -976,28 +977,28 @@ export default function DecksPage() {
                         ) : null}
 
                         <div className="grid grid-cols-3 gap-2 text-center">
-                          <div className="rounded-lg border border-white/10 bg-black/20 px-2 py-2">
-                            <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Cards</p>
-                            <p className="text-sm font-black text-white">{total}/50</p>
+                          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-2">
+                            <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Cards</p>
+                            <p className="text-sm font-black text-[var(--color-text-dark)]">{total}/50</p>
                           </div>
-                          <div className="rounded-lg border border-white/10 bg-black/20 px-2 py-2">
-                            <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Unique</p>
-                            <p className="text-sm font-black text-white">{unique}</p>
+                          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-2">
+                            <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Unique</p>
+                            <p className="text-sm font-black text-[var(--color-text-dark)]">{unique}</p>
                           </div>
-                          <div className="rounded-lg border border-white/10 bg-black/20 px-2 py-2">
-                            <p className="text-[10px] uppercase tracking-[0.1em] text-white/45">Updated</p>
-                            <p className="text-sm font-black text-white">{recency(deck.updatedAt)}</p>
+                          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2 py-2">
+                            <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Updated</p>
+                            <p className="text-sm font-black text-[var(--color-text-dark)]">{recency(deck.updatedAt)}</p>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between border-t border-white/10 pt-2 text-[11px] text-white/45">
+                        <div className="flex items-center justify-between border-t border-[var(--color-parchment-dark)] pt-2 text-[11px] text-[var(--color-text-light)]">
                           <span className="inline-flex items-center gap-1"><Calendar className="h-3 w-3" /> {formatShortDate(deck.createdAt)}</span>
                           <span>#{deck.id.slice(-4)}</span>
                         </div>
 
                         <div className="flex items-center gap-2">
                           <Link href={`/deckbuilder?id=${deck.id}`} className="flex-1">
-                            <button className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-white/80 hover:text-white">
+                            <button className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-dark)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold-dark)]">
                               Open in Lab <ArrowRight className="h-3.5 w-3.5" />
                             </button>
                           </Link>
@@ -1007,7 +1008,7 @@ export default function DecksPage() {
                             className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors ${
                               previewOpen
                                 ? "border-[#F0C040]/35 bg-[#F0C040]/12 text-[#F0C040]"
-                                : "border-white/15 bg-black/30 text-white/80 hover:text-white"
+                                : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-dark)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold-dark)]"
                             }`}
                             title={previewOpen ? "Hide deck preview" : "View deck"}
                           >
@@ -1021,8 +1022,8 @@ export default function DecksPage() {
                             }}
                             className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-[11px] font-bold uppercase tracking-[0.08em] transition-colors ${
                               deckVisibility(deck) === "public"
-                                ? "border-sky-400/25 bg-sky-500/10 text-sky-200"
-                                : "border-white/15 bg-black/30 text-white/80 hover:text-white"
+                                ? "border-sky-300/35 bg-sky-50 text-sky-700"
+                                : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-dark)] hover:border-[var(--color-gold)] hover:text-[var(--color-gold-dark)]"
                             }`}
                             title={deckVisibility(deck) === "public" ? "Make deck private" : "Make deck public"}
                           >
@@ -1038,7 +1039,7 @@ export default function DecksPage() {
                             className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border transition-colors ${
                               isFeaturedDeck
                                 ? "border-[#F0C040]/35 bg-[#F0C040]/12 text-[#F0C040]"
-                                : "border-white/15 bg-black/30 text-white/65 hover:text-white"
+                                : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-mid)] hover:text-[var(--color-text-dark)]"
                             } disabled:opacity-60`}
                             title={isFeaturedDeck ? "Remove from profile" : "Feature on profile"}
                             aria-label={isFeaturedDeck ? `Remove ${deck.name} from profile` : `Feature ${deck.name} on profile`}
@@ -1048,7 +1049,7 @@ export default function DecksPage() {
 
                           <button
                             onClick={() => duplicateDeck(deck.id)}
-                            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-black/30 text-white/65 hover:text-white"
+                            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[var(--color-text-mid)] hover:text-[var(--color-text-dark)]"
                             title="Duplicate deck"
                           >
                             <Copy className="h-3.5 w-3.5" />
@@ -1073,21 +1074,21 @@ export default function DecksPage() {
                               transition={{ duration: 0.24, ease: "easeOut" }}
                               className="overflow-hidden"
                             >
-                              <div className="mt-3 rounded-2xl border border-white/10 bg-[rgba(4,7,14,0.72)] p-4">
-                                <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-3">
+                              <div className="mt-3 rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
+                                <div className="flex items-start justify-between gap-3 border-b border-[var(--color-parchment-dark)] pb-3">
                                   <div>
-                                    <p className="text-lg font-black text-white">{deck.name}</p>
-                                    <p className="text-sm text-white/50">{leader?.name || "No leader set."}</p>
+                                    <p className="text-lg font-black text-[var(--color-navy)]">{deck.name}</p>
+                                    <p className="text-sm text-[var(--color-text-mid)]">{leader?.name || "No leader set."}</p>
                                   </div>
                                   <div className="flex items-center gap-2">
                                     <div className="text-right">
-                                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/35">Main Deck</p>
+                                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Main Deck</p>
                                       <p className="text-sm font-black text-[#F0C040]">{total}/50</p>
                                     </div>
                                     <button
                                       type="button"
                                       onClick={() => setExpandedDeckId(null)}
-                                      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/65 hover:text-white"
+                                      className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)] hover:text-[var(--color-text-dark)]"
                                       aria-label={`Collapse ${deck.name}`}
                                     >
                                       <ChevronUp className="h-4 w-4" />
@@ -1096,14 +1097,14 @@ export default function DecksPage() {
                                 </div>
 
                                 {!previewHasLeader ? (
-                                  <p className="mt-3 text-sm text-white/45">No leader set.</p>
+                                  <p className="mt-3 text-sm text-[var(--color-text-light)]">No leader set.</p>
                                 ) : null}
 
                                 <div className="mt-4 space-y-4">
                                   {previewGroups.map((group) => (
                                     <section key={`${deck.id}-${group.key}`} className="space-y-3">
                                       <div className="flex items-center justify-between gap-3">
-                                        <p className="text-[11px] font-black uppercase tracking-[0.14em] text-white/45">
+                                        <p className="text-[11px] font-black uppercase tracking-[0.14em] text-[var(--color-text-light)]">
                                           {group.key === "leader" ? group.label : `${group.label} (${group.total})`}
                                         </p>
                                       </div>
@@ -1125,14 +1126,14 @@ export default function DecksPage() {
                                               <img
                                                 src={`/api/card-image?id=${encodeURIComponent(imageCardId)}`}
                                                 alt={card.name}
-                                                className={`w-full rounded-xl border border-white/15 object-cover shadow-[0_12px_28px_rgba(0,0,0,0.35)] ${
+                                                className={`w-full rounded-xl border border-[var(--color-parchment-dark)] object-cover shadow-[0_12px_28px_rgba(42,33,24,0.18)] ${
                                                   group.key === "leader" ? "h-[134px] sm:h-[156px]" : "h-[96px] sm:h-[124px]"
                                                 }`}
                                               />
                                             </button>
 
-                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 rounded-b-xl bg-gradient-to-t from-black/85 to-transparent px-2 pb-2 pt-6">
-                                              <p className="line-clamp-2 text-[10px] font-bold text-white">{card.name}</p>
+                                            <div className="pointer-events-none absolute inset-x-0 bottom-0 rounded-b-xl bg-gradient-to-t from-[rgba(42,33,24,0.9)] to-transparent px-2 pb-2 pt-6">
+                                              <p className="line-clamp-2 text-[10px] font-bold text-[var(--color-cream)]">{card.name}</p>
                                             </div>
 
                                             {group.key !== "leader" ? (
@@ -1144,7 +1145,7 @@ export default function DecksPage() {
                                             <button
                                               type="button"
                                               onClick={() => removeCardFromDeck(deck.id, card)}
-                                              className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-red-300/25 bg-red-500/90 text-white opacity-100 shadow-lg transition-opacity md:opacity-0 md:group-hover/card:opacity-100"
+                                              className="absolute right-2 top-2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-red-300/35 bg-red-500/90 text-white opacity-100 shadow-lg transition-opacity md:opacity-0 md:group-hover/card:opacity-100"
                                               aria-label={group.key === "leader" ? `Remove leader ${card.name}` : `Remove one copy of ${card.name}`}
                                             >
                                               <Minus className="h-3.5 w-3.5" />
@@ -1156,54 +1157,54 @@ export default function DecksPage() {
                                   ))}
                                 </div>
 
-                                <div className="mt-5 border-t border-white/10 pt-4">
-                                  <label className="block text-[11px] font-black uppercase tracking-[0.14em] text-white/45">
+                                <div className="mt-5 border-t border-[var(--color-parchment-dark)] pt-4">
+                                  <label className="block text-[11px] font-black uppercase tracking-[0.14em] text-[var(--color-text-light)]">
                                     Quick Add a Card
                                   </label>
                                   <div className="relative mt-2">
-                                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/35" />
+                                    <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-light)]" />
                                     <input
                                       value={previewSearch}
                                       onChange={(event) => setPreviewSearch(event.target.value)}
                                       placeholder="Quick add a card..."
-                                      className="w-full rounded-xl border border-white/10 bg-black/25 py-3 pl-9 pr-3 text-sm text-white placeholder:text-white/35"
+                                      className="w-full rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] py-3 pl-9 pr-3 text-sm text-[var(--color-text-dark)] placeholder:text-[var(--color-text-light)]"
                                     />
                                   </div>
 
                                   {previewSearch.trim().length >= 2 ? (
-                                    <div className="mt-3 rounded-xl border border-white/10 bg-black/25">
+                                    <div className="mt-3 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)]">
                                       {previewLoading ? (
-                                        <div className="flex items-center gap-2 px-3 py-3 text-sm text-white/55">
+                                        <div className="flex items-center gap-2 px-3 py-3 text-sm text-[var(--color-text-mid)]">
                                           <Loader2 className="h-4 w-4 animate-spin" />
                                           Searching cards...
                                         </div>
                                       ) : previewResults.length ? (
-                                        <div className="divide-y divide-white/8">
+                                        <div className="divide-y divide-[var(--color-parchment-dark)]">
                                           {previewResults.map((card) => (
                                             <button
                                               key={`${deck.id}-search-${card.id}`}
                                               type="button"
                                               onClick={() => addCardToDeck(deck.id, card)}
-                                              className="flex w-full items-center justify-between gap-3 px-3 py-3 text-left transition-colors hover:bg-white/5"
+                                              className="flex w-full items-center justify-between gap-3 px-3 py-3 text-left transition-colors hover:bg-[var(--color-parchment)]"
                                             >
                                               <div className="min-w-0">
-                                                <p className="truncate text-sm font-bold text-white">{card.name}</p>
-                                                <p className="text-[11px] text-white/45">
+                                                <p className="truncate text-sm font-bold text-[var(--color-text-dark)]">{card.name}</p>
+                                                <p className="text-[11px] text-[var(--color-text-light)]">
                                                   {card.id} · {card.type} · {card.setCode}
                                                 </p>
                                               </div>
-                                              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-white/70">
+                                              <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-[var(--color-text-mid)]">
                                                 Add
                                               </span>
                                             </button>
                                           ))}
                                         </div>
                                       ) : (
-                                        <div className="px-3 py-3 text-sm text-white/50">No cards match that search.</div>
+                                        <div className="px-3 py-3 text-sm text-[var(--color-text-mid)]">No cards match that search.</div>
                                       )}
                                     </div>
                                   ) : (
-                                    <p className="mt-2 text-xs text-white/40">
+                                    <p className="mt-2 text-xs text-[var(--color-text-light)]">
                                       Type at least 2 characters to search the card database and add a card without leaving Crew Hangar.
                                     </p>
                                   )}
