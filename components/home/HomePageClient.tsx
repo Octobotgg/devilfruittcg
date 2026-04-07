@@ -363,13 +363,13 @@ export default function HomePageClient({
             className="journal-surface treasure-chart-surface rounded-[2rem] p-6 md:p-8"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
-              <ScrollText className="h-3.5 w-3.5" /> Grand Line command desk
+              <ScrollText className="h-3.5 w-3.5" /> Captain's Log
             </div>
 
             <div className="mt-5 flex flex-wrap items-start justify-between gap-4">
               <BrandMark className="brand-lockup-large" subtitle="ONE PIECE TCG MARKET + META INTELLIGENCE" />
               <div className="brand-proof-chip">
-                <span className="brand-proof-label">Log Pose Sync</span>
+                <span className="brand-proof-label">Fresh from the line</span>
                 <span className="brand-proof-value">{telemetryUpdatedAt ? ago(telemetryUpdatedAt) : "Live sync pending"}</span>
               </div>
             </div>
@@ -379,13 +379,13 @@ export default function HomePageClient({
             </h1>
 
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--color-text-mid)] md:text-base">
-              Track bounty spikes, matchup pressure, and crew-level meta shifts in a command deck that feels like a treasure map, a collector vault, and a live tournament desk at the same time.
+              Track bounty spikes, matchup pressure, and the crews making noise right now in one place that feels lived-in, clear, and easy to trust.
             </p>
 
             <div className="brand-route-strip mt-5">
               <span className="brand-route-chip">
                 <Compass className="h-3.5 w-3.5" />
-                Grand Line route
+                Current route
               </span>
               <span className="brand-route-chip">
                 <Coins className="h-3.5 w-3.5" />
@@ -399,13 +399,13 @@ export default function HomePageClient({
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <DonButton href="/market" className="px-6 py-3 text-[11px]">
-                Chart the Market
+                Open Market
               </DonButton>
               <Link
                 href="/meta"
                 className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] transition-colors hover:border-[var(--color-gold)] hover:text-[var(--color-navy)]"
               >
-                Open Log Pose
+                See the Meta
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
@@ -489,7 +489,7 @@ export default function HomePageClient({
                   animate={{ opacity: heroHover ? 1 : 0.82, x: heroHover ? 0 : -8 }}
                   className="captains-aura captains-aura-left"
                 >
-                  <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Market Quote</p>
+                  <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Price Check</p>
                   {featuredId ? (
                     <>
                       <p className="text-sm font-black text-[var(--color-gold-dark)]">{formatBeli(featuredQuote.price)}</p>
@@ -677,7 +677,7 @@ export default function HomePageClient({
 
               <div className="mt-3">
                 <DonButton href="/market" className="w-full justify-center px-3 py-2 text-[10px]">
-                  Open Marine Board
+                  Open Market
                 </DonButton>
               </div>
             </motion.article>
