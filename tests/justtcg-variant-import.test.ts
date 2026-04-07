@@ -525,11 +525,60 @@ test("fetchJusttcgCatalogSince requests updated_after without fuzzy search", asy
 
     assert.ok(requestedUrl);
     assert.match(requestedUrl || "", /updated_after=1774483200/);
-    assert.match(requestedUrl || "", /limit=20/);
+    assert.match(requestedUrl || "", /limit=100/);
     assert.match(requestedUrl || "", /game=one-piece-card-game/);
     assert.doesNotMatch(requestedUrl || "", /[?&]q=/);
     assert.equal(snapshot.cardCount, 0);
     assert.equal(snapshot.pageCount, 1);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("fetchJusttcgCatalogSince pauses between full catalog pages", async () => {
+  const originalFetch = globalThis.fetch;
+  const sleepCalls: number[] = [];
+
+  globalThis.fetch = async (input: RequestInfo | URL) => {
+    const url = new URL(String(input));
+    const offset = Number(url.searchParams.get("offset") || "0");
+    const cards =
+      offset === 0
+        ? Array.from({ length: 20 }, (_, index) => ({ id: `card-${index + 1}` }))
+        : [{ id: "card-21" }];
+
+    return new Response(
+      JSON.stringify({
+        data: cards,
+        meta: { total: 21 },
+      }),
+      {
+        status: 200,
+        headers: {
+          "content-type": "application/json",
+        },
+      },
+    );
+  };
+
+  try {
+    const { fetchJusttcgCatalogSince } =
+      await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+        "scripts/import-justtcg-to-drizzle.mjs",
+      );
+
+    const snapshot = await fetchJusttcgCatalogSince({
+      apiKey: "test-api-key",
+      updatedAfter: 1774483200,
+      limit: 20,
+      delayMs: 25,
+      sleepImpl: async (ms: number) => {
+        sleepCalls.push(ms);
+      },
+    });
+
+    assert.equal(snapshot.cardCount, 21);
+    assert.deepEqual(sleepCalls, [25]);
   } finally {
     globalThis.fetch = originalFetch;
   }
