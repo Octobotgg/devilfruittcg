@@ -23,6 +23,28 @@ const checks = [
     required: ["Current Route"],
   },
   {
+    file: "app/layout.tsx",
+    banned: [
+      "ONE PIECE TCG INTELLIGENCE",
+      "premium collector desk",
+    ],
+    required: [
+      "ONE PIECE TCG PRICES + META",
+      "one place that feels personal and easy to trust",
+    ],
+  },
+  {
+    file: "app/matchhistory/page.tsx",
+    banned: [
+      "Match Intel V2",
+      "Match History Command",
+    ],
+    required: [
+      "Player Match Log",
+      "Match History",
+    ],
+  },
+  {
     file: "app/globals.css",
     banned: [".glass-card {"],
     required: [],

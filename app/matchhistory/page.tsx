@@ -216,10 +216,10 @@ export default function MatchHistoryPage() {
 
         <div className="relative">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#f8d479]/35 bg-black/30 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f8d479]">
-            <ShieldCheck className="h-3.5 w-3.5" /> Match Intel V2 · Phase 1
+            <ShieldCheck className="h-3.5 w-3.5" /> Player Match Log
           </div>
 
-          <h1 className="mt-3 text-3xl font-black text-white md:text-4xl">Match History Command</h1>
+          <h1 className="mt-3 text-3xl font-black text-white md:text-4xl">Match History</h1>
           <p className="mt-2 max-w-3xl text-sm text-white/65">
             Search by player name or device hash, inspect recent matches, and get instant performance summaries.
           </p>

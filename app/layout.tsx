@@ -27,10 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
               <div>
                 <div className="mb-3 flex items-center gap-3">
-                  <BrandMark compact subtitle="ONE PIECE TCG INTELLIGENCE" />
+                  <BrandMark compact subtitle="ONE PIECE TCG PRICES + META" />
                 </div>
                 <p className="max-w-md text-xs text-[var(--color-parchment-dark)]">
-                  Market pricing, matchup signal, and deck tools presented with the feel of a premium collector desk.
+                  Market pricing, matchup signal, and deck tools for One Piece players who want one place that feels personal and easy to trust.
                 </p>
                 <p className="mt-3 text-[11px] text-[var(--color-text-light)]">
                   Not affiliated with Bandai Namco or Toei Animation
