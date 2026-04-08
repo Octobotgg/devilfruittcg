@@ -161527,10 +161527,10 @@
     "seriesCategories": [
       "BOOSTER_PACK"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_op14_print_1",
-    "canonicalId": "OP14-112_sp_op14_print_1"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_op14",
+    "canonicalId": "OP14-112_alternate_art_op14"
   },
   {
     "id": "OP14-112_p2",
