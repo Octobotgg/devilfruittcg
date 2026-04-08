@@ -18,6 +18,7 @@ test("scheduled runner defaults to daily full refresh mode", async () => {
   const plan = mod.buildScheduledRunPlan();
   assert.equal(plan.mode, "full_refresh");
   assert.equal(plan.fetchPageSize, 20);
+  assert.equal(plan.fetchDelayMs, 3000);
   assert.equal(plan.enableDiscovery, false);
 });
 

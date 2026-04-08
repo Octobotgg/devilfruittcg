@@ -9,6 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const DEFAULT_REFRESH_STATE_PATH = path.join(ROOT, ".cache", "justtcg", "refresh-state.json");
 const DEFAULT_FETCH_PAGE_SIZE = 20;
+const DEFAULT_FETCH_DELAY_MS = 3000;
 const DEFAULT_MODE = "full_refresh";
 const VALID_MODES = new Set(["full_refresh", "delta_refresh"]);
 
@@ -51,6 +52,7 @@ export function buildScheduledRunPlan(options = {}) {
     dryRun: false,
     enableDiscovery: false,
     fetchPageSize: DEFAULT_FETCH_PAGE_SIZE,
+    fetchDelayMs: DEFAULT_FETCH_DELAY_MS,
     mode: DEFAULT_MODE,
     statePath: DEFAULT_REFRESH_STATE_PATH,
     ...options,
@@ -72,8 +74,8 @@ async function runNodeScript(label, scriptName, args) {
   });
 }
 
-async function runImport({ mode, fetchPageSize, updatedAfter }) {
-  const args = ["--apply", "--fetch-page-size", String(fetchPageSize)];
+async function runImport({ mode, fetchPageSize, fetchDelayMs, updatedAfter }) {
+  const args = ["--apply", "--fetch-page-size", String(fetchPageSize), "--fetch-delay-ms", String(fetchDelayMs)];
   if (mode === "full_refresh") {
     args.push("--updated-after", "0");
   } else if (updatedAfter != null) {
@@ -121,6 +123,7 @@ export async function runScheduledRefresh(options = {}) {
     await runImport({
       mode: effectiveMode,
       fetchPageSize: plan.fetchPageSize,
+      fetchDelayMs: plan.fetchDelayMs,
       updatedAfter: priorCursor,
     });
     await runKnownPricePublish({ source });
@@ -140,6 +143,7 @@ export async function runScheduledRefresh(options = {}) {
     dryRun: plan.dryRun,
     enableDiscovery: false,
     fetchPageSize: plan.fetchPageSize,
+    fetchDelayMs: plan.fetchDelayMs,
     deltaCursorUsed: effectiveMode === "delta_refresh" ? priorCursor : null,
     nextDeltaCursor: nextCursor,
     fallbackReason,
