@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { startTransition, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -31,6 +31,16 @@ import {
   writeLastMarketState,
 } from "@/lib/market-navigation";
 import {
+  applyMarketStateToParams,
+  buildMarketCatalogApiQuery,
+  defaultMarketSortForQuery,
+  DEFAULT_MARKET_PAGE_SIZE,
+  MARKET_PAGE_SIZE_OPTIONS,
+  parseMarketUrlState,
+  type MarketUrlState,
+  type ViewMode,
+} from "@/lib/market-query";
+import {
   getDesktopMarketSidebarClassName,
   getDesktopMarketSidebarBodyClassName,
   getDesktopMarketOpenSections,
@@ -46,32 +56,6 @@ import {
   type MarketSetGroupKey,
 } from "@/lib/market-set-groups";
 import type { MarketCardResult, MarketCatalogResponse, MarketFacetOption, MarketSort } from "@/lib/market-types";
-
-type ViewMode = "grid" | "list";
-
-type MarketUrlState = {
-  q: string;
-  sets: string[];
-  types: string[];
-  colors: string[];
-  rarities: string[];
-  counters: string[];
-  attributes: string[];
-  costMin: string;
-  costMax: string;
-  lifeMin: string;
-  lifeMax: string;
-  powerMin: string;
-  powerMax: string;
-  priceMin: string;
-  priceMax: string;
-  sort: MarketSort;
-  page: number;
-  pageSize: number;
-  view: ViewMode;
-};
-
-const PAGE_SIZE_OPTIONS = [12, 24, 48, 96];
 const SORT_OPTIONS: Array<{ value: MarketSort; label: string }> = [
   { value: "relevance", label: "Relevance" },
   { value: "price_asc", label: "Price: Low to High" },
@@ -93,87 +77,6 @@ const RARITY_LABELS: Record<string, string> = {
   TR: "Treasure Rare (TR)",
   "SP CARD": "SP",
 };
-
-function parseListParams(searchParams: URLSearchParams | ReadonlyURLSearchParams, key: string) {
-  return Array.from(
-    new Set(
-      searchParams
-        .getAll(key)
-        .flatMap((value) => value.split(","))
-        .map((value) => value.trim())
-        .filter(Boolean),
-    ),
-  );
-}
-
-function parsePositiveInt(value: string | null, fallback: number) {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) && parsed > 0 ? Math.trunc(parsed) : fallback;
-}
-
-function defaultSortForQuery(q: string): MarketSort {
-  return q.trim() ? "relevance" : "newest";
-}
-
-function parseUrlState(searchParams: ReadonlyURLSearchParams): MarketUrlState {
-  const q = (searchParams.get("q") || searchParams.get("card") || "").trim();
-
-  return {
-    q,
-    sets: parseListParams(searchParams, "set"),
-    types: parseListParams(searchParams, "type"),
-    colors: parseListParams(searchParams, "color"),
-    rarities: parseListParams(searchParams, "rarity"),
-    counters: parseListParams(searchParams, "counter"),
-    attributes: parseListParams(searchParams, "attribute"),
-    costMin: searchParams.get("costMin") || "",
-    costMax: searchParams.get("costMax") || "",
-    lifeMin: searchParams.get("lifeMin") || "",
-    lifeMax: searchParams.get("lifeMax") || "",
-    powerMin: searchParams.get("powerMin") || "",
-    powerMax: searchParams.get("powerMax") || "",
-    priceMin: searchParams.get("priceMin") || "",
-    priceMax: searchParams.get("priceMax") || "",
-    sort: (searchParams.get("sort") as MarketSort) || defaultSortForQuery(q),
-    page: parsePositiveInt(searchParams.get("page"), 1),
-    pageSize: PAGE_SIZE_OPTIONS.includes(parsePositiveInt(searchParams.get("pageSize"), 24))
-      ? parsePositiveInt(searchParams.get("pageSize"), 24)
-      : 24,
-    view: searchParams.get("view") === "list" ? "list" : "grid",
-  };
-}
-
-function applyStateToParams(state: MarketUrlState) {
-  const params = new URLSearchParams();
-
-  if (state.q) params.set("q", state.q);
-  state.sets.forEach((value) => params.append("set", value));
-  state.types.forEach((value) => params.append("type", value));
-  state.colors.forEach((value) => params.append("color", value));
-  state.rarities.forEach((value) => params.append("rarity", value));
-  state.counters.forEach((value) => params.append("counter", value));
-  state.attributes.forEach((value) => params.append("attribute", value));
-
-  if (state.costMin) params.set("costMin", state.costMin);
-  if (state.costMax) params.set("costMax", state.costMax);
-  if (state.lifeMin) params.set("lifeMin", state.lifeMin);
-  if (state.lifeMax) params.set("lifeMax", state.lifeMax);
-  if (state.powerMin) params.set("powerMin", state.powerMin);
-  if (state.powerMax) params.set("powerMax", state.powerMax);
-  if (state.priceMin) params.set("priceMin", state.priceMin);
-  if (state.priceMax) params.set("priceMax", state.priceMax);
-
-  params.set("sort", state.sort);
-  params.set("page", String(state.page));
-  params.set("pageSize", String(state.pageSize));
-  if (state.view === "list") params.set("view", state.view);
-
-  return params;
-}
-
-function buildApiQuery(state: MarketUrlState) {
-  return applyStateToParams(state).toString();
-}
 
 function toggleListValue(values: string[], value: string) {
   return values.includes(value) ? values.filter((entry) => entry !== value) : [...values, value];
@@ -575,10 +478,15 @@ function Pagination({
   );
 }
 
-export default function MarketCatalogView() {
+type MarketCatalogViewProps = {
+  initialCatalog?: MarketCatalogResponse | null;
+  initialCatalogKey?: string;
+};
+
+export default function MarketCatalogView({ initialCatalog = null, initialCatalogKey = "" }: MarketCatalogViewProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const state = useMemo(() => parseUrlState(searchParams), [searchParams]);
+  const state = useMemo(() => parseMarketUrlState(searchParams), [searchParams]);
   const activeFilterCount = useMemo(() => countActiveFilters(state), [state]);
   const [draftQuery, setDraftQuery] = useState({ value: state.q, committed: state.q });
   const [setSearch, setSetSearch] = useState("");
@@ -590,8 +498,8 @@ export default function MarketCatalogView() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [openSections, setOpenSections] = useState<MarketFilterSectionState>(() => getInitialMarketOpenSections());
   const [catalogState, setCatalogState] = useState<{ key: string; data: MarketCatalogResponse | null; error: string }>({
-    key: "",
-    data: null,
+    key: initialCatalog ? initialCatalogKey : "",
+    data: initialCatalog,
     error: "",
   });
   const [reloadKey, setReloadKey] = useState(0);
@@ -603,7 +511,7 @@ export default function MarketCatalogView() {
   });
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const catalogQuery = useMemo(() => buildApiQuery(state), [state]);
+  const catalogQuery = useMemo(() => buildMarketCatalogApiQuery(state), [state]);
   const activeCatalogKey = `${catalogQuery}::${reloadKey}`;
   const catalog = catalogState.data;
   const loading = catalogState.key !== activeCatalogKey;
@@ -625,7 +533,7 @@ export default function MarketCatalogView() {
       .filter((option): option is MarketFacetOption => Boolean(option));
   }, [setOptions, state.sets]);
   const currentMarketPath = useMemo(() => {
-    const query = applyStateToParams(state).toString();
+    const query = applyMarketStateToParams(state).toString();
     return query ? `/market?${query}` : "/market";
   }, [state]);
 
@@ -676,6 +584,8 @@ export default function MarketCatalogView() {
   }, [currentMarketPath]);
 
   useEffect(() => {
+    if (catalogState.key === activeCatalogKey && catalogState.data) return;
+
     const controller = new AbortController();
 
     void fetch(`/api/market/catalog?${catalogQuery}`, { cache: "no-store", signal: controller.signal })
@@ -696,7 +606,7 @@ export default function MarketCatalogView() {
       });
 
     return () => controller.abort();
-  }, [activeCatalogKey, catalogQuery]);
+  }, [activeCatalogKey, catalogQuery, catalogState.data, catalogState.key]);
 
   useEffect(() => {
     if (loading) return;
@@ -722,6 +632,7 @@ export default function MarketCatalogView() {
       params.set("page", "1");
       params.set("pageSize", "8");
       params.set("sort", "relevance");
+      params.set("includeMetadata", "0");
 
       void fetch(`/api/market/catalog?${params.toString()}`, { cache: "no-store", signal: controller.signal })
         .then(async (res) => {
@@ -754,7 +665,7 @@ export default function MarketCatalogView() {
 
   const updateState = useCallback((updater: (current: MarketUrlState) => MarketUrlState) => {
     const nextState = updater(state);
-    const params = applyStateToParams(nextState);
+    const params = applyMarketStateToParams(nextState);
     const nextUrl = params.toString() ? `/market?${params.toString()}` : "/market";
 
     startTransition(() => {
@@ -805,7 +716,7 @@ export default function MarketCatalogView() {
       priceMax: "",
       sort: "newest",
       page: 1,
-      pageSize: 24,
+      pageSize: DEFAULT_MARKET_PAGE_SIZE,
       view: "grid",
     }));
   }, [updateState]);
@@ -817,7 +728,7 @@ export default function MarketCatalogView() {
     updateState((current) => ({
       ...current,
       q: trimmed,
-      sort: current.sort === "relevance" || current.sort === "newest" ? defaultSortForQuery(trimmed) : current.sort,
+      sort: current.sort === "relevance" || current.sort === "newest" ? defaultMarketSortForQuery(trimmed) : current.sort,
       page: 1,
     }));
   }, [updateState]);
@@ -1293,7 +1204,7 @@ export default function MarketCatalogView() {
                   className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm text-[var(--color-text-dark)]"
                   aria-label="Results per page"
                 >
-                  {PAGE_SIZE_OPTIONS.map((option) => (
+                  {MARKET_PAGE_SIZE_OPTIONS.map((option) => (
                     <option key={option} value={option} className="bg-[var(--color-cream)]">
                       {option} / page
                     </option>

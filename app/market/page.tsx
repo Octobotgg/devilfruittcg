@@ -1,11 +1,15 @@
 import { Suspense } from "react";
-import MarketCatalogView from "@/components/market/MarketCatalogView";
 import MarketLoadingState from "@/components/market/MarketLoadingState";
+import MarketCatalogPageContent from "./MarketCatalogPageContent";
 
-export default function MarketPage() {
+type MarketPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default function MarketPage({ searchParams }: MarketPageProps) {
   return (
     <Suspense fallback={<MarketLoadingState />}>
-      <MarketCatalogView />
+      <MarketCatalogPageContent searchParams={searchParams} />
     </Suspense>
   );
 }

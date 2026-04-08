@@ -141,6 +141,49 @@ test("searchMarketCatalog preserves legacy sort and pagination normalization bef
   );
 });
 
+test("searchMarketCatalog can skip metadata work for lightweight catalog requests", async () => {
+  const { searchMarketCatalog } =
+    await importModule<typeof import("../lib/market-catalog")>("lib/market-catalog.ts");
+
+  await searchMarketCatalog(
+    {
+      q: "teach",
+      page: 1,
+      pageSize: 24,
+      includeMetadata: false,
+    },
+    {
+      searchReadModel: async (query = {}) => {
+        assert.equal(query.q, "teach");
+        assert.equal(query.includeMetadata, false);
+
+        return {
+          total: 0,
+          page: 1,
+          pageSize: 24,
+          totalPages: 1,
+          sort: "relevance",
+          query: "teach",
+          results: [],
+          facets: {
+            sets: [],
+            types: [],
+            colors: [],
+            rarities: [],
+            counters: [],
+            attributes: [],
+          },
+          ranges: {
+            cost: { min: 0, max: 0 },
+            life: { min: 0, max: 0 },
+            power: { min: 0, max: 0 },
+          },
+        };
+      },
+    },
+  );
+});
+
 test("getJustTcgPriceSummaries maps variant-like requests onto the active approved read-model price", async () => {
   const { getJustTcgPriceSummaries } =
     await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");

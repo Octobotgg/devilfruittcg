@@ -9,6 +9,28 @@ export type MarketSort =
   | "number_asc"
   | "newest";
 
+export type MarketCatalogQuery = {
+  q?: string;
+  sets?: string[];
+  types?: string[];
+  colors?: string[];
+  rarities?: string[];
+  counters?: number[];
+  attributes?: string[];
+  costMin?: number;
+  costMax?: number;
+  lifeMin?: number;
+  lifeMax?: number;
+  powerMin?: number;
+  powerMax?: number;
+  priceMin?: number;
+  priceMax?: number;
+  sort?: MarketSort;
+  page?: number;
+  pageSize?: number;
+  includeMetadata?: boolean;
+};
+
 export type MarketPriceSummary = {
   marketPrice: number | null;
   averagePrice: number | null;
