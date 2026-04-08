@@ -25,6 +25,7 @@ test("home bounty state maps marketplace card movers into bounty cards", async (
         name: "Krieg",
         imageUrl: "https://img.example/krieg.jpg",
         currentPrice: 20.13,
+        priceChange24h: 3.29,
         dailyChangePct: 18.2,
       },
       {
@@ -49,8 +50,42 @@ test("home bounty state maps marketplace card movers into bounty cards", async (
     cardId: "OP15-001_p1",
     imageUrl: "/api/card-image?id=OP15-001_p1",
     price: 20.13,
-    delta: 18.2,
+    delta: 3.29,
     href: "/cards/OP15-001_p1",
+    external: false,
+  });
+});
+
+test("home bounty state keeps the exact moved print identity for special prints", async () => {
+  const { buildHomeBountyStateFromMarketWatch } =
+    await importModule<typeof import("../lib/home-bounty")>("lib/home-bounty.ts");
+
+  const state = buildHomeBountyStateFromMarketWatch({
+    source: "justtcg-runtime-pricing",
+    updatedAt: "2026-04-07T16:00:00.000Z",
+    bountyBoard: [
+      {
+        collectibleId: "ST01-005_p2",
+        collectibleKind: "raw_card",
+        cardId: "ST01-005",
+        name: "Jinbe",
+        justtcgTitle: "Jinbe (Gift Collection 2023)",
+        currentPrice: 3.45,
+        priceChange24h: 2.31,
+        dailyChangePct: 202.63,
+      },
+    ],
+  });
+
+  assert.deepEqual(state.cards[0], {
+    key: "ST01-005_p2",
+    name: "Jinbe",
+    displayId: "ST01-005 · Gift Collection 2023",
+    cardId: "ST01-005_p2",
+    imageUrl: "/api/card-image?id=ST01-005_p2",
+    price: 3.45,
+    delta: 2.31,
+    href: "/cards/ST01-005_p2",
     external: false,
   });
 });
@@ -68,12 +103,13 @@ test("home bounty state returns an empty non-live state when marketplace movers 
 });
 
 test("home bounty delta formatter shows signed dollar changes instead of percents", async () => {
-  const { formatHomeBountyDelta } =
+  const { formatHomeBountyDelta, formatHomeBountyPrice } =
     await importModule<typeof import("../lib/home-bounty")>("lib/home-bounty.ts");
 
   assert.equal(formatHomeBountyDelta(3.29), "+$3.29");
   assert.equal(formatHomeBountyDelta(-1.12), "-$1.12");
   assert.equal(formatHomeBountyDelta(0), "$0.00");
+  assert.equal(formatHomeBountyPrice(4.43), "$4.43");
 });
 
 test("home bounty state keeps a fuller board when more marketplace movers are available", async () => {

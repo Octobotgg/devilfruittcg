@@ -28,8 +28,10 @@ export type HomeBountyWatchItem = {
   collectibleKind?: string | null;
   cardId?: string | null;
   name?: string | null;
+  justtcgTitle?: string | null;
   imageUrl?: string | null;
   currentPrice?: number | string | null;
+  priceChange24h?: number | string | null;
   dailyChangePct?: number | string | null;
 };
 
@@ -55,6 +57,15 @@ export function formatHomeBountyDelta(value: number) {
   return formatted;
 }
 
+export function formatHomeBountyPrice(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(value) || 0);
+}
+
 function normalizeIsoTimestamp(input?: string | null): string | null {
   if (!input || typeof input !== "string") return null;
 
@@ -66,6 +77,25 @@ function normalizeIsoTimestamp(input?: string | null): string | null {
   if (!Number.isFinite(parsedMs)) return null;
 
   return new Date(parsedMs).toISOString();
+}
+
+function extractMoverDetailLabel(name: string, justtcgTitle?: string | null) {
+  const title = String(justtcgTitle || "").trim();
+  if (!title) return null;
+
+  const parentheticalGroups = Array.from(title.matchAll(/\(([^)]+)\)/g), (match) => match[1]?.trim()).filter(Boolean);
+  if (!parentheticalGroups.length) return null;
+
+  const meaningfulGroups = parentheticalGroups.filter((group) => {
+    const normalized = group.toLowerCase();
+    if (!normalized) return false;
+    if (normalized === name.trim().toLowerCase()) return false;
+    if (/^\d+$/u.test(group)) return false;
+    return true;
+  });
+
+  if (!meaningfulGroups.length) return null;
+  return meaningfulGroups.at(-1) || null;
 }
 
 export function buildHomeBountyStateFromMarketWatch(payload: HomeBountyWatchPayload | null): HomeBountyState {
@@ -84,17 +114,19 @@ export function buildHomeBountyStateFromMarketWatch(payload: HomeBountyWatchPayl
     .filter((item) => String(item?.cardId || "").trim())
     .slice(0, HOME_BOUNTY_BOARD_LIMIT)
     .map((item) => {
-      const cardId = String(item?.cardId || "").trim();
+      const exactCardId = String(item?.collectibleId || item?.cardId || "").trim();
+      const baseCardId = String(item?.cardId || exactCardId).trim();
       const name = String(item?.name || "Unknown Card");
+      const detailLabel = extractMoverDetailLabel(name, item?.justtcgTitle);
       return {
-        key: String(item?.collectibleId || cardId || name),
+        key: String(item?.collectibleId || exactCardId || name),
         name,
-        displayId: cardId,
-        cardId,
-        imageUrl: `/api/card-image?id=${encodeURIComponent(cardId)}`,
+        displayId: detailLabel && baseCardId ? `${baseCardId} · ${detailLabel}` : exactCardId,
+        cardId: exactCardId,
+        imageUrl: `/api/card-image?id=${encodeURIComponent(exactCardId)}`,
         price: Number(item?.currentPrice) || 0,
-        delta: Number(item?.dailyChangePct) || 0,
-        href: `/cards/${encodeURIComponent(cardId)}`,
+        delta: Number(item?.priceChange24h) || 0,
+        href: `/cards/${encodeURIComponent(exactCardId)}`,
         external: false,
       } satisfies HomeBountyCard;
     });

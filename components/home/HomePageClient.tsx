@@ -19,6 +19,7 @@ import {
 import {
   buildHomeBountyStateFromMarketWatch,
   formatHomeBountyDelta,
+  formatHomeBountyPrice,
   type HomeBountyCard,
   type HomeBountyMeta,
 } from "@/lib/home-bounty";
@@ -557,10 +558,10 @@ export default function HomePageClient({
                       />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-xs font-black text-[#2c1c0d]">{card.name}</p>
-                        <p className="text-[10px] text-[#614022]">{card.displayId}</p>
+                        <p className="truncate text-[10px] text-[#614022]" title={card.displayId}>{card.displayId}</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-xs font-black text-[#2c1c0d]">{formatBeli(card.price)}</p>
+                      <div className="text-right tabular-nums">
+                        <p className="text-xs font-black text-[#2c1c0d]">{formatHomeBountyPrice(card.price)}</p>
                         <p className={`text-[10px] font-bold ${card.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
                           {formatHomeBountyDelta(card.delta)}
                         </p>
