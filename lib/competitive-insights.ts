@@ -9,18 +9,21 @@ import {
   type MatchIntelPeriod,
   type MatchIntelSnapshot,
 } from "@/lib/analytics";
-import { fetchLimitlessMatchups, type LimitlessSnapshot } from "@/lib/sources/limitless-matchups";
-import { fetchGumGumMatchups, type GumGumMatchupSnapshot } from "@/lib/sources/gumgum-matchups";
+import { fetchLimitlessMatchups } from "@/lib/sources/limitless-matchups";
+import { fetchGumGumMatchups } from "@/lib/sources/gumgum-matchups";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import { getInsightDateWindow, parseInsightTimeRange, resolveEffectiveRange, toLimitlessTime, type InsightTimeRange } from "@/lib/competitive-time-range";
 import {
   getCurrentMatchupFormat,
-  getMatchupFormatWindow,
   isCardLegalInMatchupFormat,
   mergeWeightedMatchupRate,
 } from "@/lib/matchup-format-windows";
 import { selectRelevantMatchupLeaders } from "@/lib/matchup-relevance-ranking";
 import { MATCHUPS_PAGE_RANGE } from "@/lib/constants/page-defaults";
+import {
+  applySimMatchupsToDecks,
+  getLatestMatchupSnapshotInWindow,
+} from "@/lib/matchup-sim-resolver";
 
 type MatchupPayload = {
   source: string;
@@ -277,13 +280,14 @@ type MatchupPairSample = {
 };
 
 type MatchupSourceData = {
-  key: "sim" | "limitless" | "gumgum";
+  key: "sim";
   priority: number;
   updatedAt: string;
   sampleGames: number;
   decks: MetaDeck[];
   leaderSamples: Map<string, number>;
   matchupSamples: Map<string, Map<string, MatchupPairSample>>;
+  snapshot: MatchIntelSnapshot;
 };
 
 type HeadToHeadPayload = {
@@ -346,40 +350,7 @@ function buildSourceFromSnapshot(snapshot: MatchIntelSnapshot, updatedAt: string
     decks,
     leaderSamples,
     matchupSamples,
-  };
-}
-
-function buildSourceFromTournamentSnapshot(
-  key: "limitless" | "gumgum",
-  priority: number,
-  snapshot: LimitlessSnapshot | GumGumMatchupSnapshot
-): MatchupSourceData | null {
-  if (!snapshot.decks.length) return null;
-
-  const leaderSamples = new Map<string, number>();
-  const matchupSamples = new Map<string, Map<string, MatchupPairSample>>();
-
-  for (const deck of snapshot.decks) {
-    const estimate = snapshot.leaderSampleGames?.[deck.cardId]
-      ?? Math.max(1, Math.round((snapshot.sampleGames * deck.metaShare) / 100));
-    leaderSamples.set(deck.cardId, estimate);
-
-    const row = new Map<string, MatchupPairSample>();
-    const rawRow = snapshot.matchupSamples?.[deck.cardId] || {};
-    for (const [opponentId, value] of Object.entries(rawRow)) {
-      row.set(opponentId, value);
-    }
-    matchupSamples.set(deck.cardId, row);
-  }
-
-  return {
-    key,
-    priority,
-    updatedAt: snapshot.updatedAt,
-    sampleGames: snapshot.sampleGames,
-    decks: snapshot.decks,
-    leaderSamples,
-    matchupSamples,
+    snapshot,
   };
 }
 
@@ -403,24 +374,6 @@ function filterSourceForFormat(source: MatchupSourceData, format: string): Match
         ])
     ),
   };
-}
-
-async function getFormatWindowSnapshot(period: MatchIntelPeriod, format: string) {
-  const window = getMatchupFormatWindow(format);
-  if (!window) return null;
-
-  const repo = createMatchIntelSupabaseRepository();
-  const bounds = await repo.getSnapshotDateBounds(period);
-  if (!bounds.earliest || !bounds.latest) return null;
-
-  const startDate = bounds.earliest > window.startDate ? bounds.earliest : window.startDate;
-  const desiredEndDate = window.endDate || bounds.latest;
-  const endDate = desiredEndDate < bounds.latest ? desiredEndDate : bounds.latest;
-
-  if (startDate > endDate) return null;
-
-  const snapshot = await repo.getAggregatedSnapshot(period, startDate, endDate);
-  return snapshot ? { snapshot, startDate, endDate } : null;
 }
 
 function mergeFormatSources(
@@ -546,8 +499,10 @@ function mergeFormatSources(
     return sum + (aggregate?.sampleMatches || 0);
   }, 0);
 
+  const simSource = liveSources.find((source) => source.key === "sim");
+
   return {
-    decks: mergedDecks,
+    decks: simSource ? applySimMatchupsToDecks(mergedDecks, simSource.snapshot) : mergedDecks,
     sampleGames,
     updatedAt,
   };
@@ -579,32 +534,15 @@ export async function getHybridMatchupPayload(options: {
 
   if (matchIntelV2) {
     try {
-      const covered = await getFormatWindowSnapshot(period, format);
+      const repo = createMatchIntelSupabaseRepository();
+      const covered = await getLatestMatchupSnapshotInWindow(repo, period, format);
       if (covered?.snapshot) {
         const simSource = buildSourceFromSnapshot(
           covered.snapshot,
-          new Date(`${covered.endDate}T00:00:00.000Z`).toISOString(),
+          new Date(`${covered.snapshotDate}T00:00:00.000Z`).toISOString(),
         );
         if (simSource) sources.push(simSource);
       }
-    } catch {
-      // continue
-    }
-  }
-
-  try {
-    const live = await fetchLimitlessMatchups(30, format, "all", type);
-    const limitlessSource = live ? buildSourceFromTournamentSnapshot("limitless", 1, live) : null;
-    if (limitlessSource) sources.push(limitlessSource);
-  } catch {
-    // continue
-  }
-
-  if (format === getCurrentMatchupFormat()) {
-    try {
-      const gumgum = await fetchGumGumMatchups(30);
-      const gumgumSource = gumgum ? buildSourceFromTournamentSnapshot("gumgum", 2, gumgum) : null;
-      if (gumgumSource) sources.push(gumgumSource);
     } catch {
       // continue
     }

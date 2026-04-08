@@ -296,7 +296,7 @@ class SupabaseMatchIntelRepository implements MatchIntelRepository {
   }
 
   async getRecentSnapshotDates(period: MatchIntelPeriod, limit = 2): Promise<string[]> {
-    const normalizedLimit = Math.max(1, Math.min(limit, 30));
+    const normalizedLimit = Math.max(1, Math.min(limit, 730));
 
     const { data, error } = await this.client
       .from("leader_daily_stats")
