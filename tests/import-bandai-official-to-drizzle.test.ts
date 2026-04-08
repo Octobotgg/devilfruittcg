@@ -258,3 +258,34 @@ test("Bandai seed assigns the correct OP09 premium treatments for ambiguous chas
     },
   );
 });
+
+test("Bandai seed assigns the correct OP14-112 alternate art and SP treatments", () => {
+  const seed = loadSeed();
+  const byId = new Map(seed.cardPrints.map((row) => [row.id, row]));
+
+  assert.deepEqual(
+    {
+      id: "OP14-112_p1",
+      variant_label: byId.get("OP14-112_p1")?.variant_label,
+      variant_slug: byId.get("OP14-112_p1")?.variant_slug,
+    },
+    {
+      id: "OP14-112_p1",
+      variant_label: "Alternate Art",
+      variant_slug: "alternate_art_op14",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP14-112_p2",
+      variant_label: byId.get("OP14-112_p2")?.variant_label,
+      variant_slug: byId.get("OP14-112_p2")?.variant_slug,
+    },
+    {
+      id: "OP14-112_p2",
+      variant_label: "SP",
+      variant_slug: "sp_op14_print_2",
+    },
+  );
+});
