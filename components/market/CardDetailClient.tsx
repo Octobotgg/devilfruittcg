@@ -15,19 +15,19 @@ function statValue(value: string | number | null | undefined) {
 function colorBadgeClasses(color: string | null | undefined) {
   switch ((color || "").trim().toLowerCase()) {
     case "red":
-      return "border-[#9e4630] bg-[#d15b3a]/20 text-[#f8d5cc]";
+      return "border-[#d8a18f] bg-[#f7e4dc] text-[#8f3f2a]";
     case "blue":
-      return "border-[#2d6a8f]/45 bg-[#2d6a8f]/18 text-[#dcecf5]";
+      return "border-[#a9c7d8] bg-[#e9f2f7] text-[#295d7d]";
     case "green":
-      return "border-[#4a8c5c]/40 bg-[#4a8c5c]/18 text-[#e3f2e7]";
+      return "border-[#a9cdb2] bg-[#eaf4ed] text-[#386d47]";
     case "purple":
-      return "border-[#7353a8]/40 bg-[#7353a8]/18 text-[#ebe3ff]";
+      return "border-[#c6b4e6] bg-[#f0ebfb] text-[#644594]";
     case "black":
-      return "border-white/14 bg-white/10 text-[#f5efe3]";
+      return "border-[#d7cfbf] bg-[#faf7f2] text-[#4b4035]";
     case "yellow":
-      return "border-[#d4a054]/45 bg-[#d4a054]/18 text-[#f9edd7]";
+      return "border-[#e2c48f] bg-[#fbf1db] text-[#986f22]";
     default:
-      return "border-white/14 bg-white/10 text-[#f5efe3]";
+      return "border-[#d7cfbf] bg-[#faf7f2] text-[#4b4035]";
   }
 }
 
@@ -121,7 +121,7 @@ export default function CardDetailClient({
                 <img
                   src={`/api/card-image?id=${encodeURIComponent(activeCard.id)}`}
                   alt={activeCard.name}
-                  className="mx-auto w-full rotate-[1deg] rounded-[18px] border border-[#dccfb9] bg-[#08111f] p-2 shadow-[0_12px_40px_rgba(0,0,0,0.15)] transition-transform duration-200 group-hover:scale-[1.01]"
+                  className="mx-auto w-full rotate-[1deg] rounded-[18px] border border-[#dccfb9] bg-[#f3eadc] p-2 shadow-[0_12px_40px_rgba(0,0,0,0.15)] transition-transform duration-200 group-hover:scale-[1.01]"
                   data-card-image
                 />
               </button>
@@ -158,10 +158,10 @@ export default function CardDetailClient({
 
           <section className="space-y-6">
             <div
-              className="rounded-[14px] border border-[#243447] bg-[#1b2838] p-8 text-[#f5efe3] shadow-[0_18px_40px_rgba(27,40,56,0.18)]"
+              className="rounded-[18px] border border-[#e1cfaf] bg-[radial-gradient(circle_at_top_left,rgba(240,192,64,0.16),transparent_28%),linear-gradient(145deg,rgba(245,239,227,0.98),rgba(239,230,214,0.98))] p-8 text-[#2a2118] shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_18px_40px_rgba(27,40,56,0.12)]"
               data-card-identity-panel
             >
-              <div className="border-l-[3px] border-[#d4a054] pl-5">
+              <div className="rounded-[14px] border border-[#d4a054]/35 bg-[#fffaf1] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
                 <div className="flex flex-wrap items-center gap-2 font-sans">
                   <span className="rounded-full bg-[#d4a054] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b2838]">
                     {displayRarity(activeCard.rarity)}
@@ -170,8 +170,8 @@ export default function CardDetailClient({
                     <span className="rounded-full bg-[#d4a054] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b2838]">
                       {activeVariantLabel}
                     </span>
-                  ) : null}
-                  <span className="rounded-full border border-[#f5efe3]/12 bg-[#f5efe3]/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#f5efe3]">
+                    ) : null}
+                  <span className="rounded-full border border-[#d7cfbf] bg-[#faf7f2] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#5a4e40]">
                     {activeCard.type}
                   </span>
                   <span
@@ -181,10 +181,10 @@ export default function CardDetailClient({
                   </span>
                 </div>
 
-                <h1 className="mt-5 text-[2.2rem] font-semibold leading-[0.95] text-[#f5efe3] md:text-[3.1rem]">
+                <h1 className="mt-5 text-[2.2rem] font-semibold leading-[0.95] text-[#1b2838] md:text-[3.1rem]">
                   {activeCard.name}
                 </h1>
-                <p className="mt-4 font-sans text-[13px] leading-relaxed text-[rgba(245,239,227,0.56)]">
+                <p className="mt-4 font-sans text-[13px] leading-relaxed text-[#8a7e70]">
                   {displayCardId(activeCard)} · {activeCard.set}
                   {activeCard.releaseDate ? ` · Released ${new Date(activeCard.releaseDate).toLocaleDateString()}` : ""}
                 </p>
@@ -197,7 +197,7 @@ export default function CardDetailClient({
                       href={activeCard.releaseUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-[#f5efe3]/16 bg-[#f5efe3]/8 px-3.5 py-2 text-sm font-semibold text-[#f5efe3] transition-all hover:-translate-y-[1px] hover:border-[#d4a054]/40 hover:bg-[#f5efe3]/12"
+                      className="inline-flex items-center gap-2 rounded-full border border-[#d7cfbf] bg-[#faf7f2] px-3.5 py-2 text-sm font-semibold text-[#5a4e40] transition-all hover:-translate-y-[1px] hover:border-[#d4a054] hover:text-[#1b2838]"
                     >
                       Official Release
                       <ExternalLink className="h-4 w-4" />
@@ -267,7 +267,7 @@ export default function CardDetailClient({
 
       {isLightboxOpen ? (
         <div
-          className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(12,16,24,0.86)] p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(42,33,24,0.52)] p-4 backdrop-blur-sm"
           onClick={() => setIsLightboxOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -277,7 +277,7 @@ export default function CardDetailClient({
           <button
             type="button"
             onClick={() => setIsLightboxOpen(false)}
-            className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-white/10 text-white transition hover:bg-white/16"
+            className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d7cfbf] bg-[#faf7f2] text-[#5a4e40] transition hover:border-[#d4a054] hover:text-[#1b2838]"
             aria-label="Close fullscreen preview"
           >
             <X className="h-5 w-5" />
@@ -290,7 +290,7 @@ export default function CardDetailClient({
             <img
               src={`/api/card-image?id=${encodeURIComponent(activeCard.id)}`}
               alt={activeCard.name}
-              className="max-h-[92vh] w-auto max-w-full rounded-[18px] border border-[rgba(245,239,227,0.24)] bg-[#08111f] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+              className="max-h-[92vh] w-auto max-w-full rounded-[18px] border border-[#d7cfbf] bg-[#efe6d6] p-2 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
             />
           </div>
         </div>
