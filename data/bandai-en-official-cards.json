@@ -97900,10 +97900,10 @@
     "seriesCategories": [
       "BOOSTER_PACK"
     ],
-    "variantType": "alt_art",
-    "variantLabel": "Alternate Art",
-    "variantSlug": "alternate_art_op09_print_2",
-    "canonicalId": "OP09-093_alternate_art_op09_print_2"
+    "variantType": "manga",
+    "variantLabel": "Manga",
+    "variantSlug": "manga_op09",
+    "canonicalId": "OP09-093_manga_op09"
   },
   {
     "id": "OP09-093_p3",
@@ -97953,10 +97953,10 @@
     "seriesCategories": [
       "BOOSTER_PACK"
     ],
-    "variantType": "manga",
-    "variantLabel": "Manga",
-    "variantSlug": "manga_op09",
-    "canonicalId": "OP09-093_manga_op09"
+    "variantType": "sp",
+    "variantLabel": "Wanted Poster",
+    "variantSlug": "wanted_poster_op09",
+    "canonicalId": "OP09-093_wanted_poster_op09"
   },
   {
     "id": "OP09-094",
