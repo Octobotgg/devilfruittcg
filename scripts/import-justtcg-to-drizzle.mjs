@@ -13,7 +13,7 @@ const DEFAULT_PRICE_DATA_PATH = path.join(ROOT, ".cache", "justtcg", "approved-p
 const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-releases.json");
 const DEFAULT_CHUNK_SIZE = 250;
 const JUSTTCG_MAX_PLAN_LIMIT = 100;
-const JUSTTCG_INCREMENTAL_FETCH_DELAY_MS = 1500;
+const JUSTTCG_INCREMENTAL_FETCH_DELAY_MS = 3000;
 
 const GAME_ID = "one-piece-card-game";
 const JUSTTCG_CARDS_URL = "https://api.justtcg.com/v1/cards";
@@ -80,6 +80,7 @@ function parseArgs(argv) {
     set: null,
     updatedAfter: null,
     fetchPageSize: JUSTTCG_MAX_PLAN_LIMIT,
+    fetchDelayMs: JUSTTCG_INCREMENTAL_FETCH_DELAY_MS,
     catalogFallback: [],
     priceDataFallback: [],
     seedOut: null,
@@ -144,6 +145,15 @@ function parseArgs(argv) {
       const parsed = Number.parseInt(argv[index + 1] || "", 10);
       if (Number.isFinite(parsed) && parsed > 0) {
         args.fetchPageSize = Math.min(parsed, JUSTTCG_MAX_PLAN_LIMIT);
+      }
+      index += 1;
+      continue;
+    }
+
+    if (value === "--fetch-delay-ms") {
+      const parsed = Number.parseInt(argv[index + 1] || "", 10);
+      if (Number.isFinite(parsed) && parsed >= 0) {
+        args.fetchDelayMs = parsed;
       }
       index += 1;
       continue;
@@ -2049,6 +2059,7 @@ async function main() {
           updatedAfter: args.updatedAfter,
           set: args.set,
           limit: args.fetchPageSize,
+          delayMs: args.fetchDelayMs,
         })
       : await readJsonWithFallback(args.catalog, args.catalogFallback);
 

@@ -16,6 +16,7 @@ function parseArgs(argv) {
   const args = {
     releaseName: "",
     cardPrintIds: [],
+    allKnown: false,
     source: "justtcg_known_price_refresh",
   };
 
@@ -32,6 +33,10 @@ function parseArgs(argv) {
         .map((value) => value.trim())
         .filter(Boolean);
       index += 1;
+      continue;
+    }
+    if (token === "--all-known") {
+      args.allKnown = true;
       continue;
     }
     if (token === "--source") {
@@ -139,11 +144,12 @@ async function upsertCurrentPrices(sql, rows) {
 export async function runKnownMappedPriceRefresh({
   releaseName = "",
   cardPrintIds = [],
+  allKnown = false,
   source = "justtcg_known_price_refresh",
   sqlClient = null,
 } = {}) {
-  if (!releaseName && (!Array.isArray(cardPrintIds) || !cardPrintIds.length)) {
-    throw new Error("runKnownMappedPriceRefresh requires --release-name or --card-print-id");
+  if (!allKnown && !releaseName && (!Array.isArray(cardPrintIds) || !cardPrintIds.length)) {
+    throw new Error("runKnownMappedPriceRefresh requires --all-known, --release-name, or --card-print-id");
   }
 
   const sql =
@@ -154,7 +160,10 @@ export async function runKnownMappedPriceRefresh({
   const ownsClient = !sqlClient;
 
   try {
-    const activeAssignments = await loadActiveAssignments(sql, { releaseName, cardPrintIds });
+    const activeAssignments = await loadActiveAssignments(sql, {
+      releaseName: allKnown ? "" : releaseName,
+      cardPrintIds: allKnown ? [] : cardPrintIds,
+    });
     const productIds = [...new Set(activeAssignments.map((row) => row.active_external_product_id).filter(Boolean))];
 
     const [externalProducts, externalProductVariants] = await Promise.all([

@@ -2,16 +2,17 @@ name: JustTCG Refresh
 
 on:
   schedule:
-    - cron: "0 9 */2 * *"
+    - cron: "0 9 * * *"
   workflow_dispatch:
     inputs:
       mode:
         description: "Refresh mode"
         required: true
-        default: "scheduled"
+        default: "full_refresh"
         type: choice
         options:
-          - scheduled
+          - full_refresh
+          - delta_refresh
           - set_refresh
       set_code:
         description: "Set code for manual set refresh"
@@ -48,9 +49,9 @@ jobs:
       - name: Export JustTCG mapping cache from database
         run: npm run export:justtcg:cache
 
-      - name: Run scheduled JustTCG refresh
-        if: ${{ github.event_name == 'schedule' || inputs.mode == 'scheduled' }}
-        run: npm run refresh:justtcg:scheduled
+      - name: Run daily full JustTCG refresh
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'full_refresh') }}
+        run: npm run refresh:justtcg:scheduled -- --mode full_refresh
 
       - name: Run manual JustTCG set refresh
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'set_refresh' }}

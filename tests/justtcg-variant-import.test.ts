@@ -610,6 +610,16 @@ test("parseArgs rejects an empty --updated-after value", async () => {
   );
 });
 
+test("parseArgs accepts an explicit fetch delay override", async () => {
+  const { parseArgs } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const args = parseArgs(["--fetch-delay-ms", "3000"]);
+  assert.equal(args.fetchDelayMs, 3000);
+});
+
 test("import script documents import, verify, and publish as separate explicit steps", async () => {
   const module =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
