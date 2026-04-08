@@ -201,6 +201,32 @@ test("Bandai seed assigns the correct OP09 premium treatments for ambiguous chas
     },
     {
       id: "OP09-093_p1",
+      variant_label: "Alternate Art",
+      variant_slug: "alternate_art_op09_print_1",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP09-093_p2",
+      variant_label: byId.get("OP09-093_p2")?.variant_label,
+      variant_slug: byId.get("OP09-093_p2")?.variant_slug,
+    },
+    {
+      id: "OP09-093_p2",
+      variant_label: "Manga",
+      variant_slug: "manga_op09",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP09-093_p3",
+      variant_label: byId.get("OP09-093_p3")?.variant_label,
+      variant_slug: byId.get("OP09-093_p3")?.variant_slug,
+    },
+    {
+      id: "OP09-093_p3",
       variant_label: "Wanted Poster",
       variant_slug: "wanted_poster_op09",
     },
