@@ -3,7 +3,6 @@ name: JustTCG Refresh
 on:
   schedule:
     - cron: "0 9 * * *"
-    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -51,12 +50,8 @@ jobs:
         run: npm run export:justtcg:cache
 
       - name: Run daily full JustTCG refresh
-        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '0 9 * * *') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'full_refresh') }}
+        if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'full_refresh') }}
         run: npm run refresh:justtcg:scheduled -- --mode full_refresh
-
-      - name: Run daily delta JustTCG refresh
-        if: ${{ (github.event_name == 'schedule' && github.event.schedule == '0 21 * * *') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'delta_refresh') }}
-        run: npm run refresh:justtcg:scheduled -- --mode delta_refresh
 
       - name: Run manual JustTCG set refresh
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'set_refresh' }}
