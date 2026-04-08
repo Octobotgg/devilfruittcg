@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 import { unstable_cache } from "next/cache.js";
 
-import type { MarketCatalogQuery, MarketCatalogResponse, MarketSort } from "./market-types";
+import type { MarketCatalogQuery, MarketCatalogResponse, MarketCatalogSnapshotResponse, MarketSort } from "./market-types";
 
 const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
@@ -11,6 +11,7 @@ const marketSearch = require("./server/market/market-search.ts") as typeof impor
 
 type MarketCatalogMetadata = Pick<MarketCatalogResponse, "facets" | "ranges">;
 type SearchMarketCatalogReadModel = typeof marketSearch.searchMarketCatalogReadModel;
+type LoadMarketCatalogSnapshotReadModel = typeof marketSearch.loadMarketCatalogSnapshotReadModel;
 
 const DEFAULT_PAGE_SIZE = 24;
 const MAX_PAGE_SIZE = 96;
@@ -96,4 +97,15 @@ export async function searchMarketCatalog(
   }
 
   return result;
+}
+
+export async function loadMarketCatalogSnapshot(
+  options?: {
+    includeMetadata?: boolean;
+    loadReadModel?: LoadMarketCatalogSnapshotReadModel;
+  },
+): Promise<MarketCatalogSnapshotResponse> {
+  return options?.loadReadModel
+    ? options.loadReadModel({ includeMetadata: options.includeMetadata })
+    : marketSearch.loadMarketCatalogSnapshotReadModel({ includeMetadata: options?.includeMetadata });
 }

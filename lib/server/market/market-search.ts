@@ -17,6 +17,10 @@ if (process.env.NODE_ENV !== "test") {
 }
 const { createPostgresClient }: typeof import("../../../db/postgres") = require("../../../db/postgres.ts");
 const { formatMarketSetFacetLabel }: typeof import("../../market-display") = require("../../market-display.ts");
+const {
+  buildMarketCatalogSnapshot,
+  searchMarketCardsSnapshot,
+}: typeof import("../../market-search-core") = require("../../market-search-core.ts");
 
 type MarketSearchQuery = MarketCatalogQuery;
 
@@ -592,33 +596,23 @@ export function resolveMarketSortForTesting(query: string, sort?: MarketSort) {
 export async function searchMarketCatalogReadModel(
   query: MarketSearchQuery = {},
 ): Promise<MarketCatalogResponse & { results: RuntimeMarketCardResult[] }> {
-  const includeMetadata = query.includeMetadata !== false;
   const allCards = (await loadMarketRows()).map((row) => toMarketCardResultForTesting(row));
-  const filtered = applyFilters(allCards, query);
-  const sort = resolveMarketSortForTesting(String(query.q || ""), query.sort);
-  const pageSize = Math.min(MAX_PAGE_SIZE, Math.max(1, query.pageSize || DEFAULT_PAGE_SIZE));
-  const page = Math.max(1, query.page || 1);
-  const sorted = sortMarketCardsForTesting(filtered, sort, String(query.q || ""));
-  const total = sorted.length;
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
-  const start = (page - 1) * pageSize;
-  const results = sorted.slice(start, start + pageSize);
-  const metadata = includeMetadata
-    ? {
-        facets: createFacets(allCards),
-        ranges: createRanges(allCards),
-      }
-    : EMPTY_MARKET_METADATA;
+  return searchMarketCardsSnapshot(allCards, query) as MarketCatalogResponse & { results: RuntimeMarketCardResult[] };
+}
 
-  return {
-    total,
-    page,
-    pageSize,
-    totalPages,
-    sort,
-    query: String(query.q || ""),
-    results,
-    facets: metadata.facets,
-    ranges: metadata.ranges,
-  };
+export async function loadMarketCatalogSnapshotReadModel(
+  options?: { includeMetadata?: boolean },
+) {
+  const allCards = (await loadMarketRows()).map((row) => toMarketCardResultForTesting(row));
+  const snapshot = buildMarketCatalogSnapshot(allCards);
+
+  if (options?.includeMetadata === false) {
+    return {
+      ...snapshot,
+      facets: EMPTY_MARKET_METADATA.facets,
+      ranges: EMPTY_MARKET_METADATA.ranges,
+    };
+  }
+
+  return snapshot;
 }

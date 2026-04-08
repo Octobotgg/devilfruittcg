@@ -83,3 +83,14 @@ export type MarketCatalogResponse = {
     power: MarketRange;
   };
 };
+
+export type MarketCatalogSnapshotResponse = {
+  total: number;
+  cards: MarketCardResult[];
+  facets: MarketFacets;
+  ranges: {
+    cost: MarketRange;
+    life: MarketRange;
+    power: MarketRange;
+  };
+};

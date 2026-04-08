@@ -184,6 +184,62 @@ test("searchMarketCatalog can skip metadata work for lightweight catalog request
   );
 });
 
+test("loadMarketCatalogSnapshot delegates to the snapshot read model", async () => {
+  const { loadMarketCatalogSnapshot } =
+    await importModule<typeof import("../lib/market-catalog")>("lib/market-catalog.ts");
+
+  const snapshot = await loadMarketCatalogSnapshot({
+    includeMetadata: false,
+    loadReadModel: async (options) => {
+      assert.equal(options?.includeMetadata, false);
+
+      return {
+        total: 2,
+        cards: [
+          {
+            id: "OP01-001",
+            name: "Monkey D. Luffy",
+            set: "Romance Dawn",
+            setCode: "OP01",
+            number: "001",
+            type: "Leader",
+            color: "Red",
+            rarity: "L",
+            market: null,
+          },
+          {
+            id: "OP01-025",
+            name: "Roronoa Zoro",
+            set: "Romance Dawn",
+            setCode: "OP01",
+            number: "025",
+            type: "Character",
+            color: "Red",
+            rarity: "SR",
+            market: null,
+          },
+        ],
+        facets: {
+          sets: [],
+          types: [],
+          colors: [],
+          rarities: [],
+          counters: [],
+          attributes: [],
+        },
+        ranges: {
+          cost: { min: 0, max: 0 },
+          life: { min: 0, max: 0 },
+          power: { min: 0, max: 0 },
+        },
+      };
+    },
+  });
+
+  assert.equal(snapshot.total, 2);
+  assert.equal(snapshot.cards[1]?.name, "Roronoa Zoro");
+});
+
 test("getJustTcgPriceSummaries maps variant-like requests onto the active approved read-model price", async () => {
   const { getJustTcgPriceSummaries } =
     await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
