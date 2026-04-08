@@ -19,6 +19,8 @@ import {
   isCardLegalInMatchupFormat,
   mergeWeightedMatchupRate,
 } from "@/lib/matchup-format-windows";
+import { selectRelevantMatchupLeaders } from "@/lib/matchup-relevance-ranking";
+import { MATCHUPS_PAGE_RANGE } from "@/lib/constants/page-defaults";
 
 type MatchupPayload = {
   source: string;
@@ -245,6 +247,30 @@ function numericSample(sampleGames: number, sampleDescription = "Logged games in
   };
 }
 
+function isLiveSourceLabel(source: string | undefined | null) {
+  return !String(source || "").toLowerCase().includes("seeded");
+}
+
+function uniqueLeaderIds(cardIds: string[]) {
+  return [...new Set(cardIds.filter(Boolean))];
+}
+
+function getMatchupMetaSelection(period: MatchIntelPeriod) {
+  if (period === "lw_p") {
+    return {
+      period,
+      summaryLabel: "Weekly private field games",
+      summaryDescription: "Weekly private format field coverage",
+    };
+  }
+
+  return {
+    region: "global" as const,
+    summaryLabel: "Weekly global field games",
+    summaryDescription: "Weekly global format field coverage",
+  };
+}
+
 type MatchupPairSample = {
   winRate: number;
   matches: number | null;
@@ -400,7 +426,9 @@ async function getFormatWindowSnapshot(period: MatchIntelPeriod, format: string)
 function mergeFormatSources(
   format: string,
   sources: MatchupSourceData[],
-  limit: number
+  limit: number,
+  rankingMode: "coverage" | "relevance" = "coverage",
+  rankedLeaderIds: string[] = [],
 ): { decks: MetaDeck[]; sampleGames: number; updatedAt: string } | null {
   const liveSources = sources.map((source) => filterSourceForFormat(source, format)).filter((source) => source.decks.length > 0);
   if (!liveSources.length) return null;
@@ -444,10 +472,25 @@ function mergeFormatSources(
     }
   }
 
-  const rankedIds = [...ranking.values()]
-    .sort((a, b) => b.sampleMatches - a.sampleMatches || b.weightedShareTotal - a.weightedShareTotal)
-    .slice(0, limit)
-    .map((row) => row.cardId);
+  const rankedIds =
+    rankingMode === "relevance" && rankedLeaderIds.length
+      ? rankedLeaderIds
+          .filter((cardId) => ranking.has(cardId))
+          .slice(0, limit)
+      : rankingMode === "relevance"
+        ? selectRelevantMatchupLeaders(
+            [...ranking.values()].map((row) => ({
+              cardId: row.cardId,
+              presence: row.weight > 0 ? row.weightedShareTotal / row.weight : 0,
+              performance: row.weight > 0 ? row.weightedWinTotal / row.weight : 0,
+              confidence: row.sampleMatches,
+            })),
+            limit,
+          ).map((row) => row.cardId)
+        : [...ranking.values()]
+            .sort((a, b) => b.sampleMatches - a.sampleMatches || b.weightedShareTotal - a.weightedShareTotal)
+            .slice(0, limit)
+            .map((row) => row.cardId);
 
   const mergedDecks = rankedIds.map((cardId, index) => {
     const aggregate = ranking.get(cardId)!;
@@ -516,6 +559,8 @@ export async function getHybridMatchupPayload(options: {
   type?: string;
   limit?: number;
   period?: string | null;
+  ranking?: "coverage" | "relevance";
+  forceMatchIntelV2?: boolean;
 }): Promise<MatchupPayload> {
   const requestedRange = parseInsightTimeRange(options.range);
   const effectiveRange = resolveEffectiveRange(requestedRange);
@@ -523,9 +568,16 @@ export async function getHybridMatchupPayload(options: {
   const type = (options.type || "all").toLowerCase();
   const limit = Math.min(30, Math.max(8, Number(options.limit || 18)));
   const period = asMatchIntelPeriod(options.period || "west_p");
+  const rankingMode = options.ranking === "relevance" ? "relevance" : "coverage";
+  const matchIntelV2 = options.forceMatchIntelV2 === true || isMatchIntelV2Enabled();
   const sources: MatchupSourceData[] = [];
+  let rankedLeaderIds: string[] = [];
+  let selectionUpdatedAt: string | null = null;
+  let selectionSampleGames: number | null = null;
+  let selectionSampleLabel: string | null = null;
+  let selectionSampleDescription: string | null = null;
 
-  if (isMatchIntelV2Enabled()) {
+  if (matchIntelV2) {
     try {
       const covered = await getFormatWindowSnapshot(period, format);
       if (covered?.snapshot) {
@@ -558,14 +610,42 @@ export async function getHybridMatchupPayload(options: {
     }
   }
 
-  const merged = mergeFormatSources(format, sources, limit);
+  if (rankingMode === "relevance") {
+    try {
+      const selection = getMatchupMetaSelection(period);
+      const metaPayload = await getHybridMetaPayload({
+        format,
+        range: MATCHUPS_PAGE_RANGE,
+        forceMatchIntelV2: true,
+        ...selection,
+      });
+
+      if (isLiveSourceLabel(metaPayload.source) && Array.isArray(metaPayload.metaDecks)) {
+        const metaSampleGames = typeof metaPayload.sampleGames === "number" ? metaPayload.sampleGames : 0;
+        rankedLeaderIds = uniqueLeaderIds(
+          metaPayload.metaDecks
+            .map((deck) => deck.cardId)
+            .filter((cardId): cardId is string => Boolean(cardId))
+            .filter((cardId) => isCardLegalInMatchupFormat(cardId, format)),
+        );
+        selectionUpdatedAt = metaPayload.updatedAt;
+        selectionSampleGames = metaSampleGames;
+        selectionSampleLabel = `${metaSampleGames.toLocaleString()} ${selection.summaryLabel}`;
+        selectionSampleDescription = `${format} ${selection.summaryDescription.toLowerCase()}`;
+      }
+    } catch {
+      // continue
+    }
+  }
+
+  const merged = mergeFormatSources(format, sources, limit, rankingMode, rankedLeaderIds);
   if (merged?.decks.length) {
     return {
       source: "live-aggregate",
-      updatedAt: merged.updatedAt,
-      sampleGames: merged.sampleGames,
-      sampleLabel: `${merged.sampleGames.toLocaleString()} weighted matchup samples`,
-      sampleDescription: `${format} format window coverage`,
+      updatedAt: selectionUpdatedAt || merged.updatedAt,
+      sampleGames: selectionSampleGames ?? merged.sampleGames,
+      sampleLabel: selectionSampleLabel || `${merged.sampleGames.toLocaleString()} weighted matchup samples`,
+      sampleDescription: selectionSampleDescription || `${format} format window coverage`,
       comparableSample: true,
       decks: merged.decks,
       requestedRange,
@@ -590,13 +670,15 @@ export async function getHybridMetaPayload(options: {
   format?: string;
   region?: string;
   period?: string | null;
+  forceMatchIntelV2?: boolean;
 }): Promise<MetaSnapshot & { requestedRange: InsightTimeRange; effectiveRange: Exclude<InsightTimeRange, "season"> }> {
   const requestedRange = parseInsightTimeRange(options.range);
   const effectiveRange = resolveEffectiveRange(requestedRange);
   const format = (options.format || "OP14").toUpperCase();
   const periods = periodsForMetaRegion(options.region, options.period);
+  const matchIntelV2 = options.forceMatchIntelV2 === true || isMatchIntelV2Enabled();
 
-  if (requestedRange !== "all" && isMatchIntelV2Enabled()) {
+  if (requestedRange !== "all" && matchIntelV2) {
     try {
       const covered = await getCoveredSnapshotWindow({
         periods,

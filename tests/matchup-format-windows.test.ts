@@ -34,3 +34,11 @@ test("matchup format legality never leaks future release windows backward", () =
   assert.equal(isCardLegalInMatchupFormat("OP15-001", "EB03"), false);
   assert.equal(isCardLegalInMatchupFormat("OP12-001", "OP13"), true);
 });
+
+test("op15 legality respects block rotation and removes block 1 leaders", () => {
+  assert.equal(isCardLegalInMatchupFormat("OP03-099", "OP15"), false);
+  assert.equal(isCardLegalInMatchupFormat("OP02-001", "OP15"), false);
+  assert.equal(isCardLegalInMatchupFormat("OP03-099", "OP14"), true);
+  assert.equal(isCardLegalInMatchupFormat("OP11-041", "OP15"), true);
+  assert.equal(isCardLegalInMatchupFormat("OP15-058", "OP15"), true);
+});

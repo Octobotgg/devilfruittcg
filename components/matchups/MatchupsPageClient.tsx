@@ -54,11 +54,11 @@ function getWinRateLabel(rate: number) {
 }
 
 function getHeatCellClass(rate: number) {
-  if (rate >= 60) return "bg-[#14532d] text-green-100 border border-green-400/35 shadow-[0_0_16px_rgba(34,197,94,0.35)]";
-  if (rate >= 55) return "bg-[#166534] text-green-100 border border-green-300/30";
-  if (rate >= 45) return "bg-[#1f2937] text-slate-100 border border-white/10";
-  if (rate >= 40) return "bg-[#7c2d12] text-orange-100 border border-orange-300/30";
-  return "bg-[#7f1d1d] text-red-100 border border-red-300/35 shadow-[0_0_16px_rgba(239,68,68,0.32)]";
+  if (rate >= 60) return "bg-[#14532d] text-[#fffdf6] border border-green-400/40 shadow-[0_0_16px_rgba(34,197,94,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.42)]";
+  if (rate >= 55) return "bg-[#166534] text-[#fffdf6] border border-green-300/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.38)]";
+  if (rate >= 45) return "bg-[#1f2937] text-[#fffdf6] border border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] [text-shadow:0_1px_1px_rgba(0,0,0,0.45)]";
+  if (rate >= 40) return "bg-[#7c2d12] text-[#fff8f2] border border-orange-300/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.42)]";
+  return "bg-[#7f1d1d] text-[#fff8f2] border border-red-300/40 shadow-[0_0_16px_rgba(239,68,68,0.32),inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.42)]";
 }
 
 function TrendIcon({ trend }: { trend: string }) {
@@ -436,6 +436,7 @@ export default function MatchupsPageClient({
           range: MATCHUPS_PAGE_RANGE,
           period: matchupPeriod,
           limit: String(deckLimit),
+          ranking: "relevance",
         });
         const res = await fetch(`/api/matchups?${params.toString()}`, { signal: controller.signal });
         if (!res.ok) return;
@@ -512,18 +513,14 @@ export default function MatchupsPageClient({
             </select>
           </div>
           <div>
-            <label className="block text-xs text-[var(--color-text-light)] mb-1">Data Period</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Weekly Pool</label>
             <select
               value={matchupPeriod}
               onChange={(e) => setMatchupPeriod(e.target.value)}
               className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
-              <option value="west_p" className="bg-[var(--color-cream)]">West (Private)</option>
-              <option value="east_p" className="bg-[var(--color-cream)]">East (Private)</option>
-              <option value="west" className="bg-[var(--color-cream)]">West (All)</option>
-              <option value="east" className="bg-[var(--color-cream)]">East (All)</option>
-              <option value="lw_p" className="bg-[var(--color-cream)]">Last Week (Private)</option>
-              <option value="lw" className="bg-[var(--color-cream)]">Last Week (All)</option>
+              <option value="lw_p" className="bg-[var(--color-cream)]">Weekly Private</option>
+              <option value="lw" className="bg-[var(--color-cream)]">Weekly Global</option>
             </select>
           </div>
           <div>
@@ -794,7 +791,7 @@ export default function MatchupsPageClient({
                     key={`a-${lookupRate}`}
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(lookupRate ?? 50)}`}
+                    className={`rounded-xl px-3 py-1.5 text-sm font-black tracking-[-0.02em] shadow-[0_8px_20px_rgba(27,40,56,0.16)] ${getHeatCellClass(lookupRate ?? 50)}`}
                   >
                     {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
                   </motion.span>
@@ -803,7 +800,7 @@ export default function MatchupsPageClient({
                     key={`b-${reverseRate}`}
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`rounded-md px-2 py-1 text-xs font-black ${getHeatCellClass(reverseRate ?? 50)}`}
+                    className={`rounded-xl px-3 py-1.5 text-sm font-black tracking-[-0.02em] shadow-[0_8px_20px_rgba(27,40,56,0.16)] ${getHeatCellClass(reverseRate ?? 50)}`}
                   >
                     {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
                   </motion.span>
@@ -855,14 +852,14 @@ export default function MatchupsPageClient({
                     <div className="mt-2 grid grid-cols-2 gap-2">
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going First</p>
-                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(lookupFirstRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(lookupFirstRate ?? 50)}`}>
                           {lookupFirstRate != null ? `${lookupFirstRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{lookupFirstGames != null ? `${lookupFirstGames.toLocaleString()} games` : "—"}</p>
                       </div>
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going Second</p>
-                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(lookupSecondRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(lookupSecondRate ?? 50)}`}>
                           {lookupSecondRate != null ? `${lookupSecondRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{lookupSecondGames != null ? `${lookupSecondGames.toLocaleString()} games` : "—"}</p>
@@ -880,14 +877,14 @@ export default function MatchupsPageClient({
                     <div className="mt-2 grid grid-cols-2 gap-2">
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going First</p>
-                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(reverseFirstRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(reverseFirstRate ?? 50)}`}>
                           {reverseFirstRate != null ? `${reverseFirstRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{reverseFirstGames != null ? `${reverseFirstGames.toLocaleString()} games` : "—"}</p>
                       </div>
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going Second</p>
-                        <p className={`mt-0.5 text-sm font-black ${getHeatCellClass(reverseSecondRate ?? 50)} inline-block px-1.5 py-0.5 rounded`}>
+                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(reverseSecondRate ?? 50)}`}>
                           {reverseSecondRate != null ? `${reverseSecondRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{reverseSecondGames != null ? `${reverseSecondGames.toLocaleString()} games` : "—"}</p>
@@ -1068,7 +1065,7 @@ export default function MatchupsPageClient({
                                 ? <div className={`w-full h-9 flex items-center justify-center rounded-lg text-[var(--color-text-light)]/40 ${isCrosshair ? "border border-dashed border-[rgba(209,91,58,0.24)]" : ""}`}>—</div>
                                 : <button onClick={() => { setSelectedDeckId(rowDeck.id); setView("detail"); }}
                                     title={`${rowDeck.name} vs ${colDeck.name}: ${rate}%`}
-                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-xs font-black transition-all ${getHeatCellClass(rate)} ${
+                                    className={`w-full h-9 rounded-lg flex items-center justify-center text-[13px] font-black tracking-[-0.02em] transition-all ${getHeatCellClass(rate)} ${
                                       isFocusCell
                                         ? "relative z-10 scale-[1.06] ring-2 ring-[rgba(209,91,58,0.75)] shadow-[0_0_0_1px_rgba(245,239,227,0.88),0_14px_28px_rgba(27,40,56,0.2)]"
                                         : isCrosshair

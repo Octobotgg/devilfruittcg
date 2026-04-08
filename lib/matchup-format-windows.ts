@@ -1,8 +1,15 @@
 import OFFICIAL_RELEASES_JSON from "../data/bandai-en-official-releases.json" with { type: "json" };
+import OFFICIAL_CARDS_JSON from "../data/bandai-en-official-cards.json" with { type: "json" };
 
 type OfficialReleaseRow = {
   codes?: string[];
   releaseDate?: string | null;
+};
+
+type OfficialCardRow = {
+  id?: string;
+  baseId?: string;
+  blockIcon?: string | null;
 };
 
 export type MatchupFormatCode = "OP15" | "EB03" | "OP14" | "OP13" | "OP12";
@@ -28,6 +35,22 @@ const MANUAL_RELEASE_DATE_OVERRIDES: Record<MatchupFormatCode, string> = {
 };
 
 const SUPPORTED_MATCHUP_FORMATS: MatchupFormatCode[] = ["OP15", "EB03", "OP14", "OP13", "OP12"];
+const STANDARD_BLOCK_ROTATION_START = "2026-04-01";
+
+const CARD_BLOCK_ICON_BY_ID = (() => {
+  const map = new Map<string, string>();
+
+  for (const row of OFFICIAL_CARDS_JSON as OfficialCardRow[]) {
+    const id = String(row.id || "").trim().toUpperCase();
+    const baseId = String(row.baseId || "").trim().toUpperCase();
+    const blockIcon = String(row.blockIcon || "").trim();
+    if (!blockIcon) continue;
+    if (id) map.set(id, blockIcon);
+    if (baseId && !map.has(baseId)) map.set(baseId, blockIcon);
+  }
+
+  return map;
+})();
 
 const RELEASE_DATE_BY_CODE = (() => {
   const map = new Map<string, string>();
@@ -101,11 +124,20 @@ export function isCardLegalInMatchupFormat(cardId: string, formatCode: string): 
   const releaseDate = releaseDateForCode(releaseCode);
   if (!releaseDate) return false;
 
-  if (releaseDate < window.startDate) return true;
-  if (releaseDate === window.startDate) return true;
-  if (!window.endDate) return true;
+  const releaseWindowLegal =
+    releaseDate < window.startDate ||
+    releaseDate === window.startDate ||
+    !window.endDate ||
+    releaseDate <= window.endDate;
 
-  return releaseDate <= window.endDate;
+  if (!releaseWindowLegal) return false;
+
+  const blockIcon = CARD_BLOCK_ICON_BY_ID.get(String(cardId || "").trim().toUpperCase()) || null;
+  if (window.startDate >= STANDARD_BLOCK_ROTATION_START && blockIcon === "1") {
+    return false;
+  }
+
+  return true;
 }
 
 export function mergeWeightedMatchupRate(inputs: WeightedRateInput[]) {

@@ -7,7 +7,7 @@ export const HOME_MATCHUP_PERIOD = "east";
 
 export const MATCHUPS_PAGE_RANGE = "1week";
 export const MATCHUPS_DEFAULT_FORMAT = "OP15";
-export const MATCHUPS_DEFAULT_PERIOD = "east";
+export const MATCHUPS_DEFAULT_PERIOD = "lw";
 export const MATCHUPS_DEFAULT_LIMIT = 12;
 
 export const META_PAGE_RANGE = "1week";

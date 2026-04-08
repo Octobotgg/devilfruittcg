@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository } from "@/lib/analytics";
-import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import { fetchGumGumMatchups } from "@/lib/sources/gumgum-matchups";
 import { parseInsightTimeRange, resolveEffectiveRange } from "@/lib/competitive-time-range";
 import {
@@ -103,7 +102,7 @@ export async function GET(req: NextRequest) {
   const period = asMatchIntelPeriod(req.nextUrl.searchParams.get("period") || "west_p");
   const requestedRange = parseInsightTimeRange(req.nextUrl.searchParams.get("range"));
   const effectiveRange = resolveEffectiveRange(requestedRange);
-  const matchIntelV2 = isMatchIntelV2Enabled();
+  const matchIntelV2 = true;
   const formatWindow = getMatchupFormatWindow(format);
 
   if (!leader || !opponent) {

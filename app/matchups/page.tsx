@@ -20,6 +20,8 @@ const getCachedMatchupsPayload = unstable_cache(
       range: MATCHUPS_PAGE_RANGE,
       period: MATCHUPS_DEFAULT_PERIOD,
       limit: MATCHUPS_DEFAULT_LIMIT,
+      ranking: "relevance",
+      forceMatchIntelV2: true,
     }).catch(() => null),
   ["matchups-page-default-payload"],
   { revalidate }

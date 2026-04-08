@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import { getHybridMatchupPayload } from "@/lib/competitive-insights";
 
 export async function GET(req: NextRequest) {
@@ -8,13 +7,15 @@ export async function GET(req: NextRequest) {
     : undefined;
   const type = (req.nextUrl.searchParams.get("type") || "all").toLowerCase();
   const limit = Math.min(30, Math.max(8, Number(req.nextUrl.searchParams.get("limit") || 18)));
-  const matchIntelV2 = isMatchIntelV2Enabled();
+  const matchIntelV2 = true;
   const payload = await getHybridMatchupPayload({
     range: req.nextUrl.searchParams.get("range"),
     format,
     type,
     limit,
     period: req.nextUrl.searchParams.get("period"),
+    ranking: req.nextUrl.searchParams.get("ranking") === "relevance" ? "relevance" : "coverage",
+    forceMatchIntelV2: true,
   });
 
   return NextResponse.json(

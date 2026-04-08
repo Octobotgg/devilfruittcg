@@ -23,3 +23,21 @@ test("matchups matrix keeps strong row-column hover guidance", () => {
     );
   }
 });
+
+test("matchup percentage chips keep the stronger readability treatment", () => {
+  const requiredTokens = [
+    "text-[13px] font-black tracking-[-0.02em]",
+    "text-[#fffdf6] border border-white/12",
+    "shadow-[0_8px_20px_rgba(27,40,56,0.16)]",
+    "text-base font-black tracking-[-0.02em]",
+    "[text-shadow:0_1px_1px_rgba(0,0,0,0.42)]",
+  ];
+
+  for (const token of requiredTokens) {
+    assert.equal(
+      source.includes(token),
+      true,
+      `Expected matchup readability token to exist: ${token}`,
+    );
+  }
+});

@@ -51,6 +51,111 @@ export interface GumGumMatchupSnapshot {
   matchupSamples?: Record<string, Record<string, { winRate: number; matches: number }>>;
 }
 
+export interface GumGumDecklistLeaderSnapshot {
+  source: string;
+  updatedAt: string;
+  sampleDecks: number;
+  leaders: Array<{
+    cardId: string;
+    leader: string;
+    deckCount: number;
+    metaShare: number;
+  }>;
+}
+
+const HOME_URL = "https://gumgum.gg";
+const HOME_LOOKBACK_DAYS = 14;
+
+function extractBetween(text: string, startMarker: string, endMarker: string): string | null {
+  const start = text.indexOf(startMarker);
+  if (start === -1) return null;
+  const valueStart = start + startMarker.length;
+  const end = text.indexOf(endMarker, valueStart);
+  if (end === -1) return null;
+  return text.slice(valueStart, end);
+}
+
+function isoDateDaysAgo(baseDate: string, days: number): string {
+  const value = new Date(`${baseDate}T00:00:00.000Z`);
+  value.setUTCDate(value.getUTCDate() - days);
+  return value.toISOString().slice(0, 10);
+}
+
+export async function fetchGumGumDecklistLeaders(
+  format: string,
+  limit = 12,
+): Promise<GumGumDecklistLeaderSnapshot | null> {
+  const normalizedFormat = format.trim().toUpperCase();
+  const sectionMap: Record<string, { sectionId: string; nextSectionId: string | null }> = {
+    OP15: { sectionId: "east-op15", nextSectionId: "east-eb04" },
+  };
+  const section = sectionMap[normalizedFormat];
+  if (!section) return null;
+
+  const res = await fetch(HOME_URL, {
+    headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
+    next: { revalidate: 900 },
+  });
+  if (!res.ok) return null;
+
+  const html = await res.text();
+  const start = html.indexOf(section.sectionId);
+  if (start === -1) return null;
+  const nextStart = section.nextSectionId ? html.indexOf(section.nextSectionId, start) : -1;
+  const chunk = html.slice(start, nextStart === -1 ? html.length : nextStart);
+
+  const rows: Array<{ date: string; leaderId: string; leaderName: string }> = [];
+
+  for (const part of chunk.split('{\\"id\\":\\"').slice(1)) {
+    const date = extractBetween(part, '\\"date\\":\\"', '\\"');
+    const leaderId = extractBetween(part, '\\"leader_id\\":\\"', '\\"');
+    const leaderName = extractBetween(part, '\\"leader_name\\":\\"', '\\"');
+
+    if (!date || !leaderId || !leaderName) continue;
+    rows.push({ date, leaderId, leaderName });
+  }
+
+  if (!rows.length) return null;
+
+  const latestDate = rows
+    .map((row) => row.date)
+    .sort((a, b) => String(b).localeCompare(String(a)))[0];
+  const cutoffDate = isoDateDaysAgo(latestDate, HOME_LOOKBACK_DAYS - 1);
+  const scopedRows = rows.filter((row) => row.date >= cutoffDate);
+  if (!scopedRows.length) return null;
+
+  const leaderCounts = new Map<string, { leader: string; deckCount: number }>();
+  for (const row of scopedRows) {
+    const current = leaderCounts.get(row.leaderId) || { leader: row.leaderName, deckCount: 0 };
+    current.deckCount += 1;
+    current.leader = row.leaderName || current.leader;
+    leaderCounts.set(row.leaderId, current);
+  }
+
+  const sampleDecks = scopedRows.length;
+  const leaders = [...leaderCounts.entries()]
+    .map(([cardId, row]) => ({
+      cardId,
+      leader: row.leader,
+      deckCount: row.deckCount,
+      metaShare: Number(((row.deckCount / sampleDecks) * 100).toFixed(2)),
+    }))
+    .sort(
+      (a, b) =>
+        b.deckCount - a.deckCount ||
+        b.metaShare - a.metaShare ||
+        a.cardId.localeCompare(b.cardId),
+    )
+    .slice(0, limit);
+
+  return {
+    source: "gumgum-home",
+    updatedAt: new Date().toISOString(),
+    sampleDecks,
+    leaders,
+  };
+}
+
 export async function fetchGumGumMatchups(limit = 18): Promise<GumGumMatchupSnapshot | null> {
   const res = await fetch(URL, {
     headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
