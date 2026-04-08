@@ -5,9 +5,9 @@ import { getHybridMatchupPayload, getHybridMetaPayload } from "@/lib/competitive
 import { buildHomeBountyStateFromMarketWatch } from "@/lib/home-bounty";
 import { getMarketHomeReadModel, toLegacyMarketWatchShape } from "@/lib/server/market/market-home";
 import {
+  HOME_MATCHUP_FORMAT,
   HOME_MATCHUP_PERIOD,
   HOME_MATCHUP_RANGE,
-  HOME_MATCHUP_SET,
   HOME_META_FORMAT,
   HOME_META_RANGE,
   HOME_META_REGION,
@@ -29,7 +29,7 @@ const getCachedHomeMeta = unstable_cache(
 const getCachedHomeMatchups = unstable_cache(
   async () =>
     getHybridMatchupPayload({
-      set: HOME_MATCHUP_SET,
+      format: HOME_MATCHUP_FORMAT,
       range: HOME_MATCHUP_RANGE,
       period: HOME_MATCHUP_PERIOD,
       limit: 12,

@@ -6,6 +6,8 @@ export interface LimitlessSnapshot {
   updatedAt: string;
   sampleGames: number;
   decks: MetaDeck[];
+  leaderSampleGames?: Record<string, number>;
+  matchupSamples?: Record<string, Record<string, { winRate: number; matches: number }>>;
 }
 
 function clean(text: string): string {
@@ -54,6 +56,8 @@ export async function fetchLimitlessMatchups(limit = 12, set = "OP12", time = "3
     const rowRegex = /<tr\s+data-share="([0-9.]+)"\s+data-winrate="([0-9.]+)">[\s\S]*?<td>(\d+)<\/td>[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\?game=OP[^\"]*">([\s\S]*?)<\/a>[\s\S]*?<\/tr>/gi;
 
     const decks: MetaDeck[] = [];
+    const leaderSampleGames: Record<string, number> = {};
+    const matchupSamples: Record<string, Record<string, { winRate: number; matches: number }>> = {};
     let m: RegExpExecArray | null;
     while ((m = rowRegex.exec(topHtml)) !== null) {
       const metaShare = Number(m[1]) * 100;
@@ -76,6 +80,8 @@ export async function fetchLimitlessMatchups(limit = 12, set = "OP12", time = "3
         matchups: {},
       });
 
+      leaderSampleGames[cardId] = Math.max(0, Math.round((sampleGames * metaShare) / 100));
+
       if (decks.length >= limit) break;
     }
 
@@ -93,14 +99,20 @@ export async function fetchLimitlessMatchups(limit = 12, set = "OP12", time = "3
         next: { revalidate: 900 },
       }).then((r) => r.text());
 
-      const matchupRegex = /<tr\s+data-name="[^"]*"\s+data-matches="\d+"\s+data-winrate="([0-9.]+)">[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\/matchups\?game=OP[^\"]*">/gi;
+      const matchupRegex = /<tr\s+data-name="[^"]*"\s+data-matches="(\d+)"\s+data-winrate="([0-9.]+)">[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\/matchups\?game=OP[^\"]*">/gi;
       let mm: RegExpExecArray | null;
+      matchupSamples[deck.cardId] = matchupSamples[deck.cardId] || {};
       while ((mm = matchupRegex.exec(h)) !== null) {
-        const rate = Number(mm[1]) * 100;
-        const oppCardId = mm[2];
+        const matches = Number(mm[1]);
+        const rate = Number(mm[2]) * 100;
+        const oppCardId = mm[3];
         const oppDeck = byCardId.get(oppCardId);
         if (!oppDeck) continue;
         deck.matchups[oppDeck.id] = Number(rate.toFixed(2));
+        matchupSamples[deck.cardId][oppCardId] = {
+          winRate: Number(rate.toFixed(2)),
+          matches,
+        };
       }
 
       deck.matchups[deck.id] = 50;
@@ -118,6 +130,8 @@ export async function fetchLimitlessMatchups(limit = 12, set = "OP12", time = "3
       updatedAt: new Date().toISOString(),
       sampleGames,
       decks,
+      leaderSampleGames,
+      matchupSamples,
     };
   } catch {
     return null;

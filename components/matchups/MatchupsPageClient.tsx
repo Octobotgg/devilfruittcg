@@ -10,8 +10,8 @@ import LeaderColorTag from "@/components/ui/LeaderColorTag";
 import LiveStatusStrip from "@/components/ui/LiveStatusStrip";
 import {
   MATCHUPS_DEFAULT_LIMIT,
+  MATCHUPS_DEFAULT_FORMAT,
   MATCHUPS_DEFAULT_PERIOD,
-  MATCHUPS_DEFAULT_SET,
   MATCHUPS_PAGE_RANGE,
 } from "@/lib/constants/page-defaults";
 import {
@@ -19,7 +19,6 @@ import {
   TIER_COLORS, TREND_ICONS, TREND_COLORS, type MetaDeck,
 } from "@/lib/meta-decks";
 import CardModal, { type CardModalData } from "@/components/CardModal";
-import { insightTimeRangeLabel } from "@/lib/competitive-time-range";
 import { getMatchupRefreshCopy } from "@/lib/matchup-refresh-state";
 
 export type MatchupsLeader = {
@@ -43,6 +42,7 @@ type MatchupsPageClientProps = {
   initialPayload: MatchupsInitialPayload;
   initialLeaders: MatchupsLeader[];
   initialIsLive: boolean;
+  supportedFormats: string[];
 };
 
 function getWinRateLabel(rate: number) {
@@ -121,6 +121,7 @@ export default function MatchupsPageClient({
   initialPayload,
   initialLeaders,
   initialIsLive,
+  supportedFormats,
 }: MatchupsPageClientProps) {
   const [decks, setDecks] = useState<MetaDeck[]>(initialPayload.decks.length ? initialPayload.decks : META_DECKS);
   const [selectedDeckId, setSelectedDeckId] = useState<string | null>(null);
@@ -133,7 +134,7 @@ export default function MatchupsPageClient({
     initialIsLive ? initialPayload.sampleDescription : "Showing fallback matchup snapshot"
   );
   const [comparableSample, setComparableSample] = useState<boolean>(initialIsLive ? initialPayload.comparableSample : false);
-  const [matchupSet, setMatchupSet] = useState<string>(MATCHUPS_DEFAULT_SET);
+  const [matchupFormat, setMatchupFormat] = useState<string>(MATCHUPS_DEFAULT_FORMAT);
   const [matchupPeriod, setMatchupPeriod] = useState<string>(MATCHUPS_DEFAULT_PERIOD);
   const [deckLimit, setDeckLimit] = useState<number>(MATCHUPS_DEFAULT_LIMIT);
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(initialIsLive ? initialPayload.updatedAt : null);
@@ -168,7 +169,7 @@ export default function MatchupsPageClient({
   const lowSample = comparableSample && sampleGames > 0 && sampleGames < 100;
   const refreshCopy = getMatchupRefreshCopy({
     period: matchupPeriod,
-    setCode: matchupSet,
+    formatCode: matchupFormat,
     deckLimit,
   });
 
@@ -341,7 +342,7 @@ export default function MatchupsPageClient({
         const p = new URLSearchParams({
           leader: lookupLeaderCardId,
           opponent: lookupOpponentCardId,
-          set: matchupSet,
+          format: matchupFormat,
           range: MATCHUPS_PAGE_RANGE,
           period: matchupPeriod,
         });
@@ -380,7 +381,7 @@ export default function MatchupsPageClient({
     return () => {
       cancelled = true;
     };
-  }, [lookupLeaderCardId, lookupOpponentCardId, matchupSet, matchupPeriod, lookupLeaderDeck, lookupOpponentDeck]);
+  }, [lookupLeaderCardId, lookupOpponentCardId, matchupFormat, matchupPeriod, lookupLeaderDeck, lookupOpponentDeck]);
 
   useEffect(() => {
     if (view !== "detail" || !selectedDeck) return;
@@ -415,7 +416,7 @@ export default function MatchupsPageClient({
 
   useEffect(() => {
     const usingDefaultFilters =
-      matchupSet === MATCHUPS_DEFAULT_SET &&
+      matchupFormat === MATCHUPS_DEFAULT_FORMAT &&
       matchupPeriod === MATCHUPS_DEFAULT_PERIOD &&
       deckLimit === MATCHUPS_DEFAULT_LIMIT;
 
@@ -431,7 +432,7 @@ export default function MatchupsPageClient({
       try {
         setIsRefreshingMatrix(true);
         const params = new URLSearchParams({
-          set: matchupSet,
+          format: matchupFormat,
           range: MATCHUPS_PAGE_RANGE,
           period: matchupPeriod,
           limit: String(deckLimit),
@@ -466,7 +467,7 @@ export default function MatchupsPageClient({
       cancelled = true;
       controller.abort();
     };
-  }, [deckLimit, initialIsLive, matchupPeriod, matchupSet]);
+  }, [deckLimit, initialIsLive, matchupPeriod, matchupFormat]);
 
   function openDeckModal(deck: MetaDeck) {
     setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
@@ -499,14 +500,14 @@ export default function MatchupsPageClient({
         </p>
         <div className="mt-3 flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs text-[var(--color-text-light)] mb-1">Matchup Format</label>
+            <label className="block text-xs text-[var(--color-text-light)] mb-1">Format</label>
             <select
-              value={matchupSet}
-              onChange={(e) => setMatchupSet(e.target.value)}
+              value={matchupFormat}
+              onChange={(e) => setMatchupFormat(e.target.value)}
               className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
             >
-              {['OP15','OP14','OP13','OP12','OP11','OP10','OP09','OP08'].map((s) => (
-                <option key={s} value={s} className="bg-[var(--color-cream)]">{s}</option>
+              {supportedFormats.map((format) => (
+                <option key={format} value={format} className="bg-[var(--color-cream)]">{format}</option>
               ))}
             </select>
           </div>
@@ -549,7 +550,7 @@ export default function MatchupsPageClient({
         sampleGames={sampleGames}
         sampleText={sampleLabel || undefined}
         sampleCaption={sampleDescription || undefined}
-        formatLabel={`${insightTimeRangeLabel(MATCHUPS_PAGE_RANGE)} · ${matchupSet}`}
+        formatLabel={matchupFormat}
       />
 
       <AnimatePresence>

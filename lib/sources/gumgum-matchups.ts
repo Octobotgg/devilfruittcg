@@ -47,6 +47,8 @@ export interface GumGumMatchupSnapshot {
   updatedAt: string;
   sampleGames: number;
   decks: MetaDeck[];
+  leaderSampleGames?: Record<string, number>;
+  matchupSamples?: Record<string, Record<string, { winRate: number; matches: number }>>;
 }
 
 export async function fetchGumGumMatchups(limit = 18): Promise<GumGumMatchupSnapshot | null> {
@@ -129,11 +131,15 @@ export async function fetchGumGumMatchups(limit = 18): Promise<GumGumMatchupSnap
     .map((deck, index) => ({ ...deck, tier: tierByRank(index + 1) }));
 
   const outById = new Map(decks.map((deck) => [deck.id, deck]));
+  const leaderSampleGames: Record<string, number> = {};
+  const matchupSamples: Record<string, Record<string, { winRate: number; matches: number }>> = {};
 
   for (const deck of selected) {
     const rowId = deck.cardId.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     const row = outById.get(rowId);
     if (!row) continue;
+    leaderSampleGames[deck.cardId] = deck.wins + deck.losses;
+    matchupSamples[deck.cardId] = matchupSamples[deck.cardId] || {};
 
     for (const opponent of selected) {
       const colId = opponent.cardId.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -145,6 +151,10 @@ export async function fetchGumGumMatchups(limit = 18): Promise<GumGumMatchupSnap
       const record = deck.vs[opponent.cardId];
       if (record && record.wins + record.losses > 0) {
         row.matchups[colId] = Number(((record.wins / (record.wins + record.losses)) * 100).toFixed(2));
+        matchupSamples[deck.cardId][opponent.cardId] = {
+          winRate: Number(((record.wins / (record.wins + record.losses)) * 100).toFixed(2)),
+          matches: record.wins + record.losses,
+        };
       } else {
         row.matchups[colId] = 50;
       }
@@ -162,5 +172,7 @@ export async function fetchGumGumMatchups(limit = 18): Promise<GumGumMatchupSnap
     updatedAt: new Date().toISOString(),
     sampleGames: totalGames,
     decks,
+    leaderSampleGames,
+    matchupSamples,
   };
 }

@@ -2,7 +2,7 @@ import type { MatchIntelPeriod } from "@/lib/analytics/types";
 
 type MatchupRefreshTarget = {
   period: string;
-  setCode: string;
+  formatCode: string;
   deckLimit: number;
 };
 
@@ -21,8 +21,8 @@ export function getMatchupPeriodLabel(period: string): string {
   return PERIOD_LABELS[period as MatchIntelPeriod] ?? period.trim().toUpperCase();
 }
 
-export function getMatchupRefreshTargetLabel({ period, setCode, deckLimit }: MatchupRefreshTarget): string {
-  return `${getMatchupPeriodLabel(period)} · ${setCode} · Top ${deckLimit}`;
+export function getMatchupRefreshTargetLabel({ period, formatCode, deckLimit }: MatchupRefreshTarget): string {
+  return `${getMatchupPeriodLabel(period)} · ${formatCode} · Top ${deckLimit}`;
 }
 
 export function getMatchupRefreshCopy(target: MatchupRefreshTarget) {

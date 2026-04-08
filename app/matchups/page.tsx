@@ -4,10 +4,11 @@ import { unstable_cache } from "next/cache";
 import { getHybridMatchupPayload } from "@/lib/competitive-insights";
 import {
   MATCHUPS_DEFAULT_LIMIT,
+  MATCHUPS_DEFAULT_FORMAT,
   MATCHUPS_DEFAULT_PERIOD,
-  MATCHUPS_DEFAULT_SET,
   MATCHUPS_PAGE_RANGE,
 } from "@/lib/constants/page-defaults";
+import { getSupportedMatchupFormats } from "@/lib/matchup-format-windows";
 import { OFFICIAL_BASE_CARDS } from "@/lib/official-cards";
 
 export const revalidate = 300;
@@ -15,7 +16,7 @@ export const revalidate = 300;
 const getCachedMatchupsPayload = unstable_cache(
   async () =>
     getHybridMatchupPayload({
-      set: MATCHUPS_DEFAULT_SET,
+      format: MATCHUPS_DEFAULT_FORMAT,
       range: MATCHUPS_PAGE_RANGE,
       period: MATCHUPS_DEFAULT_PERIOD,
       limit: MATCHUPS_DEFAULT_LIMIT,
@@ -60,6 +61,7 @@ export default async function MatchupsPage() {
       initialPayload={initialPayload}
       initialLeaders={getInitialLeaders()}
       initialIsLive={initialIsLive}
+      supportedFormats={getSupportedMatchupFormats()}
     />
   );
 }

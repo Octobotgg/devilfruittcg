@@ -9,9 +9,9 @@ import DonButton from "@/components/ui/DonButton";
 import TiltCard from "@/components/ui/TiltCard";
 import BrandMark from "@/components/BrandMark";
 import {
+  HOME_MATCHUP_FORMAT,
   HOME_MATCHUP_PERIOD,
   HOME_MATCHUP_RANGE,
-  HOME_MATCHUP_SET,
   HOME_META_FORMAT,
   HOME_META_RANGE,
   HOME_META_REGION,
@@ -149,7 +149,7 @@ export default function HomePageClient({
     const run = async () => {
       try {
         const params = new URLSearchParams({
-          set: HOME_MATCHUP_SET,
+          format: HOME_MATCHUP_FORMAT,
           range: HOME_MATCHUP_RANGE,
           period: HOME_MATCHUP_PERIOD,
           limit: "12",

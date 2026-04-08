@@ -2,7 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { asMatchIntelPeriod, createMatchIntelSupabaseRepository } from "@/lib/analytics";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import { fetchGumGumMatchups } from "@/lib/sources/gumgum-matchups";
-import { getInsightDateWindow, parseInsightTimeRange, resolveEffectiveRange, toLimitlessTime } from "@/lib/competitive-time-range";
+import { parseInsightTimeRange, resolveEffectiveRange } from "@/lib/competitive-time-range";
+import {
+  getCurrentMatchupFormat,
+  getMatchupFormatWindow,
+  mergeWeightedMatchupRate,
+} from "@/lib/matchup-format-windows";
 
 function parseWinRow(html: string, opponentId: string) {
   const re = /<tr\s+data-name="[^"]*"\s+data-matches="(\d+)"\s+data-winrate="([0-9.]+)">[\s\S]*?<a href="\/decks\/([A-Z0-9-]+)\/matchups\?game=OP[^\"]*">/gi;
@@ -94,52 +99,50 @@ function fromSnapshot(
 export async function GET(req: NextRequest) {
   const leader = (req.nextUrl.searchParams.get("leader") || "").toUpperCase();
   const opponent = (req.nextUrl.searchParams.get("opponent") || "").toUpperCase();
-  const set = (req.nextUrl.searchParams.get("set") || "OP12").toUpperCase();
+  const format = (req.nextUrl.searchParams.get("format") || "OP15").toUpperCase();
   const period = asMatchIntelPeriod(req.nextUrl.searchParams.get("period") || "west_p");
   const requestedRange = parseInsightTimeRange(req.nextUrl.searchParams.get("range"));
   const effectiveRange = resolveEffectiveRange(requestedRange);
   const matchIntelV2 = isMatchIntelV2Enabled();
+  const formatWindow = getMatchupFormatWindow(format);
 
   if (!leader || !opponent) {
     return NextResponse.json({ error: "leader and opponent are required" }, { status: 400 });
   }
 
-  if (requestedRange !== "all" && matchIntelV2) {
+  let simMapped: ReturnType<typeof fromSnapshot> | null = null;
+  if (formatWindow && matchIntelV2) {
     try {
       const repo = createMatchIntelSupabaseRepository();
       const bounds = await repo.getSnapshotDateBounds(period);
-      const snapshotWindow = bounds.latest ? getInsightDateWindow(requestedRange, new Date(`${bounds.latest}T00:00:00.000Z`)) : null;
-      const covered =
-        snapshotWindow?.startDate &&
-        bounds.earliest &&
-        bounds.latest &&
-        bounds.earliest <= snapshotWindow.startDate &&
-        bounds.latest >= snapshotWindow.endDate;
-      const snapshot = covered && snapshotWindow?.startDate ? await repo.getAggregatedSnapshot(period, snapshotWindow.startDate, snapshotWindow.endDate) : null;
+      const startDate =
+        bounds.earliest && bounds.earliest > formatWindow.startDate ? bounds.earliest : formatWindow.startDate;
+      const endDate =
+        bounds.latest && formatWindow.endDate && formatWindow.endDate < bounds.latest
+          ? formatWindow.endDate
+          : bounds.latest;
+
+      const snapshot =
+        bounds.earliest && bounds.latest && startDate && endDate && startDate <= endDate
+          ? await repo.getAggregatedSnapshot(period, startDate, endDate)
+          : null;
       if (snapshot?.matchups?.length) {
-        const mapped = fromSnapshot(snapshot, leader, opponent);
-        if (mapped) {
-          return NextResponse.json(
-            {
-              leader,
-              opponent,
-              period,
-              source: "live-aggregate",
-              range: requestedRange,
-              effectiveRange,
-              featureFlags: { matchIntelV2 },
-              ...mapped,
-            },
-            { status: 200, headers: { "Cache-Control": "s-maxage=120, stale-while-revalidate=300" } }
-          );
-        }
+        simMapped = fromSnapshot(snapshot, leader, opponent);
       }
     } catch {
       // continue
     }
   }
 
-  if (effectiveRange === "all") {
+  let gumgumMapped:
+    | {
+        winRate: number | null;
+        matches: number | null;
+        reverseWinRate: number | null;
+        reverseMatches: number | null;
+      }
+    | null = null;
+  if (format === getCurrentMatchupFormat()) {
     try {
       const gumgum = await fetchGumGumMatchups(30);
       const row = gumgum?.decks.find((deck) => deck.cardId === leader);
@@ -148,45 +151,32 @@ export async function GET(req: NextRequest) {
       const leaderId = row?.id;
       const forwardWinRate = row && opponentId ? row.matchups[opponentId] ?? null : null;
       const reverseWinRate = reverse && leaderId ? reverse.matchups[leaderId] ?? null : null;
+      const forwardMatches = gumgum?.matchupSamples?.[leader]?.[opponent]?.matches ?? null;
+      const reverseMatches = gumgum?.matchupSamples?.[opponent]?.[leader]?.matches ?? null;
       if ((row || reverse) && (forwardWinRate != null || reverseWinRate != null)) {
-        return NextResponse.json(
-          {
-            leader,
-            opponent,
-            period,
-            source: "live-aggregate",
-            range: requestedRange,
-            effectiveRange,
-            featureFlags: { matchIntelV2 },
-            winRate: forwardWinRate,
-            matches: null,
-            firstWinRate: null,
-            firstGames: null,
-            secondWinRate: null,
-            secondGames: null,
-            reverseWinRate,
-            reverseMatches: null,
-            reverseFirstWinRate: null,
-            reverseFirstGames: null,
-            reverseSecondWinRate: null,
-            reverseSecondGames: null,
-          },
-          { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
-        );
+        gumgumMapped = {
+          winRate: forwardWinRate,
+          matches: forwardMatches,
+          reverseWinRate,
+          reverseMatches,
+        };
       }
     } catch {
       // continue to Limitless fallback
     }
   }
 
+  let limitlessMapped:
+    | {
+        winRate: number | null;
+        matches: number | null;
+        reverseWinRate: number | null;
+        reverseMatches: number | null;
+      }
+    | null = null;
   try {
-    const time =
-      effectiveRange === "all"
-        ? "all"
-        : toLimitlessTime(effectiveRange as "1month" | "3months" | "6months" | "year");
-
     const aHtml = await fetch(
-      `https://play.limitlesstcg.com/decks/${leader}/matchups?game=OP&set=${encodeURIComponent(set)}${time === "all" ? "" : `&time=${encodeURIComponent(time)}`}`,
+      `https://play.limitlesstcg.com/decks/${leader}/matchups?game=OP&set=${encodeURIComponent(format)}`,
       {
         headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
         cache: "no-store",
@@ -194,7 +184,7 @@ export async function GET(req: NextRequest) {
     ).then((r) => r.text());
 
     const bHtml = await fetch(
-      `https://play.limitlesstcg.com/decks/${opponent}/matchups?game=OP&set=${encodeURIComponent(set)}${time === "all" ? "" : `&time=${encodeURIComponent(time)}`}`,
+      `https://play.limitlesstcg.com/decks/${opponent}/matchups?game=OP&set=${encodeURIComponent(format)}`,
       {
         headers: { "User-Agent": "Mozilla/5.0 DevilFruitTCG/1.0" },
         cache: "no-store",
@@ -203,27 +193,65 @@ export async function GET(req: NextRequest) {
 
     const a = parseWinRow(aHtml, opponent);
     const b = parseWinRow(bHtml, leader);
+    limitlessMapped = {
+      winRate: a?.winRate ?? null,
+      matches: a?.matches ?? 0,
+      reverseWinRate: b?.winRate ?? null,
+      reverseMatches: b?.matches ?? 0,
+    };
+  } catch {
+    // continue to terminal no-data response
+  }
 
+  const forward = mergeWeightedMatchupRate(
+    [
+      simMapped
+        ? { winRate: simMapped.winRate, matches: simMapped.matches, priority: 0 }
+        : null,
+      limitlessMapped
+        ? { winRate: limitlessMapped.winRate, matches: limitlessMapped.matches, priority: 1 }
+        : null,
+      gumgumMapped
+        ? { winRate: gumgumMapped.winRate, matches: gumgumMapped.matches, priority: 2 }
+        : null,
+    ].filter((value): value is { winRate: number | null; matches: number | null; priority: number } => Boolean(value))
+  );
+
+  const reverse = mergeWeightedMatchupRate(
+    [
+      simMapped
+        ? { winRate: simMapped.reverseWinRate, matches: simMapped.reverseMatches, priority: 0 }
+        : null,
+      limitlessMapped
+        ? { winRate: limitlessMapped.reverseWinRate, matches: limitlessMapped.reverseMatches, priority: 1 }
+        : null,
+      gumgumMapped
+        ? { winRate: gumgumMapped.reverseWinRate, matches: gumgumMapped.reverseMatches, priority: 2 }
+        : null,
+    ].filter((value): value is { winRate: number | null; matches: number | null; priority: number } => Boolean(value))
+  );
+
+  if (forward.winRate != null || reverse.winRate != null) {
     return NextResponse.json(
       {
         leader,
         opponent,
-        set,
+        format,
         period,
         range: requestedRange,
         effectiveRange,
-        winRate: a?.winRate ?? null,
-        matches: a?.matches ?? 0,
-        firstWinRate: null,
-        firstGames: null,
-        secondWinRate: null,
-        secondGames: null,
-        reverseWinRate: b?.winRate ?? null,
-        reverseMatches: b?.matches ?? 0,
-        reverseFirstWinRate: null,
-        reverseFirstGames: null,
-        reverseSecondWinRate: null,
-        reverseSecondGames: null,
+        winRate: forward.winRate,
+        matches: forward.matches,
+        firstWinRate: simMapped?.firstWinRate ?? null,
+        firstGames: simMapped?.firstGames ?? null,
+        secondWinRate: simMapped?.secondWinRate ?? null,
+        secondGames: simMapped?.secondGames ?? null,
+        reverseWinRate: reverse.winRate,
+        reverseMatches: reverse.matches,
+        reverseFirstWinRate: simMapped?.reverseFirstWinRate ?? null,
+        reverseFirstGames: simMapped?.reverseFirstGames ?? null,
+        reverseSecondWinRate: simMapped?.reverseSecondWinRate ?? null,
+        reverseSecondGames: simMapped?.reverseSecondGames ?? null,
         source: "live-aggregate",
         featureFlags: {
           matchIntelV2,
@@ -231,8 +259,6 @@ export async function GET(req: NextRequest) {
       },
       { status: 200, headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
     );
-  } catch {
-    // continue to terminal no-data response
   }
 
   return NextResponse.json(

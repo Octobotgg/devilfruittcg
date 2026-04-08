@@ -1,4 +1,4 @@
-import { META_DECKS } from "@/lib/meta-decks";
+import { META_DECKS, type MetaDeck } from "@/lib/meta-decks";
 import { getSeededMeta, matchupDecksToMetaSnapshot, type MetaSnapshot } from "@/lib/data/meta";
 import {
   asMatchIntelPeriod,
@@ -9,11 +9,16 @@ import {
   type MatchIntelPeriod,
   type MatchIntelSnapshot,
 } from "@/lib/analytics";
-import { fetchLimitlessMatchups } from "@/lib/sources/limitless-matchups";
-import { fetchGumGumMatchups } from "@/lib/sources/gumgum-matchups";
+import { fetchLimitlessMatchups, type LimitlessSnapshot } from "@/lib/sources/limitless-matchups";
+import { fetchGumGumMatchups, type GumGumMatchupSnapshot } from "@/lib/sources/gumgum-matchups";
 import { isMatchIntelV2Enabled } from "@/lib/config/flags";
 import { getInsightDateWindow, parseInsightTimeRange, resolveEffectiveRange, toLimitlessTime, type InsightTimeRange } from "@/lib/competitive-time-range";
-import { getOfficialCardById } from "@/lib/official-cards";
+import {
+  getCurrentMatchupFormat,
+  getMatchupFormatWindow,
+  isCardLegalInMatchupFormat,
+  mergeWeightedMatchupRate,
+} from "@/lib/matchup-format-windows";
 
 type MatchupPayload = {
   source: string;
@@ -38,49 +43,6 @@ function filterSnapshotForRankings<T extends { leaders: Array<{ leader_id: strin
   );
 
   if (!allowed.size) return snapshot;
-
-  return {
-    ...snapshot,
-    leaders: snapshot.leaders.filter((leader) => allowed.has(leader.leader_id)),
-    matchups: snapshot.matchups.filter((matchup) => allowed.has(matchup.leader_id) && allowed.has(matchup.opponent_id)),
-  };
-}
-
-function leaderMatchesSet(leaderId: string, setCode: string): boolean {
-  const official = getOfficialCardById(leaderId);
-  if (official?.setCode) return official.setCode.toUpperCase() === setCode;
-  return leaderId.toUpperCase().startsWith(`${setCode}-`);
-}
-
-function normalizeSnapshotSetFilter(value: string | null | undefined): string | null {
-  const normalized = String(value || "")
-    .trim()
-    .toUpperCase();
-
-  if (!normalized || normalized === "ALL") return null;
-  return normalized;
-}
-
-function filterSnapshotBySet<T extends { leaders: Array<{ leader_id: string }>; matchups: Array<{ leader_id: string; opponent_id: string }> }>(
-  snapshot: T,
-  setCode: string
-): T {
-  const normalizedSetCode = setCode.trim().toUpperCase();
-  if (!normalizedSetCode) return snapshot;
-
-  const allowed = new Set(
-    snapshot.leaders
-      .filter((leader) => leaderMatchesSet(leader.leader_id, normalizedSetCode))
-      .map((leader) => leader.leader_id)
-  );
-
-  if (!allowed.size) {
-    return {
-      ...snapshot,
-      leaders: [],
-      matchups: [],
-    };
-  }
 
   return {
     ...snapshot,
@@ -283,73 +245,332 @@ function numericSample(sampleGames: number, sampleDescription = "Logged games in
   };
 }
 
+type MatchupPairSample = {
+  winRate: number;
+  matches: number | null;
+};
+
+type MatchupSourceData = {
+  key: "sim" | "limitless" | "gumgum";
+  priority: number;
+  updatedAt: string;
+  sampleGames: number;
+  decks: MetaDeck[];
+  leaderSamples: Map<string, number>;
+  matchupSamples: Map<string, Map<string, MatchupPairSample>>;
+};
+
+type HeadToHeadPayload = {
+  leader: string;
+  opponent: string;
+  format: string;
+  period: MatchIntelPeriod;
+  source: string;
+  range: InsightTimeRange;
+  effectiveRange: Exclude<InsightTimeRange, "season">;
+  winRate: number | null;
+  matches: number | null;
+  firstWinRate: number | null;
+  firstGames: number | null;
+  secondWinRate: number | null;
+  secondGames: number | null;
+  reverseWinRate: number | null;
+  reverseMatches: number | null;
+  reverseFirstWinRate: number | null;
+  reverseFirstGames: number | null;
+  reverseSecondWinRate: number | null;
+  reverseSecondGames: number | null;
+};
+
+function tierFromRank(rank: number): MetaDeck["tier"] {
+  if (rank <= 3) return "S";
+  if (rank <= 6) return "A";
+  if (rank <= 10) return "B";
+  if (rank <= 14) return "C";
+  return "D";
+}
+
+function trendFromWinRate(winRate: number): MetaDeck["trend"] {
+  if (winRate >= 53) return "up";
+  if (winRate <= 48) return "down";
+  return "stable";
+}
+
+function buildSourceFromSnapshot(snapshot: MatchIntelSnapshot, updatedAt: string): MatchupSourceData | null {
+  const filtered = filterSnapshotForRankings(snapshot);
+  if (!filtered.leaders.length) return null;
+
+  const decks = snapshotToMatchupDecks(filtered, null, 30);
+  const leaderSamples = new Map(filtered.leaders.map((row) => [row.leader_id, row.number_of_matches || 0]));
+  const matchupSamples = new Map<string, Map<string, MatchupPairSample>>();
+
+  for (const row of filtered.matchups) {
+    if (!matchupSamples.has(row.leader_id)) matchupSamples.set(row.leader_id, new Map());
+    matchupSamples.get(row.leader_id)!.set(row.opponent_id, {
+      winRate: typeof row.matchup_win_rate === "number" ? Number((row.matchup_win_rate * 100).toFixed(2)) : 50,
+      matches: row.total_games || 0,
+    });
+  }
+
+  return {
+    key: "sim",
+    priority: 0,
+    updatedAt,
+    sampleGames: snapshotTotalMatches(filtered),
+    decks,
+    leaderSamples,
+    matchupSamples,
+  };
+}
+
+function buildSourceFromTournamentSnapshot(
+  key: "limitless" | "gumgum",
+  priority: number,
+  snapshot: LimitlessSnapshot | GumGumMatchupSnapshot
+): MatchupSourceData | null {
+  if (!snapshot.decks.length) return null;
+
+  const leaderSamples = new Map<string, number>();
+  const matchupSamples = new Map<string, Map<string, MatchupPairSample>>();
+
+  for (const deck of snapshot.decks) {
+    const estimate = snapshot.leaderSampleGames?.[deck.cardId]
+      ?? Math.max(1, Math.round((snapshot.sampleGames * deck.metaShare) / 100));
+    leaderSamples.set(deck.cardId, estimate);
+
+    const row = new Map<string, MatchupPairSample>();
+    const rawRow = snapshot.matchupSamples?.[deck.cardId] || {};
+    for (const [opponentId, value] of Object.entries(rawRow)) {
+      row.set(opponentId, value);
+    }
+    matchupSamples.set(deck.cardId, row);
+  }
+
+  return {
+    key,
+    priority,
+    updatedAt: snapshot.updatedAt,
+    sampleGames: snapshot.sampleGames,
+    decks: snapshot.decks,
+    leaderSamples,
+    matchupSamples,
+  };
+}
+
+function filterSourceForFormat(source: MatchupSourceData, format: string): MatchupSourceData {
+  const allowedCards = new Set(
+    source.decks
+      .filter((deck) => isCardLegalInMatchupFormat(deck.cardId, format))
+      .map((deck) => deck.cardId)
+  );
+
+  return {
+    ...source,
+    decks: source.decks.filter((deck) => allowedCards.has(deck.cardId)),
+    leaderSamples: new Map([...source.leaderSamples.entries()].filter(([cardId]) => allowedCards.has(cardId))),
+    matchupSamples: new Map(
+      [...source.matchupSamples.entries()]
+        .filter(([cardId]) => allowedCards.has(cardId))
+        .map(([cardId, row]) => [
+          cardId,
+          new Map([...row.entries()].filter(([opponentId]) => allowedCards.has(opponentId))),
+        ])
+    ),
+  };
+}
+
+async function getFormatWindowSnapshot(period: MatchIntelPeriod, format: string) {
+  const window = getMatchupFormatWindow(format);
+  if (!window) return null;
+
+  const repo = createMatchIntelSupabaseRepository();
+  const bounds = await repo.getSnapshotDateBounds(period);
+  if (!bounds.earliest || !bounds.latest) return null;
+
+  const startDate = bounds.earliest > window.startDate ? bounds.earliest : window.startDate;
+  const desiredEndDate = window.endDate || bounds.latest;
+  const endDate = desiredEndDate < bounds.latest ? desiredEndDate : bounds.latest;
+
+  if (startDate > endDate) return null;
+
+  const snapshot = await repo.getAggregatedSnapshot(period, startDate, endDate);
+  return snapshot ? { snapshot, startDate, endDate } : null;
+}
+
+function mergeFormatSources(
+  format: string,
+  sources: MatchupSourceData[],
+  limit: number
+): { decks: MetaDeck[]; sampleGames: number; updatedAt: string } | null {
+  const liveSources = sources.map((source) => filterSourceForFormat(source, format)).filter((source) => source.decks.length > 0);
+  if (!liveSources.length) return null;
+
+  const ranking = new Map<string, {
+    cardId: string;
+    sampleMatches: number;
+    weightedWinTotal: number;
+    weightedShareTotal: number;
+    weight: number;
+    preferredDeck: MetaDeck;
+    preferredPriority: number;
+  }>();
+
+  for (const source of liveSources) {
+    for (const deck of source.decks) {
+      const weight = source.leaderSamples.get(deck.cardId)
+        ?? Math.max(1, Math.round((source.sampleGames * deck.metaShare) / 100));
+
+      const current = ranking.get(deck.cardId) || {
+        cardId: deck.cardId,
+        sampleMatches: 0,
+        weightedWinTotal: 0,
+        weightedShareTotal: 0,
+        weight: 0,
+        preferredDeck: deck,
+        preferredPriority: source.priority,
+      };
+
+      current.sampleMatches += weight;
+      current.weight += weight;
+      current.weightedWinTotal += deck.winRate * weight;
+      current.weightedShareTotal += deck.metaShare * weight;
+
+      if (source.priority < current.preferredPriority) {
+        current.preferredDeck = deck;
+        current.preferredPriority = source.priority;
+      }
+
+      ranking.set(deck.cardId, current);
+    }
+  }
+
+  const rankedIds = [...ranking.values()]
+    .sort((a, b) => b.sampleMatches - a.sampleMatches || b.weightedShareTotal - a.weightedShareTotal)
+    .slice(0, limit)
+    .map((row) => row.cardId);
+
+  const mergedDecks = rankedIds.map((cardId, index) => {
+    const aggregate = ranking.get(cardId)!;
+    const base = aggregate.preferredDeck;
+    const weight = Math.max(1, aggregate.weight);
+    const winRate = Number((aggregate.weightedWinTotal / weight).toFixed(2));
+    const metaShare = Number((aggregate.weightedShareTotal / weight).toFixed(2));
+
+    return {
+      ...base,
+      tier: tierFromRank(index + 1),
+      winRate,
+      metaShare,
+      trend: trendFromWinRate(winRate),
+      description: `${aggregate.sampleMatches.toLocaleString()} weighted matches in ${format}`,
+      matchups: {} as Record<string, number>,
+    } satisfies MetaDeck;
+  });
+
+  const mergedByCardId = new Map(mergedDecks.map((deck) => [deck.cardId, deck]));
+
+  for (const rowDeck of mergedDecks) {
+    for (const colDeck of mergedDecks) {
+      if (rowDeck.cardId === colDeck.cardId) {
+        rowDeck.matchups[colDeck.id] = 50;
+        continue;
+      }
+
+      const merged = mergeWeightedMatchupRate(
+        liveSources
+          .map((source) => {
+            const pair = source.matchupSamples.get(rowDeck.cardId)?.get(colDeck.cardId);
+            if (!pair) return null;
+            return {
+              winRate: pair.winRate,
+              matches: pair.matches,
+              priority: source.priority,
+            };
+          })
+          .filter((value): value is { winRate: number; matches: number | null; priority: number } => Boolean(value))
+      );
+
+      rowDeck.matchups[mergedByCardId.get(colDeck.cardId)!.id] = merged.winRate ?? 50;
+    }
+  }
+
+  const updatedAt = liveSources
+    .map((source) => source.updatedAt)
+    .sort((a, b) => String(b).localeCompare(String(a)))[0];
+
+  const sampleGames = mergedDecks.reduce((sum, deck) => {
+    const aggregate = ranking.get(deck.cardId);
+    return sum + (aggregate?.sampleMatches || 0);
+  }, 0);
+
+  return {
+    decks: mergedDecks,
+    sampleGames,
+    updatedAt,
+  };
+}
+
 export async function getHybridMatchupPayload(options: {
   range?: string | null;
-  set?: string;
+  format?: string;
   type?: string;
   limit?: number;
   period?: string | null;
 }): Promise<MatchupPayload> {
   const requestedRange = parseInsightTimeRange(options.range);
   const effectiveRange = resolveEffectiveRange(requestedRange);
-  const snapshotSetFilter = normalizeSnapshotSetFilter(options.set);
-  const set = (options.set || "OP14").toUpperCase();
+  const format = (options.format || getCurrentMatchupFormat()).toUpperCase();
   const type = (options.type || "all").toLowerCase();
   const limit = Math.min(30, Math.max(8, Number(options.limit || 18)));
   const period = asMatchIntelPeriod(options.period || "west_p");
-  if (effectiveRange === "all") {
-    const gumgum = await fetchGumGumMatchups(limit);
-    if (gumgum?.decks?.length) {
-      return {
-        source: "live-aggregate",
-        updatedAt: gumgum.updatedAt,
-        ...historicalAggregateSample(gumgum.sampleGames),
-        decks: gumgum.decks,
-        requestedRange,
-        effectiveRange,
-      };
-    }
-  }
+  const sources: MatchupSourceData[] = [];
 
-  if (requestedRange !== "all" && isMatchIntelV2Enabled()) {
+  if (isMatchIntelV2Enabled()) {
     try {
-      const covered = await getCoveredSnapshotWindow({
-        periods: [period],
-        requestedRange,
-      });
-      const snapshot = covered?.snapshot
-        ? snapshotSetFilter
-          ? filterSnapshotBySet(covered.snapshot, snapshotSetFilter)
-          : covered.snapshot
-        : null;
-      const filtered = snapshot ? filterSnapshotForRankings(snapshot) : null;
-      if (covered && filtered?.leaders?.length) {
-        return {
-          source: "live-aggregate",
-          updatedAt: new Date(`${covered.endDate}T00:00:00.000Z`).toISOString(),
-          ...numericSample(snapshotTotalMatches(filtered)),
-          decks: snapshotToMatchupDecks(filtered, null, limit),
-          requestedRange,
-          effectiveRange,
-        };
+      const covered = await getFormatWindowSnapshot(period, format);
+      if (covered?.snapshot) {
+        const simSource = buildSourceFromSnapshot(
+          covered.snapshot,
+          new Date(`${covered.endDate}T00:00:00.000Z`).toISOString(),
+        );
+        if (simSource) sources.push(simSource);
       }
     } catch {
-      // continue to broader aggregate fallback
+      // continue
     }
   }
 
-  if (effectiveRange !== "all" && effectiveRange !== "1week") {
-    const live = await fetchLimitlessMatchups(limit, set, toLimitlessTime(effectiveRange), type);
-    if (live?.decks?.length) {
-      return {
-        source: "live-aggregate",
-        updatedAt: live.updatedAt,
-        ...numericSample(live.sampleGames),
-        decks: live.decks,
-        requestedRange,
-        effectiveRange,
-      };
+  try {
+    const live = await fetchLimitlessMatchups(30, format, "all", type);
+    const limitlessSource = live ? buildSourceFromTournamentSnapshot("limitless", 1, live) : null;
+    if (limitlessSource) sources.push(limitlessSource);
+  } catch {
+    // continue
+  }
+
+  if (format === getCurrentMatchupFormat()) {
+    try {
+      const gumgum = await fetchGumGumMatchups(30);
+      const gumgumSource = gumgum ? buildSourceFromTournamentSnapshot("gumgum", 2, gumgum) : null;
+      if (gumgumSource) sources.push(gumgumSource);
+    } catch {
+      // continue
     }
+  }
+
+  const merged = mergeFormatSources(format, sources, limit);
+  if (merged?.decks.length) {
+    return {
+      source: "live-aggregate",
+      updatedAt: merged.updatedAt,
+      sampleGames: merged.sampleGames,
+      sampleLabel: `${merged.sampleGames.toLocaleString()} weighted matchup samples`,
+      sampleDescription: `${format} format window coverage`,
+      comparableSample: true,
+      decks: merged.decks,
+      requestedRange,
+      effectiveRange,
+    };
   }
 
   return {

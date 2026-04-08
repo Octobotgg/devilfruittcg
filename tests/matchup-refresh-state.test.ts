@@ -19,7 +19,7 @@ test("matchup refresh copy describes the incoming period, format, and deck depth
   assert.equal(
     refreshState.getMatchupRefreshTargetLabel({
       period: "west_p",
-      setCode: "OP15",
+      formatCode: "OP15",
       deckLimit: 18,
     }),
     "West (Private) · OP15 · Top 18",
@@ -27,7 +27,7 @@ test("matchup refresh copy describes the incoming period, format, and deck depth
   assert.deepEqual(
     refreshState.getMatchupRefreshCopy({
       period: "lw",
-      setCode: "OP12",
+      formatCode: "OP12",
       deckLimit: 24,
     }),
     {
