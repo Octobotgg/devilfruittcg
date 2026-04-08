@@ -17,5 +17,5 @@ export default async function MarketCatalogPageContent({ searchParams }: MarketC
   const initialCatalog = await searchMarketCatalog(marketUrlStateToCatalogQuery(state));
   const initialCatalogKey = `${buildMarketCatalogApiQuery(state)}::0`;
 
-  return <MarketCatalogView initialCatalog={initialCatalog} initialCatalogKey={initialCatalogKey} />;
+  return <MarketCatalogView initialCatalog={initialCatalog} initialCatalogKey={initialCatalogKey} initialState={state} />;
 }

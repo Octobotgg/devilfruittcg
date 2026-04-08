@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { startTransition, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -25,6 +24,7 @@ import {
   marketPriceDisplay,
   marketVariantDisplayLabel,
 } from "@/lib/market-display";
+import { searchMarketCardsSnapshot } from "@/lib/market-search-core";
 import {
   clearPendingMarketRestore,
   readPendingMarketRestore,
@@ -36,6 +36,7 @@ import {
   defaultMarketSortForQuery,
   DEFAULT_MARKET_PAGE_SIZE,
   MARKET_PAGE_SIZE_OPTIONS,
+  marketUrlStateToCatalogQuery,
   parseMarketUrlState,
   type MarketUrlState,
   type ViewMode,
@@ -55,7 +56,13 @@ import {
   type MarketSetGroup,
   type MarketSetGroupKey,
 } from "@/lib/market-set-groups";
-import type { MarketCardResult, MarketCatalogResponse, MarketFacetOption, MarketSort } from "@/lib/market-types";
+import type {
+  MarketCardResult,
+  MarketCatalogResponse,
+  MarketCatalogSnapshotResponse,
+  MarketFacetOption,
+  MarketSort,
+} from "@/lib/market-types";
 const SORT_OPTIONS: Array<{ value: MarketSort; label: string }> = [
   { value: "relevance", label: "Relevance" },
   { value: "price_asc", label: "Price: Low to High" },
@@ -111,6 +118,16 @@ function compactCardSetLabel(card: Card) {
 
 function buildCardHref(cardRouteId: string, marketPath: string) {
   return `/cards/${cardRouteId}?market=${encodeURIComponent(marketPath)}`;
+}
+
+function buildMarketPath(state: MarketUrlState) {
+  const query = applyMarketStateToParams(state).toString();
+  return query ? `/market?${query}` : "/market";
+}
+
+function readMarketStateFromWindow() {
+  if (typeof window === "undefined") return null;
+  return parseMarketUrlState(new URLSearchParams(window.location.search));
 }
 
 function marketVariantLabel(card: Card) {
@@ -481,12 +498,17 @@ function Pagination({
 type MarketCatalogViewProps = {
   initialCatalog?: MarketCatalogResponse | null;
   initialCatalogKey?: string;
+  initialState: MarketUrlState;
 };
 
-export default function MarketCatalogView({ initialCatalog = null, initialCatalogKey = "" }: MarketCatalogViewProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const state = useMemo(() => parseMarketUrlState(searchParams), [searchParams]);
+type CatalogSource = "initial" | "api" | "snapshot";
+
+export default function MarketCatalogView({
+  initialCatalog = null,
+  initialCatalogKey = "",
+  initialState,
+}: MarketCatalogViewProps) {
+  const [state, setState] = useState<MarketUrlState>(initialState);
   const activeFilterCount = useMemo(() => countActiveFilters(state), [state]);
   const [draftQuery, setDraftQuery] = useState({ value: state.q, committed: state.q });
   const [setSearch, setSetSearch] = useState("");
@@ -497,12 +519,27 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
   });
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [openSections, setOpenSections] = useState<MarketFilterSectionState>(() => getInitialMarketOpenSections());
-  const [catalogState, setCatalogState] = useState<{ key: string; data: MarketCatalogResponse | null; error: string }>({
+  const [catalogState, setCatalogState] = useState<{
+    key: string;
+    data: MarketCatalogResponse | null;
+    error: string;
+    source: CatalogSource | null;
+  }>({
     key: initialCatalog ? initialCatalogKey : "",
     data: initialCatalog,
     error: "",
+    source: initialCatalog ? "initial" : null,
   });
   const [reloadKey, setReloadKey] = useState(0);
+  const [snapshotState, setSnapshotState] = useState<{
+    status: "idle" | "loading" | "ready" | "error";
+    data: MarketCatalogSnapshotResponse | null;
+    error: string;
+  }>({
+    status: "idle",
+    data: null,
+    error: "",
+  });
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionState, setSuggestionState] = useState<{ query: string; data: MarketCardResult[]; error: string }>({
     query: "",
@@ -510,6 +547,7 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
     error: "",
   });
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
+  const stateRef = useRef(state);
 
   const catalogQuery = useMemo(() => buildMarketCatalogApiQuery(state), [state]);
   const activeCatalogKey = `${catalogQuery}::${reloadKey}`;
@@ -532,10 +570,85 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
       .map((value) => optionByValue.get(value))
       .filter((option): option is MarketFacetOption => Boolean(option));
   }, [setOptions, state.sets]);
-  const currentMarketPath = useMemo(() => {
-    const query = applyMarketStateToParams(state).toString();
-    return query ? `/market?${query}` : "/market";
+  const currentMarketPath = useMemo(() => buildMarketPath(state), [state]);
+  const fullMetadata = useMemo(() => {
+    if (snapshotState.data && snapshotState.data.facets.sets.length) {
+      return {
+        facets: snapshotState.data.facets,
+        ranges: snapshotState.data.ranges,
+      };
+    }
+
+    const metadataSource = initialCatalog || catalogState.data;
+    return metadataSource
+      ? {
+          facets: metadataSource.facets,
+          ranges: metadataSource.ranges,
+        }
+      : {
+          facets: {
+            sets: [],
+            types: [],
+            colors: [],
+            rarities: [],
+            counters: [],
+            attributes: [],
+          },
+          ranges: {
+            cost: { min: 0, max: 0 },
+            life: { min: 0, max: 0 },
+            power: { min: 0, max: 0 },
+          },
+      };
+  }, [catalogState.data, initialCatalog, snapshotState.data]);
+  const applySnapshotCatalog = useCallback(
+    (nextState: MarketUrlState, snapshot = snapshotState.data) => {
+      if (!snapshot) return false;
+
+      const localResult = searchMarketCardsSnapshot(
+        snapshot.cards,
+        marketUrlStateToCatalogQuery(nextState, { includeMetadata: false }),
+      );
+      const nextCatalogKey = `${buildMarketCatalogApiQuery(nextState)}::${reloadKey}`;
+
+      setCatalogState({
+        key: nextCatalogKey,
+        source: "snapshot",
+        data: {
+          ...localResult,
+          facets: fullMetadata.facets,
+          ranges: fullMetadata.ranges,
+        },
+        error: "",
+      });
+
+      return true;
+    },
+    [fullMetadata.facets, fullMetadata.ranges, reloadKey, snapshotState.data],
+  );
+
+  useEffect(() => {
+    stateRef.current = state;
   }, [state]);
+
+  useEffect(() => {
+    setDraftQuery((current) => (current.committed === state.q ? current : { value: state.q, committed: state.q }));
+  }, [state.q]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const nextState = readMarketStateFromWindow();
+      if (!nextState) return;
+      applySnapshotCatalog(nextState);
+      stateRef.current = nextState;
+      startTransition(() => {
+        setState(nextState);
+      });
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [applySnapshotCatalog]);
 
   useEffect(() => {
     const onPointerDown = (event: MouseEvent) => {
@@ -584,17 +697,42 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
   }, [currentMarketPath]);
 
   useEffect(() => {
-    if (catalogState.key === activeCatalogKey && catalogState.data) return;
+    if (snapshotState.data) {
+      if (catalogState.key === activeCatalogKey && catalogState.source === "snapshot" && catalogState.data) return;
+
+      const localResult = searchMarketCardsSnapshot(
+        snapshotState.data.cards,
+        marketUrlStateToCatalogQuery(state, { includeMetadata: false }),
+      );
+
+      setCatalogState({
+        key: activeCatalogKey,
+        source: "snapshot",
+        data: {
+          ...localResult,
+          facets: fullMetadata.facets,
+          ranges: fullMetadata.ranges,
+        },
+        error: "",
+      });
+      return;
+    }
+
+    if (activeCatalogKey === initialCatalogKey && initialCatalog && catalogState.source === "initial") {
+      return;
+    }
+
+    if (catalogState.key === activeCatalogKey && catalogState.data && catalogState.source === "api") return;
 
     const controller = new AbortController();
 
-    void fetch(`/api/market/catalog?${catalogQuery}`, { cache: "no-store", signal: controller.signal })
+    void fetch(`/api/market/catalog?${catalogQuery}`, { signal: controller.signal })
       .then(async (res) => {
         if (!res.ok) throw new Error("Unable to load market catalogue");
         return (await res.json()) as MarketCatalogResponse;
       })
       .then((json) => {
-        setCatalogState({ key: activeCatalogKey, data: json, error: "" });
+        setCatalogState({ key: activeCatalogKey, data: json, error: "", source: "api" });
       })
       .catch((fetchError: unknown) => {
         if (controller.signal.aborted) return;
@@ -602,11 +740,77 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
           key: activeCatalogKey,
           data: null,
           error: fetchError instanceof Error ? fetchError.message : "Unable to load market catalogue",
+          source: "api",
         });
       });
 
     return () => controller.abort();
-  }, [activeCatalogKey, catalogQuery, catalogState.data, catalogState.key]);
+  }, [
+    activeCatalogKey,
+    catalogQuery,
+    catalogState.data,
+    catalogState.key,
+    catalogState.source,
+    fullMetadata.facets,
+    fullMetadata.ranges,
+    initialCatalog,
+    initialCatalogKey,
+    snapshotState.data,
+    state,
+  ]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    let idleId: number | null = null;
+    setSnapshotState((current) => (current.status === "idle" ? { ...current, status: "loading" } : current));
+    const requestIdleCallbackApi =
+      typeof window.requestIdleCallback === "function" ? window.requestIdleCallback.bind(window) : null;
+    const cancelIdleCallbackApi =
+      typeof window.cancelIdleCallback === "function" ? window.cancelIdleCallback.bind(window) : null;
+
+    const startWarmFetch = () => {
+      void fetch("/api/market/catalog?snapshot=1&includeMetadata=0", {
+        cache: "force-cache",
+        signal: controller.signal,
+      })
+        .then(async (res) => {
+          if (!res.ok) throw new Error("Unable to warm market catalogue");
+          return (await res.json()) as MarketCatalogSnapshotResponse;
+        })
+        .then((json) => {
+          setSnapshotState({
+            status: "ready",
+            data: json,
+            error: "",
+          });
+        })
+        .catch((fetchError: unknown) => {
+          if (controller.signal.aborted) return;
+          setSnapshotState({
+            status: "error",
+            data: null,
+            error: fetchError instanceof Error ? fetchError.message : "Unable to warm market catalogue",
+          });
+        });
+    };
+
+    if (requestIdleCallbackApi) {
+      idleId = requestIdleCallbackApi(startWarmFetch, { timeout: 1500 });
+    } else {
+      timeoutId = globalThis.setTimeout(startWarmFetch, 350);
+    }
+
+    return () => {
+      controller.abort();
+      if (idleId != null && cancelIdleCallbackApi) {
+        cancelIdleCallbackApi(idleId);
+      }
+      if (timeoutId != null) {
+        globalThis.clearTimeout(timeoutId);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (loading) return;
@@ -625,8 +829,22 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
   useEffect(() => {
     if (suggestionQuery.length < 2) return;
 
-    const controller = new AbortController();
+    let controller: AbortController | null = null;
     const timeout = window.setTimeout(() => {
+      if (snapshotState.data) {
+        const localSuggestions = searchMarketCardsSnapshot(snapshotState.data.cards, {
+          q: suggestionQuery,
+          page: 1,
+          pageSize: 8,
+          sort: "relevance",
+          includeMetadata: false,
+        });
+
+        setSuggestionState({ query: suggestionQuery, data: localSuggestions.results, error: "" });
+        return;
+      }
+
+      controller = new AbortController();
       const params = new URLSearchParams();
       params.set("q", suggestionQuery);
       params.set("page", "1");
@@ -634,7 +852,7 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
       params.set("sort", "relevance");
       params.set("includeMetadata", "0");
 
-      void fetch(`/api/market/catalog?${params.toString()}`, { cache: "no-store", signal: controller.signal })
+      void fetch(`/api/market/catalog?${params.toString()}`, { signal: controller.signal })
         .then(async (res) => {
           if (!res.ok) throw new Error("Unable to load suggestions");
           return (await res.json()) as MarketCatalogResponse;
@@ -643,7 +861,7 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
           setSuggestionState({ query: suggestionQuery, data: json.results, error: "" });
         })
         .catch((fetchError: unknown) => {
-          if (controller.signal.aborted) return;
+          if (controller?.signal.aborted) return;
           setSuggestionState({
             query: suggestionQuery,
             data: [],
@@ -653,25 +871,37 @@ export default function MarketCatalogView({ initialCatalog = null, initialCatalo
     }, 300);
 
     return () => {
-      controller.abort();
+      controller?.abort();
       window.clearTimeout(timeout);
     };
-  }, [suggestionQuery]);
+  }, [snapshotState.data, suggestionQuery]);
 
   useEffect(() => {
     if (!setSearchQuery) return;
     setOpenSections((current) => (current.sets ? current : { ...current, sets: true }));
   }, [setSearchQuery]);
 
-  const updateState = useCallback((updater: (current: MarketUrlState) => MarketUrlState) => {
-    const nextState = updater(state);
-    const params = applyMarketStateToParams(nextState);
-    const nextUrl = params.toString() ? `/market?${params.toString()}` : "/market";
+  const writeHistoryState = useCallback((nextState: MarketUrlState, mode: "push" | "replace" = "push") => {
+    const nextUrl = buildMarketPath(nextState);
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+    if (nextUrl === currentUrl) return;
 
-    startTransition(() => {
-      router.push(nextUrl, { scroll: false });
-    });
-  }, [router, state]);
+    window.history[mode === "replace" ? "replaceState" : "pushState"](null, "", nextUrl);
+  }, []);
+
+  const updateState = useCallback(
+    (updater: (current: MarketUrlState) => MarketUrlState, options?: { history?: "push" | "replace" }) => {
+      const nextState = updater(stateRef.current);
+      applySnapshotCatalog(nextState);
+      stateRef.current = nextState;
+      writeHistoryState(nextState, options?.history || "push");
+
+      startTransition(() => {
+        setState(nextState);
+      });
+    },
+    [applySnapshotCatalog, writeHistoryState],
+  );
 
   const resetFilters = useCallback(() => {
     updateState((current) => ({
