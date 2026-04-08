@@ -2,6 +2,7 @@ import { createRequire } from "node:module";
 
 import type { Card } from "../../cards";
 import type {
+  MarketCatalogQuery,
   MarketCardResult,
   MarketCatalogResponse,
   MarketFacetOption,
@@ -17,26 +18,7 @@ if (process.env.NODE_ENV !== "test") {
 const { createPostgresClient }: typeof import("../../../db/postgres") = require("../../../db/postgres.ts");
 const { formatMarketSetFacetLabel }: typeof import("../../market-display") = require("../../market-display.ts");
 
-type MarketSearchQuery = {
-  q?: string;
-  sets?: string[];
-  types?: string[];
-  colors?: string[];
-  rarities?: string[];
-  counters?: number[];
-  attributes?: string[];
-  costMin?: number;
-  costMax?: number;
-  lifeMin?: number;
-  lifeMax?: number;
-  powerMin?: number;
-  powerMax?: number;
-  priceMin?: number;
-  priceMax?: number;
-  sort?: MarketSort;
-  page?: number;
-  pageSize?: number;
-};
+type MarketSearchQuery = MarketCatalogQuery;
 
 type MarketSearchRow = {
   cardPrintId: string;
@@ -121,6 +103,21 @@ const DEFAULT_PAGE_SIZE = 24;
 const MAX_PAGE_SIZE = 96;
 const STALE_THRESHOLD_MS = 8 * 24 * 60 * 60 * 1000;
 const MARKET_ROWS_CACHE_TTL_MS = 60 * 1000;
+const EMPTY_MARKET_METADATA: Pick<MarketCatalogResponse, "facets" | "ranges"> = {
+  facets: {
+    sets: [],
+    types: [],
+    colors: [],
+    rarities: [],
+    counters: [],
+    attributes: [],
+  },
+  ranges: {
+    cost: { min: 0, max: 0 },
+    life: { min: 0, max: 0 },
+    power: { min: 0, max: 0 },
+  },
+};
 
 let cachedMarketRows: MarketSearchRow[] | null = null;
 let cachedMarketRowsAt = 0;
@@ -595,6 +592,7 @@ export function resolveMarketSortForTesting(query: string, sort?: MarketSort) {
 export async function searchMarketCatalogReadModel(
   query: MarketSearchQuery = {},
 ): Promise<MarketCatalogResponse & { results: RuntimeMarketCardResult[] }> {
+  const includeMetadata = query.includeMetadata !== false;
   const allCards = (await loadMarketRows()).map((row) => toMarketCardResultForTesting(row));
   const filtered = applyFilters(allCards, query);
   const sort = resolveMarketSortForTesting(String(query.q || ""), query.sort);
@@ -605,6 +603,12 @@ export async function searchMarketCatalogReadModel(
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const start = (page - 1) * pageSize;
   const results = sorted.slice(start, start + pageSize);
+  const metadata = includeMetadata
+    ? {
+        facets: createFacets(allCards),
+        ranges: createRanges(allCards),
+      }
+    : EMPTY_MARKET_METADATA;
 
   return {
     total,
@@ -614,7 +618,7 @@ export async function searchMarketCatalogReadModel(
     sort,
     query: String(query.q || ""),
     results,
-    facets: createFacets(allCards),
-    ranges: createRanges(allCards),
+    facets: metadata.facets,
+    ranges: metadata.ranges,
   };
 }

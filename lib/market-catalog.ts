@@ -1,33 +1,13 @@
 import { createRequire } from "node:module";
+import { unstable_cache } from "next/cache.js";
 
-import type { MarketCatalogResponse, MarketSort } from "./market-types";
+import type { MarketCatalogQuery, MarketCatalogResponse, MarketSort } from "./market-types";
 
 const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
   require("server-only");
 }
 const marketSearch = require("./server/market/market-search.ts") as typeof import("./server/market/market-search");
-
-type MarketCatalogQuery = {
-  q?: string;
-  sets?: string[];
-  types?: string[];
-  colors?: string[];
-  rarities?: string[];
-  counters?: number[];
-  attributes?: string[];
-  costMin?: number;
-  costMax?: number;
-  lifeMin?: number;
-  lifeMax?: number;
-  powerMin?: number;
-  powerMax?: number;
-  priceMin?: number;
-  priceMax?: number;
-  sort?: MarketSort;
-  page?: number;
-  pageSize?: number;
-};
 
 type MarketCatalogMetadata = Pick<MarketCatalogResponse, "facets" | "ranges">;
 type SearchMarketCatalogReadModel = typeof marketSearch.searchMarketCatalogReadModel;
@@ -61,6 +41,7 @@ const EMPTY_METADATA: MarketCatalogMetadata = {
 };
 
 let cachedMetadata: MarketCatalogMetadata = EMPTY_METADATA;
+const MARKET_CATALOG_REVALIDATE_SECONDS = 60;
 
 function clampPage(value?: number) {
   if (typeof value !== "number" || !Number.isFinite(value)) return 1;
@@ -77,6 +58,21 @@ function normalizeSort(sort: MarketCatalogQuery["sort"], query: string | undefin
   return String(query || "").trim() ? "relevance" : "newest";
 }
 
+function normalizeMarketCatalogQuery(query: MarketCatalogQuery): MarketCatalogQuery {
+  return {
+    ...query,
+    sort: normalizeSort(query.sort, query.q),
+    page: clampPage(query.page),
+    pageSize: clampPageSize(query.pageSize),
+  };
+}
+
+const searchCachedMarketCatalog = unstable_cache(
+  async (query: MarketCatalogQuery) => marketSearch.searchMarketCatalogReadModel(query),
+  ["market-catalog-response-v1"],
+  { revalidate: MARKET_CATALOG_REVALIDATE_SECONDS }
+);
+
 export function getMarketCatalogMetadata() {
   return cachedMetadata;
 }
@@ -87,18 +83,17 @@ export async function searchMarketCatalog(
     searchReadModel?: SearchMarketCatalogReadModel;
   },
 ): Promise<MarketCatalogResponse> {
-  const searchReadModel = options?.searchReadModel ?? marketSearch.searchMarketCatalogReadModel;
-  const result = await searchReadModel({
-    ...query,
-    sort: normalizeSort(query.sort, query.q),
-    page: clampPage(query.page),
-    pageSize: clampPageSize(query.pageSize),
-  });
+  const normalizedQuery = normalizeMarketCatalogQuery(query);
+  const result = options?.searchReadModel
+    ? await options.searchReadModel(normalizedQuery)
+    : await searchCachedMarketCatalog(normalizedQuery);
 
-  cachedMetadata = {
-    facets: result.facets,
-    ranges: result.ranges,
-  };
+  if (query.includeMetadata !== false) {
+    cachedMetadata = {
+      facets: result.facets,
+      ranges: result.ranges,
+    };
+  }
 
   return result;
 }
