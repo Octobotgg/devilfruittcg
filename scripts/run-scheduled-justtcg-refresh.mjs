@@ -3,38 +3,26 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildScheduledRefreshQueue, loadPricingRefreshConfig } from "./lib/justtcg-refresh-queue.mjs";
-import { loadJson, readOfficialCards, writeJson, REPO_ROOT } from "./lib/justtcg-utils.mjs";
-import { runSetRefresh, resolveSetRefreshTarget } from "./run-justtcg-set-refresh.mjs";
+import { loadJson, writeJson } from "./lib/justtcg-utils.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-releases.json");
 const DEFAULT_REFRESH_STATE_PATH = path.join(ROOT, ".cache", "justtcg", "refresh-state.json");
 const DEFAULT_FETCH_PAGE_SIZE = 20;
-const DEFAULT_MINIMUM_ROLLING_BUDGET = 150;
-const BOOSTER_RELEASE_CATEGORIES = new Set(["BOOSTER_PACK", "EXTRA_BOOSTER", "BOOSTER_BOX"]);
+const DEFAULT_MODE = "full_refresh";
+const VALID_MODES = new Set(["full_refresh", "delta_refresh"]);
 
-function normalizeToken(value) {
-  return String(value || "")
+function normalizeMode(value) {
+  const normalized = String(value || "")
     .trim()
-    .toUpperCase()
-    .replace(/[^A-Z0-9]/g, "");
-}
-
-function normalizeReleaseCode(value) {
-  const normalized = normalizeToken(value);
-  if (/^OP\d{2}EB\d{2}$/.test(normalized)) {
-    return `${normalized.slice(0, 4)}-${normalized.slice(4)}`;
-  }
-  return normalized;
+    .toLowerCase();
+  return VALID_MODES.has(normalized) ? normalized : DEFAULT_MODE;
 }
 
 function parseArgs(argv) {
   const args = {
     dryRun: false,
-    quotaRemaining: null,
-    minimumRollingBudget: DEFAULT_MINIMUM_ROLLING_BUDGET,
+    mode: DEFAULT_MODE,
     statePath: DEFAULT_REFRESH_STATE_PATH,
   };
 
@@ -44,22 +32,13 @@ function parseArgs(argv) {
       args.dryRun = true;
       continue;
     }
-    if (token === "--quota-remaining") {
-      const parsed = Number.parseInt(String(argv[index + 1] || ""), 10);
-      args.quotaRemaining = Number.isFinite(parsed) && parsed > 0 ? parsed : null;
-      index += 1;
-      continue;
-    }
-    if (token === "--minimum-rolling-budget") {
-      const parsed = Number.parseInt(String(argv[index + 1] || ""), 10);
-      args.minimumRollingBudget = Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_MINIMUM_ROLLING_BUDGET;
+    if (token === "--mode") {
+      args.mode = normalizeMode(argv[index + 1]);
       index += 1;
       continue;
     }
     if (token === "--state-path") {
-      args.statePath = argv[index + 1]
-        ? path.resolve(process.cwd(), argv[index + 1])
-        : args.statePath;
+      args.statePath = argv[index + 1] ? path.resolve(process.cwd(), argv[index + 1]) : args.statePath;
       index += 1;
     }
   }
@@ -67,89 +46,15 @@ function parseArgs(argv) {
   return args;
 }
 
-function isBoosterRelease(release) {
-  return BOOSTER_RELEASE_CATEGORIES.has(String(release?.category || "").trim().toUpperCase());
-}
-
-function releaseMatchesToken(release, token) {
-  const normalizedToken = normalizeToken(token);
-  if (!normalizedToken) return false;
-  const codes = Array.isArray(release?.codes) ? release.codes : [];
-  return codes.some((code) => normalizeToken(code).includes(normalizedToken));
-}
-
-function firstMatchingToken(value, tokens) {
-  const normalizedValue = normalizeToken(value);
-  return tokens.find((token) => normalizedValue.includes(normalizeToken(token))) || null;
-}
-
-function buildNewestSetCards(newestSets) {
-  const officialCards = readOfficialCards();
-  return officialCards
-    .map((card) => {
-      const token = firstMatchingToken(card.releaseCode || card.id, newestSets);
-      if (!token) return null;
-      return {
-        cardPrintId: String(card.id || "").trim(),
-        setCode: String(token),
-        releaseDate: String(card.releaseDate || ""),
-      };
-    })
-    .filter(Boolean);
-}
-
-function loadDemandCards() {
-  const raw = String(process.env.JUSTTCG_DEMAND_CARD_IDS || "").trim();
-  if (!raw) return [];
-  return raw
-    .split(",")
-    .map((entry) => entry.trim())
-    .filter(Boolean)
-    .map((cardPrintId) => ({ cardPrintId, setCode: "" }));
-}
-
-function derivePrioritySetCodes(officialReleases, newestSets) {
-  const deduped = [];
-  const seen = new Set();
-
-  for (const release of officialReleases || []) {
-    if (!isBoosterRelease(release)) continue;
-    if (!newestSets.some((token) => releaseMatchesToken(release, token))) continue;
-    const firstCode = Array.isArray(release.codes) ? release.codes[0] : "";
-    const normalizedCode = normalizeReleaseCode(firstCode);
-    if (!normalizedCode || seen.has(normalizedCode)) continue;
-    seen.add(normalizedCode);
-    deduped.push(normalizedCode);
-  }
-
-  return deduped;
-}
-
-function estimateSetRefreshRequests(target, fetchPageSize = DEFAULT_FETCH_PAGE_SIZE) {
-  const pageCount = Math.max(1, Math.ceil(Math.max(1, target.printCount || 1) / fetchPageSize));
-  return 1 + pageCount;
-}
-
-export function partitionScheduledWork({
-  quotaRemaining,
-  hotQueue = [],
-  deltaQueue = [],
-  minimumRollingBudget = DEFAULT_MINIMUM_ROLLING_BUDGET,
-}) {
-  const remaining = Number.isFinite(Number(quotaRemaining)) ? Math.max(0, Number(quotaRemaining)) : 0;
-  return {
-    hotQueue: [...hotQueue],
-    deltaQueue: remaining >= minimumRollingBudget ? [...deltaQueue] : [],
-  };
-}
-
 export function buildScheduledRunPlan(options = {}) {
   return {
     dryRun: false,
     enableDiscovery: false,
-    minimumRollingBudget: DEFAULT_MINIMUM_ROLLING_BUDGET,
     fetchPageSize: DEFAULT_FETCH_PAGE_SIZE,
+    mode: DEFAULT_MODE,
+    statePath: DEFAULT_REFRESH_STATE_PATH,
     ...options,
+    mode: normalizeMode(options.mode),
     enableDiscovery: false,
   };
 }
@@ -167,124 +72,84 @@ async function runNodeScript(label, scriptName, args) {
   });
 }
 
+async function runImport({ mode, fetchPageSize, updatedAfter }) {
+  const args = ["--apply", "--fetch-page-size", String(fetchPageSize)];
+  if (mode === "full_refresh") {
+    args.push("--updated-after", "0");
+  } else if (updatedAfter != null) {
+    args.push("--updated-after", String(updatedAfter));
+  }
+
+  const importResult = await runNodeScript("import", "import-justtcg-to-drizzle.mjs", args);
+  if (!importResult.ok) {
+    throw new Error(`${mode} import failed with exit code ${importResult.code ?? "unknown"}`);
+  }
+}
+
+async function runKnownPricePublish({ source }) {
+  const publishResult = await runNodeScript("publish_known_prices", "refresh-known-justtcg-prices.mjs", [
+    "--all-known",
+    "--source",
+    source,
+  ]);
+  if (!publishResult.ok) {
+    throw new Error(`known-price publish failed with exit code ${publishResult.code ?? "unknown"}`);
+  }
+}
+
 export async function runScheduledRefresh(options = {}) {
   const plan = buildScheduledRunPlan(options);
-  const config = loadPricingRefreshConfig();
   const state = loadJson(plan.statePath || DEFAULT_REFRESH_STATE_PATH, {
     lastSuccessfulUpdatedAfter: null,
   });
-  const officialReleases = loadJson(OFFICIAL_RELEASES_PATH, []);
-  const newestSetCards = buildNewestSetCards(config.newestSets);
-  const demandCards = loadDemandCards();
-  const deltaQueue = state.lastSuccessfulUpdatedAfter ? [{ cardPrintId: `delta:${state.lastSuccessfulUpdatedAfter}`, setCode: "DELTA" }] : [];
-  const scheduledQueue = buildScheduledRefreshQueue({
-    config,
-    newestSetCards,
-    demandCards,
-    deltaCards: deltaQueue,
-  });
+  const priorCursor = Number.isFinite(Number(state.lastSuccessfulUpdatedAfter))
+    ? Number(state.lastSuccessfulUpdatedAfter)
+    : null;
 
-  let remainingQuota =
-    plan.quotaRemaining ??
-    config.hardStopBudget ??
-    config.perRunBudget ??
-    DEFAULT_MINIMUM_ROLLING_BUDGET;
-
-  const prioritySetCodes = derivePrioritySetCodes(officialReleases, config.newestSets);
-  const executedSetRefreshes = [];
-  const skippedSetRefreshes = [];
-
-  for (const setCode of prioritySetCodes) {
-    const target = resolveSetRefreshTarget({ requestedSetCode: setCode, releases: officialReleases });
-    const estimatedRequests = estimateSetRefreshRequests(target, plan.fetchPageSize);
-    if (estimatedRequests > remainingQuota) {
-      skippedSetRefreshes.push({ setCode, reason: "quota_cap", estimatedRequests });
-      continue;
-    }
-
-    if (!plan.dryRun) {
-      await runSetRefresh({
-        setCode,
-        fetchPageSize: plan.fetchPageSize,
-        requireResolvedSetId: true,
-      });
-    }
-
-    remainingQuota -= estimatedRequests;
-    executedSetRefreshes.push({ setCode, estimatedRequests });
-  }
-
-  const partition = partitionScheduledWork({
-    quotaRemaining: remainingQuota,
-    hotQueue: scheduledQueue.filter((entry) => entry.source === "newest" || entry.source === "demand"),
-    deltaQueue,
-    minimumRollingBudget: plan.minimumRollingBudget,
-  });
-
-  let deltaExecuted = false;
-  if (partition.deltaQueue.length && state.lastSuccessfulUpdatedAfter != null) {
-    if (!plan.dryRun) {
-      const importResult = await runNodeScript("import", "import-justtcg-to-drizzle.mjs", [
-        "--apply",
-        "--updated-after",
-        String(state.lastSuccessfulUpdatedAfter),
-        "--fetch-page-size",
-        String(plan.fetchPageSize),
-      ]);
-      if (!importResult.ok) {
-        throw new Error(`scheduled import failed with exit code ${importResult.code ?? "unknown"}`);
-      }
-
-      const verifyResult = await runNodeScript("verify", "run-pricing-verification.mjs", [
-        "--source",
-        "justtcg_scheduled_refresh",
-      ]);
-      if (!verifyResult.ok) {
-        throw new Error(`scheduled verification failed with exit code ${verifyResult.code ?? "unknown"}`);
-      }
-
-      const publishResult = await runNodeScript("publish", "publish-verified-prices.mjs", []);
-      if (!publishResult.ok) {
-        throw new Error(`scheduled publish failed with exit code ${publishResult.code ?? "unknown"}`);
-      }
-    }
-    deltaExecuted = true;
+  let effectiveMode = plan.mode;
+  let fallbackReason = null;
+  if (effectiveMode === "delta_refresh" && priorCursor == null) {
+    effectiveMode = "full_refresh";
+    fallbackReason = "missing_delta_cursor";
   }
 
   const nextCursor = Math.floor(Date.now() / 1000);
+  const source =
+    effectiveMode === "full_refresh" ? "justtcg_daily_full_refresh" : "justtcg_daily_delta_refresh";
+
   if (!plan.dryRun) {
+    await runImport({
+      mode: effectiveMode,
+      fetchPageSize: plan.fetchPageSize,
+      updatedAfter: priorCursor,
+    });
+    await runKnownPricePublish({ source });
+
     writeJson(plan.statePath || DEFAULT_REFRESH_STATE_PATH, {
       lastSuccessfulUpdatedAfter: nextCursor,
       updatedAt: new Date().toISOString(),
-      latestExecutedSetCodes: executedSetRefreshes.map((entry) => entry.setCode),
-      deltaExecuted,
+      lastRunMode: effectiveMode,
+      requestedMode: plan.mode,
+      fallbackReason,
     });
   }
 
   return {
-    mode: "scheduled_refresh",
+    mode: plan.mode,
+    effectiveMode,
     dryRun: plan.dryRun,
     enableDiscovery: false,
-    configuredNewestSets: config.newestSets,
-    queueCounts: {
-      total: scheduledQueue.length,
-      newest: scheduledQueue.filter((entry) => entry.source === "newest").length,
-      demand: scheduledQueue.filter((entry) => entry.source === "demand").length,
-      delta: scheduledQueue.filter((entry) => entry.source === "delta").length,
-    },
-    prioritySetCodes,
-    executedSetRefreshes,
-    skippedSetRefreshes,
-    deltaExecuted,
-    deltaCursorUsed: state.lastSuccessfulUpdatedAfter ?? null,
+    fetchPageSize: plan.fetchPageSize,
+    deltaCursorUsed: effectiveMode === "delta_refresh" ? priorCursor : null,
     nextDeltaCursor: nextCursor,
-    remainingQuota,
+    fallbackReason,
+    source,
   };
 }
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  if (!String(process.env.JUSTTCG_API_KEY || "").trim()) {
+  if (!args.dryRun && !String(process.env.JUSTTCG_API_KEY || "").trim()) {
     throw new Error("Missing JUSTTCG_API_KEY for scheduled JustTCG refresh");
   }
   if (!args.dryRun && !String(process.env.SUPABASE_DB_URL || process.env.DATABASE_URL || "").trim()) {
@@ -293,8 +158,7 @@ async function main() {
 
   const summary = await runScheduledRefresh({
     dryRun: args.dryRun,
-    quotaRemaining: args.quotaRemaining,
-    minimumRollingBudget: args.minimumRollingBudget,
+    mode: args.mode,
     statePath: args.statePath,
   });
   console.log(JSON.stringify(summary, null, 2));

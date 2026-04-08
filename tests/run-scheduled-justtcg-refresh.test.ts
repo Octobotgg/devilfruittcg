@@ -10,36 +10,32 @@ async function importModule<T>(relativePath: string): Promise<T> {
   return import(pathToFileURL(path.join(REPO_ROOT, relativePath)).href) as Promise<T>;
 }
 
-test("scheduled runner skips rolling work when quota is nearly exhausted", async () => {
-  const mod = await importModule<typeof import("../scripts/run-scheduled-justtcg-refresh.mjs")>(
-    "scripts/run-scheduled-justtcg-refresh.mjs",
-  );
-
-  const plan = mod.partitionScheduledWork({
-    quotaRemaining: 120,
-    hotQueue: ["OP15-001"],
-    deltaQueue: ["ST10-001"],
-    minimumRollingBudget: 150,
-  });
-
-  assert.deepEqual(plan.hotQueue, ["OP15-001"]);
-  assert.deepEqual(plan.deltaQueue, []);
-});
-
-test("scheduled runner never enables mapping discovery mode", async () => {
-  const mod = await importModule<typeof import("../scripts/run-scheduled-justtcg-refresh.mjs")>(
-    "scripts/run-scheduled-justtcg-refresh.mjs",
-  );
-
-  const plan = mod.buildScheduledRunPlan({ enableDiscovery: false });
-  assert.equal(plan.enableDiscovery, false);
-});
-
-test("scheduled runner defaults to a 20-card fetch page size", async () => {
+test("scheduled runner defaults to daily full refresh mode", async () => {
   const mod = await importModule<typeof import("../scripts/run-scheduled-justtcg-refresh.mjs")>(
     "scripts/run-scheduled-justtcg-refresh.mjs",
   );
 
   const plan = mod.buildScheduledRunPlan();
+  assert.equal(plan.mode, "full_refresh");
   assert.equal(plan.fetchPageSize, 20);
+  assert.equal(plan.enableDiscovery, false);
+});
+
+test("scheduled runner supports daily delta refresh mode", async () => {
+  const mod = await importModule<typeof import("../scripts/run-scheduled-justtcg-refresh.mjs")>(
+    "scripts/run-scheduled-justtcg-refresh.mjs",
+  );
+
+  const plan = mod.buildScheduledRunPlan({ mode: "delta_refresh" });
+  assert.equal(plan.mode, "delta_refresh");
+  assert.equal(plan.enableDiscovery, false);
+});
+
+test("scheduled runner falls back to full refresh when mode is invalid", async () => {
+  const mod = await importModule<typeof import("../scripts/run-scheduled-justtcg-refresh.mjs")>(
+    "scripts/run-scheduled-justtcg-refresh.mjs",
+  );
+
+  const plan = mod.buildScheduledRunPlan({ mode: "totally_invalid" });
+  assert.equal(plan.mode, "full_refresh");
 });
