@@ -61,3 +61,21 @@ test("matchups routes and page plumbing are format-first instead of set-first", 
     assert.equal(source, true, `Expected format plumbing token to exist: ${token}`);
   }
 });
+
+test("matchups client hard-locks the matrix to Top 12", () => {
+  assert.equal(
+    clientSource.includes('limit: String(MATCHUPS_DEFAULT_LIMIT)'),
+    true,
+    "Expected matchups client to request the fixed default deck limit",
+  );
+  assert.equal(
+    clientSource.includes("Deck depth"),
+    false,
+    "Expected deck depth control to be removed from the matchups UI",
+  );
+  assert.equal(
+    clientSource.includes("setDeckLimit"),
+    false,
+    "Expected matchups client to stop storing deck depth in component state",
+  );
+});

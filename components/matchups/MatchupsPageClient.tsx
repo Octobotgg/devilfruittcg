@@ -168,7 +168,6 @@ export default function MatchupsPageClient({
   const [comparableSample, setComparableSample] = useState<boolean>(initialIsLive ? initialPayload.comparableSample : false);
   const [matchupFormat, setMatchupFormat] = useState<string>(MATCHUPS_DEFAULT_FORMAT);
   const [matchupPeriod, setMatchupPeriod] = useState<string>(MATCHUPS_DEFAULT_PERIOD);
-  const [deckLimit, setDeckLimit] = useState<number>(MATCHUPS_DEFAULT_LIMIT);
   const [lastSuccessAt, setLastSuccessAt] = useState<string | null>(initialIsLive ? initialPayload.updatedAt : null);
   const [allLeaders] = useState<MatchupsLeader[]>(initialLeaders);
   const [lookupLeaderCardId, setLookupLeaderCardId] = useState<string>("");
@@ -202,7 +201,7 @@ export default function MatchupsPageClient({
   const refreshCopy = getMatchupRefreshCopy({
     period: matchupPeriod,
     formatCode: matchupFormat,
-    deckLimit,
+    deckLimit: MATCHUPS_DEFAULT_LIMIT,
   });
 
 
@@ -449,8 +448,7 @@ export default function MatchupsPageClient({
   useEffect(() => {
     const usingDefaultFilters =
       matchupFormat === MATCHUPS_DEFAULT_FORMAT &&
-      matchupPeriod === MATCHUPS_DEFAULT_PERIOD &&
-      deckLimit === MATCHUPS_DEFAULT_LIMIT;
+      matchupPeriod === MATCHUPS_DEFAULT_PERIOD;
 
     if (initialIsLive && usingDefaultFilters && !skippedInitialFetchRef.current) {
       skippedInitialFetchRef.current = true;
@@ -467,7 +465,7 @@ export default function MatchupsPageClient({
           format: matchupFormat,
           range: MATCHUPS_PAGE_RANGE,
           period: matchupPeriod,
-          limit: String(deckLimit),
+          limit: String(MATCHUPS_DEFAULT_LIMIT),
           ranking: "relevance",
         });
         const res = await fetch(`/api/matchups?${params.toString()}`, { signal: controller.signal });
@@ -500,7 +498,7 @@ export default function MatchupsPageClient({
       cancelled = true;
       controller.abort();
     };
-  }, [deckLimit, initialIsLive, matchupPeriod, matchupFormat]);
+  }, [initialIsLive, matchupPeriod, matchupFormat]);
 
   function openDeckModal(deck: MetaDeck) {
     setModalCard({ id: deck.cardId, name: deck.name, color: deck.color });
@@ -553,18 +551,6 @@ export default function MatchupsPageClient({
             >
               <option value="lw_p" className="bg-[var(--color-cream)]">Weekly Private</option>
               <option value="lw" className="bg-[var(--color-cream)]">Weekly Global</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-xs text-[var(--color-text-light)] mb-1">Deck depth</label>
-            <select
-              value={String(deckLimit)}
-              onChange={(e) => setDeckLimit(Number(e.target.value))}
-              className="bg-[var(--color-cream)] border border-[var(--color-parchment-dark)] rounded-lg px-3 py-2 text-sm text-[var(--color-text-dark)]"
-            >
-              {[12, 18, 24, 30].map((n) => (
-                <option key={n} value={n} className="bg-[var(--color-cream)]">Top {n}</option>
-              ))}
             </select>
           </div>
           <div className="text-xs text-[var(--color-text-light)] pb-1">
