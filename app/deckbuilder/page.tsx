@@ -1513,19 +1513,18 @@ function DeckBuilderPageContent() {
   }
 
   const storageLabel = user ? "Account sync active" : hasCloud ? "Sign in required to save decks" : "Saved locally";
+  const totalDeckPricedCopies = deckPriceSummary.pricedCopies + deckPriceSummary.missingCopies;
   const deckPriceStatus = !deckPriceCardIds.length
     ? "Add cards to estimate"
     : deckPriceLoading && deckPrices.size === 0
       ? "Loading live pricing"
-      : deckPriceSummary.pricedEntries === 0 && deckPriceSummary.missingEntries > 0
-        ? `${deckPriceSummary.missingEntries} cards missing prices`
-        : deckPriceSummary.missingEntries > 0
-          ? `${deckPriceSummary.pricedEntries} priced · ${deckPriceSummary.missingEntries} missing`
-          : "Live marketplace pricing";
+      : deckPriceSummary.missingCopies > 0
+        ? `${deckPriceSummary.pricedCopies} priced · ${deckPriceSummary.missingCopies} missing`
+        : `${deckPriceSummary.pricedCopies} of ${totalDeckPricedCopies} cards priced`;
   const deckPriceTitle = [
     `Estimated deck total: ${formatCurrency(deckPriceSummary.total)}`,
     "Pricing uses the exact selected print when chosen, otherwise the base print.",
-    deckPriceSummary.missingEntries > 0 ? `${deckPriceSummary.missingEntries} cards are missing published marketplace prices and are excluded from the total.` : null,
+    deckPriceSummary.missingCopies > 0 ? `${deckPriceSummary.missingCopies} cards are missing published marketplace prices and are excluded from the total.` : null,
     deckPriceSummary.staleEntries > 0 ? `${deckPriceSummary.staleEntries} published entries may be stale.` : null,
   ]
     .filter(Boolean)

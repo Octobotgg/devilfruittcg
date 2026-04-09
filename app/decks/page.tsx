@@ -1163,7 +1163,9 @@ export default function DecksPage() {
                                         {expandedDeckPricesLoading && expandedDeckPrices.size === 0 ? "..." : formatCurrency(expandedDeckPriceSummary.total)}
                                       </p>
                                       <p className="text-[10px] text-[var(--color-text-light)]">
-                                        {expandedDeckPriceSummary.missingEntries > 0 ? `${expandedDeckPriceSummary.missingEntries} missing` : "Live market"}
+                                        {expandedDeckPriceSummary.missingCopies > 0
+                                          ? `${expandedDeckPriceSummary.pricedCopies} priced · ${expandedDeckPriceSummary.missingCopies} missing`
+                                          : `${expandedDeckPriceSummary.pricedCopies} of ${expandedDeckPriceSummary.pricedCopies + expandedDeckPriceSummary.missingCopies} priced`}
                                       </p>
                                     </div>
                                     <button

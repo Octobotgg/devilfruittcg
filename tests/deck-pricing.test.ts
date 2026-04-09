@@ -54,7 +54,7 @@ test("buildDeckPricingLineItems uses selected print ids when a deck has explicit
   );
 });
 
-test("summarizeDeckPricing totals only priced entries and reports missing print prices separately", () => {
+test("summarizeDeckPricing reports both unique and copy-aware pricing coverage", () => {
   const items = buildDeckPricingLineItems(SAMPLE_DECK);
   const quotes = new Map<string, CardPriceQuote>([
     ["OP01-001_P1", createQuote("OP01-001_P1", { marketPrice: 25, estimatedPrice: 25 })],
@@ -65,7 +65,10 @@ test("summarizeDeckPricing totals only priced entries and reports missing print 
   const summary = summarizeDeckPricing(items, quotes);
 
   assert.equal(summary.total, 39);
-  assert.equal(summary.pricedEntries, 2);
-  assert.equal(summary.missingEntries, 1);
+  assert.equal(summary.pricedUnique, 2);
+  assert.equal(summary.missingUnique, 1);
+  assert.equal(summary.pricedCopies, 5);
+  assert.equal(summary.missingCopies, 2);
+  assert.equal(summary.pricedCopies + summary.missingCopies, 7);
   assert.equal(summary.staleEntries, 0);
 });

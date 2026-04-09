@@ -52,8 +52,10 @@ export function summarizeDeckPricing(
   quotes: Map<string, CardPriceQuote>,
 ) {
   let total = 0;
-  let pricedEntries = 0;
-  let missingEntries = 0;
+  let pricedUnique = 0;
+  let missingUnique = 0;
+  let pricedCopies = 0;
+  let missingCopies = 0;
   let staleEntries = 0;
 
   const seen = new Set<string>();
@@ -64,24 +66,29 @@ export function summarizeDeckPricing(
 
     if (quote?.priced && typeof quote.marketPrice === "number") {
       total += quote.marketPrice * item.quantity;
+      pricedCopies += item.quantity;
+    } else {
+      missingCopies += item.quantity;
     }
 
     if (seen.has(normalizedPricingId)) continue;
     seen.add(normalizedPricingId);
 
     if (quote?.priced && typeof quote.marketPrice === "number") {
-      pricedEntries += 1;
+      pricedUnique += 1;
       if (quote.stale) staleEntries += 1;
       continue;
     }
 
-    missingEntries += 1;
+    missingUnique += 1;
   }
 
   return {
     total,
-    pricedEntries,
-    missingEntries,
+    pricedUnique,
+    missingUnique,
+    pricedCopies,
+    missingCopies,
     staleEntries,
   };
 }
