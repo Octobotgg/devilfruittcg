@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Crown, TrendingUp, TrendingDown, Minus, Activity, Globe, Database } from "lucide-react";
+import { Crown, TrendingUp, TrendingDown, Minus, Activity, Globe, Database, ChevronDown } from "lucide-react";
 import type { MetaSnapshot } from "@/lib/data/meta";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
@@ -58,6 +58,8 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
   const [deckLists, setDeckLists] = useState<Array<{ listId: string; place: string; player: string; tournament: string; format: string }>>([]);
   const [deckUsage, setDeckUsage] = useState<Array<{ id: string; name: string; imageUrl: string; usagePct: number; avgQty: number }>>([]);
   const [deckLoading, setDeckLoading] = useState(false);
+  const [showPlacings, setShowPlacings] = useState(false);
+  const [selectedPreviewCard, setSelectedPreviewCard] = useState<{ name: string; imageUrl: string } | null>(null);
   const skippedInitialFetchRef = useRef(false);
   const closingDeckIdRef = useRef<string | null>(null);
 
@@ -106,6 +108,8 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
     if (!deckId) return;
     setActiveDeck({ name: deckName, deckId });
     setDeckLoading(true);
+    setShowPlacings(false);
+    setSelectedPreviewCard(null);
     setDeckCards([]);
     setDeckLists([]);
     setDeckUsage([]);
@@ -149,6 +153,8 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
 
   const closeDecklist = useCallback(() => {
     closingDeckIdRef.current = selectedDeckParam || activeDeck?.deckId || null;
+    setSelectedPreviewCard(null);
+    setShowPlacings(false);
     setActiveDeck(null);
     const params = new URLSearchParams(searchParams.toString());
     params.delete("deck");
@@ -483,11 +489,29 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
 
       {activeDeck && (
         <div className="fixed inset-0 z-50 bg-[rgba(42,33,24,0.38)] backdrop-blur-sm flex items-end md:items-center justify-center p-3" onClick={closeDecklist}>
-          <div className="w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 md:p-6 shadow-[0_28px_80px_rgba(42,33,24,0.28)]" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 md:p-6 shadow-[0_28px_80px_rgba(42,33,24,0.28)]" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-[var(--color-navy)] text-lg md:text-xl font-black">{activeDeck.name} · Decklist</h3>
               <button onClick={closeDecklist} className="text-[var(--color-text-light)] hover:text-[var(--color-text-dark)]">Close</button>
             </div>
+
+            {selectedPreviewCard ? (
+              <div
+                className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-[rgba(245,239,227,0.86)] p-4 backdrop-blur-sm"
+                onClick={() => setSelectedPreviewCard(null)}
+              >
+                <div
+                  className="rounded-[1.75rem] border border-[var(--color-gold)]/35 bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(245,239,227,0.98))] p-3 shadow-[0_26px_64px_rgba(42,33,24,0.26)]"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <img
+                    src={selectedPreviewCard.imageUrl}
+                    alt={selectedPreviewCard.name}
+                    className="w-[min(82vw,26rem)] rounded-[1.15rem] border border-[var(--color-parchment-dark)] object-cover"
+                  />
+                </div>
+              </div>
+            ) : null}
 
             {deckLoading ? (
               <p className="text-[var(--color-text-mid)]">Loading real tournament list…</p>
@@ -496,28 +520,42 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
             ) : (
               <div className="space-y-5">
                 <div>
-                  <h4 className="text-[var(--color-navy)] font-bold mb-2">Recent Tournament Placings ({deckLists.length})</h4>
-                  <div className="space-y-2">
-                    {deckLists.slice(0, 8).map((l) => (
-                      <div key={l.listId} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-sm">
-                        <div className="text-[var(--color-text-dark)] font-semibold">{l.place} · {l.player}</div>
-                        <div className="text-[var(--color-text-mid)] text-xs">{l.tournament || "Tournament"} · {l.format} · list #{l.listId}</div>
-                      </div>
-                    ))}
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowPlacings((open) => !open)}
+                    className="flex w-full items-center justify-between rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-3 py-2 text-left"
+                  >
+                    <h4 className="text-[var(--color-navy)] font-bold">Recent Tournament Placings ({deckLists.length})</h4>
+                    <ChevronDown className={`h-4 w-4 text-[var(--color-text-light)] transition-transform ${showPlacings ? "rotate-180" : ""}`} />
+                  </button>
+                  {showPlacings ? (
+                    <div className="mt-2 space-y-2">
+                      {deckLists.slice(0, 8).map((l) => (
+                        <div key={l.listId} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-sm">
+                          <div className="text-[var(--color-text-dark)] font-semibold">{l.place} · {l.player}</div>
+                          <div className="text-[var(--color-text-mid)] text-xs">{l.tournament || "Tournament"} · {l.format} · list #{l.listId}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
 
                 <div>
                   <h4 className="text-[var(--color-navy)] font-bold mb-2">Core Card Usage (across fetched lists)</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {deckUsage.slice(0, 20).map((u) => (
-                      <div key={u.id} className="flex items-center gap-3 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2">
+                      <button
+                        key={u.id}
+                        type="button"
+                        onClick={() => setSelectedPreviewCard({ name: u.name, imageUrl: u.imageUrl })}
+                        className="flex items-center gap-3 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-left transition-colors hover:border-[var(--color-gold)]/35 hover:bg-[var(--color-cream)]"
+                      >
                         <img src={u.imageUrl} alt={u.name} className="w-10 h-14 rounded border border-[var(--color-parchment-dark)] object-cover" />
                         <div className="min-w-0">
                           <div className="text-[var(--color-text-dark)] font-semibold text-sm truncate">{u.name}</div>
                           <div className="text-[var(--color-text-mid)] text-xs">{u.id} · {u.usagePct}% lists · avg {u.avgQty}</div>
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -526,13 +564,18 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
                   <h4 className="text-[var(--color-navy)] font-bold mb-2">Representative List</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {deckCards.map((c, i) => (
-                      <div key={`${c.id}-${i}`} className="flex items-center gap-3 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2">
+                      <button
+                        key={`${c.id}-${i}`}
+                        type="button"
+                        onClick={() => setSelectedPreviewCard({ name: c.name, imageUrl: c.imageUrl })}
+                        className="flex items-center gap-3 rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-left transition-colors hover:border-[var(--color-gold)]/35 hover:bg-[var(--color-cream)]"
+                      >
                         <img src={c.imageUrl} alt={c.name} className="w-10 h-14 rounded border border-[var(--color-parchment-dark)] object-cover" />
                         <div className="min-w-0">
                           <div className="text-[var(--color-text-dark)] font-semibold text-sm truncate">{c.name}</div>
                           <div className="text-[var(--color-text-mid)] text-xs">{c.id} · x{c.count}</div>
                         </div>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>
