@@ -165,17 +165,22 @@
   aspect-ratio: 4/3;
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem;
+  box-shadow: 0 16px 40px rgba(27, 40, 56, 0.12);
   background:
-    radial-gradient(ellipse at 30% 40%, rgba(45, 106, 143, 0.4), transparent 60%),
-    radial-gradient(ellipse at 70% 60%, rgba(212, 160, 84, 0.2), transparent 50%),
-    var(--about-navy);
+    radial-gradient(circle at 30% 35%, rgba(255, 221, 128, 0.28), transparent 42%),
+    radial-gradient(circle at 72% 68%, rgba(212, 160, 84, 0.14), transparent 38%),
+    linear-gradient(145deg, #f8f1e5 0%, #efe5d4 100%);
 }
 
 .about-origin-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 86%;
+  height: 86%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(27, 40, 56, 0.08));
 }
 
 /* ─── INFO BOX ────────────────────────────────────── */
@@ -285,6 +290,27 @@
   object-fit: cover;
 }
 
+.about-banner-don-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 214, 103, 0.28), transparent 28%),
+    radial-gradient(circle at 72% 72%, rgba(212, 160, 84, 0.16), transparent 36%),
+    linear-gradient(145deg, #f6eedf 0%, #ebdfca 100%);
+  border: 1px solid rgba(212, 160, 84, 0.18);
+}
+
+.about-banner-don-stage img {
+  width: min(100%, 420px);
+  height: auto;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 16px 30px rgba(0, 0, 0, 0.22))
+    drop-shadow(0 0 24px rgba(255, 208, 96, 0.14));
+}
+
 /* ─── CTA BUTTON ──────────────────────────────────── */
 .about-cta {
   display: inline-flex;
@@ -334,7 +360,7 @@
   display: grid;
   grid-template-columns: 1fr minmax(200px, 280px) 1fr;
   gap: 1.2rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .about-features-col {
@@ -378,17 +404,66 @@
 }
 
 .about-features-center-card {
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
   height: 100%;
-  min-height: 420px;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 
-.about-features-center-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.about-features-center-card::before {
+  content: none;
+}
+
+.about-features-center-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 250px);
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 242, 211, 0.98), rgba(245, 233, 208, 0.92) 62%, rgba(231, 218, 195, 0.88) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -10px 22px rgba(212, 160, 84, 0.08),
+    0 18px 36px rgba(27, 40, 56, 0.12);
+}
+
+.about-features-center-badge::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 160, 84, 0.22);
+}
+
+.about-features-center-glow {
+  position: absolute;
+  inset: 18%;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(255, 214, 92, 0.22) 0%, rgba(255, 214, 92, 0.08) 48%, transparent 72%);
+  filter: blur(8px);
+}
+
+.about-features-center-mark {
+  position: relative;
+  z-index: 1;
+}
+
+.about-features-center-mark .brand-mark-glyph {
+  width: clamp(6.2rem, 11vw, 8.4rem);
+  height: clamp(6.2rem, 11vw, 8.4rem);
+  filter:
+    drop-shadow(0 12px 22px rgba(27, 40, 56, 0.16))
+    drop-shadow(0 0 18px rgba(212, 160, 84, 0.16));
 }
 
 /* ─── PERSONAL NOTE ───────────────────────────────── */

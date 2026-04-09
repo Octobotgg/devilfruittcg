@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import BrandMark from "@/components/BrandMark";
 
 function DiscordIcon() {
   return (
@@ -99,8 +100,8 @@ export default function AboutPageClient() {
           <div className="about-origin-image-wrap">
             <div className="about-origin-image">
               <img
-                src="/api/card-image?id=OP01-001&variant=p1"
-                alt="One Piece TCG leader card"
+                src="/images/about/strawhat-skull.png"
+                alt="Straw hat skull emblem"
               />
             </div>
           </div>
@@ -195,10 +196,10 @@ export default function AboutPageClient() {
             </Link>
           </div>
 
-          <div className="about-banner-image">
+          <div className="about-banner-image about-banner-don-stage">
             <img
-              src="/api/card-image?id=OP11-041&variant=p1"
-              alt="One Piece TCG card"
+              src="/images/about/don-sticker-tight.png"
+              alt="DevilFruitTCG DON!! mark"
             />
           </div>
 
@@ -229,11 +230,11 @@ export default function AboutPageClient() {
               ))}
             </div>
 
-            <div className="about-features-center-card">
-              <img
-                src="/api/card-image?id=OP11-041&variant=p1"
-                alt="Featured One Piece TCG card"
-              />
+            <div className="about-features-center-card" aria-label="DevilFruitTCG emblem">
+              <div className="about-features-center-badge">
+                <div className="about-features-center-glow" aria-hidden="true" />
+                <BrandMark variant="monogram" className="about-features-center-mark" />
+              </div>
             </div>
 
             <div className="about-features-col">
