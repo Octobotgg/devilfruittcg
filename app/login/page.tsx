@@ -60,7 +60,7 @@ function PasswordField({
 }: PasswordFieldProps) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-white/42">{label}</span>
+      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-[var(--auth-label)]">{label}</span>
       <div className="relative">
         <input
           id={id}
@@ -69,12 +69,12 @@ function PasswordField({
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete}
-          className="w-full rounded-2xl border border-white/10 bg-[rgba(5,7,10,0.7)] px-4 py-3.5 pr-12 text-sm text-white outline-none transition-all duration-200 placeholder:text-white/22 focus:border-[rgba(212,175,55,0.7)] focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)]"
+          className="w-full rounded-2xl border border-[var(--auth-input-border)] bg-[var(--auth-input-bg)] px-4 py-3.5 pr-12 text-sm text-[var(--auth-text)] outline-none transition-all duration-200 placeholder:text-[var(--auth-placeholder)] focus:border-[var(--auth-focus)] focus:shadow-[0_0_0_4px_var(--auth-focus-ring)]"
         />
         <button
           type="button"
           onClick={onToggle}
-          className="absolute inset-y-0 right-0 inline-flex w-12 items-center justify-center text-white/44 transition-colors hover:text-white"
+          className="absolute inset-y-0 right-0 inline-flex w-12 items-center justify-center text-[var(--auth-icon)] transition-colors hover:text-[var(--auth-text)]"
           aria-label={visible ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
         >
           {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -105,8 +105,8 @@ function describeAuthError(authError: unknown) {
 
 function getNoticeClasses(tone: NoticeTone) {
   return tone === "error"
-    ? "rounded-2xl border border-red-400/22 bg-red-500/10 px-4 py-3 text-sm text-red-200"
-    : "rounded-2xl border border-emerald-400/22 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200";
+    ? "rounded-2xl border border-[#d67c6d]/45 bg-[rgba(246,219,214,0.88)] px-4 py-3 text-sm text-[#8f2f2c]"
+    : "rounded-2xl border border-[#9cc58f]/45 bg-[rgba(233,244,229,0.92)] px-4 py-3 text-sm text-[#27523a]";
 }
 
 function LoginPageContent() {
@@ -137,12 +137,20 @@ function LoginPageContent() {
   const themeVars = useMemo(
     () =>
       ({
-        "--auth-card-border": "rgba(255,255,255,0.08)",
-        "--auth-card-bg": "rgba(12, 15, 20, 0.86)",
-        "--auth-gold": "#d4af37",
-        "--auth-gold-soft": "rgba(212,175,55,0.12)",
-        "--auth-purple-soft": "rgba(123,63,228,0.18)",
-        "--auth-text": "#f5f5f7",
+        "--auth-card-border": "rgba(212,160,84,0.26)",
+        "--auth-card-bg": "rgba(245, 239, 227, 0.96)",
+        "--auth-gold": "#d4a054",
+        "--auth-gold-soft": "rgba(212,160,84,0.14)",
+        "--auth-sunset-soft": "rgba(209,91,58,0.12)",
+        "--auth-text": "#22304a",
+        "--auth-label": "rgba(72, 58, 38, 0.68)",
+        "--auth-input-bg": "rgba(255, 252, 246, 0.96)",
+        "--auth-input-border": "rgba(212,160,84,0.22)",
+        "--auth-placeholder": "rgba(72, 58, 38, 0.34)",
+        "--auth-focus": "rgba(212,160,84,0.9)",
+        "--auth-focus-ring": "rgba(212,160,84,0.16)",
+        "--auth-icon": "rgba(72, 58, 38, 0.45)",
+        "--obsidian-soft": "#22304a",
       }) as CSSProperties,
     [],
   );
@@ -308,30 +316,30 @@ function LoginPageContent() {
 
   return (
     <div style={themeVars} className="relative isolate overflow-hidden pb-16 pt-6 md:pb-24 md:pt-12">
-      <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(123,63,228,0.24),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(212,175,55,0.12),transparent_22%),linear-gradient(180deg,#050608_0%,#090b10_55%,#040506_100%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04),transparent_56%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(212,160,84,0.18),transparent_34%),radial-gradient(circle_at_80%_18%,rgba(209,91,58,0.14),transparent_22%),linear-gradient(180deg,#fbf6ea_0%,#f6efe0_46%,#f2e8d4_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:linear-gradient(rgba(212,160,84,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(212,160,84,0.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.34),transparent_58%)]" />
 
       <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-6xl items-center justify-center px-4 sm:px-6 lg:px-8">
         <motion.section
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-[32rem] rounded-[2rem] border border-[var(--auth-card-border)] bg-[var(--auth-card-bg)] p-4 shadow-[0_28px_110px_rgba(0,0,0,0.48)] backdrop-blur-2xl sm:p-6"
+          className="w-full max-w-[32rem] rounded-[2rem] border border-[var(--auth-card-border)] bg-[var(--auth-card-bg)] p-4 shadow-[0_28px_90px_rgba(141,102,41,0.14)] backdrop-blur-xl sm:p-6"
         >
-          <div className="relative overflow-hidden rounded-[1.65rem] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-5 sm:p-6">
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.16),transparent_62%)] opacity-90" />
-            <div className="pointer-events-none absolute -right-12 top-8 h-28 w-28 rounded-full bg-[var(--auth-purple-soft)] blur-3xl" />
+          <div className="relative overflow-hidden rounded-[1.65rem] border border-[rgba(212,160,84,0.16)] bg-[linear-gradient(180deg,rgba(255,252,246,0.98),rgba(245,239,227,0.96))] p-5 sm:p-6">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(212,160,84,0.18),transparent_62%)] opacity-90" />
+            <div className="pointer-events-none absolute -right-12 top-8 h-28 w-28 rounded-full bg-[var(--auth-sunset-soft)] blur-3xl" />
             <div className="pointer-events-none absolute -left-10 bottom-0 h-32 w-32 rounded-full bg-[var(--auth-gold-soft)] blur-3xl" />
 
             {ready && user ? (
               <div className="relative space-y-5">
                 <BrandMark className="brand-lockup-compact" subtitle="ACCOUNT ACCESS READY" compact />
-                <div className="rounded-[1.5rem] border border-white/8 bg-black/25 p-5">
+                <div className="rounded-[1.5rem] border border-[rgba(212,160,84,0.18)] bg-[rgba(255,252,246,0.9)] p-5">
                   <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--auth-gold)]">Signed in</p>
                   <p className="mt-3 text-2xl font-black text-[var(--auth-text)]">{user.fullName || user.email || "DevilFruitTCG account"}</p>
-                  {user.email ? <p className="mt-1 text-sm text-white/56">{user.email}</p> : null}
-                  <p className="mt-4 text-sm leading-relaxed text-white/62">
+                  {user.email ? <p className="mt-1 text-sm text-[rgba(72,58,38,0.62)]">{user.email}</p> : null}
+                  <p className="mt-4 text-sm leading-relaxed text-[rgba(72,58,38,0.72)]">
                     {gatedActionMessage
                       ? "Your account is already active. Continue back and DevilFruitTCG will finish the save for you."
                       : "Your account is already active. Continue into your saved decks, collection, watchlist, and account tools."}
@@ -347,7 +355,7 @@ function LoginPageContent() {
             ) : !hasCloud ? (
               <div className="relative space-y-4">
                 <BrandMark className="brand-lockup-compact" subtitle="AUTH SERVICE OFFLINE" compact />
-                <div className="rounded-[1.5rem] border border-white/8 bg-black/25 p-5 text-sm leading-relaxed text-white/62">
+                <div className="rounded-[1.5rem] border border-[rgba(212,160,84,0.18)] bg-[rgba(255,252,246,0.9)] p-5 text-sm leading-relaxed text-[rgba(72,58,38,0.72)]">
                   Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to enable live sign-in on this environment.
                 </div>
               </div>
@@ -355,7 +363,7 @@ function LoginPageContent() {
               <div className="relative space-y-5">
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-3">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.22)] bg-[rgba(10,10,10,0.5)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--auth-gold)]">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,160,84,0.24)] bg-[rgba(255,248,233,0.9)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[var(--auth-gold)]">
                       <ShieldCheck className="h-3.5 w-3.5" /> Secure account access
                     </div>
                     <BrandMark className="brand-lockup-compact" compact />
@@ -366,7 +374,7 @@ function LoginPageContent() {
                   <h1 className="text-3xl font-black tracking-[-0.04em] text-[var(--auth-text)] sm:text-[2.4rem]">
                     {mode === "signin" ? "Sign in to your DevilFruitTCG vault." : "Create a DevilFruitTCG account."}
                   </h1>
-                  <p className="mt-3 text-sm leading-relaxed text-white/62">
+                  <p className="mt-3 text-sm leading-relaxed text-[rgba(72,58,38,0.76)]">
                     {mode === "signin"
                       ? "A centered, no-noise account entry: Google up top, password beneath it, magic link if you want to skip the password entirely."
                       : "Use your real name and email so account saves, deck tools, and future premium features stay tied to the right collector profile."}
@@ -374,12 +382,12 @@ function LoginPageContent() {
                 </div>
 
                 {gatedActionMessage ? (
-                  <div className="rounded-2xl border border-[rgba(212,175,55,0.18)] bg-[rgba(212,175,55,0.08)] px-4 py-3 text-sm text-[var(--auth-text)]">
+                  <div className="rounded-2xl border border-[rgba(212,160,84,0.24)] bg-[rgba(255,244,222,0.92)] px-4 py-3 text-sm text-[var(--auth-text)]">
                     {gatedActionMessage}
                   </div>
                 ) : null}
 
-                <div className="grid grid-cols-2 gap-2 rounded-[1.25rem] border border-white/8 bg-black/20 p-1.5">
+                <div className="grid grid-cols-2 gap-2 rounded-[1.25rem] border border-[rgba(212,160,84,0.14)] bg-[rgba(250,245,236,0.88)] p-1.5">
                   {(["signin", "create"] as const).map((nextMode) => {
                     const active = mode === nextMode;
                     return (
@@ -389,8 +397,8 @@ function LoginPageContent() {
                         onClick={() => switchMode(nextMode)}
                         className={
                           active
-                            ? "rounded-[1rem] border border-[rgba(212,175,55,0.3)] bg-[rgba(212,175,55,0.12)] px-4 py-2.5 text-sm font-black text-[var(--auth-gold)]"
-                            : "rounded-[1rem] border border-transparent px-4 py-2.5 text-sm font-black text-white/46 transition-colors hover:text-white/72"
+                            ? "rounded-[1rem] border border-[rgba(212,160,84,0.3)] bg-[rgba(255,244,222,0.92)] px-4 py-2.5 text-sm font-black text-[var(--auth-gold)]"
+                            : "rounded-[1rem] border border-transparent px-4 py-2.5 text-sm font-black text-[rgba(72,58,38,0.52)] transition-colors hover:text-[var(--auth-text)]"
                         }
                       >
                         {nextMode === "signin" ? "Sign In" : "Create Account"}
@@ -399,7 +407,7 @@ function LoginPageContent() {
                   })}
                 </div>
 
-                <div className="rounded-[1.4rem] border border-white/8 bg-black/22 p-3">
+                <div className="rounded-[1.4rem] border border-[rgba(212,160,84,0.16)] bg-[rgba(255,252,246,0.9)] p-3">
                   <div className="grid grid-cols-1 gap-3">
                     <button
                       type="button"
@@ -407,7 +415,7 @@ function LoginPageContent() {
                         void handleGoogleSignIn();
                       }}
                       disabled={submitting !== null}
-                      className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-white/12 bg-white px-5 py-3.5 text-sm font-black text-[#0d1014] transition-colors hover:bg-[#f5f5f7] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-[rgba(34,48,74,0.1)] bg-white px-5 py-3.5 text-sm font-black text-[#22304a] transition-colors hover:bg-[#fff8ef] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       <GoogleGlyph />
                       <span>{submitting === "google" ? "Redirecting to Google..." : mode === "signin" ? "Continue With Google" : "Create Account With Google"}</span>
@@ -416,9 +424,9 @@ function LoginPageContent() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="h-px flex-1 bg-white/10" />
-                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-white/32">or</span>
-                  <div className="h-px flex-1 bg-white/10" />
+                  <div className="h-px flex-1 bg-[rgba(212,160,84,0.18)]" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[rgba(72,58,38,0.34)]">or</span>
+                  <div className="h-px flex-1 bg-[rgba(212,160,84,0.18)]" />
                 </div>
 
                 {notice ? <div className={getNoticeClasses(notice.tone)}>{notice.message}</div> : null}
@@ -426,14 +434,14 @@ function LoginPageContent() {
                 {mode === "signin" ? (
                   <form className="space-y-3" onSubmit={handlePasswordSignIn}>
                     <label className="block">
-                      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-white/42">Email</span>
+                      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-[var(--auth-label)]">Email</span>
                       <input
                         type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         placeholder="captain@example.com"
                         autoComplete="email"
-                        className="w-full rounded-2xl border border-white/10 bg-[rgba(5,7,10,0.7)] px-4 py-3.5 text-sm text-white outline-none transition-all duration-200 placeholder:text-white/22 focus:border-[rgba(212,175,55,0.7)] focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)]"
+                        className="w-full rounded-2xl border border-[var(--auth-input-border)] bg-[var(--auth-input-bg)] px-4 py-3.5 text-sm text-[var(--auth-text)] outline-none transition-all duration-200 placeholder:text-[var(--auth-placeholder)] focus:border-[var(--auth-focus)] focus:shadow-[0_0_0_4px_var(--auth-focus-ring)]"
                       />
                     </label>
 
@@ -448,8 +456,8 @@ function LoginPageContent() {
                       onToggle={() => setShowPassword((value) => !value)}
                     />
 
-                    <div className="flex items-center justify-between gap-3 text-xs text-white/44">
-                      <div className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/4 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white/42">
+                    <div className="flex items-center justify-between gap-3 text-xs text-[rgba(72,58,38,0.48)]">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,160,84,0.18)] bg-[rgba(255,248,233,0.86)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[rgba(72,58,38,0.54)]">
                         <Sparkles className="h-3 w-3" /> Password or magic link
                       </div>
                       <button
@@ -458,7 +466,7 @@ function LoginPageContent() {
                           setForgotOpen((value) => !value);
                           resetNotice();
                         }}
-                        className="font-black text-[var(--auth-gold)] transition-colors hover:text-white"
+                        className="font-black text-[var(--auth-gold)] transition-colors hover:text-[var(--auth-text)]"
                       >
                         {forgotOpen ? "Never mind" : "Forgot password?"}
                       </button>
@@ -475,8 +483,8 @@ function LoginPageContent() {
 
                     {forgotOpen ? (
                       <div className="rounded-[1.35rem] border border-[rgba(212,175,55,0.16)] bg-[rgba(212,175,55,0.06)] p-4">
-                        <p className="text-sm font-black text-white">Send password reset</p>
-                        <p className="mt-1 text-xs leading-relaxed text-white/58">
+                        <p className="text-sm font-black text-[var(--auth-text)]">Send password reset</p>
+                        <p className="mt-1 text-xs leading-relaxed text-[rgba(72,58,38,0.68)]">
                           We&apos;ll send a secure recovery email to {recoveryDestination.replace(/^https?:\/\//, "")}. It opens a password form inside DevilFruitTCG.
                         </p>
                         <button
@@ -485,7 +493,7 @@ function LoginPageContent() {
                             void handlePasswordReset();
                           }}
                           disabled={submitting !== null}
-                          className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-[rgba(212,175,55,0.22)] bg-transparent px-5 py-3 text-sm font-black text-[var(--auth-gold)] transition-colors hover:bg-[rgba(212,175,55,0.08)] disabled:cursor-not-allowed disabled:opacity-60"
+                          className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-[rgba(212,160,84,0.22)] bg-transparent px-5 py-3 text-sm font-black text-[var(--auth-gold)] transition-colors hover:bg-[rgba(212,160,84,0.08)] disabled:cursor-not-allowed disabled:opacity-60"
                         >
                           {submitting === "reset" ? "Sending Reset..." : "Send Password Reset"}
                         </button>
@@ -497,7 +505,7 @@ function LoginPageContent() {
                           void handleMagicLink();
                         }}
                         disabled={submitting !== null}
-                        className="inline-flex w-full items-center justify-center rounded-2xl border border-white/12 bg-transparent px-5 py-3 text-sm font-black text-white/78 transition-colors hover:border-[rgba(212,175,55,0.24)] hover:bg-[rgba(212,175,55,0.05)] disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex w-full items-center justify-center rounded-2xl border border-[rgba(212,160,84,0.22)] bg-transparent px-5 py-3 text-sm font-black text-[rgba(72,58,38,0.76)] transition-colors hover:border-[rgba(212,160,84,0.3)] hover:bg-[rgba(212,160,84,0.05)] hover:text-[var(--auth-text)] disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {submitting === "magic" ? "Sending Magic Link..." : "Sign In With Magic Link"}
                       </button>
@@ -506,7 +514,7 @@ function LoginPageContent() {
                 ) : (
                   <form className="space-y-3" onSubmit={handleCreateAccount}>
                     <label className="block">
-                      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-white/42">Full Name</span>
+                      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-[var(--auth-label)]">Full Name</span>
                       <div className="relative">
                         <input
                           type="text"
@@ -514,21 +522,21 @@ function LoginPageContent() {
                           onChange={(event) => setFullName(event.target.value)}
                           placeholder="Monkey D. Collector"
                           autoComplete="name"
-                          className="w-full rounded-2xl border border-white/10 bg-[rgba(5,7,10,0.7)] px-4 py-3.5 pl-11 text-sm text-white outline-none transition-all duration-200 placeholder:text-white/22 focus:border-[rgba(212,175,55,0.7)] focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)]"
+                          className="w-full rounded-2xl border border-[var(--auth-input-border)] bg-[var(--auth-input-bg)] px-4 py-3.5 pl-11 text-sm text-[var(--auth-text)] outline-none transition-all duration-200 placeholder:text-[var(--auth-placeholder)] focus:border-[var(--auth-focus)] focus:shadow-[0_0_0_4px_var(--auth-focus-ring)]"
                         />
-                        <UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
+                        <UserRound className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--auth-icon)]" />
                       </div>
                     </label>
 
                     <label className="block">
-                      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-white/42">Email</span>
+                      <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-[var(--auth-label)]">Email</span>
                       <input
                         type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         placeholder="captain@example.com"
                         autoComplete="email"
-                        className="w-full rounded-2xl border border-white/10 bg-[rgba(5,7,10,0.7)] px-4 py-3.5 text-sm text-white outline-none transition-all duration-200 placeholder:text-white/22 focus:border-[rgba(212,175,55,0.7)] focus:shadow-[0_0_0_4px_rgba(212,175,55,0.12)]"
+                        className="w-full rounded-2xl border border-[var(--auth-input-border)] bg-[var(--auth-input-bg)] px-4 py-3.5 text-sm text-[var(--auth-text)] outline-none transition-all duration-200 placeholder:text-[var(--auth-placeholder)] focus:border-[var(--auth-focus)] focus:shadow-[0_0_0_4px_var(--auth-focus-ring)]"
                       />
                     </label>
 
@@ -554,7 +562,7 @@ function LoginPageContent() {
                       onToggle={() => setShowConfirmPassword((value) => !value)}
                     />
 
-                    <p className="rounded-2xl border border-white/8 bg-black/20 px-4 py-3 text-xs leading-relaxed text-white/55">
+                    <p className="rounded-2xl border border-[rgba(212,160,84,0.16)] bg-[rgba(255,248,233,0.9)] px-4 py-3 text-xs leading-relaxed text-[rgba(72,58,38,0.7)]">
                       New password accounts require email confirmation before the first direct password login.
                     </p>
 
@@ -567,14 +575,14 @@ function LoginPageContent() {
                       <ArrowRight className="h-4 w-4" />
                     </button>
 
-                    <p className="text-center text-xs leading-relaxed text-white/50">
+                    <p className="text-center text-xs leading-relaxed text-[rgba(72,58,38,0.62)]">
                       Prefer not to create a password? Switch back to <button type="button" onClick={() => switchMode("signin")} className="font-black text-[var(--auth-gold)]">Sign In</button> and use the magic-link option.
                     </p>
                   </form>
                 )}
 
-                <div className="border-t border-white/8 pt-4 text-center text-xs leading-relaxed text-white/42">
-                  By continuing, you agree to the <Link href="/terms" className="font-black text-white/66 transition-colors hover:text-[var(--auth-gold)]">Terms of Service</Link> and <Link href="/privacy" className="font-black text-white/66 transition-colors hover:text-[var(--auth-gold)]">Privacy Policy</Link>.
+                <div className="border-t border-[rgba(212,160,84,0.14)] pt-4 text-center text-xs leading-relaxed text-[rgba(72,58,38,0.5)]">
+                  By continuing, you agree to the <Link href="/terms" className="font-black text-[rgba(72,58,38,0.7)] transition-colors hover:text-[var(--auth-gold)]">Terms of Service</Link> and <Link href="/privacy" className="font-black text-[rgba(72,58,38,0.7)] transition-colors hover:text-[var(--auth-gold)]">Privacy Policy</Link>.
                 </div>
               </div>
             )}
@@ -590,15 +598,15 @@ export default function LoginPage() {
     <Suspense
       fallback={
         <div className="relative isolate overflow-hidden pb-16 pt-6 md:pb-24 md:pt-12">
-          <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(123,63,228,0.24),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(212,175,55,0.12),transparent_22%),linear-gradient(180deg,#050608_0%,#090b10_55%,#040506_100%)]" />
-          <div className="pointer-events-none absolute inset-0 -z-10 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]" />
-          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04),transparent_56%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top,rgba(212,160,84,0.18),transparent_34%),radial-gradient(circle_at_80%_18%,rgba(209,91,58,0.14),transparent_22%),linear-gradient(180deg,#fbf6ea_0%,#f6efe0_46%,#f2e8d4_100%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:linear-gradient(rgba(212,160,84,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(212,160,84,0.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)]" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.34),transparent_58%)]" />
           <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-6xl items-center justify-center px-4 sm:px-6 lg:px-8">
-            <section className="w-full max-w-[32rem] rounded-[2rem] border border-white/10 bg-[rgba(12,15,20,0.86)] p-6 shadow-[0_28px_110px_rgba(0,0,0,0.48)] backdrop-blur-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.22)] bg-[rgba(10,10,10,0.5)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#d4af37]">
+            <section className="w-full max-w-[32rem] rounded-[2rem] border border-[rgba(212,160,84,0.26)] bg-[rgba(245,239,227,0.96)] p-6 shadow-[0_28px_90px_rgba(141,102,41,0.14)] backdrop-blur-xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,160,84,0.24)] bg-[rgba(255,248,233,0.9)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#d4a054]">
                 <ShieldCheck className="h-3.5 w-3.5" /> Secure account access
               </div>
-              <p className="mt-6 text-sm text-white/60">Loading DevilFruitTCG account access...</p>
+              <p className="mt-6 text-sm text-[rgba(72,58,38,0.72)]">Loading DevilFruitTCG account access...</p>
             </section>
           </div>
         </div>
