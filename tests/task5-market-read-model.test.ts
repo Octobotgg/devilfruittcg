@@ -496,7 +496,7 @@ test("getJustTcgPriceDetail keeps the legacy detail shape from the new price tab
   ]);
 });
 
-test("getJustTcgPriceDetail falls back to active-product raw history when structured history is sparse", async () => {
+test("getJustTcgPriceDetail keeps exact raw-variant history when structured history is sparse", async () => {
   const { getJustTcgPriceDetail } =
     await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
 
@@ -518,6 +518,7 @@ test("getJustTcgPriceDetail falls back to active-product raw history when struct
             externalRawPayload: {
               variants: [
                 {
+                  variantId: "justtcg:123:nm",
                   condition: "Near Mint",
                   language: "English",
                   printing: "Normal",
@@ -561,6 +562,85 @@ test("getJustTcgPriceDetail falls back to active-product raw history when struct
     {
       ts: Date.parse("2026-03-25T00:00:00.000Z"),
       date: "2026-03-25",
+      tcgMarket: 12.5,
+    },
+  ]);
+});
+
+test("getJustTcgPriceDetail respects a 7 day window for exact-print history", async () => {
+  const { getJustTcgPriceDetail } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const detail = await getJustTcgPriceDetail(
+    "op01-001-p1",
+    7,
+    {
+      loadCurrentRows: async () => [
+        {
+          cardPrintId: "cp-1",
+          printedCardCode: "OP01-001",
+          cardId: "OP01-001",
+          externalProductId: "justtcg:123",
+          externalVariantId: "justtcg:123:nm",
+          activeExternalVariantId: "justtcg:123:nm",
+          variantCondition: "Near Mint",
+          productKind: "raw_card",
+          mappingApproved: true,
+          priceMarket: "12.75",
+          priceNm: "12.50",
+          priceLp: "10.25",
+          priceChange24h: "0.5",
+          priceChange7d: "1.25",
+          priceChange30d: "3.75",
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          fetchedAt: "2026-03-25T00:05:00.000Z",
+        },
+      ],
+      loadHistoryRows: async ({ rangeDays }) => {
+        assert.equal(rangeDays, 7);
+        return [
+          {
+            cardPrintId: "cp-1",
+            printedCardCode: "OP01-001",
+            cardId: "OP01-001",
+            externalProductId: "justtcg:123",
+            externalVariantId: "justtcg:123:nm",
+            recordedAt: "2026-03-01T00:00:00.000Z",
+            priceNm: "10.50",
+          },
+          {
+            cardPrintId: "cp-1",
+            printedCardCode: "OP01-001",
+            cardId: "OP01-001",
+            externalProductId: "justtcg:123",
+            externalVariantId: "justtcg:123:nm",
+            recordedAt: "2026-03-20T00:00:00.000Z",
+            priceNm: "11.25",
+          },
+          {
+            cardPrintId: "cp-1",
+            printedCardCode: "OP01-001",
+            cardId: "OP01-001",
+            externalProductId: "justtcg:123",
+            externalVariantId: "justtcg:123:nm",
+            recordedAt: "2026-03-24T00:00:00.000Z",
+            priceNm: "12.50",
+          },
+        ];
+      },
+      now: () => Date.parse("2026-03-25T12:00:00.000Z"),
+    },
+  );
+
+  assert.deepEqual(detail.points, [
+    {
+      ts: Date.parse("2026-03-20T00:00:00.000Z"),
+      date: "2026-03-20",
+      tcgMarket: 11.25,
+    },
+    {
+      ts: Date.parse("2026-03-24T00:00:00.000Z"),
+      date: "2026-03-24",
       tcgMarket: 12.5,
     },
   ]);

@@ -313,6 +313,79 @@ test("buildSeed leaves exact approved raw cards unpriced when no English Near Mi
   assert.deepEqual(seed.priceSnapshots, []);
 });
 
+test("getJustTcgPriceDetail preserves exact-variant raw history and ignores nonmatching variants", async () => {
+  const { getJustTcgPriceDetail } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const detail = await getJustTcgPriceDetail(
+    "op01-001-p1",
+    30,
+    {
+      loadCurrentRows: async () => [
+        {
+          cardPrintId: "cp-1",
+          printedCardCode: "OP01-001",
+          cardId: "OP01-001",
+          externalProductId: "justtcg:123",
+          externalVariantId: "justtcg:123:nm",
+          activeExternalVariantId: "justtcg:123:nm",
+          variantCondition: "Near Mint",
+          externalRawPayload: {
+            variants: [
+              {
+                externalVariantId: "justtcg:123:lp",
+                condition: "Near Mint",
+                language: "English",
+                printing: "Normal",
+                priceHistory30d: [
+                  { t: Math.floor(Date.parse("2026-03-21T00:00:00.000Z") / 1000), p: 9.5 },
+                  { t: Math.floor(Date.parse("2026-03-23T00:00:00.000Z") / 1000), p: 9.75 },
+                ],
+              },
+              {
+                variantId: "justtcg:123:nm",
+                condition: "Near Mint",
+                language: "English",
+                printing: "Normal",
+                priceHistory30d: [
+                  { t: Math.floor(Date.parse("2026-03-20T00:00:00.000Z") / 1000), p: 10.5 },
+                  { t: Math.floor(Date.parse("2026-03-25T00:00:00.000Z") / 1000), p: null },
+                ],
+              },
+            ],
+          },
+          productKind: "raw_card",
+          mappingApproved: true,
+          priceMarket: "12.75",
+          priceNm: "12.50",
+          priceLp: "10.25",
+          priceChange24h: "0.5",
+          priceChange7d: "1.25",
+          priceChange30d: "3.75",
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          fetchedAt: "2026-03-25T00:05:00.000Z",
+        },
+      ],
+      loadHistoryRows: async ({ requestedIds, rangeDays }) => {
+        assert.deepEqual(requestedIds, ["OP01-001-P1"]);
+        assert.equal(rangeDays, 30);
+        return [];
+      },
+      now: () => Date.parse("2026-03-25T12:00:00.000Z"),
+    },
+  );
+
+  assert.equal(detail.price?.cardId, "OP01-001");
+  assert.equal(detail.price?.marketPrice, 12.5);
+  assert.deepEqual(detail.points, [
+    {
+      ts: Date.parse("2026-03-20T00:00:00.000Z"),
+      date: "2026-03-20",
+      tcgMarket: 10.5,
+    },
+  ]);
+});
+
 test("bootstrapPublishedPricing can seed published rows from current candidate-priced runtime rows", async () => {
   const { bootstrapPublishedPricing } =
     await importModule<typeof import("../scripts/bootstrap-published-pricing.mjs")>(

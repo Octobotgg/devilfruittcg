@@ -1,4 +1,11 @@
 import { createRequire } from "node:module";
+import {
+  MARKET_HISTORY_RANGE_DAYS,
+  buildMarketHistoryState,
+  filterMarketHistoryPoints,
+  normalizeMarketHistoryPoints,
+  type MarketHistoryPoint,
+} from "./market-history.ts";
 
 const require = createRequire(import.meta.url);
 if (process.env.NODE_ENV !== "test") {
@@ -45,13 +52,22 @@ type ReadModelHistoryRow = {
   priceNm: string | number | null;
 };
 
-type JustTcgVariant = {
-  condition?: string | null;
-  printing?: string | null;
-  language?: string | null;
-  priceHistory?: Array<{ p?: number; t?: number }>;
-  priceHistory30d?: Array<{ p?: number; t?: number }>;
-  priceHistory90d?: Array<{ p?: number; t?: number }>;
+type JustTcgRawHistoryEntry = {
+  p?: number | string | null;
+  t?: number | string | null;
+};
+
+type JustTcgRawVariant = {
+  variantId?: string | null;
+  externalVariantId?: string | null;
+  external_variant_id?: string | null;
+  id?: string | null;
+  priceHistory?: JustTcgRawHistoryEntry[];
+  priceHistory30d?: JustTcgRawHistoryEntry[];
+  priceHistory90d?: JustTcgRawHistoryEntry[];
+  price_history?: JustTcgRawHistoryEntry[];
+  price_history_30d?: JustTcgRawHistoryEntry[];
+  price_history_90d?: JustTcgRawHistoryEntry[];
 };
 
 export type JustTcgPriceSummary = {
@@ -72,11 +88,7 @@ export type JustTcgPriceSummary = {
   source: "justtcg";
 };
 
-export type JustTcgHistoryPoint = {
-  ts: number;
-  date: string;
-  tcgMarket: number | null;
-};
+export type JustTcgHistoryPoint = MarketHistoryPoint;
 
 export type JustTcgStoreOptions = {
   loadCurrentRows?: (requestedIds: string[]) => Promise<ReadModelPriceRow[]>;
@@ -228,63 +240,77 @@ function summaryFromRow(row: ReadModelPriceRow, now: number): JustTcgPriceSummar
 function historyPointFromRow(row: ReadModelHistoryRow): JustTcgHistoryPoint | null {
   const ts = Date.parse(row.recordedAt);
   if (!Number.isFinite(ts)) return null;
+  const tcgMarket = parseNullableNumber(row.priceNm);
+  if (tcgMarket === null) return null;
 
   return {
     ts,
     date: new Date(ts).toISOString().slice(0, 10),
-    tcgMarket: parseNullableNumber(row.priceNm),
+    tcgMarket,
   };
 }
 
-function variantScore(variant: JustTcgVariant) {
-  const condition = String(variant.condition || "").toLowerCase();
-  const printing = String(variant.printing || "").toLowerCase();
-  const language = String(variant.language || "").toLowerCase();
+function parseRawHistoryPoint(entry: JustTcgRawHistoryEntry | null | undefined): JustTcgHistoryPoint | null {
+  if (!entry || entry.t == null) return null;
 
-  let score = 0;
-  if (language === "english") score += 100;
-  if (condition === "near mint") score += 60;
-  if (printing === "normal") score += 20;
-  if (printing === "foil") score += 10;
-  return score;
-}
+  const tsSeconds = typeof entry.t === "number" ? entry.t : Number(entry.t);
+  if (!Number.isFinite(tsSeconds)) return null;
 
-function pickPreferredVariant(rawPayload: Record<string, unknown> | null | undefined) {
-  const variants = Array.isArray(rawPayload?.variants) ? (rawPayload.variants as JustTcgVariant[]) : [];
-  if (!variants.length) return null;
-  return [...variants].sort((left, right) => variantScore(right) - variantScore(left))[0] || null;
-}
+  const tcgMarket = parseNullableNumber(entry.p);
+  if (tcgMarket === null) return null;
 
-function historyPointFromRawEntry(entry: { p?: number; t?: number } | null | undefined) {
-  if (!entry || typeof entry.t !== "number") return null;
-
-  const ts = entry.t * 1000;
+  const ts = tsSeconds * 1000;
   return {
     ts,
     date: new Date(ts).toISOString().slice(0, 10),
-    tcgMarket: typeof entry.p === "number" ? entry.p : null,
+    tcgMarket,
   };
 }
 
-function supplementalHistoryFromRaw(
-  rawPayload: Record<string, unknown> | null | undefined,
-  rangeDays: number,
-  now: number,
+function exactRawVariantMatches(
+  variant: JustTcgRawVariant | null | undefined,
+  externalVariantId: string | null | undefined,
 ) {
-  const variant = pickPreferredVariant(rawPayload);
-  if (!variant) return [] as JustTcgHistoryPoint[];
+  const targetId = String(externalVariantId || "").trim();
+  if (!targetId || !variant) return false;
 
+  return [variant.externalVariantId, variant.external_variant_id, variant.variantId, variant.id]
+    .map((value) => String(value || "").trim())
+    .some((value) => value === targetId);
+}
+
+function rawHistoryPointsForVariant(
+  variant: JustTcgRawVariant,
+  rangeDays: number,
+) {
   const source =
     rangeDays > 30
-      ? variant.priceHistory90d || variant.priceHistory30d || variant.priceHistory || []
+      ? variant.priceHistory90d || variant.price_history_90d || variant.priceHistory30d || variant.price_history_30d || variant.priceHistory || variant.price_history || []
       : rangeDays > 7
-        ? variant.priceHistory30d || variant.priceHistory || []
-        : variant.priceHistory || [];
-  const fromTs = now - Math.max(1, rangeDays) * 24 * 60 * 60 * 1000;
+        ? variant.priceHistory30d || variant.price_history_30d || variant.priceHistory || variant.price_history || []
+        : variant.priceHistory || variant.price_history || [];
 
   return source
-    .map((entry) => historyPointFromRawEntry(entry))
-    .filter((point): point is JustTcgHistoryPoint => point !== null && point.ts >= fromTs);
+    .map((entry) => parseRawHistoryPoint(entry))
+    .filter((point): point is JustTcgHistoryPoint => point !== null);
+}
+
+function exactRawHistoryPointsFromPayload(
+  rawPayload: Record<string, unknown> | null | undefined,
+  externalVariantId: string | null | undefined,
+  rangeDays: number,
+) {
+  const variants = Array.isArray(rawPayload?.variants) ? (rawPayload.variants as JustTcgRawVariant[]) : [];
+  const exactVariant = variants.find((variant) => exactRawVariantMatches(variant, externalVariantId));
+  if (exactVariant) {
+    return rawHistoryPointsForVariant(exactVariant, rangeDays);
+  }
+
+  if (exactRawVariantMatches(rawPayload as JustTcgRawVariant, externalVariantId)) {
+    return rawHistoryPointsForVariant(rawPayload as JustTcgRawVariant, rangeDays);
+  }
+
+  return [] as JustTcgHistoryPoint[];
 }
 
 function toPlainRows<T>(rows: Iterable<unknown>): T[] {
@@ -479,18 +505,21 @@ export async function getJustTcgPriceDetail(
     .map((historyRow) => historyPointFromRow(historyRow))
     .filter((point): point is JustTcgHistoryPoint => Boolean(point))
     .sort((left, right) => left.ts - right.ts);
-  const supplementalPoints = supplementalHistoryFromRaw(row.externalRawPayload || null, rangeDays, now);
-  const pointsByTs = new Map<number, JustTcgHistoryPoint>();
-
-  for (const point of supplementalPoints) {
-    pointsByTs.set(point.ts, point);
-  }
-  for (const point of primaryPoints) {
-    pointsByTs.set(point.ts, point);
-  }
+  const rawPoints = exactRawHistoryPointsFromPayload(row.externalRawPayload || null, row.externalVariantId, rangeDays);
+  const normalizedPoints = normalizeMarketHistoryPoints([...rawPoints, ...primaryPoints]);
+  const rangeId = MARKET_HISTORY_RANGE_DAYS[rangeDays as keyof typeof MARKET_HISTORY_RANGE_DAYS];
+  const historyState = rangeId
+    ? buildMarketHistoryState({
+        points: normalizedPoints,
+        rangeId,
+        now,
+      })
+    : {
+        points: filterMarketHistoryPoints(normalizedPoints, rangeDays, now),
+      };
 
   return {
     price: summaryFromRow(row, now),
-    points: [...pointsByTs.values()].sort((left, right) => left.ts - right.ts),
+    points: historyState.points,
   };
 }
