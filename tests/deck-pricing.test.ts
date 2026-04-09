@@ -3,7 +3,7 @@ import test from "node:test";
 
 import type { Deck } from "../lib/cloud/types.ts";
 import type { CardPriceQuote } from "../lib/card-price-quotes.ts";
-import { buildDeckPricingLineItems, summarizeDeckPricing } from "../lib/deck-pricing.ts";
+import { buildDeckPricingLineItems, resolveDeckPricingId, summarizeDeckPricing } from "../lib/deck-pricing.ts";
 
 const SAMPLE_DECK: Deck = {
   id: "deck-1",
@@ -36,7 +36,13 @@ function createQuote(
   };
 }
 
-test("buildDeckPricingLineItems uses selected print ids when a deck has explicit variants", () => {
+test("resolveDeckPricingId preserves uppercase base ids and normalizes variant suffixes to canonical lowercase", () => {
+  assert.equal(resolveDeckPricingId("OP14-020", "OP14-020_P1"), "OP14-020_p1");
+  assert.equal(resolveDeckPricingId("op14-020", "op14-020_p1"), "OP14-020_p1");
+  assert.equal(resolveDeckPricingId("OP14-039"), "OP14-039");
+});
+
+test("buildDeckPricingLineItems uses canonical print ids when a deck has explicit variants", () => {
   const items = buildDeckPricingLineItems(SAMPLE_DECK);
 
   assert.deepEqual(
@@ -47,8 +53,8 @@ test("buildDeckPricingLineItems uses selected print ids when a deck has explicit
       quantity: item.quantity,
     })),
     [
-      { role: "leader", baseCardId: "OP01-001", pricingId: "OP01-001_P1", quantity: 1 },
-      { role: "main", baseCardId: "OP02-005", pricingId: "OP02-005_P2", quantity: 4 },
+      { role: "leader", baseCardId: "OP01-001", pricingId: "OP01-001_p1", quantity: 1 },
+      { role: "main", baseCardId: "OP02-005", pricingId: "OP02-005_p2", quantity: 4 },
       { role: "main", baseCardId: "OP03-010", pricingId: "OP03-010", quantity: 2 },
     ],
   );

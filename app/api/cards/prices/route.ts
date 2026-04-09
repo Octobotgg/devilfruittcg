@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { toCardPriceQuote } from "@/lib/card-price-quotes";
+import { normalizePricingLookupId } from "@/lib/deck-pricing";
 import { getCardPrintRuntimePrices } from "@/lib/server/pricing/published-card-prices";
 
 function normalizeIds(idsParam: string) {
@@ -7,7 +8,7 @@ function normalizeIds(idsParam: string) {
     new Set(
       idsParam
         .split(",")
-        .map((id) => id.trim().toUpperCase())
+        .map((id) => normalizePricingLookupId(id))
         .filter(Boolean),
     ),
   );

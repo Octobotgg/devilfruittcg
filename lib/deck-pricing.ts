@@ -9,15 +9,26 @@ export type DeckPricingLineItem = {
   quantity: number;
 };
 
+export function normalizePricingLookupId(cardId: string) {
+  const trimmedId = String(cardId || "").trim();
+  if (!trimmedId) return "";
+
+  const baseId = getBaseCardId(trimmedId.toUpperCase());
+  const suffixMatch = /(_[A-Za-z0-9]+)$/.exec(trimmedId);
+
+  if (!suffixMatch) return baseId;
+  return `${baseId}${suffixMatch[1].toLowerCase()}`;
+}
+
 function normalizeDeckPricingVariantId(cardId: string, variantId?: string | null) {
-  const baseId = getBaseCardId(String(cardId || "").trim().toUpperCase());
-  const nextVariantId = String(variantId || "").trim().toUpperCase();
+  const baseId = normalizePricingLookupId(cardId);
+  const nextVariantId = normalizePricingLookupId(String(variantId || "").trim());
   if (!nextVariantId || nextVariantId === baseId) return null;
   return nextVariantId;
 }
 
 export function resolveDeckPricingId(cardId: string, variantId?: string | null) {
-  const baseId = getBaseCardId(String(cardId || "").trim().toUpperCase());
+  const baseId = normalizePricingLookupId(cardId);
   return normalizeDeckPricingVariantId(baseId, variantId) || baseId;
 }
 
