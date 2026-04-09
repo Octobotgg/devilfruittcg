@@ -567,7 +567,10 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
           {selectedPreviewCard ? (
             <div
               className="fixed inset-0 z-[60] flex items-center justify-center bg-[rgba(42,33,24,0.42)] p-4 backdrop-blur-sm"
-              onClick={() => setSelectedPreviewCard(null)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedPreviewCard(null);
+              }}
             >
               <div
                 className="rounded-[1.75rem] border border-[var(--color-gold)]/35 bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(245,239,227,0.98))] p-3 shadow-[0_26px_64px_rgba(42,33,24,0.26)]"
