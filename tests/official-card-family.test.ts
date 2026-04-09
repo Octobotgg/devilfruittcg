@@ -106,3 +106,104 @@ test("official OP14-112 variants expose the corrected alternate art and SP famil
     },
   );
 });
+
+test("official OP10-119 variants expose alternate art, manga, and SP in the correct print slots", async () => {
+  const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
+    with: { type: "json" },
+  });
+  const cards = cardsModule.default as Array<{
+    id: string;
+    variantType?: string;
+    variantLabel?: string;
+    variantSlug?: string;
+  }>;
+  const byId = new Map(cards.filter((card) => card.id.startsWith("OP10-119")).map((card) => [card.id, card]));
+
+  assert.deepEqual(
+    {
+      id: "OP10-119_p1",
+      variantType: byId.get("OP10-119_p1")?.variantType,
+      variantLabel: byId.get("OP10-119_p1")?.variantLabel,
+      variantSlug: byId.get("OP10-119_p1")?.variantSlug,
+    },
+    {
+      id: "OP10-119_p1",
+      variantType: "alt_art",
+      variantLabel: "Alternate Art",
+      variantSlug: "alternate_art_op10_print_1",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP10-119_p2",
+      variantType: byId.get("OP10-119_p2")?.variantType,
+      variantLabel: byId.get("OP10-119_p2")?.variantLabel,
+      variantSlug: byId.get("OP10-119_p2")?.variantSlug,
+    },
+    {
+      id: "OP10-119_p2",
+      variantType: "manga",
+      variantLabel: "Manga",
+      variantSlug: "manga_op10",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP10-119_p3",
+      variantType: byId.get("OP10-119_p3")?.variantType,
+      variantLabel: byId.get("OP10-119_p3")?.variantLabel,
+      variantSlug: byId.get("OP10-119_p3")?.variantSlug,
+    },
+    {
+      id: "OP10-119_p3",
+      variantType: "sp",
+      variantLabel: "SP",
+      variantSlug: "sp_prb02_print_3",
+    },
+  );
+});
+
+test("official ST13-011 variants expose the starter-deck parallel and OP12 SP in the correct print slots", async () => {
+  const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
+    with: { type: "json" },
+  });
+  const cards = cardsModule.default as Array<{
+    id: string;
+    variantType?: string;
+    variantLabel?: string;
+    variantSlug?: string;
+  }>;
+  const byId = new Map(cards.filter((card) => card.id.startsWith("ST13-011")).map((card) => [card.id, card]));
+
+  assert.deepEqual(
+    {
+      id: "ST13-011_p1",
+      variantType: byId.get("ST13-011_p1")?.variantType,
+      variantLabel: byId.get("ST13-011_p1")?.variantLabel,
+      variantSlug: byId.get("ST13-011_p1")?.variantSlug,
+    },
+    {
+      id: "ST13-011_p1",
+      variantType: "parallel",
+      variantLabel: "Parallel",
+      variantSlug: "parallel_st13",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "ST13-011_p2",
+      variantType: byId.get("ST13-011_p2")?.variantType,
+      variantLabel: byId.get("ST13-011_p2")?.variantLabel,
+      variantSlug: byId.get("ST13-011_p2")?.variantSlug,
+    },
+    {
+      id: "ST13-011_p2",
+      variantType: "sp",
+      variantLabel: "SP",
+      variantSlug: "sp_op12",
+    },
+  );
+});

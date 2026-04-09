@@ -259,6 +259,81 @@ test("Bandai seed assigns the correct OP09 premium treatments for ambiguous chas
   );
 });
 
+test("Bandai seed assigns the correct OP10-119 chase print treatments", () => {
+  const seed = loadSeed();
+  const byId = new Map(seed.cardPrints.map((row) => [row.id, row]));
+
+  assert.deepEqual(
+    {
+      id: "OP10-119_p1",
+      variant_label: byId.get("OP10-119_p1")?.variant_label,
+      variant_slug: byId.get("OP10-119_p1")?.variant_slug,
+    },
+    {
+      id: "OP10-119_p1",
+      variant_label: "Alternate Art",
+      variant_slug: "alternate_art_op10_print_1",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP10-119_p2",
+      variant_label: byId.get("OP10-119_p2")?.variant_label,
+      variant_slug: byId.get("OP10-119_p2")?.variant_slug,
+    },
+    {
+      id: "OP10-119_p2",
+      variant_label: "Manga",
+      variant_slug: "manga_op10",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP10-119_p3",
+      variant_label: byId.get("OP10-119_p3")?.variant_label,
+      variant_slug: byId.get("OP10-119_p3")?.variant_slug,
+    },
+    {
+      id: "OP10-119_p3",
+      variant_label: "SP",
+      variant_slug: "sp_prb02_print_3",
+    },
+  );
+});
+
+test("Bandai seed assigns the correct ST13-011 parallel and SP treatments", () => {
+  const seed = loadSeed();
+  const byId = new Map(seed.cardPrints.map((row) => [row.id, row]));
+
+  assert.deepEqual(
+    {
+      id: "ST13-011_p1",
+      variant_label: byId.get("ST13-011_p1")?.variant_label,
+      variant_slug: byId.get("ST13-011_p1")?.variant_slug,
+    },
+    {
+      id: "ST13-011_p1",
+      variant_label: "Parallel",
+      variant_slug: "parallel_st13",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "ST13-011_p2",
+      variant_label: byId.get("ST13-011_p2")?.variant_label,
+      variant_slug: byId.get("ST13-011_p2")?.variant_slug,
+    },
+    {
+      id: "ST13-011_p2",
+      variant_label: "SP",
+      variant_slug: "sp_op12",
+    },
+  );
+});
+
 test("Bandai seed assigns the correct OP14-112 alternate art and SP treatments", () => {
   const seed = loadSeed();
   const byId = new Map(seed.cardPrints.map((row) => [row.id, row]));

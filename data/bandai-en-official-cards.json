@@ -49863,10 +49863,10 @@
     "seriesCategories": [
       "ULTRA_DECK"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_st13",
-    "canonicalId": "ST13-011_sp_st13"
+    "variantType": "parallel",
+    "variantLabel": "Parallel",
+    "variantSlug": "parallel_st13",
+    "canonicalId": "ST13-011_parallel_st13"
   },
   {
     "id": "ST13-012",
@@ -108488,10 +108488,10 @@
     "seriesCategories": [
       "BOOSTER_PACK"
     ],
-    "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op10_print_1",
-    "canonicalId": "OP10-119_parallel_op10_print_1"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_op10_print_1",
+    "canonicalId": "OP10-119_alternate_art_op10_print_1"
   },
   {
     "id": "OP10-119_p2",
@@ -108541,10 +108541,10 @@
     "seriesCategories": [
       "BOOSTER_PACK"
     ],
-    "variantType": "parallel",
-    "variantLabel": "Parallel",
-    "variantSlug": "parallel_op10_print_2",
-    "canonicalId": "OP10-119_parallel_op10_print_2"
+    "variantType": "manga",
+    "variantLabel": "Manga",
+    "variantSlug": "manga_op10",
+    "canonicalId": "OP10-119_manga_op10"
   },
   {
     "id": "ST12-012_p1",
@@ -145372,10 +145372,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "manga",
-    "variantLabel": "Manga",
-    "variantSlug": "manga_prb02",
-    "canonicalId": "OP10-119_manga_prb02"
+    "variantType": "sp",
+    "variantLabel": "SP",
+    "variantSlug": "sp_prb02_print_3",
+    "canonicalId": "OP10-119_sp_prb02_print_3"
   },
   {
     "id": "OP10-119_r1",

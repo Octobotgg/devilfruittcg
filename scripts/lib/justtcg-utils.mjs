@@ -41,8 +41,12 @@ const OFFICIAL_CARD_VARIANT_OVERRIDES = new Map([
   ["OP09-004_p2", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
   ["OP09-051_p2", { variantType: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op09" }],
   ["OP09-119_p2", { variantType: "manga", variantLabel: "Manga", variantSlug: "manga_op09" }],
+  ["OP10-119_p1", { variantType: "alt_art", variantLabel: "Alternate Art", variantSlug: "alternate_art_op10_print_1" }],
+  ["OP10-119_p2", { variantType: "manga", variantLabel: "Manga", variantSlug: "manga_op10" }],
+  ["OP10-119_p3", { variantType: "sp", variantLabel: "SP", variantSlug: "sp_prb02_print_3" }],
   ["OP14-112_p1", { variantType: "alt_art", variantLabel: "Alternate Art", variantSlug: "alternate_art_op14" }],
   ["OP14-112_p2", { variantType: "sp", variantLabel: "SP", variantSlug: "sp_op14_print_2" }],
+  ["ST13-011_p1", { variantType: "parallel", variantLabel: "Parallel", variantSlug: "parallel_st13" }],
   ["ST18-004_p1", { variantType: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op09" }],
   ["OP11-058_p1", { variantType: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op13" }],
   ...OP13_THIRD_ANNIVERSARY_CARD_IDS.map((id) => [
