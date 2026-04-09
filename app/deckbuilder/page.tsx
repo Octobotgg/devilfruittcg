@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Suspense, useDeferredValue, useEffect, useMemo, useRef, useState, type DragEvent, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, CheckCircle2, Loader2, Filter, ArrowUpDown, GripVertical, Sparkles, FlaskConical, RefreshCw, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, CheckCircle2, Loader2, Filter, ArrowUpDown, GripVertical, Sparkles, FlaskConical, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { Card } from "@/lib/cards";
 import type { CardPriceQuote } from "@/lib/card-price-quotes";
@@ -12,26 +12,17 @@ import DonButton from "@/components/ui/DonButton";
 import type { Deck } from "@/lib/cloud/types";
 import { buildLoginUrl, clearPendingAuthAction, doesPendingActionMatchCurrentPath, getPendingAuthAction, setPendingAuthAction } from "@/lib/cloud/pending-auth-action";
 import { useCloudSync } from "@/lib/cloud/useCloudSync";
-import { usePreferredSpecialPrintIds } from "@/lib/use-preferred-special-prints";
 import { getBaseCardId } from "@/lib/card-variants";
 import { buildDeckPricingLineItems, summarizeDeckPricing } from "@/lib/deck-pricing";
 import { buildDeckSummaryPatch } from "@/lib/profile-summary";
 import { logProfileActivity, syncProfileSummaryPatch } from "@/lib/profile-sync-client";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
-import { createPlaytestState, drawPlaytestCard, type PlaytestState, type PlaytestTurnOrder } from "@/lib/deck-playtest";
-import { type DeckFormatId, validateDeckAgainstFormat } from "@/lib/deck-validation";
+import { DECK_FORMAT_RULES, type DeckFormatId, validateDeckAgainstFormat } from "@/lib/deck-validation";
 import { buildDeckOverviewSummary, type DeckOverviewSummaryCard } from "@/lib/deckbuilder-overview";
+import { getCompactCurveBarHeight, getOverviewSectionLayout } from "@/lib/deckbuilder-overview-layout";
 
 const COLORS = ["Red", "Blue", "Green", "Purple", "Black", "Yellow"];
-const COLOR_BAR_CLASS: Record<string, string> = {
-  Red: "bg-red-400",
-  Blue: "bg-sky-400",
-  Green: "bg-emerald-400",
-  Purple: "bg-violet-400",
-  Black: "bg-slate-300",
-  Yellow: "bg-amber-300",
-};
 const TYPES = ["Leader", "Character", "Event", "Stage"];
 const COUNTER_BUCKET_VALUES = [0, 1000, 2000] as const;
 const LOCAL_ART_SELECTION_PREFIX = "devilfruit_deck_art_selection:";
@@ -328,191 +319,6 @@ function MobileSheet({
               </button>
             </div>
             {children}
-          </motion.section>
-        </>
-      ) : null}
-    </AnimatePresence>
-  );
-}
-
-function PlaytestModal({
-  open,
-  deckName,
-  leaderCard,
-  playtestState,
-  allCards,
-  onClose,
-  onDraw,
-  onMulligan,
-  onReset,
-  order,
-  onOrderChange,
-}: {
-  open: boolean;
-  deckName: string;
-  leaderCard: Card | null;
-  playtestState: PlaytestState | null;
-  allCards: Map<string, Card>;
-  onClose: () => void;
-  onDraw: () => void;
-  onMulligan: () => void;
-  onReset: () => void;
-  order: PlaytestTurnOrder;
-  onOrderChange: (order: PlaytestTurnOrder) => void;
-}) {
-  return (
-    <AnimatePresence>
-      {open ? (
-        <>
-          <motion.button
-            type="button"
-            onClick={onClose}
-            aria-label="Close playtest"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80"
-          />
-          <motion.section
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 24 }}
-            transition={{ type: "spring", stiffness: 280, damping: 28 }}
-            className="fixed inset-x-0 bottom-0 z-[60] max-h-[92vh] overflow-y-auto rounded-t-[30px] border border-white/10 bg-[#09111f] p-4 shadow-2xl lg:inset-x-[max(4rem,calc(50%-34rem))] lg:bottom-auto lg:top-8 lg:rounded-[30px] lg:p-6"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.18em] text-white/40">Playtest Lab</p>
-                <h2 className="text-2xl font-black text-white">{deckName || "Untitled Deck"}</h2>
-                <p className="mt-1 text-sm text-white/45">{leaderCard ? `Leader: ${leaderCard.name}` : "Leader required"}</p>
-              </div>
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="Dismiss playtest"
-                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/10 bg-black/30 text-white/70"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/40">Turn order</p>
-              <div className="inline-flex rounded-xl border border-white/10 bg-black/25 p-1">
-                {(["first", "second"] as PlaytestTurnOrder[]).map((candidate) => (
-                  <button
-                    key={candidate}
-                    type="button"
-                    onClick={() => onOrderChange(candidate)}
-                    className={`min-h-10 rounded-lg px-3 text-xs font-bold uppercase tracking-[0.08em] ${order === candidate ? "bg-[var(--theme-accent)] text-black" : "text-white/60"}`}
-                  >
-                    Go {candidate}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">Remaining Deck</p>
-                <p className="mt-1 text-2xl font-black text-white">{playtestState?.drawPile.length ?? 0}</p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">Simulated Turn</p>
-                <p className="mt-1 text-2xl font-black text-white">{playtestState?.turn ?? 0}</p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="text-[10px] uppercase tracking-[0.12em] text-white/40">DON!!</p>
-                <p className="mt-1 text-2xl font-black text-[var(--theme-accent-2)]">{playtestState?.donCount ?? 0}</p>
-              </div>
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={onMulligan}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-bold text-white"
-              >
-                <RefreshCw className="h-4 w-4" />
-                Mulligan
-              </button>
-              <button
-                type="button"
-                onClick={onDraw}
-                disabled={!playtestState?.drawPile.length}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--theme-accent)] bg-[var(--theme-accent)]/15 px-4 text-sm font-bold text-[var(--theme-accent-2)] disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                <FlaskConical className="h-4 w-4" />
-                Draw
-              </button>
-              <button
-                type="button"
-                onClick={onReset}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-bold text-white"
-              >
-                Reset
-              </button>
-            </div>
-
-            <div className="mt-5 grid gap-5 lg:grid-cols-[220px_1fr]">
-              <div className="space-y-4">
-                <div>
-                  <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Leader</p>
-                  {leaderCard ? (
-                    <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                      <DeckCardImage
-                        src={`/api/card-image?id=${encodeURIComponent(leaderCard.id)}`}
-                        alt={leaderCard.name}
-                        sizes="180px"
-                        className="aspect-[63/88] w-full rounded-xl"
-                        imageClassName="object-cover"
-                      />
-                      <p className="mt-2 text-sm font-bold text-white">{leaderCard.name}</p>
-                      <p className="text-xs text-white/45">
-                        {leaderCard.id} · Life {typeof leaderCard.life === "number" ? leaderCard.life : 5}
-                      </p>
-                    </div>
-                  ) : null}
-                </div>
-                <div>
-                  <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-white/45">Life Area</p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {(playtestState?.life || []).map((_, index) => (
-                      <div key={`life-${index}`} className="aspect-[63/88] rounded-xl border border-white/10 bg-[radial-gradient(circle_at_top,#1b355e,transparent_60%),linear-gradient(160deg,#111d31,#060b14)] p-2">
-                        <div className="flex h-full items-center justify-center rounded-lg border border-white/10 bg-black/20 text-[10px] font-black uppercase tracking-[0.18em] text-white/60">Life</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div className="mb-2 flex items-center justify-between gap-2">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/45">Current Hand</p>
-                  {playtestState?.lastDrawnId ? (
-                    <p className="text-[11px] text-white/40">Last draw: {allCards.get(playtestState.lastDrawnId)?.name || playtestState.lastDrawnId}</p>
-                  ) : null}
-                </div>
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
-                  {(playtestState?.hand || []).map((cardId, index) => {
-                    const card = allCards.get(cardId);
-                    return (
-                      <div key={`${cardId}-${index}`} className="rounded-2xl border border-white/10 bg-black/20 p-2">
-                        <DeckCardImage
-                          src={`/api/card-image?id=${encodeURIComponent(cardId)}`}
-                          alt={card?.name || cardId}
-                          sizes="(max-width: 768px) 44vw, 180px"
-                          className="aspect-[63/88] w-full rounded-xl"
-                          imageClassName="object-cover"
-                        />
-                        <p className="mt-2 truncate text-xs font-bold text-white">{card?.name || cardId}</p>
-                        <p className="text-[10px] text-white/45">{card?.id || cardId}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
           </motion.section>
         </>
       ) : null}
@@ -837,21 +643,21 @@ function CurveChart({ title, buckets }: { title: string; buckets: CurveBucket[] 
   const maxCount = Math.max(1, ...buckets.map((bucket) => bucket.count));
 
   return (
-    <div>
-      <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{title}</p>
-      <div className="flex items-end gap-1 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
+    <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2.5">
+      <p className="mb-1.5 text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{title}</p>
+      <div className="flex items-end gap-1">
         {buckets.map((bucket) => {
-          const height = Math.max(8, Math.round((bucket.count / maxCount) * 58));
+          const height = getCompactCurveBarHeight(bucket.count, maxCount);
 
           return (
             <div key={bucket.label} className="flex-1 text-center">
               <div
-                className="mx-auto flex w-full max-w-[26px] items-end justify-center rounded-sm border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[9px] font-black text-[var(--color-navy)]"
+                className="mx-auto flex w-full max-w-[22px] items-end justify-center rounded-sm border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] text-[9px] font-black text-[var(--color-navy)]"
                 style={{ height: `${height}px` }}
               >
                 {bucket.count > 0 ? bucket.count : ""}
               </div>
-              <p className="mt-1 text-[9px] text-[var(--color-text-light)]">{bucket.label}</p>
+              <p className="mt-0.5 text-[9px] text-[var(--color-text-light)]">{bucket.label}</p>
             </div>
           );
         })}
@@ -894,7 +700,6 @@ function DeckBuilderPageContent() {
   const [exported, setExported] = useState(false);
   const [searching, setSearching] = useState(false);
   const [isDropActive, setIsDropActive] = useState(false);
-  const [altArtView, setAltArtView] = useState(false);
   const [techSlots, setTechSlots] = useState<string[]>([]);
   const [storageReady, setStorageReady] = useState(false);
   const [actionNotice, setActionNotice] = useState<{ tone: "success" | "error"; message: string } | null>(null);
@@ -910,10 +715,7 @@ function DeckBuilderPageContent() {
   const [variantLoadingIds, setVariantLoadingIds] = useState<string[]>([]);
   const [mobileDeckOpen, setMobileDeckOpen] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const selectedFormat: DeckFormatId = "standard";
-  const [playtestOpen, setPlaytestOpen] = useState(false);
-  const [playtestOrder, setPlaytestOrder] = useState<PlaytestTurnOrder>("first");
-  const [playtestState, setPlaytestState] = useState<PlaytestState | null>(null);
+  const [selectedFormat, setSelectedFormat] = useState<DeckFormatId>("standard");
   const [previewCardId, setPreviewCardId] = useState<string | null>(null);
 
   const mainDeckCount = useMemo(() => deck.cards.reduce((sum, card) => sum + card.quantity, 0), [deck.cards]);
@@ -958,8 +760,6 @@ function DeckBuilderPageContent() {
         setDeckPrices(new Map());
         setDeckPriceLoading(false);
         setActionNotice(null);
-        setPlaytestOpen(false);
-        setPlaytestState(null);
         setPreviewCardId(null);
       });
       previousUserIdRef.current = nextUserId;
@@ -1295,15 +1095,6 @@ function DeckBuilderPageContent() {
     };
   }, [allCards, hydratedDeckCardIds]);
 
-  const deckVisibleCardIds = useMemo(() => {
-    const ids = new Set<string>();
-    deck.cards.forEach((card) => ids.add(card.cardId));
-    visibleTechSlots.forEach((id) => ids.add(id));
-    if (deck.leaderId) ids.add(deck.leaderId);
-    return Array.from(ids);
-  }, [deck.cards, visibleTechSlots, deck.leaderId]);
-
-  const preferredAltArtIds = usePreferredSpecialPrintIds(deckVisibleCardIds, altArtView, "alt_art");
   const manualOrderIndex = useMemo(
     () => new Map(manualCardOrder.map((cardId, index) => [cardId.toUpperCase(), index])),
     [manualCardOrder],
@@ -1395,20 +1186,11 @@ function DeckBuilderPageContent() {
     () => validateDeckAgainstFormat(deck, allCards, selectedFormat),
     [allCards, deck, selectedFormat],
   );
-  const canPlaytest = validationResult.legal && validationResult.summary.mainDeckCount === 50 && validationResult.summary.leaderCount === 1;
-  const playtestLifeCards = leaderCard && typeof leaderCard.life === "number" ? leaderCard.life : 5;
-
-  useEffect(() => {
-    if (canPlaytest) return;
-    setPlaytestOpen(false);
-    setPlaytestState(null);
-  }, [canPlaytest]);
 
   const resolveDeckImageId = (cardId: string) => {
     const baseId = getBaseCardId(cardId.toUpperCase());
     const manualId = artOverrides[baseId] || savedDeckArtOverrides[baseId];
     if (manualId) return manualId;
-    if (altArtView) return preferredAltArtIds.get(baseId) || baseId;
     return baseId;
   };
 
@@ -1708,8 +1490,6 @@ function DeckBuilderPageContent() {
     setDeckSortMode("auto");
     setVariantPickerFor(null);
     setMobileDeckOpen(false);
-    setPlaytestOpen(false);
-    setPlaytestState(null);
     setPreviewCardId(null);
   }
 
@@ -1730,40 +1510,6 @@ function DeckBuilderPageContent() {
       const nextIndex = currentIndex < 0 ? fallbackIndex : (currentIndex + direction + deckPreviewItems.length) % deckPreviewItems.length;
       return deckPreviewItems[nextIndex]?.cardId || null;
     });
-  }
-
-  function createNextPlaytestState(order: PlaytestTurnOrder) {
-    return createPlaytestState(deck, {
-      order,
-      handSize: 5,
-      lifeCards: playtestLifeCards,
-    });
-  }
-
-  function openPlaytest() {
-    if (!canPlaytest) return;
-    setPlaytestState(createNextPlaytestState(playtestOrder));
-    setPlaytestOpen(true);
-  }
-
-  function handlePlaytestOrderChange(order: PlaytestTurnOrder) {
-    setPlaytestOrder(order);
-    if (!canPlaytest) return;
-    setPlaytestState(createNextPlaytestState(order));
-  }
-
-  function handlePlaytestMulligan() {
-    if (!canPlaytest) return;
-    setPlaytestState(createNextPlaytestState(playtestOrder));
-  }
-
-  function handlePlaytestReset() {
-    if (!canPlaytest) return;
-    setPlaytestState(createNextPlaytestState(playtestOrder));
-  }
-
-  function handlePlaytestDraw() {
-    setPlaytestState((current) => (current ? drawPlaytestCard(current) : current));
   }
 
   const storageLabel = user ? "Account sync active" : hasCloud ? "Sign in required to save decks" : "Saved locally";
@@ -1808,6 +1554,15 @@ function DeckBuilderPageContent() {
       mainDeckCount,
       validationResult.legal,
     ],
+  );
+  const overviewSectionLayout = useMemo(
+    () =>
+      getOverviewSectionLayout({
+        colorDistribution,
+        typeDistribution,
+        powerByCost,
+      }),
+    [colorDistribution, powerByCost, typeDistribution],
   );
 
   function renderFilterControls(layout: "desktop" | "sheet") {
@@ -1863,8 +1618,8 @@ function DeckBuilderPageContent() {
 
   function renderLeaderOverviewCard() {
     return (
-      <div className="rounded-[28px] border border-[var(--color-parchment-dark)] bg-[linear-gradient(160deg,rgba(255,249,240,0.98),rgba(244,233,212,0.92))] p-5 shadow-[0_16px_36px_rgba(15,34,52,0.08)] lg:p-6">
-        <div className="mb-3 flex items-center justify-between gap-2">
+      <div className="rounded-[22px] border border-[var(--color-parchment-dark)] bg-[linear-gradient(160deg,rgba(255,249,240,0.98),rgba(244,233,212,0.92))] p-3.5 shadow-[0_12px_24px_rgba(15,34,52,0.06)]">
+        <div className="mb-2 flex items-center justify-between gap-2">
           <p className="flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">
             <Crown className="h-3 w-3" />
             Leader Overview
@@ -1874,7 +1629,7 @@ function DeckBuilderPageContent() {
               <button
                 type="button"
                 onClick={() => toggleVariantPicker(leaderCard.id)}
-                className="inline-flex min-h-9 items-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] px-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
+                className="inline-flex min-h-8 items-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] px-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Art
@@ -1883,7 +1638,7 @@ function DeckBuilderPageContent() {
                 type="button"
                 onClick={() => setDeck((current) => ({ ...current, leaderId: null, leaderVariantId: null, updatedAt: new Date().toISOString() }))}
                 aria-label="Remove leader"
-                className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600"
+                className="inline-flex min-h-8 min-w-8 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1892,39 +1647,39 @@ function DeckBuilderPageContent() {
         </div>
 
         {leaderCard ? (
-          <div className="grid gap-4 rounded-[22px] border border-[var(--color-gold)]/30 bg-[var(--color-parchment)] p-4 sm:grid-cols-[104px_minmax(0,1fr)] lg:grid-cols-[132px_minmax(0,1fr)] lg:gap-5">
+          <div className="grid items-center gap-3 rounded-[18px] border border-[var(--color-gold)]/30 bg-[var(--color-parchment)] p-2.5 sm:grid-cols-[84px_minmax(0,1fr)] lg:grid-cols-[96px_minmax(0,1fr)]">
             <DeckCardImage
               src={deckImageFor(leaderCard.id)}
               alt={leaderCard.name}
-              sizes="(max-width: 1024px) 104px, 132px"
-              className="h-36 w-24 rounded-2xl sm:h-40 sm:w-[104px] lg:h-48 lg:w-[132px]"
+              sizes="(max-width: 1024px) 84px, 96px"
+              className="h-[104px] w-[74px] rounded-xl sm:h-[112px] sm:w-[84px] lg:h-[120px] lg:w-[96px]"
               imageClassName="object-cover"
               priority
             />
             <div className="min-w-0">
-              <p className="text-balance text-xl font-black leading-tight text-[var(--color-navy)] lg:text-[2rem]">
+              <p className="text-balance text-lg font-black leading-tight text-[var(--color-navy)] lg:text-[1.55rem]">
                 {leaderCard.name}
               </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[var(--color-text-light)]">{leaderCard.id}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <span className="rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/12 px-3 py-1 text-xs font-bold text-[var(--color-gold-dark)]">
+              <p className="mt-0.5 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{leaderCard.id}</p>
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                <span className="rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/12 px-2.5 py-1 text-[11px] font-bold text-[var(--color-gold-dark)]">
                   {leaderCard.color}
                 </span>
                 {typeof leaderCard.life === "number" ? (
-                  <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-xs font-bold text-[var(--color-navy)]">
+                  <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-2.5 py-1 text-[11px] font-bold text-[var(--color-navy)]">
                     Life {leaderCard.life}
                   </span>
                 ) : null}
               </div>
-              <p className="mt-4 max-w-xl text-sm text-[var(--color-text-mid)]">
+              <p className="mt-2 max-w-xl text-[11px] text-[var(--color-text-mid)]">
                 {artOverrides[getBaseCardId(leaderCard.id)] ? "Using selected print art" : "Base leader art active"}
               </p>
             </div>
           </div>
         ) : (
-          <div className="rounded-[22px] border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-cream)]/70 p-5">
+          <div className="rounded-[18px] border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-cream)]/70 p-3.5">
             <p className="text-sm font-bold text-[var(--color-navy)]">No leader selected</p>
-            <p className="mt-2 text-sm text-[var(--color-text-light)]">Pick or drop a Leader card to populate the deck overview.</p>
+            <p className="mt-1.5 text-sm text-[var(--color-text-light)]">Pick or drop a Leader card to populate the deck overview.</p>
           </div>
         )}
       </div>
@@ -2310,27 +2065,6 @@ function DeckBuilderPageContent() {
           {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-[var(--color-text-light)]" : "animate-spin text-[var(--color-text-light)]"}`} />}
           {storageReady ? storageLabel : deckIdFromUrl ? "Loading saved deck" : "Checking deck storage"}
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setAltArtView((v) => !v)}
-            aria-pressed={altArtView}
-            aria-label={altArtView ? "Alt Art View on" : "Alt Art View off"}
-            title="Swap deck images to alternate art when an explicit alt-art variant is available"
-            className={`rounded-lg border px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] ${altArtView ? "border-[var(--color-gold)] bg-[var(--color-gold)]/15 text-[var(--color-gold)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"}`}
-          >
-            {altArtView ? "Alt Art View: ON" : "Alt Art View: OFF"}
-          </button>
-          <button
-            type="button"
-            onClick={openPlaytest}
-            disabled={!canPlaytest}
-            className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-[var(--color-gold)] bg-[var(--color-gold)]/15 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-gold)] disabled:cursor-not-allowed disabled:border-[var(--color-parchment-dark)] disabled:bg-[var(--color-cream)] disabled:text-[var(--color-text-light)]"
-          >
-            <FlaskConical className="h-3.5 w-3.5" />
-            Test Hand
-          </button>
-        </div>
 
         {actionNotice ? (
           <div
@@ -2345,81 +2079,101 @@ function DeckBuilderPageContent() {
         ) : null}
       </section>
 
-      <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
-        <div>
-          <h2 className="font-[var(--font-display)] text-2xl font-black text-[var(--color-navy)] md:text-[2rem]">Deck Overview</h2>
-        </div>
-
-        <div className="mt-4 grid gap-3 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.9fr)] lg:items-start">
-          {renderLeaderOverviewCard()}
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-            {overviewSummaryCards.map((card) => {
-              const styles = OVERVIEW_SUMMARY_CARD_STYLES[card.tone];
-
-              return (
-                <div
-                  key={card.key}
-                  title={card.key === "deck_value" ? deckPriceTitle : undefined}
-                  className={`rounded-2xl border p-4 ${styles.background} ${styles.border}`}
-                >
-                  <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{card.label}</p>
-                  <p className={`mt-1 text-2xl font-black ${styles.value}`}>{card.value}</p>
-                  <p className={`mt-1 text-xs ${styles.detail}`}>{card.detail}</p>
-                </div>
-              );
-            })}
+      <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4 md:p-5">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="font-[var(--font-display)] text-2xl font-black text-[var(--color-navy)] md:text-[2rem]">Deck Overview</h2>
+            <p className="mt-1 text-sm text-[var(--color-text-mid)]">Leader-first summary with live deck pricing, curves, and composition insights.</p>
           </div>
-        </div>
-
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <CurveChart title="DON Curve" buckets={curveBuckets} />
-          <CurveChart title="Counter Curve" buckets={counterBuckets} />
-        </div>
-
-        <div className="mt-4 grid gap-3 xl:grid-cols-3">
-          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type Split</p>
-            <div className="space-y-2">
-              {typeDistribution.map((item) => (
-                <div key={item.label}>
-                  <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
-                    <span>{item.label}</span>
-                    <span>{item.count}</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
-                    <div className="h-2 rounded-full bg-[var(--color-gold)] transition-all" style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
-                  </div>
-                </div>
+          <label className="flex flex-col gap-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">
+            Format
+            <select
+              value={selectedFormat}
+              onChange={(event) => setSelectedFormat(event.target.value as DeckFormatId)}
+              className="min-h-11 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-2 text-sm font-semibold normal-case tracking-normal text-[var(--color-text-dark)]"
+              aria-label="Deck format"
+            >
+              {Object.values(DECK_FORMAT_RULES).map((rule) => (
+                <option key={rule.id} value={rule.id}>
+                  {rule.label}
+                </option>
               ))}
+            </select>
+          </label>
+        </div>
+
+        <div className="mt-3 grid gap-3 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] xl:items-start">
+          {renderLeaderOverviewCard()}
+          <div className="grid gap-3">
+            <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)]/92 px-3 py-2.5 shadow-[0_10px_24px_rgba(15,34,52,0.04)]">
+              <div className="grid gap-3 sm:grid-cols-3 sm:divide-x sm:divide-[var(--color-parchment-dark)]/70">
+                {overviewSummaryCards.map((card) => {
+                  const styles = OVERVIEW_SUMMARY_CARD_STYLES[card.tone];
+
+                  return (
+                    <div
+                      key={card.key}
+                      title={card.key === "deck_value" ? deckPriceTitle : undefined}
+                      className="min-w-0 sm:px-3 first:sm:pl-0 last:sm:pr-0"
+                    >
+                      <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{card.label}</p>
+                      <p className={`mt-1 text-lg font-black leading-tight lg:text-[1.45rem] ${styles.value}`}>{card.value}</p>
+                      <p className={`mt-0.5 text-[11px] leading-snug ${styles.detail}`}>{card.detail}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <CurveChart title="DON Curve" buckets={curveBuckets} />
+              <CurveChart title="Counter Curve" buckets={counterBuckets} />
             </div>
           </div>
-          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Color Split</p>
-            <div className="space-y-2">
-              {colorDistribution.length ? (
-                colorDistribution.map((item) => (
-                  <div key={item.label}>
-                    <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
-                      <span>{item.label}</span>
-                      <span>{item.count}</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
-                      <div className={`h-2 rounded-full transition-all ${COLOR_BAR_CLASS[item.label] || "bg-[var(--color-navy)]"}`} style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-xs text-[var(--color-text-light)]">Add cards to see the deck&apos;s color spread.</p>
-              )}
+        </div>
+
+        <div className="mt-3 grid items-start gap-3 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+          {overviewSectionLayout.typeSplitMode === "compact" ? (
+            <div className="py-2">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type Split</p>
+              <p className="mt-1 text-xs text-[var(--color-text-light)]">Add cards to see the deck&apos;s type balance.</p>
             </div>
-          </div>
-          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <div className="mb-2 flex items-center justify-between gap-2">
-              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Average Power by Cost</p>
-              <p className="text-[10px] text-[var(--color-text-light)]">Characters only</p>
+          ) : (
+            <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2.5">
+              <p className="mb-1.5 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type Split</p>
+              <div className="space-y-1.5">
+                {typeDistribution
+                  .filter((item) => item.count > 0)
+                  .map((item) => (
+                    <div key={item.label}>
+                      <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
+                        <span>{item.label}</span>
+                        <span>{item.count}</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
+                        <div className="h-2 rounded-full bg-[var(--color-gold)] transition-all" style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
-            {powerByCost.length ? (
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-2">
+          )}
+
+          {overviewSectionLayout.averagePowerMode === "compact" ? (
+            <div className="py-2">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Average Power by Cost</p>
+                <p className="text-[10px] text-[var(--color-text-light)]">Characters only</p>
+              </div>
+              <p className="mt-1 text-xs text-[var(--color-text-light)]">Character power averages appear once you add more varied characters.</p>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2.5">
+              <div className="mb-1.5 flex items-center justify-between gap-2">
+                <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Average Power by Cost</p>
+                <p className="text-[10px] text-[var(--color-text-light)]">Characters only</p>
+              </div>
+              <div className="grid grid-cols-4 gap-2 xl:grid-cols-8">
                 {powerByCost.map((bucket) => (
                   <div key={bucket.label} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-center">
                     <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Cost {bucket.label}</p>
@@ -2428,10 +2182,8 @@ function DeckBuilderPageContent() {
                   </div>
                 ))}
               </div>
-            ) : (
-              <p className="text-xs text-[var(--color-text-light)]">Character power averages appear once you add characters with power values.</p>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -2555,20 +2307,6 @@ function DeckBuilderPageContent() {
       <MobileSheet open={mobileDeckOpen} title="Current Deck" onClose={() => setMobileDeckOpen(false)}>
         {renderDeckPanel()}
       </MobileSheet>
-
-      <PlaytestModal
-        open={playtestOpen}
-        deckName={deck.name}
-        leaderCard={leaderCard}
-        playtestState={playtestState}
-        allCards={allCards}
-        onClose={() => setPlaytestOpen(false)}
-        onDraw={handlePlaytestDraw}
-        onMulligan={handlePlaytestMulligan}
-        onReset={handlePlaytestReset}
-        order={playtestOrder}
-        onOrderChange={handlePlaytestOrderChange}
-      />
 
       <VariantGalleryModal
         open={Boolean(activeVariantBaseId)}
