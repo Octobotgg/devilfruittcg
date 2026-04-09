@@ -1239,18 +1239,23 @@ export default function DecksPage() {
                                               <Minus className="h-3.5 w-3.5" />
                                             </button>
 
-                                            <div className="mt-1 space-y-0.5 px-1">
-                                              <p className="truncate text-[10px] text-[var(--color-text-light)]">
-                                                {group.key === "leader"
-                                                  ? "Leader"
-                                                  : unitPrice != null
-                                                    ? `${quantity} × ${formatShortCurrency(unitPrice)}`
-                                                    : "Price unavailable"}
-                                              </p>
-                                              <p className="truncate text-[11px] font-black text-[var(--color-gold-dark)]">
-                                                {subtotal != null ? formatCurrency(subtotal) : "—"}
-                                              </p>
-                                            </div>
+                                            {group.key === "leader" ? (
+                                              <div className="mt-1 space-y-0.5 px-1">
+                                                <p className="truncate text-[10px] text-[var(--color-text-light)]">Leader</p>
+                                                <p className="truncate text-[11px] font-black text-[var(--color-gold-dark)]">—</p>
+                                              </div>
+                                            ) : (
+                                              <div className="mt-1 px-1">
+                                                <div className="rounded-xl border border-white/10 bg-[rgba(17,24,39,0.82)] px-2.5 py-2 shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-[2px]">
+                                                  <p className="truncate text-[11px] font-semibold leading-none text-[var(--color-cream)]">
+                                                    {unitPrice != null ? `${quantity} × ${formatShortCurrency(unitPrice)}` : `${quantity} × N/A`}
+                                                  </p>
+                                                  <p className="mt-1 truncate text-[12px] font-black leading-none text-[#F0C040]">
+                                                    {subtotal != null ? formatCurrency(subtotal) : "—"}
+                                                  </p>
+                                                </div>
+                                              </div>
+                                            )}
                                           </div>
                                         )})}
                                       </div>
