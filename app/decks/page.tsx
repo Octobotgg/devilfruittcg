@@ -1246,11 +1246,11 @@ export default function DecksPage() {
                                               </div>
                                             ) : (
                                               <div className="mt-1 px-1">
-                                                <div className="rounded-xl border border-white/10 bg-[rgba(17,24,39,0.82)] px-2.5 py-2 shadow-[0_10px_24px_rgba(15,23,42,0.22)] backdrop-blur-[2px]">
-                                                  <p className="truncate text-[11px] font-semibold leading-none text-[var(--color-cream)]">
+                                                <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(241,233,220,0.96))] px-2.5 py-2 shadow-[0_10px_20px_rgba(42,33,24,0.12)]">
+                                                  <p className="truncate text-[11px] font-semibold leading-none text-[var(--color-text-mid)]">
                                                     {unitPrice != null ? `${quantity} × ${formatShortCurrency(unitPrice)}` : `${quantity} × N/A`}
                                                   </p>
-                                                  <p className="mt-1 truncate text-[12px] font-black leading-none text-[#F0C040]">
+                                                  <p className="mt-1 truncate text-[12px] font-black leading-none text-[var(--color-gold-dark)]">
                                                     {subtotal != null ? formatCurrency(subtotal) : "—"}
                                                   </p>
                                                 </div>
