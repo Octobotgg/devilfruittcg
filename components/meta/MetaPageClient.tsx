@@ -59,6 +59,7 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
   const [deckUsage, setDeckUsage] = useState<Array<{ id: string; name: string; imageUrl: string; usagePct: number; avgQty: number }>>([]);
   const [deckLoading, setDeckLoading] = useState(false);
   const skippedInitialFetchRef = useRef(false);
+  const closingDeckIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval> | null = null;
@@ -147,15 +148,20 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
   }, [loadDecklist, router, searchParams, selectedDeckParam]);
 
   const closeDecklist = useCallback(() => {
+    closingDeckIdRef.current = selectedDeckParam || activeDeck?.deckId || null;
     setActiveDeck(null);
     const params = new URLSearchParams(searchParams.toString());
     params.delete("deck");
     const qs = params.toString();
     router.replace(qs ? `/meta?${qs}` : "/meta", { scroll: false });
-  }, [router, searchParams]);
+  }, [activeDeck?.deckId, router, searchParams, selectedDeckParam]);
 
   useEffect(() => {
     if (!selectedDeckParam) return;
+    if (closingDeckIdRef.current === selectedDeckParam) {
+      closingDeckIdRef.current = null;
+      return;
+    }
     if (activeDeck?.deckId === selectedDeckParam) return;
 
     const matched = decks.find((d) => d.deckId === selectedDeckParam || d.cardId === selectedDeckParam);
