@@ -7,12 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, AlertTriangle, CheckCircle2, Loader2, Filter, ArrowUpDown, GripVertical, Sparkles, FlaskConical, RefreshCw, ShieldAlert, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { Card } from "@/lib/cards";
+import type { CardPriceQuote } from "@/lib/card-price-quotes";
 import DonButton from "@/components/ui/DonButton";
 import type { Deck } from "@/lib/cloud/types";
 import { buildLoginUrl, clearPendingAuthAction, doesPendingActionMatchCurrentPath, getPendingAuthAction, setPendingAuthAction } from "@/lib/cloud/pending-auth-action";
 import { useCloudSync } from "@/lib/cloud/useCloudSync";
 import { usePreferredSpecialPrintIds } from "@/lib/use-preferred-special-prints";
 import { getBaseCardId } from "@/lib/card-variants";
+import { buildDeckPricingLineItems, summarizeDeckPricing } from "@/lib/deck-pricing";
 import { buildDeckSummaryPatch } from "@/lib/profile-summary";
 import { logProfileActivity, syncProfileSummaryPatch } from "@/lib/profile-sync-client";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
@@ -59,15 +61,6 @@ type CurveBucket = {
 };
 
 type DeckSortMode = (typeof DECK_SORT_OPTIONS)[number]["value"];
-
-type DeckPriceResponseItem = {
-  cardId: string;
-  estimatedPrice: number;
-  marketPrice: number | null;
-  source: "market_cache" | "mock";
-  stale: boolean;
-  updatedAt: string | null;
-};
 
 type DeckDisplayEntry = {
   cardId: string;
@@ -872,7 +865,7 @@ function DeckBuilderPageContent() {
   const [actionNotice, setActionNotice] = useState<{ tone: "success" | "error"; message: string } | null>(null);
   const [results, setResults] = useState<Card[]>([]);
   const [allCards, setAllCards] = useState<Map<string, Card>>(new Map());
-  const [deckPrices, setDeckPrices] = useState<Map<string, DeckPriceResponseItem>>(new Map());
+  const [deckPrices, setDeckPrices] = useState<Map<string, CardPriceQuote>>(new Map());
   const [deckPriceLoading, setDeckPriceLoading] = useState(false);
   const [deckSortMode, setDeckSortMode] = useState<DeckSortMode>("auto");
   const [manualCardOrder, setManualCardOrder] = useState<string[]>([]);
@@ -906,12 +899,11 @@ function DeckBuilderPageContent() {
     () => new Map(deck.cards.map((entry) => [entry.cardId.toUpperCase(), entry.quantity])),
     [deck.cards],
   );
-  const deckPriceCardIds = useMemo(() => {
-    const ids = new Set<string>();
-    if (deck.leaderId) ids.add(deck.leaderId);
-    deck.cards.forEach((card) => ids.add(card.cardId));
-    return Array.from(ids);
-  }, [deck.cards, deck.leaderId]);
+  const deckPricingLineItems = useMemo(() => buildDeckPricingLineItems(deck), [deck]);
+  const deckPriceCardIds = useMemo(
+    () => Array.from(new Set(deckPricingLineItems.map((item) => item.pricingId))),
+    [deckPricingLineItems],
+  );
   const deckPriceRequestKey = deckPriceCardIds.join(",");
 
   useEffect(() => {
@@ -1174,7 +1166,7 @@ function DeckBuilderPageContent() {
         const res = await fetch(`/api/cards/prices?ids=${encodeURIComponent(deckPriceRequestKey)}`, { cache: "no-store" });
         if (!res.ok) throw new Error("Unable to load deck prices");
         const json = await res.json();
-        const results = Array.isArray(json.results) ? (json.results as DeckPriceResponseItem[]) : [];
+        const results = Array.isArray(json.results) ? (json.results as CardPriceQuote[]) : [];
 
         if (cancelled) return;
 
@@ -1361,40 +1353,10 @@ function DeckBuilderPageContent() {
         copies: bucket.totalCopies,
       }));
   }, [allCards, deck.cards]);
-  const deckPriceSummary = useMemo(() => {
-    const lineItems = [
-      ...(deck.leaderId ? [{ cardId: deck.leaderId, quantity: 1 }] : []),
-      ...deck.cards,
-    ];
-
-    let total = 0;
-    let cachedEntries = 0;
-    let placeholderEntries = 0;
-    let staleEntries = 0;
-    const seen = new Set<string>();
-
-    lineItems.forEach(({ cardId, quantity }) => {
-      const normalizedId = cardId.toUpperCase();
-      const price = deckPrices.get(normalizedId);
-      if (!price) return;
-
-      total += price.estimatedPrice * quantity;
-
-      if (!seen.has(normalizedId)) {
-        seen.add(normalizedId);
-        if (price.source === "market_cache") cachedEntries += 1;
-        else placeholderEntries += 1;
-        if (price.stale) staleEntries += 1;
-      }
-    });
-
-    return {
-      total,
-      cachedEntries,
-      placeholderEntries,
-      staleEntries,
-    };
-  }, [deck.leaderId, deck.cards, deckPrices]);
+  const deckPriceSummary = useMemo(
+    () => summarizeDeckPricing(deckPricingLineItems, deckPrices),
+    [deckPricingLineItems, deckPrices],
+  );
   const validationResult = useMemo(
     () => validateDeckAgainstFormat(deck, allCards, selectedFormat),
     [allCards, deck, selectedFormat],
@@ -1775,17 +1737,17 @@ function DeckBuilderPageContent() {
   const deckPriceStatus = !deckPriceCardIds.length
     ? "Add cards to estimate"
     : deckPriceLoading && deckPrices.size === 0
-      ? "Loading estimates"
-      : deckPrices.size === 0
-        ? "Pricing unavailable"
-        : deckPriceSummary.placeholderEntries > 0
-          ? `${deckPriceSummary.cachedEntries} cached · ${deckPriceSummary.placeholderEntries} estimated`
-          : "Cached market pricing";
+      ? "Loading live pricing"
+      : deckPriceSummary.pricedEntries === 0 && deckPriceSummary.missingEntries > 0
+        ? `${deckPriceSummary.missingEntries} cards missing prices`
+        : deckPriceSummary.missingEntries > 0
+          ? `${deckPriceSummary.pricedEntries} priced · ${deckPriceSummary.missingEntries} missing`
+          : "Live marketplace pricing";
   const deckPriceTitle = [
     `Estimated deck total: ${formatCurrency(deckPriceSummary.total)}`,
-    "Pricing uses cached market data where available.",
-    deckPriceSummary.placeholderEntries > 0 ? `${deckPriceSummary.placeholderEntries} card entries are using placeholder pricing.` : null,
-    deckPriceSummary.staleEntries > 0 ? `${deckPriceSummary.staleEntries} cached entries may be stale.` : null,
+    "Pricing uses the exact selected print when chosen, otherwise the base print.",
+    deckPriceSummary.missingEntries > 0 ? `${deckPriceSummary.missingEntries} cards are missing published marketplace prices and are excluded from the total.` : null,
+    deckPriceSummary.staleEntries > 0 ? `${deckPriceSummary.staleEntries} published entries may be stale.` : null,
   ]
     .filter(Boolean)
     .join("\n");
