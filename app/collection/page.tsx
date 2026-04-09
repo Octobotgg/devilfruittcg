@@ -63,6 +63,7 @@ import {
 } from "@/lib/cloud/pending-auth-action";
 import { useCloudSync } from "@/lib/cloud/useCloudSync";
 import { fetchWithClientAuth } from "@/lib/client-auth";
+import type { CardPriceQuote } from "@/lib/card-price-quotes";
 import { buildProfileSummary } from "@/lib/profile-summary";
 import { logProfileActivity, syncProfileSummaryPatch } from "@/lib/profile-sync-client";
 
@@ -74,14 +75,7 @@ type ConditionLabel = "NM" | "LP" | "MP" | "HP" | "DMG";
 type PortfolioRange = "7d" | "30d" | "90d" | "365d";
 type DesktopFilterKey = "set" | "color" | "type" | "rarity" | "counter" | "attribute" | "costPower" | "priceOwnership" | "sort";
 
-type PriceEntry = {
-  cardId: string;
-  marketPrice: number | null;
-  estimatedPrice: number;
-  source: "market_cache" | "mock";
-  stale: boolean;
-  updatedAt: string | null;
-};
+type PriceEntry = CardPriceQuote;
 
 type WatchlistItem = {
   watchId: string;
@@ -329,7 +323,7 @@ function colorMatch(card: Card, selectedColors: string[]) {
 
 function cardPrice(cardId: string, priceMap: Map<string, PriceEntry>, collection: Collection) {
   const live = priceMap.get(cardId);
-  if (live) return live.estimatedPrice;
+  if (live) return live.priced && typeof live.marketPrice === "number" ? live.marketPrice : null;
   return collection[cardId]?.price ?? null;
 }
 
@@ -498,7 +492,7 @@ function CollectionPageContent() {
   const [savedDecks, setSavedDecks] = useState<Deck[]>([]);
   const [storageReady, setStorageReady] = useState(false);
   const [priceMap, setPriceMap] = useState<Map<string, PriceEntry>>(new Map());
-  const [priceProgress, setPriceProgress] = useState({ done: 0, total: 0 });
+  const [, setPriceProgress] = useState({ done: 0, total: 0 });
   const [priceLoading, setPriceLoading] = useState(false);
   const [refreshingCollectionPrices, setRefreshingCollectionPrices] = useState(false);
   const [watchlistItems, setWatchlistItems] = useState<WatchlistItem[]>([]);
@@ -1294,6 +1288,31 @@ function CollectionPageContent() {
       }, 0),
     [collection, collectionEntries, priceMap],
   );
+  const collectionPriceCoverage = useMemo(() => {
+    let priced = 0;
+    let missing = 0;
+    let loading = 0;
+
+    collectionEntries.forEach((entry) => {
+      const live = priceMap.get(entry.cardId.toUpperCase());
+      if (live) {
+        if (live.priced && typeof live.marketPrice === "number") priced += 1;
+        else missing += 1;
+        return;
+      }
+
+      if (priceLoading) loading += 1;
+      else if (typeof collection[entry.cardId]?.price === "number") priced += 1;
+      else missing += 1;
+    });
+
+    return {
+      total: collectionEntries.length,
+      priced,
+      missing,
+      loading,
+    };
+  }, [collection, collectionEntries, priceLoading, priceMap]);
   const uniqueCardsOwned = collectionEntries.length;
   const activeSetSummaryMap = useMemo(() => {
     const bySet = new Map<string, { setName: string; sampleCardId: string; slots: Map<string, Card> }>();
@@ -1739,10 +1758,22 @@ function CollectionPageContent() {
         const results = Array.isArray(json.results) ? (json.results as PriceEntry[]) : [];
 
         results.forEach((entry) => {
-          if (!nextCollection[entry.cardId]) return;
+          const existing = nextCollection[entry.cardId];
+          if (!existing) return;
+
+          if (entry.priced && typeof entry.marketPrice === "number") {
+            nextCollection[entry.cardId] = {
+              ...existing,
+              price: entry.marketPrice,
+              lastUpdated: entry.updatedAt || new Date().toISOString(),
+            };
+            return;
+          }
+
+          const rest = { ...existing };
+          delete rest.price;
           nextCollection[entry.cardId] = {
-            ...nextCollection[entry.cardId],
-            price: entry.estimatedPrice,
+            ...rest,
             lastUpdated: entry.updatedAt || new Date().toISOString(),
           };
         });
@@ -2748,7 +2779,15 @@ function CollectionPageContent() {
             <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
               <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Collection Value</p>
               <p className="mt-1 text-3xl font-black text-[var(--color-gold-dark)]">{totalCollectionValue > 0 ? formatCurrency(totalCollectionValue) : "—"}</p>
-              <p className="text-xs text-[var(--color-text-light)]">{priceMap.size ? "Live estimate from cached prices + placeholders" : "Loading price coverage"}</p>
+              <p className="text-xs text-[var(--color-text-light)]">
+                {!collectionPriceCoverage.total
+                  ? "Add cards to see your live collection value"
+                  : collectionPriceCoverage.loading > 0
+                    ? `${collectionPriceCoverage.priced} priced · ${collectionPriceCoverage.loading} loading`
+                    : collectionPriceCoverage.missing > 0
+                      ? `${collectionPriceCoverage.priced} priced · ${collectionPriceCoverage.missing} missing`
+                      : "Live marketplace pricing"}
+              </p>
             </div>
             <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
               <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Owned Cards</p>
@@ -2782,9 +2821,11 @@ function CollectionPageContent() {
             <p className="text-xs text-[var(--color-text-light)]">{watchlistLoading ? "Loading watchlist" : "Tracked wanted cards"}</p>
           </div>
           <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Price Cache</p>
-            <p className="mt-1 text-2xl font-black text-emerald-300">{priceProgress.done}/{priceProgress.total || catalogCards.length}</p>
-            <p className="text-xs text-[var(--color-text-light)]">{priceLoading ? "Loading price estimates" : "Price map ready"}</p>
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Price Coverage</p>
+            <p className="mt-1 text-2xl font-black text-emerald-300">{collectionPriceCoverage.priced}/{collectionPriceCoverage.total}</p>
+            <p className="text-xs text-[var(--color-text-light)]">
+              {priceLoading ? "Loading live marketplace prices" : collectionPriceCoverage.missing > 0 ? `${collectionPriceCoverage.missing} cards missing prices` : "Collection pricing ready"}
+            </p>
           </div>
           <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
             <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Deck Shortages</p>

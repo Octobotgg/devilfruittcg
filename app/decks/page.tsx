@@ -25,12 +25,14 @@ import {
   Trash2,
 } from "lucide-react";
 import type { Card } from "@/lib/cards";
+import type { CardPriceQuote } from "@/lib/card-price-quotes";
 import CardModal, { type CardModalData } from "@/components/CardModal";
 import DonButton from "@/components/ui/DonButton";
 import { getBaseCardId } from "@/lib/card-variants";
 import type { Deck } from "@/lib/cloud/types";
 import { useCloudSync } from "@/lib/cloud/useCloudSync";
 import { fetchWithClientAuth } from "@/lib/client-auth";
+import { buildDeckPricingLineItems, resolveDeckPricingId, summarizeDeckPricing } from "@/lib/deck-pricing";
 import { buildDeckSummaryPatch } from "@/lib/profile-summary";
 import { logProfileActivity, syncProfileSummaryPatch } from "@/lib/profile-sync-client";
 
@@ -40,7 +42,7 @@ type DeckPreviewGroup = {
   key: "leader" | "character" | "event" | "stage";
   label: string;
   total: number;
-  entries: Array<{ card: Card; quantity: number; imageCardId: string }>;
+  entries: Array<{ card: Card; quantity: number; imageCardId: string; pricingId: string }>;
 };
 
 type FeaturedNotice = {
@@ -73,6 +75,24 @@ function formatShortDate(iso: string) {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "—";
   return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+}
+
+function formatShortCurrency(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: value >= 100 ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(value);
 }
 
 function recency(iso: string) {
@@ -150,12 +170,17 @@ function buildDeckPreviewGroups(deck: Deck, cardCache: Map<string, Card>): DeckP
         key: "leader",
         label: "Leader",
         total: 1,
-        entries: [{ card: leaderCard, quantity: 1, imageCardId: resolveDeckImageId(deck.leaderId, deck.leaderVariantId) }],
+        entries: [{
+          card: leaderCard,
+          quantity: 1,
+          imageCardId: resolveDeckImageId(deck.leaderId, deck.leaderVariantId),
+          pricingId: resolveDeckPricingId(deck.leaderId, deck.leaderVariantId),
+        }],
       });
     }
   }
 
-  const typeBuckets = new Map<DeckPreviewGroup["key"], Array<{ card: Card; quantity: number; imageCardId: string }>>([
+  const typeBuckets = new Map<DeckPreviewGroup["key"], Array<{ card: Card; quantity: number; imageCardId: string; pricingId: string }>>([
     ["character", []],
     ["event", []],
     ["stage", []],
@@ -165,10 +190,11 @@ function buildDeckPreviewGroups(deck: Deck, cardCache: Map<string, Card>): DeckP
     const card = cardCache.get(entry.cardId);
     if (!card) return;
     const imageCardId = resolveDeckImageId(entry.cardId, entry.variantId);
+    const pricingId = resolveDeckPricingId(entry.cardId, entry.variantId);
 
-    if (card.type === "Character") typeBuckets.get("character")?.push({ card, quantity: entry.quantity, imageCardId });
-    if (card.type === "Event") typeBuckets.get("event")?.push({ card, quantity: entry.quantity, imageCardId });
-    if (card.type === "Stage") typeBuckets.get("stage")?.push({ card, quantity: entry.quantity, imageCardId });
+    if (card.type === "Character") typeBuckets.get("character")?.push({ card, quantity: entry.quantity, imageCardId, pricingId });
+    if (card.type === "Event") typeBuckets.get("event")?.push({ card, quantity: entry.quantity, imageCardId, pricingId });
+    if (card.type === "Stage") typeBuckets.get("stage")?.push({ card, quantity: entry.quantity, imageCardId, pricingId });
   });
 
   ([
@@ -207,6 +233,8 @@ export default function DecksPage() {
   const [previewSearch, setPreviewSearch] = useState("");
   const [previewResults, setPreviewResults] = useState<Card[]>([]);
   const [previewLoading, setPreviewLoading] = useState(false);
+  const [expandedDeckPrices, setExpandedDeckPrices] = useState<Map<string, CardPriceQuote>>(new Map());
+  const [expandedDeckPricesLoading, setExpandedDeckPricesLoading] = useState(false);
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
   const [featuredDeckIds, setFeaturedDeckIds] = useState<string[]>([]);
   const [featuredDeckSavingId, setFeaturedDeckSavingId] = useState<string | null>(null);
@@ -369,6 +397,18 @@ export default function DecksPage() {
     () => (expandedDeckId ? decks.find((deck) => deck.id === expandedDeckId) || null : null),
     [decks, expandedDeckId],
   );
+  const expandedDeckPricingLineItems = useMemo(
+    () => (expandedDeck ? buildDeckPricingLineItems(expandedDeck) : []),
+    [expandedDeck],
+  );
+  const expandedDeckPriceIds = useMemo(
+    () => Array.from(new Set(expandedDeckPricingLineItems.map((item) => item.pricingId))),
+    [expandedDeckPricingLineItems],
+  );
+  const expandedDeckPriceSummary = useMemo(
+    () => summarizeDeckPricing(expandedDeckPricingLineItems, expandedDeckPrices),
+    [expandedDeckPricingLineItems, expandedDeckPrices],
+  );
 
   useEffect(() => {
     if (expandedDeckId && !expandedDeck) {
@@ -418,6 +458,38 @@ export default function DecksPage() {
       cancelled = true;
     };
   }, [cardCache, expandedDeck]);
+
+  useEffect(() => {
+    if (!expandedDeckPriceIds.length) {
+      setExpandedDeckPrices(new Map());
+      setExpandedDeckPricesLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setExpandedDeckPricesLoading(true);
+
+    void (async () => {
+      try {
+        const res = await fetch(`/api/cards/prices?ids=${encodeURIComponent(expandedDeckPriceIds.join(","))}`, { cache: "no-store" });
+        if (!res.ok) throw new Error("Unable to load deck preview prices");
+        const json = await res.json();
+        const results = Array.isArray(json.results) ? (json.results as CardPriceQuote[]) : [];
+
+        if (cancelled) return;
+
+        setExpandedDeckPrices(new Map(results.map((entry) => [entry.cardId.toUpperCase(), entry])));
+      } catch {
+        if (!cancelled) setExpandedDeckPrices(new Map());
+      } finally {
+        if (!cancelled) setExpandedDeckPricesLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [expandedDeckPriceIds]);
 
   useEffect(() => {
     const trimmed = previewSearch.trim();
@@ -1085,6 +1157,15 @@ export default function DecksPage() {
                                       <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Main Deck</p>
                                       <p className="text-sm font-black text-[#F0C040]">{total}/50</p>
                                     </div>
+                                    <div className="text-right">
+                                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-text-light)]">Deck Value</p>
+                                      <p className="text-sm font-black text-[var(--color-gold-dark)]">
+                                        {expandedDeckPricesLoading && expandedDeckPrices.size === 0 ? "..." : formatCurrency(expandedDeckPriceSummary.total)}
+                                      </p>
+                                      <p className="text-[10px] text-[var(--color-text-light)]">
+                                        {expandedDeckPriceSummary.missingEntries > 0 ? `${expandedDeckPriceSummary.missingEntries} missing` : "Live market"}
+                                      </p>
+                                    </div>
                                     <button
                                       type="button"
                                       onClick={() => setExpandedDeckId(null)}
@@ -1110,7 +1191,12 @@ export default function DecksPage() {
                                       </div>
 
                                       <div className="flex flex-wrap gap-3">
-                                        {group.entries.map(({ card, quantity, imageCardId }) => (
+                                        {group.entries.map(({ card, quantity, imageCardId, pricingId }) => {
+                                          const quote = expandedDeckPrices.get(pricingId.toUpperCase());
+                                          const unitPrice = quote?.priced && typeof quote.marketPrice === "number" ? quote.marketPrice : null;
+                                          const subtotal = unitPrice != null ? unitPrice * quantity : null;
+
+                                          return (
                                           <div
                                             key={`${deck.id}-${group.key}-${card.id}-${imageCardId}`}
                                             className={`group/card relative ${
@@ -1150,8 +1236,21 @@ export default function DecksPage() {
                                             >
                                               <Minus className="h-3.5 w-3.5" />
                                             </button>
+
+                                            <div className="mt-1 space-y-0.5 px-1">
+                                              <p className="truncate text-[10px] text-[var(--color-text-light)]">
+                                                {group.key === "leader"
+                                                  ? "Leader"
+                                                  : unitPrice != null
+                                                    ? `${quantity} × ${formatShortCurrency(unitPrice)}`
+                                                    : "Price unavailable"}
+                                              </p>
+                                              <p className="truncate text-[11px] font-black text-[var(--color-gold-dark)]">
+                                                {subtotal != null ? formatCurrency(subtotal) : "—"}
+                                              </p>
+                                            </div>
                                           </div>
-                                        ))}
+                                        )})}
                                       </div>
                                     </section>
                                   ))}
