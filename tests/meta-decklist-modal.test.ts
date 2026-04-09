@@ -19,6 +19,8 @@ test("meta decklist modal collapses placings by default and supports in-modal ca
     "selectedPreviewCard ? (",
     'onClick={() => setSelectedPreviewCard({ name: u.name, imageUrl: u.imageUrl })}',
     'onClick={() => setSelectedPreviewCard({ name: c.name, imageUrl: c.imageUrl })}',
+    'className="fixed inset-0 z-[60] flex items-center justify-center',
+    'onClick={() => setSelectedPreviewCard(null)}',
   ];
 
   for (const token of requiredTokens) {

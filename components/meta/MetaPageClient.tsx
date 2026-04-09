@@ -495,24 +495,6 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
               <button onClick={closeDecklist} className="text-[var(--color-text-light)] hover:text-[var(--color-text-dark)]">Close</button>
             </div>
 
-            {selectedPreviewCard ? (
-              <div
-                className="absolute inset-0 z-20 flex items-center justify-center rounded-2xl bg-[rgba(245,239,227,0.86)] p-4 backdrop-blur-sm"
-                onClick={() => setSelectedPreviewCard(null)}
-              >
-                <div
-                  className="rounded-[1.75rem] border border-[var(--color-gold)]/35 bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(245,239,227,0.98))] p-3 shadow-[0_26px_64px_rgba(42,33,24,0.26)]"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <img
-                    src={selectedPreviewCard.imageUrl}
-                    alt={selectedPreviewCard.name}
-                    className="w-[min(82vw,26rem)] rounded-[1.15rem] border border-[var(--color-parchment-dark)] object-cover"
-                  />
-                </div>
-              </div>
-            ) : null}
-
             {deckLoading ? (
               <p className="text-[var(--color-text-mid)]">Loading real tournament list…</p>
             ) : deckCards.length === 0 ? (
@@ -582,6 +564,23 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
               </div>
             )}
           </div>
+          {selectedPreviewCard ? (
+            <div
+              className="fixed inset-0 z-[60] flex items-center justify-center bg-[rgba(42,33,24,0.42)] p-4 backdrop-blur-sm"
+              onClick={() => setSelectedPreviewCard(null)}
+            >
+              <div
+                className="rounded-[1.75rem] border border-[var(--color-gold)]/35 bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(245,239,227,0.98))] p-3 shadow-[0_26px_64px_rgba(42,33,24,0.26)]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={selectedPreviewCard.imageUrl}
+                  alt={selectedPreviewCard.name}
+                  className="w-[min(82vw,26rem)] rounded-[1.15rem] border border-[var(--color-parchment-dark)] object-cover"
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
 
