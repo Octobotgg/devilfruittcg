@@ -54,11 +54,43 @@ function getWinRateLabel(rate: number) {
 }
 
 function getHeatCellClass(rate: number) {
-  if (rate >= 60) return "bg-[#14532d] text-[#fffdf6] border border-green-400/40 shadow-[0_0_16px_rgba(34,197,94,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.42)]";
-  if (rate >= 55) return "bg-[#166534] text-[#fffdf6] border border-green-300/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.38)]";
-  if (rate >= 45) return "bg-[#1f2937] text-[#fffdf6] border border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] [text-shadow:0_1px_1px_rgba(0,0,0,0.45)]";
-  if (rate >= 40) return "bg-[#7c2d12] text-[#fff8f2] border border-orange-300/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.42)]";
-  return "bg-[#7f1d1d] text-[#fff8f2] border border-red-300/40 shadow-[0_0_16px_rgba(239,68,68,0.32),inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_1px_rgba(0,0,0,0.42)]";
+  if (rate >= 60) return "bg-[#14532d] text-[#fffdf6] border border-green-400/40 shadow-[0_0_16px_rgba(34,197,94,0.35),inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_2px_rgba(0,0,0,0.62)]";
+  if (rate >= 55) return "bg-[#166534] text-[#fffdf6] border border-green-300/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_2px_rgba(0,0,0,0.58)]";
+  if (rate >= 45) return "bg-[#1f2937] text-[#fffdf6] border border-white/12 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] [text-shadow:0_1px_2px_rgba(0,0,0,0.66)]";
+  if (rate >= 40) return "bg-[#7c2d12] text-[#fff8f2] border border-orange-300/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_2px_rgba(0,0,0,0.62)]";
+  return "bg-[#7f1d1d] text-[#fff8f2] border border-red-300/40 shadow-[0_0_16px_rgba(239,68,68,0.32),inset_0_1px_0_rgba(255,255,255,0.08)] [text-shadow:0_1px_2px_rgba(0,0,0,0.62)]";
+}
+
+function getSideSplitPlaqueClass(rate: number) {
+  if (rate >= 60) {
+    return "border-[#6fbf7f] bg-[linear-gradient(135deg,rgba(245,239,227,0.98),rgba(229,243,230,0.96))] text-[#1d4d35] shadow-[0_12px_24px_rgba(33,84,59,0.14),inset_0_1px_0_rgba(255,255,255,0.85)]";
+  }
+  if (rate >= 55) {
+    return "border-[#9cc58f] bg-[linear-gradient(135deg,rgba(245,239,227,0.98),rgba(237,244,226,0.96))] text-[#2f5a2d] shadow-[0_12px_24px_rgba(71,112,49,0.12),inset_0_1px_0_rgba(255,255,255,0.88)]";
+  }
+  if (rate >= 45) {
+    return "border-[#d4a054] bg-[linear-gradient(135deg,rgba(245,239,227,0.99),rgba(241,230,208,0.96))] text-[#22304a] shadow-[0_12px_24px_rgba(125,92,38,0.12),inset_0_1px_0_rgba(255,255,255,0.92)]";
+  }
+  if (rate >= 40) {
+    return "border-[#d99362] bg-[linear-gradient(135deg,rgba(245,239,227,0.98),rgba(247,228,213,0.96))] text-[#8d4a27] shadow-[0_12px_24px_rgba(157,91,47,0.12),inset_0_1px_0_rgba(255,255,255,0.88)]";
+  }
+  return "border-[#d67c6d] bg-[linear-gradient(135deg,rgba(245,239,227,0.98),rgba(246,219,214,0.96))] text-[#8f2f2c] shadow-[0_12px_24px_rgba(140,57,54,0.14),inset_0_1px_0_rgba(255,255,255,0.88)]";
+}
+
+function getClashPlaqueClass(rate: number) {
+  if (rate >= 60) {
+    return "border-[#6fbf7f] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.92),rgba(245,239,227,0.98)_34%,rgba(226,241,227,0.98)_100%)] text-[#1d4d35] shadow-[0_16px_30px_rgba(33,84,59,0.18),0_0_0_1px_rgba(111,191,127,0.14),inset_0_1px_0_rgba(255,255,255,0.9)]";
+  }
+  if (rate >= 55) {
+    return "border-[#9cc58f] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.92),rgba(245,239,227,0.98)_34%,rgba(236,244,226,0.98)_100%)] text-[#2f5a2d] shadow-[0_16px_30px_rgba(71,112,49,0.16),0_0_0_1px_rgba(156,197,143,0.14),inset_0_1px_0_rgba(255,255,255,0.9)]";
+  }
+  if (rate >= 45) {
+    return "border-[#d4a054] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.94),rgba(245,239,227,0.99)_34%,rgba(240,229,206,0.98)_100%)] text-[#22304a] shadow-[0_16px_30px_rgba(125,92,38,0.16),0_0_0_1px_rgba(212,160,84,0.16),inset_0_1px_0_rgba(255,255,255,0.92)]";
+  }
+  if (rate >= 40) {
+    return "border-[#d99362] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.94),rgba(245,239,227,0.99)_34%,rgba(246,228,211,0.98)_100%)] text-[#8d4a27] shadow-[0_16px_30px_rgba(157,91,47,0.16),0_0_0_1px_rgba(217,147,98,0.16),inset_0_1px_0_rgba(255,255,255,0.92)]";
+  }
+  return "border-[#d67c6d] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.94),rgba(245,239,227,0.99)_34%,rgba(244,218,213,0.98)_100%)] text-[#8f2f2c] shadow-[0_16px_30px_rgba(140,57,54,0.18),0_0_0_1px_rgba(214,124,109,0.16),inset_0_1px_0_rgba(255,255,255,0.92)]";
 }
 
 function TrendIcon({ trend }: { trend: string }) {
@@ -775,11 +807,11 @@ export default function MatchupsPageClient({
           <div className="relative overflow-hidden rounded-2xl border border-[#F0C040]/25 bg-[var(--color-parchment)] p-4">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(250,204,21,0.12),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(212,160,84,0.1),transparent_45%)]" />
             <div className="relative z-10 grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
-              <div className="flex items-center gap-3">
-                <img src={`/api/card-image?id=${lookupLeaderCardId}`} alt={labelForLeader(lookupLeaderCardId)} className="h-20 w-14 rounded-lg border border-[var(--color-parchment-dark)]" />
+              <div className="flex items-center gap-4">
+                <img src={`/api/card-image?id=${lookupLeaderCardId}`} alt={labelForLeader(lookupLeaderCardId)} className="h-24 w-[4.25rem] rounded-xl border border-[var(--color-parchment-dark)] shadow-[0_10px_24px_rgba(42,33,24,0.12)]" />
                 <div>
-                  <p className="text-sm font-bold text-[var(--color-text-dark)]">{labelForLeader(lookupLeaderCardId)}</p>
-                  <p className="text-xs text-[var(--color-text-light)]">Leader A</p>
+                  <p className="text-[17px] font-bold leading-tight text-[var(--color-text-dark)] md:text-[19px]">{labelForLeader(lookupLeaderCardId)}</p>
+                  <p className="mt-1 text-[13px] text-[var(--color-text-light)]">Leader A</p>
                 </div>
               </div>
 
@@ -791,7 +823,7 @@ export default function MatchupsPageClient({
                     key={`a-${lookupRate}`}
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`rounded-xl px-3 py-1.5 text-sm font-black tracking-[-0.02em] shadow-[0_8px_20px_rgba(27,40,56,0.16)] ${getHeatCellClass(lookupRate ?? 50)}`}
+                    className={`inline-flex min-w-[128px] items-center justify-center rounded-[20px] border px-5 py-3 text-[28px] leading-none font-black tracking-[-0.05em] ${getClashPlaqueClass(lookupRate ?? 50)}`}
                   >
                     {lookupRate != null ? `${lookupRate}%` : (lookupLoading ? "Loading…" : "No data")}
                   </motion.span>
@@ -800,7 +832,7 @@ export default function MatchupsPageClient({
                     key={`b-${reverseRate}`}
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`rounded-xl px-3 py-1.5 text-sm font-black tracking-[-0.02em] shadow-[0_8px_20px_rgba(27,40,56,0.16)] ${getHeatCellClass(reverseRate ?? 50)}`}
+                    className={`inline-flex min-w-[128px] items-center justify-center rounded-[20px] border px-5 py-3 text-[28px] leading-none font-black tracking-[-0.05em] ${getClashPlaqueClass(reverseRate ?? 50)}`}
                   >
                     {reverseRate != null ? `${reverseRate}%` : (lookupLoading ? "Loading…" : "No data")}
                   </motion.span>
@@ -810,12 +842,12 @@ export default function MatchupsPageClient({
                 </div>
               </div>
 
-              <div className="flex items-center justify-start gap-3 md:justify-end">
+              <div className="flex items-center justify-start gap-4 md:justify-end">
                 <div className="text-right">
-                  <p className="text-sm font-bold text-[var(--color-text-dark)]">{labelForLeader(lookupOpponentCardId)}</p>
-                  <p className="text-xs text-[var(--color-text-light)]">Leader B</p>
+                  <p className="text-[17px] font-bold leading-tight text-[var(--color-text-dark)] md:text-[19px]">{labelForLeader(lookupOpponentCardId)}</p>
+                  <p className="mt-1 text-[13px] text-[var(--color-text-light)]">Leader B</p>
                 </div>
-                <img src={`/api/card-image?id=${lookupOpponentCardId}`} alt={labelForLeader(lookupOpponentCardId)} className="h-20 w-14 rounded-lg border border-[var(--color-parchment-dark)]" />
+                <img src={`/api/card-image?id=${lookupOpponentCardId}`} alt={labelForLeader(lookupOpponentCardId)} className="h-24 w-[4.25rem] rounded-xl border border-[var(--color-parchment-dark)] shadow-[0_10px_24px_rgba(42,33,24,0.12)]" />
               </div>
             </div>
 
@@ -852,14 +884,14 @@ export default function MatchupsPageClient({
                     <div className="mt-2 grid grid-cols-2 gap-2">
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going First</p>
-                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(lookupFirstRate ?? 50)}`}>
+                        <p className={`mt-1 inline-flex min-w-[122px] items-center justify-center rounded-[16px] border px-4 py-2.5 text-[24px] leading-none font-black tracking-[-0.04em] ${getSideSplitPlaqueClass(lookupFirstRate ?? 50)}`}>
                           {lookupFirstRate != null ? `${lookupFirstRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{lookupFirstGames != null ? `${lookupFirstGames.toLocaleString()} games` : "—"}</p>
                       </div>
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going Second</p>
-                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(lookupSecondRate ?? 50)}`}>
+                        <p className={`mt-1 inline-flex min-w-[122px] items-center justify-center rounded-[16px] border px-4 py-2.5 text-[24px] leading-none font-black tracking-[-0.04em] ${getSideSplitPlaqueClass(lookupSecondRate ?? 50)}`}>
                           {lookupSecondRate != null ? `${lookupSecondRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{lookupSecondGames != null ? `${lookupSecondGames.toLocaleString()} games` : "—"}</p>
@@ -877,14 +909,14 @@ export default function MatchupsPageClient({
                     <div className="mt-2 grid grid-cols-2 gap-2">
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going First</p>
-                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(reverseFirstRate ?? 50)}`}>
+                        <p className={`mt-1 inline-flex min-w-[122px] items-center justify-center rounded-[16px] border px-4 py-2.5 text-[24px] leading-none font-black tracking-[-0.04em] ${getSideSplitPlaqueClass(reverseFirstRate ?? 50)}`}>
                           {reverseFirstRate != null ? `${reverseFirstRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{reverseFirstGames != null ? `${reverseFirstGames.toLocaleString()} games` : "—"}</p>
                       </div>
                       <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] px-2 py-1.5">
                         <p className="text-[10px] uppercase tracking-[0.1em] text-[var(--color-text-light)]">Going Second</p>
-                        <p className={`mt-1 inline-block rounded-xl px-3 py-1.5 text-base font-black tracking-[-0.02em] shadow-[0_8px_18px_rgba(27,40,56,0.14)] ${getHeatCellClass(reverseSecondRate ?? 50)}`}>
+                        <p className={`mt-1 inline-flex min-w-[122px] items-center justify-center rounded-[16px] border px-4 py-2.5 text-[24px] leading-none font-black tracking-[-0.04em] ${getSideSplitPlaqueClass(reverseSecondRate ?? 50)}`}>
                           {reverseSecondRate != null ? `${reverseSecondRate.toFixed(2)}%` : "—"}
                         </p>
                         <p className="mt-1 text-[10px] text-[var(--color-text-light)]">{reverseSecondGames != null ? `${reverseSecondGames.toLocaleString()} games` : "—"}</p>

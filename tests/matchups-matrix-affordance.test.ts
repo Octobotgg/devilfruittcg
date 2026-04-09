@@ -26,11 +26,15 @@ test("matchups matrix keeps strong row-column hover guidance", () => {
 
 test("matchup percentage chips keep the stronger readability treatment", () => {
   const requiredTokens = [
-    "text-[13px] font-black tracking-[-0.02em]",
-    "text-[#fffdf6] border border-white/12",
-    "shadow-[0_8px_20px_rgba(27,40,56,0.16)]",
-    "text-base font-black tracking-[-0.02em]",
-    "[text-shadow:0_1px_1px_rgba(0,0,0,0.42)]",
+    "text-[28px] leading-none font-black tracking-[-0.05em]",
+    "min-w-[128px] items-center justify-center",
+    "rounded-[20px] border px-5 py-3",
+    "bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.94),rgba(245,239,227,0.99)_34%,rgba(240,229,206,0.98)_100%)]",
+    "text-[24px] leading-none font-black tracking-[-0.04em]",
+    "min-w-[122px] items-center justify-center",
+    "bg-[linear-gradient(135deg,rgba(245,239,227,0.99),rgba(241,230,208,0.96))]",
+    "text-[#22304a]",
+    "rounded-[16px] border px-4 py-2.5",
   ];
 
   for (const token of requiredTokens) {
