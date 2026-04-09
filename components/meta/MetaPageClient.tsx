@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { createPortal } from "react-dom";
 import { Crown, TrendingUp, TrendingDown, Minus, Activity, Globe, Database, ChevronDown } from "lucide-react";
 import type { MetaSnapshot } from "@/lib/data/meta";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
@@ -564,28 +565,32 @@ export default function MetaPageClient({ initialMeta, initialIsLive }: MetaPageC
               </div>
             )}
           </div>
-          {selectedPreviewCard ? (
+        </div>
+      )}
+      {selectedPreviewCard && typeof document !== "undefined"
+        ? createPortal(
             <div
-              className="fixed inset-0 z-[60] flex items-center justify-center bg-[rgba(42,33,24,0.42)] p-4 backdrop-blur-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedPreviewCard(null);
-              }}
+              className="fixed inset-0 z-[70] flex items-center justify-center bg-[rgba(42,33,24,0.42)] p-4 backdrop-blur-sm"
+              onClick={() => setSelectedPreviewCard(null)}
             >
-              <div
+              <button
+                type="button"
                 className="rounded-[1.75rem] border border-[var(--color-gold)]/35 bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(245,239,227,0.98))] p-3 shadow-[0_26px_64px_rgba(42,33,24,0.26)]"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedPreviewCard(null);
+                }}
               >
                 <img
                   src={selectedPreviewCard.imageUrl}
                   alt={selectedPreviewCard.name}
                   className="w-[min(82vw,26rem)] rounded-[1.15rem] border border-[var(--color-parchment-dark)] object-cover"
                 />
-              </div>
-            </div>
-          ) : null}
-        </div>
-      )}
+              </button>
+            </div>,
+            document.body,
+          )
+        : null}
 
       {/* Mobile one-thumb utility bar */}
       <div className="md:hidden fixed bottom-3 left-3 right-3 z-40">

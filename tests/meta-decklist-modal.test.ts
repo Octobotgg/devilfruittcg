@@ -10,18 +10,21 @@ const source = fs.readFileSync(
 
 test("meta decklist modal collapses placings by default and supports in-modal card preview", () => {
   const requiredTokens = [
+    'import { createPortal } from "react-dom";',
     "const [showPlacings, setShowPlacings] = useState(false);",
     "const [selectedPreviewCard, setSelectedPreviewCard] = useState<{ name: string; imageUrl: string } | null>(null);",
     "setShowPlacings(false);",
     "setSelectedPreviewCard(null);",
     'onClick={() => setShowPlacings((open) => !open)}',
     "Recent Tournament Placings ({deckLists.length})",
-    "selectedPreviewCard ? (",
+    "selectedPreviewCard && typeof document !== \"undefined\"",
     'onClick={() => setSelectedPreviewCard({ name: u.name, imageUrl: u.imageUrl })}',
     'onClick={() => setSelectedPreviewCard({ name: c.name, imageUrl: c.imageUrl })}',
-    'className="fixed inset-0 z-[60] flex items-center justify-center',
-    "e.stopPropagation();",
-    "setSelectedPreviewCard(null);",
+    "createPortal(",
+    'className="fixed inset-0 z-[70] flex items-center justify-center',
+    "document.body",
+    'onClick={() => setSelectedPreviewCard(null)}',
+    'type="button"',
   ];
 
   for (const token of requiredTokens) {
