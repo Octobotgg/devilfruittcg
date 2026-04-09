@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Suspense, useDeferredValue, useEffect, useMemo, useRef, useState, type DragEvent, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, AlertTriangle, CheckCircle2, Loader2, Filter, ArrowUpDown, GripVertical, Sparkles, FlaskConical, RefreshCw, ShieldAlert, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, Plus, Minus, Trash2, Download, Save, Crown, X, BookOpen, CheckCircle2, Loader2, Filter, ArrowUpDown, GripVertical, Sparkles, FlaskConical, RefreshCw, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { Card } from "@/lib/cards";
 import type { CardPriceQuote } from "@/lib/card-price-quotes";
@@ -20,7 +20,8 @@ import { logProfileActivity, syncProfileSummaryPatch } from "@/lib/profile-sync-
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import { createPlaytestState, drawPlaytestCard, type PlaytestState, type PlaytestTurnOrder } from "@/lib/deck-playtest";
-import { DECK_FORMAT_RULES, DON_DECK_SIZE, type DeckFormatId, validateDeckAgainstFormat } from "@/lib/deck-validation";
+import { type DeckFormatId, validateDeckAgainstFormat } from "@/lib/deck-validation";
+import { buildDeckOverviewSummary, type DeckOverviewSummaryCard } from "@/lib/deckbuilder-overview";
 
 const COLORS = ["Red", "Blue", "Green", "Purple", "Black", "Yellow"];
 const COLOR_BAR_CLASS: Record<string, string> = {
@@ -54,6 +55,40 @@ const USD_FORMATTER = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+const OVERVIEW_SUMMARY_CARD_STYLES: Record<
+  DeckOverviewSummaryCard["tone"],
+  {
+    background: string;
+    border: string;
+    detail: string;
+    value: string;
+  }
+> = {
+  gold: {
+    background: "bg-[var(--color-gold)]/10",
+    border: "border-[var(--color-gold)]/35",
+    detail: "text-[var(--color-text-mid)]",
+    value: "text-[var(--color-gold-dark)]",
+  },
+  navy: {
+    background: "bg-[var(--color-parchment)]",
+    border: "border-[var(--color-parchment-dark)]",
+    detail: "text-[var(--color-text-mid)]",
+    value: "text-[var(--color-navy)]",
+  },
+  amber: {
+    background: "bg-amber-700/10",
+    border: "border-amber-700/20",
+    detail: "text-amber-800/80",
+    value: "text-amber-800",
+  },
+  emerald: {
+    background: "bg-emerald-700/10",
+    border: "border-emerald-700/20",
+    detail: "text-emerald-800/80",
+    value: "text-emerald-800",
+  },
+};
 
 type CurveBucket = {
   label: string;
@@ -875,14 +910,13 @@ function DeckBuilderPageContent() {
   const [variantLoadingIds, setVariantLoadingIds] = useState<string[]>([]);
   const [mobileDeckOpen, setMobileDeckOpen] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [selectedFormat, setSelectedFormat] = useState<DeckFormatId>("standard");
+  const selectedFormat: DeckFormatId = "standard";
   const [playtestOpen, setPlaytestOpen] = useState(false);
   const [playtestOrder, setPlaytestOrder] = useState<PlaytestTurnOrder>("first");
   const [playtestState, setPlaytestState] = useState<PlaytestState | null>(null);
   const [previewCardId, setPreviewCardId] = useState<string | null>(null);
 
   const mainDeckCount = useMemo(() => deck.cards.reduce((sum, card) => sum + card.quantity, 0), [deck.cards]);
-  const totalCards = (deck.leaderId ? 1 : 0) + mainDeckCount;
   const deckStorageKeySuffix = deck.id || deckIdFromUrl || "draft";
   const artStorageKey = `${LOCAL_ART_SELECTION_PREFIX}${deckStorageKeySuffix}`;
   const manualOrderStorageKey = `${LOCAL_MANUAL_ORDER_PREFIX}${deckStorageKeySuffix}`;
@@ -1361,7 +1395,6 @@ function DeckBuilderPageContent() {
     () => validateDeckAgainstFormat(deck, allCards, selectedFormat),
     [allCards, deck, selectedFormat],
   );
-  const selectedFormatRule = DECK_FORMAT_RULES[selectedFormat];
   const canPlaytest = validationResult.legal && validationResult.summary.mainDeckCount === 50 && validationResult.summary.leaderCount === 1;
   const playtestLifeCards = leaderCard && typeof leaderCard.life === "number" ? leaderCard.life : 5;
 
@@ -1751,6 +1784,31 @@ function DeckBuilderPageContent() {
   ]
     .filter(Boolean)
     .join("\n");
+  const overviewSummaryCards = useMemo(
+    () =>
+      buildDeckOverviewSummary({
+        mainDeckCount,
+        leaderName: leaderCard?.name || null,
+        leaderSubtitle: leaderCard?.color || null,
+        deckValue: deckPriceSummary.total,
+        deckValueStatus: deckPriceStatus,
+        legal: validationResult.legal,
+      }).map((card) =>
+        card.key === "deck_value" && deckPriceLoading && deckPrices.size === 0
+          ? { ...card, value: "..." }
+          : card,
+      ),
+    [
+      deckPriceLoading,
+      deckPriceStatus,
+      deckPriceSummary.total,
+      deckPrices.size,
+      leaderCard?.color,
+      leaderCard?.name,
+      mainDeckCount,
+      validationResult.legal,
+    ],
+  );
 
   function renderFilterControls(layout: "desktop" | "sheet") {
     const containerClass =
@@ -1803,6 +1861,76 @@ function DeckBuilderPageContent() {
     );
   }
 
+  function renderLeaderOverviewCard() {
+    return (
+      <div className="rounded-[28px] border border-[var(--color-parchment-dark)] bg-[linear-gradient(160deg,rgba(255,249,240,0.98),rgba(244,233,212,0.92))] p-5 shadow-[0_16px_36px_rgba(15,34,52,0.08)] lg:p-6">
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <p className="flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">
+            <Crown className="h-3 w-3" />
+            Leader Overview
+          </p>
+          {leaderCard ? (
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => toggleVariantPicker(leaderCard.id)}
+                className="inline-flex min-h-9 items-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] px-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                Art
+              </button>
+              <button
+                type="button"
+                onClick={() => setDeck((current) => ({ ...current, leaderId: null, leaderVariantId: null, updatedAt: new Date().toISOString() }))}
+                aria-label="Remove leader"
+                className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-xl border border-[var(--color-parchment-dark)] text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          ) : null}
+        </div>
+
+        {leaderCard ? (
+          <div className="grid gap-4 rounded-[22px] border border-[var(--color-gold)]/30 bg-[var(--color-parchment)] p-4 sm:grid-cols-[104px_minmax(0,1fr)] lg:grid-cols-[132px_minmax(0,1fr)] lg:gap-5">
+            <DeckCardImage
+              src={deckImageFor(leaderCard.id)}
+              alt={leaderCard.name}
+              sizes="(max-width: 1024px) 104px, 132px"
+              className="h-36 w-24 rounded-2xl sm:h-40 sm:w-[104px] lg:h-48 lg:w-[132px]"
+              imageClassName="object-cover"
+              priority
+            />
+            <div className="min-w-0">
+              <p className="text-balance text-xl font-black leading-tight text-[var(--color-navy)] lg:text-[2rem]">
+                {leaderCard.name}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[var(--color-text-light)]">{leaderCard.id}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/12 px-3 py-1 text-xs font-bold text-[var(--color-gold-dark)]">
+                  {leaderCard.color}
+                </span>
+                {typeof leaderCard.life === "number" ? (
+                  <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-xs font-bold text-[var(--color-navy)]">
+                    Life {leaderCard.life}
+                  </span>
+                ) : null}
+              </div>
+              <p className="mt-4 max-w-xl text-sm text-[var(--color-text-mid)]">
+                {artOverrides[getBaseCardId(leaderCard.id)] ? "Using selected print art" : "Base leader art active"}
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-[22px] border border-dashed border-[var(--color-parchment-dark)] bg-[var(--color-cream)]/70 p-5">
+            <p className="text-sm font-bold text-[var(--color-navy)]">No leader selected</p>
+            <p className="mt-2 text-sm text-[var(--color-text-light)]">Pick or drop a Leader card to populate the deck overview.</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   function renderDeckPanel() {
     return (
       <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-4">
@@ -1827,91 +1955,6 @@ function DeckBuilderPageContent() {
           className={`mt-3 rounded-xl border border-dashed p-3 text-xs transition-all ${isDropActive ? "border-[var(--color-gold)] bg-[var(--color-gold)]/10 text-[var(--color-navy)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)] text-[var(--color-text-mid)]"}`}
         >
           Drag card here to add to deck
-        </div>
-
-        <div className="mt-3 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
-          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
-            <p className="text-[10px] text-[var(--color-text-light)]">Leader</p>
-            <p className="mt-1 text-xs font-bold text-[var(--color-navy)]">{deck.leaderId ? "SET" : "NONE"}</p>
-          </div>
-          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
-            <p className="text-[10px] text-[var(--color-text-light)]">Main</p>
-            <p className="mt-1 text-xs font-bold text-[var(--color-navy)]">{mainDeckCount}</p>
-          </div>
-          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2">
-            <p className="text-[10px] text-[var(--color-text-light)]">Built</p>
-            <p className="mt-1 text-xs font-bold text-[var(--color-navy)]">{totalCards}</p>
-          </div>
-          <div className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-2" title={deckPriceTitle}>
-            <p className="text-[10px] text-[var(--color-text-light)]">Price</p>
-            <p className="mt-1 text-xs font-bold text-[var(--color-gold)]">{deckPriceLoading && deckPrices.size === 0 ? "..." : formatCurrency(deckPriceSummary.total)}</p>
-            <p className="mt-1 text-[9px] text-[var(--color-text-light)]">{deckPriceStatus}</p>
-          </div>
-        </div>
-
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-          <div className={`inline-flex items-center gap-2 text-sm font-bold ${validationResult.legal ? "text-emerald-700" : "text-amber-700"}`}>
-            {validationResult.legal ? <ShieldCheck className="h-4 w-4" /> : <ShieldAlert className="h-4 w-4" />}
-            {validationResult.legal ? `${selectedFormatRule.label} legal` : `${validationResult.issues.length} issues to fix`}
-          </div>
-          <button
-            type="button"
-            onClick={openPlaytest}
-            disabled={!canPlaytest}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-gold)] bg-[var(--color-gold)]/15 px-4 text-sm font-bold text-[var(--color-gold)] disabled:cursor-not-allowed disabled:border-[var(--color-parchment-dark)] disabled:bg-[var(--color-cream)] disabled:text-[var(--color-text-light)]"
-          >
-            <FlaskConical className="h-4 w-4" />
-            Playtest
-          </button>
-        </div>
-
-        <div className="mt-4">
-          <div className="mb-2 flex items-center justify-between gap-2">
-            <p className="flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">
-              <Crown className="h-3 w-3" />
-              Leader
-            </p>
-            {leaderCard ? (
-              <button
-                type="button"
-                onClick={() => toggleVariantPicker(leaderCard.id)}
-                className="inline-flex min-h-9 items-center gap-1 rounded-xl border border-[var(--color-parchment-dark)] px-2 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                Art
-              </button>
-            ) : null}
-          </div>
-          {leaderCard ? (
-            <>
-              <div className="flex items-center gap-2 rounded-xl border border-[var(--color-gold)]/30 bg-[var(--color-cream)] p-2">
-                <DeckCardImage
-                  src={deckImageFor(leaderCard.id)}
-                  alt={leaderCard.name}
-                  sizes="40px"
-                  className="h-14 w-10 rounded"
-                  imageClassName="object-cover"
-                  priority
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-bold text-[var(--color-navy)]">{leaderCard.name}</p>
-                  <p className="text-[10px] text-[var(--color-text-light)]">
-                    {leaderCard.id} · {leaderCard.color}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setDeck((current) => ({ ...current, leaderId: null, leaderVariantId: null, updatedAt: new Date().toISOString() }))}
-                  aria-label="Remove leader"
-                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl text-[var(--color-text-light)] hover:bg-[var(--color-parchment-dark)]/50 hover:text-red-600"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            </>
-          ) : (
-            <p className="rounded-xl border border-dashed border-[var(--color-parchment-dark)] p-3 text-xs text-[var(--color-text-light)]">Pick or drop a Leader card</p>
-          )}
         </div>
 
         <div className="mt-4">
@@ -2207,70 +2250,6 @@ function DeckBuilderPageContent() {
           </div>
         </div>
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <CurveChart title="DON Curve" buckets={curveBuckets} />
-          <CurveChart title="Counter Curve" buckets={counterBuckets} />
-        </div>
-
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type Split</p>
-            <div className="space-y-2">
-              {typeDistribution.map((item) => (
-                <div key={item.label}>
-                  <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
-                    <span>{item.label}</span>
-                    <span>{item.count}</span>
-                  </div>
-                  <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
-                    <div className="h-2 rounded-full bg-[var(--color-gold)] transition-all" style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Color Split</p>
-            <div className="space-y-2">
-              {colorDistribution.length ? (
-                colorDistribution.map((item) => (
-                  <div key={item.label}>
-                    <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
-                      <span>{item.label}</span>
-                      <span>{item.count}</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
-                      <div className={`h-2 rounded-full transition-all ${COLOR_BAR_CLASS[item.label] || "bg-[var(--color-navy)]"}`} style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-xs text-[var(--color-text-light)]">Add cards to see the deck&apos;s color spread.</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-4 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-          <div className="mb-2 flex items-center justify-between gap-2">
-            <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Average Power by Cost</p>
-            <p className="text-[10px] text-[var(--color-text-light)]">Characters only</p>
-          </div>
-          {powerByCost.length ? (
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {powerByCost.map((bucket) => (
-                <div key={bucket.label} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-center">
-                  <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Cost {bucket.label}</p>
-                  <p className="mt-1 text-sm font-black text-[var(--color-navy)]">{formatPower(bucket.averagePower)}</p>
-                  <p className="text-[10px] text-[var(--color-text-light)]">{bucket.copies} copies</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-xs text-[var(--color-text-light)]">Character power averages appear once you add characters with power values.</p>
-          )}
-        </div>
-
         <div className="mt-4 grid grid-cols-2 gap-2">
           <DonButton onClick={saveDeck}>
             {saved ? (
@@ -2331,7 +2310,7 @@ function DeckBuilderPageContent() {
           {user ? <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" /> : <Loader2 className={`h-3.5 w-3.5 ${storageReady ? "text-[var(--color-text-light)]" : "animate-spin text-[var(--color-text-light)]"}`} />}
           {storageReady ? storageLabel : deckIdFromUrl ? "Loading saved deck" : "Checking deck storage"}
         </div>
-        <div className="mt-3">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={() => setAltArtView((v) => !v)}
@@ -2342,26 +2321,15 @@ function DeckBuilderPageContent() {
           >
             {altArtView ? "Alt Art View: ON" : "Alt Art View: OFF"}
           </button>
-        </div>
-
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Deck Size</p>
-            <p className="mt-1 text-2xl font-black text-[var(--color-navy)]">{mainDeckCount}/50</p>
-            <p className="text-xs text-[var(--color-text-mid)]">Leader counted separately</p>
-          </div>
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Leader</p>
-            <p className="mt-1 text-2xl font-black text-[var(--color-gold)]">{leaderCard ? leaderCard.name : "Not set"}</p>
-            <p className="text-xs text-[var(--color-text-mid)]">{leaderCard ? leaderCard.color : "Drop/select a Leader card first"}</p>
-          </div>
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-text-light)]">Status</p>
-            <div className={`mt-1 inline-flex items-center gap-2 text-sm font-bold ${validationResult.legal ? "text-emerald-700" : "text-amber-700"}`}>
-              {validationResult.legal ? <CheckCircle2 className="h-4 w-4" /> : <AlertTriangle className="h-4 w-4" />}
-              {validationResult.legal ? "Deck Legal" : "Needs tuning"}
-            </div>
-          </div>
+          <button
+            type="button"
+            onClick={openPlaytest}
+            disabled={!canPlaytest}
+            className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-[var(--color-gold)] bg-[var(--color-gold)]/15 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] text-[var(--color-gold)] disabled:cursor-not-allowed disabled:border-[var(--color-parchment-dark)] disabled:bg-[var(--color-cream)] disabled:text-[var(--color-text-light)]"
+          >
+            <FlaskConical className="h-3.5 w-3.5" />
+            Test Hand
+          </button>
         </div>
 
         {actionNotice ? (
@@ -2378,76 +2346,93 @@ function DeckBuilderPageContent() {
       </section>
 
       <section className="rounded-3xl border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-5 md:p-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-light)]">Official Format Validation</p>
-            <div className={`mt-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-bold ${validationResult.legal ? "border-emerald-700/25 bg-emerald-700/10 text-emerald-800" : "border-amber-700/25 bg-amber-700/10 text-amber-800"}`}>
-              {validationResult.legal ? <ShieldCheck className="h-4 w-4" /> : <ShieldAlert className="h-4 w-4" />}
-              {validationResult.legal ? "Deck Legal" : "Deck Needs Fixes"}
+        <div>
+          <h2 className="font-[var(--font-display)] text-2xl font-black text-[var(--color-navy)] md:text-[2rem]">Deck Overview</h2>
+        </div>
+
+        <div className="mt-4 grid gap-3 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.9fr)] lg:items-start">
+          {renderLeaderOverviewCard()}
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            {overviewSummaryCards.map((card) => {
+              const styles = OVERVIEW_SUMMARY_CARD_STYLES[card.tone];
+
+              return (
+                <div
+                  key={card.key}
+                  title={card.key === "deck_value" ? deckPriceTitle : undefined}
+                  className={`rounded-2xl border p-4 ${styles.background} ${styles.border}`}
+                >
+                  <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">{card.label}</p>
+                  <p className={`mt-1 text-2xl font-black ${styles.value}`}>{card.value}</p>
+                  <p className={`mt-1 text-xs ${styles.detail}`}>{card.detail}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <CurveChart title="DON Curve" buckets={curveBuckets} />
+          <CurveChart title="Counter Curve" buckets={counterBuckets} />
+        </div>
+
+        <div className="mt-4 grid gap-3 xl:grid-cols-3">
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Type Split</p>
+            <div className="space-y-2">
+              {typeDistribution.map((item) => (
+                <div key={item.label}>
+                  <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
+                    <span>{item.label}</span>
+                    <span>{item.count}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
+                    <div className="h-2 rounded-full bg-[var(--color-gold)] transition-all" style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
+                  </div>
+                </div>
+              ))}
             </div>
-            <p className="mt-2 text-sm text-[var(--color-text-mid)]">{selectedFormatRule.description}</p>
-            {selectedFormatRule.effectiveDate ? <p className="mt-1 text-xs text-[var(--color-text-light)]">Official effective date: {selectedFormatRule.effectiveDate}</p> : null}
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <label className="block">
-              <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">Format</span>
-              <select
-                value={selectedFormat}
-                onChange={(event) => setSelectedFormat(event.target.value as DeckFormatId)}
-                aria-label="Select deck validation format"
-                className="min-h-11 rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 text-sm text-[var(--color-text-dark)]"
-              >
-                {Object.values(DECK_FORMAT_RULES).map((rule) => (
-                  <option key={rule.id} value={rule.id}>
-                    {rule.label}
-                  </option>
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Color Split</p>
+            <div className="space-y-2">
+              {colorDistribution.length ? (
+                colorDistribution.map((item) => (
+                  <div key={item.label}>
+                    <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-mid)]">
+                      <span>{item.label}</span>
+                      <span>{item.count}</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-[var(--color-parchment-dark)]/50">
+                      <div className={`h-2 rounded-full transition-all ${COLOR_BAR_CLASS[item.label] || "bg-[var(--color-navy)]"}`} style={{ width: `${Math.max(item.percent, item.count > 0 ? 10 : 0)}%` }} />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-[var(--color-text-light)]">Add cards to see the deck&apos;s color spread.</p>
+              )}
+            </div>
+          </div>
+          <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Average Power by Cost</p>
+              <p className="text-[10px] text-[var(--color-text-light)]">Characters only</p>
+            </div>
+            {powerByCost.length ? (
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-2">
+                {powerByCost.map((bucket) => (
+                  <div key={bucket.label} className="rounded-lg border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-2 text-center">
+                    <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Cost {bucket.label}</p>
+                    <p className="mt-1 text-sm font-black text-[var(--color-navy)]">{formatPower(bucket.averagePower)}</p>
+                    <p className="text-[10px] text-[var(--color-text-light)]">{bucket.copies} copies</p>
+                  </div>
                 ))}
-              </select>
-            </label>
-            <button
-              type="button"
-              onClick={openPlaytest}
-              disabled={!canPlaytest}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[var(--color-gold)] bg-[var(--color-gold)]/15 px-4 text-sm font-bold text-[var(--color-gold)] disabled:cursor-not-allowed disabled:border-[var(--color-parchment-dark)] disabled:bg-[var(--color-cream)] disabled:text-[var(--color-text-light)] sm:self-end"
-            >
-              <FlaskConical className="h-4 w-4" />
-              Test Hand
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-4 grid gap-3 md:grid-cols-4">
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Leader</p>
-            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{validationResult.summary.leaderCount}/1</p>
-          </div>
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Main Deck</p>
-            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{validationResult.summary.mainDeckCount}/50</p>
-          </div>
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">DON!! Deck</p>
-            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{DON_DECK_SIZE}/10</p>
-          </div>
-          <div className="rounded-2xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-3">
-            <p className="text-[10px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Issues</p>
-            <p className="mt-1 text-xl font-black text-[var(--color-navy)]">{validationResult.issues.length}</p>
-          </div>
-        </div>
-
-        {validationResult.issues.length ? (
-          <div className="mt-4 space-y-2">
-            {validationResult.issues.map((issue, index) => (
-              <div key={`${issue.code}-${index}`} className="rounded-2xl border border-red-700/20 bg-red-700/10 px-4 py-3 text-sm text-red-800">
-                {issue.message}
               </div>
-            ))}
+            ) : (
+              <p className="text-xs text-[var(--color-text-light)]">Character power averages appear once you add characters with power values.</p>
+            )}
           </div>
-        ) : (
-          <div className="mt-4 rounded-2xl border border-emerald-700/20 bg-emerald-700/10 px-4 py-3 text-sm text-emerald-800">
-            This deck satisfies the current {selectedFormatRule.label} deck construction checks in the builder.
-          </div>
-        )}
+        </div>
       </section>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_420px]">
