@@ -322,7 +322,7 @@ function ResultsSkeleton({ view }: { view: ViewMode }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
       {Array.from({ length: 12 }).map((_, index) => (
         <div key={`grid-skeleton-${index}`} className="rounded-[28px] border border-[var(--color-parchment-dark)] bg-[var(--color-parchment)] p-3">
           <div className="shimmer aspect-[5/7] rounded-[22px]" />
@@ -1485,7 +1485,7 @@ export default function MarketCatalogView({
           ) : catalog && catalog.results.length ? (
             <>
               {state.view === "grid" ? (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
                   {catalog.results.map((card) => (
                     <MarketCardTile key={card.id} card={card} marketPath={currentMarketPath} />
                   ))}
