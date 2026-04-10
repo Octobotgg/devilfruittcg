@@ -1225,7 +1225,7 @@ export default function DecksPage() {
                                             </div>
 
                                             {group.key !== "leader" ? (
-                                              <span className="absolute left-2 top-2 rounded-full bg-[#F0C040] px-2 py-0.5 text-[10px] font-black text-black">
+                                              <span className="absolute left-2 top-2 rounded-full bg-[rgba(201,168,76,0.78)] px-1.5 py-0.5 text-[11px] font-black leading-none text-black shadow-[0_4px_10px_rgba(42,33,24,0.16)]">
                                                 ×{quantity}
                                               </span>
                                             ) : null}
@@ -1245,14 +1245,22 @@ export default function DecksPage() {
                                                 <p className="truncate text-[11px] font-black text-[var(--color-gold-dark)]">—</p>
                                               </div>
                                             ) : (
-                                              <div className="mt-1 px-1">
-                                                <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[linear-gradient(180deg,rgba(250,247,242,0.98),rgba(241,233,220,0.96))] px-2.5 py-2 shadow-[0_10px_20px_rgba(42,33,24,0.12)]">
-                                                  <p className="truncate text-[11px] font-semibold leading-none text-[var(--color-text-mid)]">
-                                                    {unitPrice != null ? `${quantity} × ${formatShortCurrency(unitPrice)}` : `${quantity} × N/A`}
-                                                  </p>
-                                                  <p className="mt-1 truncate text-[12px] font-black leading-none text-[var(--color-gold-dark)]">
-                                                    {subtotal != null ? formatCurrency(subtotal) : "—"}
-                                                  </p>
+                                              <div className="-mt-px">
+                                                <div className="rounded-b-xl bg-[rgba(26,32,44,0.95)] px-2 py-1.5 shadow-[0_10px_18px_rgba(15,23,42,0.22)]">
+                                                  {unitPrice != null && subtotal != null ? (
+                                                    <>
+                                                      <p className="whitespace-nowrap text-[11px] font-medium leading-none text-gray-400">
+                                                        {quantity} × {formatShortCurrency(unitPrice)}
+                                                      </p>
+                                                      <p className="mt-1 whitespace-nowrap text-sm font-bold leading-none text-white">
+                                                        {formatCurrency(subtotal)}
+                                                      </p>
+                                                    </>
+                                                  ) : (
+                                                    <p className="whitespace-nowrap text-[11px] italic leading-none text-gray-400">
+                                                      No price
+                                                    </p>
+                                                  )}
                                                 </div>
                                               </div>
                                             )}
