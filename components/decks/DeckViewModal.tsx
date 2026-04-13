@@ -25,8 +25,6 @@ export type DeckModalGroup = {
   }>;
 };
 
-type NotesState = "idle" | "loading" | "saving" | "saved" | "error";
-
 type DeckViewModalProps = {
   open: boolean;
   deck: Deck | null;
@@ -39,14 +37,8 @@ type DeckViewModalProps = {
   hasCollectionData: boolean;
   analytics: DeckAnalyticsSummary | null;
   matchupRows: DeckMatchupRow[];
-  notes: string;
-  notesState: NotesState;
-  notesEnabled: boolean;
-  notesError?: string | null;
   simExportText: string;
   onClose: () => void;
-  onNotesChange: (next: string) => void;
-  onNotesCommit: () => void;
   onCardSelect?: (card: Card) => void;
 };
 
@@ -92,21 +84,6 @@ function toneClasses(tone: DeckMatchupRow["tone"]) {
   if (tone === "favored") return "border-emerald-400/30 bg-[rgba(74,140,92,0.1)] text-emerald-800";
   if (tone === "unfavored") return "border-red-400/30 bg-[rgba(192,57,43,0.1)] text-[#9b3328]";
   return "border-[rgba(212,160,84,0.28)] bg-[rgba(212,160,84,0.1)] text-[var(--color-gold-dark)]";
-}
-
-function notesStatusCopy(state: NotesState, error?: string | null) {
-  if (state === "loading") return "Loading notes...";
-  if (state === "saving") return "Saving...";
-  if (state === "saved") return "Saved";
-  if (state === "error") return error || "Couldn't save note";
-  return "Autosaves when you click away";
-}
-
-function notesStatusClasses(state: NotesState) {
-  if (state === "saved") return "text-[var(--color-gold-dark)]";
-  if (state === "saving" || state === "loading") return "text-[var(--color-text-light)]";
-  if (state === "error") return "text-[#9b3328]";
-  return "text-[var(--color-text-light)]";
 }
 
 async function blobToDataUrl(blob: Blob) {
@@ -174,14 +151,8 @@ export default function DeckViewModal({
   hasCollectionData,
   analytics,
   matchupRows,
-  notes,
-  notesState,
-  notesEnabled,
-  notesError,
   simExportText,
   onClose,
-  onNotesChange,
-  onNotesCommit,
   onCardSelect,
 }: DeckViewModalProps) {
   const [notice, setNotice] = useState<ModalNotice | null>(null);
@@ -699,39 +670,6 @@ export default function DeckViewModal({
                           )}
                         </section>
 
-                        <section className={sectionShellClasses()}>
-                          <div className="flex items-end justify-between gap-3">
-                            <div>
-                              <h3 className={panelHeadingClasses()}>Captain&apos;s Log</h3>
-                              <p className="mt-2 text-sm italic text-[var(--color-text-light)]">
-                                Jot down your gameplan, mulligan priorities, key combos...
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="relative mt-5">
-                            <textarea
-                              value={notes}
-                              onChange={(event) => onNotesChange(event.target.value.slice(0, 2000))}
-                              onBlur={onNotesCommit}
-                              disabled={!notesEnabled}
-                              placeholder="Jot down your gameplan, mulligan priorities, key combos..."
-                              className="min-h-40 w-full rounded-[22px] border border-[rgba(212,160,84,0.24)] bg-[linear-gradient(180deg,rgba(248,241,230,0.98),rgba(242,233,219,0.98))] px-4 py-3 pb-10 font-['Crimson_Pro'] text-[15px] leading-7 text-[var(--color-text-dark)] outline-none shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] transition placeholder:italic placeholder:text-[var(--color-text-light)] focus:border-[var(--color-gold)] disabled:cursor-not-allowed disabled:opacity-70"
-                            />
-                            <div className="pointer-events-none absolute bottom-3 left-4 text-[11px] text-[var(--color-text-light)]">
-                              {notes.length}/2000
-                            </div>
-                            <div className={`pointer-events-none absolute bottom-3 right-4 text-[11px] font-semibold ${notesStatusClasses(notesState)}`}>
-                              {notesStatusCopy(notesState, notesError)}
-                            </div>
-                          </div>
-
-                          {!notesEnabled ? (
-                            <p className="mt-3 text-sm italic text-[var(--color-text-light)]">
-                              Sign in to keep a Captain&apos;s Log for each deck.
-                            </p>
-                          ) : null}
-                        </section>
                         </div>
                       </div>
                     </div>
