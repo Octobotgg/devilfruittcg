@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 
-const decksPagePath = path.join(process.cwd(), "app/decks/page.tsx");
+const decksPagePath = path.join(process.cwd(), "app/decks/DecksPageClient.tsx");
 const source = fs.readFileSync(decksPagePath, "utf8");
 
 test("decks page no longer uses the old dark search and card shell tokens", () => {
