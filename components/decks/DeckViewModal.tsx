@@ -140,19 +140,19 @@ function CurveChart({ title, buckets }: { title: string; buckets: DeckAnalyticsS
         <h3 className={panelHeadingClasses()}>{title}</h3>
         <span className="font-sans text-[11px] font-black uppercase tracking-[0.14em] text-[var(--color-text-light)]">Main deck only</span>
       </div>
-      <div className="mt-5 rounded-[22px] border border-[rgba(212,160,84,0.16)] bg-[linear-gradient(180deg,rgba(27,40,56,0.96),rgba(19,28,43,0.94))] px-3 py-4">
+      <div className="mt-5 rounded-[22px] border border-[rgba(212,160,84,0.16)] bg-[linear-gradient(180deg,rgba(255,250,241,0.96),rgba(241,233,218,0.92))] px-3 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
         <div className="flex items-end gap-2.5">
           {buckets.map((bucket) => (
             <div key={`${title}-${bucket.label}`} className="flex min-w-0 flex-1 flex-col items-center gap-2">
-              <div className="flex h-28 w-full items-end rounded-full bg-[rgba(255,255,255,0.06)] px-1 py-1">
+              <div className="flex h-28 w-full items-end rounded-full border border-[rgba(184,134,60,0.1)] bg-[rgba(184,134,60,0.08)] px-1 py-1">
                 <div
-                  className="w-full rounded-full bg-[linear-gradient(180deg,#f0c040,var(--color-gold-dark))] shadow-[0_0_18px_rgba(212,160,84,0.18)] transition-all"
+                  className="w-full rounded-full bg-[linear-gradient(180deg,var(--color-gold),var(--color-gold-dark))] shadow-[0_8px_14px_rgba(212,160,84,0.12)] transition-all"
                   style={{ height: `${bucket.count === 0 ? 8 : Math.max((bucket.count / max) * 100, 12)}%` }}
                 />
               </div>
               <div className="text-center">
-                <p className="font-sans text-[11px] font-black text-[#f8e8bd]">{bucket.count}</p>
-                <p className="font-sans text-[10px] text-white/55">{bucket.label}</p>
+                <p className="font-sans text-[11px] font-black text-[var(--color-navy)]">{bucket.count}</p>
+                <p className="font-sans text-[10px] text-[var(--color-text-light)]">{bucket.label}</p>
               </div>
             </div>
           ))}
@@ -434,28 +434,33 @@ export default function DeckViewModal({
                       data-deck-modal-scroll
                     >
                       <div className="mx-auto max-w-[320px] space-y-6 text-center md:mx-0 md:max-w-none md:text-left">
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--color-text-light)]">Captain&apos;s Manifest</p>
-                          <h3 className="font-['Pirata_One'] text-[2.5rem] leading-[0.92] text-[var(--color-navy)] md:text-[2.8rem]">
-                            {deck.name}
-                          </h3>
-                        </div>
-
-                        <div className="space-y-3">
-                          <div className="mx-auto w-[196px] overflow-hidden rounded-[28px] border border-[rgba(212,160,84,0.3)] bg-[radial-gradient(circle_at_top_left,rgba(212,160,84,0.14),transparent_30%),var(--color-cream)] p-2 shadow-[0_18px_36px_rgba(27,40,56,0.12)] md:mx-0 md:w-[236px]">
-                            <img
-                              src={proxyCardImageUrl(leaderEntry?.imageCardId || leader?.id || deck.leaderId || "")}
-                              alt={leader?.name || "Leader"}
-                              className="aspect-[63/88] w-full rotate-[1deg] rounded-[20px] border border-[rgba(212,160,84,0.18)] bg-[#f3eadc] object-cover shadow-[0_14px_34px_rgba(0,0,0,0.14)]"
-                            />
-                          </div>
-                          <div>
-                            <p className="text-base font-black text-[var(--color-navy)]">{leader?.name || "No leader selected"}</p>
-                            <p className="mt-1 text-sm italic text-[var(--color-text-light)]">
-                              {mainGroups.reduce((sum, group) => sum + group.entries.length, 0)} unique cards in this build
+                        <section className="rounded-[30px] border border-[rgba(212,160,84,0.22)] bg-[radial-gradient(circle_at_top_left,rgba(212,160,84,0.12),transparent_32%),linear-gradient(180deg,rgba(255,250,241,0.96),rgba(246,239,228,0.9))] p-5 shadow-[0_18px_42px_rgba(27,40,56,0.08)]">
+                          <div className="space-y-2">
+                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--color-text-light)]">Captain&apos;s Manifest</p>
+                            <h3 className="font-['Pirata_One'] text-[2.15rem] leading-[0.94] text-[var(--color-navy)] md:text-[2.35rem]">
+                              {deck.name}
+                            </h3>
+                            <p className="font-['Crimson_Pro'] text-[1.02rem] italic text-[var(--color-text-mid)]">
+                              Led by {leader?.name || "your leader"}
                             </p>
                           </div>
-                        </div>
+
+                          <div className="mt-5 space-y-3">
+                            <div className="mx-auto w-[196px] overflow-hidden rounded-[28px] border border-[rgba(212,160,84,0.3)] bg-[radial-gradient(circle_at_top_left,rgba(212,160,84,0.14),transparent_30%),var(--color-cream)] p-2 shadow-[0_18px_36px_rgba(27,40,56,0.12)] md:mx-0 md:w-[236px]">
+                              <img
+                                src={proxyCardImageUrl(leaderEntry?.imageCardId || leader?.id || deck.leaderId || "")}
+                                alt={leader?.name || "Leader"}
+                                className="aspect-[63/88] w-full rotate-[1deg] rounded-[20px] border border-[rgba(212,160,84,0.18)] bg-[#f3eadc] object-cover shadow-[0_14px_34px_rgba(0,0,0,0.14)]"
+                              />
+                            </div>
+                            <div>
+                              <p className="text-lg font-black text-[var(--color-navy)]">{leader?.name || "No leader selected"}</p>
+                              <p className="mt-1 text-sm italic text-[var(--color-text-light)]">
+                                {mainGroups.reduce((sum, group) => sum + group.entries.length, 0)} unique cards in this build
+                              </p>
+                            </div>
+                          </div>
+                        </section>
 
                         <div className="space-y-3 border-t border-[rgba(212,160,84,0.2)] pt-4">
                           <div className="flex items-end justify-between gap-4 border-b border-[var(--color-parchment-dark)]/70 pb-3">
@@ -555,8 +560,12 @@ export default function DeckViewModal({
                       </div>
                     </aside>
 
-                    <div className="min-h-0 overflow-y-auto p-4 md:p-6" data-deck-modal-scroll>
-                      <div className="space-y-8">
+                    <div
+                      className="min-h-0 overflow-y-auto bg-[linear-gradient(180deg,rgba(255,252,247,0.9),rgba(248,243,234,0.72))] p-4 md:p-6"
+                      data-deck-modal-scroll
+                    >
+                      <div className="rounded-[30px] border border-[rgba(212,160,84,0.14)] bg-[rgba(255,250,241,0.56)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] md:p-6">
+                        <div className="space-y-10">
                         {mainGroups.map((group, groupIndex) => {
                           return (
                             <section
@@ -723,6 +732,7 @@ export default function DeckViewModal({
                             </p>
                           ) : null}
                         </section>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -853,6 +863,7 @@ export default function DeckViewModal({
                             <div>
                               <p className="font-sans text-[11px] font-black uppercase tracking-[0.14em] text-[var(--color-text-light)]">Ready to share</p>
                               <p className="mt-1 text-sm text-[var(--color-text-mid)]">Download it or copy it straight to your clipboard.</p>
+                              <p className="mt-2 font-['Pirata_One'] text-[1.15rem] text-[rgba(184,134,60,0.92)]">DevilFruitTCG.gg</p>
                             </div>
                             <div className="flex flex-wrap gap-2">
                               <button type="button" className={actionButtonClasses()} onClick={handleDownloadImage}>
