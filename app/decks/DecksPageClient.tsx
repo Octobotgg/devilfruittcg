@@ -30,7 +30,6 @@ import DeckViewModal from "@/components/decks/DeckViewModal";
 import DonButton from "@/components/ui/DonButton";
 import { getBaseCardId } from "@/lib/card-variants";
 import type { Collection, Deck } from "@/lib/cloud/types";
-import { loadDeckNote, saveDeckNote } from "@/lib/cloud/deck-notes";
 import { useCloudSync } from "@/lib/cloud/useCloudSync";
 import { fetchWithClientAuth } from "@/lib/client-auth";
 import { buildDeckPricingLineItems, resolveDeckPricingId, summarizeDeckPricing } from "@/lib/deck-pricing";
@@ -54,8 +53,6 @@ type FeaturedNotice = {
   tone: "error" | "success";
   message: string;
 };
-
-type DeckNoteStatus = "idle" | "loading" | "saving" | "saved" | "error";
 
 type DecksPageClientProps = {
   initialMatchupDecks?: MetaDeck[];
@@ -243,9 +240,6 @@ export default function DecksPageClient({ initialMatchupDecks = [] }: DecksPageC
   const [expandedDeckPrices, setExpandedDeckPrices] = useState<Map<string, CardPriceQuote>>(new Map());
   const [expandedDeckPricesLoading, setExpandedDeckPricesLoading] = useState(false);
   const [modalCard, setModalCard] = useState<CardModalData | null>(null);
-  const [deckNotesById, setDeckNotesById] = useState<Record<string, string>>({});
-  const [deckNoteStatusById, setDeckNoteStatusById] = useState<Record<string, DeckNoteStatus>>({});
-  const [deckNoteErrorById, setDeckNoteErrorById] = useState<Record<string, string | null>>({});
   const [featuredDeckIds, setFeaturedDeckIds] = useState<string[]>([]);
   const [featuredDeckSavingId, setFeaturedDeckSavingId] = useState<string | null>(null);
   const [featuredNotice, setFeaturedNotice] = useState<FeaturedNotice | null>(null);
@@ -463,12 +457,6 @@ export default function DecksPageClient({ initialMatchupDecks = [] }: DecksPageC
     () => (expandedDeck ? buildDeckSimExportLines(expandedDeck).join("\n") : ""),
     [expandedDeck],
   );
-  const expandedDeckNote = expandedDeck ? deckNotesById[expandedDeck.id] ?? "" : "";
-  const expandedDeckNoteStatus: DeckNoteStatus =
-    expandedDeck && user
-      ? deckNoteStatusById[expandedDeck.id] ?? "loading"
-      : "idle";
-  const expandedDeckNoteError = expandedDeck ? deckNoteErrorById[expandedDeck.id] ?? null : null;
 
   useEffect(() => {
     if (expandedDeckId && !expandedDeck) {
@@ -551,37 +539,6 @@ export default function DecksPageClient({ initialMatchupDecks = [] }: DecksPageC
     };
   }, [expandedDeckPriceIds]);
 
-  useEffect(() => {
-    if (!expandedDeck || !user) {
-      return;
-    }
-    if (deckNotesById[expandedDeck.id] !== undefined) return;
-
-    let cancelled = false;
-    setDeckNoteStatusById((prev) => ({ ...prev, [expandedDeck.id]: "loading" }));
-    setDeckNoteErrorById((prev) => ({ ...prev, [expandedDeck.id]: null }));
-
-    void loadDeckNote(expandedDeck.id, user.id)
-      .then((note) => {
-        if (cancelled) return;
-        setDeckNotesById((prev) => ({ ...prev, [expandedDeck.id]: note }));
-        setDeckNoteStatusById((prev) => ({ ...prev, [expandedDeck.id]: "idle" }));
-      })
-      .catch((error) => {
-        if (cancelled) return;
-        setDeckNotesById((prev) => ({ ...prev, [expandedDeck.id]: "" }));
-        setDeckNoteStatusById((prev) => ({ ...prev, [expandedDeck.id]: "error" }));
-        setDeckNoteErrorById((prev) => ({
-          ...prev,
-          [expandedDeck.id]: error instanceof Error ? error.message : "Couldn't load notes.",
-        }));
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [deckNotesById, expandedDeck, user]);
-
   function deleteDeck(id: string) {
     const deck = decks.find((d) => d.id === id);
     const ok = window.confirm(`Delete deck \"${deck?.name || "Untitled"}\"?`);
@@ -608,44 +565,6 @@ export default function DecksPageClient({ initialMatchupDecks = [] }: DecksPageC
 
   function toggleDeckPreview(deckId: string) {
     setExpandedDeckId((current) => (current === deckId ? null : deckId));
-  }
-
-  function handleExpandedDeckNotesChange(next: string) {
-    if (!expandedDeck) return;
-    setDeckNotesById((prev) => ({ ...prev, [expandedDeck.id]: next }));
-    setDeckNoteStatusById((prev) => ({ ...prev, [expandedDeck.id]: "idle" }));
-    setDeckNoteErrorById((prev) => ({ ...prev, [expandedDeck.id]: null }));
-  }
-
-  async function handleExpandedDeckNotesCommit() {
-    if (!expandedDeck || !user) return;
-
-    const deckId = expandedDeck.id;
-    const nextNotes = (deckNotesById[deckId] ?? "").slice(0, 2000);
-    setDeckNoteStatusById((prev) => ({ ...prev, [deckId]: "saving" }));
-    setDeckNoteErrorById((prev) => ({ ...prev, [deckId]: null }));
-
-    try {
-      await saveDeckNote({
-        deckId,
-        userId: user.id,
-        notes: nextNotes,
-      });
-      setDeckNoteStatusById((prev) => ({ ...prev, [deckId]: "saved" }));
-      window.setTimeout(() => {
-        setDeckNoteStatusById((prev) =>
-          prev[deckId] === "saved"
-            ? { ...prev, [deckId]: "idle" }
-            : prev,
-        );
-      }, 1400);
-    } catch (error) {
-      setDeckNoteStatusById((prev) => ({ ...prev, [deckId]: "error" }));
-      setDeckNoteErrorById((prev) => ({
-        ...prev,
-        [deckId]: error instanceof Error ? error.message : "Couldn't save notes.",
-      }));
-    }
   }
 
   async function saveFeaturedDeckIds(nextIds: string[]) {
@@ -847,15 +766,7 @@ export default function DecksPageClient({ initialMatchupDecks = [] }: DecksPageC
         hasCollectionData={Object.keys(collection).length > 0}
         analytics={expandedDeckAnalytics}
         matchupRows={expandedDeckMatchupRows}
-        notes={expandedDeckNote}
-        notesState={expandedDeckNoteStatus}
-        notesEnabled={Boolean(user)}
-        notesError={expandedDeckNoteError}
         simExportText={expandedDeckSimExport}
-        onNotesChange={handleExpandedDeckNotesChange}
-        onNotesCommit={() => {
-          void handleExpandedDeckNotesCommit();
-        }}
         onCardSelect={(card) => setModalCard(buildCardModalData(card))}
         onClose={() => setExpandedDeckId(null)}
       />
