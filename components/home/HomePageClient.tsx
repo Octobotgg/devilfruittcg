@@ -52,6 +52,8 @@ export type HomePageClientProps = {
   initialBountyIsLive: boolean;
 };
 
+const HOME_LIVE_REFRESH_MS = 2 * 60 * 1000;
+
 type FeaturedSpotlight = {
   imageId: string;
   displayId: string;
@@ -225,8 +227,8 @@ export default function HomePageClient({
   }, [initialMetaIsLive]);
 
   useEffect(() => {
-    if (initialMatchupsAreLive) return;
     let alive = true;
+    let intervalId: number | null = null;
 
     const run = async () => {
       try {
@@ -250,15 +252,17 @@ export default function HomePageClient({
       }
     };
     run();
+    intervalId = window.setInterval(run, HOME_LIVE_REFRESH_MS);
 
     return () => {
       alive = false;
+      if (intervalId !== null) window.clearInterval(intervalId);
     };
-  }, [initialMatchupsAreLive]);
+  }, []);
 
   useEffect(() => {
-    if (initialBountyIsLive) return;
     let alive = true;
+    let intervalId: number | null = null;
 
     const run = async () => {
       try {
@@ -277,11 +281,13 @@ export default function HomePageClient({
     };
 
     run();
+    intervalId = window.setInterval(run, HOME_LIVE_REFRESH_MS);
 
     return () => {
       alive = false;
+      if (intervalId !== null) window.clearInterval(intervalId);
     };
-  }, [initialBountyIsLive]);
+  }, []);
 
   useEffect(() => {
     let raf = 0;
