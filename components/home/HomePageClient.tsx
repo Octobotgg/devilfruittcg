@@ -8,6 +8,11 @@ import type { MetaSnapshot } from "@/lib/data/meta";
 import DonButton from "@/components/ui/DonButton";
 import TiltCard from "@/components/ui/TiltCard";
 import BrandMark from "@/components/BrandMark";
+import type { Card } from "@/lib/cards";
+import { displayCardId } from "@/lib/cards";
+import type { CardPriceQuote } from "@/lib/card-price-quotes";
+import { isSpecialPrintVariant, specialPrintPriority } from "@/lib/card-variants";
+import { normalizePricingLookupId } from "@/lib/deck-pricing";
 import {
   HOME_MATCHUP_FORMAT,
   HOME_MATCHUP_PERIOD,
@@ -26,15 +31,6 @@ import {
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
 import type { MetaDeck as MatchupDeck } from "@/lib/meta-decks";
-
-const BOUNTY_QUOTES: Record<string, { price: number; delta: number }> = {
-  "OP01-120": { price: 1429, delta: 5.2 },
-  "OP01-001": { price: 879, delta: 1.8 },
-  "OP09-118": { price: 899, delta: -1.7 },
-  "OP02-001": { price: 542, delta: 2.3 },
-  "OP01-061": { price: 208, delta: 1.2 },
-  "OP06-007": { price: 312, delta: 0.9 },
-};
 
 export type HomeMatchupPayload = {
   source?: string | null;
@@ -55,6 +51,91 @@ export type HomePageClientProps = {
   initialMatchupsAreLive: boolean;
   initialBountyIsLive: boolean;
 };
+
+type FeaturedSpotlight = {
+  imageId: string;
+  displayId: string;
+  variantLabel: string | null;
+  price: number | null;
+  updatedAt: string | null;
+  priced: boolean;
+  usingSpecialPrint: boolean;
+};
+
+function priceQuoteForId(quotes: Map<string, CardPriceQuote>, cardId: string) {
+  return quotes.get(normalizePricingLookupId(cardId).toUpperCase()) || null;
+}
+
+function compareFeaturedCandidates(
+  left: { card: Card; quote: CardPriceQuote | null },
+  right: { card: Card; quote: CardPriceQuote | null },
+) {
+  const leftPrice = left.quote?.priced && typeof left.quote.marketPrice === "number" ? left.quote.marketPrice : -1;
+  const rightPrice = right.quote?.priced && typeof right.quote.marketPrice === "number" ? right.quote.marketPrice : -1;
+  if (leftPrice !== rightPrice) return rightPrice - leftPrice;
+
+  const specialPriority = specialPrintPriority(right.card) - specialPrintPriority(left.card);
+  if (specialPriority !== 0) return specialPriority;
+
+  const orderLeft = typeof left.card.variantOrder === "number" ? left.card.variantOrder : 999;
+  const orderRight = typeof right.card.variantOrder === "number" ? right.card.variantOrder : 999;
+  if (orderLeft !== orderRight) return orderLeft - orderRight;
+
+  return left.card.id.localeCompare(right.card.id);
+}
+
+function resolveFeaturedSpotlight(
+  featuredId: string,
+  variants: Card[],
+  quotes: Map<string, CardPriceQuote>,
+): FeaturedSpotlight {
+  const baseCard = variants.find((card) => card.id.toUpperCase() === featuredId.toUpperCase()) || variants[0] || null;
+  const specialVariants = variants.filter((card) => isSpecialPrintVariant(card));
+
+  const pricedSpecials = specialVariants
+    .map((card) => ({ card, quote: priceQuoteForId(quotes, card.id) }))
+    .filter((item) => item.quote?.priced && typeof item.quote.marketPrice === "number")
+    .sort(compareFeaturedCandidates);
+
+  const pricedAny = variants
+    .map((card) => ({ card, quote: priceQuoteForId(quotes, card.id) }))
+    .filter((item) => item.quote?.priced && typeof item.quote.marketPrice === "number")
+    .sort(compareFeaturedCandidates);
+
+  const chosen =
+    pricedSpecials[0] ||
+    pricedAny.find((item) => item.card.id.toUpperCase() === featuredId.toUpperCase()) ||
+    pricedAny[0] ||
+    [...specialVariants]
+      .sort((left, right) => specialPrintPriority(right) - specialPrintPriority(left))
+      .map((card) => ({ card, quote: priceQuoteForId(quotes, card.id) }))[0] ||
+    { card: baseCard, quote: baseCard ? priceQuoteForId(quotes, baseCard.id) : null };
+
+  const chosenCard = chosen.card || baseCard;
+  const chosenQuote = chosen.quote || (chosenCard ? priceQuoteForId(quotes, chosenCard.id) : null);
+
+  if (!chosenCard) {
+    return {
+      imageId: featuredId,
+      displayId: featuredId,
+      variantLabel: null,
+      price: null,
+      updatedAt: null,
+      priced: false,
+      usingSpecialPrint: false,
+    };
+  }
+
+  return {
+    imageId: chosenCard.id,
+    displayId: displayCardId(chosenCard),
+    variantLabel: chosenCard.variantLabel || null,
+    price: chosenQuote?.priced ? chosenQuote.marketPrice ?? chosenQuote.estimatedPrice : null,
+    updatedAt: chosenQuote?.updatedAt || null,
+    priced: Boolean(chosenQuote?.priced && typeof (chosenQuote.marketPrice ?? chosenQuote.estimatedPrice) === "number"),
+    usingSpecialPrint: isSpecialPrintVariant(chosenCard),
+  };
+}
 
 function ago(iso?: string | null) {
   if (!iso) return "—";
@@ -110,6 +191,7 @@ export default function HomePageClient({
   const [heroHover, setHeroHover] = useState(false);
   const [liveBountyCards, setLiveBountyCards] = useState<HomeBountyCard[]>(initialBountyCards);
   const [liveBountyMeta, setLiveBountyMeta] = useState<HomeBountyMeta | null>(initialBountyMeta);
+  const [featuredSpotlight, setFeaturedSpotlight] = useState<FeaturedSpotlight | null>(null);
 
   useEffect(() => {
     if (initialMetaIsLive) return;
@@ -242,12 +324,75 @@ export default function HomePageClient({
   const featuredName = topDeck?.name || "Live data unavailable";
   const featuredRank = topDeck?.rank || null;
   const featuredWinRate = topDeck?.winRate ?? null;
-  const featuredQuote =
-    (featuredId ? BOUNTY_QUOTES[featuredId] : null) ||
-    {
-      price: Math.round(720 + (featuredRank || 1) * 34),
-      delta: Number((((featuredWinRate ?? 50) - 50) / 3.2).toFixed(1)),
+  const featuredImageId = featuredSpotlight?.imageId || featuredId;
+  const featuredDisplayId = featuredSpotlight?.displayId || featuredId;
+  const featuredPrice = featuredSpotlight?.priced ? featuredSpotlight.price : null;
+
+  useEffect(() => {
+    if (!featuredId) {
+      setFeaturedSpotlight(null);
+      return;
+    }
+
+    let cancelled = false;
+    setFeaturedSpotlight({
+      imageId: featuredId,
+      displayId: featuredId,
+      variantLabel: null,
+      price: null,
+      updatedAt: null,
+      priced: false,
+      usingSpecialPrint: false,
+    });
+
+    (async () => {
+      try {
+        const variantsRes = await fetch(`/api/cards/variants?id=${encodeURIComponent(featuredId)}`, { cache: "no-store" });
+        if (!variantsRes.ok) throw new Error("Unable to load featured variants");
+        const variantsJson = await variantsRes.json() as { variants?: Card[] };
+        const variants = Array.isArray(variantsJson.variants) && variantsJson.variants.length
+          ? variantsJson.variants
+          : [{
+              id: featuredId,
+              name: featuredName,
+              set: "",
+              setCode: "",
+              number: "",
+              type: "Leader",
+              color: "",
+              rarity: "",
+            } satisfies Card];
+
+        const pricingIds = Array.from(new Set(variants.map((card) => normalizePricingLookupId(card.id)).filter(Boolean)));
+        const pricesRes = await fetch(`/api/cards/prices?ids=${pricingIds.map(encodeURIComponent).join(",")}`, { cache: "no-store" });
+        if (!pricesRes.ok) throw new Error("Unable to load featured prices");
+        const pricesJson = await pricesRes.json() as { results?: CardPriceQuote[] };
+        const quotes = new Map(
+          (pricesJson.results || []).map((quote) => [String(quote.cardId || "").trim().toUpperCase(), quote]),
+        );
+
+        if (!cancelled) {
+          setFeaturedSpotlight(resolveFeaturedSpotlight(featuredId, variants, quotes));
+        }
+      } catch {
+        if (!cancelled) {
+          setFeaturedSpotlight({
+            imageId: featuredId,
+            displayId: featuredId,
+            variantLabel: null,
+            price: null,
+            updatedAt: null,
+            priced: false,
+            usingSpecialPrint: false,
+          });
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
     };
+  }, [featuredId, featuredName]);
 
   const bountyCards = useMemo<HomeBountyCard[]>(() => liveBountyCards, [liveBountyCards]);
 
@@ -378,10 +523,10 @@ export default function HomePageClient({
             </div>
 
             <div className="brand-macro-stage mt-4">
-              {featuredId ? (
+              {featuredImageId ? (
                 <div className="brand-macro-backdrop">
                   <img
-                    src={`/api/card-image?id=${featuredId}&variant=p1`}
+                    src={`/api/card-image?id=${encodeURIComponent(featuredImageId)}`}
                     alt=""
                     className="brand-macro-backdrop-image"
                   />
@@ -395,9 +540,9 @@ export default function HomePageClient({
                 <TiltCard className="relative rounded-[1.6rem]">
                   <div className="captains-feature-card relative overflow-hidden rounded-[1.6rem] border border-[var(--color-parchment-dark)] p-2.5">
                     <div className="brand-card-rim rounded-[1.3rem] p-1.5">
-                      {featuredId ? (
+                      {featuredImageId ? (
                         <img
-                          src={`/api/card-image?id=${featuredId}&variant=p1`}
+                          src={`/api/card-image?id=${encodeURIComponent(featuredImageId)}`}
                           alt={featuredName}
                           className="aspect-[5/7] w-full rounded-[1.1rem] object-cover shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
                         />
@@ -415,12 +560,17 @@ export default function HomePageClient({
                   className="captains-aura captains-aura-left"
                 >
                   <p className="text-[9px] uppercase tracking-[0.12em] text-[var(--color-text-light)]">Price Check</p>
-                  {featuredId ? (
+                  {featuredImageId ? (
                     <>
-                      <p className="text-sm font-black text-[var(--color-gold-dark)]">{formatBeli(featuredQuote.price)}</p>
-                      <p className={`text-[10px] font-bold ${featuredQuote.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
-                        {featuredQuote.delta >= 0 ? "+" : ""}
-                        {featuredQuote.delta.toFixed(1)}% 24h
+                      <p className="text-sm font-black text-[var(--color-gold-dark)]">
+                        {featuredPrice != null ? formatBeli(featuredPrice) : "Market syncing"}
+                      </p>
+                      <p className="text-[10px] font-bold text-[var(--color-text-light)]">
+                        {featuredSpotlight?.updatedAt
+                          ? `Updated ${ago(featuredSpotlight.updatedAt)}`
+                          : featuredSpotlight?.usingSpecialPrint
+                            ? "Showcase print"
+                            : "Live market"}
                       </p>
                     </>
                   ) : (
@@ -456,7 +606,9 @@ export default function HomePageClient({
             <div className="mt-5 text-center">
               <p className="text-xl font-black text-[var(--color-navy)]">{featuredName}</p>
               <p className="text-xs text-[var(--color-text-light)]">
-                {featuredId ? `${featuredId} · live bounty, holo finish, and top-table signal` : "Load the latest live leader spotlight once the homepage feeds recover."}
+                {featuredDisplayId
+                  ? `${featuredDisplayId} · ${featuredSpotlight?.variantLabel || "featured print"} · top-table signal`
+                  : "Load the latest live leader spotlight once the homepage feeds recover."}
               </p>
             </div>
           </motion.article>
