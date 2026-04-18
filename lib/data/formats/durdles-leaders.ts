@@ -357,7 +357,7 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
   },
   {
     slug: 'moto',
-    name: 'Moto',
+    name: 'Moto Durdle',
     cardNumber: 'DRDL-676',
     power: 6000,
     life: 3,
@@ -471,7 +471,7 @@ export const DURDLE_RULES: DurdleRule[] = [
   {
     title: 'Wanted Leaders for Non-Team-Durdle Players',
     description:
-      'Players who are not part of Team Durdle may only choose from the current Wanted leader pool. Team Durdle members may play any Durdle leader, Wanted or Rogue.',
+      "Players who are not part of Team Durdle, and new Durdles who don't have their own leaders, may only choose from the current Wanted leader pool. Team Durdle members can only play their Rogue/Wanted leader.",
   },
   {
     title: 'No Block Rotation',
