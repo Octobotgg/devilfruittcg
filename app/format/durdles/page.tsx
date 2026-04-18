@@ -7,6 +7,19 @@ import DurdlesGallery from "./DurdlesGallery";
 
 export const revalidate = 86400;
 
+const DURDLE_INSTAGRAM_URL = "https://www.instagram.com/teamdurdle/";
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4">
+      <path
+        fill="currentColor"
+        d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.55a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6Zm0 2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Z"
+      />
+    </svg>
+  );
+}
+
 export default function DurdlesPage() {
   const wantedLeaders = getWantedLeaders();
 
@@ -44,6 +57,16 @@ export default function DurdlesPage() {
             A custom One Piece TCG format by Team Durdle. Fan-made leaders, living rules,
             and a rotating meta shaped by tournament results.
           </p>
+          <a
+            href={DURDLE_INSTAGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-7 inline-flex items-center gap-2 rounded-full border border-[rgba(212,160,84,0.38)] bg-[rgba(255,249,235,0.78)] px-4 py-2 text-sm font-semibold text-[var(--color-navy)] shadow-[0_10px_28px_rgba(36,27,19,0.09)] transition hover:-translate-y-0.5 hover:border-[rgba(212,160,84,0.68)] hover:bg-[rgba(255,249,235,0.95)] hover:text-[var(--color-gold-dark)]"
+            style={{ fontFamily: "var(--font-dm)" }}
+          >
+            <InstagramIcon />
+            @teamdurdle
+          </a>
         </div>
         </div>
       </section>
