@@ -491,7 +491,7 @@ export const DURDLE_RULES: DurdleRule[] = [
   {
     title: 'Wanted Wins → Banned',
     description:
-      'If a Wanted leader wins 1st place in a Durdles tournament, that leader is banned from the Wanted pool going forward.',
+      'If a Wanted leader wins 1st place in a Durdle tournament, that leader is banned from the Wanted pool going forward.',
   },
   {
     title: 'Rogue Wins → Promoted',

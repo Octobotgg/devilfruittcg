@@ -27,7 +27,7 @@ const links: NavLink[] = [
     label: "Format",
     icon: Compass,
     children: [
-      { href: "/format/durdles", label: "Durdles" },
+      { href: "/format/durdles", label: "Durdle" },
     ],
   },
 ];

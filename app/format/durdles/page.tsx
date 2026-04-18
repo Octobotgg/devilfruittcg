@@ -34,7 +34,7 @@ export default function DurdlesPage() {
               textShadow: "0 10px 32px rgba(212,160,84,0.28), 2px 2px 0 rgba(42,33,24,0.14)",
             }}
           >
-            Durdles
+            Durdle
           </h1>
           <div className="mx-auto mb-6 h-px w-32 bg-gradient-to-r from-transparent via-[var(--color-gold)] to-transparent" />
           <p
