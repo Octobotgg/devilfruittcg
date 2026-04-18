@@ -14,12 +14,13 @@ import type { CardPriceQuote } from "@/lib/card-price-quotes";
 import { isSpecialPrintVariant, specialPrintPriority } from "@/lib/card-variants";
 import { normalizePricingLookupId } from "@/lib/deck-pricing";
 import {
-  HOME_MATCHUP_FORMAT,
-  HOME_MATCHUP_PERIOD,
-  HOME_MATCHUP_RANGE,
   HOME_META_FORMAT,
   HOME_META_RANGE,
   HOME_META_REGION,
+  MATCHUPS_DEFAULT_FORMAT,
+  MATCHUPS_DEFAULT_LIMIT,
+  MATCHUPS_DEFAULT_PERIOD,
+  MATCHUPS_PAGE_RANGE,
 } from "@/lib/constants/page-defaults";
 import {
   buildHomeBountyStateFromMarketWatch,
@@ -27,6 +28,7 @@ import {
   formatHomeBountyPrice,
   type HomeBountyCard,
   type HomeBountyMeta,
+  type HomeBountyWatchPayload,
 } from "@/lib/home-bounty";
 import { setThemeByLeaderColor } from "@/lib/theme/leader-theme";
 import { parseLeaderColors } from "@/lib/theme/color-utils";
@@ -47,6 +49,7 @@ export type HomePageClientProps = {
   initialMatchups: HomeMatchupPayload | null;
   initialBountyCards: HomeBountyCard[];
   initialBountyMeta: HomeBountyMeta | null;
+  initialPricingPulseUpdatedAt: string | null;
   initialMetaIsLive: boolean;
   initialMatchupsAreLive: boolean;
   initialBountyIsLive: boolean;
@@ -182,6 +185,7 @@ export default function HomePageClient({
   initialMatchups,
   initialBountyCards,
   initialBountyMeta,
+  initialPricingPulseUpdatedAt,
   initialMetaIsLive,
   initialMatchupsAreLive,
   initialBountyIsLive,
@@ -193,6 +197,7 @@ export default function HomePageClient({
   const [heroHover, setHeroHover] = useState(false);
   const [liveBountyCards, setLiveBountyCards] = useState<HomeBountyCard[]>(initialBountyCards);
   const [liveBountyMeta, setLiveBountyMeta] = useState<HomeBountyMeta | null>(initialBountyMeta);
+  const [pricingPulseUpdatedAt, setPricingPulseUpdatedAt] = useState<string | null>(initialPricingPulseUpdatedAt);
   const [featuredSpotlight, setFeaturedSpotlight] = useState<FeaturedSpotlight | null>(null);
 
   useEffect(() => {
@@ -233,10 +238,11 @@ export default function HomePageClient({
     const run = async () => {
       try {
         const params = new URLSearchParams({
-          format: HOME_MATCHUP_FORMAT,
-          range: HOME_MATCHUP_RANGE,
-          period: HOME_MATCHUP_PERIOD,
-          limit: "12",
+          format: MATCHUPS_DEFAULT_FORMAT,
+          range: MATCHUPS_PAGE_RANGE,
+          period: MATCHUPS_DEFAULT_PERIOD,
+          limit: String(MATCHUPS_DEFAULT_LIMIT),
+          ranking: "relevance",
         });
         const r = await fetch(`/api/matchups?${params.toString()}`, { cache: "no-store" });
         if (!r.ok) return;
@@ -269,12 +275,17 @@ export default function HomePageClient({
         const res = await fetch("/api/market/watch", { cache: "no-store" });
         if (!res.ok) return;
 
-        const json = await res.json();
+        const json = (await res.json()) as HomeBountyWatchPayload;
         const next = buildHomeBountyStateFromMarketWatch(json);
+        const nextPricingPulseUpdatedAt =
+          typeof json?.pricingPulseUpdatedAt === "string" && json.pricingPulseUpdatedAt.trim()
+            ? json.pricingPulseUpdatedAt
+            : null;
 
         if (!alive) return;
         setLiveBountyMeta(next.meta);
         setLiveBountyCards(next.cards);
+        setPricingPulseUpdatedAt(nextPricingPulseUpdatedAt);
       } catch {
         // noop
       }
@@ -311,13 +322,15 @@ export default function HomePageClient({
   const telemetryUpdatedAt =
     (usingLiveMeta ? meta?.updatedAt || null : null) ||
     (usingLiveMatchups ? matchups?.updatedAt || null : null) ||
+    pricingPulseUpdatedAt ||
     (usingLiveBounty ? liveBountyMeta?.updatedAt || null : null) ||
     null;
-  const telemetrySampleText =
+  const marketPulseText = pricingPulseUpdatedAt ? ago(pricingPulseUpdatedAt) : "Live sync pending";
+  const matchSampleText =
     matchups?.sampleLabel ||
-    (typeof matchups?.sampleGames === "number" && matchups.sampleGames > 0 ? `${matchups.sampleGames.toLocaleString()} games` : null) ||
-    meta?.sampleLabel ||
-    (meta?.sampleGames ? `${meta.sampleGames.toLocaleString()} games` : null) ||
+    (typeof matchups?.sampleGames === "number" && matchups.sampleGames > 0
+      ? `${matchups.sampleGames.toLocaleString()} weighted matchup samples`
+      : null) ||
     "Live sync pending";
   const homepageFeedsUnavailable = !usingLiveMeta && !usingLiveMatchups && !usingLiveBounty;
 
@@ -492,7 +505,7 @@ export default function HomePageClient({
                   <Coins className="h-3.5 w-3.5" />
                   Market Pulse
                 </p>
-                <p className="mt-1 text-sm font-black text-[var(--color-navy)]">{usingLiveBounty && liveBountyMeta?.updatedAt ? ago(liveBountyMeta.updatedAt) : "Live sync pending"}</p>
+                <p className="mt-1 text-sm font-black text-[var(--color-navy)]">{marketPulseText}</p>
               </div>
               <div className="brand-stat-panel">
                 <p className="brand-stat-label brand-stat-header">
@@ -500,7 +513,7 @@ export default function HomePageClient({
                   Match Sample
                 </p>
                 <p className="mt-1 text-sm font-black text-[var(--color-navy)]">
-                  {telemetrySampleText}
+                  {matchSampleText}
                 </p>
               </div>
               <div className="brand-stat-panel">

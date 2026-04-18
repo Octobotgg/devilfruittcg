@@ -5,12 +5,13 @@ import { getHybridMatchupPayload, getHybridMetaPayload } from "@/lib/competitive
 import { buildHomeBountyStateFromMarketWatch } from "@/lib/home-bounty";
 import { getMarketHomeReadModel, toLegacyMarketWatchShape } from "@/lib/server/market/market-home";
 import {
-  HOME_MATCHUP_FORMAT,
-  HOME_MATCHUP_PERIOD,
-  HOME_MATCHUP_RANGE,
   HOME_META_FORMAT,
   HOME_META_RANGE,
   HOME_META_REGION,
+  MATCHUPS_DEFAULT_FORMAT,
+  MATCHUPS_DEFAULT_LIMIT,
+  MATCHUPS_DEFAULT_PERIOD,
+  MATCHUPS_PAGE_RANGE,
 } from "@/lib/constants/page-defaults";
 
 export const revalidate = 300;
@@ -29,10 +30,12 @@ const getCachedHomeMeta = unstable_cache(
 const getCachedHomeMatchups = unstable_cache(
   async () =>
     getHybridMatchupPayload({
-      format: HOME_MATCHUP_FORMAT,
-      range: HOME_MATCHUP_RANGE,
-      period: HOME_MATCHUP_PERIOD,
-      limit: 12,
+      format: MATCHUPS_DEFAULT_FORMAT,
+      range: MATCHUPS_PAGE_RANGE,
+      period: MATCHUPS_DEFAULT_PERIOD,
+      limit: MATCHUPS_DEFAULT_LIMIT,
+      ranking: "relevance",
+      forceMatchIntelV2: true,
     }).catch(() => null),
   ["home-page-matchups"],
   { revalidate }
@@ -74,6 +77,7 @@ export default async function HomePage() {
       initialMatchups={initialMatchups}
       initialBountyCards={bountyState.cards}
       initialBountyMeta={bountyState.meta}
+      initialPricingPulseUpdatedAt={bountyResult?.pricingPulseUpdatedAt || null}
       initialMetaIsLive={Boolean(initialMeta)}
       initialMatchupsAreLive={Boolean(initialMatchups)}
       initialBountyIsLive={bountyState.isLive}

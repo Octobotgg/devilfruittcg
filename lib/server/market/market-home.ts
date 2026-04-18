@@ -55,6 +55,7 @@ export type MarketMoverTrustFilters = {
 export type MarketHomeReadModel = {
   source: "justtcg-runtime-pricing";
   updatedAt: string | null;
+  pricingPulseUpdatedAt: string | null;
   cards: {
     topGainers24h: MarketMover[];
     topLosers24h: MarketMover[];
@@ -166,6 +167,34 @@ async function loadMoverRows(): Promise<MarketMoverRow[]> {
   ];
 }
 
+async function loadLatestPricingPulseUpdatedAt(): Promise<string | null> {
+  const sql = createPostgresClient();
+  const latestRunRows = await sql.unsafe<{ updatedAt: string | null }[]>(
+    `
+      select finished_at::text as "updatedAt"
+      from pricing_verification_runs
+      where source = 'justtcg'
+        and status = 'completed'
+        and finished_at is not null
+      order by finished_at desc
+      limit 1
+    `,
+  );
+
+  const latestRunUpdatedAt = latestRunRows[0]?.updatedAt || null;
+  if (latestRunUpdatedAt) return latestRunUpdatedAt;
+
+  const publishedRows = await sql.unsafe<{ updatedAt: string | null }[]>(
+    `
+      select max(published_at)::text as "updatedAt"
+      from card_print_price_published
+      where source_id = 'justtcg'
+    `,
+  );
+
+  return publishedRows[0]?.updatedAt || null;
+}
+
 export function getMarketHomeMoverQueriesForTesting() {
   return {
     rawCardQuery: RAW_CARD_MOVER_QUERY,
@@ -260,7 +289,11 @@ export async function getMarketHomeReadModel(options?: {
 }): Promise<MarketHomeReadModel> {
   const limit = Math.max(1, options?.limit || 12);
   const trustFilters = options?.trustFilters || DEFAULT_MARKET_MOVER_TRUST_FILTERS;
-  const movers = (await loadMoverRows())
+  const [rows, pricingPulseUpdatedAt] = await Promise.all([
+    loadMoverRows(),
+    loadLatestPricingPulseUpdatedAt(),
+  ]);
+  const movers = rows
     .filter((row) => passesMarketMoverTrustFilters(row, trustFilters))
     .map((row) => toMarketMover(row))
     .filter((row): row is MarketMover => Boolean(row));
@@ -272,6 +305,7 @@ export async function getMarketHomeReadModel(options?: {
   return {
     source: "justtcg-runtime-pricing",
     updatedAt,
+    pricingPulseUpdatedAt,
     cards: {
       topGainers24h: sortGainers(cards).slice(0, limit),
       topLosers24h: sortLosers(cards).slice(0, limit),
@@ -305,6 +339,7 @@ export function toLegacyMarketWatchShape(home: MarketHomeReadModel) {
   return {
     source: home.source,
     updatedAt: home.updatedAt,
+    pricingPulseUpdatedAt: home.pricingPulseUpdatedAt,
     topDaily,
     topWeekly,
     bountyBoard,

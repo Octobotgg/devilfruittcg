@@ -30,7 +30,14 @@ export async function GET(req: NextRequest) {
   try {
     const payload = toLegacyMarketWatchShape(await getMarketHomeReadModel({ limit: 12 }));
     return withRateHeaders(
-      NextResponse.json(payload, {
+      NextResponse.json({
+        source: payload.source,
+        updatedAt: payload.updatedAt,
+        pricingPulseUpdatedAt: payload.pricingPulseUpdatedAt,
+        topDaily: payload.topDaily,
+        topWeekly: payload.topWeekly,
+        bountyBoard: payload.bountyBoard,
+      }, {
         status: 200,
         headers: {
           "Cache-Control": "public, s-maxage=120, stale-while-revalidate=600",
@@ -43,6 +50,7 @@ export async function GET(req: NextRequest) {
         {
           source: "justtcg-runtime-pricing",
           updatedAt: null,
+          pricingPulseUpdatedAt: null,
           topDaily: [],
           topWeekly: [],
           bountyBoard: [],

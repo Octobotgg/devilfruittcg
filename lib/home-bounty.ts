@@ -38,6 +38,7 @@ export type HomeBountyWatchItem = {
 export type HomeBountyWatchPayload = {
   source?: string | null;
   updatedAt?: string | null;
+  pricingPulseUpdatedAt?: string | null;
   bountyBoard?: HomeBountyWatchItem[] | null;
 };
 
