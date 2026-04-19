@@ -258,6 +258,8 @@ test("getJustTcgPriceSummaries maps variant-like requests onto the active approv
             externalVariantId: "justtcg:123:nm",
             activeExternalVariantId: "justtcg:123:nm",
             variantCondition: "Near Mint",
+            variantPrinting: "Normal",
+            variantLanguage: "English",
             productKind: "raw_card",
             mappingApproved: true,
             priceMarket: "12.75",
@@ -299,6 +301,8 @@ test("getJustTcgPriceSummaries resolves hyphenated public print ids onto the bas
             externalVariantId: "justtcg:123:nm",
             activeExternalVariantId: "justtcg:123:nm",
             variantCondition: "Near Mint",
+            variantPrinting: "Normal",
+            variantLanguage: "English",
             productKind: "raw_card",
             mappingApproved: true,
             priceMarket: "12.75",
@@ -332,6 +336,8 @@ test("getJustTcgPriceSummaries resolves canonical variant ids onto the base Just
     externalVariantId: "justtcg:123:nm",
     activeExternalVariantId: "justtcg:123:nm",
     variantCondition: "Near Mint",
+    variantPrinting: "Normal",
+    variantLanguage: "English",
     productKind: "raw_card",
     mappingApproved: true,
     priceMarket: "12.75",
@@ -375,6 +381,7 @@ test("getJustTcgPriceSummaries resolves canonical variant ids onto the base Just
           },
         ];
       },
+      now: () => Date.parse("2026-03-25T12:00:00.000Z"),
     },
   );
 
@@ -399,6 +406,8 @@ test("getJustTcgPriceSummaries still returns published prices when candidate act
           externalVariantId: "justtcg:123:nm",
           activeExternalVariantId: null,
           variantCondition: "Near Mint",
+          variantPrinting: "Normal",
+          variantLanguage: "English",
           productKind: "raw_card",
           mappingApproved: true,
           priceMarket: "12.75",
@@ -436,6 +445,8 @@ test("getJustTcgPriceDetail keeps the legacy detail shape from the new price tab
             externalVariantId: "justtcg:123:nm",
             activeExternalVariantId: "justtcg:123:nm",
             variantCondition: "Near Mint",
+            variantPrinting: "Normal",
+            variantLanguage: "English",
             productKind: "raw_card",
             mappingApproved: true,
             priceMarket: "12.75",
@@ -515,6 +526,8 @@ test("getJustTcgPriceDetail keeps exact raw-variant history when structured hist
             externalVariantId: "justtcg:123:nm",
             activeExternalVariantId: "justtcg:123:nm",
             variantCondition: "Near Mint",
+            variantPrinting: "Normal",
+            variantLanguage: "English",
             externalRawPayload: {
               variants: [
                 {
@@ -584,6 +597,8 @@ test("getJustTcgPriceDetail respects a 7 day window for exact-print history", as
           externalVariantId: "justtcg:123:nm",
           activeExternalVariantId: "justtcg:123:nm",
           variantCondition: "Near Mint",
+          variantPrinting: "Normal",
+          variantLanguage: "English",
           productKind: "raw_card",
           mappingApproved: true,
           priceMarket: "12.75",
@@ -644,6 +659,210 @@ test("getJustTcgPriceDetail respects a 7 day window for exact-print history", as
       tcgMarket: 12.5,
     },
   ]);
+});
+
+test("getJustTcgPriceDetail keeps same-facet exact-print history across JustTCG slug drift", async () => {
+  const { getJustTcgPriceDetail } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const detail = await getJustTcgPriceDetail(
+    "op13-119_p2",
+    30,
+    {
+      loadCurrentRows: async () => [
+        {
+          cardPrintId: "OP13-119_p2",
+          printedCardCode: "OP13-119_p2",
+          cardId: "OP13-119",
+          externalProductId: "justtcg:ace-current",
+          externalVariantId: "justtcg:ace-current_near-mint_foil",
+          activeExternalVariantId: "justtcg:ace-current_near-mint_foil",
+          variantCondition: "Near Mint",
+          variantPrinting: "Foil",
+          variantLanguage: "English",
+          productKind: "raw_card",
+          mappingApproved: true,
+          priceMarket: "12.75",
+          priceNm: "12.50",
+          priceLp: "10.25",
+          priceChange24h: "0.5",
+          priceChange7d: "1.25",
+          priceChange30d: "3.75",
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          fetchedAt: "2026-03-25T00:05:00.000Z",
+        },
+      ],
+      loadHistoryRows: async ({ variantKey }) => {
+        assert.deepEqual(variantKey, {
+          condition: "near mint",
+          finish: "foil",
+          language: "english",
+        });
+
+        return [
+          {
+            id: 10,
+            cardPrintId: "OP13-119_p2",
+            printedCardCode: "OP13-119_p2",
+            cardId: "OP13-119",
+            externalProductId: "justtcg:ace-old-red-super",
+            externalVariantId: "justtcg:ace-old-red-super_near-mint_foil",
+            variantCondition: "Near Mint",
+            variantPrinting: "Foil",
+            variantLanguage: "English",
+            recordedAt: "2026-03-20T00:00:00.000Z",
+            priceNm: "11.25",
+          },
+          {
+            id: 11,
+            cardPrintId: "OP13-119_p2",
+            printedCardCode: "OP13-119_p2",
+            cardId: "OP13-119",
+            externalProductId: "justtcg:ace-current",
+            externalVariantId: "justtcg:ace-current_near-mint_foil",
+            variantCondition: "Near Mint",
+            variantPrinting: "Foil",
+            variantLanguage: "English",
+            recordedAt: "2026-03-25T00:00:00.000Z",
+            priceNm: "12.50",
+          },
+        ];
+      },
+      now: () => Date.parse("2026-03-25T12:00:00.000Z"),
+    },
+  );
+
+  assert.deepEqual(detail.points, [
+    {
+      ts: Date.parse("2026-03-20T00:00:00.000Z"),
+      date: "2026-03-20",
+      tcgMarket: 11.25,
+    },
+    {
+      ts: Date.parse("2026-03-25T00:00:00.000Z"),
+      date: "2026-03-25",
+      tcgMarket: 12.5,
+    },
+  ]);
+});
+
+test("getJustTcgPriceDetail dedupes same-timestamp slug-drift rows deterministically", async () => {
+  const { getJustTcgPriceDetail } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const detail = await getJustTcgPriceDetail(
+    "op13-119_p2",
+    30,
+    {
+      loadCurrentRows: async () => [
+        {
+          cardPrintId: "OP13-119_p2",
+          printedCardCode: "OP13-119_p2",
+          cardId: "OP13-119",
+          externalProductId: "justtcg:ace-current",
+          externalVariantId: "justtcg:ace-current_near-mint_foil",
+          activeExternalVariantId: "justtcg:ace-current_near-mint_foil",
+          variantCondition: "Near Mint",
+          variantPrinting: "Foil",
+          variantLanguage: "English",
+          productKind: "raw_card",
+          mappingApproved: true,
+          priceMarket: "12.75",
+          priceNm: "12.50",
+          priceLp: "10.25",
+          priceChange24h: "0.5",
+          priceChange7d: "1.25",
+          priceChange30d: "3.75",
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          fetchedAt: "2026-03-25T00:05:00.000Z",
+        },
+      ],
+      loadHistoryRows: async () => [
+        {
+          id: 30,
+          cardPrintId: "OP13-119_p2",
+          printedCardCode: "OP13-119_p2",
+          cardId: "OP13-119",
+          externalProductId: "justtcg:ace-old-red-super",
+          externalVariantId: "justtcg:ace-old-red-super_near-mint_foil",
+          variantCondition: "Near Mint",
+          variantPrinting: "Foil",
+          variantLanguage: "English",
+          recordedAt: "2026-03-20T00:00:00.000Z",
+          priceNm: "11.25",
+        },
+        {
+          id: 31,
+          cardPrintId: "OP13-119_p2",
+          printedCardCode: "OP13-119_p2",
+          cardId: "OP13-119",
+          externalProductId: "justtcg:ace-current",
+          externalVariantId: "justtcg:ace-current_near-mint_foil",
+          variantCondition: "Near Mint",
+          variantPrinting: "Foil",
+          variantLanguage: "English",
+          recordedAt: "2026-03-20T00:00:00.000Z",
+          priceNm: "12.50",
+        },
+        {
+          id: 41,
+          cardPrintId: "OP13-119_p2",
+          printedCardCode: "OP13-119_p2",
+          cardId: "OP13-119",
+          externalProductId: "justtcg:ace-older",
+          externalVariantId: "justtcg:ace-older_near-mint_foil",
+          variantCondition: "Near Mint",
+          variantPrinting: "Foil",
+          variantLanguage: "English",
+          recordedAt: "2026-03-24T00:00:00.000Z",
+          priceNm: "14.00",
+        },
+        {
+          id: 40,
+          cardPrintId: "OP13-119_p2",
+          printedCardCode: "OP13-119_p2",
+          cardId: "OP13-119",
+          externalProductId: "justtcg:ace-oldest",
+          externalVariantId: "justtcg:ace-oldest_near-mint_foil",
+          variantCondition: "Near Mint",
+          variantPrinting: "Foil",
+          variantLanguage: "English",
+          recordedAt: "2026-03-24T00:00:00.000Z",
+          priceNm: "13.00",
+        },
+      ],
+      now: () => Date.parse("2026-03-25T12:00:00.000Z"),
+    },
+  );
+
+  assert.deepEqual(detail.points, [
+    {
+      ts: Date.parse("2026-03-20T00:00:00.000Z"),
+      date: "2026-03-20",
+      tcgMarket: 12.5,
+    },
+    {
+      ts: Date.parse("2026-03-24T00:00:00.000Z"),
+      date: "2026-03-24",
+      tcgMarket: 14,
+    },
+  ]);
+});
+
+test("JustTCG exact-print history query uses variant facets instead of vendor slug equality", async () => {
+  const { getJustTcgHistoryRowsQueryForTesting } =
+    await importModule<typeof import("../lib/justtcg-store")>("lib/justtcg-store.ts");
+
+  const query = getJustTcgHistoryRowsQueryForTesting();
+
+  assert.match(query, /history\.card_print_id = \$1/u);
+  assert.match(query, /history\.source_id = \$2/u);
+  assert.match(query, /history\.recorded_at >= \$3::timestamptz/u);
+  assert.match(query, /lower\(trim\(history_variant\.condition\)\) = \$4/u);
+  assert.match(query, /lower\(trim\(history_variant\.printing\)\) = \$5/u);
+  assert.match(query, /lower\(trim\(history_variant\.language\)\) = \$6/u);
+  assert.doesNotMatch(query, /history\.external_product_id = \$2/u);
+  assert.doesNotMatch(query, /history\.external_variant_id = \$3/u);
 });
 
 test("default JustTCG compatibility query reads published price rows instead of candidate current rows", async () => {
