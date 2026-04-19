@@ -12,6 +12,62 @@ async function importModule<T>(relativePath: string): Promise<T> {
   return import(pathToFileURL(path.join(REPO_ROOT, relativePath)).href) as Promise<T>;
 }
 
+test("extractHistoryRowsFromPayload maps JustTCG payload points into card print history rows", async () => {
+  const { extractHistoryRowsFromPayload } =
+    await importModule<typeof import("../scripts/justtcg-price-history-payload.mjs")>(
+      "scripts/justtcg-price-history-payload.mjs",
+    );
+
+  const warnings: string[] = [];
+  const rows = extractHistoryRowsFromPayload({
+    cardPrintId: "OP13-119_p3",
+    externalProductId: "justtcg:ace-current",
+    externalVariantId: "justtcg:ace-current_near-mint_foil",
+    sourceId: "justtcg",
+    payload: [
+      { p: 4420.37, t: 1775952000 },
+      { p: "4421.25", t: "1776038400" },
+      { p: null, t: 1776124800 },
+      { p: 4422, t: "not-a-timestamp" },
+    ],
+    logSkipped: (message: string) => warnings.push(message),
+  });
+
+  assert.deepEqual(rows, [
+    {
+      card_print_id: "OP13-119_p3",
+      source_id: "justtcg",
+      external_product_id: "justtcg:ace-current",
+      external_variant_id: "justtcg:ace-current_near-mint_foil",
+      recorded_at: "2026-04-12T00:00:00.000Z",
+      price_nm: 4420.37,
+      price_lp: null,
+      price_market: null,
+    },
+    {
+      card_print_id: "OP13-119_p3",
+      source_id: "justtcg",
+      external_product_id: "justtcg:ace-current",
+      external_variant_id: "justtcg:ace-current_near-mint_foil",
+      recorded_at: "2026-04-13T00:00:00.000Z",
+      price_nm: 4421.25,
+      price_lp: null,
+      price_market: null,
+    },
+  ]);
+  assert.deepEqual(warnings, ["Skipped 2 malformed JustTCG history payload points"]);
+  assert.deepEqual(
+    extractHistoryRowsFromPayload({
+      cardPrintId: "OP13-119_p3",
+      externalProductId: "justtcg:ace-current",
+      externalVariantId: "justtcg:ace-current_near-mint_foil",
+      sourceId: "justtcg",
+      payload: null,
+    }),
+    [],
+  );
+});
+
 test("parseArgs accepts --set and --fetch-page-size", async () => {
   const { parseArgs } = await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
     "scripts/import-justtcg-to-drizzle.mjs",
@@ -1050,6 +1106,92 @@ test("buildSeed synthesizes stable variant IDs when JustTCG omits variantId for 
       price_change_30d: null,
       updated_at: "2026-03-29T00:00:00.000Z",
       fetched_at: "2026-03-29T00:05:00.000Z",
+    },
+  ]);
+});
+
+test("buildSeed appends canonical variant payload history rows for approved mappings", async () => {
+  const { buildSeed } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  const payloadVariant = {
+    variantId: "payload-oden_near-mint_foil",
+    condition: "Near Mint",
+    printing: "Foil",
+    language: "English",
+    price: 46.18,
+    lastUpdated: "2026-04-18T09:00:00.000Z",
+    priceHistory: [
+      { p: 49.48, t: 1775952000 },
+      { p: 46.18, t: 1776470400 },
+    ],
+  };
+
+  const seed = buildSeed(
+    {
+      catalog: {
+        fetchedAt: "2026-04-18T09:00:00.000Z",
+        cards: [
+          {
+            id: "payload-oden",
+            name: "Kouzuki Oden",
+            set: "Extra Booster: Memorial Collection",
+            lastUpdated: "2026-04-18T09:00:00.000Z",
+            variants: [payloadVariant],
+          },
+        ],
+      },
+      officialReleases: [],
+      mappingReport: {
+        generatedAt: "2026-04-18T09:00:00.000Z",
+        results: [
+          {
+            cardId: "EB01-001_p1",
+            confidence: "high",
+            status: "auto_approved",
+            searchMethod: "number_exact",
+            bestCandidate: {
+              id: "payload-oden",
+              name: "Kouzuki Oden",
+              set: "Extra Booster: Memorial Collection",
+              lastUpdated: "2026-04-18T09:00:00.000Z",
+              variants: [payloadVariant],
+            },
+            cardPrintContext: {
+              setName: "Extra Booster: Memorial Collection",
+              releaseCode: "EB01",
+              canonicalId: "EB01-001_p1",
+            },
+          },
+        ],
+      },
+      priceData: null,
+    },
+    { includeTcgplayerSource: false },
+  );
+
+  assert.deepEqual(seed.cardPrintPriceHistory, [
+    {
+      card_print_id: "EB01-001_p1",
+      source_id: "justtcg",
+      external_product_id: "justtcg:payload-oden",
+      external_variant_id: "justtcg:payload-oden_near-mint_foil",
+      recorded_at: "2026-04-12T00:00:00.000Z",
+      price_nm: 49.48,
+      price_lp: null,
+      price_market: null,
+    },
+    {
+      card_print_id: "EB01-001_p1",
+      source_id: "justtcg",
+      external_product_id: "justtcg:payload-oden",
+      external_variant_id: "justtcg:payload-oden_near-mint_foil",
+      recorded_at: "2026-04-18T00:00:00.000Z",
+      price_nm: 46.18,
+      price_lp: null,
+      price_market: null,
     },
   ]);
 });

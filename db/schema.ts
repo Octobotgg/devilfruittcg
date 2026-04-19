@@ -13,6 +13,7 @@ import {
   primaryKey,
   text,
   timestamp,
+  unique,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
@@ -547,6 +548,13 @@ export const cardPrintPriceHistory = pgTable(
         externalProductVariants.id,
       ],
     }).onDelete("no action"),
+    naturalKeyUnique: unique("card_print_price_history_natural_key_uq").on(
+      table.cardPrintId,
+      table.sourceId,
+      table.externalProductId,
+      table.externalVariantId,
+      table.recordedAt,
+    ),
     printRecordedAtIdx: index("card_print_price_history_print_recorded_at_idx").on(table.cardPrintId, table.recordedAt),
   }),
 );

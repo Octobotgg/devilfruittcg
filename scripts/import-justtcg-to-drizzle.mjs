@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import postgres from "postgres";
+import { extractHistoryRowsFromPayload } from "./justtcg-price-history-payload.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -1418,6 +1419,42 @@ function buildRawCardPriceHistory(approvedRawAssignments, variantRowsByProductId
   return rows;
 }
 
+function buildPayloadCardPriceHistory(approvedRawAssignments, variantRowsByProductId) {
+  const rows = [];
+  let skippedUnresolvedRows = 0;
+
+  for (const assignment of approvedRawAssignments) {
+    const cardPrintId = cleanText(assignment?.card_print_id);
+    const externalProductId = cleanText(assignment?.external_product_id);
+    const variants = variantRowsByProductId.get(externalProductId) || [];
+    const canonicalVariant = selectCanonicalVariant(variants);
+    const externalVariantId = cleanText(canonicalVariant?.id);
+
+    if (Array.isArray(canonicalVariant?.price_history_payload) && (!cardPrintId || !externalProductId || !externalVariantId)) {
+      skippedUnresolvedRows += canonicalVariant.price_history_payload.length;
+      continue;
+    }
+
+    rows.push(
+      ...extractHistoryRowsFromPayload({
+        cardPrintId,
+        externalProductId,
+        externalVariantId,
+        sourceId: JUSTTCG_SOURCE.id,
+        payload: canonicalVariant?.price_history_payload,
+      }),
+    );
+  }
+
+  if (skippedUnresolvedRows > 0) {
+    console.warn(
+      `Skipped ${skippedUnresolvedRows} JustTCG history payload points without a resolved card/product/variant identity`,
+    );
+  }
+
+  return rows;
+}
+
 function buildSealedProducts(externalProducts, priceIndex, releaseLookup) {
   const sealedProducts = [];
   const sealedProductMarketLinks = [];
@@ -1620,6 +1657,8 @@ function buildSeed(inputs, options) {
     inputs.priceData,
     priceIndex,
   );
+  const payloadCardPriceHistory = buildPayloadCardPriceHistory(approvedRawAssignments, variantRowsByProductId);
+  const cardPrintPriceHistory = [...rawCardPriceHistory, ...payloadCardPriceHistory];
   const sealed = buildSealedProducts(productMap, priceIndex, releaseLookup);
   const activeCardPrintAssignments = buildActiveCardPrintAssignments(cardPrintMarketLinks, approvedRawAssignments);
   const activeCardPrintVariantAssignments = buildActiveCardPrintVariantAssignments(
@@ -1635,7 +1674,7 @@ function buildSeed(inputs, options) {
     activeCardPrintAssignments,
     activeCardPrintVariantAssignments,
     cardPrintPriceCurrent: rawCardPrices.rows,
-    cardPrintPriceHistory: rawCardPriceHistory,
+    cardPrintPriceHistory,
     sealedProducts: sealed.sealedProducts,
     sealedProductMarketLinks: sealed.sealedProductMarketLinks,
     sealedProductPriceCurrent: sealed.sealedProductPriceCurrent,
@@ -1647,7 +1686,7 @@ function buildSeed(inputs, options) {
       approvedRawAssignments: approvedRawAssignments.length,
       importedExternalProducts: externalProducts.length,
       importedExternalProductVariants: externalProductVariants.length,
-      importedCardPrintPriceHistory: rawCardPriceHistory.length,
+      importedCardPrintPriceHistory: cardPrintPriceHistory.length,
       importedSealedProducts: sealed.sealedProducts.length,
     },
   };
@@ -1751,6 +1790,35 @@ async function insertRows(sql, tableName, rows, chunkSize) {
       .join(", ");
 
     const sqlText = `insert into ${quoteIdentifier(tableName)} (${columns.map(quoteIdentifier).join(", ")}) values ${valuesSql}`;
+    await sql.unsafe(sqlText, params);
+  }
+}
+
+async function insertRowsOnConflictDoNothing(sql, tableName, rows, conflictColumns, chunkSize) {
+  if (!rows.length) return;
+
+  const columns = Object.keys(rows[0]);
+  for (const group of chunk(rows, chunkSize)) {
+    const params = [];
+    let paramIndex = 1;
+    const valuesSql = group
+      .map((row) => {
+        const placeholders = columns.map((column) => {
+          const cast = column === "raw_payload" || column === "metadata" ? "::jsonb" : "";
+          params.push(normalizeParamValue(column, row[column]));
+          const token = `$${paramIndex}${cast}`;
+          paramIndex += 1;
+          return token;
+        });
+        return `(${placeholders.join(", ")})`;
+      })
+      .join(", ");
+
+    const sqlText = [
+      `insert into ${quoteIdentifier(tableName)} (${columns.map(quoteIdentifier).join(", ")})`,
+      `values ${valuesSql}`,
+      `on conflict (${conflictColumns.map(quoteIdentifier).join(", ")}) do nothing`,
+    ].join(" ");
     await sql.unsafe(sqlText, params);
   }
 }
@@ -1998,7 +2066,13 @@ async function applySeed(seed, options) {
 
       const existingHistoryKeys = await fetchExistingHistoryKeys(db, seed.cardPrintPriceHistory || [], options.chunkSize);
       const pendingHistory = filterPendingHistoryRows(seed.cardPrintPriceHistory || [], existingHistoryKeys);
-      await insertRows(db, "card_print_price_history", pendingHistory, options.chunkSize);
+      await insertRowsOnConflictDoNothing(
+        db,
+        "card_print_price_history",
+        pendingHistory,
+        ["card_print_id", "source_id", "external_product_id", "external_variant_id", "recorded_at"],
+        options.chunkSize,
+      );
 
       if (!incrementalSync) {
         await deleteCurrentByCollectibleIds(

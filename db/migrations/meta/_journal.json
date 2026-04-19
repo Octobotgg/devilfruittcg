@@ -43,6 +43,13 @@
       "when": 1774631699680,
       "tag": "0005_dashing_puma",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1776563421191,
+      "tag": "0006_card_print_price_history_natural_key",
+      "breakpoints": true
     }
   ]
 }

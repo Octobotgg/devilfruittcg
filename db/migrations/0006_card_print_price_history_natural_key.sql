@@ -1,0 +1,1 @@
+ALTER TABLE "card_print_price_history" ADD CONSTRAINT "card_print_price_history_natural_key_uq" UNIQUE("card_print_id","source_id","external_product_id","external_variant_id","recorded_at");

@@ -29,6 +29,10 @@ function foreignKeyNames(table: Parameters<typeof getTableConfig>[0]) {
   return getTableConfig(table).foreignKeys.map((foreignKey) => foreignKey.getName());
 }
 
+function uniqueConstraintNames(table: Parameters<typeof getTableConfig>[0]) {
+  return getTableConfig(table).uniqueConstraints.map((constraint) => constraint.name);
+}
+
 function migrationSql() {
   return readdirSync(path.join(REPO_ROOT, "db/migrations"))
     .filter((file) => file.endsWith(".sql"))
@@ -187,6 +191,10 @@ test("JustTCG variant schema includes the new variant layer", async () => {
     "history rows should be tied to the exact product/source/variant identity",
   );
   assert.ok(
+    uniqueConstraintNames(schema.cardPrintPriceHistory).includes("card_print_price_history_natural_key_uq"),
+    "history rows should have a natural key for idempotent payload backfills",
+  );
+  assert.ok(
     foreignKeyNames(schema.priceSnapshots).includes("price_snapshots_product_variant_fk"),
     "price snapshots should be tied to the exact product/variant identity",
   );
@@ -232,6 +240,10 @@ test("JustTCG variant schema includes the new variant layer", async () => {
   assert.match(
     sql,
     /FOREIGN KEY \("external_product_id","external_variant_id"\) REFERENCES "public"\."external_product_variants"\("external_product_id","id"\) ON DELETE no action ON UPDATE no action;/,
+  );
+  assert.match(
+    sql,
+    /ADD CONSTRAINT "card_print_price_history_natural_key_uq" UNIQUE\s*\("card_print_id","source_id","external_product_id","external_variant_id","recorded_at"\)/,
   );
 });
 
@@ -621,12 +633,12 @@ test("parseArgs accepts an explicit fetch delay override", async () => {
 });
 
 test("import script documents import, verify, and publish as separate explicit steps", async () => {
-  const module =
+  const importScript =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
       "scripts/import-justtcg-to-drizzle.mjs",
     );
 
-  assert.deepEqual(module.describeRefreshPipeline(), [
+  assert.deepEqual(importScript.describeRefreshPipeline(), [
     {
       step: "import",
       command: "node scripts/import-justtcg-to-drizzle.mjs --apply",

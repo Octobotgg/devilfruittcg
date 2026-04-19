@@ -221,6 +221,11 @@ test("applySeed upserts variants first, writes active variant ids, and dedupes s
     true,
     "history writes should keep variant-specific rows that are not already present",
   );
+  assert.match(
+    queries[historyInsertIndex].text,
+    /on conflict \("card_print_id", "source_id", "external_product_id", "external_variant_id", "recorded_at"\) do nothing/,
+    "history writes should be protected by the natural-key conflict target",
+  );
   assert.equal(
     queries[historyInsertIndex].params.includes("justtcg:a-ace-nm"),
     false,
