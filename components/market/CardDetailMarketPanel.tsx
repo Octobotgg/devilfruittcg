@@ -12,6 +12,11 @@ import {
   type MarketHistoryRangeId,
 } from "@/lib/market-history";
 import { resolveCardDetailPricingState } from "@/lib/market-detail-pricing";
+import {
+  buildAccumulatingHistoryNote,
+  buildTimeTicks,
+  insertChartGapBreaks,
+} from "./card-detail-market-chart-helpers";
 
 type MarketResponse = MarketData & {
   cached?: boolean;
@@ -71,6 +76,7 @@ export default function CardDetailMarketPanel({
   const [tcgDetailCache, setTcgDetailCache] = useState<Record<string, JustTcgDetailResponse>>({});
   const [tcgErrors, setTcgErrors] = useState<Record<string, string>>({});
   const [tcgRetryNonce, setTcgRetryNonce] = useState<Record<string, number>>({});
+  const [historyNow] = useState(() => Date.now());
   const marketPendingRef = useRef<Set<string>>(new Set());
   const tcgPendingRef = useRef<Set<string>>(new Set());
   const market = marketCache[cardId] || null;
@@ -218,8 +224,15 @@ export default function CardDetailMarketPanel({
       ts: point.ts ?? point.date ?? null,
     })) as MarketHistoryPointInput[],
     rangeId: range,
-    now: Date.now(),
+    now: historyNow,
   });
+  const fullHistoryPoints = (tcgDetail?.points || []).map((point) => ({
+    ...point,
+    ts: point.ts ?? point.date ?? null,
+  })) as MarketHistoryPointInput[];
+  const chartPoints = historyState.mode === "ready" ? insertChartGapBreaks(historyState.points) : [];
+  const chartTicks = buildTimeTicks(chartPoints);
+  const accumulatingHistoryNote = buildAccumulatingHistoryNote(fullHistoryPoints, range);
   const footerProvider = justTcgAvailable
     ? tcgDetail?.source?.provider || "JustTCG cache"
     : showLegacySnapshot
@@ -315,34 +328,57 @@ export default function CardDetailMarketPanel({
           </div>
         </div>
 
-        <div className="h-[280px] p-5">
+        <div className="p-5">
           {historyState.mode === "ready" ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={historyState.points}>
-                <CartesianGrid stroke="rgba(138,126,112,0.18)" strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="date"
-                  tick={{ fill: "#8a7e70", fontSize: 11 }}
-                  tickFormatter={(value: string) => formatMarketHistoryDateLabel(value)}
-                />
-                <YAxis
-                  tick={{ fill: "#8a7e70", fontSize: 11 }}
-                  tickFormatter={(value: number) => `$${Number(value).toFixed(0)}`}
-                />
-                <Tooltip
-                  contentStyle={{ background: "#faf7f2", border: "1px solid #e3d8c5", borderRadius: 12, color: "#2a2118" }}
-                  formatter={(value: unknown) => [`$${Number(value || 0).toFixed(2)}`, "TCG Market"]}
-                  labelFormatter={(value: unknown) =>
-                    formatMarketHistoryDateLabel(value, {
-                      year: true,
-                    })
-                  }
-                />
-                <Line type="monotone" dataKey="tcgMarket" stroke="#2d6a8f" strokeWidth={2.5} dot={false} />
-              </LineChart>
-            </ResponsiveContainer>
+            <>
+              <div className="h-[280px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={chartPoints}>
+                    <CartesianGrid stroke="rgba(138,126,112,0.18)" strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="t"
+                      type="number"
+                      scale="time"
+                      domain={["dataMin", "dataMax"]}
+                      ticks={chartTicks}
+                      tick={{ fill: "#8a7e70", fontSize: 11 }}
+                      tickFormatter={(value: number) =>
+                        formatMarketHistoryDateLabel(new Date(Number(value)).toISOString().slice(0, 10))
+                      }
+                    />
+                    <YAxis
+                      tick={{ fill: "#8a7e70", fontSize: 11 }}
+                      tickFormatter={(value: number) => `$${Number(value).toFixed(0)}`}
+                    />
+                    <Tooltip
+                      contentStyle={{ background: "#faf7f2", border: "1px solid #e3d8c5", borderRadius: 12, color: "#2a2118" }}
+                      formatter={(value: unknown) => [
+                        value == null ? "—" : `$${Number(value).toFixed(2)}`,
+                        "TCG Market",
+                      ]}
+                      labelFormatter={(value: unknown) =>
+                        formatMarketHistoryDateLabel(new Date(Number(value)).toISOString().slice(0, 10), {
+                          year: true,
+                        })
+                      }
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="tcgMarket"
+                      stroke="#2d6a8f"
+                      strokeWidth={2.5}
+                      dot={false}
+                      connectNulls={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              {accumulatingHistoryNote ? (
+                <p className="mt-3 font-sans text-xs text-[#8a7e70]">{accumulatingHistoryNote}</p>
+              ) : null}
+            </>
           ) : tcgError && !hasResolvedTcgPrice ? (
-            <div className="flex h-full flex-col items-center justify-center gap-3 rounded-[12px] border border-dashed border-[#e7d3ac] bg-[#fbf3e3] px-6 text-center font-sans">
+            <div className="flex h-[280px] flex-col items-center justify-center gap-3 rounded-[12px] border border-dashed border-[#e7d3ac] bg-[#fbf3e3] px-6 text-center font-sans">
               <p className="text-sm font-semibold text-[#9b6a1b]">Unable to load exact-print history</p>
               <p className="max-w-md text-xs text-[#8a7e70]">{tcgError}</p>
               <button
@@ -365,7 +401,7 @@ export default function CardDetailMarketPanel({
               </button>
             </div>
           ) : (
-            <div className="flex h-full flex-col items-center justify-center gap-2 rounded-[12px] border border-dashed border-[#e3d8c5] bg-[#faf7f2] px-6 text-center font-sans">
+            <div className="flex h-[280px] flex-col items-center justify-center gap-2 rounded-[12px] border border-dashed border-[#e3d8c5] bg-[#faf7f2] px-6 text-center font-sans">
               <p className="text-sm font-semibold text-[#5a4e40]">
                 {!hasResolvedTcgPrice ? "Loading exact-print history..." : "Not enough exact-print history yet"}
               </p>
