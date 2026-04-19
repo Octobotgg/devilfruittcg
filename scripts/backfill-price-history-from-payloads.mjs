@@ -75,8 +75,11 @@ async function fetchPayloadVariants(sql) {
      and published.external_product_id = variant.external_product_id
      and published.source_id = variant.source_id
     where variant.price_history_payload is not null
-      and jsonb_typeof(variant.price_history_payload) = 'array'
-      and jsonb_array_length(variant.price_history_payload) >= 2
+      and case
+        when jsonb_typeof(variant.price_history_payload) = 'array'
+          then jsonb_array_length(variant.price_history_payload)
+        else 0
+      end >= 2
     order by published.card_print_id, variant.id
   `;
 }

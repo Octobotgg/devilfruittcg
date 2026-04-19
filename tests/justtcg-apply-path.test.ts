@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import path from "node:path";
@@ -13,6 +14,16 @@ async function importModule<T>(relativePath: string): Promise<T> {
 function normalizeSql(text: string) {
   return text.replace(/\s+/g, " ").trim();
 }
+
+test("payload backfill query handles non-array JSON payloads safely", () => {
+  const source = readFileSync(path.join(REPO_ROOT, "scripts/backfill-price-history-from-payloads.mjs"), "utf8");
+
+  assert.match(
+    normalizeSql(source),
+    /case when jsonb_typeof\(variant\.price_history_payload\) = 'array' then jsonb_array_length\(variant\.price_history_payload\) else 0 end >= 2/,
+    "jsonb_array_length must be guarded by CASE because Postgres can reorder AND predicates",
+  );
+});
 
 test("applySeed upserts variants first, writes active variant ids, and dedupes snapshots by variant", async () => {
   const { applySeed, buildSeed } =
