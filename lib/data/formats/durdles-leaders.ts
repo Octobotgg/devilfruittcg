@@ -5,26 +5,36 @@
  * This file is the single source of truth for the /format/durdles page.
  *
  * ------------------------------------------------------------------------
- * WANTED vs ROGUE
+ * WANTED / ROGUE / BANNED
  * ------------------------------------------------------------------------
- * Leaders have one of two statuses:
+ * Leaders have one of three statuses:
  *   - 'wanted'  → tournament-featured leader. Non-Team-Durdle players must
  *                 use a Wanted leader. If a Wanted leader wins 1st place,
  *                 it gets banned.
  *   - 'rogue'   → all other Durdle leaders. If a Rogue leader wins, it
  *                 becomes Wanted AND Team Durdle creates a new buffed
  *                 Wanted leader.
+ *   - 'banned'  → previously Wanted, won a tournament, and has been
+ *                 retired from the Wanted pool. Banned leaders stay in
+ *                 the dataset as part of the format's history.
+ *
  * The Wanted roster rotates — update the `status` field as the meta shifts.
+ * When banning a leader, also set `bannedNote` with the context (e.g.
+ * "Banned after winning Tournament 1 (Apr 2026)") so the page can show
+ * the ban history in chronological order.
  *
  * ------------------------------------------------------------------------
- * KNOWN PRINT CONFLICTS (card numbers confirmed from physical cards)
+ * KNOWN AMBIGUITIES TO RESOLVE BEFORE SHIPPING
  * ------------------------------------------------------------------------
- * 1. Backpack Durdle and Dude Durdle both print DRDL-013 — genuine
- *    duplicate on the physical cards. Stored as-is.
- * 2. Judge Durdle prints "DRDL-8" (no leading zero). Stored as-is.
- * 3. Monk Durdle prints "DRDL-6" (no leading zero). Stored as-is.
- * 4. Midnight Durdle prints "DRDL-12" (no leading zero). Stored as-is.
- * 5. Sloppy Durdle prints "DRD-666" (no L) — confirmed typo on the card.
+ * 1. Judge Durdle card number reads "DRDL-8" on the art — is it DRDL-008
+ *    (which would conflict with Durdette) or something else? Currently set
+ *    to "DRDL-008-JD" as a placeholder.
+ * 2. Monk Durdle card number reads "DRDL-6" — likely conflicts with Late
+ *    Durdle (DRDL-006). Currently set to "DRDL-006-MD" as a placeholder.
+ * 3. Midnight Durdle reads "DRDL-12" — set to "DRDL-012" (assumed).
+ * 4. Backpack Durdle reads "DRDL-013" — CONFLICTS with Dude Durdle. Set
+ *    to "DRDL-013-BP" as placeholder.
+ * 5. Sloppy Durdle reads "DRD-666" (no L) — likely typo on the card.
  *    Preserved as-is here. Change to "DRDL-666" if you want to fix.
  *
  * NOTE: The leader list is not final — more Durdles are in development.
@@ -65,7 +75,7 @@ export type DurdleKeyword =
   | 'Rush'
   | 'Banish';
 
-export type DurdleStatus = 'wanted' | 'rogue';
+export type DurdleStatus = 'wanted' | 'rogue' | 'banned';
 
 export interface DurdleLeader {
   slug: string;
@@ -78,6 +88,13 @@ export interface DurdleLeader {
   affiliations: DurdleAffiliation[];
   keywords: DurdleKeyword[];
   status: DurdleStatus;
+  /**
+   * Only set when status === 'banned'. Short human-readable note explaining
+   * when / why the leader was banned, e.g.
+   * "Banned after winning Tournament 1 (Apr 2026)".
+   * Displayed under the leader's name in the Banned section.
+   */
+  bannedNote?: string;
   imagePath: string; // public path, e.g. "/format/durdles/dude-durdle.png"
 }
 
@@ -98,7 +115,7 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
   {
     slug: 'backpack-durdle',
     name: 'Backpack Durdle',
-    cardNumber: 'DRDL-013', // prints DRDL-013 — confirmed duplicate with Dude Durdle
+    cardNumber: 'DRDL-013-BP', // conflicts with Dude Durdle — confirm
     power: 6000,
     life: 4,
     colors: ['green', 'yellow'],
@@ -254,7 +271,7 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
   {
     slug: 'judge-durdle',
     name: 'Judge Durdle',
-    cardNumber: 'DRDL-8', // confirmed from physical card
+    cardNumber: 'DRDL-008-JD', // card reads "DRDL-8" — confirm real number
     power: 6000,
     life: 5,
     colors: ['purple'],
@@ -332,7 +349,7 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
   {
     slug: 'midnight-durdle',
     name: 'Midnight Durdle',
-    cardNumber: 'DRDL-12', // confirmed from physical card
+    cardNumber: 'DRDL-012', // card reads "DRDL-12" — assumed 012
     power: 6000,
     life: 4,
     colors: ['red', 'green'],
@@ -345,7 +362,7 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
   {
     slug: 'monk-durdle',
     name: 'Monk Durdle',
-    cardNumber: 'DRDL-6', // confirmed from physical card
+    cardNumber: 'DRDL-006-MD', // card reads "DRDL-6" — conflicts with Late Durdle
     power: 6000,
     life: 6,
     colors: ['green', 'black'],
@@ -357,7 +374,7 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
   },
   {
     slug: 'moto',
-    name: 'Moto Durdle',
+    name: 'Moto',
     cardNumber: 'DRDL-676',
     power: 6000,
     life: 3,
@@ -391,7 +408,8 @@ export const DURDLE_LEADERS: DurdleLeader[] = [
     attributes: ['unknown'],
     affiliations: ['Captain Pirates', 'Elite 4'],
     keywords: [],
-    status: 'wanted',
+    status: 'banned',
+    bannedNote: 'Banned after winning Tournament 1 (Apr 2026)',
     imagePath: '/format/durdles/pro-durdle.png',
   },
   {
@@ -471,7 +489,7 @@ export const DURDLE_RULES: DurdleRule[] = [
   {
     title: 'Wanted Leaders for Non-Team-Durdle Players',
     description:
-      "Players who are not part of Team Durdle, and new Durdles who don't have their own leaders, may only choose from the current Wanted leader pool. Team Durdle members can only play their Rogue/Wanted leader.",
+      'Players who are not part of Team Durdle may only choose from the current Wanted leader pool. Team Durdle members may play any Durdle leader, Wanted or Rogue.',
   },
   {
     title: 'No Block Rotation',
@@ -491,7 +509,7 @@ export const DURDLE_RULES: DurdleRule[] = [
   {
     title: 'Wanted Wins → Banned',
     description:
-      'If a Wanted leader wins 1st place in a Durdle tournament, that leader is banned from the Wanted pool going forward.',
+      'If a Wanted leader wins 1st place in a Durdles tournament, that leader is banned from the Wanted pool going forward.',
   },
   {
     title: 'Rogue Wins → Promoted',
@@ -507,3 +525,12 @@ export const getWantedLeaders = (): DurdleLeader[] =>
 /** Convenience helper — the current Rogue roster. */
 export const getRogueLeaders = (): DurdleLeader[] =>
   DURDLE_LEADERS.filter((l) => l.status === 'rogue');
+
+/**
+ * Convenience helper — the Banned pool (format's hall of fame/shame).
+ * Leaders are returned in the order they appear in DURDLE_LEADERS, which
+ * mirrors ban order if entries are reordered on ban. If you want strict
+ * chronological ban order, sort by a future `bannedAt` date field.
+ */
+export const getBannedLeaders = (): DurdleLeader[] =>
+  DURDLE_LEADERS.filter((l) => l.status === 'banned');

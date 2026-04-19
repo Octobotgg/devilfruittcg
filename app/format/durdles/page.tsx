@@ -1,6 +1,7 @@
 import {
   DURDLE_LEADERS,
   DURDLE_RULES,
+  getBannedLeaders,
   getWantedLeaders,
 } from "@/lib/data/formats/durdles-leaders";
 import DurdlesGallery from "./DurdlesGallery";
@@ -22,6 +23,7 @@ function InstagramIcon() {
 
 export default function DurdlesPage() {
   const wantedLeaders = getWantedLeaders();
+  const bannedLeaders = getBannedLeaders();
 
   return (
     <main className="min-h-screen bg-[var(--color-cream)]">
@@ -134,7 +136,7 @@ export default function DurdlesPage() {
       <div className="manga-divider max-w-2xl mx-auto mb-2" />
 
       {/* ── D + E. Currently Wanted + Full Gallery (client) ──────── */}
-      <DurdlesGallery leaders={DURDLE_LEADERS} wantedLeaders={wantedLeaders} />
+      <DurdlesGallery leaders={DURDLE_LEADERS} wantedLeaders={wantedLeaders} bannedLeaders={bannedLeaders} />
     </main>
   );
 }

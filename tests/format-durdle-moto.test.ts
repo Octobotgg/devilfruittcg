@@ -5,12 +5,12 @@ import test from "node:test";
 
 const REPO_ROOT = "/Users/javierbarro/Documents/Playground/devilfruittcg";
 
-test("Moto uses the updated Moto Durdle identity", () => {
+test("Moto uses the current Durdles replacement data identity", () => {
   const source = fs.readFileSync(
     path.join(REPO_ROOT, "lib/data/formats/durdles-leaders.ts"),
     "utf8",
   );
 
-  assert.match(source, /slug: 'moto'[\s\S]*name: 'Moto Durdle'/);
-  assert.doesNotMatch(source, /slug: 'moto'[\s\S]*name: 'Moto'/);
+  assert.match(source, /slug: 'moto'[\s\S]*name: 'Moto'/);
+  assert.doesNotMatch(source, /slug: 'moto'[\s\S]*name: 'Moto Durdle'/);
 });

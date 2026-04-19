@@ -5,7 +5,7 @@ import test from "node:test";
 
 const REPO_ROOT = "/Users/javierbarro/Documents/Playground/devilfruittcg";
 
-test("rule two explains Wanted pool eligibility for new Durdles", () => {
+test("rule two matches the current Durdles replacement data eligibility copy", () => {
   const source = fs.readFileSync(
     path.join(REPO_ROOT, "lib/data/formats/durdles-leaders.ts"),
     "utf8",
@@ -13,10 +13,10 @@ test("rule two explains Wanted pool eligibility for new Durdles", () => {
 
   assert.match(
     source,
-    /Players who are not part of Team Durdle, and new Durdles who don't have their own leaders, may only choose from the current Wanted leader pool\./,
+    /Players who are not part of Team Durdle may only choose from the current Wanted leader pool\./,
   );
   assert.match(
     source,
-    /Team Durdle members can only play their Rogue\/Wanted leader\./,
+    /Team Durdle members may play any Durdle leader, Wanted or Rogue\./,
   );
 });

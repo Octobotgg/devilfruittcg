@@ -48,6 +48,21 @@ function WantedBadge({ small = false }: { small?: boolean }) {
   );
 }
 
+function BannedBadge({ small = false }: { small?: boolean }) {
+  return (
+    <span
+      className={`
+        inline-flex items-center justify-center font-bold tracking-widest uppercase
+        bg-[#8f1d1d] text-[var(--color-cream)] rounded
+        ${small ? "text-[9px] px-1.5 py-0.5" : "text-xs px-2 py-1"}
+      `}
+      style={{ fontFamily: "var(--font-pirata)", letterSpacing: "0.15em" }}
+    >
+      BANNED
+    </span>
+  );
+}
+
 function LeaderCard({
   leader,
   onClick,
@@ -58,6 +73,7 @@ function LeaderCard({
   large?: boolean;
 }) {
   const isWanted = leader.status === "wanted";
+  const isBanned = leader.status === "banned";
   return (
     <button
       onClick={() => onClick(leader)}
@@ -69,6 +85,8 @@ function LeaderCard({
           group-hover:-translate-y-1 group-hover:shadow-lg
           ${isWanted
             ? "ring-2 ring-[var(--color-gold)] shadow-[0_0_12px_rgba(212,160,84,0.35)]"
+            : isBanned
+            ? "ring-2 ring-[#8f1d1d] shadow-[0_0_12px_rgba(143,29,29,0.28)]"
             : "ring-1 ring-[rgba(212,160,84,0.2)]"
           }
         `}
@@ -84,6 +102,7 @@ function LeaderCard({
             alt={leader.name}
             fill
             className="object-cover"
+            style={isBanned ? { filter: "grayscale(40%)", opacity: 0.88 } : undefined}
             sizes={
               large
                 ? "(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
@@ -95,6 +114,11 @@ function LeaderCard({
           {isWanted && (
             <div className="absolute top-2 left-2">
               <WantedBadge small={!large} />
+            </div>
+          )}
+          {isBanned && (
+            <div className="absolute top-2 left-2">
+              <BannedBadge small={!large} />
             </div>
           )}
         </div>
@@ -113,6 +137,14 @@ function LeaderCard({
           >
             {leader.cardNumber}
           </p>
+          {isBanned && leader.bannedNote ? (
+            <p
+              className="mt-1 line-clamp-2 text-[11px] italic text-[var(--color-text-mid)]"
+              style={{ fontFamily: "var(--font-crimson)" }}
+            >
+              {leader.bannedNote}
+            </p>
+          ) : null}
         </div>
       </div>
     </button>
@@ -127,12 +159,14 @@ function FilterChip({
   onClick,
   gold,
   sunset,
+  crimson,
 }: {
   label: string;
   active: boolean;
   onClick: () => void;
   gold?: boolean;
   sunset?: boolean;
+  crimson?: boolean;
 }) {
   return (
     <button
@@ -143,6 +177,8 @@ function FilterChip({
           active
             ? gold
               ? "border-[var(--color-gold)] bg-[rgba(212,160,84,0.18)] text-[var(--color-gold)]"
+              : crimson
+              ? "border-[#8f1d1d] bg-[rgba(143,29,29,0.16)] text-[#8f1d1d]"
               : sunset
               ? "border-[var(--color-sunset)] bg-[rgba(209,91,58,0.18)] text-[var(--color-sunset)]"
               : "border-[var(--color-gold)] bg-[rgba(212,160,84,0.18)] text-[var(--color-gold)]"
@@ -217,12 +253,19 @@ function LightboxModal({
             </button>
 
             {/* Card image */}
-            <div className="relative w-full aspect-[2/3] rounded-xl overflow-hidden ring-2 ring-[rgba(212,160,84,0.5)] shadow-2xl">
+            <div
+              className={`relative w-full aspect-[2/3] rounded-xl overflow-hidden shadow-2xl ${
+                leader.status === "banned"
+                  ? "ring-2 ring-[#8f1d1d]"
+                  : "ring-2 ring-[rgba(212,160,84,0.5)]"
+              }`}
+            >
               <Image
                 src={leader.imagePath}
                 alt={leader.name}
                 fill
                 className="object-cover"
+                style={leader.status === "banned" ? { filter: "grayscale(40%)", opacity: 0.88 } : undefined}
                 sizes="400px"
                 priority
               />
@@ -243,7 +286,16 @@ function LightboxModal({
                 {leader.cardNumber}
               </span>
               {leader.status === "wanted" && <WantedBadge />}
+              {leader.status === "banned" && <BannedBadge />}
             </div>
+            {leader.status === "banned" && leader.bannedNote ? (
+              <p
+                className="max-w-xs text-center text-sm italic text-[var(--color-parchment-dark)]"
+                style={{ fontFamily: "var(--font-crimson)" }}
+              >
+                {leader.bannedNote}
+              </p>
+            ) : null}
           </motion.div>
         </motion.div>
       )}
@@ -256,9 +308,10 @@ function LightboxModal({
 interface Props {
   leaders: DurdleLeader[];
   wantedLeaders: DurdleLeader[];
+  bannedLeaders: DurdleLeader[];
 }
 
-export default function DurdlesGallery({ leaders, wantedLeaders }: Props) {
+export default function DurdlesGallery({ leaders, wantedLeaders, bannedLeaders }: Props) {
   const [selectedLeader, setSelectedLeader] = useState<DurdleLeader | null>(null);
 
   // Filter state
@@ -328,6 +381,40 @@ export default function DurdlesGallery({ leaders, wantedLeaders }: Props) {
 
       <div className="manga-divider mb-2" />
 
+      {/* ── E. Banned ─────────────────────────────────────────────── */}
+      <section className="py-14">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl text-[var(--color-navy)] mb-1">Banned</h2>
+          <p
+            className="text-sm text-[var(--color-text-mid)]"
+            style={{ fontFamily: "var(--font-crimson)" }}
+          >
+            Leaders retired from the Wanted pool after winning a tournament.
+          </p>
+        </div>
+        {bannedLeaders.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            {bannedLeaders.map((leader) => (
+              <LeaderCard
+                key={leader.slug}
+                leader={leader}
+                onClick={setSelectedLeader}
+                large
+              />
+            ))}
+          </div>
+        ) : (
+          <div
+            className="rounded-xl border border-[rgba(212,160,84,0.25)] bg-[var(--color-parchment)] px-4 py-8 text-center text-sm text-[var(--color-text-light)]"
+            style={{ fontFamily: "var(--font-dm)" }}
+          >
+            No leaders have been banned yet.
+          </div>
+        )}
+      </section>
+
+      <div className="manga-divider mb-2" />
+
       {/* ── E. All Durdle Leaders ────────────────────────────────── */}
       <section className="py-14">
         <div className="text-center mb-8">
@@ -357,6 +444,12 @@ export default function DurdlesGallery({ leaders, wantedLeaders }: Props) {
               active={statusFilter === "rogue"}
               onClick={() => setStatusFilter(statusFilter === "rogue" ? null : "rogue")}
               sunset
+            />
+            <FilterChip
+              label="Banned"
+              active={statusFilter === "banned"}
+              onClick={() => setStatusFilter(statusFilter === "banned" ? null : "banned")}
+              crimson
             />
           </div>
 
