@@ -127,15 +127,15 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
 
   if (!decks.length) {
     return (
-      <section className="rounded-[2rem] border border-white/10 bg-black/20 p-6">
+      <section className="profile-ledger-surface rounded-[2rem] p-6">
         <div className="flex items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Public Decks</p>
-            <h2 className="mt-2 text-2xl font-black text-white">Open Deck Ledger</h2>
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Public Decks</p>
+            <h2 className="mt-2 text-2xl font-black text-[var(--color-navy)]">Open Deck Ledger</h2>
           </div>
           <Globe2 className="h-5 w-5 text-[var(--theme-accent-2)]" />
         </div>
-        <p className="mt-5 text-sm text-white/50">
+        <p className="mt-5 text-sm text-[var(--color-text-mid)]">
           {isOwner
             ? "No public decks yet. Head to Crew Hangar and flip a deck public to show it here."
             : "No public decks available yet."}
@@ -145,18 +145,18 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
   }
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-black/20 p-6">
+    <section className="profile-ledger-surface rounded-[2rem] p-6">
       <CardModal card={modalCard} onClose={() => setModalCard(null)} />
 
       <div className="flex items-end justify-between gap-3">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Public Decks</p>
-          <h2 className="mt-2 text-2xl font-black text-white">Open Deck Ledger</h2>
+          <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Public Decks</p>
+          <h2 className="mt-2 text-2xl font-black text-[var(--color-navy)]">Open Deck Ledger</h2>
         </div>
         <Globe2 className="h-5 w-5 text-[var(--theme-accent-2)]" />
       </div>
 
-      <p className="mt-3 text-sm text-white/55">
+      <p className="mt-3 text-sm text-[var(--color-text-mid)]">
         Public decks stay view-only here. Open a card to inspect the full art, or head to Crew Hangar to manage visibility.
       </p>
 
@@ -169,7 +169,7 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
             <article
               key={deck.deckId}
               id={`deck-${deck.deckId}`}
-              className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]"
+              className="profile-paper-card overflow-hidden rounded-[1.75rem]"
             >
               <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex min-w-0 items-start gap-3">
@@ -178,11 +178,11 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
                       <img
                         src={`/api/card-image?id=${encodeURIComponent(deck.leaderImageId)}`}
                         alt={deck.leaderName || deck.name}
-                        className="h-20 w-14 rounded-xl border border-white/15 object-cover object-top"
+                        className="h-20 w-14 rounded-xl border border-[rgba(212,160,84,0.22)] object-cover object-top"
                       />
                     ) : (
-                      <div className="flex h-20 w-14 items-center justify-center rounded-xl border border-dashed border-white/15 bg-black/20">
-                        <Crown className="h-4 w-4 text-white/25" />
+                      <div className="flex h-20 w-14 items-center justify-center rounded-xl border border-dashed border-[rgba(212,160,84,0.24)] bg-[rgba(255,249,235,0.62)]">
+                        <Crown className="h-4 w-4 text-[var(--color-text-light)]" />
                       </div>
                     )}
                     {deck.isFeatured ? (
@@ -194,32 +194,32 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
 
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <p className="truncate text-lg font-black text-white">{deck.name}</p>
+                      <p className="truncate text-lg font-black text-[var(--color-navy)]">{deck.name}</p>
                       {deck.isFeatured ? (
                         <span className="inline-flex items-center gap-1 rounded-full border border-[var(--theme-accent)]/25 bg-[var(--theme-accent)]/12 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--theme-accent-2)]">
                           Flagship
                         </span>
                       ) : null}
                     </div>
-                    <p className="text-sm text-white/55">{deck.leaderName || "No leader set"}</p>
+                    <p className="text-sm text-[var(--color-text-mid)]">{deck.leaderName || "No leader set"}</p>
 
                     <div className="mt-3 flex flex-wrap gap-2">
                       {deck.leaderColors.length ? deck.leaderColors.map((color) => (
                         <span
                           key={`${deck.deckId}-${color}`}
-                          className="inline-flex items-center gap-1 rounded-full border border-white/12 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/75"
+                          className="inline-flex items-center gap-1 rounded-full border border-[rgba(212,160,84,0.22)] bg-[rgba(255,249,235,0.72)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-mid)]"
                         >
                           <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: COLOR_HEX[color] || "#999" }} />
                           {color}
                         </span>
                       )) : (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-white/12 bg-black/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white/50">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-[rgba(212,160,84,0.22)] bg-[rgba(255,249,235,0.72)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-light)]">
                           Unknown color
                         </span>
                       )}
                     </div>
 
-                    <div className="mt-3 flex flex-wrap gap-4 text-xs text-white/45">
+                    <div className="mt-3 flex flex-wrap gap-4 text-xs text-[var(--color-text-light)]">
                       <span>{deck.mainDeckCount} cards</span>
                       <span>Updated {new Date(deck.updatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
                     </div>
@@ -232,7 +232,7 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
                   className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
                     expanded
                       ? "border-[var(--theme-accent)]/30 bg-[var(--theme-accent)]/12 text-[var(--theme-accent-2)]"
-                      : "border-white/12 bg-black/25 text-white/75 hover:text-white"
+                      : "border-[rgba(212,160,84,0.22)] bg-[rgba(255,249,235,0.72)] text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
                   }`}
                 >
                   {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -241,8 +241,8 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
               </div>
 
               {expanded ? (
-                <div className="border-t border-white/10 bg-black/20 p-4">
-                  <div className="mb-4 flex items-center gap-2 rounded-xl border border-white/8 bg-black/20 px-3 py-2 text-xs text-white/55">
+                <div className="border-t border-[rgba(212,160,84,0.18)] bg-[rgba(255,249,235,0.42)] p-4">
+                  <div className="mb-4 flex items-center gap-2 rounded-xl border border-[rgba(212,160,84,0.18)] bg-[rgba(250,247,242,0.78)] px-3 py-2 text-xs text-[var(--color-text-mid)]">
                     <Eye className="h-4 w-4 text-[var(--theme-accent-2)]" />
                     Read-only preview. Open any card image to inspect it.
                   </div>
@@ -251,7 +251,7 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
                     {groups.map((group) => (
                       <div key={`${deck.deckId}-${group.key}`}>
                         <div className="mb-3 flex items-center justify-between gap-3">
-                          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/40">
+                          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">
                             {group.label} ({group.total})
                           </p>
                         </div>
@@ -263,18 +263,18 @@ export default function PublicDeckArchive({ decks, targetUserId }: PublicDeckArc
                               onClick={() => setModalCard(buildCardModalData(card))}
                               className="group relative w-[5.6rem] text-left sm:w-[6rem]"
                             >
-                              <div className="overflow-hidden rounded-2xl border border-white/12 bg-black/25 transition-colors group-hover:border-white/25">
+                              <div className="overflow-hidden rounded-2xl border border-[rgba(212,160,84,0.22)] bg-[rgba(255,249,235,0.78)] transition-colors group-hover:border-[rgba(212,160,84,0.42)]">
                                 <img
                                   src={`/api/card-image?id=${encodeURIComponent(card.imageCardId)}`}
                                   alt={card.name}
                                   className={`w-full object-cover object-top ${group.key === "leader" ? "h-32 sm:h-36" : "h-28 sm:h-32"}`}
                                 />
                               </div>
-                              <span className="absolute right-1 top-1 rounded-full bg-black/75 px-2 py-0.5 text-[10px] font-black text-white">
+                              <span className="absolute right-1 top-1 rounded-full bg-[var(--color-navy)] px-2 py-0.5 text-[10px] font-black text-[var(--color-cream)]">
                                 x{card.quantity}
                               </span>
-                              <p className="mt-2 line-clamp-2 text-xs font-bold text-white">{card.name}</p>
-                              <p className="text-[10px] uppercase tracking-[0.08em] text-white/45">
+                              <p className="mt-2 line-clamp-2 text-xs font-bold text-[var(--color-navy)]">{card.name}</p>
+                              <p className="text-[10px] uppercase tracking-[0.08em] text-[var(--color-text-light)]">
                                 {card.type}{card.cost != null ? ` · Cost ${card.cost}` : ""}
                               </p>
                             </button>

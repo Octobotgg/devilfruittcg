@@ -46,7 +46,7 @@ function LoadingState() {
   return (
     <div className="mx-auto max-w-6xl pb-16">
       <section className="journal-surface rounded-[2rem] p-8">
-        <p className="text-sm text-white/55">Loading your captain profile...</p>
+        <p className="text-sm text-[var(--color-text-mid)]">Loading your captain profile...</p>
       </section>
     </div>
   );
@@ -56,11 +56,11 @@ function SignedOutState() {
   return (
     <div className="mx-auto max-w-6xl pb-16">
       <section className="journal-surface rounded-[2rem] p-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,175,55,0.28)] bg-[rgba(10,10,10,0.56)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,160,84,0.3)] bg-[rgba(212,160,84,0.12)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
           <ShieldCheck className="h-3.5 w-3.5" /> Account access
         </div>
-        <h1 className="mt-5 text-3xl font-black text-white">Sign in to view your captain profile</h1>
-        <p className="mt-2 text-sm text-white/60">Your profile page lives here, even when your public handle is private.</p>
+        <h1 className="mt-5 text-3xl font-black text-[var(--color-navy)]">Sign in to view your captain profile</h1>
+        <p className="mt-2 text-sm text-[var(--color-text-mid)]">Your profile page lives here, even when your public handle is private.</p>
         <Link
           href="/login?next=%2Faccount%2Fprofile"
           className="luxury-action mt-5 inline-flex min-h-11 items-center justify-center rounded-xl px-5 text-sm font-bold text-[var(--obsidian-soft)]"
@@ -76,17 +76,17 @@ function ErrorState({ message }: { message: string }) {
   return (
     <div className="mx-auto max-w-6xl pb-16">
       <section className="journal-surface rounded-[2rem] p-8">
-        <p className="text-sm text-red-200">{message}</p>
+        <p className="text-sm text-[var(--color-sunset)]">{message}</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
             href="/account/settings"
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/12 bg-black/25 px-4 text-sm font-bold text-white/80 hover:text-white"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[rgba(212,160,84,0.22)] bg-[rgba(255,249,235,0.72)] px-4 text-sm font-bold text-[var(--color-text-mid)] hover:text-[var(--color-navy)]"
           >
             Account Settings
           </Link>
           <Link
             href="/decks"
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[rgba(212,175,55,0.24)] bg-[rgba(212,175,55,0.08)] px-4 text-sm font-bold text-[var(--theme-accent-2)]"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[rgba(212,160,84,0.34)] bg-[rgba(212,160,84,0.12)] px-4 text-sm font-bold text-[var(--color-gold-dark)]"
           >
             Crew Hangar
           </Link>
@@ -136,20 +136,20 @@ export default function AccountProfilePage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 pb-16">
-      <section className="journal-surface relative overflow-hidden rounded-[2rem] p-6 md:p-8">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(212,175,55,0.15),transparent_35%),radial-gradient(circle_at_80%_15%,rgba(59,130,246,0.12),transparent_35%)]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:linear-gradient(0deg,transparent_24%,rgba(248,212,121,0.8)_25%,transparent_26%),linear-gradient(90deg,transparent_24%,rgba(248,212,121,0.45)_25%,transparent_26%)] [background-size:26px_26px]" />
+      <section className="profile-ledger-surface relative rounded-[2rem] p-6 md:p-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(212,160,84,0.14),transparent_35%),radial-gradient(circle_at_80%_15%,rgba(45,106,143,0.08),transparent_35%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:linear-gradient(0deg,transparent_24%,rgba(212,160,84,0.58)_25%,transparent_26%),linear-gradient(90deg,transparent_24%,rgba(212,160,84,0.32)_25%,transparent_26%)] [background-size:26px_26px]" />
         <div className="relative flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col gap-5 md:flex-row md:items-center">
             <ProfileAvatar avatarKey={profile.avatarKey} displayName={profile.displayName} size="xl" />
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--theme-accent-2)]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(212,160,84,0.3)] bg-[rgba(212,160,84,0.12)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
                 <ScrollText className="h-3.5 w-3.5" /> Your captain profile
               </div>
-              <h1 className="mt-4 text-4xl font-black text-white">{profile.displayName}</h1>
-              <p className="mt-1 text-lg text-white/50">@{profile.username || "claim-your-handle"}</p>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/65">{profile.bio || "No bio added yet."}</p>
-              <div className="mt-4 flex flex-wrap gap-3 text-sm text-white/55">
+              <h1 className="mt-4 text-4xl font-black text-[var(--color-navy)]">{profile.displayName}</h1>
+              <p className="mt-1 text-lg text-[var(--color-text-light)]">@{profile.username || "claim-your-handle"}</p>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--color-text-mid)]">{profile.bio || "No bio added yet."}</p>
+              <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--color-text-mid)]">
                 <span>Member since {new Date(profile.memberSince).toLocaleDateString(undefined, { month: "long", year: "numeric" })}</span>
                 <span className="inline-flex items-center gap-1">
                   {profile.profileVisibility === "private" ? <Lock className="h-3.5 w-3.5" /> : <Compass className="h-3.5 w-3.5" />}
@@ -171,7 +171,7 @@ export default function AccountProfilePage() {
                 allowFollow={false}
               />
             ) : (
-              <div className="inline-flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/70">
+              <div className="inline-flex items-center gap-3 rounded-xl border border-[rgba(212,160,84,0.2)] bg-[rgba(255,249,235,0.72)] px-4 py-3 text-sm text-[var(--color-text-mid)]">
                 <span>{followerCount} followers</span>
                 <span>{followingCount} following</span>
               </div>
@@ -180,14 +180,14 @@ export default function AccountProfilePage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/account/settings"
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/12 bg-black/25 px-4 text-sm font-bold text-white/80 transition-colors hover:text-white"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[rgba(212,160,84,0.22)] bg-[rgba(255,249,235,0.72)] px-4 text-sm font-bold text-[var(--color-text-mid)] transition-colors hover:text-[var(--color-navy)]"
               >
                 Account Settings
               </Link>
               {publicProfileHref ? (
                 <Link
                   href={publicProfileHref}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[rgba(212,175,55,0.24)] bg-[rgba(212,175,55,0.08)] px-4 text-sm font-bold text-[var(--theme-accent-2)]"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[rgba(212,160,84,0.34)] bg-[rgba(212,160,84,0.12)] px-4 text-sm font-bold text-[var(--color-gold-dark)]"
                 >
                   Open Public URL
                   <ExternalLink className="h-4 w-4" />
@@ -207,11 +207,11 @@ export default function AccountProfilePage() {
       <BadgeBoard badges={badges} />
 
       <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="rounded-[2rem] border border-white/10 bg-black/20 p-6">
+        <div className="profile-ledger-surface rounded-[2rem] p-6">
           <div className="flex items-end justify-between gap-3">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Recent Activity</p>
-              <h2 className="mt-2 text-2xl font-black text-white">Captain&apos;s Log</h2>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Recent Activity</p>
+              <h2 className="mt-2 text-2xl font-black text-[var(--color-navy)]">Captain&apos;s Log</h2>
             </div>
           </div>
           <div className="mt-5">
@@ -220,64 +220,64 @@ export default function AccountProfilePage() {
         </div>
 
         <div className="space-y-6">
-          <section className="rounded-[2rem] border border-white/10 bg-black/20 p-6">
+          <section className="profile-ledger-surface rounded-[2rem] p-6">
             <div className="flex items-end justify-between gap-3">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Social Circle</p>
-                <h2 className="mt-2 text-2xl font-black text-white">Crew Manifest</h2>
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Social Circle</p>
+                <h2 className="mt-2 text-2xl font-black text-[var(--color-navy)]">Crew Manifest</h2>
               </div>
               <Crown className="h-5 w-5 text-[var(--theme-accent-2)]" />
             </div>
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/40">Followers</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">Followers</p>
                 <div className="mt-3 space-y-3">
                   {followers.length ? followers.map((row) => (
-                    <div key={`follower-${row.userId}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                    <div key={`follower-${row.userId}`} className="profile-soft-tile flex items-center gap-3 rounded-2xl p-3">
                       <ProfileAvatar avatarKey={row.avatarKey} displayName={row.displayName} size="sm" />
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-black text-white">{row.displayName}</p>
-                        <p className="text-xs text-white/45">@{row.username || "pirate"}</p>
+                        <p className="truncate text-sm font-black text-[var(--color-navy)]">{row.displayName}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">@{row.username || "pirate"}</p>
                       </div>
                     </div>
-                  )) : <p className="text-sm text-white/45">No followers yet.</p>}
+                  )) : <p className="text-sm text-[var(--color-text-light)]">No followers yet.</p>}
                 </div>
               </div>
               <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/40">Following</p>
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--color-text-light)]">Following</p>
                 <div className="mt-3 space-y-3">
                   {following.length ? following.map((row) => (
-                    <div key={`following-${row.userId}`} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                    <div key={`following-${row.userId}`} className="profile-soft-tile flex items-center gap-3 rounded-2xl p-3">
                       <ProfileAvatar avatarKey={row.avatarKey} displayName={row.displayName} size="sm" />
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-black text-white">{row.displayName}</p>
-                        <p className="text-xs text-white/45">@{row.username || "pirate"}</p>
+                        <p className="truncate text-sm font-black text-[var(--color-navy)]">{row.displayName}</p>
+                        <p className="text-xs text-[var(--color-text-light)]">@{row.username || "pirate"}</p>
                       </div>
                     </div>
-                  )) : <p className="text-sm text-white/45">You are not following anyone yet.</p>}
+                  )) : <p className="text-sm text-[var(--color-text-light)]">You are not following anyone yet.</p>}
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="rounded-[2rem] border border-white/10 bg-black/20 p-6">
+          <section className="profile-ledger-surface rounded-[2rem] p-6">
             <div className="flex items-end justify-between gap-3">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">Quick Links</p>
-                <h2 className="mt-2 text-2xl font-black text-white">Harbor Routes</h2>
+                <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">Quick Links</p>
+                <h2 className="mt-2 text-2xl font-black text-[var(--color-navy)]">Harbor Routes</h2>
               </div>
             </div>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <Link href="/decks" className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm font-bold text-white transition-colors hover:border-white/20">
+              <Link href="/decks" className="profile-soft-tile rounded-2xl p-4 text-sm font-bold text-[var(--color-navy)]">
                 Crew Hangar
               </Link>
-              <Link href="/collection" className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm font-bold text-white transition-colors hover:border-white/20">
+              <Link href="/collection" className="profile-soft-tile rounded-2xl p-4 text-sm font-bold text-[var(--color-navy)]">
                 Collection
               </Link>
-              <Link href="/players" className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm font-bold text-white transition-colors hover:border-white/20">
+              <Link href="/players" className="profile-soft-tile rounded-2xl p-4 text-sm font-bold text-[var(--color-navy)]">
                 Find Players
               </Link>
-              <Link href="/account/settings" className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm font-bold text-white transition-colors hover:border-white/20">
+              <Link href="/account/settings" className="profile-soft-tile rounded-2xl p-4 text-sm font-bold text-[var(--color-navy)]">
                 Settings
               </Link>
             </div>
