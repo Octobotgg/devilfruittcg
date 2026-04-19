@@ -68,6 +68,30 @@ test("extractHistoryRowsFromPayload maps JustTCG payload points into card print 
   );
 });
 
+test("extractHistoryRowsFromPayload maps a 30-day payload without truncation", async () => {
+  const { extractHistoryRowsFromPayload } =
+    await importModule<typeof import("../scripts/justtcg-price-history-payload.mjs")>(
+      "scripts/justtcg-price-history-payload.mjs",
+    );
+  const start = Date.parse("2026-03-01T00:00:00.000Z") / 1000;
+  const payload = Array.from({ length: 30 }, (_, index) => ({
+    p: 1 + index / 100,
+    t: start + index * 24 * 60 * 60,
+  }));
+
+  const rows = extractHistoryRowsFromPayload({
+    cardPrintId: "EB01-001",
+    externalProductId: "justtcg:oden",
+    externalVariantId: "justtcg:oden_near-mint",
+    sourceId: "justtcg",
+    payload,
+  });
+
+  assert.equal(rows.length, 30);
+  assert.equal(rows[0].recorded_at, "2026-03-01T00:00:00.000Z");
+  assert.equal(rows.at(-1)?.recorded_at, "2026-03-30T00:00:00.000Z");
+});
+
 test("parseArgs accepts --set and --fetch-page-size", async () => {
   const { parseArgs } = await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
     "scripts/import-justtcg-to-drizzle.mjs",
@@ -80,8 +104,20 @@ test("parseArgs accepts --set and --fetch-page-size", async () => {
 });
 
 test("buildJusttcgCardsUrl includes the cards query params", async () => {
+  type ImportModule = {
+    buildJusttcgCardsUrl: (options: {
+      game?: string;
+      limit?: number;
+      offset?: number;
+      updatedAfter?: number;
+      set?: string;
+      includeNullPrices?: boolean;
+      includePriceHistory?: boolean;
+      priceHistoryDuration?: string;
+    }) => string;
+  };
   const { buildJusttcgCardsUrl } =
-    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+    await importModule<ImportModule>(
       "scripts/import-justtcg-to-drizzle.mjs",
     );
 
@@ -100,6 +136,8 @@ test("buildJusttcgCardsUrl includes the cards query params", async () => {
   assert.equal(parsed.searchParams.get("updated_after"), "1710000000");
   assert.equal(parsed.searchParams.get("set"), "OP-13");
   assert.equal(parsed.searchParams.get("include_null_prices"), "true");
+  assert.equal(parsed.searchParams.get("include_price_history"), "true");
+  assert.equal(parsed.searchParams.get("priceHistoryDuration"), "30d");
 });
 
 test("buildSeed keeps one active approved mapping when one JustTCG product is duplicated across prints", async () => {

@@ -15,6 +15,7 @@ const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-relea
 const DEFAULT_CHUNK_SIZE = 250;
 const JUSTTCG_MAX_PLAN_LIMIT = 100;
 const JUSTTCG_INCREMENTAL_FETCH_DELAY_MS = 3000;
+const SCHEDULED_PRICE_HISTORY_DURATION = "30d";
 
 const GAME_ID = "one-piece-card-game";
 const JUSTTCG_CARDS_URL = "https://api.justtcg.com/v1/cards";
@@ -186,9 +187,11 @@ function buildJusttcgCardsUrl({
   game = GAME_ID,
   limit = JUSTTCG_MAX_PLAN_LIMIT,
   offset = 0,
-  updatedAfter,
-  set,
+  updatedAfter = null,
+  set = null,
   includeNullPrices = true,
+  includePriceHistory = true,
+  priceHistoryDuration = SCHEDULED_PRICE_HISTORY_DURATION,
 } = {}) {
   const params = new URLSearchParams({
     game,
@@ -199,6 +202,8 @@ function buildJusttcgCardsUrl({
   if (updatedAfter != null) params.set("updated_after", String(updatedAfter));
   if (set) params.set("set", String(set));
   if (includeNullPrices) params.set("include_null_prices", "true");
+  if (includePriceHistory) params.set("include_price_history", "true");
+  if (priceHistoryDuration) params.set("priceHistoryDuration", String(priceHistoryDuration));
 
   return `${JUSTTCG_CARDS_URL}?${params.toString()}`;
 }
@@ -391,8 +396,10 @@ async function fetchJusttcgCatalogPage({
   limit = JUSTTCG_MAX_PLAN_LIMIT,
   offset = 0,
   includeNullPrices = true,
-  set,
-  updatedAfter,
+  includePriceHistory = true,
+  priceHistoryDuration = SCHEDULED_PRICE_HISTORY_DURATION,
+  set = null,
+  updatedAfter = null,
 }) {
   const url = buildJusttcgCardsUrl({
     game,
@@ -400,6 +407,8 @@ async function fetchJusttcgCatalogPage({
     offset,
     set,
     includeNullPrices,
+    includePriceHistory,
+    priceHistoryDuration,
     updatedAfter,
   });
 
@@ -452,7 +461,9 @@ async function fetchJusttcgCatalogSince({
   game = GAME_ID,
   limit = JUSTTCG_MAX_PLAN_LIMIT,
   includeNullPrices = true,
-  set,
+  includePriceHistory = true,
+  priceHistoryDuration = SCHEDULED_PRICE_HISTORY_DURATION,
+  set = null,
   delayMs = JUSTTCG_INCREMENTAL_FETCH_DELAY_MS,
   sleepImpl = sleep,
 }) {
@@ -468,6 +479,8 @@ async function fetchJusttcgCatalogSince({
       limit,
       offset,
       includeNullPrices,
+      includePriceHistory,
+      priceHistoryDuration,
       set,
       updatedAfter,
     });
@@ -2133,6 +2146,7 @@ async function main() {
           updatedAfter: args.updatedAfter,
           set: args.set,
           limit: args.fetchPageSize,
+          priceHistoryDuration: args.set ? null : SCHEDULED_PRICE_HISTORY_DURATION,
           delayMs: args.fetchDelayMs,
         })
       : await readJsonWithFallback(args.catalog, args.catalogFallback);
@@ -2185,6 +2199,7 @@ export {
   buildSeed,
   applySeed,
   extractJusttcgId,
+  fetchJusttcgCatalogPage,
   fetchJusttcgCatalogSince,
   resolveApprovedRawPriceRow,
   buildVariantBackfilledCurrentPriceRows,

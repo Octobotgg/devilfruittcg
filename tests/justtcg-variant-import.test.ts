@@ -553,6 +553,8 @@ test("fetchJusttcgCatalogSince requests updated_after without fuzzy search", asy
     assert.match(requestedUrl || "", /updated_after=1774483200/);
     assert.match(requestedUrl || "", /limit=100/);
     assert.match(requestedUrl || "", /game=one-piece-card-game/);
+    assert.match(requestedUrl || "", /include_price_history=true/);
+    assert.match(requestedUrl || "", /priceHistoryDuration=30d/);
     assert.doesNotMatch(requestedUrl || "", /[?&]q=/);
     assert.equal(snapshot.cardCount, 0);
     assert.equal(snapshot.pageCount, 1);
