@@ -28,7 +28,7 @@ test("set refresh resolves booster lane and excludes release event lane", async 
   assert.doesNotMatch(target.releaseName, /Release Event/);
 });
 
-test("set refresh pipeline runs import and known-price publish in order", async () => {
+test("set refresh pipeline runs import, snapshot fetch, verify, export, apply, and known-price publish in order", async () => {
   const calls: string[] = [];
   const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
     "scripts/run-justtcg-set-refresh.mjs",
@@ -43,7 +43,14 @@ test("set refresh pipeline runs import and known-price publish in order", async 
     },
   });
 
-  assert.deepEqual(calls, ["import", "publish_known_prices"]);
+  assert.deepEqual(calls, [
+    "import",
+    "fetch_catalog_snapshot",
+    "verify_missing_set",
+    "export_legacy_cache",
+    "apply_verified_seed",
+    "publish_known_prices",
+  ]);
 });
 
 test("set refresh uses a 20-card fetch page size by default", async () => {
@@ -82,4 +89,54 @@ test("set refresh scopes known-price publish to the target release name", async 
   assert.equal(releaseNameArg, "ADVENTURE ON KAMI'S ISLAND [OP15-EB04]");
   assert.ok(publishStep.args.includes("--source"));
   assert.equal(publishStep.args[publishStep.args.indexOf("--source") + 1], "justtcg_set_refresh");
+});
+
+test("set refresh scopes missing-set verification to the normalized release code", async () => {
+  const steps: Array<{ label: string; args: string[] }> = [];
+  const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
+    "scripts/run-justtcg-set-refresh.mjs",
+  );
+
+  await mod.runSetRefresh({
+    setCode: "OP15-EB04",
+    releases: [{ codes: ["OP15EB04"], category: "BOOSTER_PACK", name: "ADVENTURE ON KAMI'S ISLAND [OP15-EB04]" }],
+    runCommand: async (label, step) => {
+      steps.push({ label, args: step.args });
+      return { ok: true, code: 0, stdout: "" };
+    },
+  });
+
+  const verifyStep = steps.find((step) => step.label === "verify_missing_set");
+  assert.ok(verifyStep);
+  assert.ok(verifyStep.args.includes("--release"));
+  assert.equal(verifyStep.args[verifyStep.args.indexOf("--release") + 1], "OP15EB04");
+  assert.ok(verifyStep.args.includes("--write"));
+});
+
+test("set refresh refreshes the verifier snapshot for the target JustTCG set id", async () => {
+  const steps: Array<{ label: string; args: string[] }> = [];
+  const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
+    "scripts/run-justtcg-set-refresh.mjs",
+  );
+
+  await mod.runSetRefresh({
+    setCode: "OP15-EB04",
+    apiKey: "test-key",
+    releases: [{ codes: ["OP15EB04"], category: "BOOSTER_PACK", name: "ADVENTURE ON KAMI'S ISLAND [OP15-EB04]" }],
+    fetchImpl: async () => ({
+      ok: true,
+      json: async () => ({
+        data: [{ id: "set_live_op15eb04", name: "ADVENTURE ON KAMI'S ISLAND [OP15-EB04]" }],
+      }),
+    }),
+    runCommand: async (label, step) => {
+      steps.push({ label, args: step.args });
+      return { ok: true, code: 0, stdout: "" };
+    },
+  });
+
+  const fetchStep = steps.find((step) => step.label === "fetch_catalog_snapshot");
+  assert.ok(fetchStep);
+  assert.ok(fetchStep.args.includes("--set"));
+  assert.equal(fetchStep.args[fetchStep.args.indexOf("--set") + 1], "set_live_op15eb04");
 });

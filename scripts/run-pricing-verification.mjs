@@ -139,6 +139,7 @@ function buildPublishableCandidate(candidate, verificationStatus, displayFields)
     sourceId: candidate.sourceId || JUSTTCG_SOURCE_ID,
     externalProductId: normalizeText(candidate.provider.externalProductId),
     externalVariantId: normalizeText(candidate.provider.externalVariantId),
+    productKind: normalizeText(candidate.provider.productKind),
     verificationStatus,
     conflictTypes: candidate.conflictTypes || [],
     priceMarket: candidate.priceMarket ?? candidate.justtcgPriceNm ?? null,
@@ -458,6 +459,7 @@ export async function createPostgresVerificationAdapter(sql) {
             current_prices.price_lp as "priceLp",
             coalesce(variant.last_updated_at, current_prices.updated_at)::text as "providerUpdatedAt",
             current_prices.updated_at::text as "updatedAt",
+            ep.product_kind as "productKind",
             cards.number as "cardNumber",
             cards.set_code as "cardSetCode",
             releases.name as "cardSetName",
@@ -542,6 +544,7 @@ export async function createPostgresVerificationAdapter(sql) {
         provider: {
           externalProductId: row.externalProductId,
           externalVariantId: row.externalVariantId,
+          productKind: row.productKind,
           tcgplayerProductId: row.tcgplayerProductId,
           productName: row.providerProductName,
           productUrlName: row.providerProductUrlName,

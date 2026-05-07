@@ -212,6 +212,26 @@ export async function runSetRefresh({
       args: ["--apply", "--updated-after", "0", "--set", justtcgSetId, "--fetch-page-size", String(fetchPageSize)],
     },
     {
+      label: "fetch_catalog_snapshot",
+      command: path.join(REPO_ROOT, "scripts", "fetch-justtcg-catalog.mjs"),
+      args: ["--set", justtcgSetId],
+    },
+    {
+      label: "verify_missing_set",
+      command: path.join(REPO_ROOT, "scripts", "verify-missing-justtcg-set.mjs"),
+      args: ["--release", target.normalizedCode, "--write"],
+    },
+    {
+      label: "export_legacy_cache",
+      command: path.join(REPO_ROOT, "scripts", "export-legacy-justtcg-cache.mjs"),
+      args: [],
+    },
+    {
+      label: "apply_verified_seed",
+      command: path.join(REPO_ROOT, "scripts", "manual-apply-justtcg-seed.mjs"),
+      args: [],
+    },
+    {
       label: "publish_known_prices",
       command: path.join(REPO_ROOT, "scripts", "refresh-known-justtcg-prices.mjs"),
       args: [

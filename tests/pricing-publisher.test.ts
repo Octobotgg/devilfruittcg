@@ -87,6 +87,7 @@ type Candidate = {
   sourceId: string;
   externalProductId: string | null;
   externalVariantId: string | null;
+  productKind?: string | null;
   currentCandidatePriced?: boolean;
   verificationStatus:
     | "verified"
@@ -175,6 +176,7 @@ function createCandidate(overrides: Partial<Candidate> = {}): Candidate {
     sourceId: "justtcg",
     externalProductId: "product-1",
     externalVariantId: "variant-1",
+    productKind: "raw_card",
     verificationStatus: "verified",
     conflictTypes: [],
     priceMarket: 14.25,
@@ -222,6 +224,7 @@ function createVerificationInput(overrides: {
     provider: {
       externalProductId: "product-1",
       externalVariantId: "variant-1",
+      productKind: "raw_card",
       tcgplayerProductId: "123",
       productName: "Monkey D. Luffy OP01-001",
       productUrlName: "monkey-d-luffy-op01-001",
@@ -619,6 +622,36 @@ test("publishPricingVerificationRun publishes verified and drift_warning rows an
   });
   assert.equal(adapter.state.publishedPrices.get("cp-2:justtcg")?.verificationStatus, "drift_warning");
   assert.deepEqual(adapter.state.operations.slice(-2), ["transaction:commit", "run:completed"]);
+});
+
+test("publishPricingVerificationRun skips non-raw-card candidates", async () => {
+  const { publishPricingVerificationRun } =
+    await importModule<typeof import("../lib/server/pricing/pricing-publisher")>(
+      "lib/server/pricing/pricing-publisher.ts",
+    );
+
+  const adapter = createFakeAdapter();
+
+  await publishPricingVerificationRun({
+    verificationRunId: 771,
+    candidates: [
+      createCandidate(),
+      createCandidate({
+        cardPrintId: "cp-sealed",
+        externalProductId: "product-sealed",
+        externalVariantId: "variant-sealed",
+        productKind: "sealed",
+        displayTitle: "Premium Booster",
+      }),
+    ],
+    adapter,
+    now: () => "2026-03-27T10:05:00.000Z",
+  });
+
+  assert.equal(adapter.state.publishedPrices.size, 1);
+  assert.equal(adapter.state.publishedDisplays.size, 1);
+  assert.equal(adapter.state.publishedPrices.has("cp-sealed:justtcg"), false);
+  assert.equal(adapter.state.publishedDisplays.has("cp-sealed"), false);
 });
 
 test("publishPricingVerificationRun leaves blocked rows untouched and records blocked conflicts", async () => {
@@ -1180,6 +1213,7 @@ test("publishVerifiedPricingRun uses verification-snapshot values instead of new
         return [
           {
             verificationStatus: "verified",
+            productKind: "raw_card",
             labelIntegrityStatus: "verified",
             justtcgPriceNm: 12.5,
             priceMarket: 88.88,

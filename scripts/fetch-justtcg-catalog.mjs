@@ -31,13 +31,14 @@ async function sleep(ms) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function fetchPage({ apiKey, game, limit, offset, includeNullPrices }) {
+async function fetchPage({ apiKey, game, limit, offset, includeNullPrices, set }) {
   const params = new URLSearchParams({
     game,
     limit: String(limit),
     offset: String(offset),
   });
   if (includeNullPrices) params.set("include_null_prices", "true");
+  if (set) params.set("set", String(set));
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
     const response = await fetch(`https://api.justtcg.com/v1/cards?${params.toString()}`, {
@@ -120,6 +121,7 @@ async function main() {
   const delayMs = Math.max(0, Number(args["delay-ms"] || DEFAULT_DELAY_MS));
   const includeNullPrices = !args["exclude-null-prices"];
   const outputPath = args.out ? String(args.out) : DEFAULT_CATALOG_PATH;
+  const set = String(args.set || "").trim();
   const maxPages = args["max-pages"] ? Number(args["max-pages"]) : null;
   const writeSupabase = Boolean(args["write-supabase"]);
   const supabaseConfig = writeSupabase ? supabaseConfigFromEnv() : null;
@@ -141,6 +143,7 @@ async function main() {
       limit,
       offset,
       includeNullPrices,
+      set,
     });
 
     cards.push(...page.cards);
@@ -182,6 +185,7 @@ async function main() {
     cardCount: uniqueCards.length,
     totalReported: lastMeta?.total ?? null,
     includeNullPrices,
+    set: set || null,
   }, null, 2));
 }
 

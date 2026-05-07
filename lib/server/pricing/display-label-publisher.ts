@@ -14,6 +14,7 @@ export type PricingPublishCandidate = {
   sourceId: string;
   externalProductId: string | null;
   externalVariantId: string | null;
+  productKind?: string | null;
   verificationStatus: PricingVerificationStatus;
   conflictTypes?: string[];
   priceMarket: number | null;
@@ -64,6 +65,7 @@ export function candidateCanPublish(candidate: PricingPublishCandidate) {
   if (!PUBLISHABLE_VERIFICATION_STATUSES.has(candidate.verificationStatus)) return false;
   if (candidateHasBlockedConflict(candidate)) return false;
   if (!candidate.externalProductId || !candidate.externalVariantId) return false;
+  if (String(candidate.productKind || "").trim() !== "raw_card") return false;
   if (!candidate.updatedAt) return false;
   if (candidate.priceNm == null) return false;
   return true;

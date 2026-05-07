@@ -88,6 +88,7 @@ function toPublishCandidate(row, buildPublishedDisplayPayload) {
     sourceId: row.sourceId || JUSTTCG_SOURCE_ID,
     externalProductId: normalizeText(row.provider.externalProductId),
     externalVariantId: normalizeText(row.provider.externalVariantId),
+    productKind: normalizeText(row.productKind),
     verificationStatus: row.verificationStatus,
     conflictTypes: row.conflictTypes || [],
     priceMarket: row.justtcgPriceNm ?? row.priceMarket ?? null,
@@ -200,6 +201,7 @@ export async function createPostgresPublishAdapter(sql) {
             current_prices.price_lp as "priceLp",
             coalesce(variant.last_updated_at, current_prices.updated_at)::text as "providerUpdatedAt",
             current_prices.updated_at::text as "updatedAt",
+            ep.product_kind as "productKind",
             cards.number as "cardNumber",
             cards.set_code as "cardSetCode",
             releases.name as "cardSetName",
@@ -250,6 +252,7 @@ export async function createPostgresPublishAdapter(sql) {
 
       return rows.map((row) => ({
         sourceId: JUSTTCG_SOURCE_ID,
+        productKind: row.productKind || null,
         verificationStatus: row.verificationStatus,
         labelIntegrityStatus: row.labelIntegrityStatus,
         justtcgPriceNm: row.justtcgPriceNm == null ? null : Number(row.justtcgPriceNm),
