@@ -1183,6 +1183,99 @@ test("legacy market watch shape keeps weekly movers separate from losers and pre
   assert.equal(watch.bountyBoard.some((row) => row.collectibleId === "card-loss"), true);
 });
 
+test("legacy market watch shape builds the homepage bounty board from raw-card 24h dollar movers", async () => {
+  const { toLegacyMarketWatchShape } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  const watch = toLegacyMarketWatchShape({
+    source: "justtcg-runtime-pricing",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    cards: {
+      topGainers24h: [
+        {
+          collectibleId: "card-big-dollar",
+          collectibleKind: "raw_card",
+          cardId: "OP01-003",
+          name: "Card Big Dollar",
+          justtcgTitle: "Card Big Dollar",
+          imageUrl: null,
+          currentPrice: 110,
+          priceChange24h: 10,
+          previousPrice: 100,
+          dailyChangePct: 10,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+        {
+          collectibleId: "card-high-pct",
+          collectibleKind: "raw_card",
+          cardId: "OP01-001",
+          name: "Card High Pct",
+          justtcgTitle: "Card High Pct",
+          imageUrl: null,
+          currentPrice: 15,
+          priceChange24h: 3,
+          previousPrice: 12,
+          dailyChangePct: 25,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+      topLosers24h: [
+        {
+          collectibleId: "card-loss",
+          collectibleKind: "raw_card",
+          cardId: "OP01-002",
+          name: "Card Loss",
+          justtcgTitle: "Card Loss",
+          imageUrl: null,
+          currentPrice: 8,
+          priceChange24h: -2,
+          previousPrice: 10,
+          dailyChangePct: -20,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+    },
+    sealed: {
+      topGainers24h: [
+        {
+          collectibleId: "sealed-huge",
+          collectibleKind: "sealed",
+          cardId: null,
+          name: "Sealed Huge",
+          justtcgTitle: "Sealed Huge",
+          imageUrl: null,
+          currentPrice: 220,
+          priceChange24h: 40,
+          previousPrice: 180,
+          dailyChangePct: 22.22,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+      topLosers24h: [],
+    },
+  });
+
+  assert.deepEqual(
+    watch.bountyBoard.map((row) => row.collectibleId),
+    ["card-big-dollar", "card-high-pct", "card-loss"],
+  );
+  assert.equal(watch.bountyBoard.every((row) => row.collectibleKind === "raw_card"), true);
+});
+
 test("market home mover queries exclude inactive raw and sealed collectibles", async () => {
   const { getMarketHomeMoverQueriesForTesting } =
     await importModule<typeof import("../lib/server/market/market-home")>(

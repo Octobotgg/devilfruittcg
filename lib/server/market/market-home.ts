@@ -56,6 +56,7 @@ export type MarketHomeReadModel = {
   source: "justtcg-runtime-pricing";
   updatedAt: string | null;
   pricingPulseUpdatedAt: string | null;
+  bountyBoard24h: MarketMover[];
   cards: {
     topGainers24h: MarketMover[];
     topLosers24h: MarketMover[];
@@ -283,6 +284,18 @@ function sortLosers(movers: MarketMover[]) {
     .sort((left, right) => left.dailyChangePct - right.dailyChangePct);
 }
 
+function sortAbsoluteDollarMovers(movers: MarketMover[]) {
+  return [...movers].sort((left, right) => {
+    const deltaDifference = Math.abs(right.priceChange24h) - Math.abs(left.priceChange24h);
+    if (deltaDifference !== 0) return deltaDifference;
+
+    const pctDifference = Math.abs(right.dailyChangePct) - Math.abs(left.dailyChangePct);
+    if (pctDifference !== 0) return pctDifference;
+
+    return right.currentPrice - left.currentPrice;
+  });
+}
+
 export async function getMarketHomeReadModel(options?: {
   limit?: number;
   trustFilters?: MarketMoverTrustFilters;
@@ -306,6 +319,7 @@ export async function getMarketHomeReadModel(options?: {
     source: "justtcg-runtime-pricing",
     updatedAt,
     pricingPulseUpdatedAt,
+    bountyBoard24h: sortAbsoluteDollarMovers(cards).slice(0, limit),
     cards: {
       topGainers24h: sortGainers(cards).slice(0, limit),
       topLosers24h: sortLosers(cards).slice(0, limit),
@@ -330,10 +344,15 @@ export function toLegacyMarketWatchShape(home: MarketHomeReadModel) {
 
   const topDaily = combinedGainers.slice(0, 12);
   const topWeekly = combinedMovers.slice(0, 12);
-  const bountyBoard = Array.from(
-    new Map(
-      [...topDaily, ...topWeekly].map((row) => [row.collectibleId, row]),
-    ).values(),
+  const fallbackBountyBoard = sortAbsoluteDollarMovers(
+    Array.from(
+      new Map(
+        [...home.cards.topGainers24h, ...home.cards.topLosers24h].map((row) => [row.collectibleId, row]),
+      ).values(),
+    ),
+  ).slice(0, 12);
+  const bountyBoard = (
+    Array.isArray(home.bountyBoard24h) && home.bountyBoard24h.length ? home.bountyBoard24h : fallbackBountyBoard
   ).slice(0, 12);
 
   return {
