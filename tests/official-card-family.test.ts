@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -163,6 +164,43 @@ test("official OP10-119 variants expose alternate art, manga, and SP in the corr
       variantSlug: "sp_prb02_print_3",
     },
   );
+});
+
+test("official EB02-061 PRB02 print 3 exposes the SP family instead of manga", async () => {
+  const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
+    with: { type: "json" },
+  });
+  const cards = cardsModule.default as Array<{
+    id: string;
+    variantType?: string;
+    variantLabel?: string;
+    variantSlug?: string;
+    canonicalId?: string;
+  }>;
+  const card = cards.find((entry) => entry.id === "EB02-061_p3");
+
+  assert.deepEqual(
+    {
+      id: card?.id,
+      variantType: card?.variantType,
+      variantLabel: card?.variantLabel,
+      variantSlug: card?.variantSlug,
+      canonicalId: card?.canonicalId,
+    },
+    {
+      id: "EB02-061_p3",
+      variantType: "sp",
+      variantLabel: "SP",
+      variantSlug: "sp_prb02",
+      canonicalId: "EB02-061_sp_prb02",
+    },
+  );
+});
+
+test("official card lookup keeps a compatibility alias for the old EB02-061 manga PRB02 route", () => {
+  const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
+
+  assert.equal(source.includes('["EB02-061_MANGA_PRB02", "EB02-061_SP_PRB02"]'), true);
 });
 
 test("official ST13-011 variants expose the starter-deck parallel and OP12 SP in the correct print slots", async () => {

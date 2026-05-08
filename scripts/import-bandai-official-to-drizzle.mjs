@@ -53,6 +53,7 @@ const OP13_VARIANT_OVERRIDES = new Map(
     ["OP10-119_p3", { variantType: "sp", variantFamily: "sp", variantLabel: "SP", variantSlug: "sp_prb02_print_3" }],
     ["OP14-112_p1", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Alternate Art", variantSlug: "alternate_art_op14" }],
     ["OP14-112_p2", { variantType: "sp", variantFamily: "sp", variantLabel: "SP", variantSlug: "sp_op14_print_2" }],
+    ["EB02-061_p3", { variantType: "sp", variantFamily: "sp", variantLabel: "SP", variantSlug: "sp_prb02" }],
     ["ST13-011_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_st13" }],
     ["ST18-004_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op09" }],
     ["OP11-058_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Treasure Rare", variantSlug: "treasure_rare_op13" }],

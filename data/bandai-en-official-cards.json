@@ -136610,10 +136610,10 @@
     "seriesCategories": [
       "PREMIUM_BOOSTER"
     ],
-    "variantType": "manga",
-    "variantLabel": "Manga",
-    "variantSlug": "manga_prb02",
-    "canonicalId": "EB02-061_manga_prb02"
+    "variantType": "sp",
+    "variantLabel": "SP",
+    "variantSlug": "sp_prb02",
+    "canonicalId": "EB02-061_sp_prb02"
   },
   {
     "id": "EB02-061_r1",

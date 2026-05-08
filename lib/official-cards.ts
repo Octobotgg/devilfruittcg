@@ -40,6 +40,9 @@ const OFFICIAL_BY_CANONICAL_ID = new Map(
     .filter((card) => String(card.canonicalId || "").trim())
     .map((card) => [String(card.canonicalId).toUpperCase(), card]),
 );
+const LEGACY_CANONICAL_ID_ALIASES = new Map<string, string>([
+  ["EB02-061_MANGA_PRB02", "EB02-061_SP_PRB02"],
+]);
 const OFFICIAL_BY_BASE_ID = new Map<string, Card[]>();
 
 for (const card of OFFICIAL_CARDS) {
@@ -86,7 +89,10 @@ function scoreCard(card: Card, query: string): number {
 
 export function getOfficialCardById(id: string): Card | undefined {
   const normalized = id.trim().toUpperCase();
-  return OFFICIAL_BY_ID.get(normalized) || OFFICIAL_BY_CANONICAL_ID.get(normalized);
+  const canonical = OFFICIAL_BY_ID.get(normalized) || OFFICIAL_BY_CANONICAL_ID.get(normalized);
+  if (canonical) return canonical;
+  const aliasTarget = LEGACY_CANONICAL_ID_ALIASES.get(normalized);
+  return aliasTarget ? OFFICIAL_BY_CANONICAL_ID.get(aliasTarget) : undefined;
 }
 
 export function getOfficialCardsByIds(ids: string[]): Card[] {
