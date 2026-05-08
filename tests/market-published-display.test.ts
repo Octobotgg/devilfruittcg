@@ -126,7 +126,9 @@ test("market home raw-card query reads published pricing and display rows", asyn
   assert.match(rawCardQuery, /card_print_price_published/u);
   assert.match(rawCardQuery, /card_print_display_published/u);
   assert.match(rawCardQuery, /published\.price_nm as "currentPrice"/u);
-  assert.match(rawCardQuery, /current_prices\.price_change_24h as "priceChange24h"/u);
+  assert.match(rawCardQuery, /card_print_price_history history/u);
+  assert.match(rawCardQuery, /published\.price_nm - raw_history_24h\.price_nm/u);
+  assert.match(rawCardQuery, /current_prices\.price_change_24h/u);
   assert.match(rawCardQuery, /variant\.id = published\.external_variant_id/u);
   assert.match(rawCardQuery, /variant\.external_product_id = published\.external_product_id/u);
 });

@@ -102,7 +102,14 @@ const RAW_CARD_MOVER_QUERY = `
     display.display_image_url as "displayImageUrl",
     cp.image_url as "internalImageUrl",
     published.price_nm as "currentPrice",
-    current_prices.price_change_24h as "priceChange24h",
+    coalesce(
+      case
+        when raw_history_24h.price_nm is not null and published.price_nm is not null
+          then published.price_nm - raw_history_24h.price_nm
+        else null
+      end,
+      current_prices.price_change_24h
+    ) as "priceChange24h",
     published.updated_at::text as "updatedAt",
     true as "mappingApproved"
   from card_print_price_published published
@@ -121,6 +128,20 @@ const RAW_CARD_MOVER_QUERY = `
    and current_prices.external_product_id = published.external_product_id
    and current_prices.external_variant_id = published.external_variant_id
    and current_prices.source_id = published.source_id
+  left join lateral (
+    select history.price_nm
+    from card_print_price_history history
+    where history.card_print_id = cp.id
+      and history.source_id = published.source_id
+      and history.external_product_id = published.external_product_id
+      and history.external_variant_id = published.external_variant_id
+      and history.recorded_at < published.updated_at
+      and history.recorded_at >= published.updated_at - interval '48 hours'
+    order by
+      abs(extract(epoch from (history.recorded_at - (published.updated_at - interval '24 hours')))) asc,
+      history.recorded_at desc
+    limit 1
+  ) raw_history_24h on true
   where published.source_id = 'justtcg'
     and cp.is_active = true
 `;
@@ -138,7 +159,14 @@ const SEALED_MOVER_QUERY = `
     ep.name as "justtcgTitle",
     ep.image_url as "justtcgImageUrl",
     current_prices.price_market as "currentPrice",
-    current_prices.price_change_24h as "priceChange24h",
+    coalesce(
+      case
+        when sealed_history_24h.price_market is not null and current_prices.price_market is not null
+          then current_prices.price_market - sealed_history_24h.price_market
+        else null
+      end,
+      current_prices.price_change_24h
+    ) as "priceChange24h",
     current_prices.updated_at::text as "updatedAt",
     true as "mappingApproved"
   from sealed_product_price_current current_prices
@@ -152,6 +180,19 @@ const SEALED_MOVER_QUERY = `
    and link.external_product_id = current_prices.external_product_id
    and link.approved_at is not null
    and link.mapping_status = 'exact'
+  left join lateral (
+    select history.price_market
+    from sealed_product_price_history history
+    where history.sealed_product_id = sealed.id
+      and history.source_id = current_prices.source_id
+      and history.external_product_id = current_prices.external_product_id
+      and history.recorded_at < current_prices.updated_at
+      and history.recorded_at >= current_prices.updated_at - interval '48 hours'
+    order by
+      abs(extract(epoch from (history.recorded_at - (current_prices.updated_at - interval '24 hours')))) asc,
+      history.recorded_at desc
+    limit 1
+  ) sealed_history_24h on true
   where current_prices.source_id = 'justtcg'
     and sealed.is_active = true
 `;
@@ -296,6 +337,10 @@ function sortAbsoluteDollarMovers(movers: MarketMover[]) {
   });
 }
 
+function hasMeaningful24hMove(mover: MarketMover) {
+  return Math.abs(mover.priceChange24h) >= 0.01;
+}
+
 export async function getMarketHomeReadModel(options?: {
   limit?: number;
   trustFilters?: MarketMoverTrustFilters;
@@ -319,7 +364,7 @@ export async function getMarketHomeReadModel(options?: {
     source: "justtcg-runtime-pricing",
     updatedAt,
     pricingPulseUpdatedAt,
-    bountyBoard24h: sortAbsoluteDollarMovers(cards).slice(0, limit),
+    bountyBoard24h: sortAbsoluteDollarMovers(cards.filter(hasMeaningful24hMove)).slice(0, limit),
     cards: {
       topGainers24h: sortGainers(cards).slice(0, limit),
       topLosers24h: sortLosers(cards).slice(0, limit),
@@ -351,8 +396,11 @@ export function toLegacyMarketWatchShape(home: MarketHomeReadModel) {
       ).values(),
     ),
   ).slice(0, 12);
+  const primaryBountyBoard = Array.isArray(home.bountyBoard24h)
+    ? home.bountyBoard24h.filter(hasMeaningful24hMove)
+    : [];
   const bountyBoard = (
-    Array.isArray(home.bountyBoard24h) && home.bountyBoard24h.length ? home.bountyBoard24h : fallbackBountyBoard
+    primaryBountyBoard.length ? primaryBountyBoard : fallbackBountyBoard
   ).slice(0, 12);
 
   return {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CalendarDays, Coins, Compass, Crown, ScrollText, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, CalendarDays, Coins, Compass, Crown, ScrollText, Sparkles, TrendingUp } from "lucide-react";
 import type { MetaSnapshot } from "@/lib/data/meta";
 import DonButton from "@/components/ui/DonButton";
 import TiltCard from "@/components/ui/TiltCard";
@@ -25,6 +25,7 @@ import {
 import {
   buildHomeBountyStateFromMarketWatch,
   formatHomeBountyDelta,
+  formatHomeBountyPct,
   formatHomeBountyPrice,
   type HomeBountyCard,
   type HomeBountyMeta,
@@ -190,7 +191,6 @@ export default function HomePageClient({
   initialMatchupsAreLive,
   initialBountyIsLive,
 }: HomePageClientProps) {
-  const bountyTiltAngles = [-1.1, 0.8, -0.5, 1.1, -0.4, 0.6, -0.8, 0.5];
   const [meta, setMeta] = useState<MetaSnapshot | null>(initialMeta);
   const [matchups, setMatchups] = useState<HomeMatchupPayload | null>(initialMatchups);
   const [scrollY, setScrollY] = useState(0);
@@ -332,7 +332,22 @@ export default function HomePageClient({
       ? `${matchups.sampleGames.toLocaleString()} weighted matchup samples`
       : null) ||
     "Live sync pending";
+  const bountyCards = useMemo<HomeBountyCard[]>(() => liveBountyCards, [liveBountyCards]);
   const homepageFeedsUnavailable = !usingLiveMeta && !usingLiveMatchups && !usingLiveBounty;
+  const featuredBountyCard = bountyCards[0] || null;
+  const supportingBountyCards = useMemo(() => bountyCards.slice(1, 5), [bountyCards]);
+  const meaningfulBountyMoverCount = useMemo(
+    () => bountyCards.filter((card) => Math.abs(card.delta) >= 0.01).length,
+    [bountyCards],
+  );
+  const quietBountyBoard = Boolean(featuredBountyCard && meaningfulBountyMoverCount < 4);
+  const bountyCountLabel = meaningfulBountyMoverCount > 0
+    ? meaningfulBountyMoverCount === 1
+      ? "1 live mover"
+      : `${meaningfulBountyMoverCount} live movers`
+    : bountyCards.length === 1
+      ? "1 live card"
+      : `${bountyCards.length} live cards`;
 
   useEffect(() => {
     const [topColor] = parseLeaderColors(topDeck?.color);
@@ -413,8 +428,6 @@ export default function HomePageClient({
     };
   }, [featuredId, featuredName]);
 
-  const bountyCards = useMemo<HomeBountyCard[]>(() => liveBountyCards, [liveBountyCards]);
-
   const matrixTeaser = useMemo(() => {
     if (usingLiveMatchups && matchups?.decks?.length) {
       const anchor = matchups.decks[0];
@@ -452,7 +465,7 @@ export default function HomePageClient({
             className="journal-surface treasure-chart-surface rounded-[2rem] p-6 md:p-8"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-gold-dark)]">
-              <ScrollText className="h-3.5 w-3.5" /> Captain's Log
+              <ScrollText className="h-3.5 w-3.5" /> Captain&apos;s Log
             </div>
 
             <div className="mt-5 flex flex-wrap items-start justify-between gap-4">
@@ -710,59 +723,127 @@ export default function HomePageClient({
               transition={{ duration: 0.38, delay: 0.04 }}
               className="captains-bento-card captains-bounty-board col-span-12 md:col-span-4 md:row-span-2"
             >
-              <div className="mb-3">
-                <p className="text-lg font-black text-[var(--color-navy)]">Bounty Board</p>
-                <p className="text-xs text-[var(--color-text-light)]">Marine issue board · 24h pulse</p>
-                <p className={`text-[10px] ${liveBountyMeta?.stale ? "text-amber-700" : "text-[var(--color-text-light)]"}`}>
-                  {formatFreshnessLabel(liveBountyMeta)}
-                </p>
+              <div className="mb-3 flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-lg font-black text-[var(--color-navy)]">Bounty Board</p>
+                  <p className="text-xs text-[var(--color-text-light)]">Marine issue board · biggest 24h card moves</p>
+                </div>
+                <span className="rounded-full border border-[var(--color-parchment-dark)] bg-[rgba(255,248,235,0.92)] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-[var(--color-gold-dark)]">
+                  {bountyCountLabel}
+                </span>
               </div>
 
-              <div className="space-y-2">
-                {bountyCards.length ? bountyCards.map((card, i) => {
-                  const row = (
-                    <>
-                      <img
-                        src={card.imageUrl || (card.cardId ? `/api/card-image?id=${encodeURIComponent(card.cardId)}` : "/api/card-image?id=OP01-001")}
-                        alt={card.name}
-                        className="h-12 w-9 rounded border border-black/30 object-cover"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-xs font-black text-[#2c1c0d]">{card.name}</p>
-                        <p className="truncate text-[10px] text-[#614022]" title={card.displayId}>{card.displayId}</p>
+              <p className={`mb-3 text-[10px] ${liveBountyMeta?.stale ? "text-amber-700" : "text-[var(--color-text-light)]"}`}>
+                  {formatFreshnessLabel(liveBountyMeta)}
+              </p>
+
+              <div className="space-y-3">
+                {featuredBountyCard ? (
+                  <>
+                    <Link
+                      href={featuredBountyCard.href}
+                      className="group block rounded-2xl border border-[rgba(97,64,34,0.25)] bg-[linear-gradient(180deg,rgba(255,248,235,0.97),rgba(246,231,205,0.98))] p-3 shadow-[0_14px_24px_rgba(59,35,14,0.12)] transition-all hover:-translate-y-0.5 hover:border-[var(--color-gold)]"
+                    >
+                      <div className="mb-3 flex items-center justify-between gap-2">
+                        <span className="rounded-full bg-[rgba(212,160,84,0.16)] px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em] text-[var(--color-gold-dark)]">
+                          Most Wanted
+                        </span>
+                        <span
+                          className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-[10px] font-black ${
+                            featuredBountyCard.delta > 0
+                              ? "bg-emerald-500/12 text-emerald-800"
+                            : featuredBountyCard.delta < 0
+                                ? "bg-red-500/12 text-red-800"
+                                : "bg-[var(--color-parchment-dark)]/50 text-[var(--color-text-mid)]"
+                          }`}
+                        >
+                          {featuredBountyCard.delta > 0 ? (
+                            <ArrowUpRight className="h-3 w-3" />
+                          ) : featuredBountyCard.delta < 0 ? (
+                            <ArrowDownRight className="h-3 w-3" />
+                          ) : (
+                            <TrendingUp className="h-3 w-3" />
+                          )}
+                          {featuredBountyCard.delta === 0 ? "Flat tape" : formatHomeBountyPct(featuredBountyCard.dailyChangePct)}
+                        </span>
                       </div>
-                      <div className="text-right tabular-nums">
-                        <p className="text-xs font-black text-[#2c1c0d]">{formatHomeBountyPrice(card.price)}</p>
-                        <p className={`text-[10px] font-bold ${card.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
-                          {formatHomeBountyDelta(card.delta)}
-                        </p>
+
+                      <div className="flex items-start gap-3">
+                        <img
+                          src={featuredBountyCard.imageUrl || (featuredBountyCard.cardId ? `/api/card-image?id=${encodeURIComponent(featuredBountyCard.cardId)}` : "/api/card-image?id=OP01-001")}
+                          alt={featuredBountyCard.name}
+                          className="h-24 w-[4.25rem] shrink-0 rounded-xl border border-black/25 object-cover shadow-[0_10px_20px_rgba(0,0,0,0.18)]"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-black text-[var(--color-navy)]">{featuredBountyCard.name}</p>
+                          <p className="mt-1 truncate text-[11px] text-[var(--color-text-mid)]" title={featuredBountyCard.displayId}>
+                            {featuredBountyCard.displayId}
+                          </p>
+
+                          <div className="mt-4 flex items-end justify-between gap-3">
+                            <div>
+                              <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-[var(--color-text-light)]">Current price</p>
+                              <p className="text-2xl font-black leading-none text-[var(--color-navy)]">
+                                {formatHomeBountyPrice(featuredBountyCard.price)}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className={`text-sm font-black ${featuredBountyCard.delta > 0 ? "text-emerald-700" : featuredBountyCard.delta < 0 ? "text-red-700" : "text-[var(--color-text-mid)]"}`}>
+                                {formatHomeBountyDelta(featuredBountyCard.delta)}
+                              </p>
+                              <p className="text-[11px] text-[var(--color-text-light)]">
+                                {featuredBountyCard.delta === 0
+                                  ? `holding at ${formatHomeBountyPrice(featuredBountyCard.previousPrice)}`
+                                  : `from ${formatHomeBountyPrice(featuredBountyCard.previousPrice)}`}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </>
-                  );
-
-                  const style = { transform: `rotate(${bountyTiltAngles[i] ?? 0}deg)` };
-
-                  if (card.external) {
-                    return (
-                      <a
-                        key={card.key}
-                        href={card.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="captains-bounty-row group"
-                        style={style}
-                      >
-                        {row}
-                      </a>
-                    );
-                  }
-
-                  return (
-                    <Link key={card.key} href={card.href} className="captains-bounty-row group" style={style}>
-                      {row}
                     </Link>
-                  );
-                }) : (
+
+                    {supportingBountyCards.length ? (
+                      <div className="space-y-2">
+                        {supportingBountyCards.map((card, index) => (
+                          <Link
+                            key={card.key}
+                            href={card.href}
+                            className="group flex items-center gap-3 rounded-xl border border-[var(--color-parchment-dark)] bg-[rgba(255,249,239,0.9)] px-3 py-2 transition-colors hover:border-[var(--color-gold)] hover:bg-[var(--color-cream)]"
+                          >
+                            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(27,40,56,0.08)] text-[10px] font-black text-[var(--color-text-mid)]">
+                              {index + 2}
+                            </span>
+                            <img
+                              src={card.imageUrl || (card.cardId ? `/api/card-image?id=${encodeURIComponent(card.cardId)}` : "/api/card-image?id=OP01-001")}
+                              alt={card.name}
+                              className="h-12 w-9 rounded border border-black/20 object-cover"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-xs font-black text-[#2c1c0d]">{card.name}</p>
+                              <p className="truncate text-[10px] text-[#614022]" title={card.displayId}>
+                                {card.displayId}
+                              </p>
+                            </div>
+                            <div className="text-right tabular-nums">
+                              <p className="text-xs font-black text-[#2c1c0d]">{formatHomeBountyPrice(card.price)}</p>
+                              <p className={`text-[10px] font-bold ${card.delta >= 0 ? "text-emerald-700" : "text-red-700"}`}>
+                                {formatHomeBountyDelta(card.delta)}
+                              </p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    {quietBountyBoard ? (
+                      <div className="rounded-xl border border-dashed border-[var(--color-parchment-dark)] bg-[rgba(255,248,235,0.72)] px-3 py-2 text-[11px] text-[var(--color-text-mid)]">
+                        {meaningfulBountyMoverCount > 0
+                          ? `Quiet tape right now: only ${meaningfulBountyMoverCount} exact-print ${meaningfulBountyMoverCount === 1 ? "card has" : "cards have"} posted a verified 24h move.`
+                          : "Quiet tape right now: no exact-print cards have posted a verified 24h move yet."}
+                      </div>
+                    ) : null}
+                  </>
+                ) : (
                   <div className="rounded-xl border border-[var(--color-parchment-dark)] bg-[var(--color-cream)] p-4 text-sm text-[var(--color-text-light)]">
                     Live market movers are unavailable right now.
                   </div>

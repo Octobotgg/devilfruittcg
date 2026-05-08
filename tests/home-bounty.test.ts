@@ -26,6 +26,7 @@ test("home bounty state maps marketplace card movers into bounty cards", async (
         imageUrl: "https://img.example/krieg.jpg",
         currentPrice: 20.13,
         priceChange24h: 3.29,
+        previousPrice: 16.84,
         dailyChangePct: 18.2,
       },
       {
@@ -51,6 +52,8 @@ test("home bounty state maps marketplace card movers into bounty cards", async (
     imageUrl: "/api/card-image?id=OP15-001_p1",
     price: 20.13,
     delta: 3.29,
+    previousPrice: 16.84,
+    dailyChangePct: 18.2,
     href: "/cards/OP15-001_p1",
     external: false,
   });
@@ -72,6 +75,7 @@ test("home bounty state keeps the exact moved print identity for special prints"
         justtcgTitle: "Jinbe (Gift Collection 2023)",
         currentPrice: 3.45,
         priceChange24h: 2.31,
+        previousPrice: 1.14,
         dailyChangePct: 202.63,
       },
     ],
@@ -85,6 +89,8 @@ test("home bounty state keeps the exact moved print identity for special prints"
     imageUrl: "/api/card-image?id=ST01-005_p2",
     price: 3.45,
     delta: 2.31,
+    previousPrice: 1.14,
+    dailyChangePct: 202.63,
     href: "/cards/ST01-005_p2",
     external: false,
   });
@@ -103,12 +109,14 @@ test("home bounty state returns an empty non-live state when marketplace movers 
 });
 
 test("home bounty delta formatter shows signed dollar changes instead of percents", async () => {
-  const { formatHomeBountyDelta, formatHomeBountyPrice } =
+  const { formatHomeBountyDelta, formatHomeBountyPct, formatHomeBountyPrice } =
     await importModule<typeof import("../lib/home-bounty")>("lib/home-bounty.ts");
 
   assert.equal(formatHomeBountyDelta(3.29), "+$3.29");
   assert.equal(formatHomeBountyDelta(-1.12), "-$1.12");
   assert.equal(formatHomeBountyDelta(0), "$0.00");
+  assert.equal(formatHomeBountyPct(18.2), "+18.2%");
+  assert.equal(formatHomeBountyPct(-4.05), "-4.1%");
   assert.equal(formatHomeBountyPrice(4.43), "$4.43");
 });
 
@@ -123,6 +131,8 @@ test("home bounty state keeps a fuller board when more marketplace movers are av
     name: `Mover ${index + 1}`,
     imageUrl: `https://img.example/mover-${index + 1}.jpg`,
     currentPrice: index + 1,
+    previousPrice: index + 0.5,
+    priceChange24h: 0.5,
     dailyChangePct: index + 0.5,
   }));
 
@@ -137,4 +147,27 @@ test("home bounty state keeps a fuller board when more marketplace movers are av
     state.cards.map((card) => card.key),
     bountyBoard.slice(0, 8).map((card) => card.collectibleId),
   );
+});
+
+test("home bounty state derives previous price and percent when payload omits them", async () => {
+  const { buildHomeBountyStateFromMarketWatch } =
+    await importModule<typeof import("../lib/home-bounty")>("lib/home-bounty.ts");
+
+  const state = buildHomeBountyStateFromMarketWatch({
+    source: "justtcg-runtime-pricing",
+    updatedAt: "2026-04-07T16:00:00.000Z",
+    bountyBoard: [
+      {
+        collectibleId: "OP11-041_p2",
+        collectibleKind: "raw_card",
+        cardId: "OP11-041_p2",
+        name: "Nami",
+        currentPrice: 93,
+        priceChange24h: -7,
+      },
+    ],
+  });
+
+  assert.equal(state.cards[0]?.previousPrice, 100);
+  assert.equal(state.cards[0]?.dailyChangePct, -7);
 });

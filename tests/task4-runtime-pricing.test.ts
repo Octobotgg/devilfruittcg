@@ -1276,6 +1276,83 @@ test("legacy market watch shape builds the homepage bounty board from raw-card 2
   assert.equal(watch.bountyBoard.every((row) => row.collectibleKind === "raw_card"), true);
 });
 
+test("legacy market watch shape drops zero-change raw cards from the homepage bounty board", async () => {
+  const { toLegacyMarketWatchShape } =
+    await importModule<typeof import("../lib/server/market/market-home")>(
+      "lib/server/market/market-home.ts",
+    );
+
+  const watch = toLegacyMarketWatchShape({
+    source: "justtcg-runtime-pricing",
+    updatedAt: "2026-03-25T00:00:00.000Z",
+    pricingPulseUpdatedAt: "2026-03-25T00:05:00.000Z",
+    bountyBoard24h: [
+      {
+        collectibleId: "card-flat",
+        collectibleKind: "raw_card",
+        cardId: "OP01-010",
+        name: "Card Flat",
+        justtcgTitle: "Card Flat",
+        imageUrl: null,
+        currentPrice: 20,
+        priceChange24h: 0,
+        previousPrice: 20,
+        dailyChangePct: 0,
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        source: "justtcg-runtime-pricing",
+      },
+      {
+        collectibleId: "card-live",
+        collectibleKind: "raw_card",
+        cardId: "OP01-011",
+        name: "Card Live",
+        justtcgTitle: "Card Live",
+        imageUrl: null,
+        currentPrice: 18,
+        priceChange24h: 2,
+        previousPrice: 16,
+        dailyChangePct: 12.5,
+        updatedAt: "2026-03-25T00:00:00.000Z",
+        officialSetCode: "OP01",
+        officialSetName: "Romance Dawn",
+        source: "justtcg-runtime-pricing",
+      },
+    ],
+    cards: {
+      topGainers24h: [
+        {
+          collectibleId: "card-live",
+          collectibleKind: "raw_card",
+          cardId: "OP01-011",
+          name: "Card Live",
+          justtcgTitle: "Card Live",
+          imageUrl: null,
+          currentPrice: 18,
+          priceChange24h: 2,
+          previousPrice: 16,
+          dailyChangePct: 12.5,
+          updatedAt: "2026-03-25T00:00:00.000Z",
+          officialSetCode: "OP01",
+          officialSetName: "Romance Dawn",
+          source: "justtcg-runtime-pricing",
+        },
+      ],
+      topLosers24h: [],
+    },
+    sealed: {
+      topGainers24h: [],
+      topLosers24h: [],
+    },
+  });
+
+  assert.deepEqual(
+    watch.bountyBoard.map((row) => row.collectibleId),
+    ["card-live"],
+  );
+});
+
 test("market home mover queries exclude inactive raw and sealed collectibles", async () => {
   const { getMarketHomeMoverQueriesForTesting } =
     await importModule<typeof import("../lib/server/market/market-home")>(

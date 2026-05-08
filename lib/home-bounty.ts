@@ -6,6 +6,8 @@ export type HomeBountyCard = {
   imageUrl?: string;
   price: number;
   delta: number;
+  previousPrice: number;
+  dailyChangePct: number;
   href: string;
   external?: boolean;
 };
@@ -32,6 +34,7 @@ export type HomeBountyWatchItem = {
   imageUrl?: string | null;
   currentPrice?: number | string | null;
   priceChange24h?: number | string | null;
+  previousPrice?: number | string | null;
   dailyChangePct?: number | string | null;
 };
 
@@ -65,6 +68,18 @@ export function formatHomeBountyPrice(value: number) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(Number(value) || 0);
+}
+
+export function formatHomeBountyPct(value: number) {
+  const amount = Math.abs(Number(value) || 0);
+  const formatted = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  }).format(amount);
+
+  if (value > 0) return `+${formatted}%`;
+  if (value < 0) return `-${formatted}%`;
+  return `${formatted}%`;
 }
 
 function normalizeIsoTimestamp(input?: string | null): string | null {
@@ -119,14 +134,28 @@ export function buildHomeBountyStateFromMarketWatch(payload: HomeBountyWatchPayl
       const baseCardId = String(item?.cardId || exactCardId).trim();
       const name = String(item?.name || "Unknown Card");
       const detailLabel = extractMoverDetailLabel(name, item?.justtcgTitle);
+      const price = Number(item?.currentPrice) || 0;
+      const delta = Number(item?.priceChange24h) || 0;
+      const payloadPreviousPrice = Number(item?.previousPrice);
+      const previousPrice = Number.isFinite(payloadPreviousPrice)
+        ? payloadPreviousPrice
+        : Number((price - delta).toFixed(2));
+      const payloadDailyChangePct = Number(item?.dailyChangePct);
+      const dailyChangePct = Number.isFinite(payloadDailyChangePct)
+        ? payloadDailyChangePct
+        : previousPrice > 0
+          ? Number(((delta / previousPrice) * 100).toFixed(2))
+          : 0;
       return {
         key: String(item?.collectibleId || exactCardId || name),
         name,
         displayId: detailLabel && baseCardId ? `${baseCardId} · ${detailLabel}` : exactCardId,
         cardId: exactCardId,
         imageUrl: `/api/card-image?id=${encodeURIComponent(exactCardId)}`,
-        price: Number(item?.currentPrice) || 0,
-        delta: Number(item?.priceChange24h) || 0,
+        price,
+        delta,
+        previousPrice,
+        dailyChangePct,
         href: `/cards/${encodeURIComponent(exactCardId)}`,
         external: false,
       } satisfies HomeBountyCard;
