@@ -12961,10 +12961,10 @@
     "seriesCategories": [
       "BOOSTER_PACK"
     ],
-    "variantType": "manga",
-    "variantLabel": "Manga",
-    "variantSlug": "manga_op02_print_1",
-    "canonicalId": "OP02-013_manga_op02_print_1"
+    "variantType": "parallel",
+    "variantLabel": "Parallel",
+    "variantSlug": "parallel_op02_print_1",
+    "canonicalId": "OP02-013_parallel_op02_print_1"
   },
   {
     "id": "OP02-013_p2",

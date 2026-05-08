@@ -166,6 +166,71 @@ test("official OP10-119 variants expose alternate art, manga, and SP in the corr
   );
 });
 
+test("official OP02-013 variants keep parallel, manga, and SP in the correct print slots", async () => {
+  const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
+    with: { type: "json" },
+  });
+  const cards = cardsModule.default as Array<{
+    id: string;
+    variantType?: string;
+    variantLabel?: string;
+    variantSlug?: string;
+    canonicalId?: string;
+  }>;
+  const byId = new Map(cards.filter((card) => card.id.startsWith("OP02-013")).map((card) => [card.id, card]));
+
+  assert.deepEqual(
+    {
+      id: "OP02-013_p1",
+      variantType: byId.get("OP02-013_p1")?.variantType,
+      variantLabel: byId.get("OP02-013_p1")?.variantLabel,
+      variantSlug: byId.get("OP02-013_p1")?.variantSlug,
+      canonicalId: byId.get("OP02-013_p1")?.canonicalId,
+    },
+    {
+      id: "OP02-013_p1",
+      variantType: "parallel",
+      variantLabel: "Parallel",
+      variantSlug: "parallel_op02_print_1",
+      canonicalId: "OP02-013_parallel_op02_print_1",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP02-013_p2",
+      variantType: byId.get("OP02-013_p2")?.variantType,
+      variantLabel: byId.get("OP02-013_p2")?.variantLabel,
+      variantSlug: byId.get("OP02-013_p2")?.variantSlug,
+      canonicalId: byId.get("OP02-013_p2")?.canonicalId,
+    },
+    {
+      id: "OP02-013_p2",
+      variantType: "manga",
+      variantLabel: "Manga",
+      variantSlug: "manga_op02_print_2",
+      canonicalId: "OP02-013_manga_op02_print_2",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP02-013_p3",
+      variantType: byId.get("OP02-013_p3")?.variantType,
+      variantLabel: byId.get("OP02-013_p3")?.variantLabel,
+      variantSlug: byId.get("OP02-013_p3")?.variantSlug,
+      canonicalId: byId.get("OP02-013_p3")?.canonicalId,
+    },
+    {
+      id: "OP02-013_p3",
+      variantType: "sp",
+      variantLabel: "SP",
+      variantSlug: "sp_op08",
+      canonicalId: "OP02-013_sp_op08",
+    },
+  );
+});
+
 test("official EB02-061 PRB02 print 3 exposes the SP family instead of manga", async () => {
   const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
     with: { type: "json" },
@@ -201,6 +266,12 @@ test("official card lookup keeps a compatibility alias for the old EB02-061 mang
   const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
 
   assert.equal(source.includes('["EB02-061_MANGA_PRB02", "EB02-061_SP_PRB02"]'), true);
+});
+
+test("official card lookup keeps a compatibility alias for the old OP02-013 manga print 1 route", () => {
+  const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
+
+  assert.equal(source.includes('["OP02-013_MANGA_OP02_PRINT_1", "OP02-013_PARALLEL_OP02_PRINT_1"]'), true);
 });
 
 test("official ST13-011 variants expose the starter-deck parallel and OP12 SP in the correct print slots", async () => {
