@@ -122,10 +122,17 @@ export async function resolveJusttcgSetId({
   const token = String(apiKey || "").trim();
   if (!token) return null;
 
-  const queries = [target.queryName, target.code];
+  const bracketCode = extractBracketCode(target.releaseName);
+  const queries = [
+    target.releaseName,
+    target.queryName,
+    bracketCode,
+    formatDisplaySetCode(bracketCode || target.code),
+    target.code,
+  ].filter(Boolean);
   let bestCandidate = null;
 
-  for (const query of queries) {
+  for (const query of [...new Set(queries)]) {
     const url = new URL(JUSTTCG_SETS_URL);
     url.searchParams.set("game", JUSTTCG_GAME_ID);
     url.searchParams.set("q", query);

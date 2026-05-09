@@ -85,6 +85,41 @@ test("set refresh resolves fuzzy PRB01 JustTCG set names to the correct set id",
   });
 });
 
+test("set refresh tries the bracketed release code when broad PRB01 searches miss", async () => {
+  const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
+    "scripts/run-justtcg-set-refresh.mjs",
+  );
+
+  const queries: string[] = [];
+  const resolved = await mod.resolveJusttcgSetId({
+    apiKey: "test-key",
+    target: {
+      code: "PRB01",
+      normalizedCode: "PRB01",
+      releaseName: "ONE PIECE CARD THE BEST [PRB-01]",
+      category: "PREMIUM_BOOSTER",
+      releaseDate: "2024-11-08",
+      printCount: 319,
+      queryName: "ONE PIECE CARD THE BEST",
+    },
+    fetchImpl: async (url) => {
+      queries.push(new URL(url).searchParams.get("q") || "");
+      const isBracketedCode = String(url).includes("q=PRB-01");
+      return {
+        ok: true,
+        json: async () => ({
+          data: isBracketedCode
+            ? [{ id: "set_prb01_live", name: "Premium Booster -One Piece Card The Best- [PRB-01]" }]
+            : [],
+        }),
+      };
+    },
+  });
+
+  assert.equal(resolved?.id, "set_prb01_live");
+  assert.ok(queries.includes("PRB-01"));
+});
+
 test("set refresh pipeline runs import, snapshot fetch, verify, export, apply, and known-price publish in order", async () => {
   const calls: string[] = [];
   const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
