@@ -38,6 +38,12 @@ function cleanReleaseName(value) {
     .trim();
 }
 
+function normalizeLooseLookup(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+}
+
 function extractBracketCode(value) {
   const match = String(value || "").match(/\[([A-Z0-9-]+)\]/i);
   return match ? match[1] : "";
@@ -82,15 +88,22 @@ export function resolveSetRefreshTarget({ requestedSetCode, releases }) {
 
 function chooseBestSetCandidate(candidates, target) {
   const targetName = cleanReleaseName(target.releaseName).toLowerCase();
+  const normalizedTargetName = normalizeLooseLookup(target.releaseName);
   const targetCode = target.code.toLowerCase();
+  const normalizedTargetCode = normalizeSetCode(target.code).toLowerCase();
   const scored = (candidates || [])
     .map((candidate) => {
       const name = String(candidate?.name || "").trim();
       const normalizedName = name.toLowerCase();
+      const looseName = normalizeLooseLookup(name);
+      const candidateCode = normalizeSetCode(extractBracketCode(name)).toLowerCase();
       let score = 0;
       if (normalizedName === targetName) score += 100;
       if (normalizedName.includes(targetName)) score += 50;
+      if (looseName === normalizedTargetName) score += 100;
+      if (looseName.includes(normalizedTargetName)) score += 50;
       if (normalizedName.includes(targetCode)) score += 25;
+      if (candidateCode === normalizedTargetCode) score += 75;
       if (/release event/i.test(name)) score -= 1000;
       score += Number(candidate?.cards_count || candidate?.count || 0) / 1000;
       return { candidate, score };
@@ -316,7 +329,6 @@ async function main() {
     setCode: args.set,
     dryRun: args.dryRun,
     fetchPageSize: args.fetchPageSize,
-    requireResolvedSetId: true,
   });
 
   console.log(JSON.stringify(summary, null, 2));

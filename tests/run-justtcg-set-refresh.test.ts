@@ -46,6 +46,45 @@ test("set refresh accepts premium booster releases like PRB01", async () => {
   assert.equal(target.releaseName, "ONE PIECE CARD THE BEST [PRB-01]");
 });
 
+test("set refresh resolves fuzzy PRB01 JustTCG set names to the correct set id", async () => {
+  const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
+    "scripts/run-justtcg-set-refresh.mjs",
+  );
+
+  const resolved = await mod.resolveJusttcgSetId({
+    apiKey: "test-key",
+    target: {
+      code: "PRB01",
+      normalizedCode: "PRB01",
+      releaseName: "ONE PIECE CARD THE BEST [PRB-01]",
+      category: "PREMIUM_BOOSTER",
+      releaseDate: "2024-11-08",
+      printCount: 319,
+      queryName: "ONE PIECE CARD THE BEST",
+    },
+    fetchImpl: async () => ({
+      ok: true,
+      json: async () => ({
+        data: [
+          {
+            id: "set_prb01_live",
+            name: "Premium Booster -One Piece Card The Best- [PRB-01]",
+            cards_count: 319,
+            release_date: "2024-11-08",
+          },
+        ],
+      }),
+    }),
+  });
+
+  assert.deepEqual(resolved, {
+    id: "set_prb01_live",
+    name: "Premium Booster -One Piece Card The Best- [PRB-01]",
+    cardsCount: 319,
+    releaseDate: "2024-11-08",
+  });
+});
+
 test("set refresh pipeline runs import, snapshot fetch, verify, export, apply, and known-price publish in order", async () => {
   const calls: string[] = [];
   const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
@@ -157,4 +196,32 @@ test("set refresh refreshes the verifier snapshot for the target JustTCG set id"
   assert.ok(fetchStep);
   assert.ok(fetchStep.args.includes("--set"));
   assert.equal(fetchStep.args[fetchStep.args.indexOf("--set") + 1], "set_live_op15eb04");
+});
+
+test("set refresh falls back to the normalized release code when the JustTCG set id is unresolved", async () => {
+  const steps: Array<{ label: string; args: string[] }> = [];
+  const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
+    "scripts/run-justtcg-set-refresh.mjs",
+  );
+
+  await mod.runSetRefresh({
+    setCode: "PRB01",
+    apiKey: "test-key",
+    releases: [{ codes: ["PRB01"], category: "PREMIUM_BOOSTER", name: "ONE PIECE CARD THE BEST [PRB-01]" }],
+    fetchImpl: async () => ({
+      ok: true,
+      json: async () => ({ data: [] }),
+    }),
+    runCommand: async (label, step) => {
+      steps.push({ label, args: step.args });
+      return { ok: true, code: 0, stdout: "" };
+    },
+  });
+
+  const importStep = steps.find((step) => step.label === "import");
+  const snapshotStep = steps.find((step) => step.label === "fetch_catalog_snapshot");
+  assert.ok(importStep);
+  assert.ok(snapshotStep);
+  assert.equal(importStep.args[importStep.args.indexOf("--set") + 1], "PRB01");
+  assert.equal(snapshotStep.args[snapshotStep.args.indexOf("--set") + 1], "PRB01");
 });
