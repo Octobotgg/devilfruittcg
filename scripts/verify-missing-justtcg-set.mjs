@@ -291,21 +291,29 @@ export function resolveVerificationPersistenceConfig(env = process.env) {
   return null;
 }
 
-function readEbayPriceMap(dbPath) {
-  const db = new Database(dbPath, { readonly: true, fileMustExist: true });
-  const rows = db.prepare("select card_id, data from price_cache").all();
-  const map = new Map();
-  for (const row of rows) {
-    try {
-      const payload = JSON.parse(row.data);
-      const average = Number(payload?.ebay?.averagePrice);
-      map.set(row.card_id, Number.isFinite(average) ? average : null);
-    } catch {
-      map.set(row.card_id, null);
+export function readEbayPriceMap(dbPath) {
+  try {
+    const db = new Database(dbPath, { readonly: true, fileMustExist: true });
+    const rows = db.prepare("select card_id, data from price_cache").all();
+    const map = new Map();
+    for (const row of rows) {
+      try {
+        const payload = JSON.parse(row.data);
+        const average = Number(payload?.ebay?.averagePrice);
+        map.set(row.card_id, Number.isFinite(average) ? average : null);
+      } catch {
+        map.set(row.card_id, null);
+      }
     }
+    db.close();
+    return map;
+  } catch (error) {
+    const code = error && typeof error === "object" ? error.code : null;
+    if (code === "SQLITE_CANTOPEN") {
+      return new Map();
+    }
+    throw error;
   }
-  db.close();
-  return map;
 }
 
 function priceGuard(justtcgPrice, ebayPrice) {

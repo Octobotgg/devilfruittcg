@@ -109,6 +109,14 @@ test("verify-missing-justtcg-set prefers Supabase service-role config when both 
   });
 });
 
+test("verify-missing-justtcg-set tolerates a missing local ebay cache database", async () => {
+  const module = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const map = module.readEbayPriceMap(path.join(REPO_ROOT, ".cache", "does-not-exist.db"));
+
+  assert.deepEqual([...map.entries()], []);
+});
+
 test("evaluateVerificationCard emits one unresolved card for candidate-level failures", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 
