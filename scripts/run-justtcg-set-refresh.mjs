@@ -11,7 +11,7 @@ const OFFICIAL_RELEASES_PATH = path.join(REPO_ROOT, "data", "bandai-en-official-
 const JUSTTCG_SETS_URL = "https://api.justtcg.com/v1/sets";
 const JUSTTCG_GAME_ID = "one-piece-card-game";
 const DEFAULT_FETCH_PAGE_SIZE = 20;
-const ALLOWED_RELEASE_CATEGORIES = new Set(["BOOSTER_PACK", "EXTRA_BOOSTER", "BOOSTER_BOX"]);
+const ALLOWED_RELEASE_CATEGORIES = new Set(["BOOSTER_PACK", "EXTRA_BOOSTER", "BOOSTER_BOX", "PREMIUM_BOOSTER"]);
 
 function normalizeSetCode(value) {
   return String(value || "")

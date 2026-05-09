@@ -28,6 +28,24 @@ test("set refresh resolves booster lane and excludes release event lane", async 
   assert.doesNotMatch(target.releaseName, /Release Event/);
 });
 
+test("set refresh accepts premium booster releases like PRB01", async () => {
+  const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
+    "scripts/run-justtcg-set-refresh.mjs",
+  );
+
+  const target = mod.resolveSetRefreshTarget({
+    requestedSetCode: "PRB01",
+    releases: [
+      { codes: ["PRB01"], category: "PREMIUM_BOOSTER", name: "ONE PIECE CARD THE BEST [PRB-01]" },
+      { codes: [], category: "PROMOTION", name: "PRB-01 Release Event" },
+    ],
+  });
+
+  assert.equal(target.code, "PRB01");
+  assert.equal(target.normalizedCode, "PRB01");
+  assert.equal(target.releaseName, "ONE PIECE CARD THE BEST [PRB-01]");
+});
+
 test("set refresh pipeline runs import, snapshot fetch, verify, export, apply, and known-price publish in order", async () => {
   const calls: string[] = [];
   const mod = await importModule<typeof import("../scripts/run-justtcg-set-refresh.mjs")>(
