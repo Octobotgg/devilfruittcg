@@ -140,6 +140,44 @@ test("buildJusttcgCardsUrl includes the cards query params", async () => {
   assert.equal(parsed.searchParams.get("priceHistoryDuration"), "30d");
 });
 
+test("fetchJusttcgCatalogPage aborts a hanging JustTCG request and retries", async () => {
+  const { fetchJusttcgCatalogPage } =
+    await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(
+      "scripts/import-justtcg-to-drizzle.mjs",
+    );
+
+  let callCount = 0;
+  const fetchImpl = async (_url: string | URL, init?: RequestInit) => {
+    callCount += 1;
+    if (callCount === 1) {
+      return await new Promise((_, reject) => {
+        init?.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+      });
+    }
+
+    return {
+      ok: true,
+      status: 200,
+      headers: new Headers(),
+      text: async () => JSON.stringify({ data: [{ id: "justtcg:zoro" }], meta: { total: 1 } }),
+    } as Response;
+  };
+
+  const page = await fetchJusttcgCatalogPage({
+    apiKey: "test-key",
+    fetchImpl,
+    requestTimeoutMs: 5,
+    retryBaseMs: 1,
+    sleepImpl: async () => {},
+  });
+
+  assert.equal(callCount, 2);
+  assert.deepEqual(page, {
+    cards: [{ id: "justtcg:zoro" }],
+    meta: { total: 1 },
+  });
+});
+
 test("buildSeed keeps one active approved mapping when one JustTCG product is duplicated across prints", async () => {
   const { buildSeed } =
     await importModule<typeof import("../scripts/import-justtcg-to-drizzle.mjs")>(

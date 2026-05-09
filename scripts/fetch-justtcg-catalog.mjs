@@ -1,3 +1,5 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   DEFAULT_CATALOG_PATH,
   chunk,
@@ -13,6 +15,7 @@ import {
 const DEFAULT_GAME = "one-piece-card-game";
 const DEFAULT_LIMIT = 100;
 const DEFAULT_DELAY_MS = 500;
+const REQUEST_TIMEOUT_MS = 20_000;
 const MAX_RETRIES = 4;
 const RETRY_BASE_MS = 3000;
 
@@ -31,7 +34,18 @@ async function sleep(ms) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function fetchPage({ apiKey, game, limit, offset, includeNullPrices, set }) {
+export async function fetchPage({
+  apiKey,
+  game,
+  limit,
+  offset,
+  includeNullPrices,
+  set,
+  fetchImpl = fetch,
+  requestTimeoutMs = REQUEST_TIMEOUT_MS,
+  retryBaseMs = RETRY_BASE_MS,
+  sleepImpl = sleep,
+}) {
   const params = new URLSearchParams({
     game,
     limit: String(limit),
@@ -41,39 +55,55 @@ async function fetchPage({ apiKey, game, limit, offset, includeNullPrices, set }
   if (set) params.set("set", String(set));
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt += 1) {
-    const response = await fetch(`https://api.justtcg.com/v1/cards?${params.toString()}`, {
-      headers: {
-        "X-API-Key": apiKey,
-        "User-Agent": "DevilFruitTCG/JustTCGCatalogFetch",
-      },
-    });
-
-    const text = await response.text();
-    let payload;
+    let timeout;
     try {
-      payload = text ? JSON.parse(text) : {};
-    } catch {
-      payload = { raw: text };
-    }
+      const controller = new AbortController();
+      timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+      const response = await fetchImpl(`https://api.justtcg.com/v1/cards?${params.toString()}`, {
+        headers: {
+          "X-API-Key": apiKey,
+          "User-Agent": "DevilFruitTCG/JustTCGCatalogFetch",
+        },
+        signal: controller.signal,
+      });
 
-    if (response.ok) {
-      return {
-        cards: Array.isArray(payload?.data) ? payload.data : [],
-        meta: payload?.meta || null,
-      };
-    }
+      const text = await response.text();
+      let payload;
+      try {
+        payload = text ? JSON.parse(text) : {};
+      } catch {
+        payload = { raw: text };
+      }
 
-    const retriable = response.status === 429 || response.status >= 500;
-    if (retriable && attempt < MAX_RETRIES) {
-      const retryAfterHeader = Number(response.headers.get("retry-after"));
-      const waitMs = Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
-        ? retryAfterHeader * 1000
-        : RETRY_BASE_MS * (attempt + 1);
-      await sleep(waitMs);
-      continue;
-    }
+      if (response.ok) {
+        return {
+          cards: Array.isArray(payload?.data) ? payload.data : [],
+          meta: payload?.meta || null,
+        };
+      }
 
-    throw new Error(`JustTCG ${response.status}: ${payload?.error || payload?.message || text || "request failed"}`);
+      const retriable = response.status === 429 || response.status >= 500;
+      if (retriable && attempt < MAX_RETRIES) {
+        const retryAfterHeader = Number(response.headers.get("retry-after"));
+        const waitMs = Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
+          ? retryAfterHeader * 1000
+          : retryBaseMs * (attempt + 1);
+        await sleepImpl(waitMs);
+        continue;
+      }
+
+      throw new Error(`JustTCG ${response.status}: ${payload?.error || payload?.message || text || "request failed"}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const retriable = error instanceof TypeError || /fetch failed|network|timeout|aborted/i.test(message);
+      if (retriable && attempt < MAX_RETRIES) {
+        await sleepImpl(retryBaseMs * (attempt + 1));
+        continue;
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
   }
   return { cards: [], meta: null };
 }
@@ -189,7 +219,11 @@ async function main() {
   }, null, 2));
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectRun) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

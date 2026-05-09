@@ -117,6 +117,43 @@ test("verify-missing-justtcg-set tolerates a missing local ebay cache database",
   assert.deepEqual([...map.entries()], []);
 });
 
+test("verify-missing-justtcg-set aborts a hanging Supabase price fetch and retries", async () => {
+  const module = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  let callCount = 0;
+  const fetchImpl = async (_url: string | URL, init?: RequestInit) => {
+    callCount += 1;
+    if (callCount === 1) {
+      return await new Promise((_, reject) => {
+        init?.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+      });
+    }
+
+    return {
+      ok: true,
+      status: 200,
+      text: async () => "[]",
+      json: async () => [],
+    } as Response;
+  };
+
+  const ids = await module.fetchPricedIdsWithSupabase(
+    {
+      url: "https://example.supabase.co",
+      key: "service-role-key",
+    },
+    {
+      fetchImpl,
+      requestTimeoutMs: 5,
+      retryBaseMs: 1,
+      sleepImpl: async () => {},
+    },
+  );
+
+  assert.equal(callCount, 2);
+  assert.deepEqual([...ids], []);
+});
+
 test("evaluateVerificationCard emits one unresolved card for candidate-level failures", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 

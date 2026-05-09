@@ -457,7 +457,12 @@ export function evaluateVerificationCard({
   return { approved, rejected, unresolved, labelCorrections };
 }
 
-async function fetchPricedIdsWithSupabase(config) {
+export async function fetchPricedIdsWithSupabase(config, {
+  fetchImpl = fetch,
+  requestTimeoutMs = 20_000,
+  retryBaseMs = 1_000,
+  sleepImpl = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+} = {}) {
   const rows = [];
   let offset = 0;
   const limit = 1000;
@@ -467,16 +472,53 @@ async function fetchPricedIdsWithSupabase(config) {
     url.searchParams.set("order", "devilfruit_id.asc");
     url.searchParams.set("limit", String(limit));
     url.searchParams.set("offset", String(offset));
-    const response = await fetch(url, {
-      headers: {
-        apikey: config.key,
-        Authorization: `Bearer ${config.key}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Failed to load justtcg_prices: ${response.status} ${await response.text()}`);
+    let attempt = 0;
+    let batch = null;
+
+    while (attempt <= 4) {
+      let timeout;
+      try {
+        const controller = new AbortController();
+        timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+        const response = await fetchImpl(url, {
+          headers: {
+            apikey: config.key,
+            Authorization: `Bearer ${config.key}`,
+          },
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          const retriable = response.status === 408 || response.status === 425 || response.status === 429 || response.status >= 500;
+          if (retriable && attempt < 4) {
+            attempt += 1;
+            await sleepImpl(retryBaseMs * attempt);
+            continue;
+          }
+          throw new Error(`Failed to load justtcg_prices: ${response.status} ${text}`);
+        }
+
+        batch = await response.json();
+        break;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        const retriable = error instanceof TypeError || /fetch failed|network|timeout|aborted/i.test(message);
+        if (retriable && attempt < 4) {
+          attempt += 1;
+          await sleepImpl(retryBaseMs * attempt);
+          continue;
+        }
+        throw error;
+      } finally {
+        clearTimeout(timeout);
+      }
     }
-    const batch = await response.json();
+
+    if (!Array.isArray(batch)) {
+      throw new Error("Failed to load justtcg_prices: invalid response payload");
+    }
+
     rows.push(...batch);
     if (batch.length < limit) break;
     offset += limit;

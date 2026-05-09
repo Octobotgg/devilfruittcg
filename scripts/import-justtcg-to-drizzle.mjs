@@ -15,6 +15,7 @@ const OFFICIAL_RELEASES_PATH = path.join(ROOT, "data", "bandai-en-official-relea
 const DEFAULT_CHUNK_SIZE = 250;
 const JUSTTCG_MAX_PLAN_LIMIT = 100;
 const JUSTTCG_INCREMENTAL_FETCH_DELAY_MS = 3000;
+const JUSTTCG_REQUEST_TIMEOUT_MS = 20_000;
 const SCHEDULED_PRICE_HISTORY_DURATION = "30d";
 
 const GAME_ID = "one-piece-card-game";
@@ -400,6 +401,10 @@ async function fetchJusttcgCatalogPage({
   priceHistoryDuration = SCHEDULED_PRICE_HISTORY_DURATION,
   set = null,
   updatedAfter = null,
+  fetchImpl = fetch,
+  requestTimeoutMs = JUSTTCG_REQUEST_TIMEOUT_MS,
+  retryBaseMs = 3000,
+  sleepImpl = sleep,
 }) {
   const url = buildJusttcgCardsUrl({
     game,
@@ -411,45 +416,59 @@ async function fetchJusttcgCatalogPage({
     priceHistoryDuration,
     updatedAfter,
   });
-
   const maxRetries = 4;
-  const retryBaseMs = 3000;
 
   for (let attempt = 0; attempt <= maxRetries; attempt += 1) {
-    const response = await fetch(url, {
-      headers: {
-        "X-API-Key": apiKey,
-        "User-Agent": "DevilFruitTCG/JustTCGCatalogImport",
-      },
-    });
-
-    const text = await response.text();
-    let payload;
+    let timeout;
     try {
-      payload = text ? JSON.parse(text) : {};
-    } catch {
-      payload = { raw: text };
-    }
+      const controller = new AbortController();
+      timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+      const response = await fetchImpl(url, {
+        headers: {
+          "X-API-Key": apiKey,
+          "User-Agent": "DevilFruitTCG/JustTCGCatalogImport",
+        },
+        signal: controller.signal,
+      });
 
-    if (response.ok) {
-      return {
-        cards: Array.isArray(payload?.data) ? payload.data : [],
-        meta: payload?.meta || null,
-      };
-    }
+      const text = await response.text();
+      let payload;
+      try {
+        payload = text ? JSON.parse(text) : {};
+      } catch {
+        payload = { raw: text };
+      }
 
-    const retriable = response.status === 429 || response.status >= 500;
-    if (retriable && attempt < maxRetries) {
-      const retryAfterHeader = Number(response.headers.get("retry-after"));
-      const waitMs =
-        Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
-          ? retryAfterHeader * 1000
-          : retryBaseMs * (attempt + 1);
-      await sleep(waitMs);
-      continue;
-    }
+      if (response.ok) {
+        return {
+          cards: Array.isArray(payload?.data) ? payload.data : [],
+          meta: payload?.meta || null,
+        };
+      }
 
-    throw new Error(`JustTCG ${response.status}: ${payload?.error || payload?.message || text || "request failed"}`);
+      const retriable = response.status === 429 || response.status >= 500;
+      if (retriable && attempt < maxRetries) {
+        const retryAfterHeader = Number(response.headers.get("retry-after"));
+        const waitMs =
+          Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
+            ? retryAfterHeader * 1000
+            : retryBaseMs * (attempt + 1);
+        await sleepImpl(waitMs);
+        continue;
+      }
+
+      throw new Error(`JustTCG ${response.status}: ${payload?.error || payload?.message || text || "request failed"}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const retriable = error instanceof TypeError || /fetch failed|network|timeout|aborted/i.test(message);
+      if (retriable && attempt < maxRetries) {
+        await sleepImpl(retryBaseMs * (attempt + 1));
+        continue;
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   return { cards: [], meta: null };
