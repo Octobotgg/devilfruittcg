@@ -696,6 +696,60 @@ test("getTcgplayerProductDetail preserves the last good payload when a refresh r
   }
 });
 
+test("getTcgplayerProductDetail preserves the last good payload when a refresh times out", async () => {
+  const tempDir = createTempDir();
+  try {
+    const { getTcgplayerProductDetail } = await importModule("scripts/lib/tcgplayer-detail-cache.mjs");
+    const cachePath = path.join(tempDir, "cache.json");
+    const cache: Record<string, TcgplayerCacheEntry> = {};
+    const hangingCalls: Array<{ url: string; init?: RequestInit }> = [];
+    const fetchImpl = async (url: string | URL, init?: RequestInit) => {
+      hangingCalls.push({ url: String(url), init });
+      return await new Promise((_, reject) => {
+        init?.signal?.addEventListener(
+          "abort",
+          () => reject(new Error("aborted")),
+          { once: true },
+        );
+      });
+    };
+
+    await getTcgplayerProductDetail({
+      productId: 323,
+      cache,
+      cachePath,
+      ttlMs: 1,
+      fetchImpl: async () => ({
+        ok: true,
+        status: 200,
+        json: async () => ({ id: 323, title: "Stable Card" }),
+        text: async () => JSON.stringify({ id: 323, title: "Stable Card" }),
+      } as Response),
+    });
+
+    const staleFetchedAt = new Date(Date.now() - 60_000).toISOString();
+    cache["323"].fetched_at = staleFetchedAt;
+    const persisted = JSON.parse(readFileSync(cachePath, "utf8"));
+    persisted["323"].fetched_at = staleFetchedAt;
+    writeFileSync(cachePath, `${JSON.stringify(persisted, null, 2)}\n`);
+
+    const fallback = await getTcgplayerProductDetail({
+      productId: 323,
+      cache,
+      cachePath,
+      ttlMs: 1,
+      fetchImpl,
+      requestTimeoutMs: 5,
+    });
+
+    assert.equal(hangingCalls.length, 1);
+    assert.ok(hangingCalls[0].init?.signal instanceof AbortSignal);
+    assert.deepEqual(fallback, { id: 323, title: "Stable Card" });
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
+});
+
 test("getTcgplayerProductDetail does not fall back to stale cache on permanent failures", async () => {
   const tempDir = createTempDir();
   try {

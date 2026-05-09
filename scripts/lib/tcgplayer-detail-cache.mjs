@@ -2,6 +2,7 @@ import fs from "fs";
 import { writeJson } from "./justtcg-utils.mjs";
 
 const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
+const DEFAULT_REQUEST_TIMEOUT_MS = 10_000;
 const TCGPLAYER_DETAILS_BASE_URL = "https://mp-search-api.tcgplayer.com/v1/product";
 const RETRIABLE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504, 520, 522, 524]);
 const LEGACY_RAW_FRESH_AT = new Date(0).toISOString();
@@ -228,6 +229,7 @@ export async function getTcgplayerProductDetail({
   cache,
   cachePath,
   ttlMs = DEFAULT_TTL_MS,
+  requestTimeoutMs = DEFAULT_REQUEST_TIMEOUT_MS,
   fetchImpl = globalThis.fetch,
 }) {
   const key = String(productId);
@@ -244,12 +246,18 @@ export async function getTcgplayerProductDetail({
   }
 
   const url = `${TCGPLAYER_DETAILS_BASE_URL}/${key}/details`;
+  const controller = new AbortController();
+  const timeoutId =
+    Number.isFinite(requestTimeoutMs) && requestTimeoutMs > 0
+      ? setTimeout(() => controller.abort(new Error(`TCGplayer details timed out for ${key}`)), requestTimeoutMs)
+      : null;
 
   try {
     const response = await fetchImpl(url, {
       headers: {
         "User-Agent": "Mozilla/5.0",
       },
+      signal: controller.signal,
     });
     const payload = await readResponseBody(response, key);
     cachePayload(cache, key, payload);
@@ -260,5 +268,9 @@ export async function getTcgplayerProductDetail({
       return getPayload(cachedEntry);
     }
     throw error;
+  } finally {
+    if (timeoutId != null) {
+      clearTimeout(timeoutId);
+    }
   }
 }
