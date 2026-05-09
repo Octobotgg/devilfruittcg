@@ -339,6 +339,77 @@ test("official card lookup keeps a compatibility alias for the old OP02-013 mang
   assert.equal(source.includes('["OP02-013_MANGA_OP02_PRINT_1", "OP02-013_PARALLEL_OP02_PRINT_1"]'), true);
 });
 
+test("official OP06-118 premium variants keep alternate art, manga, and PRB01 manga in the correct slots", async () => {
+  const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
+    with: { type: "json" },
+  });
+  const cards = cardsModule.default as Array<{
+    id: string;
+    variantType?: string;
+    variantLabel?: string;
+    variantSlug?: string;
+    canonicalId?: string;
+  }>;
+  const byId = new Map(cards.filter((card) => card.id.startsWith("OP06-118")).map((card) => [card.id, card]));
+
+  assert.deepEqual(
+    {
+      id: "OP06-118_p1",
+      variantType: byId.get("OP06-118_p1")?.variantType,
+      variantLabel: byId.get("OP06-118_p1")?.variantLabel,
+      variantSlug: byId.get("OP06-118_p1")?.variantSlug,
+      canonicalId: byId.get("OP06-118_p1")?.canonicalId,
+    },
+    {
+      id: "OP06-118_p1",
+      variantType: "alt_art",
+      variantLabel: "Alternate Art",
+      variantSlug: "alternate_art_op06",
+      canonicalId: "OP06-118_alternate_art_op06",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP06-118_p2",
+      variantType: byId.get("OP06-118_p2")?.variantType,
+      variantLabel: byId.get("OP06-118_p2")?.variantLabel,
+      variantSlug: byId.get("OP06-118_p2")?.variantSlug,
+      canonicalId: byId.get("OP06-118_p2")?.canonicalId,
+    },
+    {
+      id: "OP06-118_p2",
+      variantType: "manga",
+      variantLabel: "Manga",
+      variantSlug: "manga_op06",
+      canonicalId: "OP06-118_manga_op06",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "OP06-118_r1",
+      variantType: byId.get("OP06-118_r1")?.variantType,
+      variantLabel: byId.get("OP06-118_r1")?.variantLabel,
+      variantSlug: byId.get("OP06-118_r1")?.variantSlug,
+      canonicalId: byId.get("OP06-118_r1")?.canonicalId,
+    },
+    {
+      id: "OP06-118_r1",
+      variantType: "manga",
+      variantLabel: "Manga",
+      variantSlug: "manga_prb01",
+      canonicalId: "OP06-118_manga_prb01",
+    },
+  );
+});
+
+test("official card lookup keeps a compatibility alias for the old OP06-118 PRB01 reprint route", () => {
+  const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
+
+  assert.equal(source.includes('["OP06-118_REPRINT_PRB01", "OP06-118_MANGA_PRB01"]'), true);
+});
+
 test("official card lookup keeps compatibility aliases for the old EB01 SP routes", () => {
   const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
 

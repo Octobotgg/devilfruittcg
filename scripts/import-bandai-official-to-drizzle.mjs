@@ -46,6 +46,7 @@ const OP13_VARIANT_OVERRIDES = new Map(
   [
     ["OP09-118_p3", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Wanted Poster", variantSlug: "wanted_poster_op13" }],
     ["OP02-013_p1", { variantType: "parallel", variantFamily: "parallel", variantLabel: "Parallel", variantSlug: "parallel_op02_print_1" }],
+    ["OP06-118_r1", { variantType: "manga", variantFamily: "manga", variantLabel: "Manga", variantSlug: "manga_prb01" }],
     ["EB01-001_p1", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Alternate Art", variantSlug: "alternate_art_eb01" }],
     ["EB01-021_p1", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Alternate Art", variantSlug: "alternate_art_eb01" }],
     ["EB01-057_p1", { variantType: "alternate_art", variantFamily: "alternate_art", variantLabel: "Alternate Art", variantSlug: "alternate_art_eb01" }],
