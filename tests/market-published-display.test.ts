@@ -60,6 +60,7 @@ test("market row mapping prefers published display payload when present", async 
 
   const card = toMarketCardResultForTesting(
     createMarketSearchRow({
+      printedCardCode: "OP13-120-P1",
       displayTitle: "Sabo",
       displaySetName: "Carrying On His Will",
       displaySetCode: "OP13",
@@ -74,7 +75,8 @@ test("market row mapping prefers published display payload when present", async 
   assert.equal(card.set, "Carrying On His Will");
   assert.equal(card.setCode, "OP13");
   assert.equal(card.rarity, "SEC");
-  assert.equal(card.variantLabel, "Red Super Alternate Art");
+  assert.equal(card.variantLabel, "Alternate Art");
+  assert.equal(card.publishedTreatmentLabel, "Red Super Alternate Art");
   assert.equal(card.imageUrl, "https://img.example/published-sabo.jpg");
 });
 
@@ -92,7 +94,7 @@ test("market row mapping falls back to safe internal fields when no published di
   assert.equal(card.imageUrl, "https://img.example/internal-sabo.jpg");
 });
 
-test("market row mapping suppresses treatment chips when the published display row leaves the treatment blank", async () => {
+test("market row mapping keeps enough data for treatment chips when the published display row leaves it blank", async () => {
   const { toMarketCardResultForTesting } =
     await importModule<typeof import("../lib/server/market/market-search")>(
       "lib/server/market/market-search.ts",
@@ -102,6 +104,7 @@ test("market row mapping suppresses treatment chips when the published display r
 
   const card = toMarketCardResultForTesting(
     createMarketSearchRow({
+      printedCardCode: "OP13-120-P1",
       displayTitle: "Sabo",
       displaySetName: "Carrying On His Will",
       displaySetCode: "OP13",
@@ -111,8 +114,8 @@ test("market row mapping suppresses treatment chips when the published display r
     }) as never,
   );
 
-  assert.equal(card.variantLabel, undefined);
-  assert.equal(marketVariantDisplayLabel(card), null);
+  assert.equal(card.variantLabel, "Alternate Art");
+  assert.equal(marketVariantDisplayLabel(card), "Red Super Alternate Art");
 });
 
 test("market home raw-card query reads published pricing and display rows", async () => {

@@ -231,6 +231,71 @@ test("official OP02-013 variants keep parallel, manga, and SP in the correct pri
   );
 });
 
+test("official EB01 Memorial Collection p1 family keeps alternate-art labels instead of SP", async () => {
+  const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
+    with: { type: "json" },
+  });
+  const cards = cardsModule.default as Array<{
+    id: string;
+    variantType?: string;
+    variantLabel?: string;
+    variantSlug?: string;
+    canonicalId?: string;
+  }>;
+  const byId = new Map(cards.filter((card) => ["EB01-001_p1", "EB01-021_p1", "EB01-057_p1"].includes(card.id)).map((card) => [card.id, card]));
+
+  assert.deepEqual(
+    {
+      id: "EB01-001_p1",
+      variantType: byId.get("EB01-001_p1")?.variantType,
+      variantLabel: byId.get("EB01-001_p1")?.variantLabel,
+      variantSlug: byId.get("EB01-001_p1")?.variantSlug,
+      canonicalId: byId.get("EB01-001_p1")?.canonicalId,
+    },
+    {
+      id: "EB01-001_p1",
+      variantType: "alt_art",
+      variantLabel: "Alternate Art",
+      variantSlug: "alternate_art_eb01",
+      canonicalId: "EB01-001_alternate_art_eb01",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "EB01-021_p1",
+      variantType: byId.get("EB01-021_p1")?.variantType,
+      variantLabel: byId.get("EB01-021_p1")?.variantLabel,
+      variantSlug: byId.get("EB01-021_p1")?.variantSlug,
+      canonicalId: byId.get("EB01-021_p1")?.canonicalId,
+    },
+    {
+      id: "EB01-021_p1",
+      variantType: "alt_art",
+      variantLabel: "Alternate Art",
+      variantSlug: "alternate_art_eb01",
+      canonicalId: "EB01-021_alternate_art_eb01",
+    },
+  );
+
+  assert.deepEqual(
+    {
+      id: "EB01-057_p1",
+      variantType: byId.get("EB01-057_p1")?.variantType,
+      variantLabel: byId.get("EB01-057_p1")?.variantLabel,
+      variantSlug: byId.get("EB01-057_p1")?.variantSlug,
+      canonicalId: byId.get("EB01-057_p1")?.canonicalId,
+    },
+    {
+      id: "EB01-057_p1",
+      variantType: "alt_art",
+      variantLabel: "Alternate Art",
+      variantSlug: "alternate_art_eb01",
+      canonicalId: "EB01-057_alternate_art_eb01",
+    },
+  );
+});
+
 test("official EB02-061 PRB02 print 3 exposes the SP family instead of manga", async () => {
   const cardsModule = await import(pathToFileURL(path.join(REPO_ROOT, "data", "bandai-en-official-cards.json")).href, {
     with: { type: "json" },
@@ -272,6 +337,14 @@ test("official card lookup keeps a compatibility alias for the old OP02-013 mang
   const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
 
   assert.equal(source.includes('["OP02-013_MANGA_OP02_PRINT_1", "OP02-013_PARALLEL_OP02_PRINT_1"]'), true);
+});
+
+test("official card lookup keeps compatibility aliases for the old EB01 SP routes", () => {
+  const source = fs.readFileSync(path.join(REPO_ROOT, "lib", "official-cards.ts"), "utf8");
+
+  assert.equal(source.includes('["EB01-001_SP_EB01", "EB01-001_ALTERNATE_ART_EB01"]'), true);
+  assert.equal(source.includes('["EB01-021_SP_EB01", "EB01-021_ALTERNATE_ART_EB01"]'), true);
+  assert.equal(source.includes('["EB01-057_SP_EB01", "EB01-057_ALTERNATE_ART_EB01"]'), true);
 });
 
 test("official ST13-011 variants expose the starter-deck parallel and OP12 SP in the correct print slots", async () => {

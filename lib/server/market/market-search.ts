@@ -476,7 +476,7 @@ export function toMarketCardResultForTesting(row: MarketSearchRow): RuntimeMarke
     canonicalId: publicPrintId,
     canonicalVariantId: publicPrintId,
     canonicalVariantKey: row.variantSlug,
-    variantLabel: publishedTreatmentLabel ?? undefined,
+    variantLabel: String(row.variantLabel || "").trim() || undefined,
     variantSlug: row.variantSlug,
     name: publishedTitle,
     set: publishedSetName,

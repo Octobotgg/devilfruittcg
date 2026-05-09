@@ -181,6 +181,22 @@ test("marketVariantDisplayLabel prefers a published treatment label when one is 
   assert.equal(marketDisplay.marketVariantDisplayLabel(publishedLabelCard), "Jolly Roger Foil");
 });
 
+test("marketVariantDisplayLabel keeps the internal print family when a stale published label conflicts", async () => {
+  const marketDisplay =
+    await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");
+
+  const conflictingPublishedLabelCard = {
+    id: "EB01-006_p2",
+    baseId: "EB01-006",
+    rarity: "SR",
+    variantLabel: "Manga",
+    justtcgTitle: "Tony Tony.Chopper (Manga)",
+    publishedTreatmentLabel: "Alternate Art",
+  };
+
+  assert.equal(marketDisplay.marketVariantDisplayLabel(conflictingPublishedLabelCard), "Manga");
+});
+
 test("marketVariantDisplayLabel cleans anniversary wording from JustTCG titles", async () => {
   const marketDisplay =
     await importModule<typeof import("../lib/market-display")>("lib/market-display.ts");

@@ -254,8 +254,8 @@ export default function CardDetailMarketPanel({
       : "Exact print unpriced";
 
   return (
-    <div className="space-y-5">
-      <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-6 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+    <div className="space-y-4 sm:space-y-5">
+      <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-5 shadow-[0_12px_26px_rgba(27,40,56,0.06)] sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a7e70]">TCG Market</p>
@@ -280,7 +280,7 @@ export default function CardDetailMarketPanel({
           </div>
         </div>
 
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-3 xl:grid-cols-4">
           {[
             { label: "eBay Low", value: market.ebay.lowestPrice },
             { label: "eBay Avg", value: market.ebay.averagePrice },
@@ -331,7 +331,7 @@ export default function CardDetailMarketPanel({
         <div className="p-5">
           {historyState.mode === "ready" ? (
             <>
-              <div className="h-[280px]">
+          <div className="h-[240px] sm:h-[280px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartPoints}>
                     <CartesianGrid stroke="rgba(138,126,112,0.18)" strokeDasharray="3 3" />
@@ -444,7 +444,43 @@ export default function CardDetailMarketPanel({
           ) : null}
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="sm:hidden">
+          <div className="divide-y divide-[#e8dfd0]">
+            {market.ebay.sales.map((sale, index) => (
+              <div
+                key={`${sale.url || sale.title}-${index}`}
+                className={`${index % 2 === 0 ? "bg-[#faf7f2]" : "bg-[#f5efe3]"} px-4 py-4`}
+              >
+                <div className="font-sans text-[#2a2118]">
+                  {sale.url ? (
+                    <a href={sale.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-start gap-2 hover:text-[#2d6a8f]">
+                      <span className="line-clamp-3">{sale.title}</span>
+                      <ExternalLink className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+                    </a>
+                  ) : (
+                    <span className="line-clamp-3">{sale.title}</span>
+                  )}
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-3 font-sans">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a7e70]">Condition</p>
+                    <p className="mt-1 text-sm text-[#5a4e40]">{sale.condition}</p>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a7e70]">Date</p>
+                    <p className="mt-1 text-sm text-[#5a4e40]">{sale.soldDate}</p>
+                  </div>
+                  <div className="min-w-0 text-right">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a7e70]">Price</p>
+                    <p className="mt-1 text-sm font-bold text-[#2a2118]">${sale.price.toFixed(2)}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="hidden overflow-x-auto sm:block">
           <table className="w-full min-w-[720px] text-sm">
             <thead>
               <tr className="border-b border-[#e8dfd0] bg-[#1b2838] text-left font-sans text-[11px] uppercase tracking-[0.16em] text-[#f5efe3]">

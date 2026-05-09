@@ -124,6 +124,24 @@ function normalizeKnownTreatmentLabel(value: string | null | undefined) {
   return null;
 }
 
+function publishedLabelRefinesInternalLabel(internalLabel: string, publishedLabel: string) {
+  if (internalLabel === "Alternate Art") {
+    return new Set(["Full Art", "Jolly Roger Foil", "Super Alternate Art", "Red Super Alternate Art"]).has(
+      publishedLabel,
+    );
+  }
+
+  if (internalLabel === "Manga") {
+    return publishedLabel === "Red Manga" || publishedLabel === "Gold Manga";
+  }
+
+  if (internalLabel === "Anniversary") {
+    return publishedLabel.endsWith("Anniversary") && publishedLabel !== "Anniversary";
+  }
+
+  return false;
+}
+
 function compactEventSetLabel(value: string) {
   return value
     .replace(/^Championship (\d{2}-\d{2}) Finals Season (\d+)$/u, "Championship $1 Finals S$2")
@@ -189,10 +207,21 @@ export function marketVariantDisplayLabel(card: MarketCardLabelSource) {
     ? "sp"
     : String(card.rarity || "").trim().toLowerCase();
 
+  const internalLabel = normalizeKnownTreatmentLabel(card.variantLabel);
   const publishedLabel = normalizeKnownTreatmentLabel(card.publishedTreatmentLabel);
+
+  if (internalLabel && publishedLabel && internalLabel !== publishedLabel) {
+    if (publishedLabelRefinesInternalLabel(internalLabel, publishedLabel)) {
+      return publishedLabel;
+    }
+    if (internalLabel.toLowerCase() === normalizedRarity && internalLabel !== "SP") {
+      return publishedLabel;
+    }
+    return internalLabel;
+  }
+
   if (publishedLabel) return publishedLabel;
 
-  const internalLabel = normalizeKnownTreatmentLabel(card.variantLabel);
   if (internalLabel && internalLabel.toLowerCase() === normalizedRarity && internalLabel !== "SP") {
     return null;
   }

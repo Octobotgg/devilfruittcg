@@ -50622,10 +50622,10 @@
     "seriesCategories": [
       "EXTRA_BOOSTER"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_eb01",
-    "canonicalId": "EB01-001_sp_eb01"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_eb01",
+    "canonicalId": "EB01-001_alternate_art_eb01"
   },
   {
     "id": "EB01-002",
@@ -51920,10 +51920,10 @@
     "seriesCategories": [
       "EXTRA_BOOSTER"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_eb01",
-    "canonicalId": "EB01-021_sp_eb01"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_eb01",
+    "canonicalId": "EB01-021_alternate_art_eb01"
   },
   {
     "id": "EB01-022",
@@ -54267,10 +54267,10 @@
     "seriesCategories": [
       "EXTRA_BOOSTER"
     ],
-    "variantType": "sp",
-    "variantLabel": "SP",
-    "variantSlug": "sp_eb01",
-    "canonicalId": "EB01-057_sp_eb01"
+    "variantType": "alt_art",
+    "variantLabel": "Alternate Art",
+    "variantSlug": "alternate_art_eb01",
+    "canonicalId": "EB01-057_alternate_art_eb01"
   },
   {
     "id": "EB01-058",

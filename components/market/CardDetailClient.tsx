@@ -90,8 +90,8 @@ export default function CardDetailClient({
   }
 
   return (
-    <div className="relative ml-[calc(50%-50vw)] w-screen bg-[#faf7f2] text-[#2a2118]">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div className="relative w-full overflow-x-hidden bg-[#faf7f2] text-[#2a2118] sm:ml-[calc(50%-50vw)] sm:w-screen">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
         <nav
           className="flex flex-wrap items-center gap-2 border-b border-[#e8dfd0] pb-3 font-sans text-[13px]"
           aria-label="Breadcrumb"
@@ -108,13 +108,13 @@ export default function CardDetailClient({
           </span>
         </nav>
 
-        <div className="mt-7 grid gap-6 xl:grid-cols-[320px_minmax(0,1fr)]" data-card-hero>
+        <div className="mt-6 grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]" data-card-hero>
           <section className="space-y-5">
-            <div className="rounded-[28px] border border-[#e3d8c5] bg-[#f5efe3] p-4 shadow-[0_12px_40px_rgba(0,0,0,0.15)]">
+            <div className="rounded-[24px] border border-[#e3d8c5] bg-[#f5efe3] p-3 shadow-[0_12px_40px_rgba(0,0,0,0.15)] sm:rounded-[28px] sm:p-4">
               <button
                 type="button"
                 onClick={() => setIsLightboxOpen(true)}
-                className="group mx-auto block w-full max-w-[280px] cursor-zoom-in"
+                className="group mx-auto block w-full max-w-[240px] cursor-zoom-in sm:max-w-[280px]"
                 aria-label={`Open fullscreen preview for ${activeCard.name}`}
                 data-card-image-button
               >
@@ -128,7 +128,7 @@ export default function CardDetailClient({
             </div>
 
             {inactiveVariants.length > 0 ? (
-              <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-5 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+              <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-4 shadow-[0_12px_26px_rgba(27,40,56,0.06)] sm:p-5">
                 <p className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#b8863c]">Print Variants</p>
                 <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
                   {inactiveVariants.map((variant) => (
@@ -136,7 +136,7 @@ export default function CardDetailClient({
                       key={variant.id}
                       type="button"
                       onClick={() => swapToVariant(variant.id)}
-                      className="w-24 flex-shrink-0 text-left sm:w-20"
+                      className="w-20 flex-shrink-0 text-left"
                       aria-label={`View ${variant.variantLabel || variant.rarity || variant.id}`}
                     >
                       <div className="overflow-hidden rounded-[8px] border border-[#d9ccb7] bg-[#f5efe3] shadow-[0_8px_20px_rgba(27,40,56,0.08)] transition-all duration-200 hover:-translate-y-[2px] hover:border-[#d4a054] hover:shadow-[0_12px_26px_rgba(27,40,56,0.12)]">
@@ -158,10 +158,10 @@ export default function CardDetailClient({
 
           <section className="space-y-6">
             <div
-              className="rounded-[18px] border border-[#e1cfaf] bg-[radial-gradient(circle_at_top_left,rgba(240,192,64,0.16),transparent_28%),linear-gradient(145deg,rgba(245,239,227,0.98),rgba(239,230,214,0.98))] p-8 text-[#2a2118] shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_18px_40px_rgba(27,40,56,0.12)]"
+              className="rounded-[18px] border border-[#e1cfaf] bg-[radial-gradient(circle_at_top_left,rgba(240,192,64,0.16),transparent_28%),linear-gradient(145deg,rgba(245,239,227,0.98),rgba(239,230,214,0.98))] p-4 text-[#2a2118] shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_18px_40px_rgba(27,40,56,0.12)] sm:p-8"
               data-card-identity-panel
             >
-              <div className="rounded-[14px] border border-[#d4a054]/35 bg-[#fffaf1] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
+              <div className="rounded-[14px] border border-[#d4a054]/35 bg-[#fffaf1] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
                 <div className="flex flex-wrap items-center gap-2 font-sans">
                   <span className="rounded-full bg-[#d4a054] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1b2838]">
                     {displayRarity(activeCard.rarity)}
@@ -181,7 +181,7 @@ export default function CardDetailClient({
                   </span>
                 </div>
 
-                <h1 className="mt-5 text-[2.2rem] font-semibold leading-[0.95] text-[#1b2838] md:text-[3.1rem]">
+                <h1 className="mt-5 text-[2rem] font-semibold leading-[0.95] text-[#1b2838] sm:text-[2.2rem] md:text-[3.1rem]">
                   {activeCard.name}
                 </h1>
                 <p className="mt-4 font-sans text-[13px] leading-relaxed text-[#8a7e70]">
@@ -207,7 +207,7 @@ export default function CardDetailClient({
               </div>
             </div>
 
-            <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-6 shadow-[0_12px_30px_rgba(27,40,56,0.08)]">
+            <div className="rounded-[14px] border border-[#e3d8c5] bg-[#f5efe3] p-4 shadow-[0_12px_30px_rgba(27,40,56,0.08)] sm:p-6">
               <div className="grid gap-x-5 gap-y-0 sm:grid-cols-2 xl:grid-cols-3">
                 {[
                   { label: "Set Code", value: activeCard.setCode },
@@ -232,7 +232,7 @@ export default function CardDetailClient({
             </div>
 
             <div className="space-y-4">
-              <div className="rounded-[12px] border border-[#e3d8c5] border-l-[3px] border-l-[#d4a054] bg-[#f5efe3] p-6 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+              <div className="rounded-[12px] border border-[#e3d8c5] border-l-[3px] border-l-[#d4a054] bg-[#f5efe3] p-5 shadow-[0_12px_26px_rgba(27,40,56,0.06)] sm:p-6">
                 <p className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#b8863c]">Effect / Ability</p>
                 <p className="mt-3 whitespace-pre-wrap font-serif text-[15px] leading-8 text-[#2a2118]">
                   {activeCard.effect || "No effect text listed."}
@@ -240,14 +240,14 @@ export default function CardDetailClient({
               </div>
 
               {activeCard.trigger ? (
-                <div className="rounded-[12px] border border-[#e3d8c5] border-l-[3px] border-l-[#d4a054] bg-[#f5efe3] p-6 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+                <div className="rounded-[12px] border border-[#e3d8c5] border-l-[3px] border-l-[#d4a054] bg-[#f5efe3] p-5 shadow-[0_12px_26px_rgba(27,40,56,0.06)] sm:p-6">
                   <p className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#b8863c]">Trigger</p>
                   <p className="mt-3 whitespace-pre-wrap font-serif text-[15px] leading-8 text-[#2a2118]">{activeCard.trigger}</p>
                 </div>
               ) : null}
 
               {activeCard.notes?.length ? (
-                <div className="rounded-[12px] border border-[#e3d8c5] bg-[#f5efe3] p-6 shadow-[0_12px_26px_rgba(27,40,56,0.06)]">
+                <div className="rounded-[12px] border border-[#e3d8c5] bg-[#f5efe3] p-5 shadow-[0_12px_26px_rgba(27,40,56,0.06)] sm:p-6">
                   <p className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-[#b8863c]">Notes</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {activeCard.notes.map((note) => (
