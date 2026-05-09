@@ -78,6 +78,37 @@ test("verify-missing-justtcg-set defaults resolve against the current worktree",
   assert.equal(module.DEFAULT_REPORT_PATH, path.join(REPO_ROOT, ".cache", "justtcg", "set-verification-report.json"));
 });
 
+test("verify-missing-justtcg-set falls back to DATABASE_URL when service-role env is unavailable", async () => {
+  const module = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const config = module.resolveVerificationPersistenceConfig({
+    DATABASE_URL: "postgres://user:pass@localhost:5432/devilfruit",
+  });
+
+  assert.deepEqual(config, {
+    mode: "postgres",
+    connectionString: "postgres://user:pass@localhost:5432/devilfruit",
+  });
+});
+
+test("verify-missing-justtcg-set prefers Supabase service-role config when both env styles exist", async () => {
+  const module = await importModule("scripts/verify-missing-justtcg-set.mjs");
+
+  const config = module.resolveVerificationPersistenceConfig({
+    SUPABASE_URL: "https://example.supabase.co",
+    SUPABASE_SERVICE_ROLE_KEY: "service-role-key",
+    DATABASE_URL: "postgres://user:pass@localhost:5432/devilfruit",
+  });
+
+  assert.deepEqual(config, {
+    mode: "supabase",
+    config: {
+      url: "https://example.supabase.co",
+      key: "service-role-key",
+    },
+  });
+});
+
 test("evaluateVerificationCard emits one unresolved card for candidate-level failures", async () => {
   const { evaluateVerificationCard } = await importModule("scripts/verify-missing-justtcg-set.mjs");
 

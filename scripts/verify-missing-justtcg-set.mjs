@@ -1,5 +1,6 @@
 import path from "path";
 import Database from "better-sqlite3";
+import postgres from "postgres";
 import { fileURLToPath, pathToFileURL } from "url";
 import {
   chunk,
@@ -10,7 +11,6 @@ import {
   postgrestInsert,
   postgrestUpsert,
   readOfficialCards,
-  supabaseConfigFromEnv,
   writeJson,
 } from "./lib/justtcg-utils.mjs";
 import { getTcgplayerProductDetail } from "./lib/tcgplayer-detail-cache.mjs";
@@ -271,6 +271,26 @@ function toIsoFromUnix(value) {
   return typeof value === "number" ? new Date(value * 1000).toISOString() : null;
 }
 
+function getDatabaseUrlFromEnv(env = process.env) {
+  return String(env.DATABASE_URL || env.SUPABASE_DB_URL || "").trim();
+}
+
+export function resolveVerificationPersistenceConfig(env = process.env) {
+  const url = String(env.SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL || "").trim();
+  const key = String(env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_KEY || "").trim();
+  const supabase = url && key ? { url: url.replace(/\/$/, ""), key } : null;
+  if (supabase) {
+    return { mode: "supabase", config: supabase };
+  }
+
+  const connectionString = getDatabaseUrlFromEnv(env);
+  if (connectionString) {
+    return { mode: "postgres", connectionString };
+  }
+
+  return null;
+}
+
 function readEbayPriceMap(dbPath) {
   const db = new Database(dbPath, { readonly: true, fileMustExist: true });
   const rows = db.prepare("select card_id, data from price_cache").all();
@@ -429,7 +449,7 @@ export function evaluateVerificationCard({
   return { approved, rejected, unresolved, labelCorrections };
 }
 
-async function fetchPricedIds(config) {
+async function fetchPricedIdsWithSupabase(config) {
   const rows = [];
   let offset = 0;
   const limit = 1000;
@@ -454,6 +474,20 @@ async function fetchPricedIds(config) {
     offset += limit;
   }
   return new Set(rows.filter((row) => row.price_nm !== null).map((row) => row.devilfruit_id));
+}
+
+async function fetchPricedIdsWithPostgres(connectionString) {
+  const sql = postgres(connectionString, { prepare: false, max: 1 });
+  try {
+    const rows = await sql`
+      select devilfruit_id, price_nm
+      from justtcg_prices
+      where price_nm is not null
+    `;
+    return new Set(rows.map((row) => row.devilfruit_id));
+  } finally {
+    await sql.end({ timeout: 5 });
+  }
 }
 
 function buildMappingRow(card, candidate, fetchedAt) {
@@ -493,7 +527,7 @@ function buildPriceRow(cardId, candidate, fetchedAt) {
   };
 }
 
-async function persistRows(config, mappingRows, priceRows, historyRows) {
+async function persistRowsWithSupabase(config, mappingRows, priceRows, historyRows) {
   for (const group of chunk(mappingRows, 100)) {
     await postgrestUpsert(config, "justtcg_card_map", group, "devilfruit_id");
   }
@@ -502,6 +536,120 @@ async function persistRows(config, mappingRows, priceRows, historyRows) {
   }
   for (const group of chunk(historyRows, 200)) {
     await postgrestInsert(config, "justtcg_price_history", group);
+  }
+}
+
+async function persistRowsWithPostgres(connectionString, mappingRows, priceRows, historyRows) {
+  const sql = postgres(connectionString, { prepare: false, max: 1 });
+  try {
+    for (const row of mappingRows) {
+      await sql`
+        insert into justtcg_card_map (
+          devilfruit_id,
+          bandai_number,
+          justtcg_id,
+          justtcg_tcgplayer_id,
+          justtcg_name,
+          justtcg_set,
+          search_method,
+          search_query,
+          candidate_count,
+          confidence,
+          confidence_reasons,
+          status,
+          mapped_at,
+          reviewed_at,
+          notes
+        ) values (
+          ${row.devilfruit_id},
+          ${row.bandai_number},
+          ${row.justtcg_id},
+          ${row.justtcg_tcgplayer_id},
+          ${row.justtcg_name},
+          ${row.justtcg_set},
+          ${row.search_method},
+          ${row.search_query},
+          ${row.candidate_count},
+          ${row.confidence},
+          ${sql.json(row.confidence_reasons)},
+          ${row.status},
+          ${row.mapped_at},
+          ${row.reviewed_at},
+          ${row.notes}
+        )
+        on conflict (devilfruit_id)
+        do update set
+          bandai_number = excluded.bandai_number,
+          justtcg_id = excluded.justtcg_id,
+          justtcg_tcgplayer_id = excluded.justtcg_tcgplayer_id,
+          justtcg_name = excluded.justtcg_name,
+          justtcg_set = excluded.justtcg_set,
+          search_method = excluded.search_method,
+          search_query = excluded.search_query,
+          candidate_count = excluded.candidate_count,
+          confidence = excluded.confidence,
+          confidence_reasons = excluded.confidence_reasons,
+          status = excluded.status,
+          mapped_at = excluded.mapped_at,
+          reviewed_at = excluded.reviewed_at,
+          notes = excluded.notes
+      `;
+    }
+
+    for (const row of priceRows) {
+      await sql`
+        insert into justtcg_prices (
+          devilfruit_id,
+          justtcg_id,
+          price_nm,
+          price_lp,
+          price_change_24h,
+          price_change_7d,
+          price_change_30d,
+          last_updated_justtcg,
+          fetched_at,
+          raw_response
+        ) values (
+          ${row.devilfruit_id},
+          ${row.justtcg_id},
+          ${row.price_nm},
+          ${row.price_lp},
+          ${row.price_change_24h},
+          ${row.price_change_7d},
+          ${row.price_change_30d},
+          ${row.last_updated_justtcg},
+          ${row.fetched_at},
+          ${sql.json(row.raw_response)}
+        )
+        on conflict (devilfruit_id)
+        do update set
+          justtcg_id = excluded.justtcg_id,
+          price_nm = excluded.price_nm,
+          price_lp = excluded.price_lp,
+          price_change_24h = excluded.price_change_24h,
+          price_change_7d = excluded.price_change_7d,
+          price_change_30d = excluded.price_change_30d,
+          last_updated_justtcg = excluded.last_updated_justtcg,
+          fetched_at = excluded.fetched_at,
+          raw_response = excluded.raw_response
+      `;
+    }
+
+    for (const row of historyRows) {
+      await sql`
+        insert into justtcg_price_history (
+          devilfruit_id,
+          price_nm,
+          recorded_at
+        ) values (
+          ${row.devilfruit_id},
+          ${row.price_nm},
+          ${row.recorded_at}
+        )
+      `;
+    }
+  } finally {
+    await sql.end({ timeout: 5 });
   }
 }
 
@@ -514,13 +662,13 @@ async function main() {
   const cachePath = path.resolve(String(args["tcg-cache"] || DEFAULT_TCGPLAYER_CACHE_PATH));
   const reportPath = path.resolve(String(args.out || DEFAULT_REPORT_PATH));
   const allowLabelCorrections = Boolean(args["allow-label-corrections"]);
-  const config = supabaseConfigFromEnv();
+  const persistence = resolveVerificationPersistenceConfig();
 
   if (!releaseCode) {
     throw new Error("Missing --release, for example --release PRB02");
   }
-  if (!config) {
-    throw new Error("Missing Supabase service-role configuration");
+  if (!persistence) {
+    throw new Error("Missing Supabase service-role configuration or DATABASE_URL");
   }
 
   const allCards = readOfficialCards();
@@ -529,7 +677,10 @@ async function main() {
     throw new Error(`Catalog snapshot missing at ${snapshotPath}`);
   }
   const snapshot = Array.isArray(snapshotRaw) ? snapshotRaw : (snapshotRaw.data || snapshotRaw.cards || []);
-  const pricedIds = await fetchPricedIds(config);
+  const pricedIds =
+    persistence.mode === "supabase"
+      ? await fetchPricedIdsWithSupabase(persistence.config)
+      : await fetchPricedIdsWithPostgres(persistence.connectionString);
   const tcgCache = loadJson(cachePath, {});
   const ebayPrices = readEbayPriceMap(dbPath);
 
@@ -600,7 +751,11 @@ async function main() {
   }));
 
   if (writeEnabled && mappingRows.length) {
-    await persistRows(config, mappingRows, priceRows, historyRows);
+    if (persistence.mode === "supabase") {
+      await persistRowsWithSupabase(persistence.config, mappingRows, priceRows, historyRows);
+    } else {
+      await persistRowsWithPostgres(persistence.connectionString, mappingRows, priceRows, historyRows);
+    }
   }
 
   const report = {
