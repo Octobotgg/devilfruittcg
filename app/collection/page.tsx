@@ -3002,7 +3002,7 @@ function CollectionPageContent() {
                     {catalogError}
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
+                  <div className="grid grid-cols-2 gap-x-2 gap-y-4 sm:grid-cols-3 sm:gap-x-3 sm:gap-y-5 xl:grid-cols-5 2xl:grid-cols-6">
                     {browseCards.map((card) => {
                       const owned = collection[card.id]?.quantity || 0;
                       const condition = conditionMap[card.id] || "NM";
@@ -3014,10 +3014,10 @@ function CollectionPageContent() {
                         <motion.article
                           key={card.id}
                           layout
-                          className={`group relative overflow-hidden rounded-2xl border p-2 transition-all ${
+                          className={`group relative overflow-hidden rounded-2xl p-0 transition-all ${
                             owned > 0
-                              ? "border-[var(--theme-accent)]/40 bg-[var(--theme-accent)]/5"
-                              : "border-[var(--color-parchment-dark)] bg-[var(--color-parchment)]"
+                              ? "bg-[var(--theme-accent)]/4 ring-1 ring-inset ring-[var(--theme-accent)]/20 shadow-[0_14px_32px_rgba(10,14,24,0.08)]"
+                              : "bg-transparent"
                           }`}
                         >
                           <div className="relative">
@@ -3033,7 +3033,11 @@ function CollectionPageContent() {
                               aria-label={quickAddMode ? `Quick add ${card.name}` : `Open ${card.name} details`}
                               className="block w-full"
                             >
-                              <CatalogCardArt cardId={card.id} alt={card.name} className="aspect-[63/88] w-full rounded-xl border border-[var(--color-parchment-dark)]" />
+                              <CatalogCardArt
+                                cardId={card.id}
+                                alt={card.name}
+                                className="aspect-[63/88] w-full rounded-[18px] shadow-[0_16px_32px_rgba(10,14,24,0.14)]"
+                              />
                             </button>
 
                             <button
@@ -3054,7 +3058,7 @@ function CollectionPageContent() {
                             ) : null}
                           </div>
 
-                          <div className="mt-2 min-w-0">
+                          <div className="mt-2 min-w-0 px-1 pb-1">
                             <div className="flex items-start justify-between gap-2">
                               <div className="min-w-0">
                                 <p className="truncate text-sm font-black text-[var(--color-navy)]">{card.name}</p>

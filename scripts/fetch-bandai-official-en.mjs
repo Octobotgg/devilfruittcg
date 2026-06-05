@@ -11,6 +11,13 @@ const OUT_DIR = path.join(ROOT, "data");
 const CARDLIST_URL = "https://en.onepiece-cardgame.com/cardlist/";
 const PRODUCTS_URL = "https://en.onepiece-cardgame.com/products/";
 const BASE_URL = "https://en.onepiece-cardgame.com/";
+const LOCAL_ENRICHMENT_FIELDS = [
+  "variantType",
+  "variantFamily",
+  "variantLabel",
+  "variantSlug",
+  "canonicalId",
+];
 
 const COMMON_PRODUCT_PREFIXES = [
   "BOOSTER PACK",
@@ -175,6 +182,30 @@ async function fetchHtml(url) {
   }
 
   return response.text();
+}
+
+async function readExistingCardEnrichments() {
+  const cardsPath = path.join(OUT_DIR, "bandai-en-official-cards.json");
+
+  try {
+    const cards = JSON.parse(await fs.readFile(cardsPath, "utf8"));
+    return new Map(
+      cards
+        .filter((card) => card?.id)
+        .map((card) => [
+          card.id,
+          Object.fromEntries(
+            LOCAL_ENRICHMENT_FIELDS
+              .filter((field) => card[field] !== undefined && card[field] !== null && card[field] !== "")
+              .map((field) => [field, card[field]]),
+          ),
+        ])
+        .filter(([, enrichment]) => Object.keys(enrichment).length > 0),
+    );
+  } catch (error) {
+    if (error?.code === "ENOENT") return new Map();
+    throw error;
+  }
 }
 
 function resolveUrl(relativeOrAbsolute) {
@@ -414,6 +445,7 @@ function summarizeReleaseCategory(name, seriesCategory) {
 
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
+  const existingCardEnrichments = await readExistingCardEnrichments();
 
   console.log("Fetching Bandai English cardlist index...");
   const cardlistHtml = await fetchHtml(CARDLIST_URL);
@@ -564,6 +596,7 @@ async function main() {
 
     return {
       ...card,
+      ...(existingCardEnrichments.get(card.id) || {}),
       set: primaryRelease?.name || card.cardSetNames[0] || card.set,
       releaseCode: primaryRelease?.codes?.[0] || card.releaseCode,
       releaseDate: primaryRelease?.releaseDate || null,

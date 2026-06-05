@@ -240,8 +240,8 @@ for (const [baseId, group] of groupsByBase.entries()) {
       variantSlug = `${variantSlug}_${printSuffix(item.card)}`;
     }
 
-    item.card.variantSlug = variantSlug;
-    item.card.canonicalId = `${baseId}_${variantSlug}`;
+    item.card.variantSlug = item.card.variantSlug || variantSlug;
+    item.card.canonicalId = item.card.canonicalId || `${baseId}_${item.card.variantSlug}`;
   }
 }
 
