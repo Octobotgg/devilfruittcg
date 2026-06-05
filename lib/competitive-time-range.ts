@@ -14,8 +14,8 @@ export type InsightTimeRange = (typeof INSIGHT_TIME_RANGES)[number];
 export type InsightFixedTimeRange = Exclude<InsightTimeRange, "all" | "season">;
 
 type ReleaseRow = {
-  name?: string;
-  productTitle?: string;
+  name?: string | null;
+  productTitle?: string | null;
   releaseDate?: string | null;
   category?: string | null;
 };
@@ -57,7 +57,7 @@ export function insightTimeRangeLabel(range: InsightTimeRange): string {
 export function getLatestCompetitiveRelease(asOf = new Date()): { name: string; releaseDate: string } | null {
   const today = asOf.toISOString().slice(0, 10);
 
-  const rows = (RELEASES as ReleaseRow[])
+  const rows = (RELEASES as unknown as ReleaseRow[])
     .filter((row) => row.releaseDate && row.releaseDate <= today && COMPETITIVE_RELEASE_CATEGORIES.has(String(row.category || "").toUpperCase()))
     .sort((a, b) => String(b.releaseDate).localeCompare(String(a.releaseDate)));
 
