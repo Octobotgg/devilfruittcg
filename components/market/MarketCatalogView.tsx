@@ -25,6 +25,7 @@ import {
   marketVariantDisplayLabel,
 } from "@/lib/market-display";
 import { searchMarketCardsSnapshot } from "@/lib/market-search-core";
+import { shouldUseMarketSnapshotResult } from "@/lib/market-snapshot-policy";
 import {
   clearPendingMarketRestore,
   readPendingMarketRestore,
@@ -609,6 +610,8 @@ export default function MarketCatalogView({
         snapshot.cards,
         marketUrlStateToCatalogQuery(nextState, { includeMetadata: false }),
       );
+      if (!shouldUseMarketSnapshotResult(nextState, localResult.total)) return false;
+
       const nextCatalogKey = `${buildMarketCatalogApiQuery(nextState)}::${reloadKey}`;
 
       setCatalogState({
@@ -704,21 +707,33 @@ export default function MarketCatalogView({
         snapshotState.data.cards,
         marketUrlStateToCatalogQuery(state, { includeMetadata: false }),
       );
+      if (!shouldUseMarketSnapshotResult(state, localResult.total)) {
+        const currentDataIsConfirmed =
+          catalogState.source === "api" || (catalogState.source === "initial" && (catalogState.data?.total ?? 0) > 0);
+        if (catalogState.key === activeCatalogKey && catalogState.data && currentDataIsConfirmed) return;
+      } else {
+        setCatalogState({
+          key: activeCatalogKey,
+          source: "snapshot",
+          data: {
+            ...localResult,
+            facets: fullMetadata.facets,
+            ranges: fullMetadata.ranges,
+          },
+          error: "",
+        });
+        return;
+      }
 
-      setCatalogState({
-        key: activeCatalogKey,
-        source: "snapshot",
-        data: {
-          ...localResult,
-          facets: fullMetadata.facets,
-          ranges: fullMetadata.ranges,
-        },
-        error: "",
-      });
-      return;
+      // Fall through to the API fetch below so stale snapshots do not mask fresh filtered results.
     }
 
-    if (activeCatalogKey === initialCatalogKey && initialCatalog && catalogState.source === "initial") {
+    if (
+      activeCatalogKey === initialCatalogKey &&
+      initialCatalog &&
+      catalogState.source === "initial" &&
+      shouldUseMarketSnapshotResult(state, initialCatalog.total)
+    ) {
       return;
     }
 
