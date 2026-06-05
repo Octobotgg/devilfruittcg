@@ -101,6 +101,14 @@ function formatUpdatedDate(value: string | null | undefined) {
   return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(new Date(timestamp));
 }
 
+function marketFreshnessLabel(market: MarketCardResult["market"]) {
+  const checkedLabel = formatUpdatedDate(market?.fetchedAt);
+  if (checkedLabel) return `Checked ${checkedLabel}`;
+
+  const updatedLabel = formatUpdatedDate(market?.updatedAt);
+  return updatedLabel ? `Updated ${updatedLabel}` : null;
+}
+
 function pageWindow(page: number, totalPages: number) {
   const start = Math.max(1, page - 2);
   const end = Math.min(totalPages, start + 4);
@@ -152,14 +160,14 @@ function countActiveFilters(state: MarketUrlState) {
 
 function CardPriceBlock({ card }: { card: MarketCardResult }) {
   const priceState = marketPriceDisplay(card.market);
-  const updatedLabel = formatUpdatedDate(card.market?.updatedAt);
+  const freshnessLabel = marketFreshnessLabel(card.market);
   const isMuted = priceState.tone === "muted";
 
   return (
     <div className={`rounded-2xl border px-3 py-2.5 ${isMuted ? "border-[var(--color-parchment-dark)]/60 bg-[var(--color-parchment)]" : "border-[var(--color-parchment-dark)] bg-[var(--color-cream)]"}`}>
       <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--color-text-light)]">{priceState.sublabel}</p>
       <p className={`mt-1 text-sm font-black ${isMuted ? "text-[var(--color-text-mid)]" : "text-[#F0C040]"}`}>{priceState.label}</p>
-      {updatedLabel && !isMuted ? <p className="mt-1 text-[11px] text-[var(--color-text-light)]">Updated {updatedLabel}</p> : null}
+      {freshnessLabel && !isMuted ? <p className="mt-1 text-[11px] text-[var(--color-text-light)]">{freshnessLabel}</p> : null}
     </div>
   );
 }
